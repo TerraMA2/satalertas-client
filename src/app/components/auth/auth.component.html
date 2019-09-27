@@ -1,0 +1,56 @@
+<div class="p-grid p-nogutter">
+
+  <div class="p-col-12 p-col-nogutter">
+
+    <ng-container *ngIf="isLoading; then loading; else login"></ng-container>
+
+    <ng-template #loading>
+      <div class="fa-10x">
+        <i class="fas fa-circle-notch fa-spin"></i>
+      </div>
+    </ng-template>
+
+    <ng-template #login>
+        <h2>Login</h2>
+
+        <hr>
+
+        <br>
+
+        <form #loginForm="ngForm" (ngSubmit)="onLoginClicked(loginForm)">
+          <div class="ui-inputgroup">
+              <span class="ui-inputgroup-addon"><i class="fas fa-user"></i></span>
+              <input name="username" ngModel type="text" size="30" placeholder="Usuário" pInputText />
+          </div>
+
+          <br>
+
+          <div class="ui-inputgroup">
+              <span class="ui-inputgroup-addon"><i class="fas fa-key"></i></span>
+              <input name="password" ngModel type="password" size="30" placeholder="Senha" pInputText />
+          </div>
+
+          <!-- <a href="#">Esqueci minha senha</a> -->
+
+          <br /><br />
+
+          <button pButton
+                  type="submit"
+                  label="Login"
+                  class="ui-button-rounded width-100">
+          </button>
+
+          <br /><br />
+
+          <button pButton
+                  type="button"
+                  label="Fechar"
+                  class="ui-button-rounded ui-button-secondary width-100"
+                  (click)="onCloseLoginClick()">
+          </button>
+        </form>
+    </ng-template>
+
+  </div>
+
+</div>

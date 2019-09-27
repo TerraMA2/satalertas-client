@@ -1,0 +1,19 @@
+<section>
+  <div class="p-grid">
+      <div *ngFor="let vision of visions"
+            class="p-col-12 p-md-4">
+        <div class="card">
+          <p-card styleClass="ui-card-shadow">
+            <p-header class="card-header">
+              <span>{{ vision.title }}</span>
+            </p-header>
+              <!-- <img class="img-fluid" src="{{ vision.image }}"> -->
+            <div id="{{vision.id}}" class="map img-fluid"></div>
+            <p-footer *ngIf="vision.description" class="card-footer">
+                {{ vision.description }}
+            </p-footer>
+          </p-card>
+        </div>
+      </div>
+  </div>
+</section>

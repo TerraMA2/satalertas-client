@@ -1,0 +1,17 @@
+<div class="p-grid p-nogutter">
+  <div pDraggable="dd" class="p-col-6 p-col-nogutter">
+      <p-card>
+        <p-chart type="bar" height="300px" [data]="data"></p-chart>
+      </p-card>
+  </div>
+  <div pDraggable="dd" class="p-col-6 p-col-nogutter">
+      <p-card>
+        <p-chart type="pie" height="300px"  [data]="pieData"></p-chart>
+      </p-card>
+  </div>
+  <div pDraggable="dd" class="p-col-12 p-col-nogutter">
+      <p-card>
+        <p-chart type="line" height="320px" [data]="data"></p-chart>
+      </p-card>
+  </div>
+</div>

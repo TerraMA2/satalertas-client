@@ -1,0 +1,38 @@
+<div class="sidebar-item-content">
+    <div class="sidebar-item-label"
+        (click)="onChildClicked()">
+
+      <a>{{ child.label }}</a>
+
+    </div>
+
+    <div class="sidebar-item-switch">
+
+      <p-radioButton #radioBtn *ngIf="child.isPrimary"
+                    [value]="child.label"
+                    name="primary"
+                    [(ngModel)]="primaryRadio"
+                    (onClick)="onChildRadioClicked(radioBtn)">
+      </p-radioButton>
+
+      &nbsp;
+
+      <p-inputSwitch [(ngModel)]="parentSwitchChecked"
+                    (onChange)="onChildSwitchChanged($event)">
+      </p-inputSwitch>
+
+    </div>
+</div>
+
+<div *ngIf="child.tools"
+    class="sidebar-item-tools"
+    [ngClass]="{'show': isToolsOpened && isParentOpened, 'hide': !isToolsOpened || !isParentOpened}">
+
+    <i *ngFor="let tool of child.tools"
+      class="{{tool.icon}}"
+      (click)="onToolClicked(tool.name)"
+      pTooltip="{{tool.title}}"
+      tooltipPosition="top">
+    </i>
+
+</div>

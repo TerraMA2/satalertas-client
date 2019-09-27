@@ -1,0 +1,22 @@
+<p-dialog
+        header="Legendas"
+        [positionLeft]="375"
+        [positionTop]="60"
+        maximizable="true"
+        [(visible)]="displayLegend"
+        [contentStyle]="{'width': '400px','max-height':'400px'}"
+    >
+
+    <div class="p-grid p-nogutter">
+        <p-accordion [multiple]="true" class="width-100">
+          <p-accordionTab
+              *ngFor="let selectedLayer of selectedLayers;trackBy: trackByFunction"
+              selected="true"
+              header="{{ selectedLayer.legend.title }}"
+              class="width-100">
+            <img src="{{ selectedLayer.legend.url }}" />
+          </p-accordionTab>
+      </p-accordion>
+    </div>
+
+</p-dialog>

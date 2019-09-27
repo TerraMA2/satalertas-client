@@ -1,0 +1,21 @@
+<div id="map" class="map"></div>
+
+<p-sidebar [(visible)]="displayTable"
+            position="bottom"
+            [modal]="false"
+            [dismissible]="false"
+            [showCloseIcon]="true"
+            [style]="{width:'inherit', left: 'unset', height: '48vh'}"
+            (onShow)="onShowTable()"
+            (onHide)="onHideTable()">
+
+  <app-table [(selectedLayers)]="selectedLayers"></app-table>
+
+</p-sidebar>
+
+<app-filter [(displayFilter)]="displayFilter">
+</app-filter>
+
+<app-legend [(selectedLayers)]="selectedLayers"
+            [(displayLegend)]="displayLegend">
+</app-legend>

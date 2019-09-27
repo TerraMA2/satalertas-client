@@ -1,0 +1,38 @@
+<section>
+  <h2>Dados do Imóvel</h2>
+  <hr>
+  <div class="p-grid p-nogutter">
+      <p>Registro no CAR:</p>
+      <b class="word-wrap">&nbsp;{{property.register}}</b>
+  </div>
+  <div class="p-grid p-nogutter">
+    <div class="p-col p-md-6">
+      <div class="p-grid p-nogutter">
+          <p>Área do imóvel:</p>
+          <b>&nbsp;{{property.area| number:'1.0-2'}} ha ({{(property.area/100) | number:'1.0-2'}} km²)</b>
+      </div>
+      <!-- <div class="p-grid p-nogutter">
+          <p>Módulos fiscais:</p>
+          <b>&nbsp;</b>
+      </div> -->
+      <div class="p-grid p-nogutter">
+          <p>Município / UF:</p>
+          <b>&nbsp;{{property.city}} </b>
+      </div>
+    </div>
+    <!-- <div class="p-col p-md-6">
+      <div class="p-grid p-nogutter">
+          <p>Data de registro no SiCAR:</p>
+          <b>&nbsp;</b>
+      </div>
+      <div class="p-grid p-nogutter">
+          <p>Data da última retificação:</p>
+          <b>&nbsp;</b>
+      </div>
+      <div class="p-grid p-nogutter">
+          <p>Data da análise:</p>
+          <b>&nbsp;</b>
+      </div>
+    </div> -->
+  </div>
+</section>

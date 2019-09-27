@@ -1,0 +1,28 @@
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+.map {
+  width: 555px;
+  height: 330px;
+  z-index: 1001;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 5px;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 5px;
+}

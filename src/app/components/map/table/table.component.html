@@ -1,0 +1,109 @@
+<br />
+
+<p-table #attributesTable
+        [(value)]="tableData"
+        [paginator]="true"
+        [rows]="selectedRowsPerPage"
+        [scrollable]="true"
+        [resizableColumns]="true"
+        scrollHeight="30vh"
+        [responsive]="true"
+        [columns]="selectedColumns"
+        [reorderableColumns]="true"
+        [resizableColumns]="true"
+        [lazy]="true"
+        [totalRecords]="totalRecords"
+        [loading]="loading"
+        [exportFilename]="selectedLayer"
+        [rowTrackBy]="trackByFunction"
+        (onLazyLoad)="lazyLoad($event)">
+
+    <ng-template pTemplate="caption">
+        <div class="p-grid p-nogutter">
+
+            <div class="p-col-12 p-md-6 p-col-nogutter">
+
+                <div class="text-left">
+
+                    <p-multiSelect
+                        [options]="columns"
+                        [(ngModel)]="selectedColumns"
+                        optionLabel="header"
+                        selectedItemsLabel="{0} columns selected"
+                        [style]="{minWidth: '200px'}"
+                        defaultLabel="Selecione as colunas">
+                    </p-multiSelect>
+
+                    &nbsp;&nbsp;
+
+                    <p-dropdown
+                        [options]="rowsPerPage"
+                        [(ngModel)]="selectedRowsPerPage"
+                        (onChange)="onRowsPerPageChange($event)">
+                    </p-dropdown>
+
+                    &nbsp;&nbsp;
+
+                    <p-dropdown #selectedLayersDropdown
+                        [options]="selectedLayers"
+                        [(ngModel)]="selectedLayer"
+                        (onChange)="onSelectedLayerChange(selectedLayersDropdown)">
+                    </p-dropdown>
+
+                </div>
+            </div>
+
+            <div class="p-col-12 p-md-6 p-col-nogutter">
+
+                <div class="text-right">
+
+                    <button
+                        pButton
+                        type="button"
+                        icon="fas fa-download"
+                        iconPos="left"
+                        label="Exportar"
+                        (click)="attributesTable.exportCSV()"
+                        pTooltip="Exportar como CSV"
+                        tooltipPosition="top">
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="colgroup" let-columns>
+        <colgroup>
+            <col *ngFor="let col of columns">
+        </colgroup>
+    </ng-template>
+
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th style="width:2.5em"></th>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field" pReorderableColumn pResizableColumn>
+                {{col.header}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex">
+        <tr [pSelectableRow]="rowData" [pReorderableRow]="index">
+            <td style="width:2.5em">
+                <i class="fa fa-bars" pReorderableRowHandle></i>
+            </td>
+            <td *ngFor="let col of columns" class="ui-resizable-column">
+                {{rowData[col.field]}}
+            </td>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="paginatorleft" let-state>
+        &nbsp;&nbsp;<strong>{{ state.totalRecords }} registros</strong>
+    </ng-template>
+
+</p-table>

@@ -1,0 +1,25 @@
+.header-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+}
+
+.header-icon {
+  font-size: 1rem;
+  cursor: pointer;
+  color: #eee;
+  font-weight: bold;
+}
+
+.sidebar-icon {
+  font-size: 1.5rem;
+}
+
+.header-icon:hover {
+  color: #ccc;
+}
+
+.header-logo-height {
+  height: 32px;
+}

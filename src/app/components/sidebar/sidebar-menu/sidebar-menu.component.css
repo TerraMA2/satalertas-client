@@ -1,0 +1,7 @@
+.sidebar-item {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-bottom: 2px solid #cecece;
+  font-size: 18px;
+}

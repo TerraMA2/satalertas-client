@@ -1,0 +1,78 @@
+<i (click)="showHideSidebar()" class="fas fa-bars header-icon sidebar-icon"></i>
+
+&nbsp;&nbsp;
+
+<a href="{{headerLogoLink}}" target="_blank" class="header-logo-height">
+    <img src="{{headerLogo}}" class="header-logo-height" />
+</a>
+<span class="app-title">&nbsp;&nbsp;{{mainApplication}}&nbsp;&nbsp;</span>
+<span class="header-title">|&nbsp;&nbsp;{{headerTitle}}</span>
+
+<div class="header-right">
+
+  <i class="fas fa-info-circle header-icon" (click)="openAbout()"></i>
+
+  &nbsp;&nbsp;
+
+  <!-- <p-selectButton [options]="languages" [(ngModel)]="selectedLanguage">
+    <ng-template let-item>
+        <div style="padding: .5em .25em">
+            <img style="vertical-align: middle; margin-right: .5em" src="assets/img/flags/{{item.flag}}.png" />
+        </div>
+    </ng-template>
+</p-selectButton> -->
+
+  &nbsp;&nbsp;
+
+  <ng-container *ngIf="hasLogin && !isAuthenticated; then login; else logout"></ng-container>
+
+  <ng-template #login>
+      <button pButton
+          type="button"
+          icon="fa fa-sign-in-alt"
+          label="Login"
+          class="ui-button-raised ui-button-secondary"
+          (click)="onLoginClick()">
+      </button>
+  </ng-template>
+
+  <ng-template #logout>
+      <div>{{ loggedUserName }}</div>
+      &nbsp;&nbsp;
+      <button pButton
+          type="button"
+          icon="fa fa-sign-in-alt"
+          label="Logout"
+          class="ui-button-raised ui-button-secondary"
+          (click)="onLogoutClick()">
+      </button>
+  </ng-template>
+
+</div>
+
+<p-dialog
+    [(visible)]="displayLogin"
+    [draggable]="false"
+    [resizable]="false"
+    [showHeader]="false"
+    [modal]="true"
+    [baseZIndex]="1002">
+
+    <app-auth [(displayLogin)]="displayLogin"
+              (closeLoginClicked)="onCloseLoginClick($event)">
+    </app-auth>
+
+</p-dialog>
+
+<p-dialog
+    [(visible)]="displayAbout"
+    [draggable]="false"
+    [resizable]="false"
+    [showHeader]="false"
+    [modal]="true">
+
+    <app-about [(displayAbout)]="displayAbout"
+              (closeAboutClicked)="closeAbout($event)">
+    </app-about>
+
+</p-dialog>
