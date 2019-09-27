@@ -19,10 +19,10 @@ export class HTTPService {
     if (!url) {
       return;
     }
-    return this.http.get<object[]>(url, {
+    return this.http.get<any[]>(url, {
       params: parameters
     }).pipe(
-      retry(0),
+      retry(1),
       catchError(this.handleError)
     );
   }

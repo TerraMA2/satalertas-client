@@ -180,7 +180,7 @@ export class MapComponent implements OnInit {
       }
     });
 
-    this.sidebarService.sidebarItemRadioSelect.subscribe(layer => {
+    this.sidebarService.sidebarItemRadioSelect.subscribe(async layer => {
       const appConfig = this.configService.getConfig('app');
       let url = '';
       if (layer.type === LayerType.ANALYSIS) {
@@ -193,8 +193,9 @@ export class MapComponent implements OnInit {
       const viewId = layer.value;
       const defaultDateInterval = layer.defaultDateInterval;
       this.hTTPService.get(url, {viewId, defaultDateInterval})
-                      .toPromise()
-                      .then(data => this.setMarkers(data, null, layer.label));
+                      .subscribe(data => {
+                        this.setMarkers(data, null, layer.label);
+                      });
     });
 
     this.sidebarService.sidebarItemRadioUnselect.subscribe(layer => {

@@ -29,7 +29,7 @@ export class ReportComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => this.carRegister = params.carRegister);
-    this.configService.get().subscribe(propertyConfig => this.propertyConfig = propertyConfig);
+    this.propertyConfig = this.configService.getConfig('report').propertyData;
     const url = this.propertyConfig.url;
     const viewId = this.propertyConfig.viewId;
     const carRegister = this.carRegister;

@@ -38,7 +38,7 @@ export class VisionComponent implements OnInit, AfterViewInit {
         visionData.title,
         visionData.image,
         visionData.description
-        );
+      );
       this.visions.push(vision);
     });
 
@@ -74,10 +74,16 @@ export class VisionComponent implements OnInit, AfterViewInit {
           baseLayer
         ]
       });
+
+      const propertyBBox = this.property.bbox.split(',');
       const bounds  = L.latLngBounds(
-        [-12.59399277, -57.2847452],
-        [-12.30850863, -56.90282508]
+        [Number(propertyBBox[3]), Number(propertyBBox[2])],
+        [Number(propertyBBox[1]), Number(propertyBBox[0])]
       );
+      // const bounds  = L.latLngBounds(
+      //   [-12.59399277, -57.2847452],
+      //   [-12.30850863, -56.90282508]
+      // );
       map.fitBounds(bounds);
 
       // map.setView([-12.774877, -55.925554], 5);
