@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, AfterViewInit } from '@angular/core';
 
 import * as L from 'leaflet';
 
@@ -20,8 +20,6 @@ import { LayerType } from 'src/app/enum/layer-type.enum';
 
 import { Layer } from 'src/app/models/layer.model';
 
-import { Legend } from 'src/app/models/legend.model';
-
 import { Group } from 'src/app/models/group.model';
 
 @Component({
@@ -29,13 +27,11 @@ import { Group } from 'src/app/models/group.model';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements OnInit {
+export class MapComponent implements OnInit, AfterViewInit {
 
   private map: L.Map;
 
   selectedLayers: Layer[] = [];
-
-  legends: Legend[] = [];
 
   private mapConfig;
 
@@ -48,8 +44,32 @@ export class MapComponent implements OnInit {
   displayFilter = false;
   displayLegend = false;
   displayInfo = false;
+  displayLayers = false;
 
   filteredData = [];
+
+  @Input() displayZoomControl = true;
+  @Input() displayScaleControl = true;
+  @Input() displayFullscreenControl = true;
+  @Input() displayInfoControl = true;
+  @Input() displayLayerControl = true;
+  @Input() displayTableControl = true;
+  @Input() displayLegendControl = true;
+  @Input() displaySearchControl = true;
+  @Input() displayFilterControl = true;
+  @Input() displayRestoreMapControl = true;
+  @Input() displayLayersControl = true;
+  @Input() attributionControl = true;
+  @Input() zoomControl = true;
+  @Input() dragging = true;
+  @Input() touchZoom = true;
+  @Input() boxZoom = true;
+  @Input() scrollWheelZoom = true;
+  @Input() doubleClickZoom = true;
+  @Input() bBox: string;
+  @Input() overlay;
+  @Input() height = '95vh';
+  @Input() mapId = 'map';
 
   constructor(
     private hTTPService: HTTPService,
@@ -60,13 +80,25 @@ export class MapComponent implements OnInit {
 
   ngOnInit() {
     this.mapConfig = this.configService.getConfig('map');
+  }
+
+  ngAfterViewInit() {
     this.setMap();
     this.setControls();
     this.setLayers();
   }
 
   setMap() {
-    this.map = L.map('map', {maxZoom: this.mapConfig.maxZoom});
+    this.map = L.map(this.mapId, {
+      maxZoom: this.mapConfig.maxZoom,
+      zoomControl: this.displayZoomControl,
+      attributionControl: this.attributionControl,
+      dragging: this.dragging,
+      touchZoom: this.touchZoom,
+      boxZoom: this.boxZoom,
+      scrollWheelZoom: this.scrollWheelZoom,
+      doubleClickZoom: this.doubleClickZoom
+    });
     this.panMap(this.mapConfig.initialLatLong, this.mapConfig.initialZoom);
     L.Marker.prototype.options.icon = L.icon({
       iconRetinaUrl: 'assets/marker-icon-2x.png',
@@ -78,19 +110,36 @@ export class MapComponent implements OnInit {
       tooltipAnchor: [16, -28],
       shadowSize: [41, 41]
     });
+    const bBox = this.bBox;
+    if (bBox) {
+      const bboxArray = bBox.split(',');
+      const bounds  = L.latLngBounds(
+        [Number(bboxArray[3]), Number(bboxArray[2])],
+        [Number(bboxArray[1]), Number(bboxArray[0])]
+      );
+      this.map.fitBounds(bounds);
+    }
   }
 
   setLayers() {
     this.setBaseLayers();
-    // this.setMarkerOverlays();
     this.setOverlayEvents();
+    if (this.overlay) {
+      this.setOverlay();
+    }
+  }
+
+  setOverlay() {
+    this.getLayer(this.overlay).addTo(this.map);
   }
 
   setBaseLayers() {
     this.mapConfig.baselayers.forEach(baseLayerData => {
       const baseLayer = this.getLayer(baseLayerData);
       const baseLayerName = baseLayerData.name;
-      this.layerControl.addBaseLayer(baseLayer, baseLayerName);
+      if (this.displayLayerControl) {
+        this.layerControl.addBaseLayer(baseLayer, baseLayerName);
+      }
       if (baseLayerData.default) {
         baseLayer.addTo(this.map);
       }
@@ -98,8 +147,8 @@ export class MapComponent implements OnInit {
   }
 
   setMarkers(data, popupTitle, overlayName) {
-    this.layerControl.removeLayer(this.markerClusterGroup);
     this.markerClusterGroup.clearLayers();
+    this.layerControl.removeLayer(this.markerClusterGroup);
     data.forEach(markerData => {
       const popupContent = this.getPopupContent(markerData, overlayName);
 
@@ -131,23 +180,45 @@ export class MapComponent implements OnInit {
   // Leaflet controls
 
   setControls() {
-    this.setLayerControl();
+    if (this.displayLayerControl) {
+      this.setLayerControl();
+    }
 
-    this.setFullScreenControl();
+    if (this.displayFullscreenControl) {
+      this.setFullScreenControl();
+    }
 
-    this.setScaleControl();
+    if (this.displayScaleControl) {
+      this.setScaleControl();
+    }
 
-    this.setFilterControl();
+    if (this.displayFilterControl) {
+      this.setFilterControl();
+    }
 
-    this.setLegendControl();
+    if (this.displayLegendControl) {
+      this.setLegendControl();
+    }
 
-    this.setTableControl();
+    if (this.displayTableControl) {
+      this.setTableControl();
+    }
 
-    this.setSearchControl();
+    if (this.displaySearchControl) {
+      this.setSearchControl();
+    }
 
-    this.setInfoControl();
+    if (this.displayInfoControl) {
+      this.setInfoControl();
+    }
 
-    this.setRestoreMapControl();
+    if (this.displayRestoreMapControl) {
+      this.setRestoreMapControl();
+    }
+
+    // if (this.displayLayersControl) {
+    //   this.setLayersControl();
+    // }
 
     this.setTimeDimension();
 
@@ -208,9 +279,34 @@ export class MapComponent implements OnInit {
       this.setMarkers(filteredData, '', 'Resultado do filtro');
     });
 
-    this.mapService.resetLayers.subscribe(layers => {
-      layers.forEach(layer => this.removeLayer(layer));
-      layers.forEach(layer => this.addLayer(layer));
+    this.mapService.resetLayers.subscribe(items => {
+      const draggedItemFrom = items[0].item;
+      const draggedItemFromIndex = items[0].index;
+
+      const draggedItemTo = items[1].item;
+      const draggedItemToIndex = items[1].index;
+
+      let lastDraggedItem;
+
+      console.log('ResetLayers: ');
+      this.map.eachLayer((layer: L.TileLayer.WMS) => {
+        if (layer.options.layers === draggedItemFrom.layerData.layers) {
+          console.log('ResetLayers zindex dragged from ('+ draggedItemFrom.label +'): Before:' + layer.options.zIndex + ' After:' + draggedItemFromIndex);
+          layer.setZIndex(draggedItemFromIndex);
+        }
+        if (layer.options.layers === draggedItemTo.layerData.layers) {
+          console.log('ResetLayers zindex dragged to ('+ draggedItemTo.label +'): Before:' + layer.options.zIndex + ' After:' + draggedItemToIndex);
+          layer.setZIndex(draggedItemToIndex);
+          lastDraggedItem = layer;
+        }
+      });
+      this.map.eachLayer((layer: L.TileLayer.WMS) => {
+        if ('wmsParams' in layer
+            && layer.wmsParams.layers !== lastDraggedItem.wmsParams.layers
+            && layer.options.zIndex >= draggedItemToIndex) {
+              layer.setZIndex((layer.options.zIndex + 1));
+        }
+      });
     });
 
   }
@@ -228,19 +324,20 @@ export class MapComponent implements OnInit {
       const cqlFilter = `${dateColumn} > '${compareDateStr}'`;
 
       layer.layerData.cql_filter = cqlFilter;
-
-      return layer;
     }
+    return layer;
   }
 
   addLayer(layer) {
     if (layer && layer.layerData) {
+      console.log('Added: ');
       const layerIndex = this.selectedLayers.findIndex(selectedLayer => selectedLayer.label === layer.label);
       if (layerIndex === -1) {
         this.selectedLayers.push(layer);
-        layer = this.setCqlFilter(layer);
+        // layer = this.setCqlFilter(layer);
         const layerToAdd = this.getLayer(layer.layerData);
-        layerToAdd.setZIndex((this.selectedLayers.length + 1));
+        layerToAdd.setZIndex(1000 + (this.selectedLayers.length));
+        console.log(`Added zindex (${layer.label}): ` + (1000 + this.selectedLayers.length));
         layerToAdd.addTo(this.map);
         // layerToAdd.bringToFront();
       }
@@ -249,18 +346,20 @@ export class MapComponent implements OnInit {
 
   removeLayer(layer) {
     if (layer) {
-      let layerToRemove = null;
+      console.log('Removed: ');
       const layerData = layer.layerData;
+      let zindex;
       this.map.eachLayer((mapLayer: L.TileLayer.WMS) => {
         if (mapLayer.options.layers === layerData.layers) {
-          layerToRemove = mapLayer;
+          zindex = mapLayer.options.zIndex;
+          console.log('Removed Zindex: ' + zindex);
+          mapLayer.removeFrom(this.map);
+        }
+        if (mapLayer.options.zIndex > zindex) {
+          console.log('Removed Zindex seguintes: ' + mapLayer.options.zIndex);
+          mapLayer.setZIndex((mapLayer.options.zIndex - 1));
         }
       });
-      if (layerToRemove) {
-        layerToRemove.removeFrom(this.map);
-        const layerIndex = this.selectedLayers.findIndex(selectedLayer => selectedLayer.label === layer.label);
-        this.selectedLayers.splice(layerIndex, 1);
-      }
     }
   }
 
@@ -489,7 +588,7 @@ export class MapComponent implements OnInit {
   }
 
   setRestoreMapControl() {
-    const Info = L.Control.extend({
+    const RestoreMap = L.Control.extend({
       onAdd: () => {
         const div = L.DomUtil.create('div');
         div.innerHTML = `
@@ -500,7 +599,7 @@ export class MapComponent implements OnInit {
       }
     });
 
-    new Info({ position: 'topleft' }).addTo(this.map);
+    new RestoreMap({ position: 'topleft' }).addTo(this.map);
 
     this.setRestoreMapControlEvent();
   }
@@ -511,6 +610,27 @@ export class MapComponent implements OnInit {
 
     document.querySelector('#restoreMapBtn')
             .addEventListener('click', () => this.panMap(initialLatLong, initialZoom));
+  }
+
+  setLayersControl() {
+    const Layers = L.Control.extend({
+      onAdd: () => {
+        const div = L.DomUtil.create('div');
+        div.innerHTML = `
+          <div id="layersBtn" class="leaflet-control-layers leaflet-custom-icon" title="Layers">
+            <a><i class='fas fa-list'></i></a>
+          </div>`;
+        return div;
+      }
+    });
+
+    new Layers({ position: 'topleft' }).addTo(this.map);
+
+    this.setLayersControlEvent();
+  }
+
+  setLayersControlEvent() {
+    document.querySelector('#layersBtn').addEventListener('click', () => this.displayLayers = !this.displayLayers);
   }
 
   // Events

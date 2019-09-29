@@ -3,12 +3,6 @@
   height: auto;
 }
 
-.map {
-  width: 555px;
-  height: 330px;
-  z-index: 1001;
-}
-
 .card-header {
   display: flex;
   align-items: center;

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { TableService } from 'src/app/services/table.service';
 
@@ -10,6 +10,8 @@ import { AuthService } from 'src/app/services/auth.service';
 
 import { Layer } from 'src/app/models/layer.model';
 
+import { Group } from 'src/app/models/group.model';
+
 @Component({
   selector: 'app-sidebar-item',
   templateUrl: './sidebar-item.component.html',
@@ -17,15 +19,13 @@ import { Layer } from 'src/app/models/layer.model';
 })
 export class SidebarItemComponent implements OnInit {
 
-  @Input() sidebarItem: Layer;
+  @Input() sidebarItem: Group;
 
   @Input() childrenItems: Layer[];
 
   parentSwitchChecked = false;
 
   isParentOpened = false;
-
-  draggedItem;
 
   loggedUserName;
 
@@ -34,7 +34,6 @@ export class SidebarItemComponent implements OnInit {
   constructor(
     private sidebarService: SidebarService,
     private tableService: TableService,
-    private mapService: MapService,
     private authService: AuthService
   ) { }
 
@@ -62,29 +61,4 @@ export class SidebarItemComponent implements OnInit {
     });
     this.parentSwitchChecked = !this.parentSwitchChecked;
   }
-
-  dragStart(event, item) {
-    this.draggedItem = item;
-  }
-
-  drop(event) {
-    if (this.draggedItem) {
-      const draggedItemIndex = this.childrenItems.findIndex(child => child.label === this.draggedItem.label);
-
-      const itemDraggedTo = event.target.innerText;
-      const itemDraggedToIndex = this.childrenItems.findIndex(child => child.label === itemDraggedTo);
-
-      this.childrenItems.splice(draggedItemIndex, 1);
-      this.childrenItems.splice(itemDraggedToIndex, 0, this.draggedItem);
-
-      this.draggedItem = null;
-
-      this.mapService.resetLayers.next(this.childrenItems);
-    }
-  }
-
-  dragEnd(event) {
-    this.draggedItem = null;
-  }
-
 }

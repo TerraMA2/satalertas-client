@@ -6,6 +6,8 @@ import { throwError } from 'rxjs';
 
 import { catchError, retry } from 'rxjs/operators';
 
+import { environment } from '../../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -19,6 +21,7 @@ export class HTTPService {
     if (!url) {
       return;
     }
+    url = environment.baseUrl + url;
     return this.http.get<any[]>(url, {
       params: parameters
     }).pipe(
@@ -31,6 +34,7 @@ export class HTTPService {
     if (!url) {
       return;
     }
+    url = environment.baseUrl + url;
     return this.http.post<any[]>(url, {
       params: parameters
     }).pipe(

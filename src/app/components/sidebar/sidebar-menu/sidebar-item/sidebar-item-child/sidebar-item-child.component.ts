@@ -17,13 +17,13 @@ export class SidebarItemChildComponent implements OnInit {
 
   @Input() parentSwitchChecked;
 
-  primaryRadio;
-
-  primaryRadioChecked = false;
+  primaryRadio = false;
 
   @Input() isParentOpened;
 
   isToolsOpened = false;
+
+  @Input() displayControls = true;
 
   constructor(
     private sidebarService: SidebarService,
@@ -55,23 +55,15 @@ export class SidebarItemChildComponent implements OnInit {
     if (this.child.isPrimary) {
       this.sidebarService.sidebarItemRadioUnselect.next(this.child);
     }
-    this.primaryRadioChecked = false;
-    this.primaryRadio = '';
+    this.primaryRadio = false;
   }
 
-  onChildRadioClicked(event) {
-    if (!this.primaryRadioChecked) {
-      if (!this.parentSwitchChecked) {
-        this.selectItem();
-        this.parentSwitchChecked = true;
-      }
-      this.sidebarService.sidebarItemRadioSelect.next(this.child);
-      this.primaryRadioChecked = true;
-    } else {
-      this.sidebarService.sidebarItemRadioUnselect.next(this.child);
-      this.primaryRadioChecked = false;
-      this.primaryRadio = '';
+  onChildRadioClicked() {
+    if (!this.parentSwitchChecked) {
+      this.selectItem();
+      this.parentSwitchChecked = true;
     }
+    this.sidebarService.sidebarItemRadioSelect.next(this.child);
   }
 
   onToolClicked(name) {

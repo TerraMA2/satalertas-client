@@ -1,4 +1,4 @@
-<div id="map" class="map"></div>
+<div id="{{mapId}}" class="map" [ngStyle]="{height: height}"></div>
 
 <p-sidebar [(visible)]="displayTable"
             position="bottom"
@@ -12,6 +12,10 @@
   <app-table [(selectedLayers)]="selectedLayers"></app-table>
 
 </p-sidebar>
+
+<app-layers [(selectedLayers)]="selectedLayers"
+            [(displayLayers)]="displayLayers">
+</app-layers>
 
 <app-filter [(displayFilter)]="displayFilter">
 </app-filter>

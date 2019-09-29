@@ -69,21 +69,52 @@ main {
 .filter-dialog {
   width: 300px
 }
-/*
-.footer {
+
+.sidebar-item-body {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #591111;
-  width: 100%;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  position: relative;
-  height: 50px;
-  color: #ccc;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 5px 10px;
+  background-color: #fff;
+  transition: background-color 500ms ease-in-out
+}
+
+.sidebar-item-body:hover {
+  background-color: #eee;
+}
+
+.sidebar-item-body.active {
+  background-color: #591111;
+  color: #fff;
+}
+
+.sidebar-item-body.active:hover {
+  background-color: #591111;
+  color: #fff;
+}
+
+.sidebar-item-body.active a,
+.sidebar-item-body.active i {
+  color: #fff;
+}
+
+.sidebar-item-body.active:hover a,
+.sidebar-item-body.active:hover i {
+  color: #eee;
+}
+
+.sidebar-item-body a,
+.sidebar-item-body .sidebar-item-arrow {
+  margin-left: 5px;
+  color: #5f5f5f;
   font-weight: bold;
-} */
+  text-decoration: none;
+}
+
+.sidebar-item-body:hover a,
+.sidebar-item-body:hover i {
+  color: #591111;
+}
 
 .cursor-pointer {
   cursor: pointer !important;
