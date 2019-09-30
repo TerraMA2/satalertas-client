@@ -57,8 +57,7 @@ export class FilterComponent implements OnInit {
   }
 
    onFilterClicked() {
-    this.hTTPService.get(this.filterConfig.url, this.filterForm.form.value)
-      .subscribe(data => {
+    this.hTTPService.get(this.filterConfig.url, this.filterForm.form.value).subscribe(data => {
         this.tableService.loadFilterData.next(data);
         this.mapService.getFilteredData.next(data);
     });

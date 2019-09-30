@@ -24,7 +24,7 @@
     <div class="sidebar-item-switch">
 
         <p-inputSwitch *ngIf="!sidebarItem.link"
-                      (onChange)="onParentSwitchChanged($event)">
+                        (onChange)="onParentSwitchChanged($event)">
         </p-inputSwitch>
 
     </div>
@@ -39,9 +39,7 @@
         [child]="child"
         [parentSwitchChecked]="parentSwitchChecked"
         [isParentOpened]="isParentOpened"
-        (onDragStart)="dragStart($event,child)"
-        (onDragEnd)="dragEnd($event)"
-        (onDrop)="drop($event)">
+        >
     </app-sidebar-item-child>
 
 </div>

@@ -51,7 +51,7 @@ import { VisionComponent } from './report/vision/vision.component';
 import { VisionDetailedComponent } from './report/vision-detailed/vision-detailed.component';
 import { DeforestationComponent } from './report/deforestation/deforestation.component';
 import { DeforestationHistoryComponent } from './report/deforestation-history/deforestation-history.component';
-import { BurningFocusComponent } from './report/burning-focus/burning-focus.component';
+import { BurningSpotlightsComponent } from './report/burning-spotlights/burning-spotlights.component';
 import { BurningFocusChartComponent } from './report/burning-focus-chart/burning-focus-chart.component';
 import { BurnedAreasComponent } from './report/burned-areas/burned-areas.component';
 import { BurnedAreasChartComponent } from './report/burned-areas-chart/burned-areas-chart.component';
@@ -64,6 +64,7 @@ import { SidebarItemComponent } from './sidebar/sidebar-menu/sidebar-item/sideba
 import { SidebarFooterComponent } from './sidebar/sidebar-footer/sidebar-footer.component';
 import { SidebarItemChildComponent } from './sidebar/sidebar-menu/sidebar-item/sidebar-item-child/sidebar-item-child.component';
 import { ToolsComponent } from './map/tools/tools.component';
+import { LayersComponent } from './map/layers/layers.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,7 @@ import { ToolsComponent } from './map/tools/tools.component';
     VisionDetailedComponent,
     DeforestationComponent,
     DeforestationHistoryComponent,
-    BurningFocusComponent,
+    BurningSpotlightsComponent,
     BurningFocusChartComponent,
     BurnedAreasComponent,
     BurnedAreasChartComponent,
@@ -95,7 +96,8 @@ import { ToolsComponent } from './map/tools/tools.component';
     SidebarMenuComponent,
     SidebarItemComponent,
     SidebarItemChildComponent,
-    ToolsComponent
+    ToolsComponent,
+    LayersComponent
   ],
 
   imports: [

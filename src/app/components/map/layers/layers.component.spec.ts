@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BurningFocusComponent } from './burning-focus.component';
+import { LayersComponent } from './layers.component';
 
-describe('BurningFocusComponent', () => {
-  let component: BurningFocusComponent;
-  let fixture: ComponentFixture<BurningFocusComponent>;
+describe('LayersComponent', () => {
+  let component: LayersComponent;
+  let fixture: ComponentFixture<LayersComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BurningFocusComponent ]
+      declarations: [ LayersComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BurningFocusComponent);
+    fixture = TestBed.createComponent(LayersComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

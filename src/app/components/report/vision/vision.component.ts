@@ -37,52 +37,48 @@ export class VisionComponent implements OnInit, AfterViewInit {
         visionData.id,
         visionData.title,
         visionData.image,
-        visionData.description
-        );
+        visionData.description,
+        visionData.layerData
+      );
       this.visions.push(vision);
     });
 
   }
   ngAfterViewInit() {
-    this.visions.forEach((vision: Vision) => {
-      const baseLayer = L.tileLayer.wms('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        layers: '',
-        format: '',
-        version: '',
-        crossOrigin: 'anonymous',
-        transparent: true,
-        attribution: '&copy; <a href=\'https://www.openstreetmap.org/copyright\'>OpenStreetMap</a>'
-      });
+    // this.visions.forEach((vision: Vision) => {
+    //   const layerData = vision.layerData;
+    //   const baseLayer = L.tileLayer.wms('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    //     layers: '',
+    //     format: '',
+    //     version: '',
+    //     transparent: true,
+    //     attribution: '&copy; <a href=\'https://www.openstreetmap.org/copyright\'>OpenStreetMap</a>'
+    //   });
 
-      const layer = L.tileLayer.wms(`http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?cql_filter=numero_do2='${this.carRegister}'`, {
-        layers: vision.image,
-        format: 'image/png',
-        version: '1.1.0',
-        crossOrigin: 'anonymous',
-        transparent: true,
-        attribution: '&copy; <a href=\'https://www.openstreetmap.org/copyright\'>OpenStreetMap</a>'
-      });
+    //   const layer = L.tileLayer.wms(
+    //     `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms`,
+    //     layerData
+    //   );
 
-      const map = L.map(vision.id, {
-        attributionControl: false,
-        zoomControl: false,
-        dragging: false,
-        touchZoom: false,
-        boxZoom: false,
-        scrollWheelZoom: false,
-        layers: [
-          baseLayer
-        ]
-      });
-      const bounds  = L.latLngBounds(
-        [-12.59399277, -57.2847452],
-        [-12.30850863, -56.90282508]
-      );
-      map.fitBounds(bounds);
+    //   const map = L.map(vision.id, {
+    //     attributionControl: false,
+    //     zoomControl: false,
+    //     dragging: false,
+    //     touchZoom: false,
+    //     boxZoom: false,
+    //     scrollWheelZoom: false,
+    //     layers: [
+    //       baseLayer
+    //     ]
+    //   });
 
-      // map.setView([-12.774877, -55.925554], 5);
-      // map.setView([-15.13248778, -59.24993556], 5);
-      layer.addTo(map);
-    });
+    //   const propertyBBox = this.property.bbox.split(',');
+    //   const bounds  = L.latLngBounds(
+    //     [Number(propertyBBox[3]), Number(propertyBBox[2])],
+    //     [Number(propertyBBox[1]), Number(propertyBBox[0])]
+    //   );
+    //   map.fitBounds(bounds);
+    //   layer.addTo(map);
+    // });
   }
 }

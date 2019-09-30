@@ -14,8 +14,6 @@ import { Layer } from 'src/app/models/layer.model';
 export class SidebarComponent implements OnInit {
   sidebarItems: Group[] = [];
 
-  selectedItems = [];
-
   sidebarConfig;
 
   logoPath: string;

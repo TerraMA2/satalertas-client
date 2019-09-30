@@ -7,8 +7,31 @@
             <p-header class="card-header">
               <span>{{ vision.title }}</span>
             </p-header>
-              <!-- <img class="img-fluid" src="{{ vision.image }}"> -->
-            <div id="{{vision.id}}" class="map img-fluid"></div>
+            <!-- <img src="vision.image" class="map img-fluid" /> -->
+            <app-map [displayZoomControl]="false"
+                    [displayScaleControl]="false"
+                    [displayFullscreenControl]="false"
+                    [displayInfoControl]="false"
+                    [displayLayerControl]="false"
+                    [displayTableControl]="false"
+                    [displayLegendControl]="false"
+                    [displaySearchControl]="false"
+                    [displayFilterControl]="false"
+                    [displayRestoreMapControl]="false"
+                    [displayLayersControl]="false"
+                    [attributionControl]="false"
+                    [zoomControl]="false"
+                    [dragging]="false"
+                    [touchZoom]="false"
+                    [boxZoom]="false"
+                    [scrollWheelZoom]="false"
+                    [doubleClickZoom]="false"
+                    [bBox]="property.bbox"
+                    [overlay]="vision.layerData"
+                    [height]="'330px'"
+                    [mapId]="vision.id">
+            </app-map>
+
             <p-footer *ngIf="vision.description" class="card-footer">
                 {{ vision.description }}
             </p-footer>

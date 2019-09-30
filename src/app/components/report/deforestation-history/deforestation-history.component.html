@@ -1,41 +1,43 @@
 <section>
     <h2 class="text-center">Histórico de Desmatamento</h2>
     <hr>
-    <div class="p-grid p-nogutter">
-        <div class="p-col-12 p-col-nogutter p-col-md-4">
-        <div class="card mt-5">
-            <h5 class="card-title text-center p-1 m-1"><i>PRODES</i> 2015</h5>
-            <img src="imagens/prodes_2015_5677.png" class="img-fluid">
-            <h5 class="card-title text-center p-1 m-1"><i>Total de Área Desmatada em 2015: 0.58 km²</i></h5>
-        </div>
-        </div>
-        <div class="p-col-12 p-col-nogutter p-col-md-4">
-        <div class="card mt-5">
-            <h5 class="card-title text-center p-1 m-1"><i>PRODES</i> 2016</h5>
-            <img src="imagens/prodes_2016_5677.png" class="img-fluid">
-            <h5 class="card-title text-center p-1 m-1"><i>Total de Área Desmatada em 2016: 1.22 km²</i></h5>
-        </div>
-        </div>
-        <div class="p-col-12 p-col-nogutter p-col-md-4">
-        <div class="card mt-5">
-            <h5 class="card-title text-center p-1 m-1"><i>PRODES</i> 2017</h5>
-            <img src="imagens/prodes_2017_5677.png" class="img-fluid">
-            <h5 class="card-title text-center p-1 m-1"><i>Total de Área Desmatada em 2017: 0.59 km²</i></h5>
-        </div>
-        </div>
-        <div class="p-col-12 p-col-nogutter p-col-md-4">
-        <div class="card mt-5">
-            <h5 class="card-title text-center p-1 m-1"><i>DETER</i> 2018</h5>
-            <img src="imagens/deter_2018_5677.png" class="img-fluid">
-            <h5 class="card-title text-center p-1 m-1"><i>Total de Área Desmatada em 2018: 0.57 km²</i></h5>
-        </div>
-        </div>
-        <div class="p-col-12 p-col-nogutter p-col-md-4">
-        <div class="card mt-5">
-            <h5 class="card-title text-center p-1 m-1"><i>DETER</i> 2019</h5>
-            <img src="imagens/deter_2019_5677.png" class="img-fluid">
-            <h5 class="card-title text-center p-1 m-1"><i>Total de Área Desmatada em 2019: 1.17 km²</i></h5>
-        </div>
+    <div class="p-grid">
+        <div *ngFor="let deforestationHistory of deforestationHistories"
+                class="p-col-12 p-md-4">
+            <div class="card">
+                <p-card styleClass="ui-card-shadow">
+                    <p-header class="card-header">
+                        <span>{{ deforestationHistory.title }}</span>
+                    </p-header>
+                    <!-- <img src="vision.image" class="map img-fluid" /> -->
+                    <app-map [displayZoomControl]="false"
+                            [displayScaleControl]="false"
+                            [displayFullscreenControl]="false"
+                            [displayInfoControl]="false"
+                            [displayLayerControl]="false"
+                            [displayTableControl]="false"
+                            [displayLegendControl]="false"
+                            [displaySearchControl]="false"
+                            [displayFilterControl]="false"
+                            [displayRestoreMapControl]="false"
+                            [displayLayersControl]="false"
+                            [attributionControl]="false"
+                            [zoomControl]="false"
+                            [dragging]="false"
+                            [touchZoom]="false"
+                            [boxZoom]="false"
+                            [scrollWheelZoom]="false"
+                            [doubleClickZoom]="false"
+                            [bBox]="property.bbox"
+                            [overlay]="deforestationHistory.layerData"
+                            [height]="'330px'"
+                            [mapId]="deforestationHistory.id">
+                    </app-map>
+                    <p-footer *ngIf="deforestationHistory.description" class="card-footer">
+                        {{ deforestationHistory.description }}
+                    </p-footer>
+                </p-card>
+            </div>
         </div>
     </div>
 </section>
