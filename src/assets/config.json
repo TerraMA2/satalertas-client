@@ -5,12 +5,12 @@
     "headerTitle": "Análise Ambiental de Imóvel Rural",
     "hasLogin": true,
     "headerLogoLink": "http://www.terrama2.dpi.inpe.br/mpmt/monitor/",
-    "staticLayerUrl": "api/report/getStaticData",
-    "dynamicLayerUrl": "api/report/getDynamicData",
-    "analysisLayerUrl": "api/report/getAnalysisData"
+    "staticLayerUrl": "http://localhost:36000/api/report/getStaticData",
+    "dynamicLayerUrl": "http://localhost:36000/api/report/getDynamicData",
+    "analysisLayerUrl": "http://localhost:36000/api/report/getAnalysisData"
   },
   "auth": {
-    "url": "api/login",
+    "url": "http://localhost:36000/api/login",
     "expiresIn": "86400"
   },
   "sidebar": {
@@ -36,7 +36,7 @@
           {
             "label": "CAR X DETER",
             "value": "26",
-            "defaultDateInterval": "30",
+            "defaultDateInterval": "365",
             "dateColumn": "dd_deter_inpe_date_audit",
             "type": "analysis",
             "isPrivate": false,
@@ -83,7 +83,7 @@
           {
             "label": "APP x CAR_DETER",
             "value": "27",
-            "defaultDateInterval": "30",
+            "defaultDateInterval": "365",
             "dateColumn": "apv_car_deter_9_execution_date",
             "type": "analysis",
             "isPrivate": false,
@@ -130,7 +130,7 @@
           {
             "label": "UsoAnt x CAR_DETER",
             "value": "28",
-            "defaultDateInterval": "30",
+            "defaultDateInterval": "365",
             "dateColumn": "apv_car_deter_9_execution_date",
             "type": "analysis",
             "isPrivate": false,
@@ -177,7 +177,7 @@
           {
             "label": "Reserva x CAR_DETER",
             "value": "29",
-            "defaultDateInterval": "30",
+            "defaultDateInterval": "365",
             "dateColumn": "apv_car_deter_9_execution_date",
             "type": "analysis",
             "isPrivate": false,
@@ -224,7 +224,7 @@
           {
             "label": "VegNat x CAR_DETER",
             "value": "30",
-            "defaultDateInterval": "30",
+            "defaultDateInterval": "365",
             "dateColumn": "apv_car_deter_9_execution_date",
             "type": "analysis",
             "isPrivate": false,
@@ -271,7 +271,7 @@
           {
             "label": "UsoCon x CAR_DETER",
             "value": "31",
-            "defaultDateInterval": "30",
+            "defaultDateInterval": "365",
             "dateColumn": "apv_car_deter_9_execution_date",
             "type": "analysis",
             "isPrivate": false,
@@ -324,7 +324,7 @@
           {
             "label": "CAR X PRODES",
             "value": "32",
-            "defaultDateInterval": "30",
+            "defaultDateInterval": "800",
             "dateColumn": "dd_prodes_inpe_view_date",
             "type": "analysis",
             "isPrivate": false,
@@ -371,7 +371,7 @@
           {
             "label": "APP x CAR_PRODES",
             "value": "33",
-            "defaultDateInterval": "30",
+            "defaultDateInterval": "365",
             "dateColumn": "apv_car_prodes_15_execution_date",
             "type": "analysis",
             "isPrivate": false,
@@ -612,7 +612,7 @@
           {
             "label": "CAR X FOCOS",
             "value": "28",
-            "defaultDateInterval": "30",
+            "defaultDateInterval": "365",
             "dateColumn": "dd_focos_inpe_view_date",
             "type": "analysis",
             "isPrivate": false,
@@ -659,7 +659,7 @@
           {
             "label": "APP x CAR_FOCOS",
             "value": "39",
-            "defaultDateInterval": "30",
+            "defaultDateInterval": "365",
             "dateColumn": "apv_car_focos_15_execution_date",
             "type": "analysis",
             "isPrivate": false,
@@ -1524,7 +1524,7 @@
           {
             "label": "Focos Queimadas",
             "value": "20",
-            "defaultDateInterval": "30",
+            "defaultDateInterval": "365",
             "dateColumn": "data_hora_gmt",
             "type": "dynamic",
             "isPrivate": false,
@@ -1571,7 +1571,7 @@
           {
             "label": "DETER",
             "value": "18",
-            "defaultDateInterval": "30",
+            "defaultDateInterval": "365",
             "dateColumn": "date_audit",
             "type": "dynamic",
             "isPrivate": false,
@@ -1618,7 +1618,7 @@
           {
             "label": "PRODES",
             "value": "44",
-            "defaultDateInterval": "30",
+            "defaultDateInterval": "365",
             "dateColumn": "view_date",
             "type": "dynamic",
             "isPrivate": false,
@@ -1740,7 +1740,7 @@
       }
     ],
     "filter": {
-      "url": "api/report/getData",
+      "url": "http://localhost:36000/api/report/getData",
       "group": {
         "label": "Grupo",
         "name": "group",
@@ -1852,7 +1852,7 @@
   },
   "report": {
     "propertyData": {
-      "url": "api/report/getCarData",
+      "url": "http://localhost:36000/api/report/getCarData",
       "viewId": "5"
     },
     "visions": [

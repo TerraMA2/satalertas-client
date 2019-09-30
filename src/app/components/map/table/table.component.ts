@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { LazyLoadEvent } from 'primeng/api';
 
@@ -9,6 +9,8 @@ import { ConfigService } from 'src/app/services/config.service';
 import { TableService } from 'src/app/services/table.service';
 
 import { LayerType } from 'src/app/enum/layer-type.enum';
+
+import { Layer } from 'src/app/models/layer.model';
 
 @Component({
   selector: 'app-table',
@@ -23,9 +25,9 @@ export class TableComponent implements OnInit {
 
   @Input() selectedColumns: any[] = [];
 
-  @Input() selectedLayers = [];
+  @Input() selectedLayers: Layer[] = [];
 
-  selectedLayer: object;
+  selectedLayer: Layer;
 
   loading = false;
 
@@ -47,12 +49,12 @@ export class TableComponent implements OnInit {
     this.tableConfig = this.configService.getConfig('map').table;
 
     this.tableService.loadFilterData.subscribe(filteredData => {
-      this.loading = true;
-      this.selectedLayer = {label: 'Data filtrada', value: null};
-      this.setData(filteredData);
+      // this.loading = true;
+      // this.selectedLayer = new Layer('Data filtrada', null);
+      // this.setData(filteredData);
     });
 
-    this.tableService.loadTableData.subscribe(layer => {
+    this.tableService.loadTableData.subscribe((layer: Layer) => {
       if (layer) {
         this.selectedLayer = layer;
         this.loading = true;
@@ -74,23 +76,24 @@ export class TableComponent implements OnInit {
     this.rowsPerPage = this.tableConfig.rowsPerPage;
   }
 
-  loadTableData(layer, limit: number, offset: number) {
+  loadTableData(layer: Layer, limit: number, offset: number) {
     if (!layer) {
       return;
     }
     const appConfig = this.configService.getConfig('app');
     let url = '';
-    if (layer['type'] === LayerType.ANALYSIS) {
+    if (layer.type === LayerType.ANALYSIS) {
       url = appConfig.analysisLayerUrl;
-    } else if (layer['type'] === LayerType.STATIC) {
+    } else if (layer.type === LayerType.STATIC) {
       url = appConfig.staticLayerUrl;
-    } else if (layer['type'] === LayerType.DYNAMIC) {
+    } else if (layer.type === LayerType.DYNAMIC) {
       url = appConfig.dynamicLayerUrl;
     }
     const count = true;
     const viewId = layer.value;
+    const defaultDateInterval = layer.defaultDateInterval;
     this.hTTPService
-      .get(url, {viewId, limit, offset, count})
+      .get(url, {viewId, limit, offset, count, defaultDateInterval})
       .subscribe(data => this.setData(data));
   }
 

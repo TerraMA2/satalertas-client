@@ -263,10 +263,8 @@ export class MapComponent implements OnInit, AfterViewInit {
       }
       const viewId = layer.value;
       const defaultDateInterval = layer.defaultDateInterval;
-      this.hTTPService.get(url, {viewId, defaultDateInterval})
-                      .subscribe(data => {
-                        this.setMarkers(data, null, layer.label);
-                      });
+      await this.hTTPService.get(url, {viewId, defaultDateInterval})
+                            .subscribe(data => this.setMarkers(data, null, layer.label));
     });
 
     this.sidebarService.sidebarItemRadioUnselect.subscribe(layer => {
@@ -334,10 +332,10 @@ export class MapComponent implements OnInit, AfterViewInit {
       const layerIndex = this.selectedLayers.findIndex(selectedLayer => selectedLayer.label === layer.label);
       if (layerIndex === -1) {
         this.selectedLayers.push(layer);
-        // layer = this.setCqlFilter(layer);
+        layer = this.setCqlFilter(layer);
         const layerToAdd = this.getLayer(layer.layerData);
         layerToAdd.setZIndex(1000 + (this.selectedLayers.length));
-        console.log(`Added zindex (${layer.label}): ` + (1000 + this.selectedLayers.length));
+        // console.log(`Added zindex (${layer.label}): ` + (1000 + this.selectedLayers.length));
         layerToAdd.addTo(this.map);
         // layerToAdd.bringToFront();
       }
@@ -352,11 +350,11 @@ export class MapComponent implements OnInit, AfterViewInit {
       this.map.eachLayer((mapLayer: L.TileLayer.WMS) => {
         if (mapLayer.options.layers === layerData.layers) {
           zindex = mapLayer.options.zIndex;
-          console.log('Removed Zindex: ' + zindex);
+          // console.log('Removed Zindex: ' + zindex);
           mapLayer.removeFrom(this.map);
         }
         if (mapLayer.options.zIndex > zindex) {
-          console.log('Removed Zindex seguintes: ' + mapLayer.options.zIndex);
+          // console.log('Removed Zindex seguintes: ' + mapLayer.options.zIndex);
           mapLayer.setZIndex((mapLayer.options.zIndex - 1));
         }
       });

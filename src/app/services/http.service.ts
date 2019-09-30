@@ -21,11 +21,11 @@ export class HTTPService {
     if (!url) {
       return;
     }
-    url = environment.baseUrl + url;
+    // url = environment.baseUrl + url;
     return this.http.get<any[]>(url, {
       params: parameters
     }).pipe(
-      retry(1),
+      retry(0),
       catchError(this.handleError)
     );
   }
@@ -34,7 +34,7 @@ export class HTTPService {
     if (!url) {
       return;
     }
-    url = environment.baseUrl + url;
+    // url = environment.baseUrl + url;
     return this.http.post<any[]>(url, {
       params: parameters
     }).pipe(

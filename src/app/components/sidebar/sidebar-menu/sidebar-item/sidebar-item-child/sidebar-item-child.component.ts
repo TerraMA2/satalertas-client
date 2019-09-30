@@ -38,9 +38,9 @@ export class SidebarItemChildComponent implements OnInit {
   }
 
   onChildSwitchChanged(event) {
-    if (event.checked === true) {
+    if (event.checked) {
       this.selectItem();
-    } else if (event.checked === false) {
+    } else {
       this.unSelectItem();
     }
   }
@@ -52,7 +52,7 @@ export class SidebarItemChildComponent implements OnInit {
   unSelectItem() {
     this.sidebarService.sidebarItemUnselect.next(this.child);
     this.tableService.unloadTableData.next(this.child);
-    if (this.child.isPrimary) {
+    if (this.child.isPrimary && this.primaryRadio) {
       this.sidebarService.sidebarItemRadioUnselect.next(this.child);
     }
     this.primaryRadio = false;
