@@ -7,8 +7,6 @@ import { Subject } from 'rxjs';
 })
 export class TableService {
 
-  loadFilterData = new Subject<any[]>();
-
   loadTableData = new Subject<object>();
 
   unloadTableData = new Subject<object>();

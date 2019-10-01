@@ -48,12 +48,6 @@ export class TableComponent implements OnInit {
   ngOnInit() {
     this.tableConfig = this.configService.getConfig('map').table;
 
-    this.tableService.loadFilterData.subscribe(filteredData => {
-      // this.loading = true;
-      // this.selectedLayer = new Layer('Data filtrada', null);
-      // this.setData(filteredData);
-    });
-
     this.tableService.loadTableData.subscribe((layer: Layer) => {
       if (layer) {
         this.loading = true;

@@ -5,12 +5,12 @@
     "headerTitle": "Análise Ambiental de Imóvel Rural",
     "hasLogin": true,
     "headerLogoLink": "http://www.terrama2.dpi.inpe.br/mpmt/monitor/",
-    "staticLayerUrl": "http://localhost:36000/api/report/getStaticData",
-    "dynamicLayerUrl": "http://localhost:36000/api/report/getDynamicData",
-    "analysisLayerUrl": "http://localhost:36000/api/report/getAnalysisData"
+    "staticLayerUrl": "/api/report/getStaticData",
+    "dynamicLayerUrl": "/api/report/getDynamicData",
+    "analysisLayerUrl": "/api/report/getAnalysisData"
   },
   "auth": {
-    "url": "http://localhost:36000/api/login",
+    "url": "/api/login",
     "expiresIn": "86400"
   },
   "sidebar": {
@@ -1457,7 +1457,7 @@
       }
     ],
     "filter": {
-      "url": "http://localhost:36000/api/report/getData",
+      "url": "/api/report/getData",
       "group": {
         "label": "Grupo",
         "name": "group",
@@ -1569,7 +1569,7 @@
   },
   "report": {
     "propertyData": {
-      "url": "http://localhost:36000/api/report/getCarData",
+      "url": "/api/report/getCarData",
       "viewId": "5"
     },
     "visions": [

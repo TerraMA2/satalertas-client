@@ -1,12 +1,10 @@
-import { Component, OnInit, Input, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 
 import { SelectItem } from 'primeng/api';
 
 import { ConfigService } from 'src/app/services/config.service';
 
 import { NgForm } from '@angular/forms';
-
-import { TableService } from 'src/app/services/table.service';
 
 import { HTTPService } from 'src/app/services/http.service';
 
@@ -41,7 +39,6 @@ export class FilterComponent implements OnInit {
 
   constructor(
     private configService: ConfigService,
-    private tableService: TableService,
     private hTTPService: HTTPService,
     private mapService: MapService
   ) { }
@@ -58,7 +55,6 @@ export class FilterComponent implements OnInit {
 
    onFilterClicked() {
     this.hTTPService.get(this.filterConfig.url, this.filterForm.form.value).subscribe(data => {
-        this.tableService.loadFilterData.next(data);
         this.mapService.getFilteredData.next(data);
     });
    }

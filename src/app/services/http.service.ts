@@ -21,7 +21,10 @@ export class HTTPService {
     if (!url) {
       return;
     }
-    // url = environment.baseUrl + url;
+    const baseUrl = environment.baseUrl;
+    if (!url.includes(baseUrl)) {
+      url = baseUrl + url;
+    }
     return this.http.get<any[]>(url, {
       params: parameters
     }).pipe(
@@ -34,7 +37,10 @@ export class HTTPService {
     if (!url) {
       return;
     }
-    // url = environment.baseUrl + url;
+    const baseUrl = environment.baseUrl;
+    if (!url.includes(baseUrl)) {
+      url = baseUrl + url;
+    }
     return this.http.post<any[]>(url, {
       params: parameters
     }).pipe(
