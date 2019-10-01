@@ -289,11 +289,11 @@ export class MapComponent implements OnInit, AfterViewInit {
       console.log('ResetLayers: ');
       this.map.eachLayer((layer: L.TileLayer.WMS) => {
         if (layer.options.layers === draggedItemFrom.layerData.layers) {
-          console.log('ResetLayers zindex dragged from ('+ draggedItemFrom.label +'): Before:' + layer.options.zIndex + ' After:' + draggedItemFromIndex);
+          // console.log('ResetLayers zindex dragged from ('+ draggedItemFrom.label +'): Before:' + layer.options.zIndex + ' After:' + draggedItemFromIndex);
           layer.setZIndex(draggedItemFromIndex);
         }
         if (layer.options.layers === draggedItemTo.layerData.layers) {
-          console.log('ResetLayers zindex dragged to ('+ draggedItemTo.label +'): Before:' + layer.options.zIndex + ' After:' + draggedItemToIndex);
+          // console.log('ResetLayers zindex dragged to ('+ draggedItemTo.label +'): Before:' + layer.options.zIndex + ' After:' + draggedItemToIndex);
           layer.setZIndex(draggedItemToIndex);
           lastDraggedItem = layer;
         }
@@ -628,7 +628,8 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   setLayersControlEvent() {
-    document.querySelector('#layersBtn').addEventListener('click', () => this.displayLayers = !this.displayLayers);
+    document.querySelector('#layersBtn')
+            .addEventListener('click', () => this.displayLayers = !this.displayLayers);
   }
 
   // Events

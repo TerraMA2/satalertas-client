@@ -46,7 +46,7 @@ export class SidebarItemChildComponent implements OnInit {
   }
   selectItem() {
     this.sidebarService.sidebarItemSelect.next(this.child);
-    this.tableService.loadTableData.next(this.child);
+    // this.tableService.loadTableData.next(this.child);
   }
 
   unSelectItem() {

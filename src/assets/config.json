@@ -111,16 +111,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -156,16 +146,6 @@
                 "title": "Exportar",
                 "name": "export",
                 "icon": "fas fa-download"
-              },
-              {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
               },
               {
                 "title": "Transparência",
@@ -205,16 +185,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -252,16 +222,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -297,16 +257,6 @@
                 "title": "Exportar",
                 "name": "export",
                 "icon": "fas fa-download"
-              },
-              {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
               },
               {
                 "title": "Transparência",
@@ -399,16 +349,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -444,16 +384,6 @@
                 "title": "Exportar",
                 "name": "export",
                 "icon": "fas fa-download"
-              },
-              {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
               },
               {
                 "title": "Transparência",
@@ -493,16 +423,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -540,16 +460,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -585,16 +495,6 @@
                 "title": "Exportar",
                 "name": "export",
                 "icon": "fas fa-download"
-              },
-              {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
               },
               {
                 "title": "Transparência",
@@ -687,16 +587,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -732,16 +622,6 @@
                 "title": "Exportar",
                 "name": "export",
                 "icon": "fas fa-download"
-              },
-              {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
               },
               {
                 "title": "Transparência",
@@ -781,16 +661,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -828,16 +698,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -873,16 +733,6 @@
                 "title": "Exportar",
                 "name": "export",
                 "icon": "fas fa-download"
-              },
-              {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
               },
               {
                 "title": "Transparência",
@@ -935,16 +785,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -980,16 +820,6 @@
                 "title": "Exportar",
                 "name": "export",
                 "icon": "fas fa-download"
-              },
-              {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
               },
               {
                 "title": "Transparência",
@@ -1029,16 +859,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -1076,16 +896,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -1095,7 +905,7 @@
           {
             "label": "Reserva_Legal",
             "value": "13",
-            "defaultDateInterval": "365",
+            "defaultDateInterval": null,
             "dateColumn": null,
             "type": "static",
             "isPrivate": false,
@@ -1123,16 +933,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -1142,7 +942,7 @@
           {
             "label": "Rodovias",
             "value": "12",
-            "defaultDateInterval": "365",
+            "defaultDateInterval": null,
             "dateColumn": null,
             "type": "static",
             "isPrivate": false,
@@ -1170,16 +970,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -1189,7 +979,7 @@
           {
             "label": "Sub-bacias",
             "value": "11",
-            "defaultDateInterval": "365",
+            "defaultDateInterval": null,
             "dateColumn": null,
             "type": "static",
             "isPrivate": false,
@@ -1217,16 +1007,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -1236,7 +1016,7 @@
           {
             "label": "Área Pantaneira",
             "value": "10",
-            "defaultDateInterval": "365",
+            "defaultDateInterval": null,
             "dateColumn": null,
             "type": "static",
             "isPrivate": false,
@@ -1264,16 +1044,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -1283,7 +1053,7 @@
           {
             "label": "Uso Antropizado",
             "value": "9",
-            "defaultDateInterval": "365",
+            "defaultDateInterval": null,
             "dateColumn": null,
             "type": "static",
             "isPrivate": false,
@@ -1311,16 +1081,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -1330,7 +1090,7 @@
           {
             "label": "Área_APP",
             "value": "4",
-            "defaultDateInterval": "365",
+            "defaultDateInterval": null,
             "dateColumn": null,
             "type": "static",
             "isPrivate": false,
@@ -1358,16 +1118,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -1377,7 +1127,7 @@
           {
             "label": "Vegetação Nativa",
             "value": "3",
-            "defaultDateInterval": "365",
+            "defaultDateInterval": null,
             "dateColumn": null,
             "type": "static",
             "isPrivate": false,
@@ -1405,16 +1155,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -1424,7 +1164,7 @@
           {
             "label": "Uso Consolidado",
             "value": "2",
-            "defaultDateInterval": "365",
+            "defaultDateInterval": null,
             "dateColumn": null,
             "type": "static",
             "isPrivate": false,
@@ -1452,16 +1192,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -1471,7 +1201,7 @@
           {
             "label": "Biomas MT",
             "value": "1",
-            "defaultDateInterval": "365",
+            "defaultDateInterval": null,
             "dateColumn": null,
             "type": "static",
             "isPrivate": false,
@@ -1499,16 +1229,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -1525,7 +1245,6 @@
             "label": "Focos Queimadas",
             "value": "20",
             "defaultDateInterval": "365",
-            "dateColumn": "data_hora_gmt",
             "type": "dynamic",
             "isPrivate": false,
             "isPrimary": false,
@@ -1572,7 +1291,6 @@
             "label": "DETER",
             "value": "18",
             "defaultDateInterval": "365",
-            "dateColumn": "date_audit",
             "type": "dynamic",
             "isPrivate": false,
             "isPrimary": false,
@@ -1617,22 +1335,21 @@
           },
           {
             "label": "PRODES",
-            "value": "44",
+            "value": "45",
             "defaultDateInterval": "365",
-            "dateColumn": "view_date",
             "type": "dynamic",
             "isPrivate": false,
             "isPrimary": false,
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
-              "layers": "terrama2_44:view44",
+              "layers": "terrama2_45:view45",
               "transparent": true,
               "format": "image/png",
               "version": "1.1.0"
             },
             "legend": {
               "title": "PRODES",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_44:view44"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_45:view45"
             },
             "tools": [
               {

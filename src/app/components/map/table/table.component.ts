@@ -56,20 +56,20 @@ export class TableComponent implements OnInit {
 
     this.tableService.loadTableData.subscribe((layer: Layer) => {
       if (layer) {
-        this.selectedLayer = layer;
         this.loading = true;
         this.loadTableData(layer, this.selectedRowsPerPage, 0);
       }
     });
 
-    this.tableService.unloadTableData.subscribe(layer => {
+    this.tableService.unloadTableData.subscribe((layer: Layer) => {
       if (layer) {
-        const legendIndex = this.selectedLayers.findIndex(legend => legend.label === layer['label']);
-        this.selectedLayers.splice(legendIndex, 1);
+        const layerIndex = this.selectedLayers.findIndex(selectedLayer => selectedLayer.label === layer['label']);
+        this.selectedLayers.splice(layerIndex, 1);
+        this.selectedLayer = undefined;
+        this.selectedColumns = undefined;
+        this.selectedRowsPerPage = 10;
         this.tableData = undefined;
         this.totalRecords = 0;
-        this.selectedLayer = this.selectedLayers.length >= 1 ? this.selectedLayers[0] : undefined;
-        this.loadTableData(this.selectedLayer, 10, 0);
       }
     });
 
@@ -103,9 +103,12 @@ export class TableComponent implements OnInit {
       this.columns = [];
 
       Object.keys(data[0]).forEach(key => {
-        this.columns.push({field: key, header: key});
-        this.selectedColumns = this.columns;
+        if (key !== 'lat' && key !== 'long') {
+          this.columns.push({field: key, header: key});
+        }
       });
+
+      this.selectedColumns = this.columns;
 
       this.totalRecords = data.pop();
       this.tableData = data;
@@ -118,6 +121,7 @@ export class TableComponent implements OnInit {
   }
 
   onSelectedLayerChange(layer) {
+    this.selectedLayer = layer.selectedOption;
     this.tableService.loadTableData.next(layer.selectedOption);
   }
 

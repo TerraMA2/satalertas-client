@@ -45,7 +45,9 @@
                     &nbsp;&nbsp;
 
                     <p-dropdown #selectedLayersDropdown
-                        [options]="selectedLayers"
+                        [(options)]="selectedLayers"
+                        [(ngModel)]="selectedLayer"
+                        placeholder="Layers"
                         (onChange)="onSelectedLayerChange(selectedLayersDropdown)">
                     </p-dropdown>
 
