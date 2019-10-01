@@ -7,12 +7,6 @@
         [contentStyle]="{'width': '400px','max-height':'40vh'}"
     >
 
-    <!-- <app-sidebar-item class="sidebar-item"
-                      *ngFor="let selectedLayer of selectedLayers"
-                      [sidebarItem]="selectedLayer"
-                      [childrenItems]="selectedLayer.children">
-    </app-sidebar-item> -->
-
     <app-sidebar-item-child class="sidebar-item-body p-dir-col p-align-stretch"
                             pDraggable="sbItem"
                             pDroppable="sbItem"
@@ -25,17 +19,5 @@
                             [displayControls]="displayControls"
                             >
     </app-sidebar-item-child>
-
-    <!-- <div class="p-grid p-nogutter">
-        <p-accordion [multiple]="true" class="width-100">
-          <p-accordionTab
-              *ngFor="let selectedLayer of selectedLayers;trackBy: trackByFunction"
-              selected="true"
-              header="{{ selectedLayer.legend.title }}"
-              class="width-100">
-            <img src="{{ selectedLayer.legend.url }}" />
-          </p-accordionTab>
-      </p-accordion>
-    </div> -->
 
 </p-dialog>

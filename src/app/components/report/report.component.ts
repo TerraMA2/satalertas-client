@@ -30,21 +30,22 @@ export class ReportComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => this.carRegister = params.carRegister);
     this.propertyConfig = this.configService.getConfig('report').propertyData;
+    this.getPropertyData();
+  }
+
+  getPropertyData() {
     const url = this.propertyConfig.url;
     const viewId = this.propertyConfig.viewId;
     const carRegister = this.carRegister;
-
-    this.property = new Property('MT-5103700-6478EDF8F6664FF3ABF8A7DB2DA73EFC',
-                                  10,
-                                  'teste',
-                                  'teste',
-                                  '-61.633382982, -18.0415982405563,-50.2248063819999, -7.34902838123962');
     this.hTTPService.get(url, {viewId, carRegister}).subscribe(propertyData => {
+      const bboxArray = propertyData['bbox'].split(',');
+      const bbox = bboxArray[0].split(' ').join(',') + ',' + bboxArray[1].split(' ').join(',');
+
       this.property = new Property(propertyData['register'],
                                   propertyData['area'],
                                   propertyData['name'],
                                   propertyData['city'],
-                                  propertyData['bbox']);
+                                  bbox);
     });
   }
 

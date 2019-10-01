@@ -64,7 +64,7 @@ import { SidebarItemComponent } from './sidebar/sidebar-menu/sidebar-item/sideba
 import { SidebarFooterComponent } from './sidebar/sidebar-footer/sidebar-footer.component';
 import { SidebarItemChildComponent } from './sidebar/sidebar-menu/sidebar-item/sidebar-item-child/sidebar-item-child.component';
 import { ToolsComponent } from './map/tools/tools.component';
-import { LayersComponent } from './map/layers/layers.component';
+import { VisibleLayersComponent } from './map/visible-layers/visible-layers.component';
 
 @NgModule({
   declarations: [
@@ -97,7 +97,7 @@ import { LayersComponent } from './map/layers/layers.component';
     SidebarItemComponent,
     SidebarItemChildComponent,
     ToolsComponent,
-    LayersComponent
+    VisibleLayersComponent
   ],
 
   imports: [

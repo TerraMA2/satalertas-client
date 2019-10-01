@@ -19,8 +19,6 @@ export class VisionComponent implements OnInit, AfterViewInit {
 
   @Input() property: Property;
 
-  carRegister: string;
-
   visions: Vision[] = [];
 
   constructor(
@@ -29,10 +27,16 @@ export class VisionComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.visionConfig = this.configService.getConfig('report');
+  }
 
+  ngAfterViewInit() {
     const visionsData = this.visionConfig.visions;
 
     visionsData.forEach((visionData: Vision) => {
+      const cqlFilter = visionData.layerData.cqlFilter;
+      if (cqlFilter) {
+        visionData.layerData.cqlFilter = cqlFilter.replace('{carRegister}', this.property.register);
+      }
       const vision = new Vision(
         visionData.id,
         visionData.title,
@@ -42,43 +46,5 @@ export class VisionComponent implements OnInit, AfterViewInit {
       );
       this.visions.push(vision);
     });
-
-  }
-  ngAfterViewInit() {
-    // this.visions.forEach((vision: Vision) => {
-    //   const layerData = vision.layerData;
-    //   const baseLayer = L.tileLayer.wms('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    //     layers: '',
-    //     format: '',
-    //     version: '',
-    //     transparent: true,
-    //     attribution: '&copy; <a href=\'https://www.openstreetmap.org/copyright\'>OpenStreetMap</a>'
-    //   });
-
-    //   const layer = L.tileLayer.wms(
-    //     `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms`,
-    //     layerData
-    //   );
-
-    //   const map = L.map(vision.id, {
-    //     attributionControl: false,
-    //     zoomControl: false,
-    //     dragging: false,
-    //     touchZoom: false,
-    //     boxZoom: false,
-    //     scrollWheelZoom: false,
-    //     layers: [
-    //       baseLayer
-    //     ]
-    //   });
-
-    //   const propertyBBox = this.property.bbox.split(',');
-    //   const bounds  = L.latLngBounds(
-    //     [Number(propertyBBox[3]), Number(propertyBBox[2])],
-    //     [Number(propertyBBox[1]), Number(propertyBBox[0])]
-    //   );
-    //   map.fitBounds(bounds);
-    //   layer.addTo(map);
-    // });
   }
 }

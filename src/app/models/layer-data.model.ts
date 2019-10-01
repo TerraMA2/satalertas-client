@@ -4,6 +4,7 @@ export class LayerData {
     public layers: string,
     public transparent: boolean,
     public format: string,
-    public version: string
+    public version: string,
+    public cqlFilter?: string
   ) {}
 }

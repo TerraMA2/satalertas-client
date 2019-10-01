@@ -5,11 +5,11 @@ import { Layer } from 'src/app/models/layer.model';
 import { MapService } from 'src/app/services/map.service';
 
 @Component({
-  selector: 'app-layers',
-  templateUrl: './layers.component.html',
-  styleUrls: ['./layers.component.css']
+  selector: 'app-visible-layers',
+  templateUrl: './visible-layers.component.html',
+  styleUrls: ['./visible-layers.component.css']
 })
-export class LayersComponent implements OnInit {
+export class VisibleLayersComponent implements OnInit {
 
   draggedItem: Layer;
 
@@ -36,21 +36,21 @@ export class LayersComponent implements OnInit {
 
   drop(event) {
     if (this.draggedItem) {
-      const draggedItemIndex = this.selectedLayers.findIndex(child => child.label === this.draggedItem.label);
+      let draggedItemIndex = this.selectedLayers.findIndex(child => child.label === this.draggedItem.label);
 
       const itemDraggedToLabel = event.target.innerText;
       let itemDraggedToIndex = this.selectedLayers.findIndex(child => child.label === itemDraggedToLabel);
       const itemDraggedTo = this.selectedLayers[itemDraggedToIndex];
 
-      this.selectedLayers.splice(draggedItemIndex, 1);
-      this.selectedLayers.splice(itemDraggedToIndex, 0, this.draggedItem);
+      this.selectedLayers[draggedItemIndex] = this.selectedLayers.splice(itemDraggedToIndex, 1, this.selectedLayers[draggedItemIndex])[0];
 
       const items = [];
 
-      itemDraggedToIndex++;
+      itemDraggedToIndex += 1001;
+      draggedItemIndex += 1001;
 
-      items.push({item: this.draggedItem, index: 1000 + itemDraggedToIndex});
-      items.push({item: itemDraggedTo, index: 1000 + (itemDraggedToIndex + 1)});
+      items.push({item: this.draggedItem, index: draggedItemIndex});
+      items.push({item: itemDraggedTo, index: itemDraggedToIndex});
       this.mapService.resetLayers.next(items);
     }
   }

@@ -132,7 +132,8 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   setOverlay() {
-    this.getLayer(this.overlay).addTo(this.map);
+    const layer = this.getLayer(this.overlay).addTo(this.map);
+    layer.addTo(this.map);
   }
 
   setBaseLayers() {
@@ -218,9 +219,9 @@ export class MapComponent implements OnInit, AfterViewInit {
       this.setRestoreMapControl();
     }
 
-    // if (this.displayLayersControl) {
-    //   this.setLayersControl();
-    // }
+    if (this.displayLayersControl) {
+      this.setLayersControl();
+    }
 
     this.setTimeDimension();
 
@@ -286,25 +287,12 @@ export class MapComponent implements OnInit, AfterViewInit {
       const draggedItemTo = items[1].item;
       const draggedItemToIndex = items[1].index;
 
-      let lastDraggedItem;
-
-      console.log('ResetLayers: ');
       this.map.eachLayer((layer: L.TileLayer.WMS) => {
         if (layer.options.layers === draggedItemFrom.layerData.layers) {
-          // console.log('ResetLayers zindex dragged from ('+ draggedItemFrom.label +'): Before:' + layer.options.zIndex + ' After:' + draggedItemFromIndex);
-          layer.setZIndex(draggedItemFromIndex);
+          layer.setZIndex(draggedItemToIndex);
         }
         if (layer.options.layers === draggedItemTo.layerData.layers) {
-          // console.log('ResetLayers zindex dragged to ('+ draggedItemTo.label +'): Before:' + layer.options.zIndex + ' After:' + draggedItemToIndex);
-          layer.setZIndex(draggedItemToIndex);
-          lastDraggedItem = layer;
-        }
-      });
-      this.map.eachLayer((layer: L.TileLayer.WMS) => {
-        if ('wmsParams' in layer
-            && layer.wmsParams.layers !== lastDraggedItem.wmsParams.layers
-            && layer.options.zIndex >= draggedItemToIndex) {
-              layer.setZIndex((layer.options.zIndex + 1));
+          layer.setZIndex(draggedItemFromIndex);
         }
       });
     });
@@ -330,33 +318,27 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   addLayer(layer) {
     if (layer && layer.layerData) {
-      console.log('Added: ');
       const layerIndex = this.selectedLayers.findIndex(selectedLayer => selectedLayer.label === layer.label);
       if (layerIndex === -1) {
         this.selectedLayers.push(layer);
         layer = this.setCqlFilter(layer);
         const layerToAdd = this.getLayer(layer.layerData);
         layerToAdd.setZIndex(1000 + (this.selectedLayers.length));
-        // console.log(`Added zindex (${layer.label}): ` + (1000 + this.selectedLayers.length));
         layerToAdd.addTo(this.map);
-        // layerToAdd.bringToFront();
       }
     }
   }
 
   removeLayer(layer) {
     if (layer) {
-      console.log('Removed: ');
       const layerData = layer.layerData;
       let zindex;
       this.map.eachLayer((mapLayer: L.TileLayer.WMS) => {
         if (mapLayer.options.layers === layerData.layers) {
           zindex = mapLayer.options.zIndex;
-          // console.log('Removed Zindex: ' + zindex);
           mapLayer.removeFrom(this.map);
         }
         if (mapLayer.options.zIndex > zindex) {
-          // console.log('Removed Zindex seguintes: ' + mapLayer.options.zIndex);
           mapLayer.setZIndex((mapLayer.options.zIndex - 1));
         }
       });
@@ -364,6 +346,9 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   getLayer(layerData) {
+    if (layerData.cqlFilter) {
+      layerData.cql_filter = layerData.cqlFilter;
+    }
     layerData.crs = L.CRS.EPSG3857;
     if (layerData && layerData.hasOwnProperty('crs')) {
       layerData.crs = L.CRS.EPSG4326;
