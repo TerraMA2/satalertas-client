@@ -40,6 +40,8 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   markerClusterGroup: L.MarkerClusterGroup;
 
+  markerInfo: L.Marker;
+
   displayTable = false;
   displayFilter = false;
   displayLegend = false;
@@ -518,11 +520,15 @@ export class MapComponent implements OnInit, AfterViewInit {
       });
     }
 
+    if (this.markerInfo) {
+      this.markerInfo.removeFrom(this.map);
+    }
+
     popupContent += `</div>`;
-    const marker = this.createMarker(popupTitle, popupContent, latLong);
-    if (marker) {
-      marker.addTo(this.map);
-      marker.openPopup();
+    this.markerInfo = this.createMarker(popupTitle, popupContent, latLong);
+    if (this.markerInfo) {
+      this.markerInfo.addTo(this.map);
+      this.markerInfo.openPopup();
     }
   }
 
