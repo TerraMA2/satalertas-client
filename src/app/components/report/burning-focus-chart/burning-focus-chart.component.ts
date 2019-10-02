@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-burning-focus-chart',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./burning-focus-chart.component.css']
 })
 export class BurningFocusChartComponent implements OnInit {
+
+  @Input() data;
 
   constructor() { }
 

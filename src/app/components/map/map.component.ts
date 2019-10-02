@@ -69,7 +69,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   @Input() scrollWheelZoom = true;
   @Input() doubleClickZoom = true;
   @Input() initialLatLong: L.LatLng;
-  @Input() initialZoom;
+  @Input() initialZoom: number;
   @Input() overlay;
   @Input() height = '95vh';
   @Input() mapId = 'map';

@@ -1,6 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
-
-import { ConfigService } from 'src/app/services/config.service';
+import { Component, Input } from '@angular/core';
 
 import { Vision } from 'src/app/models/vision.model';
 
@@ -11,20 +9,11 @@ import { Legend } from 'src/app/models/legend.model';
   templateUrl: './vision.component.html',
   styleUrls: ['./vision.component.css']
 })
-export class VisionComponent implements OnInit {
-
-  private reportConfig;
+export class VisionComponent {
 
   @Input() visions: Vision[] = [];
 
   @Input() legends: Legend[] = [];
 
-  constructor(
-    private configService: ConfigService
-  ) { }
-
-  ngOnInit() {
-    this.reportConfig = this.configService.getConfig('report');
-    this.legends = this.reportConfig.visionslegends;
-  }
+  constructor() { }
 }

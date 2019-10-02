@@ -1,40 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { Vision } from 'src/app/models/vision.model';
-
-import { Property } from 'src/app/models/property.model';
-
-import { ConfigService } from 'src/app/services/config.service';
 
 @Component({
   selector: 'app-deforestation-history',
   templateUrl: './deforestation-history.component.html',
   styleUrls: ['./deforestation-history.component.css']
 })
-export class DeforestationHistoryComponent implements OnInit {
+export class DeforestationHistoryComponent {
 
-  @Input() property: Property;
+  @Input() deforestationHistories: Vision[] = [];
 
-  deforestationHistories: Vision[] = [];
-
-  constructor(
-    private configService: ConfigService
-  ) { }
-
-  ngOnInit() {
-    const deforestationHistoriesData = this.configService.getConfig('report').deforestationHistories;
-
-    deforestationHistoriesData.forEach((deforestationHistoryData: Vision) => {
-      const image = deforestationHistoryData.image.replace('{bbox}', this.property.bbox);
-      const vision = new Vision(
-        deforestationHistoryData.id,
-        deforestationHistoryData.title,
-        image,
-        deforestationHistoryData.description,
-        deforestationHistoryData.layerData
-      );
-      this.deforestationHistories.push(vision);
-    });
-  }
+  constructor() { }
 
 }
