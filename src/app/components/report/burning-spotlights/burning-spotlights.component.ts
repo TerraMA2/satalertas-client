@@ -25,10 +25,11 @@ export class BurningSpotlightsComponent implements OnInit {
     const burningSpotlightsData = this.configService.getConfig('report').burningSpotlights;
 
     burningSpotlightsData.forEach((burningSpotlightData: Vision) => {
+      const image = burningSpotlightData.image.replace('{bbox}', this.property.bbox);
       const vision = new Vision(
         burningSpotlightData.id,
         burningSpotlightData.title,
-        burningSpotlightData.image,
+        image,
         burningSpotlightData.description,
         burningSpotlightData.layerData
       );

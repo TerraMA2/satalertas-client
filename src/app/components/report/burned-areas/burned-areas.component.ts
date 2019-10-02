@@ -25,10 +25,11 @@ export class BurnedAreasComponent implements OnInit {
     const burnedAreasData = this.configService.getConfig('report').burnedAreas;
 
     burnedAreasData.forEach((burnedAreaData: Vision) => {
+      const image = burnedAreaData.image.replace('{bbox}', this.property.bbox);
       const vision = new Vision(
         burnedAreaData.id,
         burnedAreaData.title,
-        burnedAreaData.image,
+        image,
         burnedAreaData.description,
         burnedAreaData.layerData
       );

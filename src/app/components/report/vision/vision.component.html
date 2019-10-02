@@ -7,8 +7,8 @@
             <p-header class="card-header">
               <span>{{ vision.title }}</span>
             </p-header>
-            <!-- <img src="vision.image" class="map img-fluid" /> -->
-            <app-map [displayZoomControl]="false"
+            <img src="{{vision.image}}" class="img-fluid" />
+            <!-- <app-map [displayZoomControl]="false"
                     [displayScaleControl]="false"
                     [displayFullscreenControl]="false"
                     [displayInfoControl]="false"
@@ -18,7 +18,7 @@
                     [displaySearchControl]="false"
                     [displayFilterControl]="false"
                     [displayRestoreMapControl]="false"
-                    [displayLayersControl]="false"
+                    [displayVisibleLayersControl]="false"
                     [attributionControl]="false"
                     [zoomControl]="false"
                     [dragging]="false"
@@ -26,11 +26,11 @@
                     [boxZoom]="false"
                     [scrollWheelZoom]="false"
                     [doubleClickZoom]="false"
-                    [bBox]="property.bbox"
+                    [initialLatLong]="property.latLong"
                     [overlay]="vision.layerData"
                     [height]="'330px'"
                     [mapId]="vision.id">
-            </app-map>
+            </app-map> -->
 
             <p-footer *ngIf="vision.description" class="card-footer">
                 {{ vision.description }}
@@ -41,4 +41,4 @@
   </div>
 </section>
 <br>
-<app-report-legend></app-report-legend>
+<app-report-legend [legends]="legends"></app-report-legend>

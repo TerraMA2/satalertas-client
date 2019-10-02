@@ -70,6 +70,11 @@ main {
   width: 300px
 }
 
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
 .sidebar-item-body {
   display: flex;
   justify-content: space-between;

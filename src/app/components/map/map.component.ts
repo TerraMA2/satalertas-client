@@ -60,7 +60,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   @Input() displaySearchControl = true;
   @Input() displayFilterControl = true;
   @Input() displayRestoreMapControl = true;
-  @Input() displayLayersControl = true;
+  @Input() displayVisibleLayersControl = true;
   @Input() attributionControl = true;
   @Input() zoomControl = true;
   @Input() dragging = true;
@@ -68,7 +68,8 @@ export class MapComponent implements OnInit, AfterViewInit {
   @Input() boxZoom = true;
   @Input() scrollWheelZoom = true;
   @Input() doubleClickZoom = true;
-  @Input() bBox: string;
+  @Input() initialLatLong: L.LatLng;
+  @Input() initialZoom;
   @Input() overlay;
   @Input() height = '95vh';
   @Input() mapId = 'map';
@@ -101,7 +102,11 @@ export class MapComponent implements OnInit, AfterViewInit {
       scrollWheelZoom: this.scrollWheelZoom,
       doubleClickZoom: this.doubleClickZoom
     });
-    this.panMap(this.mapConfig.initialLatLong, this.mapConfig.initialZoom);
+    if (this.initialLatLong) {
+      this.panMap(this.initialLatLong, this.initialZoom);
+    } else {
+      this.panMap(this.mapConfig.initialLatLong, this.mapConfig.initialZoom);
+    }
     L.Marker.prototype.options.icon = L.icon({
       iconRetinaUrl: 'assets/marker-icon-2x.png',
       iconUrl: 'assets/marker-icon.png',
@@ -112,15 +117,6 @@ export class MapComponent implements OnInit, AfterViewInit {
       tooltipAnchor: [16, -28],
       shadowSize: [41, 41]
     });
-    const bBox = this.bBox;
-    if (bBox) {
-      const bboxArray = bBox.split(',');
-      const bounds  = L.latLngBounds(
-        [Number(bboxArray[3]), Number(bboxArray[2])],
-        [Number(bboxArray[1]), Number(bboxArray[0])]
-      );
-      this.map.fitBounds(bounds);
-    }
   }
 
   setLayers() {
@@ -219,8 +215,8 @@ export class MapComponent implements OnInit, AfterViewInit {
       this.setRestoreMapControl();
     }
 
-    if (this.displayLayersControl) {
-      this.setLayersControl();
+    if (this.displayVisibleLayersControl) {
+      this.setVisibleLayersControl();
     }
 
     this.setTimeDimension();
@@ -346,9 +342,6 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   getLayer(layerData) {
-    if (layerData.cqlFilter) {
-      layerData.cql_filter = layerData.cqlFilter;
-    }
     layerData.crs = L.CRS.EPSG3857;
     if (layerData && layerData.hasOwnProperty('crs')) {
       layerData.crs = L.CRS.EPSG4326;
@@ -601,26 +594,26 @@ export class MapComponent implements OnInit, AfterViewInit {
             .addEventListener('click', () => this.panMap(initialLatLong, initialZoom));
   }
 
-  setLayersControl() {
-    const Layers = L.Control.extend({
+  setVisibleLayersControl() {
+    const VisibleLayers = L.Control.extend({
       onAdd: () => {
         const div = L.DomUtil.create('div');
         div.innerHTML = `
-          <div id="layersBtn" class="leaflet-control-layers leaflet-custom-icon" title="Layers">
+          <div id="visibleLayersBtn" class="leaflet-control-layers leaflet-custom-icon" title="Layers visíveis">
             <a><i class='fas fa-list'></i></a>
           </div>`;
         return div;
       }
     });
 
-    new Layers({ position: 'topleft' }).addTo(this.map);
+    new VisibleLayers({ position: 'topleft' }).addTo(this.map);
 
-    this.setLayersControlEvent();
+    this.setVisibleLayersControlEvent();
   }
 
-  setLayersControlEvent() {
-    document.querySelector('#layersBtn')
-            .addEventListener('click', () => this.displayLayers = !this.displayLayers);
+  setVisibleLayersControlEvent() {
+    document.querySelector('#visibleLayersBtn')
+            .addEventListener('click', () => this.displayVisibleLayersControl = !this.displayVisibleLayersControl);
   }
 
   // Events

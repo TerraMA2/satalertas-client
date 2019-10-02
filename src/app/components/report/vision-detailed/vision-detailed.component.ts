@@ -24,13 +24,14 @@ export class VisionDetailedComponent implements OnInit {
   ngOnInit() {
     const detailedVisionsData = this.configService.getConfig('report').detailedVisions;
 
-    detailedVisionsData.forEach((visionData: Vision) => {
+    detailedVisionsData.forEach((detailedVisionData: Vision) => {
+      const image = detailedVisionData.image.replace('{bbox}', this.property.bbox);
       const vision = new Vision(
-        visionData.id,
-        visionData.title,
-        visionData.image,
-        visionData.description,
-        visionData.layerData
+        detailedVisionData.id,
+        detailedVisionData.title,
+        image,
+        detailedVisionData.description,
+        detailedVisionData.layerData
       );
       this.detailedVisions.push(vision);
     });

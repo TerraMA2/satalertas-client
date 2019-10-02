@@ -25,10 +25,11 @@ export class DeforestationComponent implements OnInit {
     const deforestationsData = this.configService.getConfig('report').deforestations;
 
     deforestationsData.forEach((deforestationData: Vision) => {
+      const image = deforestationData.image.replace('{bbox}', this.property.bbox);
       const vision = new Vision(
         deforestationData.id,
         deforestationData.title,
-        deforestationData.image,
+        image,
         deforestationData.description,
         deforestationData.layerData
       );

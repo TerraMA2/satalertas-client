@@ -25,10 +25,11 @@ export class ImageHistoryComponent implements OnInit {
     const landsatHistoriesData = this.configService.getConfig('report').landsatHistories;
 
     landsatHistoriesData.forEach((landsatHistoryData: Vision) => {
+      const image = landsatHistoryData.image.replace('{bbox}', this.property.bbox);
       const vision = new Vision(
         landsatHistoryData.id,
         landsatHistoryData.title,
-        landsatHistoryData.image,
+        image,
         landsatHistoryData.description,
         landsatHistoryData.layerData
       );

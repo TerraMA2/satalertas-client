@@ -25,10 +25,11 @@ export class DeforestationHistoryComponent implements OnInit {
     const deforestationHistoriesData = this.configService.getConfig('report').deforestationHistories;
 
     deforestationHistoriesData.forEach((deforestationHistoryData: Vision) => {
+      const image = deforestationHistoryData.image.replace('{bbox}', this.property.bbox);
       const vision = new Vision(
         deforestationHistoryData.id,
         deforestationHistoryData.title,
-        deforestationHistoryData.image,
+        image,
         deforestationHistoryData.description,
         deforestationHistoryData.layerData
       );

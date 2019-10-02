@@ -9,8 +9,8 @@
                     <p-header class="card-header">
                         <span>{{ landsatHistory.title }}</span>
                     </p-header>
-                    <!-- <img src="landsatHistory.image" class="map img-fluid" /> -->
-                    <app-map [displayZoomControl]="false"
+                    <img src="{{landsatHistory.image}}" class="map img-fluid" />
+                    <!-- <app-map [displayZoomControl]="false"
                             [displayScaleControl]="false"
                             [displayFullscreenControl]="false"
                             [displayInfoControl]="false"
@@ -20,7 +20,7 @@
                             [displaySearchControl]="false"
                             [displayFilterControl]="false"
                             [displayRestoreMapControl]="false"
-                            [displayLayersControl]="false"
+                            [displayVisibleLayersControl]="false"
                             [attributionControl]="false"
                             [zoomControl]="false"
                             [dragging]="false"
@@ -28,11 +28,11 @@
                             [boxZoom]="false"
                             [scrollWheelZoom]="false"
                             [doubleClickZoom]="false"
-                            [bBox]="property.bbox"
+                            [initialLatLong]="property.latLong"
                             [overlay]="landsatHistory.layerData"
                             [height]="'330px'"
                             [mapId]="landsatHistory.id">
-                    </app-map>
+                    </app-map> -->
                     <p-footer *ngIf="landsatHistory.description" class="card-footer">
                         {{ landsatHistory.description }}
                     </p-footer>
