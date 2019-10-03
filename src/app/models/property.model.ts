@@ -6,5 +6,7 @@ export class Property {
     public city: string,
     public bbox: string,
     public latLong: string[],
+    public burningSpotlights?: [],
+    public burnedAreas?: []
   ) {}
 }

@@ -2,7 +2,6 @@
   <div class="background-color-gray">
   <br>
   <div class="container">
-      <!-- <h1>Relatório</h1> -->
       <app-property-data [property]="property"></app-property-data>
       <hr>
       <app-vision [visions]="visions" [legends]="visionLegends"></app-vision>
@@ -11,21 +10,19 @@
       <br>
       <app-deforestation [deforestations]="deforestations"></app-deforestation>
       <br>
-      <br>
       <app-deforestation-history [deforestationHistories]="deforestationHistories"></app-deforestation-history>
       <br>
       <app-burning-spotlights [burningSpotlights]="burningSpotlights"></app-burning-spotlights>
       <br>
-      <br>
-      <app-burning-focus-chart></app-burning-focus-chart>
-      <br>
+      <app-burning-spotlights-chart [data]="burningSpotlightsChartData"></app-burning-spotlights-chart>
       <br>
       <app-burned-areas [burnedAreas]="burnedAreas"></app-burned-areas>
       <br>
-      <app-burned-areas-chart></app-burned-areas-chart>
+      <app-burned-areas-chart [burnedAreasChartData]="burnedAreasChartData"
+                              [burnedAreasPerPropertyChartDatas]="burnedAreasPerPropertyChartDatas">
+      </app-burned-areas-chart>
       <br>
-      <br>
-      <app-image-history [property]="property"></app-image-history>
+      <app-image-history [landsatHistories]="landsatHistories"></app-image-history>
       <hr>
     </div>
   </div>

@@ -52,7 +52,7 @@ import { VisionDetailedComponent } from './report/vision-detailed/vision-detaile
 import { DeforestationComponent } from './report/deforestation/deforestation.component';
 import { DeforestationHistoryComponent } from './report/deforestation-history/deforestation-history.component';
 import { BurningSpotlightsComponent } from './report/burning-spotlights/burning-spotlights.component';
-import { BurningFocusChartComponent } from './report/burning-focus-chart/burning-focus-chart.component';
+import { BurningSpotlightsChartComponent } from './report/burning-spotlights-chart/burning-spotlights-chart.component';
 import { BurnedAreasComponent } from './report/burned-areas/burned-areas.component';
 import { BurnedAreasChartComponent } from './report/burned-areas-chart/burned-areas-chart.component';
 import { ImageHistoryComponent } from './report/image-history/image-history.component';
@@ -84,7 +84,7 @@ import { VisibleLayersComponent } from './map/visible-layers/visible-layers.comp
     DeforestationComponent,
     DeforestationHistoryComponent,
     BurningSpotlightsComponent,
-    BurningFocusChartComponent,
+    BurningSpotlightsChartComponent,
     BurnedAreasComponent,
     BurnedAreasChartComponent,
     ImageHistoryComponent,

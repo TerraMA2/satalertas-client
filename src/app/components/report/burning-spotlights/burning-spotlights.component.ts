@@ -12,5 +12,4 @@ export class BurningSpotlightsComponent {
   @Input() burningSpotlights: Vision[] = [];
 
   constructor() { }
-
 }
