@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 
 import * as L from 'leaflet';
 
@@ -47,6 +47,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   displayLegend = false;
   displayInfo = false;
   displayLayers = false;
+  displayVisibleLayers = false;
 
   filteredData = [];
 
@@ -146,23 +147,25 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   setMarkers(data, popupTitle, overlayName) {
-    this.markerClusterGroup.clearLayers();
     this.layerControl.removeLayer(this.markerClusterGroup);
     data.forEach(markerData => {
-      const popupContent = this.getPopupContent(markerData, overlayName);
-
-      if (popupTitle) {
-        popupTitle = markerData[popupTitle];
+      let popup = null;
+      if (popupTitle && markerData[popupTitle]) {
+        popup = markerData[popupTitle];
+      } else {
+        popup = popupTitle;
       }
 
-      const marker = this.createMarker(popupTitle, popupContent, new L.LatLng(markerData.lat, markerData.long));
+      const popupContent = this.getPopupContent(markerData, overlayName, popupTitle);
+
+      const marker = this.createMarker(popup, popupContent, new L.LatLng(markerData.lat, markerData.long));
 
       if (marker) {
         this.markerClusterGroup.addLayer(marker);
       }
     });
 
-    this.layerControl.addOverlay(this.markerClusterGroup, overlayName);
+    this.map.addLayer(this.markerClusterGroup);
     this.searchControl.setLayer(this.markerClusterGroup);
     this.searchControl.options.layer = this.markerClusterGroup;
   }
@@ -253,17 +256,19 @@ export class MapComponent implements OnInit, AfterViewInit {
     this.sidebarService.sidebarItemRadioSelect.subscribe(async layer => {
       const appConfig = this.configService.getConfig('app');
       let url = '';
+      let popupTitle = null;
       if (layer.type === LayerType.ANALYSIS) {
         url = appConfig.analysisLayerUrl;
       } else if (layer.type === LayerType.STATIC) {
         url = appConfig.staticLayerUrl;
+        popupTitle = layer.popupTitle;
       } else if (layer.type === LayerType.DYNAMIC) {
         url = appConfig.dynamicLayerUrl;
       }
       const viewId = layer.value;
       const defaultDateInterval = layer.defaultDateInterval;
       await this.hTTPService.get(url, {viewId, defaultDateInterval})
-                            .subscribe(data => this.setMarkers(data, null, layer.label));
+                            .subscribe(data => this.setMarkers(data, popupTitle, layer.label));
     });
 
     this.sidebarService.sidebarItemRadioUnselect.subscribe(layer => {
@@ -391,6 +396,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   setFilterControlEvent() {
+    L.DomEvent.on(L.DomUtil.get('filterBtn'), 'dblclick', L.DomEvent.stopPropagation);
     document.querySelector('#filterBtn').addEventListener('click', () => this.displayFilter = !this.displayFilter);
   }
 
@@ -412,6 +418,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   setLegendControlEvent() {
+    L.DomEvent.on(L.DomUtil.get('legendBtn'), 'dblclick', L.DomEvent.stopPropagation);
     document.querySelector('#legendBtn').addEventListener('click', () => this.displayLegend = !this.displayLegend);
   }
 
@@ -433,6 +440,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   setTableControlEvent() {
+    L.DomEvent.on(L.DomUtil.get('tableBtn'), 'dblclick', L.DomEvent.stopPropagation);
     document.querySelector('#tableBtn').addEventListener('click', () => this.displayTable = !this.displayTable);
   }
 
@@ -461,6 +469,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   setInfoControlEvent() {
+    L.DomEvent.on(L.DomUtil.get('infoBtn'), 'dblclick click', L.DomEvent.stopPropagation);
     document.querySelector('#infoBtn').addEventListener('click', () => {
       if (this.displayInfo === false) {
         this.displayInfo = true;
@@ -480,14 +489,17 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   async getFeatureInfo(event: MouseEvent) {
     let popupTitle = '';
-    let latLong;
+    const latLong = event['latlng'];
     let popupContent = `<div class="popup-container">`;
+
+    if (this.selectedLayers.length === 0) {
+      popupContent += `<h2>Layer não encontrado.</h2>`;
+    }
+
     for (const selectedLayer of this.selectedLayers) {
       const layer = this.getLayer(selectedLayer.layerData);
       const layerName = selectedLayer.label;
       popupTitle = layerName;
-
-      latLong = event['latlng'];
 
       const params = this.getFeatureInfoParams(layer, event);
 
@@ -539,21 +551,24 @@ export class MapComponent implements OnInit, AfterViewInit {
     let popupContent = '';
     features.forEach(feature => {
       const properties = feature['properties'];
-      popupContent = this.getPopupContent(properties, layerName);
+      popupContent += this.getPopupContent(properties, layerName);
     });
     return popupContent;
   }
 
-  getPopupContent(data, name) {
+  getPopupContent(data, name, linkKey = '') {
     let popupContent = '';
     let popupContentBody = '';
     Object.keys(data).forEach(key => {
-      popupContentBody += `
-          <tr>
-            <td>${key}</td>
-            <td>${data[key]}</td>
-          </tr>
-      `;
+      const link = `<a href='/report/${data[key]}'>${data[key]}</a>`;
+      if (key !== 'lat' && key !== 'long' && key !== 'geom' && key !== 'intersection_geom') {
+        popupContentBody += `
+            <tr>
+              <td>${key}</td>
+              <td>${linkKey === key ? link : data[key]}</td>
+            </tr>
+        `;
+      }
     });
 
     popupContent += `
@@ -589,7 +604,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   setRestoreMapControlEvent() {
     const initialLatLong = this.mapConfig.initialLatLong;
     const initialZoom = this.mapConfig.initialZoom;
-
+    L.DomEvent.on(L.DomUtil.get('restoreMapBtn'), 'dblclick', L.DomEvent.stopPropagation);
     document.querySelector('#restoreMapBtn')
             .addEventListener('click', () => this.panMap(initialLatLong, initialZoom));
   }
@@ -613,7 +628,10 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   setVisibleLayersControlEvent() {
     document.querySelector('#visibleLayersBtn')
-            .addEventListener('click', () => this.displayVisibleLayersControl = !this.displayVisibleLayersControl);
+            .addEventListener('click', () => {
+              this.displayVisibleLayers = !this.displayVisibleLayers;
+              L.DomEvent.on(L.DomUtil.get('visibleLayersBtn'), 'dblclick', L.DomEvent.stopPropagation);
+            });
   }
 
   // Events

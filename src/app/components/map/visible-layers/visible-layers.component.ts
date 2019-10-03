@@ -15,7 +15,7 @@ export class VisibleLayersComponent implements OnInit {
 
   @Input() selectedLayers = [];
 
-  @Input() displayLayers = false;
+  @Input() displayVisibleLayers = false;
 
   @Input() displayControls;
 

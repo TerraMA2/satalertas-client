@@ -97,7 +97,7 @@ export class TableComponent implements OnInit {
       this.columns = [];
 
       Object.keys(data[0]).forEach(key => {
-        if (key !== 'lat' && key !== 'long') {
+        if (key !== 'lat' && key !== 'long' && key !== 'geom' && key !== 'intersection_geom') {
           this.columns.push({field: key, header: key});
         }
       });
@@ -105,6 +105,12 @@ export class TableComponent implements OnInit {
       this.selectedColumns = this.columns;
 
       this.totalRecords = data.pop();
+      // data.forEach((d, key) => {
+      //   const popupTitle = this.selectedLayer.popupTitle;
+      //   if (popupTitle) {
+      //     d[popupTitle] = `<a href='/report/${d[popupTitle]}'>${d[popupTitle]}</a>`;
+      //   }
+      // });
       this.tableData = data;
     }
     this.loading = false;

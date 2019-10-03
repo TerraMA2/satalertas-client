@@ -35,6 +35,7 @@
         "children": [
           {
             "label": "CAR X DETER",
+            "shortLabel": "CAR X DETER",
             "value": "26",
             "defaultDateInterval": "365",
             "dateColumn": "dd_deter_inpe_date_audit",
@@ -82,6 +83,7 @@
           },
           {
             "label": "APP x CAR_DETER",
+            "shortLabel": "APP",
             "value": "27",
             "defaultDateInterval": "365",
             "dateColumn": "apv_car_deter_9_execution_date",
@@ -119,6 +121,7 @@
           },
           {
             "label": "UsoAnt x CAR_DETER",
+            "shortLabel": "Uso antropizado",
             "value": "28",
             "defaultDateInterval": "365",
             "dateColumn": "apv_car_deter_9_execution_date",
@@ -156,6 +159,7 @@
           },
           {
             "label": "Reserva x CAR_DETER",
+            "shortLabel": "Reserva legal",
             "value": "29",
             "defaultDateInterval": "365",
             "dateColumn": "apv_car_deter_9_execution_date",
@@ -193,6 +197,7 @@
           },
           {
             "label": "VegNat x CAR_DETER",
+            "shortLabel": "Vegetação nativa",
             "value": "30",
             "defaultDateInterval": "365",
             "dateColumn": "apv_car_deter_9_execution_date",
@@ -230,6 +235,7 @@
           },
           {
             "label": "UsoCon x CAR_DETER",
+            "shortLabel": "Uso consolidado",
             "value": "31",
             "defaultDateInterval": "365",
             "dateColumn": "apv_car_deter_9_execution_date",
@@ -273,12 +279,14 @@
         "children": [
           {
             "label": "CAR X PRODES",
+            "shortLabel": "CAR X PRODES",
             "value": "32",
             "defaultDateInterval": "800",
             "dateColumn": "dd_prodes_inpe_view_date",
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": true,
+
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
               "layers": "terrama2_32:view32",
@@ -320,6 +328,7 @@
           },
           {
             "label": "APP x CAR_PRODES",
+            "shortLabel": "APP",
             "value": "33",
             "defaultDateInterval": "365",
             "dateColumn": "apv_car_prodes_15_execution_date",
@@ -357,6 +366,7 @@
           },
           {
             "label": "UsoAnt x CAR_PRODES",
+            "shortLabel": "Uso antropizado",
             "value": "34",
             "defaultDateInterval": "365",
             "dateColumn": "apv_car_prodes_15_execution_date",
@@ -394,6 +404,7 @@
           },
           {
             "label": "Reserva x CAR_PRODES",
+            "shortLabel": "Reserva legal",
             "value": "35",
             "defaultDateInterval": "365",
             "dateColumn": "apv_car_prodes_15_execution_date",
@@ -431,6 +442,7 @@
           },
           {
             "label": "VegNat x CAR_PRODES",
+            "shortLabel": "Vegetação nativa",
             "value": "36",
             "defaultDateInterval": "365",
             "dateColumn": "apv_car_prodes_15_execution_date",
@@ -468,6 +480,7 @@
           },
           {
             "label": "UsoCon x CAR_PRODES",
+            "shortLabel": "Uso consolidado",
             "value": "37",
             "defaultDateInterval": "365",
             "dateColumn": "apv_car_prodes_15_execution_date",
@@ -511,12 +524,14 @@
         "children": [
           {
             "label": "CAR X FOCOS",
+            "shortLabel": "CAR X FOCOS",
             "value": "28",
             "defaultDateInterval": "365",
             "dateColumn": "dd_focos_inpe_view_date",
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": true,
+
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
               "layers": "terrama2_38:view38",
@@ -558,6 +573,7 @@
           },
           {
             "label": "APP x CAR_FOCOS",
+            "shortLabel": "APP",
             "value": "39",
             "defaultDateInterval": "365",
             "dateColumn": "apv_car_focos_15_execution_date",
@@ -595,6 +611,7 @@
           },
           {
             "label": "UsoAnt x CAR_FOCOS",
+            "shortLabel": "Uso antropizado",
             "value": "40",
             "defaultDateInterval": "365",
             "dateColumn": "apv_car_focos_15_execution_date",
@@ -632,6 +649,7 @@
           },
           {
             "label": "Reserva x CAR_FOCOS",
+            "shortLabel": "Reserva legal",
             "value": "41",
             "defaultDateInterval": "365",
             "dateColumn": "apv_car_focos_15_execution_date",
@@ -669,6 +687,7 @@
           },
           {
             "label": "VegNat x CAR_FOCOS",
+            "shortLabel": "Vegetação nativa",
             "value": "42",
             "defaultDateInterval": "365",
             "dateColumn": "apv_car_focos_15_execution_date",
@@ -706,6 +725,7 @@
           },
           {
             "label": "UsoCon x CAR_FOCOS",
+            "shortLabel": "Uso consolidado",
             "value": "43",
             "defaultDateInterval": "365",
             "dateColumn": "apv_car_focos_15_execution_date",
@@ -756,6 +776,7 @@
         "children" : [
           {
             "label": "Limite Estadual",
+            "shortLabel": "Limite Estadual",
             "value": "15",
             "defaultDateInterval": null,
             "dateColumn": null,
@@ -793,6 +814,7 @@
           },
           {
             "label": "Municípios",
+            "shortLabel": "Municípios",
             "value": "14",
             "defaultDateInterval": null,
             "dateColumn": null,
@@ -830,12 +852,14 @@
           },
           {
             "label": "CAR Validado",
+            "shortLabel": "CAR Validado",
             "value": "5",
             "defaultDateInterval": null,
             "dateColumn": null,
             "type": "static",
             "isPrivate": false,
-            "isPrimary": true,
+            "isPrimary": false,
+            "popupTitle": "numero_do2",
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
               "layers": "terrama2_5:view5",
@@ -867,6 +891,7 @@
           },
           {
             "label": "Microregião",
+            "shortLabel": "Microregião",
             "value": "6",
             "defaultDateInterval": null,
             "dateColumn": null,
@@ -904,6 +929,7 @@
           },
           {
             "label": "Reserva_Legal",
+            "shortLabel": "Reserva_Legal",
             "value": "13",
             "defaultDateInterval": null,
             "dateColumn": null,
@@ -941,6 +967,7 @@
           },
           {
             "label": "Rodovias",
+            "shortLabel": "Rodovias",
             "value": "12",
             "defaultDateInterval": null,
             "dateColumn": null,
@@ -978,6 +1005,7 @@
           },
           {
             "label": "Sub-bacias",
+            "shortLabel": "Sub-bacias",
             "value": "11",
             "defaultDateInterval": null,
             "dateColumn": null,
@@ -1015,6 +1043,7 @@
           },
           {
             "label": "Área Pantaneira",
+            "shortLabel": "Área Pantaneira",
             "value": "10",
             "defaultDateInterval": null,
             "dateColumn": null,
@@ -1052,6 +1081,7 @@
           },
           {
             "label": "Uso Antropizado",
+            "shortLabel": "Uso Antropizado",
             "value": "9",
             "defaultDateInterval": null,
             "dateColumn": null,
@@ -1089,6 +1119,7 @@
           },
           {
             "label": "Área_APP",
+            "shortLabel": "Área_APP",
             "value": "4",
             "defaultDateInterval": null,
             "dateColumn": null,
@@ -1126,6 +1157,7 @@
           },
           {
             "label": "Vegetação Nativa",
+            "shortLabel": "Vegetação Nativa",
             "value": "3",
             "defaultDateInterval": null,
             "dateColumn": null,
@@ -1163,6 +1195,7 @@
           },
           {
             "label": "Uso Consolidado",
+            "shortLabel": "Uso Consolidado",
             "value": "2",
             "defaultDateInterval": null,
             "dateColumn": null,
@@ -1200,6 +1233,7 @@
           },
           {
             "label": "Biomas MT",
+            "shortLabel": "Biomas MT",
             "value": "1",
             "defaultDateInterval": null,
             "dateColumn": null,
@@ -1234,6 +1268,82 @@
                 "icon": "fas fa-adjust"
               }
             ]
+          },
+          {
+            "label": "Unidade Conservação",
+            "shortLabel": "Unidade Conservação",
+            "value": "46",
+            "defaultDateInterval": null,
+            "dateColumn": null,
+            "type": "static",
+            "isPrivate": false,
+            "isPrimary": false,
+            "layerData": {
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
+              "layers": "terrama2_46:view46",
+              "transparent": true,
+              "format": "image/png",
+              "version": "1.1.0"
+            },
+            "legend": {
+              "title": "Unidade Conservação",
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_46:view46"
+            },
+            "tools": [
+              {
+                "title": "Informações",
+                "name": "info",
+                "icon": "fas fa-info"
+              },
+              {
+                "title": "Exportar",
+                "name": "export",
+                "icon": "fas fa-download"
+              },
+              {
+                "title": "Transparência",
+                "name": "opacity",
+                "icon": "fas fa-adjust"
+              }
+            ]
+          },
+          {
+            "label": "Terra Indígena",
+            "shortLabel": "Terra Indígena",
+            "value": "47",
+            "defaultDateInterval": null,
+            "dateColumn": null,
+            "type": "static",
+            "isPrivate": false,
+            "isPrimary": false,
+            "layerData": {
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
+              "layers": "terrama2_47:view47",
+              "transparent": true,
+              "format": "image/png",
+              "version": "1.1.0"
+            },
+            "legend": {
+              "title": "Terra Indígena",
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_47:view47"
+            },
+            "tools": [
+              {
+                "title": "Informações",
+                "name": "info",
+                "icon": "fas fa-info"
+              },
+              {
+                "title": "Exportar",
+                "name": "export",
+                "icon": "fas fa-download"
+              },
+              {
+                "title": "Transparência",
+                "name": "opacity",
+                "icon": "fas fa-adjust"
+              }
+            ]
           }
         ]
       },
@@ -1243,6 +1353,7 @@
         "children" : [
           {
             "label": "Focos Queimadas",
+            "shortLabel": "Focos Queimadas",
             "value": "20",
             "defaultDateInterval": "365",
             "type": "dynamic",
@@ -1289,6 +1400,7 @@
           },
           {
             "label": "DETER",
+            "shortLabel": "DETER",
             "value": "18",
             "defaultDateInterval": "365",
             "type": "dynamic",
@@ -1335,6 +1447,7 @@
           },
           {
             "label": "PRODES",
+            "shortLabel": "PRODES",
             "value": "45",
             "defaultDateInterval": "365",
             "type": "dynamic",
