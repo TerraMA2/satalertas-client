@@ -34,6 +34,8 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ToastModule } from 'primeng/toast';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { NgxPrintModule } from 'ngx-print';
+import { ToolbarModule } from 'primeng/toolbar';
 
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
@@ -64,8 +66,7 @@ import { SidebarFooterComponent } from './sidebar/sidebar-footer/sidebar-footer.
 import { SidebarItemChildComponent } from './sidebar/sidebar-menu/sidebar-item/sidebar-item-child/sidebar-item-child.component';
 import { ToolsComponent } from './map/tools/tools.component';
 import { VisibleLayersComponent } from './map/visible-layers/visible-layers.component';
-import { RouteReuseStrategy } from '@angular/router';
-import { CustomReuseStrategy } from './custom-reuse-strategy';
+import { FacilityLinkComponent } from './facility-link/facility-link.component';
 
 @NgModule({
   declarations: [
@@ -97,7 +98,8 @@ import { CustomReuseStrategy } from './custom-reuse-strategy';
     SidebarItemComponent,
     SidebarItemChildComponent,
     ToolsComponent,
-    VisibleLayersComponent
+    VisibleLayersComponent,
+    FacilityLinkComponent
   ],
 
   imports: [
@@ -129,7 +131,9 @@ import { CustomReuseStrategy } from './custom-reuse-strategy';
     InputSwitchModule,
     CheckboxModule,
     ToastModule,
-    RadioButtonModule
+    RadioButtonModule,
+    NgxPrintModule,
+    ToolbarModule
   ],
   providers: [
     TreeDragDropService,
@@ -137,6 +141,7 @@ import { CustomReuseStrategy } from './custom-reuse-strategy';
     MessageService,
     // {provide: RouteReuseStrategy, useClass: CustomReuseStrategy}
   ],
+  entryComponents: [FacilityLinkComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

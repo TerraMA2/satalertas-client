@@ -1,16 +1,25 @@
-<p-scrollPanel [style]="{width: '100%', height: 'calc(100vh - 50px)'}">
+<p-toolbar>
+  <div class="ui-toolbar-group-left">
+      <button pButton
+              label="Voltar ao mapa"
+              routerLink="/map"
+              icon="fas fa-arrow-left">
+      </button>
+  </div>
+  <div class="ui-toolbar-group-right">
+    <button pButton
+            ngxPrint
+            icon="fas fa-print"
+            label="Imprimir"
+            printTitle="Relatório ambiental CAR - {{carRegister}}"
+            printSectionId="print-section">
+    </button>
+  </div>
+</p-toolbar>
+<p-scrollPanel [style]="{width: '100%', height: 'calc(100vh - 100px)'}">
   <div class="background-color-gray">
     <br>
-    <div class="container">
-      <button pButton 
-              label="Voltar ao mapa" 
-              routerLink="/map"
-              icon="fas fa-arrow-left"
-              class="ui-button-raised ui-button-secondary">
-      </button>
-
-      <br>
-
+    <div id="print-section" class="container">
       <app-property-data [property]="property"></app-property-data>
       <hr>
       <app-vision [visions]="visions" [legends]="visionLegends"></app-vision>

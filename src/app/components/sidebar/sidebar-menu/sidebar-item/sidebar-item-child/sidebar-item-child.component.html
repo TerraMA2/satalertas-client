@@ -1,5 +1,5 @@
 <div class="sidebar-item-content"
-      [ngClass]="{'sidebar-item-margin':!child.isPrimary}">
+      [ngClass]="{'sidebar-item-margin': child.type === 'analysis' && !child.isPrimary}">
     <div class="sidebar-item-label"
         (click)="onChildClicked()">
 

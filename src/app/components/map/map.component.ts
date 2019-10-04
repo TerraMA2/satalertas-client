@@ -22,6 +22,10 @@ import { Layer } from 'src/app/models/layer.model';
 
 import { Group } from 'src/app/models/group.model';
 
+import { LinkPopupService } from 'src/app/services/link-popup.service';
+
+import { MarkerGroup } from 'src/app/models/marker-group.model';
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -41,6 +45,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   markerClusterGroup: L.MarkerClusterGroup;
 
   markerInfo: L.Marker;
+
+  markerGroupData;
 
   displayTable = false;
   displayFilter = false;
@@ -79,7 +85,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     private hTTPService: HTTPService,
     private configService: ConfigService,
     private sidebarService: SidebarService,
-    private mapService: MapService
+    private mapService: MapService,
+    private linkPopupService: LinkPopupService
   ) { }
 
   ngOnInit() {
@@ -88,6 +95,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     localStorage.setItem('selectedLayers', JSON.stringify(this.selectedLayers));
+    localStorage.setItem('markerGroupData', JSON.stringify(this.markerGroupData));
+    localStorage.setItem('zoom', JSON.stringify(this.map.getZoom()));
+    localStorage.setItem('latLong', JSON.stringify([this.map.getCenter().lat, this.map.getCenter().lng]));
   }
 
   ngAfterViewInit() {
@@ -135,6 +145,16 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       previousLayers.forEach(layer => this.addLayer(layer));
       localStorage.removeItem('selectedLayers');
     }
+    if (localStorage.getItem('markerGroupData')) {
+      const previousMarkerGroup = JSON.parse(localStorage.getItem('markerGroupData'));
+      this.setMarkers(previousMarkerGroup.data, previousMarkerGroup.title, previousMarkerGroup.overlayName);
+      localStorage.removeItem('markerGroupData');
+    }
+    if (localStorage.getItem('latLong') && localStorage.getItem('zoom')) {
+      const previousZoom = JSON.parse(localStorage.getItem('zoom'));
+      const previousLatLong = JSON.parse(localStorage.getItem('latLong'));
+      this.panMap(previousLatLong, previousZoom);
+    }
   }
 
   setOverlay() {
@@ -156,11 +176,14 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setMarkers(data, popupTitle, overlayName) {
+    this.markerGroupData = new MarkerGroup(popupTitle, overlayName, data);
     this.layerControl.removeLayer(this.markerClusterGroup);
     data.forEach(markerData => {
       let popup = null;
+      let link = null;
       if (popupTitle && markerData[popupTitle]) {
         popup = markerData[popupTitle];
+        link = `/report/${popup}`;
       } else {
         popup = popupTitle;
       }
@@ -168,6 +191,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       const popupContent = this.getPopupContent(markerData, overlayName, popupTitle);
 
       const marker = this.createMarker(popup, popupContent, new L.LatLng(markerData.lat, markerData.long));
+
+      if (link) {
+        this.linkPopupService.register(marker, link, 'Relatório');
+      }
 
       if (marker) {
         this.markerClusterGroup.addLayer(marker);
@@ -485,7 +512,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         document.querySelector('#infoBtn').classList.add('leaflet-custom-icon-selected');
         document.querySelector('#map').classList.remove('cursor-grab');
         document.querySelector('#map').classList.add('cursor-help');
-        this.map.on('click', (event: MouseEvent) => this.getFeatureInfo(event));
+        this.map.on('click', (event: L.LeafletMouseEvent) => this.getFeatureInfo(event));
       } else {
         this.displayInfo = false;
         document.querySelector('#infoBtn').classList.remove('leaflet-custom-icon-selected');
@@ -496,9 +523,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  async getFeatureInfo(event: MouseEvent) {
+  async getFeatureInfo(event: L.LeafletMouseEvent) {
     let popupTitle = '';
-    const latLong = event['latlng'];
+    const latLong = event.latlng;
     let popupContent = `<div class="popup-container">`;
 
     if (this.selectedLayers.length === 0) {
@@ -531,9 +558,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  getFeatureInfoParams(layer: L.TileLayer.WMS, event: MouseEvent) {
+  getFeatureInfoParams(layer: L.TileLayer.WMS, event: L.LeafletMouseEvent) {
     const layerId = layer.wmsParams.layers;
-    const layerPoint = this.map.layerPointToContainerPoint(event['layerPoint']);
+    const layerPoint = this.map.layerPointToContainerPoint(event.layerPoint);
     const bbox = this.map.getBounds().toBBoxString();
     const mapSize = this.map.getSize();
     const width = mapSize.x;
@@ -569,12 +596,12 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     let popupContent = '';
     let popupContentBody = '';
     Object.keys(data).forEach(key => {
-      const link = `<a href='/report/${data[key]}'>${data[key]}</a>`;
+      const link = `<a routerLink='/report/${data[key]}'>${data[key]}</a>`;
       if (key !== 'lat' && key !== 'long' && key !== 'geom' && key !== 'intersection_geom') {
         popupContentBody += `
             <tr>
               <td>${key}</td>
-              <td>${linkKey === key ? link : data[key]}</td>
+              <td>${data[key]}</td>
             </tr>
         `;
       }

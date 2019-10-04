@@ -30,13 +30,7 @@
         "link": "/map"
       },
       {
-        "label": "Relatório",
-        "icon": "fas fa-file",
-        "type": "map",
-        "link": "/report"
-      },
-      {
-        "label": "DETER",
+        "label": "Análise DETER",
         "parent": true,
         "children": [
           {
@@ -280,7 +274,7 @@
         ]
       },
       {
-        "label": "PRODES",
+        "label": "Análise PRODES",
         "parent": true,
         "children": [
           {
@@ -292,7 +286,6 @@
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": true,
-
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
               "layers": "terrama2_32:view32",
@@ -525,7 +518,7 @@
         ]
       },
       {
-        "label": "FOCOS",
+        "label": "Análise FOCOS",
         "parent": true,
         "children": [
           {
@@ -770,7 +763,7 @@
         ]
       },
       {
-        "label": "Área queimada",
+        "label": "Análise Área queimada",
         "parent": true,
         "children": [
 
@@ -864,7 +857,7 @@
             "dateColumn": null,
             "type": "static",
             "isPrivate": false,
-            "isPrimary": false,
+            "isPrimary": true,
             "popupTitle": "numero_do2",
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",

@@ -45,8 +45,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     private configService: ConfigService,
     private authService: AuthService,
-    private messageService: MessageService,
-    private sidebarService: SidebarService
+    private messageService: MessageService
   ) {}
 
   ngOnInit() {
