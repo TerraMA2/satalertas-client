@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, OnDestroy, AfterViewInit } from '@angular/core';
 
 import { ConfigService } from '../../services/config.service';
 
@@ -45,7 +45,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     private configService: ConfigService,
     private authService: AuthService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private sidebarService: SidebarService
   ) {}
 
   ngOnInit() {
@@ -55,6 +56,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.headerLogo = this.appConfig.headerLogo;
     this.headerLogoLink = this.appConfig.headerLogoLink;
     this.hasLogin = this.appConfig.hasLogin;
+
+    // this.sidebarService.sidebarOpenClose.subscribe(show => this.showHideSidebar(show));
 
     // this.languages = this.configService.getConfig('languages');
 
@@ -67,8 +70,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   }
 
-  showHideSidebar() {
-    this.displaySidebar = !this.displaySidebar;
+  showHideSidebar(show = null) {
+    if (show) {
+      this.displaySidebar = show;
+    } else {
+      this.displaySidebar = !this.displaySidebar;
+    }
     this.showHideSidebarClicked.emit(this.displaySidebar);
   }
 

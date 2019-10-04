@@ -1,8 +1,8 @@
 <div class="p-grid p-nogutter">
-    <div class="p-col-12">
+    <div class="p-col-4">
         <p-chart type="bar" [data]="burnedAreasChartData" [options]="options" height="400px"></p-chart>
     </div>
-    <div class="p-col-12 p-md-4" *ngFor="let chartData of burnedAreasPerPropertyChartDatas">
+    <div class="p-col-4 p-md-4" *ngFor="let chartData of burnedAreasPerPropertyChartDatas">
         <p-chart type="pie" [data]="chartData" [options]="options" height="400px"></p-chart>
     </div>
 </div>

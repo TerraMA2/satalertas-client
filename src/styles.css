@@ -194,3 +194,24 @@ main {
   background-color: #ccc;
   margin: 0;
 }
+
+@media print {
+  .container * {
+    color: #000 !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+    filter: none !important;
+  }
+
+  section {
+    page-break-inside: avoid;
+  }
+
+  body .ui-card {
+    border: 1px solid #eee !important;
+  }
+
+  @page {
+    margin: 0.5cm !important;
+  }
+}

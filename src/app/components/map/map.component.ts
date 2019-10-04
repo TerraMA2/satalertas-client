@@ -104,6 +104,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.setMap();
     this.setControls();
     this.setLayers();
+    // this.sidebarService.sidebarOpenClose.next(true);
   }
 
   setMap() {
