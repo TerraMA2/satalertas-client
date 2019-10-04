@@ -149,10 +149,13 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     if (localStorage.getItem('markerGroupData')) {
       const previousMarkerGroup = JSON.parse(localStorage.getItem('markerGroupData'));
       this.setMarkers(previousMarkerGroup.data, previousMarkerGroup.title, previousMarkerGroup.overlayName);
-      L.popup()
-      .setLatLng(previousMarkerGroup.marker.latLong)
-      .setContent(previousMarkerGroup.marker.content)
-      .openOn(this.map);
+      const marker = this.createMarker(
+        previousMarkerGroup.marker.title,
+        previousMarkerGroup.marker.content,
+        previousMarkerGroup.marker.latLong
+      );
+      marker.addTo(this.map);
+      marker.openPopup();
       localStorage.removeItem('markerGroupData');
     }
     if (localStorage.getItem('latLong') && localStorage.getItem('zoom')) {
@@ -195,7 +198,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
       const popupContent = this.getPopupContent(markerData, overlayName, popupTitle);
 
-      const marker = this.createMarker(popup, popupContent, new L.LatLng(markerData.lat, markerData.long));
+      const marker = this.createMarker(popup, popupContent, [markerData.lat, markerData.long]);
 
       if (link) {
         this.linkPopupService.register(marker, link, 'Relatório');
@@ -211,17 +214,19 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.searchControl.options.layer = this.markerClusterGroup;
   }
 
-  createMarker(popupTitle, popupContent, latLong: L.LatLng) {
+  createMarker(popupTitle, popupContent, latLong) {
     if (!popupContent) {
       return null;
     }
     const marker = L.marker(latLong, {title: popupTitle});
+    marker.on('popupopen', marker => {
+      this.markerGroupData.marker = {
+        title: popupTitle,
+        content: popupContent,
+        latLong
+      };
+    });
     marker.bindPopup(popupContent);
-    this.markerGroupData.marker = {
-      title: popupTitle,
-      content: popupContent,
-      latLong
-    };
     return marker;
   }
 
