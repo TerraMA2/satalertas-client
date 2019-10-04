@@ -66,7 +66,7 @@ import { SidebarFooterComponent } from './sidebar/sidebar-footer/sidebar-footer.
 import { SidebarItemChildComponent } from './sidebar/sidebar-menu/sidebar-item/sidebar-item-child/sidebar-item-child.component';
 import { ToolsComponent } from './map/tools/tools.component';
 import { VisibleLayersComponent } from './map/visible-layers/visible-layers.component';
-import { FacilityLinkComponent } from './facility-link/facility-link.component';
+import { PopupLinkComponent } from './popup-link/popup-link.component';
 
 @NgModule({
   declarations: [
@@ -99,7 +99,7 @@ import { FacilityLinkComponent } from './facility-link/facility-link.component';
     SidebarItemChildComponent,
     ToolsComponent,
     VisibleLayersComponent,
-    FacilityLinkComponent
+    PopupLinkComponent
   ],
 
   imports: [
@@ -141,7 +141,7 @@ import { FacilityLinkComponent } from './facility-link/facility-link.component';
     MessageService,
     // {provide: RouteReuseStrategy, useClass: CustomReuseStrategy}
   ],
-  entryComponents: [FacilityLinkComponent],
+  entryComponents: [PopupLinkComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

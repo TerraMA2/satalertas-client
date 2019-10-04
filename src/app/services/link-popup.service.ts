@@ -1,6 +1,6 @@
 import { Injectable, ComponentFactoryResolver, Injector, ApplicationRef } from '@angular/core';
 
-import { FacilityLinkComponent } from '../components/facility-link/facility-link.component';
+import { PopupLinkComponent } from '../components/popup-link/popup-link.component';
 
 import * as L from 'leaflet';
 
@@ -19,7 +19,7 @@ export class LinkPopupService {
   }
 
   popup(marker: L.Marker, link: string, title: string) {
-    const cmpFactory = this.cfr.resolveComponentFactory(FacilityLinkComponent);
+    const cmpFactory = this.cfr.resolveComponentFactory(PopupLinkComponent);
     const componentRef = cmpFactory.create(this.injector);
     componentRef.instance.link = link;
     componentRef.instance.title = title;

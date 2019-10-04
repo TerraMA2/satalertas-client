@@ -149,6 +149,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     if (localStorage.getItem('markerGroupData')) {
       const previousMarkerGroup = JSON.parse(localStorage.getItem('markerGroupData'));
       this.setMarkers(previousMarkerGroup.data, previousMarkerGroup.title, previousMarkerGroup.overlayName);
+      L.popup()
+      .setLatLng(previousMarkerGroup.marker.latLong)
+      .setContent(previousMarkerGroup.marker.content)
+      .openOn(this.map);
       localStorage.removeItem('markerGroupData');
     }
     if (localStorage.getItem('latLong') && localStorage.getItem('zoom')) {
@@ -213,6 +217,11 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     const marker = L.marker(latLong, {title: popupTitle});
     marker.bindPopup(popupContent);
+    this.markerGroupData.marker = {
+      title: popupTitle,
+      content: popupContent,
+      latLong
+    };
     return marker;
   }
 
