@@ -40,7 +40,7 @@ import { MapComponent } from './map/map.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TableComponent } from './map/table/table.component';
 import { ReportComponent } from './report/report.component';
-import { FilterComponent } from './map/filter/filter.component';
+import { FilterComponent } from './filter/filter.component';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FooterComponent } from './footer/footer.component';

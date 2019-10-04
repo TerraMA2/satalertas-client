@@ -20,7 +20,7 @@ import { LayerType } from 'src/app/enum/layer-type.enum';
 
 import { Layer } from 'src/app/models/layer.model';
 
-import { Group } from 'src/app/models/group.model';
+import { LayerGroup } from 'src/app/models/layer-group.model';
 
 @Component({
   selector: 'app-map',
@@ -234,7 +234,7 @@ export class MapComponent implements OnInit, AfterViewInit {
       if (itemSelected instanceof Layer) {
         this.addLayer(itemSelected);
       }
-      if (itemSelected instanceof Group) {
+      if (itemSelected instanceof LayerGroup) {
         const children = itemSelected.children;
         this.selectedLayers = this.selectedLayers.filter(selectedLayer => 'parent' in selectedLayer);
         children.forEach(child => this.addLayer(child));
@@ -245,7 +245,7 @@ export class MapComponent implements OnInit, AfterViewInit {
       if (itemUnselected instanceof Layer) {
         this.removeLayer(itemUnselected);
       }
-      if (itemUnselected instanceof Group) {
+      if (itemUnselected instanceof LayerGroup) {
         const children = itemUnselected.children;
         children.forEach(child => this.removeLayer(child));
       }

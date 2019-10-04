@@ -1,8 +1,30 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #591111;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  position: relative;
+  height: 50px;
+  font-size: 1rem;
+  color: #eee;
+  font-weight: bold;
+}
+
+.header-filter{
+  margin: 10% 0% 10% 10%;
+  float: right;
+}
+
 .header-right {
   display: flex;
   align-items: center;
   justify-content: center;
   margin-left: auto;
+  float: right;
 }
 
 .header-icon {
@@ -23,3 +45,23 @@
 .header-logo-height {
   height: 32px;
 }
+
+.date-footer{
+  margin-top: 5rem;
+  -webkit-align-content: right;
+}
+
+.date-button{
+  display: inline-flex;
+  margin: 5px;
+  padding: 5px;
+}
+
+.date-button-today{
+  float: left;
+}
+
+.button-right {
+  float: right;
+}
+

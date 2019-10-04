@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ConfigService} from '../../services/config.service';
+import {LayerGroup} from '../../models/layer-group.model';
+import {Alert} from '../../models/alert.model';
+import {Control} from 'leaflet';
+import Layers = Control.Layers;
+
+import ListAlert from '../../../assets/listAlert.json';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,45 +16,114 @@ export class DashboardComponent implements OnInit {
 
   data: any;
 
-  pieData: any;
+  alertsDisplayed: Alert [] = [];
 
-  constructor() { }
+  alertGraphics: Layers [] = [];
+
+  constructor(
+    private configService: ConfigService
+  ) {}
 
   ngOnInit() {
+    this.getGraphicLayers(this.configService.getConfig('sidebar').sidebarItems);
+
     this.data = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      datasets: [
-          {
-              label: 'My First dataset',
-              backgroundColor: '#42A5F5',
-              borderColor: '#1E88E5',
-              data: [65, 59, 80, 81, 56, 55, 40]
-          },
-          {
-              label: 'My Second dataset',
-              backgroundColor: '#9CCC65',
-              borderColor: '#7CB342',
-              data: [28, 48, 40, 19, 86, 27, 90]
-          }
-      ]
-    };
-    this.pieData = {
       labels: ['A', 'B', 'C'],
       datasets: [
-          {
-              data: [300, 50, 100],
-              backgroundColor: [
-                  '#FF6384',
-                  '#36A2EB',
-                  '#FFCE56'
-              ],
-              hoverBackgroundColor: [
-                  '#FF6384',
-                  '#36A2EB',
-                  '#FFCE56'
-              ]
-          }]
-      };
+        {
+          data: [300, 50, 100],
+          backgroundColor: [
+            '#FF6384',
+            '#36A2EB',
+            '#FFCE56'
+          ],
+          hoverBackgroundColor: [
+            '#FF6384',
+            '#36A2EB',
+            '#FFCE56'
+          ]
+        }]
+    };
+  }
+
+  getGraphicLayers(sidebarItems) {
+    sidebarItems.forEach(layerGroup => {
+      if (layerGroup.viewGraph) {
+        this.alertsDisplayed.push(this.getValueAlert(layerGroup));
+
+        if (layerGroup.activeArea) { this.onAreaClick(this.getValueAlert(layerGroup)); }
+
+      }
+    });
+  }
+
+  getValueAlert(layerGroup) {
+    let value = null;
+    ListAlert.listAlert.forEach( alert => {
+      if (layerGroup.cod === alert.cod) {
+        value = alert;
+      }
+    });
+    return value;
+  }
+
+  onAreaClick(alertSelected) {
+    this.cleanActive();
+    const listLayer = this.getLayer(alertSelected.cod);
+
+    alertSelected.activeArea = true;
+    alertSelected.immobileActive = false;
+
+    listLayer.forEach( layer => {
+      layer.nameType = 'Área';
+      this.alertGraphics.push(layer);
+    });
+
+    console.log(listLayer);
+  }
+
+  onNubermImmobileClick(alertSelected) {
+    this.cleanActive();
+    const listLayer = this.getLayer(alertSelected.cod);
+
+    alertSelected.immobileActive = true;
+    alertSelected.activeArea = false;
+
+
+    listLayer.forEach( layer => {
+       layer.nameType = 'Número de Cars';
+       this.alertGraphics.push(layer);
+    });
+
+    console.log(listLayer);
+  }
+
+  getLayer(cod) {
+    const sidebarItens = this.configService.getConfig('sidebar').sidebarItems;
+    let itemSelected = null;
+
+    sidebarItens.forEach(item => {
+      if (cod === item.cod) {
+        this.setSelectedGraphic(item.children)
+        itemSelected = item.children;
+      }
+    });
+    return itemSelected;
+  }
+
+  setSelectedGraphic(list) {
+    list.forEach(item => {
+      item.active = false;
+    });
+    list[0].active = true;
+  }
+
+  cleanActive() {
+    this.alertsDisplayed.forEach( groupLayer => {
+      groupLayer.immobileActive = false;
+      groupLayer.activeArea = false;
+    });
+    this.alertGraphics = [];
   }
 
 }
