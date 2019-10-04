@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, OnDestroy } from '@angular/core';
 
 import * as L from 'leaflet';
 
@@ -27,7 +27,7 @@ import { Group } from 'src/app/models/group.model';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements OnInit, AfterViewInit {
+export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private map: L.Map;
 
@@ -86,6 +86,10 @@ export class MapComponent implements OnInit, AfterViewInit {
     this.mapConfig = this.configService.getConfig('map');
   }
 
+  ngOnDestroy() {
+    localStorage.setItem('selectedLayers', JSON.stringify(this.selectedLayers));
+  }
+
   ngAfterViewInit() {
     this.setMap();
     this.setControls();
@@ -125,6 +129,11 @@ export class MapComponent implements OnInit, AfterViewInit {
     this.setOverlayEvents();
     if (this.overlay) {
       this.setOverlay();
+    }
+    if (localStorage.getItem('selectedLayers')) {
+      const previousLayers = JSON.parse(localStorage.getItem('selectedLayers'));
+      previousLayers.forEach(layer => this.addLayer(layer));
+      localStorage.removeItem('selectedLayers');
     }
   }
 

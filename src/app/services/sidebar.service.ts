@@ -17,5 +17,7 @@ export class SidebarService {
 
   sidebarItemRadioUnselect = new Subject<Layer>();
 
+  sidebarClose = new Subject<any>();
+
   constructor() { }
 }

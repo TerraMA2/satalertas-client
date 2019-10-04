@@ -43,7 +43,6 @@ import { ReportComponent } from './report/report.component';
 import { FilterComponent } from './map/filter/filter.component';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { FooterComponent } from './footer/footer.component';
 import { LegendComponent } from './map/legend/legend.component';
 import { ReportLegendComponent } from './report/report-legend/report-legend.component';
 import { PropertyDataComponent } from './report/property-data/property-data.component';
@@ -65,6 +64,8 @@ import { SidebarFooterComponent } from './sidebar/sidebar-footer/sidebar-footer.
 import { SidebarItemChildComponent } from './sidebar/sidebar-menu/sidebar-item/sidebar-item-child/sidebar-item-child.component';
 import { ToolsComponent } from './map/tools/tools.component';
 import { VisibleLayersComponent } from './map/visible-layers/visible-layers.component';
+import { RouteReuseStrategy } from '@angular/router';
+import { CustomReuseStrategy } from './custom-reuse-strategy';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,6 @@ import { VisibleLayersComponent } from './map/visible-layers/visible-layers.comp
     ReportComponent,
     FilterComponent,
     HeaderComponent,
-    FooterComponent,
     LegendComponent,
     PropertyDataComponent,
     VisionComponent,
@@ -134,7 +134,8 @@ import { VisibleLayersComponent } from './map/visible-layers/visible-layers.comp
   providers: [
     TreeDragDropService,
     Title,
-    MessageService
+    MessageService,
+    // {provide: RouteReuseStrategy, useClass: CustomReuseStrategy}
   ],
   bootstrap: [AppComponent]
 })

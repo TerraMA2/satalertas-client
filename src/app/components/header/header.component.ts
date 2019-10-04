@@ -8,6 +8,8 @@ import { AuthService } from 'src/app/services/auth.service';
 
 import { MessageService } from 'primeng/api';
 
+import { SidebarService } from 'src/app/services/sidebar.service';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -43,7 +45,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     private configService: ConfigService,
     private authService: AuthService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private sidebarService: SidebarService
   ) {}
 
   ngOnInit() {
@@ -62,6 +65,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.loggedUserName = user.username;
       }
     });
+
   }
 
   showHideSidebar() {

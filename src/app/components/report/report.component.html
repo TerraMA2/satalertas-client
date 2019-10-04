@@ -1,7 +1,16 @@
 <p-scrollPanel [style]="{width: '100%', height: 'calc(100vh - 50px)'}">
   <div class="background-color-gray">
-  <br>
-  <div class="container">
+    <br>
+    <div class="container">
+      <button pButton 
+              label="Voltar ao mapa" 
+              routerLink="/map"
+              icon="fas fa-arrow-left"
+              class="ui-button-raised ui-button-secondary">
+      </button>
+
+      <br>
+
       <app-property-data [property]="property"></app-property-data>
       <hr>
       <app-vision [visions]="visions" [legends]="visionLegends"></app-vision>

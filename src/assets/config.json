@@ -30,6 +30,12 @@
         "link": "/map"
       },
       {
+        "label": "Relatório",
+        "icon": "fas fa-file",
+        "type": "map",
+        "link": "/report"
+      },
+      {
         "label": "DETER",
         "parent": true,
         "children": [
