@@ -105,12 +105,6 @@ export class TableComponent implements OnInit {
       this.selectedColumns = this.columns;
 
       this.totalRecords = data.pop();
-      // data.forEach((d, key) => {
-      //   const popupTitle = this.selectedLayer.popupTitle;
-      //   if (popupTitle) {
-      //     d[popupTitle] = `<a href='/report/${d[popupTitle]}'>${d[popupTitle]}</a>`;
-      //   }
-      // });
       this.tableData = data;
     }
     this.loading = false;

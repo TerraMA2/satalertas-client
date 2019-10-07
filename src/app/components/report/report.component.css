@@ -64,24 +64,16 @@
   color: #9b9b9b
 }
 
-.card-disabled img{
+.card-disabled img {
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
 }
 
-.amcharts-amexport-item {
-  border: 2px solid rgb(216, 216, 216);
+:host ::ng-deep .img-fluid {
+  max-width: 100%;
+  height: auto;
 }
 
-.amcharts-amexport-item:hover,
-.amcharts-amexport-item > a:hover {
-  cursor: pointer;
-}
-
-.amcharts-amexport-item > a {
-  margin-top: 5px !important;
-  color: black;
-}
 section {
   page-break-inside : avoid
 }
@@ -90,4 +82,43 @@ section {
   overflow-wrap: break-word;
   word-break: break-all;
   word-wrap: break-word;
+}
+
+:host ::ng-deep .card-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 5px;
+}
+
+:host ::ng-deep .card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 5px;
+}
+
+@media print {
+  :host ::ng-deep .container * {
+    color: #000 !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+    filter: none !important;
+  }
+
+  :host ::ng-deep section {
+    page-break-inside: avoid;
+  }
+
+  :host ::ng-deep body .ui-card {
+    border: 1px solid #eee !important;
+  }
+
+  @page {
+    margin: 0.5cm !important;
+  }
 }

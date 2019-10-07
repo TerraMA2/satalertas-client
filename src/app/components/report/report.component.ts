@@ -27,6 +27,8 @@ export class ReportComponent implements OnInit {
 
   bbox: string;
 
+  cityBBox: string;
+
   private reportConfig;
 
   visions: Vision[] = [];
@@ -75,12 +77,16 @@ export class ReportComponent implements OnInit {
       const bboxArray = propertyData['bbox'].split(',');
       this.bbox = bboxArray[0].split(' ').join(',') + ',' + bboxArray[1].split(' ').join(',');
 
+      const cityBBoxArray = propertyData['citybbox'].split(',');
+      this.cityBBox = cityBBoxArray[0].split(' ').join(',') + ',' + cityBBoxArray[1].split(' ').join(',');
+
       const latLong = [propertyData['lat'], propertyData['long']];
 
       this.property = new Property(propertyData['register'],
                                   propertyData['area'],
                                   propertyData['name'],
                                   propertyData['city'],
+                                  this.cityBBox,
                                   this.bbox,
                                   latLong
       );
@@ -106,7 +112,12 @@ export class ReportComponent implements OnInit {
   getVisions() {
     const visionsData = this.reportConfig.visions;
     visionsData.forEach((visionData: Vision) => {
-      const image = visionData.image.replace('{bbox}', this.bbox);
+      let image = visionData.image;
+      image = image.replace('{bbox}', this.bbox);
+      image = image.replace('{citybbox}', this.cityBBox);
+      image = image.replace('{cityCqlFilter}', `municipio='${this.property.city}';numero_do2='${this.property.register}'`);
+      image = image.replace('{propertyCqlFilter}', `numero_do2='${this.property.register}'`);
+
       const vision = new Vision(
         visionData.id,
         visionData.title,
@@ -121,7 +132,14 @@ export class ReportComponent implements OnInit {
   getDetailedVisions() {
     const detailedVisionsData = this.reportConfig.detailedVisions;
     detailedVisionsData.forEach((detailedVisionData: Vision) => {
-      const image = detailedVisionData.image.replace('{bbox}', this.bbox);
+      let image = detailedVisionData.image;
+      image = image.replace('{bbox}', this.bbox);
+      const carRegisterColumn = detailedVisionData.carRegisterColumn;
+      let carRegisterColumnFilter = '';
+      if (carRegisterColumn) {
+        carRegisterColumnFilter += `;${carRegisterColumn}='${this.property.register}'`;
+      }
+      image = image.replace('{propertyCqlFilter}', `numero_do2='${this.property.register}'${carRegisterColumnFilter}`);
       const vision = new Vision(
         detailedVisionData.id,
         detailedVisionData.title,
@@ -136,7 +154,9 @@ export class ReportComponent implements OnInit {
   getDeforestations() {
     const deforestationsData = this.reportConfig.deforestations;
     deforestationsData.forEach((deforestationData: Vision) => {
-      const image = deforestationData.image.replace('{bbox}', this.bbox);
+      let image = deforestationData.image;
+      image = image.replace('{bbox}', this.bbox);
+      image = image.replace('{propertyCqlFilter}', `numero_do2='${this.property.register}'`);
       const vision = new Vision(
         deforestationData.id,
         deforestationData.title,
@@ -151,7 +171,9 @@ export class ReportComponent implements OnInit {
   getDeforestationHistories() {
     const deforestationHistoriesData = this.reportConfig.deforestationHistories;
     deforestationHistoriesData.forEach((deforestationHistoryData: Vision) => {
-      const image = deforestationHistoryData.image.replace('{bbox}', this.bbox);
+      let image = deforestationHistoryData.image;
+      image = image.replace('{bbox}', this.bbox);
+      image = image.replace('{propertyCqlFilter}', `numero_do2='${this.property.register}'`);
       const vision = new Vision(
         deforestationHistoryData.id,
         deforestationHistoryData.title,
@@ -166,7 +188,9 @@ export class ReportComponent implements OnInit {
   getBurningSpotlights() {
     const burningSpotlightsData = this.reportConfig.burningSpotlights;
     burningSpotlightsData.forEach((burningSpotlightData: Vision) => {
-      const image = burningSpotlightData.image.replace('{bbox}', this.bbox);
+      let image = burningSpotlightData.image;
+      image = image.replace('{bbox}', this.bbox);
+      image = image.replace('{propertyCqlFilter}', `numero_do2='${this.property.register}'`);
       const vision = new Vision(
         burningSpotlightData.id,
         burningSpotlightData.title,
@@ -209,7 +233,9 @@ export class ReportComponent implements OnInit {
   getBurnedAreas() {
     const burnedAreasData = this.reportConfig.burnedAreas;
     burnedAreasData.forEach((burnedAreaData: Vision) => {
-      const image = burnedAreaData.image.replace('{bbox}', this.bbox);
+      let image = burnedAreaData.image;
+      image = image.replace('{bbox}', this.bbox);
+      image = image.replace('{propertyCqlFilter}', `numero_do2='${this.property.register}'`);
       const vision = new Vision(
         burnedAreaData.id,
         burnedAreaData.title,
@@ -273,7 +299,9 @@ export class ReportComponent implements OnInit {
   getLandsatHistories() {
     const landsatHistoriesData = this.reportConfig.landsatHistories;
     landsatHistoriesData.forEach((landsatHistoryData: Vision) => {
-      const image = landsatHistoryData.image.replace('{bbox}', this.bbox);
+      let image = landsatHistoryData.image;
+      image = image.replace('{bbox}', this.bbox);
+      image = image.replace('{propertyCqlFilter}', `numero_do2='${this.property.register}'`);
       const vision = new Vision(
         landsatHistoryData.id,
         landsatHistoryData.title,

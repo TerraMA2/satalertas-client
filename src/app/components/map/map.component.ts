@@ -160,16 +160,26 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       this.markerInfo = this.createMarker(
         previousMarkerGroup.marker.title,
         previousMarkerGroup.marker.content,
-        previousMarkerGroup.marker.latLong
+        previousMarkerGroup.marker.latLong,
+        previousMarkerGroup.marker.link
       );
+      this.markerClusterGroup.eachLayer((marker: L.Marker) => {
+        if (marker.getLatLng().equals(this.markerInfo.getLatLng())) {
+          this.markerClusterGroup.removeLayer(marker);
+        }
+      });
+      this.markerClusterGroup.addLayer(this.markerInfo);
+
       this.markerInfo.addTo(this.map);
-      this.markerInfo.openPopup();
+      this.markerInfo.fire('click');
       localStorage.removeItem('markerGroupData');
     }
     if (localStorage.getItem('latLong') && localStorage.getItem('zoom')) {
       const previousZoom = JSON.parse(localStorage.getItem('zoom'));
       const previousLatLong = JSON.parse(localStorage.getItem('latLong'));
       this.panMap(previousLatLong, previousZoom);
+      localStorage.removeItem('zoom');
+      localStorage.removeItem('latLong');
     }
   }
 
@@ -207,13 +217,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         popup = popupTitle;
       }
 
-      const popupContent = this.getPopupContent(markerData, overlayName, popupTitle);
+      const popupContent = this.getPopupContent(markerData, overlayName);
 
-      const marker = this.createMarker(popup, popupContent, [markerData.lat, markerData.long]);
-
-      if (link) {
-        this.linkPopupService.register(marker, link, 'Relatório');
-      }
+      const marker = this.createMarker(popup, popupContent, [markerData.lat, markerData.long], link);
 
       if (marker) {
         this.markerClusterGroup.addLayer(marker);
@@ -225,19 +231,23 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.searchControl.options.layer = this.markerClusterGroup;
   }
 
-  createMarker(popupTitle, popupContent, latLong) {
+  createMarker(popupTitle, popupContent, latLong, link = '') {
     if (!popupContent) {
       return null;
     }
     const marker = L.marker(latLong, {title: popupTitle});
     marker.bindPopup(popupContent);
-    marker.on('popupopen', clickedMarker => {
-      this.markerGroupData.marker = {
-        title: popupTitle,
-        content: popupContent,
-        latLong
-      };
-    });
+    if (link) {
+      this.linkPopupService.register(marker, link, 'Relatório');
+      marker.on('popupopen', () => {
+        this.markerGroupData.marker = {
+          title: popupTitle,
+          content: popupContent,
+          latLong,
+          link
+        };
+      });
+    }
     return marker;
   }
 
@@ -624,12 +634,15 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     return popupContent;
   }
 
-  getPopupContent(data, name, linkKey = '') {
+  getPopupContent(data, name) {
     let popupContent = '';
     let popupContentBody = '';
     Object.keys(data).forEach(key => {
-      const link = `<a routerLink='/report/${data[key]}'>${data[key]}</a>`;
-      if (key !== 'lat' && key !== 'long' && key !== 'geom' && key !== 'intersection_geom') {
+      if (key !== 'lat' &&
+          key !== 'long' &&
+          key !== 'geom' &&
+          key !== 'intersection_geom'
+          ) {
         popupContentBody += `
             <tr>
               <td>${key}</td>

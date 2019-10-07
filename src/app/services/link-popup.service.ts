@@ -11,7 +11,8 @@ export class LinkPopupService {
 
   constructor(private cfr: ComponentFactoryResolver,
               private injector: Injector,
-              private appRef: ApplicationRef) { }
+              private appRef: ApplicationRef
+              ) { }
 
 
   register(marker: L.Marker, link: string, title: string): void  {
@@ -26,6 +27,8 @@ export class LinkPopupService {
     this.appRef.attachView(componentRef.hostView);
     const popup = marker.getPopup();
     const popupElement = popup.getElement();
-    popupElement.firstChild.firstChild.appendChild(componentRef.location.nativeElement);
+    if (popupElement) {
+      popupElement.firstChild.firstChild.appendChild(componentRef.location.nativeElement);
+    }
   }
 }
