@@ -94,6 +94,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.setLocalStorageData();
+  }
+
+  setLocalStorageData() {
     localStorage.setItem('selectedLayers', JSON.stringify(this.selectedLayers));
     localStorage.setItem('markerGroupData', JSON.stringify(this.markerGroupData));
     localStorage.setItem('zoom', JSON.stringify(this.map.getZoom()));
@@ -105,6 +109,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.setControls();
     this.setLayers();
     // this.sidebarService.sidebarOpenClose.next(true);
+    this.getLocalStorageData();
   }
 
   setMap() {
@@ -141,6 +146,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.overlay) {
       this.setOverlay();
     }
+  }
+
+  getLocalStorageData() {
     if (localStorage.getItem('selectedLayers')) {
       const previousLayers = JSON.parse(localStorage.getItem('selectedLayers'));
       previousLayers.forEach(layer => this.addLayer(layer));
@@ -149,13 +157,13 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     if (localStorage.getItem('markerGroupData')) {
       const previousMarkerGroup = JSON.parse(localStorage.getItem('markerGroupData'));
       this.setMarkers(previousMarkerGroup.data, previousMarkerGroup.title, previousMarkerGroup.overlayName);
-      const marker = this.createMarker(
+      this.markerInfo = this.createMarker(
         previousMarkerGroup.marker.title,
         previousMarkerGroup.marker.content,
         previousMarkerGroup.marker.latLong
       );
-      marker.addTo(this.map);
-      marker.openPopup();
+      this.markerInfo.addTo(this.map);
+      this.markerInfo.openPopup();
       localStorage.removeItem('markerGroupData');
     }
     if (localStorage.getItem('latLong') && localStorage.getItem('zoom')) {
@@ -184,6 +192,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setMarkers(data, popupTitle, overlayName) {
+    if (this.markerInfo) {
+      this.markerInfo.remove();
+    }
     this.markerGroupData = new MarkerGroup(popupTitle, overlayName, data);
     this.layerControl.removeLayer(this.markerClusterGroup);
     data.forEach(markerData => {
@@ -219,14 +230,14 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       return null;
     }
     const marker = L.marker(latLong, {title: popupTitle});
-    marker.on('popupopen', marker => {
+    marker.bindPopup(popupContent);
+    marker.on('popupopen', clickedMarker => {
       this.markerGroupData.marker = {
         title: popupTitle,
         content: popupContent,
         latLong
       };
     });
-    marker.bindPopup(popupContent);
     return marker;
   }
 
@@ -295,6 +306,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.sidebarService.sidebarItemUnselect.subscribe(itemUnselected => {
+      if (this.markerInfo) {
+        this.markerInfo.remove();
+      }
       if (itemUnselected instanceof Layer) {
         this.removeLayer(itemUnselected);
       }
@@ -323,6 +337,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.sidebarService.sidebarItemRadioUnselect.subscribe(layer => {
+      if (this.markerInfo) {
+        this.markerInfo.remove();
+      }
       this.markerClusterGroup.clearLayers();
     });
 
