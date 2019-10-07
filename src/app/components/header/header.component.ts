@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
 import { MessageService } from 'primeng/api';
+import {FilterService} from '../../services/filter.service';
 
 @Component({
   selector: 'app-header',
@@ -53,7 +54,8 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private configService: ConfigService,
     private authService: AuthService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private filterService: FilterService
   ) {}
 
   ngOnInit() {
@@ -165,5 +167,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   onFilterClick() {
     localStorage.setItem('dateFilter', JSON.stringify(this.dateInput));
     this.datePicker.overlayVisible = false;
+
+    this.filterService.filter.next();
   }
 }

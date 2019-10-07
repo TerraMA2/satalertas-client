@@ -62,9 +62,9 @@ export class TableComponent implements OnInit {
       }
     });
 
-    this.tableService.unloadTableData.subscribe(layer => {
+    this.tableService.unloadTableData.subscribe((layer: Layer) => {
       if (layer) {
-        const legendIndex = this.selectedLayers.findIndex(legend => legend.label === layer['label']);
+        const legendIndex = this.selectedLayers.findIndex(legend => legend.label === layer.label);
         this.selectedLayers.splice(legendIndex, 1);
         this.tableData = undefined;
         this.totalRecords = 0;
@@ -92,8 +92,10 @@ export class TableComponent implements OnInit {
     const count = true;
     const viewId = layer.value;
     const defaultDateInterval = layer.defaultDateInterval;
+    const date = JSON.parse(localStorage.getItem('dateFilter'));
+
     this.hTTPService
-      .get(url, {viewId, limit, offset, count, defaultDateInterval})
+      .get(url, {viewId, limit, offset, count, date})
       .subscribe(data => this.setData(data));
   }
 

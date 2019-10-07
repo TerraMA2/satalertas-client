@@ -1,3 +1,4 @@
+
 import { Component, OnInit, OnDestroy, Input, AfterViewInit } from '@angular/core';
 
 import * as L from 'leaflet';
@@ -21,6 +22,8 @@ import { LayerType } from 'src/app/enum/layer-type.enum';
 import { Layer } from 'src/app/models/layer.model';
 
 import { LayerGroup } from 'src/app/models/layer-group.model';
+import {FilterService} from '../../services/filter.service';
+import {LeafletMouseEvent} from 'leaflet';
 
 @Component({
   selector: 'app-map',
@@ -75,7 +78,8 @@ export class MapComponent implements OnInit, AfterViewInit {
     private hTTPService: HTTPService,
     private configService: ConfigService,
     private sidebarService: SidebarService,
-    private mapService: MapService
+    private mapService: MapService,
+    private filterService: FilterService
   ) { }
 
   ngOnInit() {
@@ -120,6 +124,53 @@ export class MapComponent implements OnInit, AfterViewInit {
       );
       this.map.fitBounds(bounds);
     }
+  }
+
+  // Leaflet controls
+  setControls() {
+    if (this.displayLayerControl) {
+      this.setLayerControl();
+    }
+
+    if (this.displayFullscreenControl) {
+      this.setFullScreenControl();
+    }
+
+    if (this.displayScaleControl) {
+      this.setScaleControl();
+    }
+
+    if (this.displayFilterControl) {
+      this.setFilterControl();
+    }
+
+    if (this.displayLegendControl) {
+      this.setLegendControl();
+    }
+
+    if (this.displayTableControl) {
+      this.setTableControl();
+    }
+
+    if (this.displaySearchControl) {
+      this.setSearchControl();
+    }
+
+    if (this.displayInfoControl) {
+      this.setInfoControl();
+    }
+
+    if (this.displayRestoreMapControl) {
+      this.setRestoreMapControl();
+    }
+
+    // if (this.displayLayersControl) {
+    //   this.setLayersControl();
+    // }
+
+    this.setTimeDimension();
+
+    this.setMarkersGroup();
   }
 
   setLayers() {
@@ -178,59 +229,16 @@ export class MapComponent implements OnInit, AfterViewInit {
     return marker;
   }
 
-  // Leaflet controls
-
-  setControls() {
-    if (this.displayLayerControl) {
-      this.setLayerControl();
-    }
-
-    if (this.displayFullscreenControl) {
-      this.setFullScreenControl();
-    }
-
-    if (this.displayScaleControl) {
-      this.setScaleControl();
-    }
-
-    if (this.displayFilterControl) {
-      this.setFilterControl();
-    }
-
-    if (this.displayLegendControl) {
-      this.setLegendControl();
-    }
-
-    if (this.displayTableControl) {
-      this.setTableControl();
-    }
-
-    if (this.displaySearchControl) {
-      this.setSearchControl();
-    }
-
-    if (this.displayInfoControl) {
-      this.setInfoControl();
-    }
-
-    if (this.displayRestoreMapControl) {
-      this.setRestoreMapControl();
-    }
-
-    // if (this.displayLayersControl) {
-    //   this.setLayersControl();
-    // }
-
-    this.setTimeDimension();
-
-    this.setMarkersGroup();
-  }
-
   setMarkersGroup() {
     this.markerClusterGroup = L.markerClusterGroup({chunkedLoading: true, spiderfyOnMaxZoom: true});
   }
 
   setOverlayEvents() {
+    this.filterService.filter.subscribe(filter => {
+      this.clearLayers();
+      this.updateLayers();
+    });
+
     this.sidebarService.sidebarItemSelect.subscribe(itemSelected => {
       if (itemSelected instanceof Layer) {
         this.addLayer(itemSelected);
@@ -264,8 +272,11 @@ export class MapComponent implements OnInit, AfterViewInit {
       }
       const viewId = layer.value;
       const defaultDateInterval = layer.defaultDateInterval;
-      await this.hTTPService.get(url, {viewId, defaultDateInterval})
-                            .subscribe(data => this.setMarkers(data, null, layer.label));
+
+      const date = JSON.parse(localStorage.getItem('dateFilter'));
+
+      await this.hTTPService.get(url, {viewId, date})
+      .subscribe(data => this.setMarkers(data, null, layer.label));
     });
 
     this.sidebarService.sidebarItemRadioUnselect.subscribe(layer => {
@@ -290,20 +301,18 @@ export class MapComponent implements OnInit, AfterViewInit {
       console.log('ResetLayers: ');
       this.map.eachLayer((layer: L.TileLayer.WMS) => {
         if (layer.options.layers === draggedItemFrom.layerData.layers) {
-          console.log('ResetLayers zindex dragged from ('+ draggedItemFrom.label +'): Before:' + layer.options.zIndex + ' After:' + draggedItemFromIndex);
           layer.setZIndex(draggedItemFromIndex);
         }
         if (layer.options.layers === draggedItemTo.layerData.layers) {
-          console.log('ResetLayers zindex dragged to ('+ draggedItemTo.label +'): Before:' + layer.options.zIndex + ' After:' + draggedItemToIndex);
           layer.setZIndex(draggedItemToIndex);
           lastDraggedItem = layer;
         }
       });
       this.map.eachLayer((layer: L.TileLayer.WMS) => {
         if ('wmsParams' in layer
-            && layer.wmsParams.layers !== lastDraggedItem.wmsParams.layers
-            && layer.options.zIndex >= draggedItemToIndex) {
-              layer.setZIndex((layer.options.zIndex + 1));
+          && layer.wmsParams.layers !== lastDraggedItem.wmsParams.layers
+          && layer.options.zIndex >= draggedItemToIndex) {
+          layer.setZIndex((layer.options.zIndex + 1));
         }
       });
     });
@@ -312,15 +321,12 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   setCqlFilter(layer) {
     if (layer.defaultDateInterval) {
-      const days = layer.defaultDateInterval * 86400000;
+      // const days = layer.defaultDateInterval * 86400000;
       const dateColumn = layer.dateColumn;
 
-      const date = new Date();
-      const compareDate = new Date((date.getTime() - days));
+      const currentDateInput = JSON.parse(localStorage.getItem('dateFilter'));
 
-      const compareDateStr = `${compareDate.getFullYear()}-${compareDate.getMonth() + 1}-${compareDate.getDate()} ${compareDate.getHours()}:${compareDate.getMinutes()}:${compareDate.getSeconds()}`;
-
-      const cqlFilter = `${dateColumn} > '${compareDateStr}'`;
+      const cqlFilter = `${dateColumn}>'${currentDateInput[0]}'&&${dateColumn}<'${currentDateInput[1]}'`;
 
       layer.layerData.cql_filter = cqlFilter;
     }
@@ -488,7 +494,7 @@ export class MapComponent implements OnInit, AfterViewInit {
         document.querySelector('#infoBtn').classList.add('leaflet-custom-icon-selected');
         document.querySelector('#map').classList.remove('cursor-grab');
         document.querySelector('#map').classList.add('cursor-help');
-        this.map.on('click', (event: MouseEvent) => this.getFeatureInfo(event));
+        this.map.on('click', (event: LeafletMouseEvent) => this.getFeatureInfo(event));
       } else {
         this.displayInfo = false;
         document.querySelector('#infoBtn').classList.remove('leaflet-custom-icon-selected');
@@ -499,7 +505,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     });
   }
 
-  async getFeatureInfo(event: MouseEvent) {
+  async getFeatureInfo(event: LeafletMouseEvent) {
     let popupTitle = '';
     let latLong;
     let popupContent = `<div class="popup-container">`;
@@ -508,13 +514,13 @@ export class MapComponent implements OnInit, AfterViewInit {
       const layerName = selectedLayer.label;
       popupTitle = layerName;
 
-      latLong = event['latlng'];
+      latLong = event.latlng;
 
       const params = this.getFeatureInfoParams(layer, event);
 
       const url = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms`;
       await this.hTTPService.get(url, params).toPromise().then(info => {
-        const features = info['features'];
+        const features = info.features;
         popupContent += this.getFeatureInfoPopup(layerName, features);
       });
     }
@@ -527,9 +533,9 @@ export class MapComponent implements OnInit, AfterViewInit {
     }
   }
 
-  getFeatureInfoParams(layer: L.TileLayer.WMS, event: MouseEvent) {
+  getFeatureInfoParams(layer: L.TileLayer.WMS, event: LeafletMouseEvent) {
     const layerId = layer.wmsParams.layers;
-    const layerPoint = this.map.layerPointToContainerPoint(event['layerPoint']);
+    const layerPoint = this.map.layerPointToContainerPoint(event.layerPoint);
     const bbox = this.map.getBounds().toBBoxString();
     const mapSize = this.map.getSize();
     const width = mapSize.x;
@@ -555,7 +561,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   getFeatureInfoPopup(layerName: string, features: []) {
     let popupContent = '';
     features.forEach(feature => {
-      const properties = feature['properties'];
+      const properties = feature.properties;
       popupContent = this.getPopupContent(properties, layerName);
     });
     return popupContent;
@@ -608,7 +614,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     const initialZoom = this.mapConfig.initialZoom;
 
     document.querySelector('#restoreMapBtn')
-            .addEventListener('click', () => this.panMap(initialLatLong, initialZoom));
+    .addEventListener('click', () => this.panMap(initialLatLong, initialZoom));
   }
 
   setLayersControl() {
@@ -640,6 +646,18 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   onHideTable() {
     this.displayTable = false;
+  }
+
+  clearLayers() {
+    this.selectedLayers.forEach(layer => {
+      this.removeLayer(layer);
+    });
+  }
+
+  updateLayers() {
+    this.selectedLayers.forEach(layer => {
+      this.addLayer(layer);
+    });
   }
 
 }
