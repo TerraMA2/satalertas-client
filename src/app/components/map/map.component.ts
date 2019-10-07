@@ -110,6 +110,7 @@ export class MapComponent implements OnInit, AfterViewInit {
       tooltipAnchor: [16, -28],
       shadowSize: [41, 41]
     });
+
     const bBox = this.bBox;
     if (bBox) {
       const bboxArray = bBox.split(',');
