@@ -29,6 +29,8 @@ export class TableComponent implements OnInit {
 
   selectedLayer: Layer;
 
+  selectedLayerValue: number;
+
   loading = false;
 
   totalRecords = 0;
@@ -59,11 +61,14 @@ export class TableComponent implements OnInit {
       if (layer) {
         const layerIndex = this.selectedLayers.findIndex(selectedLayer => selectedLayer.label === layer['label']);
         this.selectedLayers.splice(layerIndex, 1);
-        this.selectedLayer = undefined;
-        this.selectedColumns = undefined;
-        this.selectedRowsPerPage = 10;
-        this.tableData = undefined;
-        this.totalRecords = 0;
+        if (layer.value === this.selectedLayerValue) {
+          this.selectedLayer = undefined;
+          this.selectedLayerValue = 0;
+          this.tableData = undefined;
+          this.selectedColumns = undefined;
+          this.selectedRowsPerPage = 10;
+          this.totalRecords = 0;
+        }
       }
     });
 

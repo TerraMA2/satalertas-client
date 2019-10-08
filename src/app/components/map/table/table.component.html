@@ -46,7 +46,7 @@
 
                     <p-dropdown #selectedLayersDropdown
                         [(options)]="selectedLayers"
-                        [(ngModel)]="selectedLayer"
+                        [(ngModel)]="selectedLayerValue"
                         [style]="{minWidth: '300px'}"
                         placeholder="Layers"
                         (onChange)="onSelectedLayerChange(selectedLayersDropdown)">
