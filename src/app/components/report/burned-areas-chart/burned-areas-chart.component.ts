@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-burned-areas-chart',
@@ -7,9 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BurnedAreasChartComponent implements OnInit {
 
+  @Input() burnedAreasChartData;
+
+  @Input() burnedAreasPerPropertyChartDatas;
+
+  options;
+
   constructor() { }
 
   ngOnInit() {
+    this.options = {
+      title: {
+          display: false
+      }
+    };
   }
 
 }

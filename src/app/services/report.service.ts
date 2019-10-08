@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 
+import { Property } from '../models/property.model';
+
 import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TableService {
+export class ReportService {
 
-  loadTableData = new Subject<object>();
-
-  unloadTableData = new Subject<object>();
+  property = new Subject<Property>();
 
   constructor() { }
 }

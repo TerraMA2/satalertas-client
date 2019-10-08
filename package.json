@@ -31,6 +31,7 @@
     "leaflet-timedimension": "^1.1.0",
     "leaflet.fullscreen": "^1.6.0",
     "leaflet.markercluster": "^1.4.1",
+    "ngx-print": "^1.2.0-beta.3",
     "primeflex": "^1.0.0-rc.1",
     "primeicons": "^2.0.0",
     "primeng": "^8.0.3",

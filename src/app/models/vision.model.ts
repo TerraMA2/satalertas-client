@@ -6,6 +6,7 @@ export class Vision {
     public title: string,
     public image?: string,
     public description?: string,
-    public layerData?: LayerData
+    public layerData?: LayerData,
+    public carRegisterColumn?: string
   ) {}
 }

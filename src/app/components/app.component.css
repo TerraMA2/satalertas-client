@@ -31,3 +31,7 @@
   width: 0;
   visibility: hidden;
 }
+
+:host ::ng-deep main {
+  height: calc(100vh - 50px);
+}

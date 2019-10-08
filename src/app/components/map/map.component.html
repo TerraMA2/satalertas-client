@@ -13,9 +13,10 @@
 
 </p-sidebar>
 
-<app-layers [(selectedLayers)]="selectedLayers"
-            [(displayLayers)]="displayLayers">
-</app-layers>
+<app-visible-layers [(selectedLayers)]="selectedLayers"
+                    [(displayVisibleLayers)]="displayVisibleLayers"
+                    [displayControls]="false">
+</app-visible-layers>
 
 <app-filter [(displayFilter)]="displayFilter">
 </app-filter>

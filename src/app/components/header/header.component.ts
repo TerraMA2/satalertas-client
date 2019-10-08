@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, OnDestroy, AfterViewInit } from '@angular/core';
 
 import { ConfigService } from '../../services/config.service';
 
@@ -7,6 +7,8 @@ import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
 import { MessageService } from 'primeng/api';
+
+import { SidebarService } from 'src/app/services/sidebar.service';
 
 @Component({
   selector: 'app-header',
@@ -43,7 +45,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     private configService: ConfigService,
     private authService: AuthService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private sidebarService: SidebarService
   ) {}
 
   ngOnInit() {
@@ -54,6 +57,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.headerLogoLink = this.appConfig.headerLogoLink;
     this.hasLogin = this.appConfig.hasLogin;
 
+    // this.sidebarService.sidebarOpenClose.subscribe(show => this.showHideSidebar(show));
+
     // this.languages = this.configService.getConfig('languages');
 
     this.userSub = this.authService.user.subscribe(user => {
@@ -62,10 +67,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.loggedUserName = user.username;
       }
     });
+
   }
 
-  showHideSidebar() {
-    this.displaySidebar = !this.displaySidebar;
+  showHideSidebar(show = null) {
+    if (show) {
+      this.displaySidebar = show;
+    } else {
+      this.displaySidebar = !this.displaySidebar;
+    }
     this.showHideSidebarClicked.emit(this.displaySidebar);
   }
 

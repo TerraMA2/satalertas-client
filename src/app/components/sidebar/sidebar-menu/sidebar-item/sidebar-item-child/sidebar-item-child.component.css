@@ -28,3 +28,8 @@
 .sidebar-item-switch {
     flex-grow: 0;
 }
+
+.sidebar-item-margin {
+    margin-left: 15px;
+    font-size: 90%;
+}

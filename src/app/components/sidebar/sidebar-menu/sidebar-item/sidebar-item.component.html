@@ -33,8 +33,6 @@
     [ngClass]="{show: isParentOpened, hide: !isParentOpened}">
 
     <app-sidebar-item-child class="sidebar-item-body p-dir-col p-align-stretch"
-        pDraggable="sbItem"
-        pDroppable="sbItem"
         *ngFor="let child of childrenItems"
         [child]="child"
         [parentSwitchChecked]="parentSwitchChecked"
