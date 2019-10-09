@@ -67,9 +67,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     this.appConfig = this.configService.getConfig('app');
     this.mainApplication = this.appConfig.mainApplication;
+    this.headerLogoLink = this.appConfig.headerLogoLink;
     this.headerTitle = this.appConfig.headerTitle;
     this.headerLogo = this.appConfig.headerLogo;
-    this.headerLogoLink = this.appConfig.headerLogoLink;
     this.hasLogin = this.appConfig.hasLogin;
 
     // this.sidebarService.sidebarOpenClose.subscribe(show => this.showHideSidebar(show));
@@ -104,6 +104,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.dateInput = [new Date(currentDateInput[0]), new Date(currentDateInput[1])];
     } else {
       this.dateInput = [firstDate, currentDate];
+      localStorage.setItem('dateFilter', JSON.stringify(this.dateInput));
     }
   }
 
