@@ -168,6 +168,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     localStorage.setItem('dateFilter', JSON.stringify(this.dateInput));
     this.datePicker.overlayVisible = false;
 
-    this.filterService.filter.next();
+    this.filterService.filterMap.next();
+    this.filterService.filterTable.next();
   }
 }

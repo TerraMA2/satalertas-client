@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 
 import { LazyLoadEvent } from 'primeng/api';
 
@@ -10,7 +10,10 @@ import { TableService } from 'src/app/services/table.service';
 
 import { LayerType } from 'src/app/enum/layer-type.enum';
 
-import { Layer } from 'src/app/models/layer.model';
+import { FilterService } from 'src/app/services/filter.service';
+
+import {Layer} from '../../../models/layer.model';
+
 
 @Component({
   selector: 'app-table',
@@ -25,7 +28,7 @@ export class TableComponent implements OnInit {
 
   @Input() selectedColumns: any[] = [];
 
-  @Input() selectedLayers: Layer[] = [];
+  @Input() selectedLayers = [];
 
   selectedLayer: Layer;
 
@@ -42,19 +45,20 @@ export class TableComponent implements OnInit {
   constructor(
     private hTTPService: HTTPService,
     private configService: ConfigService,
-    private tableService: TableService
+    private tableService: TableService,
+    private filterService: FilterService
   ) { }
 
   ngOnInit() {
     this.tableConfig = this.configService.getConfig('map').table;
 
     this.tableService.loadFilterData.subscribe(filteredData => {
-      // this.loading = true;
-      // this.selectedLayer = new Layer('Data filtrada', null);
-      // this.setData(filteredData);
+      this.loading = true;
+
+      this.setData(filteredData);
     });
 
-    this.tableService.loadTableData.subscribe((layer: Layer) => {
+    this.tableService.loadTableData.subscribe(layer => {
       if (layer) {
         this.selectedLayer = layer;
         this.loading = true;
@@ -62,9 +66,9 @@ export class TableComponent implements OnInit {
       }
     });
 
-    this.tableService.unloadTableData.subscribe((layer: Layer) => {
+    this.tableService.unloadTableData.subscribe(layer => {
       if (layer) {
-        const legendIndex = this.selectedLayers.findIndex(legend => legend.label === layer.label);
+        const legendIndex = this.selectedLayers.findIndex(selectLayer => selectLayer.label === layer.label);
         this.selectedLayers.splice(legendIndex, 1);
         this.tableData = undefined;
         this.totalRecords = 0;
@@ -74,9 +78,14 @@ export class TableComponent implements OnInit {
     });
 
     this.rowsPerPage = this.tableConfig.rowsPerPage;
+
+
+    this.filterService.filterTable.subscribe(filter => {
+      this.tableService.loadTableData.next(this.selectedLayer);
+    });
   }
 
-  loadTableData(layer: Layer, limit: number, offset: number) {
+  loadTableData(layer, limit: number, offset: number) {
     if (!layer) {
       return;
     }
@@ -91,12 +100,11 @@ export class TableComponent implements OnInit {
     }
     const count = true;
     const viewId = layer.value;
-    const defaultDateInterval = layer.defaultDateInterval;
     const date = JSON.parse(localStorage.getItem('dateFilter'));
 
     this.hTTPService
-      .get(url, {viewId, limit, offset, count, date})
-      .subscribe(data => this.setData(data));
+    .get(url, {viewId, limit, offset, count, date})
+    .subscribe(data => this.setData(data));
   }
 
   setData(data) {

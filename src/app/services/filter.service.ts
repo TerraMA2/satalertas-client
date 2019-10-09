@@ -7,7 +7,8 @@ import {Layer} from '../models/layer.model';
 })
 export class FilterService {
 
-  filter = new Subject<Layer>();
+  filterMap = new Subject();
+  filterTable = new Subject();
 
   constructor() { }
 }

@@ -15,6 +15,7 @@ export class Layer {
     public isPrimary: boolean,
     public layerData: LayerData,
     public legend: Legend,
-    public tools?: Tool[]
+    public tools?: Tool[],
+    public markerSelected?: boolean
   ) {}
 }

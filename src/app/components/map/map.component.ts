@@ -22,14 +22,17 @@ import { LayerType } from 'src/app/enum/layer-type.enum';
 import { Layer } from 'src/app/models/layer.model';
 
 import { LayerGroup } from 'src/app/models/layer-group.model';
-import {FilterService} from '../../services/filter.service';
-import {LeafletMouseEvent} from 'leaflet';
+
+import { FilterService } from '../../services/filter.service';
+
+import { LeafletMouseEvent } from 'leaflet';
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
+
 export class MapComponent implements OnInit, AfterViewInit {
 
   private map: L.Map;
@@ -234,52 +237,39 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   setOverlayEvents() {
-    this.filterService.filter.subscribe(filter => {
+    this.filterService.filterMap.subscribe(() => {
       this.clearLayers();
       this.updateLayers();
     });
 
     this.sidebarService.sidebarItemSelect.subscribe(itemSelected => {
       if (itemSelected instanceof Layer) {
-        this.addLayer(itemSelected);
+        this.addLayer(itemSelected, true);
       }
       if (itemSelected instanceof LayerGroup) {
         const children = itemSelected.children;
         this.selectedLayers = this.selectedLayers.filter(selectedLayer => 'parent' in selectedLayer);
-        children.forEach(child => this.addLayer(child));
+        children.forEach(child => this.addLayer(child, true));
       }
     });
 
     this.sidebarService.sidebarItemUnselect.subscribe(itemUnselected => {
       if (itemUnselected instanceof Layer) {
-        this.removeLayer(itemUnselected);
+        this.removeLayer(itemUnselected, true);
       }
       if (itemUnselected instanceof LayerGroup) {
         const children = itemUnselected.children;
-        children.forEach(child => this.removeLayer(child));
+        children.forEach(child => this.removeLayer(child, true));
       }
     });
 
-    this.sidebarService.sidebarItemRadioSelect.subscribe(async layer => {
-      const appConfig = this.configService.getConfig('app');
-      let url = '';
-      if (layer.type === LayerType.ANALYSIS) {
-        url = appConfig.analysisLayerUrl;
-      } else if (layer.type === LayerType.STATIC) {
-        url = appConfig.staticLayerUrl;
-      } else if (layer.type === LayerType.DYNAMIC) {
-        url = appConfig.dynamicLayerUrl;
-      }
-      const viewId = layer.value;
-      const defaultDateInterval = layer.defaultDateInterval;
-
-      const date = JSON.parse(localStorage.getItem('dateFilter'));
-
-      await this.hTTPService.get(url, {viewId, date})
-      .subscribe(data => this.setMarkers(data, null, layer.label));
+    this.sidebarService.sidebarItemRadioSelect.subscribe(async (layer: Layer) => {
+      layer.markerSelected = true;
+      this.updateMarkers(layer);
     });
 
     this.sidebarService.sidebarItemRadioUnselect.subscribe(layer => {
+      layer.markerSelected = false;
       this.markerClusterGroup.clearLayers();
     });
 
@@ -298,7 +288,6 @@ export class MapComponent implements OnInit, AfterViewInit {
 
       let lastDraggedItem;
 
-      console.log('ResetLayers: ');
       this.map.eachLayer((layer: L.TileLayer.WMS) => {
         if (layer.options.layers === draggedItemFrom.layerData.layers) {
           layer.setZIndex(draggedItemFromIndex);
@@ -319,6 +308,25 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   }
 
+  async updateLayer(layer: Layer) {
+    const appConfig = this.configService.getConfig('app');
+    let url = '';
+    if (layer.type === LayerType.ANALYSIS) {
+      url = appConfig.analysisLayerUrl;
+    } else if (layer.type === LayerType.STATIC) {
+      url = appConfig.staticLayerUrl;
+    } else if (layer.type === LayerType.DYNAMIC) {
+      url = appConfig.dynamicLayerUrl;
+    }
+    const viewId = layer.value;
+    const defaultDateInterval = layer.defaultDateInterval;
+
+    const date = JSON.parse(localStorage.getItem('dateFilter'));
+
+    await this.hTTPService.get(url, {viewId, date})
+    .subscribe(data => this.setMarkers(data, null, layer.label));
+  }
+
   setCqlFilter(layer) {
     if (layer.defaultDateInterval) {
       // const days = layer.defaultDateInterval * 86400000;
@@ -333,38 +341,42 @@ export class MapComponent implements OnInit, AfterViewInit {
     return layer;
   }
 
-  addLayer(layer) {
+  addLayer(layer, addLayer) {
     if (layer && layer.layerData) {
-      console.log('Added: ');
       const layerIndex = this.selectedLayers.findIndex(selectedLayer => selectedLayer.label === layer.label);
-      if (layerIndex === -1) {
-        this.selectedLayers.push(layer);
+      if ((layerIndex === -1) || !addLayer) {
+        if (addLayer) {
+          this.selectedLayers.push(layer);
+        }
         layer = this.setCqlFilter(layer);
         const layerToAdd = this.getLayer(layer.layerData);
         layerToAdd.setZIndex(1000 + (this.selectedLayers.length));
-        // console.log(`Added zindex (${layer.label}): ` + (1000 + this.selectedLayers.length));
         layerToAdd.addTo(this.map);
         // layerToAdd.bringToFront();
       }
     }
   }
 
-  removeLayer(layer) {
+  removeLayer(layer, deselectLayer) {
+
     if (layer) {
-      console.log('Removed: ');
       const layerData = layer.layerData;
       let zindex;
+      if (deselectLayer) {
+        this.selectedLayers.splice(this.selectedLayers.findIndex(selectedLayer => selectedLayer.value === layer.value), 1);
+      }
       this.map.eachLayer((mapLayer: L.TileLayer.WMS) => {
+
         if (mapLayer.options.layers === layerData.layers) {
           zindex = mapLayer.options.zIndex;
-          // console.log('Removed Zindex: ' + zindex);
-          mapLayer.removeFrom(this.map);
+          mapLayer.remove();
         }
+
         if (mapLayer.options.zIndex > zindex) {
-          // console.log('Removed Zindex seguintes: ' + mapLayer.options.zIndex);
           mapLayer.setZIndex((mapLayer.options.zIndex - 1));
         }
       });
+
     }
   }
 
@@ -381,7 +393,6 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   // Map controls
-
   setTimeDimension() {
   }
 
@@ -520,7 +531,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 
       const url = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms`;
       await this.hTTPService.get(url, params).toPromise().then(info => {
-        const features = info.features;
+        const features = info['features'];
         popupContent += this.getFeatureInfoPopup(layerName, features);
       });
     }
@@ -561,7 +572,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   getFeatureInfoPopup(layerName: string, features: []) {
     let popupContent = '';
     features.forEach(feature => {
-      const properties = feature.properties;
+      const properties = feature['properties'];
       popupContent = this.getPopupContent(properties, layerName);
     });
     return popupContent;
@@ -639,7 +650,6 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   // Events
-
   onShowTable() {
     this.displayTable = true;
   }
@@ -650,14 +660,37 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   clearLayers() {
     this.selectedLayers.forEach(layer => {
-      this.removeLayer(layer);
+      this.removeLayer(layer, false);
     });
+
   }
 
   updateLayers() {
     this.selectedLayers.forEach(layer => {
-      this.addLayer(layer);
+      if (layer.markerSelected) {
+        this.updateMarkers(layer);
+      }
+
+      this.addLayer(layer, false);
     });
   }
 
+  private async updateMarkers(layer: Layer) {
+    const appConfig = this.configService.getConfig('app');
+    let url = '';
+    if (layer.type === LayerType.ANALYSIS) {
+      url = appConfig.analysisLayerUrl;
+    } else if (layer.type === LayerType.STATIC) {
+      url = appConfig.staticLayerUrl;
+    } else if (layer.type === LayerType.DYNAMIC) {
+      url = appConfig.dynamicLayerUrl;
+    }
+    const viewId = layer.value;
+    const defaultDateInterval = layer.defaultDateInterval;
+
+    const date = JSON.parse(localStorage.getItem('dateFilter'));
+
+    await this.hTTPService.get(url, {viewId, date})
+    .subscribe(data => this.setMarkers(data, null, layer.label));
+  }
 }
