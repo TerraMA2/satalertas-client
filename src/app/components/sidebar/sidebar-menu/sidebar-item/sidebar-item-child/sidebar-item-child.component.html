@@ -1,8 +1,9 @@
-<div class="sidebar-item-content">
+<div class="sidebar-item-content"
+      [ngClass]="{'sidebar-item-margin': child.type === 'analysis' && !child.isPrimary}">
     <div class="sidebar-item-label"
         (click)="onChildClicked()">
 
-      <a>{{ child.label }}</a>
+      <a>{{ child.shortLabel }}</a>
 
     </div>
 
@@ -28,7 +29,7 @@
     </div>
 </div>
 
-<div *ngIf="child.tools"
+<div *ngIf="child.tools && displayControls"
     class="sidebar-item-tools"
     [ngClass]="{'show': isToolsOpened && isParentOpened, 'hide': !isToolsOpened || !isParentOpened}">
 

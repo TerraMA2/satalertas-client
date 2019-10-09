@@ -1,13 +1,8 @@
 <div class="p-grid p-nogutter">
-    <div class="p-col-12 p-col-nogutter mb-5">
+    <div class="p-col-4">
+        <p-chart type="bar" [data]="burnedAreasChartData" [options]="options" height="400px"></p-chart>
     </div>
-    <div class="p-col-12 p-col-nogutter p-col-md-4 p-0">
-        <div id="area-pie-chart1" class="chart" style="position: relative;"></div>
-    </div>
-    <div class="p-col-12 p-col-nogutter p-col-md-4 p-0">
-        <div id="area-pie-chart2" class="chart" style="position: relative;"></div>
-    </div>
-    <div class="p-col-12 p-col-nogutter p-col-md-4 p-0">
-        <div id="area-pie-chart3" class="chart" style="position: relative;"></div>
+    <div class="p-col-4 p-md-4" *ngFor="let chartData of burnedAreasPerPropertyChartDatas">
+        <p-chart type="pie" [data]="chartData" [options]="options" height="400px"></p-chart>
     </div>
 </div>

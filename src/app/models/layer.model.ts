@@ -7,6 +7,7 @@ import { Tool } from './tool.model';
 export class Layer {
   constructor(
     public label: string,
+    public shortLabel: string,
     public value: number,
     public defaultDateInterval: string,
     public dateColumn: string,
@@ -15,6 +16,7 @@ export class Layer {
     public isPrimary: boolean,
     public layerData: LayerData,
     public legend: Legend,
+    public popupTitle: string,
     public tools?: Tool[],
     public markerSelected?: boolean
   ) {}

@@ -47,6 +47,7 @@ export class SidebarComponent implements OnInit {
         sidebarItem.children.forEach(sidebarItemChild => {
           const layer = new Layer(
             sidebarItemChild.label,
+            sidebarItemChild.shortLabel,
             sidebarItemChild.value,
             sidebarItemChild.defaultDateInterval,
             sidebarItemChild.dateColumn,
@@ -55,6 +56,7 @@ export class SidebarComponent implements OnInit {
             sidebarItemChild.isPrimary,
             sidebarItemChild.layerData,
             sidebarItemChild.legend,
+            sidebarItemChild.popupTitle,
             sidebarItemChild.tools
           );
           layerChildren.push(layer);

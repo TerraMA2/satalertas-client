@@ -1,53 +1,26 @@
+*,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
 html {
-  font-family: "Open Sans", "Helvetica Neue", sans-serif;
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 body {
+  margin: 0;
   padding: 0;
   overflow: hidden;
-}
-
-main {
-  height: calc(100vh - 50px);
-}
-
-.leaflet-custom-icon-selected {
-  background-color: #c0c0c0;
-}
-
-.leaflet-custom-icon {
-  padding: 8px 10px 7px 8px;
-}
-
-.leaflet-custom-icon a {
-  color: #000;
-}
-
-.leaflet-custom-icon:hover {
-  cursor: pointer;
-  background-color: #f4f4f4;
-}
-
-.leaflet-legend {
-  font-size: 12px;
-  padding: 8px 9px 7px 8px;
-}
-
-.leaflet-info {
-  font-size: 13px;
-  padding: 6px 13px 6px 12px;
-}
-
-.sidebar.hide-sidebar > * {
-  display: none;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  text-align: left;
+  background-color: #fff;
 }
 
 .width-100 {
@@ -66,56 +39,6 @@ main {
   text-align: center;
 }
 
-.filter-dialog {
-  width: 300px
-}
-
-.sidebar-item-body {
-  display: flex;
-  justify-content: space-between;
-  cursor: pointer;
-  padding: 5px 10px;
-  background-color: #fff;
-  transition: background-color 500ms ease-in-out
-}
-
-.sidebar-item-body:hover {
-  background-color: #eee;
-}
-
-.sidebar-item-body.active {
-  background-color: #591111;
-  color: #fff;
-}
-
-.sidebar-item-body.active:hover {
-  background-color: #591111;
-  color: #fff;
-}
-
-.sidebar-item-body.active a,
-.sidebar-item-body.active i {
-  color: #fff;
-}
-
-.sidebar-item-body.active:hover a,
-.sidebar-item-body.active:hover i {
-  color: #eee;
-}
-
-.sidebar-item-body a,
-.sidebar-item-body .sidebar-item-arrow {
-  margin-left: 5px;
-  color: #5f5f5f;
-  font-weight: bold;
-  text-decoration: none;
-}
-
-.sidebar-item-body:hover a,
-.sidebar-item-body:hover i {
-  color: #591111;
-}
-
 .cursor-pointer {
   cursor: pointer !important;
 }
@@ -130,45 +53,6 @@ main {
 
 .no-padding {
   padding: 0 !important;
-}
-
-.popup-container {
-  overflow: auto;
-  max-height: 250px;
-  width: 300px;
-}
-
-.table-responsive {
-  display: block;
-  width: 100%;
-  overflow-x: auto;
-}
-
-.table {
-  width: 100%;
-  color: #212529;
-}
-
-.table-hover tbody tr:hover {
-  color: #212529;
-  background-color: rgba(0, 0, 0, 0.075);
-}
-
-.table th,
-.table td {
-  padding: 0.75rem;
-  border-top: 1px solid #dee2e6;
-}
-
-.table thead th {
-  border-bottom: 2px solid #dee2e6;
-  color: #fff;
-  background-color: #591111;
-  border-color: #591111;
-}
-
-.table tbody + tbody {
-  border-top: 2px solid #dee2e6;
 }
 
 .hr {

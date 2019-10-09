@@ -3,14 +3,14 @@
     <hr>
     <div class="p-grid">
         <div *ngFor="let burnedArea of burnedAreas"
-                class="p-col-12 p-md-4">
+                class="p-col-4 p-md-4">
             <div class="card">
                 <p-card styleClass="ui-card-shadow">
                     <p-header class="card-header">
                         <span>{{ burnedArea.title }}</span>
                     </p-header>
-                    <!-- <img src="vision.image" class="map img-fluid" /> -->
-                    <app-map [displayZoomControl]="false"
+                    <img src="{{burnedArea.image}}" class="map img-fluid" />
+                    <!-- <app-map [displayZoomControl]="false"
                             [displayScaleControl]="false"
                             [displayFullscreenControl]="false"
                             [displayInfoControl]="false"
@@ -20,7 +20,7 @@
                             [displaySearchControl]="false"
                             [displayFilterControl]="false"
                             [displayRestoreMapControl]="false"
-                            [displayLayersControl]="false"
+                            [displayVisibleLayersControl]="false"
                             [attributionControl]="false"
                             [zoomControl]="false"
                             [dragging]="false"
@@ -28,11 +28,11 @@
                             [boxZoom]="false"
                             [scrollWheelZoom]="false"
                             [doubleClickZoom]="false"
-                            [bBox]="property.bbox"
+                            [initialLatLong]="property.latLong"
                             [overlay]="burnedArea.layerData"
                             [height]="'330px'"
                             [mapId]="burnedArea.id">
-                    </app-map>
+                    </app-map> -->
                     <p-footer *ngIf="burnedArea.description" class="card-footer">
                         {{ burnedArea.description }}
                     </p-footer>

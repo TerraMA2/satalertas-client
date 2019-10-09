@@ -51,7 +51,6 @@ export class SidebarItemComponent implements OnInit {
     this.childrenItems.forEach(child => {
       if (event.checked === true) {
         this.sidebarService.sidebarItemSelect.next(child);
-        this.tableService.loadTableData.next(child);
       } else if (event.checked === false) {
         this.sidebarService.sidebarItemUnselect.next(child);
         this.tableService.unloadTableData.next(child);

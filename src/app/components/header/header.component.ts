@@ -1,4 +1,5 @@
-import {Component, OnInit, EventEmitter, Output, OnDestroy, ViewChild, AfterViewInit} from '@angular/core';
+
+import { Component, OnInit, EventEmitter, Output, OnDestroy, ViewChild } from '@angular/core';
 
 import { ConfigService } from '../../services/config.service';
 
@@ -9,12 +10,14 @@ import { AuthService } from 'src/app/services/auth.service';
 import { MessageService } from 'primeng/api';
 import {FilterService} from '../../services/filter.service';
 
+import { SidebarService } from 'src/app/services/sidebar.service';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
+export class HeaderComponent implements OnInit, OnDestroy {
 
   @Output() showHideSidebarClicked = new EventEmitter<boolean>();
   @ViewChild('dataFilter', {static: true}) datePicker;
@@ -55,7 +58,8 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     private configService: ConfigService,
     private authService: AuthService,
     private messageService: MessageService,
-    private filterService: FilterService
+    private filterService: FilterService,
+    private sidebarService: SidebarService
   ) {}
 
   ngOnInit() {
@@ -68,6 +72,8 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     this.headerLogoLink = this.appConfig.headerLogoLink;
     this.hasLogin = this.appConfig.hasLogin;
 
+    // this.sidebarService.sidebarOpenClose.subscribe(show => this.showHideSidebar(show));
+
     // this.languages = this.configService.getConfig('languages');
 
     this.userSub = this.authService.user.subscribe(user => {
@@ -76,6 +82,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
         this.loggedUserName = user.username;
       }
     });
+
   }
 
   setFilterSettings() {
@@ -100,11 +107,13 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  ngAfterViewInit() { }
+  showHideSidebar(show = null) {
+    if (show) {
+      this.displaySidebar = show;
+    } else {
+      this.displaySidebar = !this.displaySidebar;
+    }
 
-
-  showHideSidebar() {
-    this.displaySidebar = !this.displaySidebar;
     this.showHideSidebarClicked.emit(this.displaySidebar);
   }
 
@@ -124,10 +133,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   closeAbout(displayAbout: boolean) { this.displayAbout = displayAbout; }
 
   ngOnDestroy() { this.userSub.unsubscribe(); }
-
-  onInputDate() { }
-
-  onSelectDate() { }
 
   onFilterClose() {
     this.setDefaultDate();

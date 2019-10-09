@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LayersComponent } from './layers.component';
+import { VisibleLayersComponent } from './visible-layers.component';
 
-describe('LayersComponent', () => {
-  let component: LayersComponent;
-  let fixture: ComponentFixture<LayersComponent>;
+describe('VisibleLayersComponent', () => {
+  let component: VisibleLayersComponent;
+  let fixture: ComponentFixture<VisibleLayersComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LayersComponent ]
+      declarations: [ VisibleLayersComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LayersComponent);
+    fixture = TestBed.createComponent(VisibleLayersComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

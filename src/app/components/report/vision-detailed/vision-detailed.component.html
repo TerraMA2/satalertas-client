@@ -3,14 +3,14 @@
     <hr>
     <div class="p-grid">
         <div *ngFor="let detailedVision of detailedVisions"
-                class="p-col-12 p-md-4">
+                class="p-col-4 p-md-4">
             <div class="card">
                 <p-card styleClass="ui-card-shadow">
                     <p-header class="card-header">
                         <span>{{ detailedVision.title }}</span>
                     </p-header>
-                    <!-- <img src="vision.image" class="map img-fluid" /> -->
-                    <app-map [displayZoomControl]="false"
+                    <img src="{{detailedVision.image}}" class="map img-fluid" />
+                    <!-- <app-map [displayZoomControl]="false"
                             [displayScaleControl]="false"
                             [displayFullscreenControl]="false"
                             [displayInfoControl]="false"
@@ -20,6 +20,7 @@
                             [displaySearchControl]="false"
                             [displayFilterControl]="false"
                             [displayRestoreMapControl]="false"
+                            [displayVisibleLayersControl]="false"
                             [attributionControl]="false"
                             [zoomControl]="false"
                             [dragging]="false"
@@ -27,11 +28,11 @@
                             [boxZoom]="false"
                             [scrollWheelZoom]="false"
                             [doubleClickZoom]="false"
-                            [bBox]="property.bbox"
+                            [initialLatLong]="property.latLong"
                             [overlay]="detailedVision.layerData"
                             [height]="'330px'"
                             [mapId]="detailedVision.id">
-                    </app-map>
+                    </app-map> -->
                     <p-footer *ngIf="detailedVision.description" class="card-footer">
                         {{ detailedVision.description }}
                     </p-footer>

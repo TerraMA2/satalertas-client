@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { Legend } from 'src/app/models/legend.model';
+
 import { ConfigService } from 'src/app/services/config.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { ConfigService } from 'src/app/services/config.service';
 })
 export class ReportLegendComponent implements OnInit {
 
-  legends: Legend[] = [];
+  @Input() legends: Legend[] = [];
 
   constructor(
     private configService: ConfigService

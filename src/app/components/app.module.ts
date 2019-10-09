@@ -34,6 +34,8 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ToastModule } from 'primeng/toast';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { NgxPrintModule } from 'ngx-print';
+import { ToolbarModule } from 'primeng/toolbar';
 
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
@@ -43,7 +45,6 @@ import { ReportComponent } from './report/report.component';
 import { FilterComponent } from './filter/filter.component';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { FooterComponent } from './footer/footer.component';
 import { LegendComponent } from './map/legend/legend.component';
 import { ReportLegendComponent } from './report/report-legend/report-legend.component';
 import { PropertyDataComponent } from './report/property-data/property-data.component';
@@ -52,7 +53,7 @@ import { VisionDetailedComponent } from './report/vision-detailed/vision-detaile
 import { DeforestationComponent } from './report/deforestation/deforestation.component';
 import { DeforestationHistoryComponent } from './report/deforestation-history/deforestation-history.component';
 import { BurningSpotlightsComponent } from './report/burning-spotlights/burning-spotlights.component';
-import { BurningFocusChartComponent } from './report/burning-focus-chart/burning-focus-chart.component';
+import { BurningSpotlightsChartComponent } from './report/burning-spotlights-chart/burning-spotlights-chart.component';
 import { BurnedAreasComponent } from './report/burned-areas/burned-areas.component';
 import { BurnedAreasChartComponent } from './report/burned-areas-chart/burned-areas-chart.component';
 import { ImageHistoryComponent } from './report/image-history/image-history.component';
@@ -64,7 +65,8 @@ import { SidebarItemComponent } from './sidebar/sidebar-menu/sidebar-item/sideba
 import { SidebarFooterComponent } from './sidebar/sidebar-footer/sidebar-footer.component';
 import { SidebarItemChildComponent } from './sidebar/sidebar-menu/sidebar-item/sidebar-item-child/sidebar-item-child.component';
 import { ToolsComponent } from './map/tools/tools.component';
-import { LayersComponent } from './map/layers/layers.component';
+import { VisibleLayersComponent } from './map/visible-layers/visible-layers.component';
+import { PopupLinkComponent } from './popup-link/popup-link.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +78,6 @@ import { LayersComponent } from './map/layers/layers.component';
     ReportComponent,
     FilterComponent,
     HeaderComponent,
-    FooterComponent,
     LegendComponent,
     PropertyDataComponent,
     VisionComponent,
@@ -84,7 +85,7 @@ import { LayersComponent } from './map/layers/layers.component';
     DeforestationComponent,
     DeforestationHistoryComponent,
     BurningSpotlightsComponent,
-    BurningFocusChartComponent,
+    BurningSpotlightsChartComponent,
     BurnedAreasComponent,
     BurnedAreasChartComponent,
     ImageHistoryComponent,
@@ -97,7 +98,8 @@ import { LayersComponent } from './map/layers/layers.component';
     SidebarItemComponent,
     SidebarItemChildComponent,
     ToolsComponent,
-    LayersComponent
+    VisibleLayersComponent,
+    PopupLinkComponent
   ],
 
   imports: [
@@ -129,13 +131,17 @@ import { LayersComponent } from './map/layers/layers.component';
     InputSwitchModule,
     CheckboxModule,
     ToastModule,
-    RadioButtonModule
+    RadioButtonModule,
+    NgxPrintModule,
+    ToolbarModule
   ],
   providers: [
     TreeDragDropService,
     Title,
-    MessageService
+    MessageService,
+    // {provide: RouteReuseStrategy, useClass: CustomReuseStrategy}
   ],
+  entryComponents: [PopupLinkComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

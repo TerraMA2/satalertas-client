@@ -5,12 +5,12 @@
     "headerTitle": "Análise Ambiental de Imóvel Rural",
     "hasLogin": true,
     "headerLogoLink": "http://www.terrama2.dpi.inpe.br/mpmt/monitor/",
-    "staticLayerUrl": "http://localhost:36000/api/report/getStaticData",
-    "dynamicLayerUrl": "http://localhost:36000/api/report/getDynamicData",
-    "analysisLayerUrl": "http://localhost:36000/api/report/getAnalysisData"
+    "staticLayerUrl": "/api/report/getStaticData",
+    "dynamicLayerUrl": "/api/report/getDynamicData",
+    "analysisLayerUrl": "/api/report/getAnalysisData"
   },
   "auth": {
-    "url": "http://localhost:36000/api/login",
+    "url": "/api/login",
     "expiresIn": "86400"
   },
   "sidebar": {
@@ -37,13 +37,14 @@
       },
       {
         "cod": "DETER",
-        "label": "Análise Deter",
+        "label": "Análise DETER",
         "parent": true,
         "viewGraph": true,
         "activeArea": true,
         "children": [
           {
             "label": "CAR X DETER",
+            "shortLabel": "CAR X DETER",
             "value": "26",
             "defaultDateInterval": "365",
             "dateColumn": "dd_deter_inpe_date_audit",
@@ -59,7 +60,7 @@
             },
             "legend": {
               "title": "CAR x DETER",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_26:view26"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_26:view26"
             },
             "tools": [
               {
@@ -91,6 +92,7 @@
           },
           {
             "label": "APP x CAR_DETER",
+            "shortLabel": "APP",
             "value": "27",
             "defaultDateInterval": "365",
             "dateColumn": "apv_car_deter_9_execution_date",
@@ -106,7 +108,7 @@
             },
             "legend": {
               "title": "APP x CAR_DETER",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_27:view27"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_27:view27"
             },
             "tools": [
               {
@@ -120,16 +122,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -138,6 +130,7 @@
           },
           {
             "label": "UsoAnt x CAR_DETER",
+            "shortLabel": "Uso antropizado",
             "value": "28",
             "defaultDateInterval": "365",
             "dateColumn": "apv_car_deter_9_execution_date",
@@ -153,7 +146,7 @@
             },
             "legend": {
               "title": "UsoAnt x CAR_DETER",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_28:view28"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_28:view28"
             },
             "tools": [
               {
@@ -167,16 +160,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -185,6 +168,7 @@
           },
           {
             "label": "Reserva x CAR_DETER",
+            "shortLabel": "Reserva legal",
             "value": "29",
             "defaultDateInterval": "365",
             "dateColumn": "apv_car_deter_9_execution_date",
@@ -200,7 +184,7 @@
             },
             "legend": {
               "title": "Reserva x CAR_DETER",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_29:view29"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_29:view29"
             },
             "tools": [
               {
@@ -214,16 +198,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -232,6 +206,7 @@
           },
           {
             "label": "VegNat x CAR_DETER",
+            "shortLabel": "Vegetação nativa",
             "value": "30",
             "defaultDateInterval": "365",
             "dateColumn": "apv_car_deter_9_execution_date",
@@ -247,7 +222,7 @@
             },
             "legend": {
               "title": "VegNat x CAR_DETER",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_30:view30"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_30:view30"
             },
             "tools": [
               {
@@ -261,16 +236,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -279,6 +244,7 @@
           },
           {
             "label": "UsoCon x CAR_DETER",
+            "shortLabel": "Uso consolidado",
             "value": "31",
             "defaultDateInterval": "365",
             "dateColumn": "apv_car_deter_9_execution_date",
@@ -294,7 +260,7 @@
             },
             "legend": {
               "title": "UsoCon x CAR_DETER",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_31:view31"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_31:view31"
             },
             "tools": [
               {
@@ -308,16 +274,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -328,13 +284,14 @@
       },
       {
         "cod": "PRODES",
-        "label": "Análise Prodes",
+        "label": "Análise PRODES",
         "parent": true,
         "viewGraph": true,
         "activeArea": false,
         "children": [
           {
             "label": "CAR X PRODES",
+            "shortLabel": "CAR X PRODES",
             "value": "32",
             "defaultDateInterval": "800",
             "dateColumn": "dd_prodes_inpe_view_date",
@@ -350,7 +307,7 @@
             },
             "legend": {
               "title": "CAR x PRODES",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_32:view32"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_32:view32"
             },
             "tools": [
               {
@@ -382,6 +339,7 @@
           },
           {
             "label": "APP x CAR_PRODES",
+            "shortLabel": "APP",
             "value": "33",
             "defaultDateInterval": "365",
             "dateColumn": "apv_car_prodes_15_execution_date",
@@ -397,7 +355,7 @@
             },
             "legend": {
               "title": "APP x CAR_PRODES",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_33:view33"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_33:view33"
             },
             "tools": [
               {
@@ -411,16 +369,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -429,6 +377,7 @@
           },
           {
             "label": "UsoAnt x CAR_PRODES",
+            "shortLabel": "Uso antropizado",
             "value": "34",
             "defaultDateInterval": "365",
             "dateColumn": "apv_car_prodes_15_execution_date",
@@ -444,7 +393,7 @@
             },
             "legend": {
               "title": "UsoAnt x CAR_PRODES",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_34:view34"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_34:view34"
             },
             "tools": [
               {
@@ -458,16 +407,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -476,6 +415,7 @@
           },
           {
             "label": "Reserva x CAR_PRODES",
+            "shortLabel": "Reserva legal",
             "value": "35",
             "defaultDateInterval": "365",
             "dateColumn": "apv_car_prodes_15_execution_date",
@@ -491,7 +431,7 @@
             },
             "legend": {
               "title": "Reserva x CAR_PRODES",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_35:view35"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_35:view35"
             },
             "tools": [
               {
@@ -505,16 +445,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -523,6 +453,7 @@
           },
           {
             "label": "VegNat x CAR_PRODES",
+            "shortLabel": "Vegetação nativa",
             "value": "36",
             "defaultDateInterval": "365",
             "dateColumn": "apv_car_prodes_15_execution_date",
@@ -538,7 +469,7 @@
             },
             "legend": {
               "title": "VegNat x CAR_PRODES",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_36:view36"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_36:view36"
             },
             "tools": [
               {
@@ -552,16 +483,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -570,6 +491,7 @@
           },
           {
             "label": "UsoCon x CAR_PRODES",
+            "shortLabel": "Uso consolidado",
             "value": "37",
             "defaultDateInterval": "365",
             "dateColumn": "apv_car_prodes_15_execution_date",
@@ -585,7 +507,7 @@
             },
             "legend": {
               "title": "UsoCon x CAR_PRODES",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_37:view37"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_37:view37"
             },
             "tools": [
               {
@@ -599,16 +521,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -619,19 +531,21 @@
       },
       {
         "cod": "FOCOS",
-        "label": "Análise Focos",
+        "label": "Análise FOCOS",
         "parent": true,
         "viewGraph": true,
         "activeArea": false,
         "children": [
           {
             "label": "CAR X FOCOS",
+            "shortLabel": "CAR X FOCOS",
             "value": "28",
             "defaultDateInterval": "365",
             "dateColumn": "dd_focos_inpe_view_date",
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": true,
+
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
               "layers": "terrama2_38:view38",
@@ -641,7 +555,7 @@
             },
             "legend": {
               "title": "CAR x FOCOS",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_38:view38"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_38:view38"
             },
             "tools": [
               {
@@ -673,6 +587,7 @@
           },
           {
             "label": "APP x CAR_FOCOS",
+            "shortLabel": "APP",
             "value": "39",
             "defaultDateInterval": "365",
             "dateColumn": "apv_car_focos_15_execution_date",
@@ -688,7 +603,7 @@
             },
             "legend": {
               "title": "APP x CAR_FOCOS",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_39:view39"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_39:view39"
             },
             "tools": [
               {
@@ -702,16 +617,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -720,6 +625,7 @@
           },
           {
             "label": "UsoAnt x CAR_FOCOS",
+            "shortLabel": "Uso antropizado",
             "value": "40",
             "defaultDateInterval": "365",
             "dateColumn": "apv_car_focos_15_execution_date",
@@ -735,7 +641,7 @@
             },
             "legend": {
               "title": "UsoAnt x CAR_FOCOS",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_40:view40"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_40:view40"
             },
             "tools": [
               {
@@ -749,16 +655,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -767,6 +663,7 @@
           },
           {
             "label": "Reserva x CAR_FOCOS",
+            "shortLabel": "Reserva legal",
             "value": "41",
             "defaultDateInterval": "365",
             "dateColumn": "apv_car_focos_15_execution_date",
@@ -782,7 +679,7 @@
             },
             "legend": {
               "title": "Reserva x CAR_FOCOS",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_41:view41"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_41:view41"
             },
             "tools": [
               {
@@ -796,16 +693,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -814,6 +701,7 @@
           },
           {
             "label": "VegNat x CAR_FOCOS",
+            "shortLabel": "Vegetação nativa",
             "value": "42",
             "defaultDateInterval": "365",
             "dateColumn": "apv_car_focos_15_execution_date",
@@ -829,7 +717,7 @@
             },
             "legend": {
               "title": "VegNat x CAR_FOCOS",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_42:view42"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_42:view42"
             },
             "tools": [
               {
@@ -843,16 +731,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -861,6 +739,7 @@
           },
           {
             "label": "UsoCon x CAR_FOCOS",
+            "shortLabel": "Uso consolidado",
             "value": "43",
             "defaultDateInterval": "365",
             "dateColumn": "apv_car_focos_15_execution_date",
@@ -876,7 +755,7 @@
             },
             "legend": {
               "title": "UsoCon x CAR_FOCOS",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_43:view43"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_43:view43"
             },
             "tools": [
               {
@@ -888,16 +767,6 @@
                 "title": "Exportar",
                 "name": "export",
                 "icon": "fas fa-download"
-              },
-              {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
               },
               {
                 "title": "Transparência",
@@ -926,6 +795,7 @@
         "children" : [
           {
             "label": "Limite Estadual",
+            "shortLabel": "Limite Estadual",
             "value": "15",
             "defaultDateInterval": null,
             "dateColumn": null,
@@ -941,7 +811,7 @@
             },
             "legend": {
               "title": "Limite Estadual",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_15:view15"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_15:view15"
             },
             "tools": [
               {
@@ -955,16 +825,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -973,6 +833,7 @@
           },
           {
             "label": "Municípios",
+            "shortLabel": "Municípios",
             "value": "14",
             "defaultDateInterval": null,
             "dateColumn": null,
@@ -988,7 +849,7 @@
             },
             "legend": {
               "title": "Municípios",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_14:view14"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_14:view14"
             },
             "tools": [
               {
@@ -1000,16 +861,6 @@
                 "title": "Exportar",
                 "name": "export",
                 "icon": "fas fa-download"
-              },
-              {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
               },
               {
                 "title": "Transparência",
@@ -1020,12 +871,14 @@
           },
           {
             "label": "CAR Validado",
+            "shortLabel": "CAR Validado",
             "value": "5",
             "defaultDateInterval": null,
             "dateColumn": null,
             "type": "static",
             "isPrivate": false,
             "isPrimary": true,
+            "popupTitle": "numero_do2",
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
               "layers": "terrama2_5:view5",
@@ -1035,7 +888,7 @@
             },
             "legend": {
               "title": "CAR Validado",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_5:view5"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_5:view5"
             },
             "tools": [
               {
@@ -1049,16 +902,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -1067,6 +910,7 @@
           },
           {
             "label": "Microregião",
+            "shortLabel": "Microregião",
             "value": "6",
             "defaultDateInterval": null,
             "dateColumn": null,
@@ -1082,7 +926,7 @@
             },
             "legend": {
               "title": "Microregião",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_6:view6"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_6:view6"
             },
             "tools": [
               {
@@ -1096,16 +940,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -1114,8 +948,9 @@
           },
           {
             "label": "Reserva_Legal",
+            "shortLabel": "Reserva_Legal",
             "value": "13",
-            "defaultDateInterval": "365",
+            "defaultDateInterval": null,
             "dateColumn": null,
             "type": "static",
             "isPrivate": false,
@@ -1129,7 +964,7 @@
             },
             "legend": {
               "title": "Reserva_Legal",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_13:view13"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_13:view13"
             },
             "tools": [
               {
@@ -1143,16 +978,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -1161,8 +986,9 @@
           },
           {
             "label": "Rodovias",
+            "shortLabel": "Rodovias",
             "value": "12",
-            "defaultDateInterval": "365",
+            "defaultDateInterval": null,
             "dateColumn": null,
             "type": "static",
             "isPrivate": false,
@@ -1176,7 +1002,7 @@
             },
             "legend": {
               "title": "Rodovias",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_12:view12"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_12:view12"
             },
             "tools": [
               {
@@ -1190,16 +1016,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -1208,8 +1024,9 @@
           },
           {
             "label": "Sub-bacias",
+            "shortLabel": "Sub-bacias",
             "value": "11",
-            "defaultDateInterval": "365",
+            "defaultDateInterval": null,
             "dateColumn": null,
             "type": "static",
             "isPrivate": false,
@@ -1223,7 +1040,7 @@
             },
             "legend": {
               "title": "Sub-bacias",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_11:view11"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_11:view11"
             },
             "tools": [
               {
@@ -1237,16 +1054,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -1255,8 +1062,9 @@
           },
           {
             "label": "Área Pantaneira",
+            "shortLabel": "Área Pantaneira",
             "value": "10",
-            "defaultDateInterval": "365",
+            "defaultDateInterval": null,
             "dateColumn": null,
             "type": "static",
             "isPrivate": false,
@@ -1270,7 +1078,7 @@
             },
             "legend": {
               "title": "Área Pantaneira",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_10:view10"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_10:view10"
             },
             "tools": [
               {
@@ -1284,16 +1092,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -1302,8 +1100,9 @@
           },
           {
             "label": "Uso Antropizado",
+            "shortLabel": "Uso Antropizado",
             "value": "9",
-            "defaultDateInterval": "365",
+            "defaultDateInterval": null,
             "dateColumn": null,
             "type": "static",
             "isPrivate": false,
@@ -1317,7 +1116,7 @@
             },
             "legend": {
               "title": "Uso Antropizado",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_9:view9"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_9:view9"
             },
             "tools": [
               {
@@ -1331,16 +1130,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -1349,8 +1138,9 @@
           },
           {
             "label": "Área_APP",
+            "shortLabel": "Área_APP",
             "value": "4",
-            "defaultDateInterval": "365",
+            "defaultDateInterval": null,
             "dateColumn": null,
             "type": "static",
             "isPrivate": false,
@@ -1364,7 +1154,7 @@
             },
             "legend": {
               "title": "Área_APP",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_4:view4"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_4:view4"
             },
             "tools": [
               {
@@ -1378,16 +1168,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -1396,8 +1176,9 @@
           },
           {
             "label": "Vegetação Nativa",
+            "shortLabel": "Vegetação Nativa",
             "value": "3",
-            "defaultDateInterval": "365",
+            "defaultDateInterval": null,
             "dateColumn": null,
             "type": "static",
             "isPrivate": false,
@@ -1411,7 +1192,7 @@
             },
             "legend": {
               "title": "Vegetação Nativa",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_3:view3"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_3:view3"
             },
             "tools": [
               {
@@ -1425,16 +1206,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -1443,8 +1214,9 @@
           },
           {
             "label": "Uso Consolidado",
+            "shortLabel": "Uso Consolidado",
             "value": "2",
-            "defaultDateInterval": "365",
+            "defaultDateInterval": null,
             "dateColumn": null,
             "type": "static",
             "isPrivate": false,
@@ -1458,7 +1230,7 @@
             },
             "legend": {
               "title": "Uso Consolidado",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_2:view2"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_2:view2"
             },
             "tools": [
               {
@@ -1472,16 +1244,6 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -1490,8 +1252,9 @@
           },
           {
             "label": "Biomas MT",
+            "shortLabel": "Biomas MT",
             "value": "1",
-            "defaultDateInterval": "365",
+            "defaultDateInterval": null,
             "dateColumn": null,
             "type": "static",
             "isPrivate": false,
@@ -1505,7 +1268,7 @@
             },
             "legend": {
               "title": "Biomas MT",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_1:view1"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_1:view1"
             },
             "tools": [
               {
@@ -1519,14 +1282,80 @@
                 "icon": "fas fa-download"
               },
               {
-                "title": "Dimensão temporal",
-                "name": "temporalDimension",
-                "icon": "fas fa-sliders-h"
+                "title": "Transparência",
+                "name": "opacity",
+                "icon": "fas fa-adjust"
+              }
+            ]
+          },
+          {
+            "label": "Unidade Conservação",
+            "shortLabel": "Unidade Conservação",
+            "value": "46",
+            "defaultDateInterval": null,
+            "dateColumn": null,
+            "type": "static",
+            "isPrivate": false,
+            "isPrimary": false,
+            "layerData": {
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
+              "layers": "terrama2_46:view46",
+              "transparent": true,
+              "format": "image/png",
+              "version": "1.1.0"
+            },
+            "legend": {
+              "title": "Unidade Conservação",
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_46:view46"
+            },
+            "tools": [
+              {
+                "title": "Informações",
+                "name": "info",
+                "icon": "fas fa-info"
               },
               {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
+                "title": "Exportar",
+                "name": "export",
+                "icon": "fas fa-download"
+              },
+              {
+                "title": "Transparência",
+                "name": "opacity",
+                "icon": "fas fa-adjust"
+              }
+            ]
+          },
+          {
+            "label": "Terra Indígena",
+            "shortLabel": "Terra Indígena",
+            "value": "47",
+            "defaultDateInterval": null,
+            "dateColumn": null,
+            "type": "static",
+            "isPrivate": false,
+            "isPrimary": false,
+            "layerData": {
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
+              "layers": "terrama2_47:view47",
+              "transparent": true,
+              "format": "image/png",
+              "version": "1.1.0"
+            },
+            "legend": {
+              "title": "Terra Indígena",
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_47:view47"
+            },
+            "tools": [
+              {
+                "title": "Informações",
+                "name": "info",
+                "icon": "fas fa-info"
+              },
+              {
+                "title": "Exportar",
+                "name": "export",
+                "icon": "fas fa-download"
               },
               {
                 "title": "Transparência",
@@ -1545,9 +1374,9 @@
         "children" : [
           {
             "label": "Focos Queimadas",
+            "shortLabel": "Focos Queimadas",
             "value": "20",
             "defaultDateInterval": "365",
-            "dateColumn": "data_hora_gmt",
             "type": "dynamic",
             "isPrivate": false,
             "isPrimary": false,
@@ -1560,7 +1389,7 @@
             },
             "legend": {
               "title": "Focos Queimadas",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_20:view20"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_20:view20"
             },
             "tools": [
               {
@@ -1592,9 +1421,9 @@
           },
           {
             "label": "DETER",
+            "shortLabel": "DETER",
             "value": "18",
             "defaultDateInterval": "365",
-            "dateColumn": "date_audit",
             "type": "dynamic",
             "isPrivate": false,
             "isPrimary": false,
@@ -1607,7 +1436,7 @@
             },
             "legend": {
               "title": "DETER",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_18:view18"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_18:view18"
             },
             "tools": [
               {
@@ -1639,22 +1468,22 @@
           },
           {
             "label": "PRODES",
-            "value": "44",
+            "shortLabel": "PRODES",
+            "value": "45",
             "defaultDateInterval": "365",
-            "dateColumn": "view_date",
             "type": "dynamic",
             "isPrivate": false,
             "isPrimary": false,
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
-              "layers": "terrama2_44:view44",
+              "layers": "terrama2_45:view45",
               "transparent": true,
               "format": "image/png",
               "version": "1.1.0"
             },
             "legend": {
               "title": "PRODES",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=terrama2_44:view44"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_45:view45"
             },
             "tools": [
               {
@@ -1762,7 +1591,7 @@
       }
     ],
     "filter": {
-      "url": "http://localhost:36000/api/report/getData",
+      "url": "/api/report/getData",
       "group": {
         "label": "Grupo",
         "name": "group",
@@ -1874,15 +1703,25 @@
     }
   },
   "report": {
+    "visionslegends": [
+      {
+        "title": "Imóvel",
+        "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=30&HEIGHT=30&legend_options=forceLabels:on&LAYER=terrama2_5:view5"
+      },
+      {
+        "title": "Estado",
+        "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=30&HEIGHT=30&legend_options=forceLabels:on&LAYER=terrama2_14:view14"
+      }
+    ],
     "propertyData": {
-      "url": "http://localhost:36000/api/report/getCarData",
+      "url": "/api/report/getCarData",
       "viewId": "5"
     },
     "visions": [
       {
         "id": "stateVision",
         "title": "Visão do Estado",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/terrama2_14/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_14:view14&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=768&height=719&srs=EPSG:4674&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_14:view14&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=768&height=719&srs=EPSG:4674&format=image/png",
         "description": null,
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
@@ -1895,7 +1734,7 @@
       {
         "id": "cityVision",
         "title": "Visão do Município",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/terrama2_14/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_14:view14&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=768&height=719&srs=EPSG:4674&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_14:view14,terrama2_5:view5&styles=&bbox={citybbox}&width=768&height=719&srs=EPSG:4674&cql_filter={cityCqlFilter}&format=image/png",
         "description": null,
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
@@ -1908,7 +1747,7 @@
       {
         "id": "carVision",
         "title": "Visão do CAR no Imóvel",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/terrama2_14/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=768&height=719&srs=EPSG:4674&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={bbox}&width=768&height=719&srs=EPSG:4674&cql_filter={propertyCqlFilter}&format=image/png",
         "description": null,
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
@@ -1921,7 +1760,7 @@
       {
         "id": "degradationVision",
         "title": "Histórico Degradação Ambiental",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/terrama2_14/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=768&height=719&srs=EPSG:4674&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={bbox}&width=768&height=719&srs=EPSG:4674&cql_filter={propertyCqlFilter}&format=image/png",
         "description": null,
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
@@ -1934,7 +1773,7 @@
       {
         "id": "deforestationVision",
         "title": "Desmatamento - 2019",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/terrama2_14/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=768&height=719&srs=EPSG:4674&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={bbox}&width=768&height=719&srs=EPSG:4674&cql_filter={propertyCqlFilter}&format=image/png",
         "description": null,
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
@@ -1947,7 +1786,7 @@
       {
         "id": "burnedVision",
         "title": "Queimadas - 2019",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/terrama2_14/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=768&height=719&srs=EPSG:4674&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={bbox}&width=768&height=719&srs=EPSG:4674&cql_filter={propertyCqlFilter}&format=image/png",
         "description": null,
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
@@ -1962,7 +1801,7 @@
       {
         "id": "settlementDetailedVision",
         "title": "Assentamento",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/terrama2_14/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=768&height=719&srs=EPSG:4674&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={bbox}&width=768&height=719&srs=EPSG:4674&cql_filter={propertyCqlFilter}&format=image/png",
         "description": null,
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
@@ -1975,7 +1814,7 @@
       {
         "id": "indigenousLandDetailedVision",
         "title": "Terra Indígena",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/terrama2_14/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=768&height=719&srs=EPSG:4674&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={bbox}&width=768&height=719&srs=EPSG:4674&cql_filter={propertyCqlFilter}&format=image/png",
         "description": null,
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
@@ -1988,7 +1827,7 @@
       {
         "id": "conservationUnitDetailedVision",
         "title": "Unidade de Conservação",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/terrama2_14/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=768&height=719&srs=EPSG:4674&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={bbox}&width=768&height=719&srs=EPSG:4674&cql_filter={propertyCqlFilter}&format=image/png",
         "description": null,
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
@@ -2001,8 +1840,9 @@
       {
         "id": "legalReserveDetailedVision",
         "title": "Reserva Legal",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/terrama2_14/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=768&height=719&srs=EPSG:4674&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_29:view29&styles=&bbox={bbox}&width=768&height=719&srs=EPSG:4674&cql_filter={propertyCqlFilter}&format=image/png",
         "description": null,
+        "carRegisterColumn": "de_area_reserva_legal_nativa_sema_numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
           "layers": "terrama2_5:view5",
@@ -2014,7 +1854,7 @@
       {
         "id": "appDetailedVision",
         "title": "APP",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/terrama2_14/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=768&height=719&srs=EPSG:4674&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={bbox}&width=768&height=719&srs=EPSG:4674&cql_filter={propertyCqlFilter}&format=image/png",
         "description": null,
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
@@ -2027,7 +1867,7 @@
       {
         "id": "consolidatedAreaDetailedVision",
         "title": "Área Consolidada",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/terrama2_14/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=768&height=719&srs=EPSG:4674&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={bbox}&width=768&height=719&srs=EPSG:4674&cql_filter={propertyCqlFilter}&format=image/png",
         "description": null,
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
@@ -2042,7 +1882,7 @@
       {
         "id": "deforestation1",
         "title": "Desmatamento DETER sobre imagem LANDSAT 07/02/2019",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/terrama2_14/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=768&height=719&srs=EPSG:4674&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={bbox}&width=768&height=719&srs=EPSG:4674&cql_filter={propertyCqlFilter}&format=image/png",
         "description": null,
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
@@ -2055,7 +1895,7 @@
       {
         "id": "deforestation2",
         "title": "Desmatamento DETER sobre imagem LANDSAT 28/04/2019",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/terrama2_14/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=768&height=719&srs=EPSG:4674&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={bbox}&width=768&height=719&srs=EPSG:4674&cql_filter={propertyCqlFilter}&format=image/png",
         "description": null,
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
@@ -2070,7 +1910,7 @@
       {
         "id": "deforestationHistory2015",
         "title": "PRODES 2015",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/terrama2_14/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=768&height=719&srs=EPSG:4674&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={bbox}&width=768&height=719&srs=EPSG:4674&cql_filter={propertyCqlFilter}&format=image/png",
         "description": null,
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
@@ -2083,7 +1923,7 @@
       {
         "id": "deforestationHistory2016",
         "title": "PRODES 2016",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/terrama2_14/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=768&height=719&srs=EPSG:4674&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={bbox}&width=768&height=719&srs=EPSG:4674&cql_filter={propertyCqlFilter}&format=image/png",
         "description": null,
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
@@ -2096,7 +1936,7 @@
       {
         "id": "deforestationHistory2017",
         "title": "PRODES 2017",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/terrama2_14/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=768&height=719&srs=EPSG:4674&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={bbox}&width=768&height=719&srs=EPSG:4674&cql_filter={propertyCqlFilter}&format=image/png",
         "description": null,
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
@@ -2109,7 +1949,7 @@
       {
         "id": "deforestationHistory2018",
         "title": "PRODES 2018",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/terrama2_14/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=768&height=719&srs=EPSG:4674&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={bbox}&width=768&height=719&srs=EPSG:4674&cql_filter={propertyCqlFilter}&format=image/png",
         "description": null,
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
@@ -2122,7 +1962,7 @@
       {
         "id": "deforestationHistory2019",
         "title": "PRODES 2019",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/terrama2_14/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=768&height=719&srs=EPSG:4674&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={bbox}&width=768&height=719&srs=EPSG:4674&cql_filter={propertyCqlFilter}&format=image/png",
         "description": null,
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
@@ -2137,7 +1977,7 @@
       {
         "id": "burningSpotlights2015",
         "title": "2015",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/terrama2_14/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=768&height=719&srs=EPSG:4674&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={bbox}&width=768&height=719&srs=EPSG:4674&cql_filter={propertyCqlFilter}&format=image/png",
         "description": null,
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
@@ -2150,7 +1990,7 @@
       {
         "id": "burningSpotlights2016",
         "title": "2016",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/terrama2_14/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=768&height=719&srs=EPSG:4674&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={bbox}&width=768&height=719&srs=EPSG:4674&cql_filter={propertyCqlFilter}&format=image/png",
         "description": null,
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
@@ -2163,7 +2003,7 @@
       {
         "id": "burningSpotlights2017",
         "title": "2017",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/terrama2_14/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=768&height=719&srs=EPSG:4674&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={bbox}&width=768&height=719&srs=EPSG:4674&cql_filter={propertyCqlFilter}&format=image/png",
         "description": null,
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
@@ -2176,7 +2016,7 @@
       {
         "id": "burningSpotlights2018",
         "title": "2018",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/terrama2_14/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=768&height=719&srs=EPSG:4674&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={bbox}&width=768&height=719&srs=EPSG:4674&cql_filter={propertyCqlFilter}&format=image/png",
         "description": null,
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
@@ -2189,7 +2029,7 @@
       {
         "id": "burningSpotlights2019",
         "title": "2019",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/terrama2_14/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=768&height=719&srs=EPSG:4674&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={bbox}&width=768&height=719&srs=EPSG:4674&cql_filter={propertyCqlFilter}&format=image/png",
         "description": null,
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
@@ -2204,7 +2044,7 @@
       {
         "id": "burnedAreas2015",
         "title": "Acumulado 2015",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/terrama2_14/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=768&height=719&srs=EPSG:4674&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={bbox}&width=768&height=719&srs=EPSG:4674&cql_filter={propertyCqlFilter}&format=image/png",
         "description": null,
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
@@ -2217,7 +2057,7 @@
       {
         "id": "burnedAreas2017",
         "title": "Acumulado 2017",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/terrama2_14/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=768&height=719&srs=EPSG:4674&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={bbox}&width=768&height=719&srs=EPSG:4674&cql_filter={propertyCqlFilter}&format=image/png",
         "description": null,
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
@@ -2230,7 +2070,7 @@
       {
         "id": "burnedAreas2019",
         "title": "Acumulado 2019",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/terrama2_14/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=768&height=719&srs=EPSG:4674&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={bbox}&width=768&height=719&srs=EPSG:4674&cql_filter={propertyCqlFilter}&format=image/png",
         "description": null,
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
@@ -2245,7 +2085,7 @@
       {
         "id": "landsat1Vision",
         "title": "",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/terrama2_14/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=768&height=719&srs=EPSG:4674&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={bbox}&width=768&height=719&srs=EPSG:4674&cql_filter={propertyCqlFilter}&format=image/png",
         "description": null,
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
@@ -2258,7 +2098,7 @@
       {
         "id": "landsat2Vision",
         "title": "",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/terrama2_14/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=768&height=719&srs=EPSG:4674&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={bbox}&width=768&height=719&srs=EPSG:4674&cql_filter={propertyCqlFilter}&format=image/png",
         "description": null,
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
@@ -2271,7 +2111,7 @@
       {
         "id": "landsat3Vision",
         "title": "",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/terrama2_14/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=768&height=719&srs=EPSG:4674&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={bbox}&width=768&height=719&srs=EPSG:4674&cql_filter={propertyCqlFilter}&format=image/png",
         "description": null,
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
@@ -2284,7 +2124,7 @@
       {
         "id": "landsat4Vision",
         "title": "",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/terrama2_14/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=768&height=719&srs=EPSG:4674&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={bbox}&width=768&height=719&srs=EPSG:4674&cql_filter={propertyCqlFilter}&format=image/png",
         "description": null,
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
@@ -2297,7 +2137,7 @@
       {
         "id": "landsat5Vision",
         "title": "",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/terrama2_14/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=768&height=719&srs=EPSG:4674&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={bbox}&width=768&height=719&srs=EPSG:4674&cql_filter={propertyCqlFilter}&format=image/png",
         "description": null,
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
@@ -2310,13 +2150,13 @@
       {
         "id": "landsat6Vision",
         "title": "",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/terrama2_14/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=768&height=719&srs=EPSG:4674&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={bbox}&width=768&height=719&srs=EPSG:4674&cql_filter={propertyCqlFilter}&format=image/png",
         "description": null
       },
       {
         "id": "landsat7Vision",
         "title": "",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/terrama2_14/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=768&height=719&srs=EPSG:4674&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={bbox}&width=768&height=719&srs=EPSG:4674&cql_filter={propertyCqlFilter}&format=image/png",
         "description": null,
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
@@ -2329,7 +2169,7 @@
       {
         "id": "landsat8Vision",
         "title": "",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/terrama2_14/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=768&height=719&srs=EPSG:4674&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={bbox}&width=768&height=719&srs=EPSG:4674&cql_filter={propertyCqlFilter}&format=image/png",
         "description": null,
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
@@ -2342,7 +2182,7 @@
       {
         "id": "landsat9Vision",
         "title": "",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/terrama2_14/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=768&height=719&srs=EPSG:4674&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={bbox}&width=768&height=719&srs=EPSG:4674&cql_filter={propertyCqlFilter}&format=image/png",
         "description": null,
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",

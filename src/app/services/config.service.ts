@@ -7,7 +7,7 @@ import ConfigJson from '../../assets/config.json';
 })
 export class ConfigService {
 
-  constructor( ) {}
+  constructor() {}
 
   getConfig(name) {
     if (name) {

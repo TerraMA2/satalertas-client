@@ -32,6 +32,8 @@ export class TableComponent implements OnInit {
 
   selectedLayer: Layer;
 
+  selectedLayerValue: number;
+
   loading = false;
 
   totalRecords = 0;
@@ -52,33 +54,29 @@ export class TableComponent implements OnInit {
   ngOnInit() {
     this.tableConfig = this.configService.getConfig('map').table;
 
-    this.tableService.loadFilterData.subscribe(filteredData => {
-      this.loading = true;
-
-      this.setData(filteredData);
-    });
-
-    this.tableService.loadTableData.subscribe(layer => {
+    this.tableService.loadTableData.subscribe((layer: Layer) => {
       if (layer) {
-        this.selectedLayer = layer;
         this.loading = true;
         this.loadTableData(layer, this.selectedRowsPerPage, 0);
       }
     });
 
-    this.tableService.unloadTableData.subscribe(layer => {
+    this.tableService.unloadTableData.subscribe((layer: Layer) => {
       if (layer) {
-        const legendIndex = this.selectedLayers.findIndex(selectLayer => selectLayer.label === layer.label);
-        this.selectedLayers.splice(legendIndex, 1);
-        this.tableData = undefined;
-        this.totalRecords = 0;
-        this.selectedLayer = this.selectedLayers.length >= 1 ? this.selectedLayers[0] : undefined;
-        this.loadTableData(this.selectedLayer, 10, 0);
+        const layerIndex = this.selectedLayers.findIndex(selectedLayer => selectedLayer.label === layer.label);
+        this.selectedLayers.splice(layerIndex, 1);
+        if (layer.value === this.selectedLayerValue) {
+          this.selectedLayer = undefined;
+          this.selectedLayerValue = 0;
+          this.tableData = undefined;
+          this.selectedColumns = undefined;
+          this.selectedRowsPerPage = 10;
+          this.totalRecords = 0;
+        }
       }
     });
 
     this.rowsPerPage = this.tableConfig.rowsPerPage;
-
 
     this.filterService.filterTable.subscribe(filter => {
       this.tableService.loadTableData.next(this.selectedLayer);
@@ -113,9 +111,12 @@ export class TableComponent implements OnInit {
       this.columns = [];
 
       Object.keys(data[0]).forEach(key => {
-        this.columns.push({field: key, header: key});
-        this.selectedColumns = this.columns;
+        if (key !== 'lat' && key !== 'long' && key !== 'geom' && key !== 'intersection_geom') {
+          this.columns.push({field: key, header: key});
+        }
       });
+
+      this.selectedColumns = this.columns;
 
       this.totalRecords = data.pop();
       this.tableData = data;
@@ -128,6 +129,7 @@ export class TableComponent implements OnInit {
   }
 
   onSelectedLayerChange(layer) {
+    this.selectedLayer = layer.selectedOption;
     this.tableService.loadTableData.next(layer.selectedOption);
   }
 
