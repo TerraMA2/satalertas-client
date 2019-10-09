@@ -1,0 +1,452 @@
+{
+  "listAlertsGraphic": [
+    {
+      "cod": "DETER",
+      "label": "Deter",
+      "type": "AREA",
+      "nameType": "Área",
+      "idView": 0,
+      "active": false,
+      "graphicMunicipios": {
+        "labels": ["A", "B", "C","d","e","f","g"],
+        "datasets": [{
+          "data": [300, 50, 100, 15, 158, 1000, 339],
+          "backgroundColor": [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#FF6384",
+            "#36A2EB",
+            "#FF6384",
+            "#36A2EB"
+          ],
+          "hoverBackgroundColor": [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#FFCE56",
+            "#FF6384",
+            "#36A2EB",
+            "#36A2EB"
+          ]
+        }]
+      },
+      "graphicBiomas": {
+        "labels": ["A", "B", "C","d","e","f","g"],
+        "datasets": [{
+          "data": [300, 50, 100, 15, 158, 1000, 339],
+          "backgroundColor": [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#36A2EB",
+            "#FFCE56",
+            "#36A2EB",
+            "#FFCE56"
+          ],
+          "hoverBackgroundColor": [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#36A2EB",
+            "#FFCE56",
+            "#36A2EB",
+            "#FFCE56"
+          ]
+        }]
+      }
+    },
+    {
+      "cod": "DETER",
+      "label": "Deter",
+      "type": "NUM_CAR",
+      "nameType": "Número de Cars",
+      "idView": 0,
+      "active": false,
+      "graphicMunicipios": {
+        "labels": ["A", "B", "C","d","e","f","g"],
+        "datasets": [{
+          "data": [300, 50, 100, 15, 158, 1000, 339],
+          "backgroundColor": [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#FF6384",
+            "#36A2EB",
+            "#FF6384",
+            "#36A2EB"
+          ],
+          "hoverBackgroundColor": [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#FFCE56",
+            "#FF6384",
+            "#36A2EB",
+            "#36A2EB"
+          ]
+        }]
+      },
+      "graphicBiomas": {
+        "labels": ["A", "B", "C","d","e","f","g"],
+        "datasets": [{
+          "data": [300, 50, 100, 15, 158, 1000, 339],
+          "backgroundColor": [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#36A2EB",
+            "#FFCE56",
+            "#36A2EB",
+            "#FFCE56"
+          ],
+          "hoverBackgroundColor": [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#36A2EB",
+            "#FFCE56",
+            "#36A2EB",
+            "#FFCE56"
+          ]
+        }]
+      }
+    },
+    {
+      "cod": "PRODES",
+      "label": "Prodes",
+      "type": "AREA",
+      "nameType": "Área",
+      "idView": 0,
+      "active": false,
+      "graphicMunicipios": {
+        "labels": ["A", "B", "C","d","e","f","g"],
+        "datasets": [{
+          "data": [300, 50, 100, 15, 158, 1000, 339],
+          "backgroundColor": [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#FF6384",
+            "#36A2EB",
+            "#FF6384",
+            "#36A2EB"
+          ],
+          "hoverBackgroundColor": [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#FFCE56",
+            "#FF6384",
+            "#36A2EB",
+            "#36A2EB"
+          ]
+        }]
+      },
+      "graphicBiomas": {
+        "labels": ["A", "B", "C","d","e","f","g"],
+        "datasets": [{
+          "data": [300, 50, 100, 15, 158, 1000, 339],
+          "backgroundColor": [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#36A2EB",
+            "#FFCE56",
+            "#36A2EB",
+            "#FFCE56"
+          ],
+          "hoverBackgroundColor": [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#36A2EB",
+            "#FFCE56",
+            "#36A2EB",
+            "#FFCE56"
+          ]
+        }]
+      }
+    },
+    {
+      "cod": "PRODES",
+      "label": "Prodes",
+      "type": "NUM_CAR",
+      "nameType": "Número de Cars",
+      "idView": 0,
+      "active": false,
+      "graphicMunicipios": {
+        "labels": ["A", "B", "C","d","e","f","g"],
+        "datasets": [{
+          "data": [300, 50, 100, 15, 158, 1000, 339],
+          "backgroundColor": [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#FF6384",
+            "#36A2EB",
+            "#FF6384",
+            "#36A2EB"
+          ],
+          "hoverBackgroundColor": [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#FFCE56",
+            "#FF6384",
+            "#36A2EB",
+            "#36A2EB"
+          ]
+        }]
+      },
+      "graphicBiomas": {
+        "labels": ["A", "B", "C","d","e","f","g"],
+        "datasets": [{
+          "data": [300, 50, 100, 15, 158, 1000, 339],
+          "backgroundColor": [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#36A2EB",
+            "#FFCE56",
+            "#36A2EB",
+            "#FFCE56"
+          ],
+          "hoverBackgroundColor": [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#36A2EB",
+            "#FFCE56",
+            "#36A2EB",
+            "#FFCE56"
+          ]
+        }]
+      }
+    },
+    {
+      "cod": "FOCOS",
+      "label": "Focos",
+      "type": "AREA",
+      "nameType": "Área",
+      "idView": 0,
+      "active": false,
+      "graphicMunicipios": {
+        "labels": ["A", "B", "C","d","e","f","g"],
+        "datasets": [{
+          "data": [300, 50, 100, 15, 158, 1000, 339],
+          "backgroundColor": [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#FF6384",
+            "#36A2EB",
+            "#FF6384",
+            "#36A2EB"
+          ],
+          "hoverBackgroundColor": [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#FFCE56",
+            "#FF6384",
+            "#36A2EB",
+            "#36A2EB"
+          ]
+        }]
+      },
+      "graphicBiomas": {
+        "labels": ["A", "B", "C","d","e","f","g"],
+        "datasets": [{
+          "data": [300, 50, 100, 15, 158, 1000, 339],
+          "backgroundColor": [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#36A2EB",
+            "#FFCE56",
+            "#36A2EB",
+            "#FFCE56"
+          ],
+          "hoverBackgroundColor": [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#36A2EB",
+            "#FFCE56",
+            "#36A2EB",
+            "#FFCE56"
+          ]
+        }]
+      }
+    },
+    {
+      "cod": "FOCOS",
+      "label": "Focos",
+      "type": "NUM_CAR",
+      "nameType": "Número de Cars",
+      "idView": 0,
+      "active": false,
+      "graphicMunicipios": {
+        "labels": ["A", "B", "C","d","e","f","g"],
+        "datasets": [{
+          "data": [300, 50, 100, 15, 158, 1000, 339],
+          "backgroundColor": [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#FF6384",
+            "#36A2EB",
+            "#FF6384",
+            "#36A2EB"
+          ],
+          "hoverBackgroundColor": [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#FFCE56",
+            "#FF6384",
+            "#36A2EB",
+            "#36A2EB"
+          ]
+        }]
+      },
+      "graphicBiomas": {
+        "labels": ["A", "B", "C","d","e","f","g"],
+        "datasets": [{
+          "data": [300, 50, 100, 15, 158, 1000, 339],
+          "backgroundColor": [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#36A2EB",
+            "#FFCE56",
+            "#36A2EB",
+            "#FFCE56"
+          ],
+          "hoverBackgroundColor": [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#36A2EB",
+            "#FFCE56",
+            "#36A2EB",
+            "#FFCE56"
+          ]
+        }]
+      }
+    },
+    {
+      "cod": "AREA_QUEIMADA",
+      "label": "Área queimada",
+      "type": "AREA",
+      "nameType": "Área",
+      "idView": 0,
+      "active": false,
+      "graphicMunicipios": {
+        "labels": ["A", "B", "C","d","e","f","g"],
+        "datasets": [{
+          "data": [300, 50, 100, 15, 158, 1000, 339],
+          "backgroundColor": [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#FF6384",
+            "#36A2EB",
+            "#FF6384",
+            "#36A2EB"
+          ],
+          "hoverBackgroundColor": [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#FFCE56",
+            "#FF6384",
+            "#36A2EB",
+            "#36A2EB"
+          ]
+        }]
+      },
+      "graphicBiomas": {
+        "labels": ["A", "B", "C","d","e","f","g"],
+        "datasets": [{
+          "data": [300, 50, 100, 15, 158, 1000, 339],
+          "backgroundColor": [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#36A2EB",
+            "#FFCE56",
+            "#36A2EB",
+            "#FFCE56"
+          ],
+          "hoverBackgroundColor": [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#36A2EB",
+            "#FFCE56",
+            "#36A2EB",
+            "#FFCE56"
+          ]
+        }]
+      }
+    },
+    {
+      "cod": "AREA_QUEIMADA",
+      "label": "Área queimada",
+      "type": "NUM_CAR",
+      "nameType": "Número de Cars",
+      "idView": 0,
+      "active": false,
+      "graphicMunicipios": {
+        "labels": ["A", "B", "C","d","e","f","g"],
+        "datasets": [{
+          "data": [300, 50, 100, 15, 158, 1000, 339],
+          "backgroundColor": [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#FF6384",
+            "#36A2EB",
+            "#FF6384",
+            "#36A2EB"
+          ],
+          "hoverBackgroundColor": [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#FFCE56",
+            "#FF6384",
+            "#36A2EB",
+            "#36A2EB"
+          ]
+        }]
+      },
+      "graphicBiomas": {
+        "labels": ["A", "B", "C","d","e","f","g"],
+        "datasets": [{
+          "data": [300, 50, 100, 15, 158, 1000, 339],
+          "backgroundColor": [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#36A2EB",
+            "#FFCE56",
+            "#36A2EB",
+            "#FFCE56"
+          ],
+          "hoverBackgroundColor": [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#36A2EB",
+            "#FFCE56",
+            "#36A2EB",
+            "#FFCE56"
+          ]
+        }]
+      }
+    }
+  ]
+}

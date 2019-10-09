@@ -1,0 +1,29 @@
+{
+  "listAlert":
+  [
+    {
+      "cod": "DETER",
+      "label": "Deter",
+      "area": 9585.55,
+      "numCar": 5000
+    },
+    {
+      "cod": "PRODES",
+      "label": "Prodes",
+      "area": 900145.55,
+      "numCar": 252525
+    },
+    {
+      "cod": "FOCOS",
+      "label": "Focos",
+      "area": 9988.55,
+      "numCar": 159753
+    },
+    {
+      "cod": "AREA_QUEIMADA",
+      "label": "Área queimada",
+      "area": 5257.55,
+      "numCar": 789
+    }
+  ]
+}

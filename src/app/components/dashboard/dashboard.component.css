@@ -1,0 +1,82 @@
+
+.box {
+    padding: 0px;
+    margin-left: 16px;
+    margin-right: 16px;
+}
+
+.box-card {
+    border-radius: 0;
+    padding: 7px;
+    margin-top: 18px;
+    margin-bottom: 18px;
+    text-align: center!important;
+}
+
+.btn-alert {
+    height: 4rem;
+    text-align: left;
+    width: 90%;
+    font-size: 1vw;
+    margin: 9px;
+    display: inline-grid;
+    border-radius: 15px;
+    color: #7a0000 !important;
+}
+
+.ui-card-active {
+    background-color: #7a0000 !important;
+    color: white !important;
+    opacity: 1 !important;
+}
+
+/*:host /deep/ .ui-card {*/
+/*    background-color: #591111;*/
+/*    color: white;*/
+/*}*/
+
+:host /deep/ .ui-button {
+    background-color: #591111;
+    color: white;
+}
+
+.alert-selected{
+    background-color: #7a0000 !important;
+    color: #ffffff !important;
+}
+
+.btn-alert-cars{
+    margin-bottom: 18px;
+}
+
+.box-title-panel {
+    text-align: left;
+    color: #591111;
+    font-size: 1.4vw;
+    text-decoration: none;
+    border-bottom: 1.5px solid #591111;
+}
+
+.number-display {
+    font-size: 14px;
+}
+
+.number-display span {
+    font-size: 1vw;
+}
+
+.ui-corner-all {
+    border-radius: 17px;
+}
+
+.btn-alert-title{
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.btn-alert-valeu{
+    text-align: center;
+    font-size: 0.9rem;
+}
+

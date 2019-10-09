@@ -23,6 +23,7 @@ export class HTTPService {
     }
     const baseUrl = environment.baseUrl;
     const baseUrlProd = 'http://www.terrama2.dpi.inpe.br/mpmt';
+
     if (!url.includes(baseUrl) && !url.includes(baseUrlProd)) {
       url = baseUrl + url;
     }

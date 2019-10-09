@@ -1,17 +1,65 @@
-<div class="p-grid p-nogutter">
-  <div pDraggable="dd" class="p-col-6 p-col-nogutter">
-      <p-card>
-        <p-chart type="bar" height="300px" [data]="data"></p-chart>
-      </p-card>
-  </div>
-  <div pDraggable="dd" class="p-col-6 p-col-nogutter">
-      <p-card>
-        <p-chart type="pie" height="300px"  [data]="pieData"></p-chart>
-      </p-card>
-  </div>
-  <div pDraggable="dd" class="p-col-12 p-col-nogutter">
-      <p-card>
-        <p-chart type="line" height="320px" [data]="data"></p-chart>
-      </p-card>
-  </div>
-</div>
+
+<p-scrollPanel [style]="{width: '100%', height: 'calc(100vh - 50px)'}">
+    <div id="charts-panel" class="p-grid box">
+
+        <!--  Title Area  -->
+        <div class="box-title-panel p-col-12">
+            <div class="p-md-2">
+                <span id="title-chart">Avisos</span>
+            </div>
+        </div>
+
+        <!--  Alert Card Area  -->
+        <p-card
+                    header="{{alert.label}}"
+                    class="box-card p-col-12 p-md-3"
+                    [styleClass]="'ui-card-active'"
+                    [style]="{borderRadius: '18px'}"
+                    *ngFor="let alert of alertsDisplayed"
+                    >
+
+                <button pButton
+                        class="ui-button-raised ui-button-secondary btn-alert"
+                        title="Área total de avisos de {{alert.label}}"
+                        [ngClass]="{'ui-card-active': alert.activeArea}"
+                        [disabled]="alert.activeArea"
+                        (click)="onAreaClick(alert) ">
+                    <p class="btn-alert-title">Área(ha):</p>
+                    <p class="btn-alert-valeu">{{alert.area}}</p>
+                </button>
+
+                <button pButton
+                        class="ui-button-raised ui-button-secondary btn-alert btn-alert-cars"
+                        title="Total de cars {{alert.label}}"
+                        [ngClass]="{'ui-card-active': alert.immobileActive}"
+                        [disabled]="alert.immobileActive"
+                        (click)="onNubermImmobileClick(alert)">
+                    <p class="btn-alert-title">Nº de Cars:</p>
+                    <p class="btn-alert-valeu">{{alert.numCar}}</p>
+                </button>
+        </p-card>
+
+        <!--  Graphics Area  -->
+        <p-accordion [multiple]="true" class="p-col-12">
+            <p-accordionTab header="Gráfico {{alertGraphic.nameType}} do {{alertGraphic.label}}"
+                            [selected]="alertGraphic.active"
+                            *ngFor="let alertGraphic of alertGraphics">
+                <div class="p-grid">
+
+
+                    <p-card class="p-md-6">
+                        <p class="p-col-12"> Legenda 1 </p>
+                        <p-chart type="pie" height="350px" [data]="alertGraphic.graphicBiomas"></p-chart>
+                    </p-card>
+
+
+                    <p-card class="p-md-6">
+                        <p class="p-col-12"> Legenda 2 </p>
+                        <p-chart type="pie" height="350px" [data]="alertGraphic.graphicMunicipios"></p-chart>
+                    </p-card>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+
+</p-scrollPanel>

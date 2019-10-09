@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 
 import { LazyLoadEvent } from 'primeng/api';
 
@@ -10,7 +10,10 @@ import { TableService } from 'src/app/services/table.service';
 
 import { LayerType } from 'src/app/enum/layer-type.enum';
 
-import { Layer } from 'src/app/models/layer.model';
+import { FilterService } from 'src/app/services/filter.service';
+
+import {Layer} from '../../../models/layer.model';
+
 
 @Component({
   selector: 'app-table',
@@ -25,7 +28,7 @@ export class TableComponent implements OnInit {
 
   @Input() selectedColumns: any[] = [];
 
-  @Input() selectedLayers: Layer[] = [];
+  @Input() selectedLayers = [];
 
   selectedLayer: Layer;
 
@@ -44,7 +47,8 @@ export class TableComponent implements OnInit {
   constructor(
     private hTTPService: HTTPService,
     private configService: ConfigService,
-    private tableService: TableService
+    private tableService: TableService,
+    private filterService: FilterService
   ) { }
 
   ngOnInit() {
@@ -59,7 +63,7 @@ export class TableComponent implements OnInit {
 
     this.tableService.unloadTableData.subscribe((layer: Layer) => {
       if (layer) {
-        const layerIndex = this.selectedLayers.findIndex(selectedLayer => selectedLayer.label === layer['label']);
+        const layerIndex = this.selectedLayers.findIndex(selectedLayer => selectedLayer.label === layer.label);
         this.selectedLayers.splice(layerIndex, 1);
         if (layer.value === this.selectedLayerValue) {
           this.selectedLayer = undefined;
@@ -73,9 +77,13 @@ export class TableComponent implements OnInit {
     });
 
     this.rowsPerPage = this.tableConfig.rowsPerPage;
+
+    this.filterService.filterTable.subscribe(filter => {
+      this.tableService.loadTableData.next(this.selectedLayer);
+    });
   }
 
-  loadTableData(layer: Layer, limit: number, offset: number) {
+  loadTableData(layer, limit: number, offset: number) {
     if (!layer) {
       return;
     }
@@ -90,10 +98,11 @@ export class TableComponent implements OnInit {
     }
     const count = true;
     const viewId = layer.value;
-    const defaultDateInterval = layer.defaultDateInterval;
+    const date = JSON.parse(localStorage.getItem('dateFilter'));
+
     this.hTTPService
-      .get(url, {viewId, limit, offset, count, defaultDateInterval})
-      .subscribe(data => this.setData(data));
+    .get(url, {viewId, limit, offset, count, date})
+    .subscribe(data => this.setData(data));
   }
 
   setData(data) {
