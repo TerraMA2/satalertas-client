@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { ConfigService } from '../../services/config.service';
 
-import { Group } from 'src/app/models/group.model';
+import { LayerGroup } from 'src/app/models/layer-group.model';
 
 import { Layer } from 'src/app/models/layer.model';
 
@@ -12,7 +12,7 @@ import { Layer } from 'src/app/models/layer.model';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-  sidebarItems: Group[] = [];
+  sidebarItems: LayerGroup[] = [];
 
   sidebarConfig;
 
@@ -32,7 +32,8 @@ export class SidebarComponent implements OnInit {
 
   setSidebarItems() {
     this.sidebarConfig.sidebarItems.forEach(sidebarItem => {
-      const group = new Group(
+      // @ts-ignore
+      const layerGroup = new LayerGroup(
         sidebarItem.label,
         sidebarItem.parent,
         sidebarItem.link
@@ -61,8 +62,8 @@ export class SidebarComponent implements OnInit {
           layerChildren.push(layer);
         });
       }
-      group.children = layerChildren;
-      this.sidebarItems.push(group);
+      layerGroup.children = layerChildren;
+      this.sidebarItems.push(layerGroup);
     });
   }
 

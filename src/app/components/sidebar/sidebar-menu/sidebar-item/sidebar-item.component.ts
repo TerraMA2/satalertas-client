@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
 
 import { Layer } from 'src/app/models/layer.model';
 
-import { Group } from 'src/app/models/group.model';
+import { LayerGroup } from 'src/app/models/layer-group.model';
 
 @Component({
   selector: 'app-sidebar-item',
@@ -17,7 +17,7 @@ import { Group } from 'src/app/models/group.model';
 })
 export class SidebarItemComponent implements OnInit {
 
-  @Input() sidebarItem: Group;
+  @Input() sidebarItem: LayerGroup;
 
   @Input() childrenItems: Layer[];
 
