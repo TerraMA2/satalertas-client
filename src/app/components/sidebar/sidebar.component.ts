@@ -32,7 +32,6 @@ export class SidebarComponent implements OnInit {
 
   setSidebarItems() {
     this.sidebarConfig.sidebarItems.forEach(sidebarItem => {
-      // @ts-ignore
       const layerGroup = new LayerGroup(
         sidebarItem.label,
         sidebarItem.parent,

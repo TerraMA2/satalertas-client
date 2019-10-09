@@ -1,4 +1,4 @@
-import {Graphic} from './Graphic.model';
+import { Graphic } from './Graphic.model';
 
 export class AlertGraphic {
   constructor(

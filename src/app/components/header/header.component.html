@@ -54,13 +54,13 @@
 
         &nbsp;&nbsp;
 
-        <!-- <p-selectButton [options]="languages" [(ngModel)]="selectedLanguage">
-          <ng-template let-item>
-              <div style="padding: .5em .25em">
-                  <img style="vertical-align: middle; margin-right: .5em" src="assets/img/flags/{{item.flag}}.png" />
-              </div>
-          </ng-template>
-      </p-selectButton> -->
+    <!-- <p-selectButton [options]="languages" [(ngModel)]="selectedLanguage">
+        <ng-template let-item>
+            <div style="padding: .5em .25em">
+                <img style="vertical-align: middle; margin-right: .5em" src="assets/img/flags/{{item.flag}}.png" />
+            </div>
+        </ng-template>
+    </p-selectButton> -->
 
         &nbsp;&nbsp;
 
@@ -99,7 +99,7 @@
             [baseZIndex]="1002">
 
         <app-auth [displayLogin]="displayLogin"
-                  (closeLoginClicked)="onCloseLoginClick($event)">
+                (closeLoginClicked)="onCloseLoginClick($event)">
         </app-auth>
 
     </p-dialog>
@@ -112,7 +112,7 @@
             [modal]="true">
 
         <app-about [displayAbout]="displayAbout"
-                   (closeAboutClicked)="closeAbout($event)">
+                (closeAboutClicked)="closeAbout($event)">
         </app-about>
 
     </p-dialog>
