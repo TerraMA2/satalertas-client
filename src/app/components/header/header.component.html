@@ -16,6 +16,7 @@
                 [(ngModel)]="dateInput"
                 [maxDate]="maxDate"
                 [showIcon]="true"
+                [readonlyInput]="true"
                 yearRange="2000:2030"
                 [yearNavigator]="false"
                 [monthNavigator]="false"
@@ -37,12 +38,6 @@
                         class="date-button date-button-today"
                         (click)="onTodayClick()">
                 </button>
-<!--                <button pButton-->
-<!--                        type="button"-->
-<!--                        [label]="localizationField.locale.clear"-->
-<!--                        class="date-button"-->
-<!--                        (click)="onCleanFilterClick()">-->
-<!--                </button>-->
                 <button pButton
                         [style]="{float:'right'}"
                         type="button"
