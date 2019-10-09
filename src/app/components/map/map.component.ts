@@ -758,7 +758,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   updateLayers() {
     this.selectedLayers.forEach(layer => {
       if (layer.markerSelected) {
-        this.markerClusterGroup.clearLayers();
         this.updateMarkers(layer);
       }
 
@@ -767,6 +766,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private updateMarkers(layer: Layer) {
+    this.markerClusterGroup.clearLayers();
     const appConfig = this.configService.getConfig('app');
     let url = '';
     let popupTitle = null;
@@ -785,6 +785,5 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.hTTPService.get(url, {viewId, date})
                     .subscribe(data => this.setMarkers(data, popupTitle, layer.label));
   }
-
 
 }
