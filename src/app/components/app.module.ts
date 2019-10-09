@@ -138,8 +138,7 @@ import { PopupLinkComponent } from './popup-link/popup-link.component';
   providers: [
     TreeDragDropService,
     Title,
-    MessageService,
-    // {provide: RouteReuseStrategy, useClass: CustomReuseStrategy}
+    MessageService
   ],
   entryComponents: [PopupLinkComponent],
   bootstrap: [AppComponent]

@@ -25,8 +25,6 @@ import { LayerGroup } from 'src/app/models/layer-group.model';
 
 import { FilterService } from '../../services/filter.service';
 
-import { LeafletMouseEvent } from 'leaflet';
-
 import { LinkPopupService } from 'src/app/services/link-popup.service';
 
 import { MarkerGroup } from 'src/app/models/marker-group.model';
@@ -115,7 +113,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.setMap();
     this.setControls();
     this.setLayers();
-    // this.sidebarService.sidebarOpenClose.next(true);
     this.getLocalStorageData();
   }
 
@@ -188,8 +185,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     // if (this.displayLayersControl) {
     //   this.setLayersControl();
     // }
-
-    this.setTimeDimension();
 
     this.setMarkersGroup();
   }
@@ -376,28 +371,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  updateLayer(layer: Layer) {
-    const appConfig = this.configService.getConfig('app');
-    let url = '';
-    if (layer.type === LayerType.ANALYSIS) {
-      url = appConfig.analysisLayerUrl;
-    } else if (layer.type === LayerType.STATIC) {
-      url = appConfig.staticLayerUrl;
-    } else if (layer.type === LayerType.DYNAMIC) {
-      url = appConfig.dynamicLayerUrl;
-    }
-    const viewId = layer.value;
-    const defaultDateInterval = layer.defaultDateInterval;
-
-    const date = JSON.parse(localStorage.getItem('dateFilter'));
-
-    this.hTTPService.get(url, {viewId, date})
-      .subscribe(data => this.setMarkers(data, null, layer.label));
-  }
-
   setCqlFilter(layer) {
-    if (layer.defaultDateInterval) {
-      // const days = layer.defaultDateInterval * 86400000;
+    if (layer.dateColumn) {
       const dateColumn = layer.dateColumn;
 
       const currentDateInput = JSON.parse(localStorage.getItem('dateFilter'));
@@ -425,7 +400,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   removeLayer(layer, deselectLayer) {
-
     if (layer) {
       const layerData = layer.layerData;
       let zindex;
@@ -443,7 +417,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
           mapLayer.setZIndex((mapLayer.options.zIndex - 1));
         }
       });
-
     }
   }
 
@@ -460,8 +433,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   // Map controls
-  setTimeDimension() {
-  }
 
   setLayerControl() {
     this.layerControl = L.control.layers(
@@ -736,7 +707,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
             .addEventListener('click', () => {
               this.displayVisibleLayers = !this.displayVisibleLayers;
               L.DomEvent.on(L.DomUtil.get('visibleLayersBtn'), 'dblclick', L.DomEvent.stopPropagation);
-            });
+    });
   }
 
   // Events
@@ -785,6 +756,5 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.hTTPService.get(url, {viewId, date})
                     .subscribe(data => this.setMarkers(data, popupTitle, layer.label));
   }
-
 
 }

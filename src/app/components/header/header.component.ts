@@ -8,9 +8,8 @@ import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
 import { MessageService } from 'primeng/api';
-import {FilterService} from '../../services/filter.service';
 
-import { SidebarService } from 'src/app/services/sidebar.service';
+import { FilterService } from '../../services/filter.service';
 
 @Component({
   selector: 'app-header',
@@ -58,8 +57,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private configService: ConfigService,
     private authService: AuthService,
     private messageService: MessageService,
-    private filterService: FilterService,
-    private sidebarService: SidebarService
+    private filterService: FilterService
   ) {}
 
   ngOnInit() {
@@ -71,8 +69,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.headerTitle = this.appConfig.headerTitle;
     this.headerLogo = this.appConfig.headerLogo;
     this.hasLogin = this.appConfig.hasLogin;
-
-    // this.sidebarService.sidebarOpenClose.subscribe(show => this.showHideSidebar(show));
 
     // this.languages = this.configService.getConfig('languages');
 
@@ -108,32 +104,43 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
-  showHideSidebar(show = null) {
-    if (show) {
-      this.displaySidebar = show;
-    } else {
-      this.displaySidebar = !this.displaySidebar;
-    }
-
+  showHideSidebar() {
+    this.displaySidebar = !this.displaySidebar;
     this.showHideSidebarClicked.emit(this.displaySidebar);
   }
 
-  onLoginClick() { this.displayLogin = true; }
+  onLoginClick() {
+    this.displayLogin = true;
+  }
 
-  onCloseLoginClick(displayLogin: boolean) { this.displayLogin = displayLogin; }
+  onCloseLoginClick(displayLogin: boolean) {
+    this.displayLogin = displayLogin;
+  }
 
   onLogoutClick() {
     this.authService.logout();
     this.isAuthenticated = false;
     this.loggedUserName = '';
-    this.messageService.add({severity: 'success', summary: 'Logout', detail: 'Logout realizado com successo!'});
+    this.messageService.add(
+      {
+        severity: 'success',
+        summary: 'Logout',
+        detail: 'Logout realizado com successo!'
+      }
+    );
   }
 
-  openAbout() { this.displayAbout = true; }
+  openAbout() {
+    this.displayAbout = true;
+  }
 
-  closeAbout(displayAbout: boolean) { this.displayAbout = displayAbout; }
+  closeAbout(displayAbout: boolean) {
+    this.displayAbout = displayAbout;
+  }
 
-  ngOnDestroy() { this.userSub.unsubscribe(); }
+  ngOnDestroy() {
+    this.userSub.unsubscribe();
+  }
 
   onFilterClose() {
     this.setDefaultDate();
@@ -149,8 +156,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
     const date: Date = new Date();
 
     return {
-      firstDate: {day: 1, month: 0, year: date.getFullYear(), today: false, selectable: false},
-      currentDate: {day: date.getDay(), month: date.getMonth(), year: date.getFullYear(), today: true, selectable: true}
+      firstDate: {
+        day: 1,
+        month: 0,
+        year: date.getFullYear(),
+        today: false,
+        selectable: false
+      },
+      currentDate: {
+        day: date.getDay(),
+        month: date.getMonth(),
+        year: date.getFullYear(),
+        today: true, selectable: true
+      }
     };
   }
 

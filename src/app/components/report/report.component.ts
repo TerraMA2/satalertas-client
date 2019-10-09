@@ -12,8 +12,6 @@ import { Vision } from 'src/app/models/vision.model';
 
 import { Legend } from 'src/app/models/legend.model';
 
-import { SidebarService } from 'src/app/services/sidebar.service';
-
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html',
@@ -56,8 +54,7 @@ export class ReportComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private hTTPService: HTTPService,
-    private configService: ConfigService,
-    private sidebarService: SidebarService
+    private configService: ConfigService
   ) { }
 
   ngOnInit() {
@@ -65,7 +62,6 @@ export class ReportComponent implements OnInit {
     this.reportConfig = this.configService.getConfig('report');
     this.visionLegends = this.reportConfig.visionslegends;
     this.getPropertyData();
-    // this.sidebarService.sidebarOpenClose.next(false);
   }
 
   getPropertyData() {
