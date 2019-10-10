@@ -27,7 +27,7 @@ export class HTTPService {
     if (!url.includes(baseUrl) && !url.includes(baseUrlProd)) {
       url = baseUrl + url;
     }
-    return this.http.get<any[]>(url, {
+    return this.http.get(url, {
       params: parameters
     }).pipe(
       retry(0),
@@ -43,7 +43,7 @@ export class HTTPService {
     if (!url.includes(baseUrl)) {
       url = baseUrl + url;
     }
-    return this.http.post<any[]>(url, {
+    return this.http.post(url, {
       params: parameters
     }).pipe(
       retry(0),

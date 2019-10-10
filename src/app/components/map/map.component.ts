@@ -29,6 +29,10 @@ import { LinkPopupService } from 'src/app/services/link-popup.service';
 
 import { MarkerGroup } from 'src/app/models/marker-group.model';
 
+import { LayerInfo } from 'src/app/models/layer-info.model';
+
+import { LayerInfoFeature } from 'src/app/models/layer-info-feature.model';
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -311,6 +315,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.sidebarService.sidebarItemSelect.subscribe(itemSelected => {
+      if (this.markerInfo) {
+        this.markerInfo.remove();
+      }
       if (itemSelected instanceof Layer) {
         this.addLayer(itemSelected, true);
       }
@@ -334,7 +341,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
 
-    this.sidebarService.sidebarItemRadioSelect.subscribe(async (layer: Layer) => {
+    this.sidebarService.sidebarItemRadioSelect.subscribe((layer: Layer) => {
+      if (this.markerInfo) {
+        this.markerInfo.remove();
+      }
       layer.markerSelected = true;
       this.updateMarkers(layer);
     });
@@ -345,12 +355,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         this.markerInfo.remove();
       }
       this.markerClusterGroup.clearLayers();
-    });
-
-    this.mapService.getFilteredData.subscribe(filteredData => {
-      this.filteredData = filteredData;
-      filteredData.pop();
-      this.setMarkers(filteredData, '', 'Resultado do filtro');
     });
 
     this.mapService.resetLayers.subscribe(items => {
@@ -577,8 +581,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
       const url = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms`;
 
-      await this.hTTPService.get(url, params).toPromise().then(info => {
-        const features = info['features'];
+      await this.hTTPService.get(url, params).toPromise().then((layerInfo: LayerInfo) => {
+        const features = layerInfo.features;
         popupContent += this.getFeatureInfoPopup(layerName, features);
       });
     }
@@ -620,12 +624,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     return params;
   }
 
-  getFeatureInfoPopup(layerName: string, features: []) {
+  getFeatureInfoPopup(layerName: string, features: LayerInfoFeature[]) {
     let popupContent = '';
-    features.forEach(feature => {
-      const properties = feature['properties'];
-      popupContent += this.getPopupContent(properties, layerName);
-    });
+    features.forEach(feature => popupContent += this.getPopupContent(feature.properties, layerName));
     return popupContent;
   }
 
@@ -682,7 +683,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     const initialZoom = this.mapConfig.initialZoom;
     L.DomEvent.on(L.DomUtil.get('restoreMapBtn'), 'dblclick', L.DomEvent.stopPropagation);
     document.querySelector('#restoreMapBtn')
-    .addEventListener('click', () => this.panMap(initialLatLong, initialZoom));
+            .addEventListener('click', () => this.panMap(initialLatLong, initialZoom));
   }
 
   setVisibleLayersControl() {
