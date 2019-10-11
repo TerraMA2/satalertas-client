@@ -319,6 +319,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   clearMap() {
     this.map.eachLayer((layer) => layer.remove());
+    this.layerControl.remove();
+    this.setLayerControl();
     this.setLayers();
     this.selectedLayers = [];
   }
