@@ -10,6 +10,8 @@ import { NgForm } from '@angular/forms';
 
 import { Subscription } from 'rxjs';
 
+import { SidebarService } from 'src/app/services/sidebar.service';
+
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
@@ -30,7 +32,8 @@ export class AuthComponent implements OnInit, OnDestroy {
   constructor(
     private configService: ConfigService,
     private authService: AuthService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private sidebarService: SidebarService
   ) { }
 
   ngOnInit() {
@@ -50,21 +53,22 @@ export class AuthComponent implements OnInit, OnDestroy {
 
     this.authSub = this.authService.login(form.value)
       .subscribe(response => {
-      const error = response['error'];
-      const message = response['message'];
-      const user = response['user'];
+        const error = response['error'];
+        const message = response['message'];
+        const user = response['user'];
 
-      if (error) {
-        this.messageService.add({severity: 'error', summary: 'Login', detail: message});
+        if (error) {
+          this.messageService.add({severity: 'error', summary: 'Login', detail: message});
+          this.isLoading = false;
+          return false;
+        }
+        if (user) {
+          this.authService.user.next(user);
+          this.messageService.add({severity: 'success', summary: 'Login', detail: message});
+          this.closeLoginClicked.emit(false);
+          this.sidebarService.sidebarReload.next();
+        }
         this.isLoading = false;
-        return false;
-      }
-      if (user) {
-        this.authService.user.next(user);
-        this.messageService.add({severity: 'success', summary: 'Login', detail: message});
-        this.closeLoginClicked.emit(false);
-      }
-      this.isLoading = false;
     },
     errorMessage => {
       this.messageService.add({severity: 'error', summary: 'Login falhou', detail: errorMessage});

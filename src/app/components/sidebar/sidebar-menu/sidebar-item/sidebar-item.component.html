@@ -1,7 +1,6 @@
 <div class="sidebar-item-body p-align-center"
     [ngClass]="{'active': isParentOpened && !sidebarItem.link}">
-    <div class="sidebar-item-label"
-        (click)="onParentClicked()">
+    <div class="sidebar-item-label" (click)="onParentClicked()">
 
         <ng-container *ngIf="sidebarItem.link; then sidebarItemLink; else sidebarItemDefault"></ng-container>
 
@@ -33,11 +32,12 @@
     [ngClass]="{show: isParentOpened, hide: !isParentOpened}">
 
     <app-sidebar-item-child class="sidebar-item-body p-dir-col p-align-stretch"
-        *ngFor="let child of childrenItems"
-        [child]="child"
-        [parentSwitchChecked]="parentSwitchChecked"
-        [isParentOpened]="isParentOpened"
-        >
+                            *ngFor="let child of childrenItems"
+                            [child]="child"
+                            [displayChild]="child.isPrivate && !isAuthenticated ? false : true"
+                            [parentSwitchChecked]="parentSwitchChecked"
+                            [isParentOpened]="isParentOpened"
+    >
     </app-sidebar-item-child>
 
 </div>
