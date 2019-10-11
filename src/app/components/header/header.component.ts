@@ -10,6 +10,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { MessageService } from 'primeng/api';
 
 import { FilterService } from '../../services/filter.service';
+import { SidebarService } from 'src/app/services/sidebar.service';
+import { MapService } from 'src/app/services/map.service';
 
 @Component({
   selector: 'app-header',
@@ -19,6 +21,7 @@ import { FilterService } from '../../services/filter.service';
 export class HeaderComponent implements OnInit, OnDestroy {
 
   @Output() showHideSidebarClicked = new EventEmitter<boolean>();
+
   @ViewChild('dataFilter', {static: true}) datePicker;
 
   private userSub: Subscription;
@@ -57,7 +60,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private configService: ConfigService,
     private authService: AuthService,
     private messageService: MessageService,
-    private filterService: FilterService
+    private filterService: FilterService,
+    private sidebarService: SidebarService,
+    private mapService: MapService
   ) {}
 
   ngOnInit() {
@@ -128,6 +133,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
         detail: 'Logout realizado com successo!'
       }
     );
+    this.sidebarService.sidebarReload.next();
+    this.mapService.clearMap.next();
   }
 
   openAbout() {

@@ -7,9 +7,11 @@ import { Subject } from 'rxjs';
 })
 export class MapService {
 
-  getFilteredData = new Subject<any[]>();
+  getFilteredData = new Subject();
 
-  resetLayers = new Subject<any[]>();
+  resetLayers = new Subject();
+
+  clearMap = new Subject();
 
   constructor() { }
 }

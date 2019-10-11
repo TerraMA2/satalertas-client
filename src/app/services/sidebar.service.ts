@@ -19,5 +19,7 @@ export class SidebarService {
 
   sidebarOpenClose = new Subject<boolean>();
 
+  sidebarReload = new Subject<boolean>();
+
   constructor() { }
 }

@@ -10,6 +10,8 @@ import { Layer } from 'src/app/models/layer.model';
 
 import { LayerGroup } from 'src/app/models/layer-group.model';
 
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-sidebar-item',
   templateUrl: './sidebar-item.component.html',
@@ -32,7 +34,8 @@ export class SidebarItemComponent implements OnInit {
   constructor(
     private sidebarService: SidebarService,
     private tableService: TableService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -50,6 +53,7 @@ export class SidebarItemComponent implements OnInit {
   onParentSwitchChanged(event) {
     this.childrenItems.forEach(child => {
       if (event.checked === true) {
+        this.router.navigate(['/map']);
         this.sidebarService.sidebarItemSelect.next(child);
       } else if (event.checked === false) {
         this.sidebarService.sidebarItemUnselect.next(child);

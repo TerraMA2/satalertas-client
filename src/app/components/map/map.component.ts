@@ -29,6 +29,10 @@ import { LinkPopupService } from 'src/app/services/link-popup.service';
 
 import { MarkerGroup } from 'src/app/models/marker-group.model';
 
+import { LayerInfo } from 'src/app/models/layer-info.model';
+
+import { LayerInfoFeature } from 'src/app/models/layer-info-feature.model';
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -103,10 +107,16 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setLocalStorageData() {
-    localStorage.setItem('selectedLayers', JSON.stringify(this.selectedLayers));
-    localStorage.setItem('markerGroupData', JSON.stringify(this.markerGroupData));
-    localStorage.setItem('zoom', JSON.stringify(this.map.getZoom()));
-    localStorage.setItem('latLong', JSON.stringify([this.map.getCenter().lat, this.map.getCenter().lng]));
+    if (this.selectedLayers) {
+      localStorage.setItem('selectedLayers', JSON.stringify(this.selectedLayers));
+    }
+    if (this.markerGroupData) {
+      localStorage.setItem('markerGroupData', JSON.stringify(this.markerGroupData));
+    }
+    if (this.map) {
+      localStorage.setItem('zoom', JSON.stringify(this.map.getZoom()));
+      localStorage.setItem('latLong', JSON.stringify([this.map.getCenter().lat, this.map.getCenter().lng]));
+    }
   }
 
   ngAfterViewInit() {
@@ -206,21 +216,24 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     if (localStorage.getItem('markerGroupData')) {
       const previousMarkerGroup = JSON.parse(localStorage.getItem('markerGroupData'));
       this.setMarkers(previousMarkerGroup.data, previousMarkerGroup.title, previousMarkerGroup.overlayName);
-      this.markerInfo = this.createMarker(
-        previousMarkerGroup.marker.title,
-        previousMarkerGroup.marker.content,
-        previousMarkerGroup.marker.latLong,
-        previousMarkerGroup.marker.link
-      );
-      this.markerClusterGroup.eachLayer((marker: L.Marker) => {
-        if (marker.getLatLng().equals(this.markerInfo.getLatLng())) {
-          this.markerClusterGroup.removeLayer(marker);
-        }
-      });
-      this.markerClusterGroup.addLayer(this.markerInfo);
+      if (previousMarkerGroup.marker) {
+        this.markerInfo = this.createMarker(
+          previousMarkerGroup.marker.title,
+          previousMarkerGroup.marker.content,
+          previousMarkerGroup.marker.latLong,
+          previousMarkerGroup.marker.link
+        );
+        this.markerClusterGroup.eachLayer((marker: L.Marker) => {
+          if (marker.getLatLng().equals(this.markerInfo.getLatLng())) {
+            this.markerClusterGroup.removeLayer(marker);
+          }
+        });
+        this.markerClusterGroup.addLayer(this.markerInfo);
 
-      this.markerInfo.addTo(this.map);
-      this.markerInfo.fire('click');
+        this.markerInfo.addTo(this.map);
+        this.markerInfo.fire('click');
+      }
+
       localStorage.removeItem('markerGroupData');
     }
     if (localStorage.getItem('latLong') && localStorage.getItem('zoom')) {
@@ -304,13 +317,26 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.markerClusterGroup = L.markerClusterGroup({chunkedLoading: true, spiderfyOnMaxZoom: true});
   }
 
+  clearMap() {
+    this.map.eachLayer((layer) => layer.remove());
+    this.layerControl.remove();
+    this.setLayerControl();
+    this.setLayers();
+    this.selectedLayers = [];
+  }
+
   setOverlayEvents() {
+    this.mapService.clearMap.subscribe(() => this.clearMap());
+
     this.filterService.filterMap.subscribe(() => {
       this.clearLayers();
       this.updateLayers();
     });
 
     this.sidebarService.sidebarItemSelect.subscribe(itemSelected => {
+      if (this.markerInfo) {
+        this.markerInfo.remove();
+      }
       if (itemSelected instanceof Layer) {
         this.addLayer(itemSelected, true);
       }
@@ -334,7 +360,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
 
-    this.sidebarService.sidebarItemRadioSelect.subscribe(async (layer: Layer) => {
+    this.sidebarService.sidebarItemRadioSelect.subscribe((layer: Layer) => {
+      if (this.markerInfo) {
+        this.markerInfo.remove();
+      }
       layer.markerSelected = true;
       this.updateMarkers(layer);
     });
@@ -344,13 +373,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       if (this.markerInfo) {
         this.markerInfo.remove();
       }
-      this.markerClusterGroup.clearLayers();
-    });
-
-    this.mapService.getFilteredData.subscribe(filteredData => {
-      this.filteredData = filteredData;
-      filteredData.pop();
-      this.setMarkers(filteredData, '', 'Resultado do filtro');
+      if (this.markerGroupData.overlayName === layer.label) {
+        this.markerClusterGroup.clearLayers();
+      }
     });
 
     this.mapService.resetLayers.subscribe(items => {
@@ -387,7 +412,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   addLayer(layer, addLayer) {
     if (layer && layer.layerData) {
       const layerIndex = this.selectedLayers.findIndex(selectedLayer => selectedLayer.label === layer.label);
-      if ((layerIndex === -1) || !addLayer) {
+      if (layerIndex === -1 || !addLayer) {
         if (addLayer) {
           this.selectedLayers.push(layer);
         }
@@ -416,15 +441,13 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         if (mapLayer.options.zIndex > zindex) {
           mapLayer.setZIndex((mapLayer.options.zIndex - 1));
         }
+
       });
     }
   }
 
   getLayer(layerData) {
-    layerData.crs = L.CRS.EPSG3857;
-    if (layerData && layerData.hasOwnProperty('crs')) {
-      layerData.crs = L.CRS.EPSG4326;
-    }
+    layerData.crs = L.CRS.EPSG4326;
     return L.tileLayer.wms(layerData.url, layerData);
   }
 
@@ -577,8 +600,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
       const url = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms`;
 
-      await this.hTTPService.get(url, params).toPromise().then(info => {
-        const features = info['features'];
+      await this.hTTPService.get(url, params).toPromise().then((layerInfo: LayerInfo) => {
+        const features = layerInfo.features;
         popupContent += this.getFeatureInfoPopup(layerName, features);
       });
     }
@@ -620,12 +643,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     return params;
   }
 
-  getFeatureInfoPopup(layerName: string, features: []) {
+  getFeatureInfoPopup(layerName: string, features: LayerInfoFeature[]) {
     let popupContent = '';
-    features.forEach(feature => {
-      const properties = feature['properties'];
-      popupContent += this.getPopupContent(properties, layerName);
-    });
+    features.forEach(feature => popupContent += this.getPopupContent(feature.properties, layerName));
     return popupContent;
   }
 
@@ -682,7 +702,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     const initialZoom = this.mapConfig.initialZoom;
     L.DomEvent.on(L.DomUtil.get('restoreMapBtn'), 'dblclick', L.DomEvent.stopPropagation);
     document.querySelector('#restoreMapBtn')
-    .addEventListener('click', () => this.panMap(initialLatLong, initialZoom));
+            .addEventListener('click', () => this.panMap(initialLatLong, initialZoom));
   }
 
   setVisibleLayersControl() {
