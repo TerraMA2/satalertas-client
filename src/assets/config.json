@@ -52,7 +52,7 @@
             "carRegisterColumn": "de_car_validado_sema_numero_do2",
             "classNameColumn": "dd_deter_inpe_classname",
             "type": "analysis",
-            "isPrivate": false,
+            "isPrivate": true,
             "isPrimary": true,
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",

@@ -27,6 +27,8 @@ export class SidebarItemChildComponent implements OnInit {
 
   @Input() displayControls = true;
 
+  @Input() displayChild = false;
+
   constructor(
     private sidebarService: SidebarService,
     private tableService: TableService,

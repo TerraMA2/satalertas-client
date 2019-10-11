@@ -11,5 +11,7 @@ export class MapService {
 
   resetLayers = new Subject();
 
+  clearMap = new Subject();
+
   constructor() { }
 }

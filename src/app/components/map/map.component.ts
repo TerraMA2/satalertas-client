@@ -317,7 +317,15 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.markerClusterGroup = L.markerClusterGroup({chunkedLoading: true, spiderfyOnMaxZoom: true});
   }
 
+  clearMap() {
+    this.map.eachLayer((layer) => layer.remove());
+    this.setLayers();
+    this.selectedLayers = [];
+  }
+
   setOverlayEvents() {
+    this.mapService.clearMap.subscribe(() => this.clearMap());
+
     this.filterService.filterMap.subscribe(() => {
       this.clearLayers();
       this.updateLayers();
