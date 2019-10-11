@@ -6,6 +6,8 @@ import { TableService } from 'src/app/services/table.service';
 
 import { Layer } from 'src/app/models/layer.model';
 
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-sidebar-item-child',
   templateUrl: './sidebar-item-child.component.html',
@@ -17,7 +19,7 @@ export class SidebarItemChildComponent implements OnInit {
 
   @Input() parentSwitchChecked;
 
-  primaryRadio = false;
+  primaryRadio: string;
 
   @Input() isParentOpened;
 
@@ -27,7 +29,8 @@ export class SidebarItemChildComponent implements OnInit {
 
   constructor(
     private sidebarService: SidebarService,
-    private tableService: TableService
+    private tableService: TableService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -45,6 +48,7 @@ export class SidebarItemChildComponent implements OnInit {
     }
   }
   selectItem() {
+    this.router.navigate(['/map']);
     this.sidebarService.sidebarItemSelect.next(this.child);
   }
 
@@ -53,8 +57,8 @@ export class SidebarItemChildComponent implements OnInit {
     this.tableService.unloadTableData.next(this.child);
     if (this.child.isPrimary && this.primaryRadio) {
       this.sidebarService.sidebarItemRadioUnselect.next(this.child);
+      this.primaryRadio = '';
     }
-    this.primaryRadio = false;
   }
 
   onChildRadioClicked() {

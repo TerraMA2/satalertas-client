@@ -107,10 +107,16 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setLocalStorageData() {
-    localStorage.setItem('selectedLayers', JSON.stringify(this.selectedLayers));
-    localStorage.setItem('markerGroupData', JSON.stringify(this.markerGroupData));
-    localStorage.setItem('zoom', JSON.stringify(this.map.getZoom()));
-    localStorage.setItem('latLong', JSON.stringify([this.map.getCenter().lat, this.map.getCenter().lng]));
+    if (this.selectedLayers) {
+      localStorage.setItem('selectedLayers', JSON.stringify(this.selectedLayers));
+    }
+    if (this.markerGroupData) {
+      localStorage.setItem('markerGroupData', JSON.stringify(this.markerGroupData));
+    }
+    if (this.map) {
+      localStorage.setItem('zoom', JSON.stringify(this.map.getZoom()));
+      localStorage.setItem('latLong', JSON.stringify([this.map.getCenter().lat, this.map.getCenter().lng]));
+    }
   }
 
   ngAfterViewInit() {
@@ -210,21 +216,24 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     if (localStorage.getItem('markerGroupData')) {
       const previousMarkerGroup = JSON.parse(localStorage.getItem('markerGroupData'));
       this.setMarkers(previousMarkerGroup.data, previousMarkerGroup.title, previousMarkerGroup.overlayName);
-      this.markerInfo = this.createMarker(
-        previousMarkerGroup.marker.title,
-        previousMarkerGroup.marker.content,
-        previousMarkerGroup.marker.latLong,
-        previousMarkerGroup.marker.link
-      );
-      this.markerClusterGroup.eachLayer((marker: L.Marker) => {
-        if (marker.getLatLng().equals(this.markerInfo.getLatLng())) {
-          this.markerClusterGroup.removeLayer(marker);
-        }
-      });
-      this.markerClusterGroup.addLayer(this.markerInfo);
+      if (previousMarkerGroup.marker) {
+        this.markerInfo = this.createMarker(
+          previousMarkerGroup.marker.title,
+          previousMarkerGroup.marker.content,
+          previousMarkerGroup.marker.latLong,
+          previousMarkerGroup.marker.link
+        );
+        this.markerClusterGroup.eachLayer((marker: L.Marker) => {
+          if (marker.getLatLng().equals(this.markerInfo.getLatLng())) {
+            this.markerClusterGroup.removeLayer(marker);
+          }
+        });
+        this.markerClusterGroup.addLayer(this.markerInfo);
 
-      this.markerInfo.addTo(this.map);
-      this.markerInfo.fire('click');
+        this.markerInfo.addTo(this.map);
+        this.markerInfo.fire('click');
+      }
+
       localStorage.removeItem('markerGroupData');
     }
     if (localStorage.getItem('latLong') && localStorage.getItem('zoom')) {
@@ -354,7 +363,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       if (this.markerInfo) {
         this.markerInfo.remove();
       }
-      this.markerClusterGroup.clearLayers();
+      if (this.markerGroupData.overlayName === layer.label) {
+        this.markerClusterGroup.clearLayers();
+      }
     });
 
     this.mapService.resetLayers.subscribe(items => {
@@ -391,7 +402,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   addLayer(layer, addLayer) {
     if (layer && layer.layerData) {
       const layerIndex = this.selectedLayers.findIndex(selectedLayer => selectedLayer.label === layer.label);
-      if ((layerIndex === -1) || !addLayer) {
+      if (layerIndex === -1 || !addLayer) {
         if (addLayer) {
           this.selectedLayers.push(layer);
         }
@@ -420,15 +431,13 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         if (mapLayer.options.zIndex > zindex) {
           mapLayer.setZIndex((mapLayer.options.zIndex - 1));
         }
+
       });
     }
   }
 
   getLayer(layerData) {
-    layerData.crs = L.CRS.EPSG3857;
-    if (layerData && layerData.hasOwnProperty('crs')) {
-      layerData.crs = L.CRS.EPSG4326;
-    }
+    layerData.crs = L.CRS.EPSG4326;
     return L.tileLayer.wms(layerData.url, layerData);
   }
 
