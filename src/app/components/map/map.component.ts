@@ -763,6 +763,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     let popupTitle = null;
     if (layer.type === LayerType.ANALYSIS) {
       url = appConfig.analysisLayerUrl;
+      popupTitle = layer.carRegisterColumn;
     } else if (layer.type === LayerType.STATIC) {
       url = appConfig.staticLayerUrl;
       popupTitle = layer.popupTitle;
