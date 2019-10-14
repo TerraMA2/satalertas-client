@@ -4,9 +4,6 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
-// import localePt from '@angular/common/locales/pt';
-// import localeEs from '@angular/common/locales/es';
-
 import { AppRoutingModule } from './app-routing.module';
 
 import { PanelMenuModule } from 'primeng/panelmenu';

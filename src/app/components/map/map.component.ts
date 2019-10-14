@@ -396,15 +396,11 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  setCqlFilter(layer) {
-    if (layer.dateColumn) {
-      const dateColumn = layer.dateColumn;
-
+  setDateFilter(layer) {
+    if (layer.type === LayerType.ANALYSIS || layer.type === LayerType.DYNAMIC) {
       const currentDateInput = JSON.parse(localStorage.getItem('dateFilter'));
 
-      const cqlFilter = `${dateColumn}>'${currentDateInput[0]}'&&${dateColumn}<'${currentDateInput[1]}'`;
-
-      layer.layerData.cql_filter = cqlFilter;
+      layer.layerData.time = `${currentDateInput[0]}/${currentDateInput[1]}`;
     }
     return layer;
   }
@@ -416,7 +412,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         if (addLayer) {
           this.selectedLayers.push(layer);
         }
-        layer = this.setCqlFilter(layer);
+        layer = this.setDateFilter(layer);
         const layerToAdd = this.getLayer(layer.layerData);
         layerToAdd.setZIndex(1000 + (this.selectedLayers.length));
         layerToAdd.addTo(this.map);
