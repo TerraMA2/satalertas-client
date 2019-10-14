@@ -27,11 +27,13 @@ import { FilterService } from '../../services/filter.service';
 
 import { LinkPopupService } from 'src/app/services/link-popup.service';
 
-import { MarkerGroup } from 'src/app/models/marker-group.model';
+import { MapState } from 'src/app/models/map-state.model';
 
 import { LayerInfo } from 'src/app/models/layer-info.model';
 
 import { LayerInfoFeature } from 'src/app/models/layer-info-feature.model';
+
+import { SelectedMarker } from 'src/app/models/selected-marker.model';
 
 @Component({
   selector: 'app-map',
@@ -54,7 +56,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   markerInfo: L.Marker;
 
-  markerGroupData;
+  selectedMarker: SelectedMarker;
 
   displayTable = false;
   displayFilter = false;
@@ -108,14 +110,16 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   setLocalStorageData() {
     if (this.selectedLayers) {
-      localStorage.setItem('selectedLayers', JSON.stringify(this.selectedLayers));
-    }
-    if (this.markerGroupData) {
-      localStorage.setItem('markerGroupData', JSON.stringify(this.markerGroupData));
-    }
-    if (this.map) {
-      localStorage.setItem('zoom', JSON.stringify(this.map.getZoom()));
-      localStorage.setItem('latLong', JSON.stringify([this.map.getCenter().lat, this.map.getCenter().lng]));
+      const mapState = new MapState(
+        this.selectedLayers,
+        this.selectedMarker,
+        this.map.getZoom(),
+        [
+          this.map.getCenter().lat,
+          this.map.getCenter().lng
+        ]
+      );
+      localStorage.setItem('mapState', JSON.stringify(mapState));
     }
   }
 
@@ -208,41 +212,22 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getLocalStorageData() {
-    if (localStorage.getItem('selectedLayers')) {
-      const previousLayers = JSON.parse(localStorage.getItem('selectedLayers'));
-      previousLayers.forEach(layer => this.addLayer(layer, true));
-      localStorage.removeItem('selectedLayers');
-    }
-    if (localStorage.getItem('markerGroupData')) {
-      const previousMarkerGroup = JSON.parse(localStorage.getItem('markerGroupData'));
-      this.setMarkers(previousMarkerGroup.data, previousMarkerGroup.title, previousMarkerGroup.overlayName);
-      if (previousMarkerGroup.marker) {
-        this.markerInfo = this.createMarker(
-          previousMarkerGroup.marker.title,
-          previousMarkerGroup.marker.content,
-          previousMarkerGroup.marker.latLong,
-          previousMarkerGroup.marker.link
-        );
-        this.markerClusterGroup.eachLayer((marker: L.Marker) => {
-          if (marker.getLatLng().equals(this.markerInfo.getLatLng())) {
-            this.markerClusterGroup.removeLayer(marker);
-          }
-        });
-        this.markerClusterGroup.addLayer(this.markerInfo);
+    if (localStorage.getItem('mapState')) {
+      const mapState: MapState = JSON.parse(localStorage.getItem('mapState'));
+      const previousSelectedLayers: Layer[] = mapState.selectedLayers;
+      const previousSelectedMarker: SelectedMarker = mapState.selectedMaker;
+      const previousLatLong = mapState.mapLatLong;
+      const previousZoom = mapState.mapZoom;
 
-        this.markerInfo.addTo(this.map);
-        this.markerInfo.fire('click');
-      }
-
-      localStorage.removeItem('markerGroupData');
-    }
-    if (localStorage.getItem('latLong') && localStorage.getItem('zoom')) {
-      const previousZoom = JSON.parse(localStorage.getItem('zoom'));
-      const previousLatLong = JSON.parse(localStorage.getItem('latLong'));
+      previousSelectedLayers.forEach((layer: Layer) => {
+        this.addLayer(layer, true);
+        if (previousSelectedMarker.overlayName === layer.label) {
+          this.updateMarkers(layer);
+        }
+      });
       this.panMap(previousLatLong, previousZoom);
-      localStorage.removeItem('zoom');
-      localStorage.removeItem('latLong');
     }
+    localStorage.removeItem('mapState');
   }
 
   setOverlay() {
@@ -267,7 +252,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.markerInfo) {
       this.markerInfo.remove();
     }
-    this.markerGroupData = new MarkerGroup(popupTitle, overlayName, data);
     this.layerControl.removeLayer(this.markerClusterGroup);
     data.forEach(markerData => {
       let popup = null;
@@ -280,8 +264,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       }
 
       const popupContent = this.getPopupContent(markerData, overlayName);
-
-      const marker = this.createMarker(popup, popupContent, [markerData.lat, markerData.long], link);
+      const marker = this.createMarker(popup, popupContent, [markerData.lat, markerData.long], overlayName, link);
 
       if (marker) {
         this.markerClusterGroup.addLayer(marker);
@@ -293,7 +276,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.searchControl.options.layer = this.markerClusterGroup;
   }
 
-  createMarker(popupTitle, popupContent, latLong, link = '') {
+  createMarker(popupTitle, popupContent, latLong, overlayName, link = '') {
     if (!popupContent) {
       return null;
     }
@@ -301,14 +284,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     marker.bindPopup(popupContent);
     if (link) {
       this.linkPopupService.register(marker, link, 'Relatório');
-      marker.on('popupopen', () => {
-        this.markerGroupData.marker = {
-          title: popupTitle,
-          content: popupContent,
-          latLong,
-          link
-        };
-      });
+      marker.on('popupopen', () =>
+                this.selectedMarker = new SelectedMarker(overlayName, popupTitle, popupContent, latLong, link));
     }
     return marker;
   }
@@ -373,7 +350,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       if (this.markerInfo) {
         this.markerInfo.remove();
       }
-      if (this.markerGroupData.overlayName === layer.label) {
+      if (this.selectedMarker.overlayName === layer.label) {
         this.markerClusterGroup.clearLayers();
       }
     });
@@ -579,7 +556,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   async getFeatureInfo(event: L.LeafletMouseEvent) {
-    let popupTitle = '';
     const latLong = event.latlng;
     let popupContent = `<div class="popup-container">`;
 
@@ -590,7 +566,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     for (const selectedLayer of this.selectedLayers) {
       const layer = this.getLayer(selectedLayer.layerData);
       const layerName = selectedLayer.label;
-      popupTitle = layerName;
 
       const params = this.getFeatureInfoParams(layer, event);
 
@@ -607,7 +582,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     popupContent += `</div>`;
-    this.markerInfo = this.createMarker(popupTitle, popupContent, latLong);
+    this.markerInfo = this.createMarker('info', popupContent, '', latLong);
     if (this.markerInfo) {
       this.markerInfo.addTo(this.map);
       this.markerInfo.openPopup();
@@ -739,7 +714,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.selectedLayers.forEach(layer => {
       this.removeLayer(layer, false);
     });
-
   }
 
   updateLayers() {
@@ -762,7 +736,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       popupTitle = layer.carRegisterColumn;
     } else if (layer.type === LayerType.STATIC) {
       url = appConfig.staticLayerUrl;
-      popupTitle = layer.popupTitle;
+      popupTitle = layer.carRegisterColumn;
     } else if (layer.type === LayerType.DYNAMIC) {
       url = appConfig.dynamicLayerUrl;
     }
