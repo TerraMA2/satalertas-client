@@ -59,7 +59,8 @@
               "layers": "terrama2_48:view48",
               "transparent": true,
               "format": "image/png",
-              "version": "1.1.0"
+              "version": "1.1.0",
+              "time": "P1Y"
             },
             "legend": {
               "title": "CAR x DETER",
@@ -110,7 +111,8 @@
               "layers": "terrama2_49:view49",
               "transparent": true,
               "format": "image/png",
-              "version": "1.1.0"
+              "version": "1.1.0",
+              "time": "P1Y"
             },
             "legend": {
               "title": "APP x CAR_DETER",
@@ -151,7 +153,8 @@
               "layers": "terrama2_50:view50",
               "transparent": true,
               "format": "image/png",
-              "version": "1.1.0"
+              "version": "1.1.0",
+              "time": "P1Y"
             },
             "legend": {
               "title": "UsoAnt x CAR_DETER",
@@ -192,7 +195,8 @@
               "layers": "terrama2_51:view51",
               "transparent": true,
               "format": "image/png",
-              "version": "1.1.0"
+              "version": "1.1.0",
+              "time": "P1Y"
             },
             "legend": {
               "title": "Reserva x CAR_DETER",
@@ -233,7 +237,8 @@
               "layers": "terrama2_52:view52",
               "transparent": true,
               "format": "image/png",
-              "version": "1.1.0"
+              "version": "1.1.0",
+              "time": "P1Y"
             },
             "legend": {
               "title": "VegNat x CAR_DETER",
@@ -274,7 +279,8 @@
               "layers": "terrama2_53:view53",
               "transparent": true,
               "format": "image/png",
-              "version": "1.1.0"
+              "version": "1.1.0",
+              "time": "P1Y"
             },
             "legend": {
               "title": "UsoCon x CAR_DETER",
@@ -324,7 +330,8 @@
               "layers": "terrama2_54:view54",
               "transparent": true,
               "format": "image/png",
-              "version": "1.1.0"
+              "version": "1.1.0",
+              "time": "P1Y"
             },
             "legend": {
               "title": "CAR x PRODES",
@@ -375,7 +382,8 @@
               "layers": "terrama2_56:view56",
               "transparent": true,
               "format": "image/png",
-              "version": "1.1.0"
+              "version": "1.1.0",
+              "time": "P1Y"
             },
             "legend": {
               "title": "APP x CAR_PRODES",
@@ -416,7 +424,8 @@
               "layers": "terrama2_57:view57",
               "transparent": true,
               "format": "image/png",
-              "version": "1.1.0"
+              "version": "1.1.0",
+              "time": "P1Y"
             },
             "legend": {
               "title": "UsoAnt x CAR_PRODES",
@@ -457,7 +466,8 @@
               "layers": "terrama2_58:view58",
               "transparent": true,
               "format": "image/png",
-              "version": "1.1.0"
+              "version": "1.1.0",
+              "time": "P1Y"
             },
             "legend": {
               "title": "Reserva x CAR_PRODES",
@@ -498,7 +508,8 @@
               "layers": "terrama2_59:view59",
               "transparent": true,
               "format": "image/png",
-              "version": "1.1.0"
+              "version": "1.1.0",
+              "time": "P1Y"
             },
             "legend": {
               "title": "VegNat x CAR_PRODES",
@@ -539,7 +550,8 @@
               "layers": "terrama2_60:view60",
               "transparent": true,
               "format": "image/png",
-              "version": "1.1.0"
+              "version": "1.1.0",
+              "time": "P1Y"
             },
             "legend": {
               "title": "UsoCon x CAR_PRODES",
@@ -584,13 +596,13 @@
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": true,
-
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
               "layers": "terrama2_66:view66",
               "transparent": true,
               "format": "image/png",
-              "version": "1.1.0"
+              "version": "1.1.0",
+              "time": "P1Y"
             },
             "legend": {
               "title": "CAR x FOCOS",
@@ -641,7 +653,8 @@
               "layers": "terrama2_61:view61",
               "transparent": true,
               "format": "image/png",
-              "version": "1.1.0"
+              "version": "1.1.0",
+              "time": "P1Y"
             },
             "legend": {
               "title": "APP x CAR_FOCOS",
@@ -682,7 +695,8 @@
               "layers": "terrama2_57:view57",
               "transparent": true,
               "format": "image/png",
-              "version": "1.1.0"
+              "version": "1.1.0",
+              "time": "P1Y"
             },
             "legend": {
               "title": "UsoAnt x CAR_FOCOS",
@@ -723,7 +737,8 @@
               "layers": "terrama2_58:view58",
               "transparent": true,
               "format": "image/png",
-              "version": "1.1.0"
+              "version": "1.1.0",
+              "time": "P1Y"
             },
             "legend": {
               "title": "Reserva x CAR_FOCOS",
@@ -764,7 +779,8 @@
               "layers": "terrama2_59:view59",
               "transparent": true,
               "format": "image/png",
-              "version": "1.1.0"
+              "version": "1.1.0",
+              "time": "P1Y"
             },
             "legend": {
               "title": "VegNat x CAR_FOCOS",
@@ -805,7 +821,8 @@
               "layers": "terrama2_60:view60",
               "transparent": true,
               "format": "image/png",
-              "version": "1.1.0"
+              "version": "1.1.0",
+              "time": "P1Y"
             },
             "legend": {
               "title": "UsoCon x CAR_FOCOS",
@@ -936,12 +953,11 @@
             "dateColumn": null,
             "areaColumn": null,
             "geomColumn": null,
-            "carRegisterColumn": null,
+            "carRegisterColumn": "numero_do2",
             "classNameColumn": null,
             "type": "static",
             "isPrivate": false,
             "isPrimary": true,
-            "popupTitle": "numero_do2",
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
               "layers": "terrama2_5:view5",
@@ -1488,7 +1504,8 @@
               "layers": "terrama2_20:view20",
               "transparent": true,
               "format": "image/png",
-              "version": "1.1.0"
+              "version": "1.1.0",
+              "time": "P1Y"
             },
             "legend": {
               "title": "Focos Queimadas",
@@ -1539,7 +1556,8 @@
               "layers": "terrama2_18:view18",
               "transparent": true,
               "format": "image/png",
-              "version": "1.1.0"
+              "version": "1.1.0",
+              "time": "P1Y"
             },
             "legend": {
               "title": "DETER",
@@ -1590,7 +1608,8 @@
               "layers": "terrama2_45:view45",
               "transparent": true,
               "format": "image/png",
-              "version": "1.1.0"
+              "version": "1.1.0",
+              "time": "P1Y"
             },
             "legend": {
               "title": "PRODES",
@@ -1888,7 +1907,7 @@
       {
         "id": "legalReserveDetailedVision",
         "title": "Reserva Legal",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_29:view29&styles=&bbox={bbox}&width=404&height=431&srs=EPSG:4674&cql_filter={propertyCqlFilter}&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={bbox}&width=404&height=431&srs=EPSG:4674&cql_filter={propertyCqlFilter}&format=image/png",
         "description": null,
         "carRegisterColumn": "de_area_reserva_legal_nativa_sema_numero_do2"
       },
