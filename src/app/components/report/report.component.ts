@@ -69,23 +69,14 @@ export class ReportComponent implements OnInit {
     const url = propertyConfig.url;
     const viewId = propertyConfig.viewId;
     const carRegister = this.carRegister;
-    this.hTTPService.get(url, {viewId, carRegister}).subscribe(propertyData => {
-      const bboxArray = propertyData['bbox'].split(',');
+    this.hTTPService.get(url, {viewId, carRegister}).subscribe((propertyData: Property) => {
+      const bboxArray = propertyData.bbox.split(',');
       this.bbox = bboxArray[0].split(' ').join(',') + ',' + bboxArray[1].split(' ').join(',');
 
-      const cityBBoxArray = propertyData['citybbox'].split(',');
+      const cityBBoxArray = propertyData.cityBBox.split(',');
       this.cityBBox = cityBBoxArray[0].split(' ').join(',') + ',' + cityBBoxArray[1].split(' ').join(',');
 
-      const latLong = [propertyData['lat'], propertyData['long']];
-
-      this.property = new Property(propertyData['register'],
-                                  propertyData['area'],
-                                  propertyData['name'],
-                                  propertyData['city'],
-                                  this.cityBBox,
-                                  this.bbox,
-                                  latLong
-      );
+      this.property = propertyData;
 
       this.getVisions();
 
@@ -95,11 +86,11 @@ export class ReportComponent implements OnInit {
 
       this.getDeforestationHistories();
 
-      this.getBurningSpotlightsChart(propertyData['burningSpotlights']);
+      this.getBurningSpotlightsChart(propertyData.burningSpotlights);
 
       this.getBurnedAreas();
 
-      this.getBurnedAreasChart(propertyData['burnedAreas'], propertyData['area']);
+      this.getBurnedAreasChart(propertyData.burnedAreas, propertyData.area);
 
       this.getLandsatHistories();
     });
@@ -113,6 +104,9 @@ export class ReportComponent implements OnInit {
       image = image.replace('{citybbox}', this.cityBBox);
       image = image.replace('{cityCqlFilter}', `municipio='${this.property.city}';numero_do2='${this.property.register}'`);
       image = image.replace('{propertyCqlFilter}', `numero_do2='${this.property.register}'`);
+      image = image.replace(/\{carRegister\}/g, `'${this.property.register}'`);
+      const currentDateInput = JSON.parse(localStorage.getItem('dateFilter'));
+      image = image.replace('{date}', `${currentDateInput[0]}/${currentDateInput[1]}`);
 
       const vision = new Vision(
         visionData.id,
@@ -130,12 +124,10 @@ export class ReportComponent implements OnInit {
     detailedVisionsData.forEach((detailedVisionData: Vision) => {
       let image = detailedVisionData.image;
       image = image.replace('{bbox}', this.bbox);
-      const carRegisterColumn = detailedVisionData.carRegisterColumn;
-      let carRegisterColumnFilter = '';
-      if (carRegisterColumn) {
-        carRegisterColumnFilter += `;${carRegisterColumn}='${this.property.register}'`;
-      }
-      image = image.replace('{propertyCqlFilter}', `numero_do2='${this.property.register}'${carRegisterColumnFilter}`);
+      const currentDateInput = JSON.parse(localStorage.getItem('dateFilter'));
+      image = image.replace('{date}', `${currentDateInput[0]}/${currentDateInput[1]}`);
+      image = image.replace('{propertyCqlFilter}', `numero_do2='${this.property.register}'`);
+      image = image.replace(/\{carRegister\}/g, `'${this.property.register}'`);
       const vision = new Vision(
         detailedVisionData.id,
         detailedVisionData.title,
@@ -153,6 +145,8 @@ export class ReportComponent implements OnInit {
       let image = deforestationData.image;
       image = image.replace('{bbox}', this.bbox);
       image = image.replace('{propertyCqlFilter}', `numero_do2='${this.property.register}'`);
+      const currentDateInput = JSON.parse(localStorage.getItem('dateFilter'));
+      image = image.replace('{date}', `${currentDateInput[0]}/${currentDateInput[1]}`);
       const vision = new Vision(
         deforestationData.id,
         deforestationData.title,
@@ -170,6 +164,8 @@ export class ReportComponent implements OnInit {
       let image = deforestationHistoryData.image;
       image = image.replace('{bbox}', this.bbox);
       image = image.replace('{propertyCqlFilter}', `numero_do2='${this.property.register}'`);
+      const currentDateInput = JSON.parse(localStorage.getItem('dateFilter'));
+      image = image.replace('{date}', `${currentDateInput[0]}/${currentDateInput[1]}`);
       const vision = new Vision(
         deforestationHistoryData.id,
         deforestationHistoryData.title,
@@ -187,6 +183,8 @@ export class ReportComponent implements OnInit {
       let image = burningSpotlightData.image;
       image = image.replace('{bbox}', this.bbox);
       image = image.replace('{propertyCqlFilter}', `numero_do2='${this.property.register}'`);
+      const currentDateInput = JSON.parse(localStorage.getItem('dateFilter'));
+      image = image.replace('{date}', `${currentDateInput[0]}/${currentDateInput[1]}`);
       const vision = new Vision(
         burningSpotlightData.id,
         burningSpotlightData.title,
@@ -232,6 +230,8 @@ export class ReportComponent implements OnInit {
       let image = burnedAreaData.image;
       image = image.replace('{bbox}', this.bbox);
       image = image.replace('{propertyCqlFilter}', `numero_do2='${this.property.register}'`);
+      const currentDateInput = JSON.parse(localStorage.getItem('dateFilter'));
+      image = image.replace('{date}', `${currentDateInput[0]}/${currentDateInput[1]}`);
       const vision = new Vision(
         burnedAreaData.id,
         burnedAreaData.title,
@@ -298,6 +298,8 @@ export class ReportComponent implements OnInit {
       let image = landsatHistoryData.image;
       image = image.replace('{bbox}', this.bbox);
       image = image.replace('{propertyCqlFilter}', `numero_do2='${this.property.register}'`);
+      const currentDateInput = JSON.parse(localStorage.getItem('dateFilter'));
+      image = image.replace('{date}', `${currentDateInput[0]}/${currentDateInput[1]}`);
       const vision = new Vision(
         landsatHistoryData.id,
         landsatHistoryData.title,
