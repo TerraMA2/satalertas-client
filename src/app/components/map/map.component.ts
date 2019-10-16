@@ -108,21 +108,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.setLocalStorageData();
   }
 
-  setLocalStorageData() {
-    if (this.selectedLayers) {
-      const mapState = new MapState(
-        this.selectedLayers,
-        this.selectedMarker,
-        this.map.getZoom(),
-        [
-          this.map.getCenter().lat,
-          this.map.getCenter().lng
-        ]
-      );
-      localStorage.setItem('mapState', JSON.stringify(mapState));
-    }
-  }
-
   ngAfterViewInit() {
     this.setMap();
     this.setControls();
@@ -228,6 +213,21 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       this.panMap(previousLatLong, previousZoom);
     }
     localStorage.removeItem('mapState');
+  }
+
+  setLocalStorageData() {
+    if (this.selectedLayers) {
+      const mapState = new MapState(
+        this.selectedLayers,
+        this.selectedMarker,
+        this.map.getZoom(),
+        [
+          this.map.getCenter().lat,
+          this.map.getCenter().lng
+        ]
+      );
+      localStorage.setItem('mapState', JSON.stringify(mapState));
+    }
   }
 
   setOverlay() {
