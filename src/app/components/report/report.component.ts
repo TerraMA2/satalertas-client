@@ -83,31 +83,25 @@ export class ReportComponent implements OnInit {
 
       const area = propertyData.area;
 
-      const bboxArray = propertyData.bbox.split(',');
-      this.bbox = bboxArray[0].split(' ').join(',') + ',' + bboxArray[1].split(' ').join(',');
-
-      const cityBBoxArray = propertyData.citybbox.split(',');
-      this.cityBBox = cityBBoxArray[0].split(' ').join(',') + ',' + cityBBoxArray[1].split(' ').join(',');
-
       this.property = propertyData;
 
-      this.visions = this.reportService.getVisions(propertyData, this.reportConfig, this.bbox, this.cityBBox);
+      this.visions = this.reportService.getVisions(propertyData, this.reportConfig);
 
-      this.detailedVisions = this.reportService.getDetailedVisions(propertyData, this.reportConfig, this.bbox, this.cityBBox);
+      this.detailedVisions = this.reportService.getDetailedVisions(propertyData, this.reportConfig);
 
-      this.deforestations = this.reportService.getDeforestations(propertyData, this.reportConfig, this.bbox);
+      this.deforestations = this.reportService.getDeforestations(propertyData, this.reportConfig);
 
-      this.deforestationHistories = this.reportService.getDeforestationHistories(propertyData, this.reportConfig, this.bbox);
+      this.deforestationHistories = this.reportService.getDeforestationHistories(propertyData, this.reportConfig);
 
       this.burningSpotlightsChartData = this.reportService.getBurningSpotlightsChart(propertyData.burningSpotlights);
 
-      this.burnedAreas = this.reportService.getBurnedAreas(propertyData, this.reportConfig, this.bbox);
+      this.burnedAreas = this.reportService.getBurnedAreas(propertyData, this.reportConfig);
 
       this.burnedAreasChartData = this.reportService.getBurnedAreasChart(burnedAreas);
 
       this.burnedAreasPerPropertyChartDatas = this.reportService.getBurnedAreasPerPropertyChart(burnedAreas, area);
 
-      this.landsatHistories = this.reportService.getLandsatHistories(propertyData, this.reportConfig, this.bbox);
+      this.landsatHistories = this.reportService.getLandsatHistories(propertyData, this.reportConfig);
     });
   }
 }
