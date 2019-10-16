@@ -23,6 +23,8 @@ export class ReportComponent implements OnInit {
 
   property: Property;
 
+  intersectId: string;
+
   bbox: string;
 
   cityBBox: string;
@@ -58,7 +60,10 @@ export class ReportComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe(params => this.carRegister = params.carRegister);
+    this.activatedRoute.params.subscribe(params => {
+      this.carRegister = params.carRegister;
+      this.intersectId = params.intersectId;
+    });
     this.reportConfig = this.configService.getConfig('report');
     this.visionLegends = this.reportConfig.visionslegends;
     this.getPropertyData();
@@ -69,11 +74,12 @@ export class ReportComponent implements OnInit {
     const url = propertyConfig.url;
     const viewId = propertyConfig.viewId;
     const carRegister = this.carRegister;
-    this.hTTPService.get(url, {viewId, carRegister}).subscribe((propertyData: Property) => {
+    const intersectId = this.intersectId;
+    this.hTTPService.get(url, {viewId, carRegister, intersectId}).subscribe((propertyData: Property) => {
       const bboxArray = propertyData.bbox.split(',');
       this.bbox = bboxArray[0].split(' ').join(',') + ',' + bboxArray[1].split(' ').join(',');
 
-      const cityBBoxArray = propertyData.cityBBox.split(',');
+      const cityBBoxArray = propertyData.citybbox.split(',');
       this.cityBBox = cityBBoxArray[0].split(' ').join(',') + ',' + cityBBoxArray[1].split(' ').join(',');
 
       this.property = propertyData;
@@ -99,7 +105,26 @@ export class ReportComponent implements OnInit {
   getVisions() {
     const visionsData = this.reportConfig.visions;
     visionsData.forEach((visionData: Vision) => {
+      const deter = this.property.deter;
+
+      const date = deter['date'];
+      const dateFormatted = new Date(date);
+
+      const day = dateFormatted.getDate() + '';
+      const month = (dateFormatted.getMonth() + 1) + '';
+      const year = dateFormatted.getFullYear();
+
+      const dateFormattedStr = `${day.padStart(2, '0')}${month.padStart(2, '0')}${year}`;
+      const satellite = deter['satellite'];
+      const satelliteFormatted = satellite.charAt(0) + satellite.charAt(satellite.length - 1);
+
+      const orbitpoint = deter['orbitpoint'];
+      const orbitpointFormatted = orbitpoint.substr(0, 3) + '_' + orbitpoint.substr(3, 5);
+
+      const backgroundImage = `terraamazon:${satelliteFormatted}${deter['sensor']}_${orbitpointFormatted}_${dateFormattedStr}`;
+
       let image = visionData.image;
+      image = image.replace('{background}', backgroundImage);
       image = image.replace('{bbox}', this.bbox);
       image = image.replace('{citybbox}', this.cityBBox);
       image = image.replace('{cityCqlFilter}', `municipio='${this.property.city}';numero_do2='${this.property.register}'`);

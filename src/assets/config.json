@@ -1316,47 +1316,6 @@
             ]
           },
           {
-            "label": "Uso Consolidado",
-            "shortLabel": "Uso Consolidado",
-            "value": "2",
-            "dateColumn": null,
-            "areaColumn": null,
-            "geomColumn": null,
-            "carRegisterColumn": null,
-            "classNameColumn": null,
-            "type": "static",
-            "isPrivate": false,
-            "isPrimary": false,
-            "layerData": {
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
-              "layers": "terrama2_2:view2",
-              "transparent": true,
-              "format": "image/png",
-              "version": "1.1.0"
-            },
-            "legend": {
-              "title": "Uso Consolidado",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_2:view2"
-            },
-            "tools": [
-              {
-                "title": "Informações",
-                "name": "info",
-                "icon": "fas fa-info"
-              },
-              {
-                "title": "Exportar",
-                "name": "export",
-                "icon": "fas fa-download"
-              },
-              {
-                "title": "Transparência",
-                "name": "opacity",
-                "icon": "fas fa-adjust"
-              }
-            ]
-          },
-          {
             "label": "Biomas MT",
             "shortLabel": "Biomas MT",
             "value": "1",
@@ -1871,7 +1830,7 @@
       {
         "id": "stateVision",
         "title": "Visão do Estado",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_14:view14&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=404&height=431&srs=EPSG:4674&time={date}&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_14:view14,terrama2_14:view14,terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=404&height=431&srs=EPSG:4674&time={date}&cql_filter=id>0;{cityCqlFilter}&format=image/png",
         "description": null
       },
       {
@@ -1883,13 +1842,13 @@
       {
         "id": "carVision",
         "title": "Visão do CAR no Imóvel",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_49:view49,terrama2_50:view50,terrama2_51:view51,terrama2_52:view52,terrama2_53:view53&styles=&bbox={bbox}&width=404&height=431&srs=EPSG:4674&time={date}&cql_filter={propertyCqlFilter};apv_car_deter_28_de_car_validado_sema_numero_do2={carRegister};apv_car_deter_28_de_car_validado_sema_numero_do2={carRegister};apv_car_deter_28_de_car_validado_sema_numero_do2={carRegister};apv_car_deter_28_de_car_validado_sema_numero_do2={carRegister};apv_car_deter_28_de_car_validado_sema_numero_do2={carRegister}&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_13:view13,terrama2_4:view4,terrama2_9:view9,terrama2_3:view3,terrama2_73:view73&styles=&bbox={bbox}&width=404&height=431&srs=EPSG:4674&time={date}&cql_filter=numero_do2={carRegister};numero_do2={carRegister};numero_do2={carRegister};numero_do2={carRegister};numero_do2={carRegister};numero_do2={carRegister}&format=image/png",
         "description": null
       },
       {
         "id": "degradationVision",
         "title": "Histórico Degradação Ambiental",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={bbox}&width=404&height=431&srs=EPSG:4674&time={date}&cql_filter={propertyCqlFilter}&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_18:view18&styles=&bbox={bbox}&width=404&height=431&srs=EPSG:4674&time={date}&cql_filter={propertyCqlFilter};classname='DEGRADACAO'&format=image/png",
         "description": null
       },
       {
@@ -1927,19 +1886,19 @@
       {
         "id": "legalReserveDetailedVision",
         "title": "Reserva Legal",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_51:view51&styles=&bbox={bbox}&width=404&height=431&srs=EPSG:4674&time={date}&cql_filter={propertyCqlFilter};apv_car_deter_28_de_car_validado_sema_numero_do2={carRegister}&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_13:view13&styles=&bbox={bbox}&width=404&height=431&srs=EPSG:4674&time={date}&cql_filter={propertyCqlFilter};numero_do2={carRegister}&format=image/png",
         "description": null
       },
       {
         "id": "appDetailedVision",
         "title": "APP",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_49:view49&styles=&bbox={bbox}&width=404&height=431&srs=EPSG:4674&time={date}&cql_filter={propertyCqlFilter};apv_car_deter_28_de_car_validado_sema_numero_do2={carRegister}&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_4:view4&styles=&bbox={bbox}&width=404&height=431&srs=EPSG:4674&time={date}&cql_filter={propertyCqlFilter};numero_do2={carRegister}&format=image/png",
         "description": null
       },
       {
         "id": "consolidatedAreaDetailedVision",
         "title": "Área Consolidada",
-        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={bbox}&width=404&height=431&srs=EPSG:4674&time={date}&cql_filter={propertyCqlFilter}&format=image/png",
+        "image": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_73:view73&styles=&bbox={bbox}&width=404&height=431&srs=EPSG:4674&time={date}&cql_filter={propertyCqlFilter};numero_do2={carRegister}&format=image/png",
         "description": null
       }
     ],

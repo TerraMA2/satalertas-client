@@ -258,7 +258,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       let link = null;
       if (popupTitle && markerData[popupTitle]) {
         popup = markerData[popupTitle];
-        link = `/report/${popup}`;
+        const intersectId = markerData['intersect_id'];
+        link = `/report/${popup}/${intersectId}`;
       } else {
         popup = popupTitle;
       }
@@ -573,7 +574,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
       await this.hTTPService.get(url, params).toPromise().then((layerInfo: LayerInfo) => {
         const features = layerInfo.features;
-        popupContent += this.getFeatureInfoPopup(layerName, features);
+        if (features && features.length > 0) {
+          popupContent += this.getFeatureInfoPopup(layerName, features);
+        }
       });
     }
 
