@@ -85,23 +85,23 @@ export class ReportComponent implements OnInit {
 
       this.property = propertyData;
 
-      this.visions = this.reportService.getVisions(propertyData, this.reportConfig);
+      this.visions = this.reportService.getVisions(propertyData, this.reportConfig.visions);
 
-      this.detailedVisions = this.reportService.getDetailedVisions(propertyData, this.reportConfig);
+      this.detailedVisions = this.reportService.getVisions(propertyData, this.reportConfig.detailedVisions);
 
-      this.deforestations = this.reportService.getDeforestations(propertyData, this.reportConfig);
+      this.deforestations = this.reportService.getVisions(propertyData, this.reportConfig.deforestations);
 
-      this.deforestationHistories = this.reportService.getDeforestationHistories(propertyData, this.reportConfig);
+      this.deforestationHistories = this.reportService.getVisions(propertyData, this.reportConfig.deforestationHistories);
+
+      this.burnedAreas = this.reportService.getVisions(propertyData, this.reportConfig.burnedAreas);
+
+      this.landsatHistories = this.reportService.getVisions(propertyData, this.reportConfig.landsatHistories);
 
       this.burningSpotlightsChartData = this.reportService.getBurningSpotlightsChart(propertyData.burningSpotlights);
-
-      this.burnedAreas = this.reportService.getBurnedAreas(propertyData, this.reportConfig);
 
       this.burnedAreasChartData = this.reportService.getBurnedAreasChart(burnedAreas);
 
       this.burnedAreasPerPropertyChartDatas = this.reportService.getBurnedAreasPerPropertyChart(burnedAreas, area);
-
-      this.landsatHistories = this.reportService.getLandsatHistories(propertyData, this.reportConfig);
     });
   }
 }

@@ -206,7 +206,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
       previousSelectedLayers.forEach((layer: Layer) => {
         this.addLayer(layer, true);
-        if (previousSelectedMarker.overlayName === layer.label) {
+        if (previousSelectedMarker && previousSelectedMarker.overlayName === layer.label) {
           this.updateMarkers(layer);
         }
       });
