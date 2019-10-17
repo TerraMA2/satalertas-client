@@ -108,21 +108,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.setLocalStorageData();
   }
 
-  setLocalStorageData() {
-    if (this.selectedLayers) {
-      const mapState = new MapState(
-        this.selectedLayers,
-        this.selectedMarker,
-        this.map.getZoom(),
-        [
-          this.map.getCenter().lat,
-          this.map.getCenter().lng
-        ]
-      );
-      localStorage.setItem('mapState', JSON.stringify(mapState));
-    }
-  }
-
   ngAfterViewInit() {
     this.setMap();
     this.setControls();
@@ -230,6 +215,21 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     localStorage.removeItem('mapState');
   }
 
+  setLocalStorageData() {
+    if (this.selectedLayers) {
+      const mapState = new MapState(
+        this.selectedLayers,
+        this.selectedMarker,
+        this.map.getZoom(),
+        [
+          this.map.getCenter().lat,
+          this.map.getCenter().lng
+        ]
+      );
+      localStorage.setItem('mapState', JSON.stringify(mapState));
+    }
+  }
+
   setOverlay() {
     const layer = this.getLayer(this.overlay).addTo(this.map);
     layer.addTo(this.map);
@@ -258,7 +258,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       let link = null;
       if (popupTitle && markerData[popupTitle]) {
         popup = markerData[popupTitle];
-        link = `/report/${popup}`;
+        const intersectId = markerData['intersect_id'];
+        link = `/report/${popup}/${intersectId}`;
       } else {
         popup = popupTitle;
       }
@@ -350,7 +351,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       if (this.markerInfo) {
         this.markerInfo.remove();
       }
-      if (this.selectedMarker.overlayName === layer.label) {
+      if (this.selectedMarker && this.selectedMarker.overlayName === layer.label) {
         this.markerClusterGroup.clearLayers();
       }
     });
@@ -573,7 +574,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
       await this.hTTPService.get(url, params).toPromise().then((layerInfo: LayerInfo) => {
         const features = layerInfo.features;
-        popupContent += this.getFeatureInfoPopup(layerName, features);
+        if (features && features.length > 0) {
+          popupContent += this.getFeatureInfoPopup(layerName, features);
+        }
       });
     }
 

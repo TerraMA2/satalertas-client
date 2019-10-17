@@ -1,6 +1,6 @@
 import { Injectable, ComponentFactoryResolver, Injector, ApplicationRef } from '@angular/core';
 
-import { PopupLinkComponent } from '../components/popup-link/popup-link.component';
+import { PopupLinkComponent } from '../components/map/popup-link/popup-link.component';
 
 import * as L from 'leaflet';
 
