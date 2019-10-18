@@ -63,8 +63,6 @@ export class TableComponent implements OnInit {
 
     this.tableService.unloadTableData.subscribe((layer: Layer) => {
       if (layer) {
-        const layerIndex = this.selectedLayers.findIndex(selectedLayer => selectedLayer.label === layer.label);
-        this.selectedLayers.splice(layerIndex, 1);
         if (layer.value === this.selectedLayerValue) {
           this.selectedLayer = undefined;
           this.selectedLayerValue = 0;

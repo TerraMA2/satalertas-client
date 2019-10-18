@@ -401,7 +401,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   removeLayer(layer, deselectLayer) {
     if (layer) {
       const layerData = layer.layerData;
-      let zindex;
+      let zindex = 0;
       if (deselectLayer) {
         this.selectedLayers.splice(this.selectedLayers.findIndex(selectedLayer => selectedLayer.value === layer.value), 1);
       }

@@ -1830,6 +1830,7 @@
       {
         "title": "Visão do Estado",
         "description": null,
+        "registerCarColumn": null,
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_14:view14,terrama2_14:view14,terrama2_5:view5",
@@ -1847,6 +1848,7 @@
       {
         "title": "Visão do Município",
         "description": null,
+        "registerCarColumn": "numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_14:view14,terrama2_5:view5",
@@ -1864,6 +1866,7 @@
       {
         "title": "Visão do CAR no Imóvel",
         "description": null,
+        "registerCarColumn": "numero_do2;numero_do2;numero_do2;numero_do2;numero_do2;numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5,terrama2_13:view13,terrama2_4:view4,terrama2_9:view9,terrama2_3:view3,terrama2_73:view73",
@@ -1881,14 +1884,15 @@
       {
         "title": "Histórico Degradação Ambiental",
         "description": null,
+        "registerCarColumn": "numero_do2;de_car_validado_sema_numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_5:view5,terrama2_18:view18",
+          "layers": "terrama2_5:view5,terrama2_86:view86",
           "transparent": true,
           "format": "image/png",
           "version": "1.1.0",
           "time": "{date}",
-          "cql_filter": "{propertyCqlFilter};classname='DEGRADACAO'",
+          "cql_filter": "{propertyCqlFilter};{propertyCqlFilter} AND dd_deter_inpe_classname='DEGRADACAO'",
           "bbox": "{bbox}",
           "width": "404",
           "height": "431",
@@ -1896,16 +1900,17 @@
         }
       },
       {
-        "title": "Desmatamento - 2019",
+        "title": "Desmatamento - {year}",
         "description": null,
+        "registerCarColumn": "numero_do2;de_car_validado_sema_numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_5:view5",
+          "layers": "terrama2_5:view5,terrama2_86:view86",
           "transparent": true,
           "format": "image/png",
           "version": "1.1.0",
           "time": "{date}",
-          "cql_filter": "{propertyCqlFilter}",
+          "cql_filter": "{propertyCqlFilter};{propertyCqlFilter}",
           "bbox": "{bbox}",
           "width": "404",
           "height": "431",
@@ -1913,16 +1918,17 @@
         }
       },
       {
-        "title": "Queimadas - 2019",
+        "title": "Queimadas - {year}",
         "description": null,
+        "registerCarColumn": "numero_do2;de_car_validado_sema_numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_5:view5",
+          "layers": "terrama2_5:view5,terrama2_87:view87",
           "transparent": true,
           "format": "image/png",
           "version": "1.1.0",
           "time": "{date}",
-          "cql_filter": "{propertyCqlFilter}",
+          "cql_filter": "{propertyCqlFilter};{propertyCqlFilter}",
           "bbox": "{bbox}",
           "width": "404",
           "height": "431",
@@ -1934,6 +1940,7 @@
       {
         "title": "Assentamento",
         "description": null,
+        "registerCarColumn": "numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -1951,6 +1958,7 @@
       {
         "title": "Terra Indígena",
         "description": null,
+        "registerCarColumn": "numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -1968,6 +1976,7 @@
       {
         "title": "Unidade de Conservação",
         "description": null,
+        "registerCarColumn": "numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -1985,9 +1994,10 @@
       {
         "title": "Reserva Legal",
         "description": null,
+        "registerCarColumn": "numero_do2;apv_car_deter_28_de_car_validado_sema_numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_5:view5,terrama2_13:view13",
+          "layers": "terrama2_5:view5,terrama2_76:view76",
           "transparent": true,
           "format": "image/png",
           "version": "1.1.0",
@@ -2002,9 +2012,10 @@
       {
         "title": "APP",
         "description": null,
+        "registerCarColumn": "numero_do2;apv_car_deter_28_de_car_validado_sema_numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_5:view5,terrama2_4:view4",
+          "layers": "terrama2_5:view5,terrama2_75:view75",
           "transparent": true,
           "format": "image/png",
           "version": "1.1.0",
@@ -2019,9 +2030,10 @@
       {
         "title": "Área Consolidada",
         "description": null,
+        "registerCarColumn": "numero_do2;apv_car_deter_28_de_car_validado_sema_numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_5:view5,terrama2_73:view73",
+          "layers": "terrama2_5:view5,terrama2_78:view78",
           "transparent": true,
           "format": "image/png",
           "version": "1.1.0",
@@ -2036,9 +2048,10 @@
       {
         "title": "Uso antropizado",
         "description": null,
+        "registerCarColumn": "numero_do2;apv_car_deter_28_de_car_validado_sema_numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_5:view5,terrama2_9:view9",
+          "layers": "terrama2_5:view5,terrama2_77:view77",
           "transparent": true,
           "format": "image/png",
           "version": "1.1.0",
@@ -2053,9 +2066,10 @@
       {
         "title": "Vegetação nativa",
         "description": null,
+        "registerCarColumn": "numero_do2;apv_car_deter_28_de_car_validado_sema_numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_5:view5,terrama2_3:view3",
+          "layers": "terrama2_5:view5,terrama2_79:view79",
           "transparent": true,
           "format": "image/png",
           "version": "1.1.0",
@@ -2070,9 +2084,9 @@
     ],
     "deforestations": [
       {
-        "id": "deforestation1",
         "title": "Desmatamento DETER sobre imagem LANDSAT 07/02/2019",
         "description": null,
+        "registerCarColumn": "numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -2088,9 +2102,9 @@
         }
       },
       {
-        "id": "deforestation2",
         "title": "Desmatamento DETER sobre imagem LANDSAT 28/04/2019",
         "description": null,
+        "registerCarColumn": "numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -2108,9 +2122,9 @@
     ],
     "deforestationHistories": [
       {
-        "id": "deforestationHistory2015",
         "title": "PRODES 2015",
         "description": null,
+        "registerCarColumn": "numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -2126,9 +2140,9 @@
         }
       },
       {
-        "id": "deforestationHistory2016",
         "title": "PRODES 2016",
         "description": null,
+        "registerCarColumn": "numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -2144,9 +2158,9 @@
         }
       },
       {
-        "id": "deforestationHistory2017",
         "title": "PRODES 2017",
         "description": null,
+        "registerCarColumn": "numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -2162,9 +2176,9 @@
         }
       },
       {
-        "id": "deforestationHistory2018",
         "title": "PRODES 2018",
         "description": null,
+        "registerCarColumn": "numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -2180,9 +2194,9 @@
         }
       },
       {
-        "id": "deforestationHistory2019",
         "title": "PRODES 2019",
         "description": null,
+        "registerCarColumn": "numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -2200,9 +2214,9 @@
     ],
     "burningSpotlights": [
       {
-        "id": "burningSpotlights2015",
         "title": "2015",
         "description": null,
+        "registerCarColumn": "numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -2218,9 +2232,9 @@
         }
       },
       {
-        "id": "burningSpotlights2016",
         "title": "2016",
         "description": null,
+        "registerCarColumn": "numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -2236,9 +2250,9 @@
         }
       },
       {
-        "id": "burningSpotlights2017",
         "title": "2017",
         "description": null,
+        "registerCarColumn": "numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -2254,9 +2268,9 @@
         }
       },
       {
-        "id": "burningSpotlights2018",
         "title": "2018",
         "description": null,
+        "registerCarColumn": "numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -2272,9 +2286,9 @@
         }
       },
       {
-        "id": "burningSpotlights2019",
         "title": "2019",
         "description": null,
+        "registerCarColumn": "numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -2292,9 +2306,9 @@
     ],
     "burnedAreas": [
       {
-        "id": "burnedAreas2015",
         "title": "Acumulado 2015",
         "description": null,
+        "registerCarColumn": "numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -2310,9 +2324,9 @@
         }
       },
       {
-        "id": "burnedAreas2017",
         "title": "Acumulado 2017",
         "description": null,
+        "registerCarColumn": "numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -2328,9 +2342,9 @@
         }
       },
       {
-        "id": "burnedAreas2019",
         "title": "Acumulado 2019",
         "description": null,
+        "registerCarColumn": "numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -2348,9 +2362,9 @@
     ],
     "landsatHistories": [
       {
-        "id": "landsat1Vision",
         "title": "",
         "description": null,
+        "registerCarColumn": "numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -2366,9 +2380,9 @@
         }
       },
       {
-        "id": "landsat2Vision",
         "title": "",
         "description": null,
+        "registerCarColumn": "numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -2384,9 +2398,9 @@
         }
       },
       {
-        "id": "landsat3Vision",
         "title": "",
         "description": null,
+        "registerCarColumn": "numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -2402,9 +2416,9 @@
         }
       },
       {
-        "id": "landsat4Vision",
         "title": "",
         "description": null,
+        "registerCarColumn": "numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -2420,9 +2434,9 @@
         }
       },
       {
-        "id": "landsat5Vision",
         "title": "",
         "description": null,
+        "registerCarColumn": "numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -2438,9 +2452,9 @@
         }
       },
       {
-        "id": "landsat6Vision",
         "title": "",
         "description": null,
+        "registerCarColumn": "numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -2456,9 +2470,9 @@
         }
       },
       {
-        "id": "landsat7Vision",
         "title": "",
         "description": null,
+        "registerCarColumn": "numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -2474,9 +2488,9 @@
         }
       },
       {
-        "id": "landsat8Vision",
         "title": "",
         "description": null,
+        "registerCarColumn": "numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -2492,9 +2506,9 @@
         }
       },
       {
-        "id": "landsat9Vision",
         "title": "",
         "description": null,
+        "registerCarColumn": "numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
