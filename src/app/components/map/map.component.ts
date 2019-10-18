@@ -57,13 +57,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   markerGroupData;
 
   displayTable = false;
-  displayFilter = false;
   displayLegend = false;
   displayInfo = false;
   displayLayers = false;
   displayVisibleLayers = false;
-
-  filteredData = [];
 
   @Input() displayZoomControl = true;
   @Input() displayScaleControl = true;
@@ -73,7 +70,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() displayTableControl = true;
   @Input() displayLegendControl = true;
   @Input() displaySearchControl = true;
-  @Input() displayFilterControl = true;
   @Input() displayRestoreMapControl = true;
   @Input() displayVisibleLayersControl = true;
   @Input() attributionControl = true;
@@ -160,10 +156,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     if (this.displayScaleControl) {
       this.setScaleControl();
-    }
-
-    if (this.displayFilterControl) {
-      this.setFilterControl();
     }
 
     if (this.displayLegendControl) {
@@ -451,28 +443,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   setScaleControl() {
     this.map.addControl(L.control.scale(this.mapConfig.controls.scale));
-  }
-
-  setFilterControl() {
-    const Filter = L.Control.extend({
-      onAdd: () => {
-        const div = L.DomUtil.create('div');
-        div.innerHTML = `
-          <div id="filterBtn" class="leaflet-control-layers leaflet-custom-icon" title="Filtro">
-            <a><i class='fas fa-filter'></i></a>
-          </div>`;
-        return div;
-      }
-    });
-
-    new Filter({ position: 'topleft' }).addTo(this.map);
-
-    this.setFilterControlEvent();
-  }
-
-  setFilterControlEvent() {
-    L.DomEvent.on(L.DomUtil.get('filterBtn'), 'dblclick', L.DomEvent.stopPropagation);
-    document.querySelector('#filterBtn').addEventListener('click', () => this.displayFilter = !this.displayFilter);
   }
 
   setLegendControl() {

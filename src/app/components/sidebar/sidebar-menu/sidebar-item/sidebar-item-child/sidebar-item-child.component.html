@@ -35,7 +35,7 @@
 
     <i *ngFor="let tool of child.tools"
       class="{{tool.icon}}"
-      (click)="onToolClicked(tool.name)"
+      (click)="tool.action($event)"
       pTooltip="{{tool.title}}"
       tooltipPosition="top">
     </i>

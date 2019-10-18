@@ -65,6 +65,10 @@ export class SidebarItemChildComponent implements OnInit {
     this.sidebarService.sidebarItemRadioSelect.next(this.child);
   }
 
+  filterClick(event) {
+    console.log(event);
+  }
+
   onToolClicked(name) {
     switch (name) {
       case 'info':

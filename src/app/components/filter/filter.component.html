@@ -11,7 +11,10 @@
 
     <div class="p-grid p-nogutter">
         <form #filterForm="ngForm" (ngSubmit)="onFilterClicked()" class="width-100">
-            <div class="p-col-12 p-col-nogutter">
+
+<!-- ÁREA RESERVADA PARA O GRUPO -- NÃO UTILIZAR, O GRUPO SERÁ PASSADO "DE ONDE FOR CHAMADO"
+
+        <div class="p-col-12 p-col-nogutter">
                 <span class="ui-float-label">
                     <p-dropdown
                         [options]="groups"
@@ -24,8 +27,11 @@
                     </p-dropdown>
                     <label for="float-input">{{groupsField.label}}</label>
                 </span>
-            </div>
-            <br>
+            </div>-->
+
+<!-- ÁREA RESERVADA PARA A DATA -- NÃO SERÁ MAIS UTILIZADA, A DATA É GERAL E VEM DO HEADER.
+
+             <br>
             <div class="p-col-12 p-col-nogutter">
                 <span class="ui-float-label">
                     <p-calendar
@@ -47,7 +53,7 @@
                     </p-calendar>
                     <label for="float-input">{{dateField.label}}</label>
                 </span>
-            </div>
+            </div>-->
 
             <br>
 
@@ -82,6 +88,8 @@
                 <button pButton type="button" label="Limpar filtro" class="ui-button-rounded width-100" (click)="onClearFilterClicked()"></button>
             </div>
 
+<!--     ÁREA RESERVADA PARA O FOOTER -- NÃO PRECISA MAIS!
+
             <div class="p-col-12">
 
                 <div class="p-grid">
@@ -98,7 +106,7 @@
 
                 </div>
 
-            </div>
+            </div>-->
         </form>
 
         <br />

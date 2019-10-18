@@ -78,9 +78,10 @@
                 "icon": "fas fa-sliders-h"
               },
               {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
+                "title": "Filtro",
+                "name": "filter",
+                "icon": "fas fa-filter",
+                "action": "filterClick(event)"
               },
               {
                 "title": "Transparência",
