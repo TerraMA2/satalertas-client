@@ -27,8 +27,6 @@ export class SidebarItemComponent implements OnInit {
 
   isParentOpened = false;
 
-  loggedUserName;
-
   isAuthenticated = false;
 
   constructor(

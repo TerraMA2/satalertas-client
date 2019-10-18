@@ -43,6 +43,7 @@
         "activeArea": true,
         "children": [
           {
+            "codGroup": "DETER",
             "label": "CAR X DETER",
             "shortLabel": "CAR X DETER",
             "value": "86",
@@ -85,8 +86,7 @@
               {
                 "title": "Filtro",
                 "name": "filter",
-                "icon": "fas fa-filter",
-                "action": "filterClick(event)"
+                "icon": "fas fa-filter"
               },
               {
                 "title": "Transparência",
@@ -96,6 +96,7 @@
             ]
           },
           {
+            "codGroup": "DETER",
             "label": "APP x CAR_DETER",
             "shortLabel": "APP",
             "value": "75",
@@ -138,6 +139,7 @@
             ]
           },
           {
+            "codGroup": "DETER",
             "label": "UsoAnt x CAR_DETER",
             "shortLabel": "Uso antropizado",
             "value": "77",
@@ -180,6 +182,7 @@
             ]
           },
           {
+            "codGroup": "DETER",
             "label": "Reserva x CAR_DETER",
             "shortLabel": "Reserva legal",
             "value": "76",
@@ -222,6 +225,7 @@
             ]
           },
           {
+            "codGroup": "DETER",
             "label": "VegNat x CAR_DETER",
             "shortLabel": "Vegetação nativa",
             "value": "79",
@@ -264,6 +268,7 @@
             ]
           },
           {
+            "codGroup": "DETER",
             "label": "UsoCon x CAR_DETER",
             "shortLabel": "Uso consolidado",
             "value": "78",
@@ -315,6 +320,7 @@
         "activeArea": false,
         "children": [
           {
+            "codGroup": "PRODES",
             "label": "CAR X PRODES",
             "shortLabel": "CAR X PRODES",
             "value": "87",
@@ -355,9 +361,9 @@
                 "icon": "fas fa-sliders-h"
               },
               {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
+                "title": "Filtro",
+                "name": "filter",
+                "icon": "fas fa-filter"
               },
               {
                 "title": "Transparência",
@@ -367,6 +373,7 @@
             ]
           },
           {
+            "codGroup": "PRODES",
             "label": "APP x CAR_PRODES",
             "shortLabel": "APP",
             "value": "80",
@@ -409,6 +416,7 @@
             ]
           },
           {
+            "codGroup": "PRODES",
             "label": "UsoAnt x CAR_PRODES",
             "shortLabel": "Uso antropizado",
             "value": "82",
@@ -451,6 +459,7 @@
             ]
           },
           {
+            "codGroup": "PRODES",
             "label": "Reserva x CAR_PRODES",
             "shortLabel": "Reserva legal",
             "value": "81",
@@ -493,6 +502,7 @@
             ]
           },
           {
+            "codGroup": "PRODES",
             "label": "VegNat x CAR_PRODES",
             "shortLabel": "Vegetação nativa",
             "value": "79",
@@ -535,6 +545,7 @@
             ]
           },
           {
+            "codGroup": "PRODES",
             "label": "UsoCon x CAR_PRODES",
             "shortLabel": "Uso consolidado",
             "value": "83",
@@ -586,6 +597,7 @@
         "activeArea": false,
         "children": [
           {
+            "codGroup": "FOCOS",
             "label": "CAR X FOCOS",
             "shortLabel": "CAR X FOCOS",
             "value": "66",
@@ -626,9 +638,9 @@
                 "icon": "fas fa-sliders-h"
               },
               {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
+                "title": "Filtro",
+                "name": "filter",
+                "icon": "fas fa-filter"
               },
               {
                 "title": "Transparência",
@@ -638,6 +650,7 @@
             ]
           },
           {
+            "codGroup": "FOCOS",
             "label": "APP x CAR_FOCOS",
             "shortLabel": "APP",
             "value": "61",
@@ -680,6 +693,7 @@
             ]
           },
           {
+            "codGroup": "FOCOS",
             "label": "UsoAnt x CAR_FOCOS",
             "shortLabel": "Uso antropizado",
             "value": "57",
@@ -722,6 +736,7 @@
             ]
           },
           {
+            "codGroup": "FOCOS",
             "label": "Reserva x CAR_FOCOS",
             "shortLabel": "Reserva legal",
             "value": "58",
@@ -764,6 +779,7 @@
             ]
           },
           {
+            "codGroup": "FOCOS",
             "label": "VegNat x CAR_FOCOS",
             "shortLabel": "Vegetação nativa",
             "value": "59",
@@ -806,6 +822,7 @@
             ]
           },
           {
+            "codGroup": "FOCOS",
             "label": "UsoCon x CAR_FOCOS",
             "shortLabel": "Uso consolidado",
             "value": "60",
@@ -860,12 +877,14 @@
         ]
       },
       {
+        "cod": "DADOS_ESTATICOS",
         "label": "Dados estáticos",
         "parent": true,
         "viewGraph": false,
         "activeArea": false,
         "children" : [
           {
+            "codGroup": "DADOS_ESTATICOS",
             "label": "Limite Estadual",
             "shortLabel": "Limite Estadual",
             "value": "15",
@@ -907,6 +926,7 @@
             ]
           },
           {
+            "codGroup": "DADOS_ESTATICOS",
             "label": "Municípios",
             "shortLabel": "Municípios",
             "value": "14",
@@ -948,6 +968,7 @@
             ]
           },
           {
+            "codGroup": "DADOS_ESTATICOS",
             "label": "CAR Validado",
             "shortLabel": "CAR Validado",
             "value": "5",
@@ -989,6 +1010,7 @@
             ]
           },
           {
+            "codGroup": "DADOS_ESTATICOS",
             "label": "Microregião",
             "shortLabel": "Microregião",
             "value": "6",
@@ -1030,6 +1052,7 @@
             ]
           },
           {
+            "codGroup": "DADOS_ESTATICOS",
             "label": "Reserva_Legal",
             "shortLabel": "Reserva_Legal",
             "value": "13",
@@ -1071,6 +1094,7 @@
             ]
           },
           {
+            "codGroup": "DADOS_ESTATICOS",
             "label": "Rodovias",
             "shortLabel": "Rodovias",
             "value": "12",
@@ -1112,6 +1136,7 @@
             ]
           },
           {
+            "codGroup": "DADOS_ESTATICOS",
             "label": "Sub-bacias",
             "shortLabel": "Sub-bacias",
             "value": "11",
@@ -1153,6 +1178,7 @@
             ]
           },
           {
+            "codGroup": "DADOS_ESTATICOS",
             "label": "Área Pantaneira",
             "shortLabel": "Área Pantaneira",
             "value": "10",
@@ -1194,6 +1220,7 @@
             ]
           },
           {
+            "codGroup": "DADOS_ESTATICOS",
             "label": "Uso Antropizado",
             "shortLabel": "Uso Antropizado",
             "value": "9",
@@ -1235,6 +1262,7 @@
             ]
           },
           {
+            "codGroup": "DADOS_ESTATICOS",
             "label": "Área_APP",
             "shortLabel": "Área_APP",
             "value": "4",
@@ -1276,6 +1304,7 @@
             ]
           },
           {
+            "codGroup": "DADOS_ESTATICOS",
             "label": "Vegetação Nativa",
             "shortLabel": "Vegetação Nativa",
             "value": "3",
@@ -1317,6 +1346,7 @@
             ]
           },
           {
+            "codGroup": "DADOS_ESTATICOS",
             "label": "Biomas MT",
             "shortLabel": "Biomas MT",
             "value": "1",
@@ -1358,6 +1388,7 @@
             ]
           },
           {
+            "codGroup": "DADOS_ESTATICOS",
             "label": "Unidade Conservação",
             "shortLabel": "Unidade Conservação",
             "value": "46",
@@ -1399,6 +1430,7 @@
             ]
           },
           {
+            "codGroup": "DADOS_ESTATICOS",
             "label": "Terra Indígena",
             "shortLabel": "Terra Indígena",
             "value": "47",
@@ -1442,12 +1474,14 @@
         ]
       },
       {
+        "cod": "DADOS_DINAMICOS",
         "label": "Dados dinâmicos",
         "parent": true,
         "viewGraph": false,
         "activeArea": false,
         "children" : [
           {
+            "codGroup": "DADOS_DINAMICOS",
             "label": "Focos Queimadas",
             "shortLabel": "Focos Queimadas",
             "value": "20",
@@ -1488,9 +1522,9 @@
                 "icon": "fas fa-sliders-h"
               },
               {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
+                "title": "Filtro",
+                "name": "filter",
+                "icon": "fas fa-filter"
               },
               {
                 "title": "Transparência",
@@ -1500,6 +1534,7 @@
             ]
           },
           {
+            "codGroup": "DADOS_DINAMICOS",
             "label": "DETER",
             "shortLabel": "DETER",
             "value": "18",
@@ -1540,9 +1575,9 @@
                 "icon": "fas fa-sliders-h"
               },
               {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
+                "title": "Filtro",
+                "name": "filter",
+                "icon": "fas fa-filter"
               },
               {
                 "title": "Transparência",
@@ -1552,6 +1587,7 @@
             ]
           },
           {
+            "codGroup": "DADOS_DINAMICOS",
             "label": "PRODES",
             "shortLabel": "PRODES",
             "value": "45",
@@ -1592,9 +1628,9 @@
                 "icon": "fas fa-sliders-h"
               },
               {
-                "title": "Calendário",
-                "name": "calendar",
-                "icon": "fas fa-calendar-alt"
+                "title": "Filtro",
+                "name": "filter",
+                "icon": "fas fa-filter"
               },
               {
                 "title": "Transparência",

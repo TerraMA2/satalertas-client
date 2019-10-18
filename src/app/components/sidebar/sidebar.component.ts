@@ -15,7 +15,7 @@ import { MapService } from 'src/app/services/map.service';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent implements OnInit, AfterViewInit {
+export class SidebarComponent implements OnInit {
 
   @Input() displayFilterControl = true;
 
@@ -45,29 +45,6 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngAfterViewInit() {
-    if (this.displayFilterControl) {
-      this.setFilterControl();
-    }
-  }
-
-  setFilterControl() {
-    const Filter = L.Control.extend({
-      onAdd: () => {
-        const div = L.DomUtil.create('div');
-        div.innerHTML = `
-          <div id="filterBtn" class="leaflet-control-layers leaflet-custom-icon" title="Filtro">
-            <a><i class='fas fa-filter'></i></a>
-          </div>`;
-        return div;
-      }
-    });
-    //
-    // new Filter({ position: 'topleft' }).addTo(this.map);
-
-    this.setFilterControlEvent();
-  }
-
   setFilterControlEvent() {
     L.DomEvent.on(L.DomUtil.get('filterBtn'), 'dblclick', L.DomEvent.stopPropagation);
     document.querySelector('#filterBtn').addEventListener('click', () => this.displayFilter = !this.displayFilter);
@@ -89,6 +66,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
       if (children && !link) {
         sidebarItem.children.forEach(sidebarItemChild => {
           const layer = new Layer(
+            sidebarItemChild.codGroup,
             sidebarItemChild.label,
             sidebarItemChild.shortLabel,
             sidebarItemChild.value,

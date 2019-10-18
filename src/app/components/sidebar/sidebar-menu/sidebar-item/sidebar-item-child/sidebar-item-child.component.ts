@@ -8,6 +8,9 @@ import { Layer } from 'src/app/models/layer.model';
 
 import { Router } from '@angular/router';
 
+import { FilterService } from '../../../../../services/filter.service';
+import {MapService} from '../../../../../services/map.service';
+
 @Component({
   selector: 'app-sidebar-item-child',
   templateUrl: './sidebar-item-child.component.html',
@@ -32,7 +35,8 @@ export class SidebarItemChildComponent implements OnInit {
   constructor(
     private sidebarService: SidebarService,
     private tableService: TableService,
-    private router: Router
+    private router: Router,
+    private filterService: FilterService
   ) { }
 
   ngOnInit() {
@@ -71,10 +75,6 @@ export class SidebarItemChildComponent implements OnInit {
     this.sidebarService.sidebarItemRadioSelect.next(this.child);
   }
 
-  filterClick(event) {
-    console.log(event);
-  }
-
   onToolClicked(name) {
     switch (name) {
       case 'info':
@@ -83,7 +83,8 @@ export class SidebarItemChildComponent implements OnInit {
         break;
       case 'temporalDimension':
         break;
-      case 'calendar':
+      case 'filter':
+        this.filterService.displayFilter.next(this.child);
         break;
       case 'opacity':
         break;

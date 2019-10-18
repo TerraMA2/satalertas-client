@@ -61,7 +61,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   displayTable = false;
   displayLegend = false;
   displayInfo = false;
-  displayLayers = false;
   displayVisibleLayers = false;
 
   @Input() displayZoomControl = true;
@@ -250,7 +249,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       let link = null;
       if (popupTitle && markerData[popupTitle]) {
         popup = markerData[popupTitle];
-        const intersectId = markerData['intersect_id'];
+        const intersectId = markerData.intersect_id;
         link = `/report/${popup}/${intersectId}`;
       } else {
         popup = popupTitle;
@@ -720,5 +719,4 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.hTTPService.get(url, {viewId, date})
                     .subscribe(data => this.setMarkers(data, popupTitle, layer.label));
   }
-
 }
