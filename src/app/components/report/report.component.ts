@@ -91,7 +91,7 @@ export class ReportComponent implements OnInit {
 
       this.deforestations = this.reportService.getVisions(propertyData, this.reportConfig.deforestations);
 
-      this.deforestationHistories = this.reportService.getVisions(propertyData, this.reportConfig.deforestationHistories);
+      this.deforestationHistories = this.reportService.getVisions(propertyData, this.reportConfig.deforestationHistories, 'prodesYear');
 
       this.burnedAreas = this.reportService.getVisions(propertyData, this.reportConfig.burnedAreas);
 

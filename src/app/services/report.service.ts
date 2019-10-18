@@ -15,16 +15,45 @@ export class ReportService {
 
   constructor() { }
 
-  getVisions(propertyData: Property, visionsData): Vision[] {
+  getVisions(propertyData: Property, visionsData, key: string = null): Vision[] {
+    let visions: Vision[] = [];
+    if (key) {
+      visions = this.getDynamicVisions(propertyData, visionsData, key);
+    } else {
+      visionsData.forEach((visionData: Vision) => visions.push(this.getVision(visionData, propertyData)));
+    }
+    return visions;
+  }
+
+  getDynamicVisions(propertyData: Property, visionsData, key: string) {
     const visions: Vision[] = [];
-    visionsData.forEach((visionData: Vision) => visions.push(this.getVision(visionData, propertyData)));
+    const visionData = visionsData[0];
+    const years = propertyData[key];
+    const time = visionData.layerData.time;
+    const title = visionData.title;
+    years.forEach((y) => {
+      const visionDataCopy = new Vision(
+        visionData.title,
+        visionData.image,
+        visionData.description,
+        visionData.registerCarColumn,
+        visionData.layerData
+      );
+      const year = (Number(y.date));
+      const replacedTitle = this.replaceWildCard(title, '{year}', year);
+      let timeReplaced = this.replaceWildCard(time, '{dateYear}', (year + 1));
+      timeReplaced = this.replaceWildCard(timeReplaced, '{year}', 'P1Y');
+      visionDataCopy.layerData.time = timeReplaced;
+      visionDataCopy.title = replacedTitle;
+      visions.push(this.getVision(visionDataCopy, propertyData));
+    });
     return visions;
   }
 
   getVision(visionData: Vision, propertyData: Property): Vision {
     const image = this.generateImageURL(propertyData, visionData);
 
-    const title = this.replaceWildCards(visionData.title, '{year}', new Date().getFullYear().toString());
+    const title = this.replaceWildCards(visionData.title, '{currentYear}', new Date().getFullYear().toString());
 
     const vision = new Vision(
       title,
@@ -115,7 +144,7 @@ export class ReportService {
       '{bbox}',
       '{citybbox}',
       '{cityCqlFilter}',
-      '{date}'
+      '{filterDate}'
     ];
     const cqlFilter = visionData.layerData['cql_filter'];
     if (registerCarColumn) {
@@ -144,7 +173,6 @@ export class ReportService {
     let url = layerData.url;
     const layers = layerData.layers;
     const format = layerData.format;
-    const version = layerData.version;
     const time = layerData.time;
     const cqlFilter = layerData['cql_filter'];
     const bbox = layerData.bbox;
@@ -152,17 +180,7 @@ export class ReportService {
     const height = layerData.height;
     const srs = layerData.srs;
 
-    url += `\
-      &layers=${layers}\
-      &cql_filter=${cqlFilter}\
-      &time=${time}\
-      &bbox=${bbox}\
-      &width=${width}\
-      &height=${height}\
-      &srs=${srs}\
-      &format=${format}\
-      &version=${version}
-    `;
+    url += `&layers=${layers}&styles=&bbox=${bbox}&width=${width}&height=${height}&time=${time}&cql_filter=${cqlFilter}&srs=${srs}&format=${format}`;
     return url;
   }
 
@@ -185,7 +203,7 @@ export class ReportService {
     return text;
   }
 
-  private replaceWildCard(text, wildCard, replaceValue, regexFlag = null) {
+  private replaceWildCard(text, wildCard, replaceValue, regexFlag = '') {
     return text.replace(new RegExp(wildCard, regexFlag), replaceValue);
   }
 
