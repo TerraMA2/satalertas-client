@@ -3,12 +3,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { registerLocaleData } from '@angular/common';
 
-// import localePt from '@angular/common/locales/pt';
-// import localeEs from '@angular/common/locales/es';
+import localePt from '@angular/common/locales/pt';
 
 import { AppRoutingModule } from './app-routing.module';
-
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { SidebarModule } from 'primeng/sidebar';
@@ -66,7 +65,9 @@ import { SidebarFooterComponent } from './sidebar/sidebar-footer/sidebar-footer.
 import { SidebarItemChildComponent } from './sidebar/sidebar-menu/sidebar-item/sidebar-item-child/sidebar-item-child.component';
 import { ToolsComponent } from './map/tools/tools.component';
 import { VisibleLayersComponent } from './map/visible-layers/visible-layers.component';
-import { PopupLinkComponent } from './popup-link/popup-link.component';
+import { PopupLinkComponent } from './map/popup-link/popup-link.component';
+
+registerLocaleData(localePt, 'pt');
 
 @NgModule({
   declarations: [

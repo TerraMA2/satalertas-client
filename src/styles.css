@@ -52,19 +52,19 @@ body {
 }
 
 .cursor-pointer {
-  cursor: pointer !important;
+  cursor: pointer;
 }
 
 .cursor-grab {
-  cursor: grab !important;
+  cursor: grab;
 }
 
 .cursor-help {
-  cursor: help !important;
+  cursor: help;
 }
 
 .no-padding {
-  padding: 0 !important;
+  padding: 0;
 }
 
 .hr {
@@ -75,4 +75,22 @@ body {
   border-top: 1px solid #ccc;
   background-color: #ccc;
   margin: 0;
+}
+
+@media print {
+  .container * {
+    color: #000;
+    text-shadow: none;
+    box-shadow: none;
+    filter: none;
+    margin: 0.5cm
+  }
+
+  section {
+    page-break-inside: avoid;
+  }
+
+  body .ui-card {
+    border: 1px solid #eee;
+  }
 }

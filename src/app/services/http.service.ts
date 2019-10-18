@@ -6,7 +6,7 @@ import { throwError } from 'rxjs';
 
 import { catchError, retry } from 'rxjs/operators';
 
-import { environment,  } from '../../environments/environment';
+import { environment  } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -21,11 +21,11 @@ export class HTTPService {
     if (!url) {
       return;
     }
-    const baseUrl = environment.baseUrl;
-    const baseUrlProd = 'http://www.terrama2.dpi.inpe.br/mpmt';
+    const terramaUrl = environment.terramaUrl;
+    const terramaUrlProd = 'http://www.terrama2.dpi.inpe.br/mpmt';
 
-    if (!url.includes(baseUrl) && !url.includes(baseUrlProd)) {
-      url = baseUrl + url;
+    if (!url.includes(terramaUrl) && !url.includes(terramaUrlProd)) {
+      url = terramaUrl + url;
     }
     return this.http.get(url, {
       params: parameters
@@ -39,9 +39,9 @@ export class HTTPService {
     if (!url) {
       return;
     }
-    const baseUrl = environment.baseUrl;
-    if (!url.includes(baseUrl)) {
-      url = baseUrl + url;
+    const terramaUrl = environment.terramaUrl;
+    if (!url.includes(terramaUrl)) {
+      url = terramaUrl + url;
     }
     return this.http.post(url, {
       params: parameters

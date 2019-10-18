@@ -4,10 +4,11 @@ export class Property {
     public area: number,
     public name: string,
     public city: string,
-    public cityBBox: string,
+    public citybbox: string,
     public bbox: string,
     public latLong: string[],
     public burningSpotlights?: [],
-    public burnedAreas?: []
+    public burnedAreas?: [],
+    public deter?: []
   ) {}
 }

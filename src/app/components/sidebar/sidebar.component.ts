@@ -7,6 +7,9 @@ import { LayerGroup } from 'src/app/models/layer-group.model';
 import { Layer } from 'src/app/models/layer.model';
 import * as L from 'leaflet';
 
+import { SidebarService } from 'src/app/services/sidebar.service';
+import { MapService } from 'src/app/services/map.service';
+
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -26,7 +29,9 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   displayFilter = false;
 
   constructor(
-    private configService: ConfigService
+    private configService: ConfigService,
+    private sidebarService: SidebarService,
+    private mapService: MapService
   ) {}
 
   ngOnInit() {
@@ -34,6 +39,10 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     this.logoPath = this.sidebarConfig.logoPath;
     this.logoLink = this.sidebarConfig.logoLink;
     this.setSidebarItems();
+    this.sidebarService.sidebarReload.subscribe(() => {
+      this.setSidebarItems();
+      this.mapService.clearMap.next();
+    });
   }
 
   ngAfterViewInit() {
@@ -65,6 +74,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   }
 
   setSidebarItems() {
+    this.sidebarItems = [];
     this.sidebarConfig.sidebarItems.forEach(sidebarItem => {
       const layerGroup = new LayerGroup(
         sidebarItem.label,
@@ -82,8 +92,11 @@ export class SidebarComponent implements OnInit, AfterViewInit {
             sidebarItemChild.label,
             sidebarItemChild.shortLabel,
             sidebarItemChild.value,
-            sidebarItemChild.defaultDateInterval,
             sidebarItemChild.dateColumn,
+            sidebarItemChild.geomColumn,
+            sidebarItemChild.areaColumn,
+            sidebarItemChild.carRegisterColumn,
+            sidebarItemChild.classNameColumn,
             sidebarItemChild.type,
             sidebarItemChild.isPrivate,
             sidebarItemChild.isPrimary,
