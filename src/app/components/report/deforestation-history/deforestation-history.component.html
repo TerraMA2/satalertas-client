@@ -11,7 +11,8 @@
                     </p-header>
                     <img src="{{deforestationHistory.image}}" class="map img-fluid" />
                     <p-footer *ngIf="deforestationHistory.description" class="card-footer">
-                        {{ deforestationHistory.description }}
+                        {{ deforestationHistory.description.text }}
+                        {{ deforestationHistory.description.value }}
                     </p-footer>
                 </p-card>
             </div>

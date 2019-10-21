@@ -29,9 +29,18 @@ export class ReportService {
     const visions: Vision[] = [];
     const visionData = visionsData[0];
     const years = propertyData[key];
-    const time = visionData.layerData.time;
+
     const title = visionData.title;
-    years.forEach((y) => {
+    const time = visionData.layerData.time;
+    const description = visionData.description;
+
+    let startYear = (years[0]).date;
+    let endYear = (years[years.length - 1]).date;
+    if (!endYear || startYear === endYear) {
+      endYear = (new Date()).getFullYear();
+    }
+    let count = 0;
+    while (startYear <= endYear) {
       const visionDataCopy = new Vision(
         visionData.title,
         visionData.image,
@@ -39,21 +48,53 @@ export class ReportService {
         visionData.registerCarColumn,
         visionData.layerData
       );
-      const year = (Number(y.date));
+      const date = years[count];
+      let area = null;
+      const year = startYear;
+
+      if (date && date.date === year) {
+        area = (Number(date.area));
+        count++;
+      } else {
+        area = 0;
+      }
       const replacedTitle = this.replaceWildCard(title, '{year}', year);
-      let timeReplaced = this.replaceWildCard(time, '{dateYear}', (year + 1));
+      const replacedDescriptionText = this.replaceWildCard(description.text, '{year}', year);
+      const replacedDescriptionValue = this.replaceWildCard(description.value, '{area}', area);
+      let timeReplaced = this.replaceWildCard(time, '{dateYear}', (year));
       timeReplaced = this.replaceWildCard(timeReplaced, '{year}', 'P1Y');
-      visionDataCopy.layerData.time = timeReplaced;
       visionDataCopy.title = replacedTitle;
+      visionDataCopy.description = {
+        text: replacedDescriptionText,
+        value: replacedDescriptionValue
+      };
+      visionData.layerData.time = timeReplaced;
       visions.push(this.getVision(visionDataCopy, propertyData));
-    });
+      startYear++;
+    }
     return visions;
   }
 
   getVision(visionData: Vision, propertyData: Property): Vision {
     const image = this.generateImageURL(propertyData, visionData);
 
-    const title = this.replaceWildCards(visionData.title, '{currentYear}', new Date().getFullYear().toString());
+    const filterDate = JSON.parse(localStorage.getItem('dateFilter'));
+    const startDate = new Date(filterDate[0]).toLocaleDateString('pt-BR');
+    const endDate = new Date(filterDate[1]).toLocaleDateString('pt-BR');
+
+    const title = this.replaceWildCards(
+      visionData.title,
+      [
+        '{currentYear}',
+        '{break}',
+        '{filterDate}'
+      ],
+      [
+        new Date().getFullYear().toString(),
+        `<br />`,
+        `${startDate} - ${endDate}`
+      ]
+    );
 
     const vision = new Vision(
       title,
@@ -171,16 +212,22 @@ export class ReportService {
   private getUrl(visionData) {
     const layerData = visionData.layerData;
     let url = layerData.url;
+
     const layers = layerData.layers;
     const format = layerData.format;
-    const time = layerData.time;
-    const cqlFilter = layerData['cql_filter'];
     const bbox = layerData.bbox;
     const width = layerData.width;
     const height = layerData.height;
     const srs = layerData.srs;
 
-    url += `&layers=${layers}&styles=&bbox=${bbox}&width=${width}&height=${height}&time=${time}&cql_filter=${cqlFilter}&srs=${srs}&format=${format}`;
+    url += `&layers=${layers}&styles=&bbox=${bbox}&width=${width}&height=${height}`;
+    if (layerData['time']) {
+      url += `&time=${layerData['time']}`;
+    }
+    if (layerData['cql_filter']) {
+      url += `&cql_filter=${layerData['cql_filter']}`;
+    }
+    url += `&srs=${srs}&format=${format}`;
     return url;
   }
 

@@ -2009,23 +2009,35 @@
       },
       {
         "title": "APP",
-        "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=30&HEIGHT=30&legend_options=forceLabels:on&LAYER=terrama2_4:view4"
+        "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=30&HEIGHT=30&legend_options=forceLabels:on&LAYER=terrama2_75:view75"
       },
       {
         "title": "Uso Antropizado",
-        "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=30&HEIGHT=30&legend_options=forceLabels:on&LAYER=terrama2_9:view9"
+        "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=30&HEIGHT=30&legend_options=forceLabels:on&LAYER=terrama2_77:view77"
       },
       {
         "title": "Reserva legal",
-        "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=30&HEIGHT=30&legend_options=forceLabels:on&LAYER=terrama2_13:view13"
+        "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=30&HEIGHT=30&legend_options=forceLabels:on&LAYER=terrama2_76:view76"
       },
       {
         "title": "Vegetação Nativa",
-        "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=30&HEIGHT=30&legend_options=forceLabels:on&LAYER=terrama2_3:view3"
+        "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=30&HEIGHT=30&legend_options=forceLabels:on&LAYER=terrama2_79:view79"
       },
       {
         "title": "Uso consolidado",
-        "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=30&HEIGHT=30&legend_options=forceLabels:on&LAYER=terrama2_73:view73"
+        "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=30&HEIGHT=30&legend_options=forceLabels:on&LAYER=terrama2_78:view78"
+      },
+      {
+        "title": "CAR x DETER",
+        "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=30&HEIGHT=30&legend_options=forceLabels:on&LAYER=terrama2_86:view86"
+      },
+      {
+        "title": "CAR x PRODES",
+        "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=30&HEIGHT=30&legend_options=forceLabels:on&LAYER=terrama2_87:view87"
+      },
+      {
+        "title": "CAR x TI",
+        "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=30&HEIGHT=30&legend_options=forceLabels:on&LAYER=terrama2_95:view95"
       },
       {
         "title": "Imóvel",
@@ -2076,15 +2088,15 @@
       {
         "title": "Visão do CAR no Imóvel",
         "description": null,
-        "registerCarColumn": "numero_do2;numero_do2;numero_do2;numero_do2;numero_do2;numero_do2",
+        "registerCarColumn": "numero_do2;apv_car_deter_28_de_car_validado_sema_numero_do2;apv_car_deter_28_de_car_validado_sema_numero_do2;apv_car_deter_28_de_car_validado_sema_numero_do2;apv_car_deter_28_de_car_validado_sema_numero_do2;apv_car_deter_28_de_car_validado_sema_numero_do2;apv_car_deter_28_de_car_validado_sema_numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_5:view5,terrama2_13:view13,terrama2_4:view4,terrama2_9:view9,terrama2_3:view3,terrama2_73:view73",
+          "layers": "terrama2_5:view5,terrama2_95:view95,terrama2_76:view76,terrama2_78:view78,terrama2_75:view75,terrama2_77:view77,terrama2_79:view79",
           "transparent": true,
           "format": "image/png",
           "version": "1.1.0",
           "time": "{filterDate}",
-          "cql_filter": "{propertyCqlFilter};{propertyCqlFilter};{propertyCqlFilter};{propertyCqlFilter};{propertyCqlFilter};{propertyCqlFilter}",
+          "cql_filter": "{propertyCqlFilter};{propertyCqlFilter};{propertyCqlFilter};{propertyCqlFilter};{propertyCqlFilter};{propertyCqlFilter};{propertyCqlFilter}",
           "bbox": "{bbox}",
           "width": "404",
           "height": "431",
@@ -2092,7 +2104,7 @@
         }
       },
       {
-        "title": "Histórico Degradação Ambiental",
+        "title": "Degradação Ambiental{break}{filterDate}",
         "description": null,
         "registerCarColumn": "numero_do2;de_car_validado_sema_numero_do2",
         "layerData": {
@@ -2110,7 +2122,7 @@
         }
       },
       {
-        "title": "Desmatamento - {currentYear}",
+        "title": "Desmatamento{break}{filterDate}",
         "description": null,
         "registerCarColumn": "numero_do2;de_car_validado_sema_numero_do2",
         "layerData": {
@@ -2128,7 +2140,7 @@
         }
       },
       {
-        "title": "Queimadas - {currentYear}",
+        "title": "Queimadas{break}{filterDate}",
         "description": null,
         "registerCarColumn": "numero_do2;de_car_validado_sema_numero_do2",
         "layerData": {
@@ -2148,35 +2160,17 @@
     ],
     "detailedVisions": [
       {
-        "title": "Assentamento",
-        "description": null,
-        "registerCarColumn": "numero_do2",
-        "layerData": {
-          "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_5:view5",
-          "transparent": true,
-          "format": "image/png",
-          "version": "1.1.0",
-          "time": "{filterDate}",
-          "cql_filter": "{propertyCqlFilter}",
-          "bbox": "{bbox}",
-          "width": "404",
-          "height": "431",
-          "srs": "EPSG:4674"
-        }
-      },
-      {
         "title": "Terra Indígena",
         "description": null,
-        "registerCarColumn": "numero_do2",
+        "registerCarColumn": "numero_do2;apv_car_deter_28_de_car_validado_sema_numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_5:view5",
+          "layers": "terrama2_5:view5,terrama2_95:view95",
           "transparent": true,
           "format": "image/png",
           "version": "1.1.0",
           "time": "{filterDate}",
-          "cql_filter": "{propertyCqlFilter}",
+          "cql_filter": "{propertyCqlFilter};{propertyCqlFilter}",
           "bbox": "{bbox}",
           "width": "404",
           "height": "431",
@@ -2186,15 +2180,15 @@
       {
         "title": "Unidade de Conservação",
         "description": null,
-        "registerCarColumn": "numero_do2",
+        "registerCarColumn": "numero_do2;apv_car_prodes_40_de_car_validado_sema_numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_5:view5",
+          "layers": "terrama2_5:view5,terrama2_100:view100",
           "transparent": true,
           "format": "image/png",
           "version": "1.1.0",
           "time": "{filterDate}",
-          "cql_filter": "{propertyCqlFilter}",
+          "cql_filter": "{propertyCqlFilter};{propertyCqlFilter}",
           "bbox": "{bbox}",
           "width": "404",
           "height": "431",
@@ -2333,7 +2327,10 @@
     "deforestationHistories": [
       {
         "title": "PRODES {year}",
-        "description": null,
+        "description": {
+          "text": "Total de Área Desmatada em {year}: ",
+          "value": "{area}"
+        },
         "registerCarColumn": "numero_do2;de_car_validado_sema_numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",

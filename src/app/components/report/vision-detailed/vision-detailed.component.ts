@@ -11,6 +11,8 @@ export class VisionDetailedComponent {
 
   @Input() detailedVisions: Vision[] = [];
 
+  @Input() formattedFilterDate: string;
+
   date: string;
 
   constructor() { }

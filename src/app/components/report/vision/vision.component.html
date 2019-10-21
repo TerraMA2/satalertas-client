@@ -4,8 +4,8 @@
             class="p-col-4 p-md-4">
         <div class="card">
           <p-card styleClass="ui-card-shadow">
-            <p-header class="card-header">
-              <span>{{ vision.title }}</span>
+            <p-header class="card-header text-center">
+              <span [innerHTML]="vision.title"></span>
             </p-header>
             <img src="{{vision.image}}" class="img-fluid" />
             <p-footer *ngIf="vision.description" class="card-footer">

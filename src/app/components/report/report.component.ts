@@ -55,6 +55,8 @@ export class ReportComponent implements OnInit {
 
   visionLegends: Legend[] = [];
 
+  formattedFilterDate: string;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private hTTPService: HTTPService,
@@ -69,6 +71,13 @@ export class ReportComponent implements OnInit {
     });
     this.reportConfig = this.configService.getConfig('report');
     this.visionLegends = this.reportConfig.visionslegends;
+
+    const filterDate = JSON.parse(localStorage.getItem('dateFilter'));
+    const startDate = new Date(filterDate[0]).toLocaleDateString('pt-BR');
+    const endDate = new Date(filterDate[1]).toLocaleDateString('pt-BR');
+
+    this.formattedFilterDate = `${startDate} - ${endDate}`;
+
     this.getPropertyData();
   }
 
