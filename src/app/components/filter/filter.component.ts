@@ -15,9 +15,11 @@ import {FilterService} from '../../services/filter.service';
 import {Layer} from '../../models/layer.model';
 
 import {Filter} from '../../models/filter.model';
+
 import {Localization} from '../../models/localization.model';
-import {LinkPopupService} from '../../services/link-popup.service';
+
 import {BiomeService} from '../../services/biome.service';
+
 import {CityService} from '../../services/city.service';
 
 @Component({
@@ -31,7 +33,7 @@ export class FilterComponent implements OnInit, AfterViewInit {
   @ViewChild('filterForm', { static: false }) filterForm: NgForm;
 
   private filterConfig;
-  private displayFilter: boolean;
+  public displayFilter: boolean;
   private codGroup: string;
   private layer: Layer;
   private selectedFilters: Filter[] = [];
