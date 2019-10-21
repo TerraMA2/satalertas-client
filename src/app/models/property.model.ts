@@ -9,6 +9,7 @@ export class Property {
     public latLong: string[],
     public burningSpotlights?: [],
     public burnedAreas?: [],
-    public deter?: []
+    public deter?: [],
+    public prodesYear?: []
   ) {}
 }

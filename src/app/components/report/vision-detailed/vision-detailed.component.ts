@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { Vision } from 'src/app/models/vision.model';
 
@@ -10,6 +10,10 @@ import { Vision } from 'src/app/models/vision.model';
 export class VisionDetailedComponent {
 
   @Input() detailedVisions: Vision[] = [];
+
+  @Input() formattedFilterDate: string;
+
+  date: string;
 
   constructor() { }
 

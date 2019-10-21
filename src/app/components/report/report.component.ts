@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { HTTPService } from 'src/app/services/http.service';
 
@@ -13,6 +13,8 @@ import { Vision } from 'src/app/models/vision.model';
 import { Legend } from 'src/app/models/legend.model';
 
 import { ReportService } from 'src/app/services/report.service';
+
+import { FilterService } from 'src/app/services/filter.service';
 
 @Component({
   selector: 'app-report',
@@ -55,24 +57,46 @@ export class ReportComponent implements OnInit {
 
   visionLegends: Legend[] = [];
 
+  formattedFilterDate: string;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private hTTPService: HTTPService,
     private configService: ConfigService,
-    private reportService: ReportService
+    private reportService: ReportService,
+    private filterService: FilterService,
+    private router: Router
   ) { }
 
   ngOnInit() {
+    // this.filterService.filterReport.subscribe(() => {
+    //   const filterDate = JSON.parse(localStorage.getItem('dateFilter'));
+    //   const startDate = new Date(filterDate[0]).toLocaleDateString('pt-BR');
+    //   const endDate = new Date(filterDate[1]).toLocaleDateString('pt-BR');
+
+    //   this.formattedFilterDate = `${startDate} - ${endDate}`;
+
+    //   this.router.navigateByUrl(`/report/${this.carRegister}/${this.intersectId}`, { skipLocationChange: true }).then(() => {
+    //     this.router.navigate(['report']);
+    //   });
+    // });
     this.activatedRoute.params.subscribe(params => {
       this.carRegister = params.carRegister;
       this.intersectId = params.intersectId;
     });
     this.reportConfig = this.configService.getConfig('report');
     this.visionLegends = this.reportConfig.visionslegends;
+
     this.getPropertyData();
   }
 
   getPropertyData() {
+    const filterDate = JSON.parse(localStorage.getItem('dateFilter'));
+    const startDate = new Date(filterDate[0]).toLocaleDateString('pt-BR');
+    const endDate = new Date(filterDate[1]).toLocaleDateString('pt-BR');
+
+    this.formattedFilterDate = `${startDate} - ${endDate}`;
+
     const propertyConfig = this.reportConfig.propertyData;
     const url = propertyConfig.url;
     const viewId = propertyConfig.viewId;
@@ -85,23 +109,23 @@ export class ReportComponent implements OnInit {
 
       this.property = propertyData;
 
-      this.visions = this.reportService.getVisions(propertyData, this.reportConfig);
+      this.visions = this.reportService.getVisions(propertyData, this.reportConfig.visions);
 
-      this.detailedVisions = this.reportService.getDetailedVisions(propertyData, this.reportConfig);
+      this.detailedVisions = this.reportService.getVisions(propertyData, this.reportConfig.detailedVisions);
 
-      this.deforestations = this.reportService.getDeforestations(propertyData, this.reportConfig);
+      this.deforestations = this.reportService.getVisions(propertyData, this.reportConfig.deforestations);
 
-      this.deforestationHistories = this.reportService.getDeforestationHistories(propertyData, this.reportConfig);
+      this.deforestationHistories = this.reportService.getVisions(propertyData, this.reportConfig.deforestationHistories, 'prodesYear');
+
+      this.burnedAreas = this.reportService.getVisions(propertyData, this.reportConfig.burnedAreas);
+
+      this.landsatHistories = this.reportService.getVisions(propertyData, this.reportConfig.landsatHistories);
 
       this.burningSpotlightsChartData = this.reportService.getBurningSpotlightsChart(propertyData.burningSpotlights);
-
-      this.burnedAreas = this.reportService.getBurnedAreas(propertyData, this.reportConfig);
 
       this.burnedAreasChartData = this.reportService.getBurnedAreasChart(burnedAreas);
 
       this.burnedAreasPerPropertyChartDatas = this.reportService.getBurnedAreasPerPropertyChart(burnedAreas, area);
-
-      this.landsatHistories = this.reportService.getLandsatHistories(propertyData, this.reportConfig);
     });
   }
 }

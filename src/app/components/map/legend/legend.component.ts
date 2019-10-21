@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+import { Layer } from 'src/app/models/layer.model';
+
 @Component({
   selector: 'app-legend',
   templateUrl: './legend.component.html',
@@ -7,7 +9,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class LegendComponent implements OnInit {
 
-  @Input() selectedLayers = [];
+  @Input() selectedLayers: Layer[] = [];
 
   @Input() displayLegend = false;
 

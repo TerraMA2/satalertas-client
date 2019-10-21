@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-7
+
 import { Property } from '../models/property.model';
 
 import { Subject } from 'rxjs';
@@ -15,99 +15,99 @@ export class ReportService {
 
   constructor() { }
 
-  getVisions(propertyData: Property, reportConfig): Vision[] {
-    const visionsData = reportConfig.visions;
-    const visions: Vision[] = [];
-    visionsData.forEach((visionData: Vision) => {
-      const layerData = visionData.layerData;
-
-      const image = this.generateImageURL(propertyData, layerData);
-
-      const vision = new Vision(
-        visionData.title,
-        image,
-        visionData.description,
-        visionData.layerData
-      );
-      visions.push(vision);
-    });
+  getVisions(propertyData: Property, visionsData, key: string = null): Vision[] {
+    let visions: Vision[] = [];
+    if (key) {
+      visions = this.getDynamicVisions(propertyData, visionsData, key);
+    } else {
+      visionsData.forEach((visionData: Vision) => visions.push(this.getVision(visionData, propertyData)));
+    }
     return visions;
   }
 
-  getDetailedVisions(propertyData: Property, reportConfig): Vision[] {
-    const detailedVisions: Vision[] = [];
-    const detailedVisionsData = reportConfig.detailedVisions;
-    detailedVisionsData.forEach((detailedVisionData: Vision) => {
-      const layerData = detailedVisionData.layerData;
+  getDynamicVisions(propertyData: Property, visionsData, key: string) {
+    const visions: Vision[] = [];
+    const visionData = visionsData[0];
+    const years = propertyData[key];
+    if (!years || years.length === 0) {
+      years.push({date: '2007'});
+      years.push({date: '2019'});
+    }
 
-      const image = this.generateImageURL(propertyData, layerData);
+    const title = visionData.title;
+    const time = visionData.layerData.time;
+    const description = visionData.description;
 
-      const vision = new Vision(
-        detailedVisionData.title,
-        image,
-        detailedVisionData.description,
-        detailedVisionData.layerData
+    let startYear = (years[0]).date;
+    let endYear = (years[years.length - 1]).date;
+    if (!endYear || startYear === endYear) {
+      endYear = (new Date()).getFullYear();
+    }
+    let count = 0;
+    while (startYear <= endYear) {
+      const visionDataCopy = new Vision(
+        visionData.title,
+        visionData.image,
+        visionData.description,
+        visionData.registerCarColumn,
+        visionData.layerData
       );
-      detailedVisions.push(vision);
-    });
-    return detailedVisions;
+      const date = years[count];
+      let area = null;
+      const year = startYear;
+
+      if (date && date.date === year) {
+        area = (Number(date.area));
+        count++;
+      } else {
+        area = 0;
+      }
+      const replacedTitle = this.replaceWildCard(title, '{year}', year);
+      const replacedDescriptionText = this.replaceWildCard(description.text, '{year}', year);
+      const replacedDescriptionValue = this.replaceWildCard(description.value, '{area}', area);
+      let timeReplaced = this.replaceWildCard(time, '{dateYear}', (year));
+      timeReplaced = this.replaceWildCard(timeReplaced, '{year}', 'P1Y');
+      visionDataCopy.title = replacedTitle;
+      visionDataCopy.description = {
+        text: replacedDescriptionText,
+        value: replacedDescriptionValue
+      };
+      visionData.layerData.time = timeReplaced;
+      visions.push(this.getVision(visionDataCopy, propertyData));
+      startYear++;
+    }
+    return visions;
   }
 
-  getDeforestations(propertyData: Property, reportConfig): Vision[] {
-    const deforestations: Vision[] = [];
-    const deforestationsData = reportConfig.deforestations;
-    deforestationsData.forEach((deforestationData: Vision) => {
-      const layerData = deforestationData.layerData;
+  getVision(visionData: Vision, propertyData: Property): Vision {
+    const image = this.generateImageURL(propertyData, visionData);
 
-      const image = this.generateImageURL(propertyData, layerData);
+    const filterDate = JSON.parse(localStorage.getItem('dateFilter'));
+    const startDate = new Date(filterDate[0]).toLocaleDateString('pt-BR');
+    const endDate = new Date(filterDate[1]).toLocaleDateString('pt-BR');
 
-      const vision = new Vision(
-        deforestationData.title,
-        image,
-        deforestationData.description,
-        deforestationData.layerData
-      );
-      deforestations.push(vision);
-    });
-    return deforestations;
-  }
+    const title = this.replaceWildCards(
+      visionData.title,
+      [
+        '{currentYear}',
+        '{break}',
+        '{filterDate}'
+      ],
+      [
+        new Date().getFullYear().toString(),
+        `<br />`,
+        `${startDate} - ${endDate}`
+      ]
+    );
 
-  getDeforestationHistories(propertyData: Property, reportConfig): Vision[] {
-    const deforestationHistories: Vision[] = [];
-    const deforestationHistoriesData = reportConfig.deforestationHistories;
-    deforestationHistoriesData.forEach((deforestationHistoryData: Vision) => {
-      const layerData = deforestationHistoryData.layerData;
-
-      const image = this.generateImageURL(propertyData, layerData);
-
-      const vision = new Vision(
-        deforestationHistoryData.title,
-        image,
-        deforestationHistoryData.description,
-        deforestationHistoryData.layerData
-      );
-      deforestationHistories.push(vision);
-    });
-    return deforestationHistories;
-  }
-
-  getBurningSpotlights(propertyData: Property, reportConfig): Vision[] {
-    const burningSpotlights: Vision[] = [];
-    const burningSpotlightsData = reportConfig.burningSpotlights;
-    burningSpotlightsData.forEach((burningSpotlightData: Vision) => {
-      const layerData = burningSpotlightData.layerData;
-
-      const image = this.generateImageURL(propertyData, layerData);
-
-      const vision = new Vision(
-        burningSpotlightData.title,
-        image,
-        burningSpotlightData.description,
-        burningSpotlightData.layerData
-      );
-      burningSpotlights.push(vision);
-    });
-    return burningSpotlights;
+    const vision = new Vision(
+      title,
+      image,
+      visionData.description,
+      visionData.registerCarColumn,
+      visionData.layerData
+    );
+    return vision;
   }
 
   getBurningSpotlightsChart(burningSpotlightsData) {
@@ -120,42 +120,7 @@ export class ReportService {
       burningSpotlights.push(focusCount);
     });
 
-    const burningSpotlightsChartData = {
-      labels: burningSpotlightsYears,
-      datasets: [
-          {
-              label: 'Focos',
-              backgroundColor: [
-                '#4BC0C0',
-                '#FFCE56',
-                '#aa7900',
-                '#36A2EB',
-                '#FF6384'
-              ],
-              data: burningSpotlights
-          }
-      ]
-    };
-    return burningSpotlightsChartData;
-  }
-
-  getBurnedAreas(propertyData: Property, reportConfig): Vision[] {
-    const burnedAreas: Vision[] = [];
-    const burnedAreasData = reportConfig.burnedAreas;
-    burnedAreasData.forEach((burnedAreaData: Vision) => {
-      const layerData = burnedAreaData.layerData;
-
-      const image = this.generateImageURL(propertyData, layerData);
-
-      const vision = new Vision(
-        burnedAreaData.title,
-        image,
-        burnedAreaData.description,
-        burnedAreaData.layerData
-      );
-      burnedAreas.push(vision);
-    });
-    return burnedAreas;
+    return this.getChart('Focos', burningSpotlightsYears, burningSpotlights);
   }
 
   getBurnedAreasChart(burnedAreasData) {
@@ -168,22 +133,7 @@ export class ReportService {
       burnedAreas.push(focusCount);
     });
 
-    return  {
-      labels: burnedAreasYears,
-      datasets: [
-          {
-              label: 'Focos',
-              backgroundColor: [
-                '#FF6384',
-                '#4BC0C0',
-                '#FFCE56',
-                '#aa7900',
-                '#36A2EB'
-              ],
-              data: burnedAreas
-          }
-      ]
-    };
+    return this.getChart('Focos', burnedAreasYears, burnedAreas);
   }
 
   getBurnedAreasPerPropertyChart(burnedAreasData, propertyArea) {
@@ -195,63 +145,38 @@ export class ReportService {
     });
 
     burnedAreasPerProperty.forEach(burnedArea => {
-      const chartData = {
-        labels: ['Área imóvel', 'Área queimada'],
-        datasets: [
-            {
-                backgroundColor: [
-                  '#FF6384',
-                  '#4BC0C0',
-                  '#FFCE56',
-                  '#aa7900',
-                  '#36A2EB'
-                ],
-                data: burnedArea
-            }
-        ]
-      };
-      burnedAreasPerPropertyChartDatas.push(chartData);
+      burnedAreasPerPropertyChartDatas.push(this.getChart(null, ['Área imóvel', 'Área queimada'], burnedArea));
     });
     return burnedAreasPerPropertyChartDatas;
   }
 
-  getLandsatHistories(propertyData: Property, reportConfig): Vision[] {
-    const landsatHistories: Vision[] = [];
-    const landsatHistoriesData = reportConfig.landsatHistories;
-    landsatHistoriesData.forEach((landsatHistoryData: Vision) => {
-      const layerData = landsatHistoryData.layerData;
-
-      const image = this.generateImageURL(propertyData, layerData);
-
-      const vision = new Vision(
-        landsatHistoryData.title,
-        image,
-        landsatHistoryData.description,
-        landsatHistoryData.layerData
-      );
-      landsatHistories.push(vision);
-    });
-    return landsatHistories;
+  private getChart(legends: string|string[], labels: string|string[], data) {
+    return {
+      labels,
+      datasets: [
+          {
+              label: legends,
+              backgroundColor: [
+                '#4BC0C0',
+                '#FFCE56',
+                '#aa7900',
+                '#36A2EB',
+                '#FF6384'
+              ],
+              data
+          }
+      ]
+    };
   }
 
-  getUrl(layerData) {
-    let url = layerData.url;
-    const layers = layerData.layers;
-    const format = layerData.format;
-    const version = layerData.version;
-    const time = layerData.time;
-    const cqlFilter = layerData['cql_filter'];
-    const bbox = layerData.bbox;
-    const width = layerData.width;
-    const height = layerData.height;
-    const srs = layerData.srs;
-
-    url += `&layers=${layers}&cql_filter=${cqlFilter}&time=${time}&bbox=${bbox}&width=${width}&height=${height}&srs=${srs}&format=${format}&version=${version}`;
-
+  private generateImageURL(propertyData, visionData) {
+    let url = this.getUrl(visionData);
+    url = this.replaceURLWildCards(url, propertyData, visionData);
     return url;
   }
 
-  replaceWildCards(text: string, propertyData: Property) {
+  private replaceURLWildCards(text, propertyData: Property, visionData: Vision) {
+    const registerCarColumn = visionData.registerCarColumn;
     const date = JSON.parse(localStorage.getItem('dateFilter'));
 
     const bboxArray = propertyData.bbox.split(',');
@@ -264,29 +189,73 @@ export class ReportService {
       '{bbox}',
       '{citybbox}',
       '{cityCqlFilter}',
-      '{propertyCqlFilter}',
-      '{date}'
+      '{filterDate}'
     ];
+    const cqlFilter = visionData.layerData['cql_filter'];
+    if (registerCarColumn) {
+      const cqlFilterArr = cqlFilter.split(';');
+      cqlFilterArr.forEach((propertyCqlFilterWildCard: string) => {
+        const startBracket = propertyCqlFilterWildCard.indexOf('{');
+        const endBracket = propertyCqlFilterWildCard.indexOf('}');
+        wildCards.push(propertyCqlFilterWildCard.substring(startBracket, (endBracket + 1)));
+      });
+    }
     const replaceValues = [
       bbox,
       cityBBox,
       `municipio='${propertyData.city}';numero_do2='${propertyData.register}'`,
-      `numero_do2='${propertyData.register}'`,
       `${date[0]}/${date[1]}`
     ];
+    if (registerCarColumn) {
+      const registerCarColumnArr = registerCarColumn.split(';');
+      registerCarColumnArr.forEach(column => replaceValues.push(`${column}='${propertyData.register}'`));
+    }
+    return this.replaceWildCards(text, wildCards, replaceValues);
+  }
+
+  private getUrl(visionData) {
+    const layerData = visionData.layerData;
+    let url = layerData.url;
+
+    const layers = layerData.layers;
+    const format = layerData.format;
+    const bbox = layerData.bbox;
+    const width = layerData.width;
+    const height = layerData.height;
+    const srs = layerData.srs;
+
+    url += `&layers=${layers}&styles=&bbox=${bbox}&width=${width}&height=${height}`;
+    if (layerData['time']) {
+      url += `&time=${layerData['time']}`;
+    }
+    if (layerData['cql_filter']) {
+      url += `&cql_filter=${layerData['cql_filter']}`;
+    }
+    url += `&srs=${srs}&format=${format}`;
+    return url;
+  }
+
+  private replaceWildCards(text: string, wildCards: string|string[], replaceValues: string|string[], regexFlag = '') {
+    if (!Array.isArray(wildCards)) {
+      wildCards = [wildCards];
+    }
+
+    if (!Array.isArray(replaceValues)) {
+      replaceValues = [replaceValues];
+    }
+
     const wildCardLength = wildCards.length;
     for (let index = 0; index < wildCardLength; index++) {
       const wildCard = wildCards[index];
       const replaceValue = replaceValues[index];
 
-      text = text.replace(new RegExp(wildCard, 'g'), replaceValue);
+      text = this.replaceWildCard(text, wildCard, replaceValue, regexFlag);
     }
     return text;
   }
 
-  generateImageURL(propertyData, layerData) {
-    let url = this.getUrl(layerData);
-    url = this.replaceWildCards(url, propertyData);
-    return url;
+  private replaceWildCard(text, wildCard, replaceValue, regexFlag = '') {
+    return text.replace(new RegExp(wildCard, regexFlag), replaceValue);
   }
+
 }

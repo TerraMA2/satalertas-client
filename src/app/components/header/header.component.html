@@ -16,7 +16,7 @@
                 [(ngModel)]="dateInput"
                 [maxDate]="maxDate"
                 [showIcon]="true"
-                [readonlyInput]="true"
+                [readonlyInput]="false"
                 yearRange="2000:2030"
                 [yearNavigator]="false"
                 [monthNavigator]="false"
@@ -41,7 +41,7 @@
                         type="button"
                         label="Filtrar"
                         class="date-button button-right"
-                        [disabled]="(!dateInput[1] && dateInput[1] === null)"
+                        [disabled]="(dateInput && !dateInput[1] && dateInput[1] === null)"
                         (click)="onFilterClick()">
                 </button>
             </p-footer>

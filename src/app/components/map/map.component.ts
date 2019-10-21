@@ -201,7 +201,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
       previousSelectedLayers.forEach((layer: Layer) => {
         this.addLayer(layer, true);
-        if (previousSelectedMarker.overlayName === layer.label) {
+        if (previousSelectedMarker && previousSelectedMarker.overlayName === layer.label) {
           this.updateMarkers(layer);
         }
       });
@@ -396,7 +396,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   removeLayer(layer, deselectLayer) {
     if (layer) {
       const layerData = layer.layerData;
-      let zindex;
+      let zindex = 0;
       if (deselectLayer) {
         this.selectedLayers.splice(this.selectedLayers.findIndex(selectedLayer => selectedLayer.value === layer.value), 1);
       }
