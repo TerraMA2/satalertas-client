@@ -29,6 +29,10 @@ export class ReportService {
     const visions: Vision[] = [];
     const visionData = visionsData[0];
     const years = propertyData[key];
+    if (!years || years.length === 0) {
+      years.push({date: '2007'});
+      years.push({date: '2019'});
+    }
 
     const title = visionData.title;
     const time = visionData.layerData.time;

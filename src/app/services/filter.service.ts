@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 
 import { Subject } from 'rxjs';
 
+import { Layer } from '../models/layer.model';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -12,8 +14,9 @@ export class FilterService {
 
   displayFilter = new Subject();
 
-  filterLayerMap = new Subject<Layer>()
+  filterLayerMap = new Subject<Layer>();
   filterLayerTable = new Subject<Layer>();
+  filterReport = new Subject<Layer>();
 
   constructor() { }
 }
