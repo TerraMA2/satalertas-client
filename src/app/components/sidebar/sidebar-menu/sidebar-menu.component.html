@@ -1,9 +1,9 @@
 <p-scrollPanel [style]="{width: '100%', height: 'calc(100vh - 130px)'}">
 
     <app-sidebar-item class="sidebar-item"
-                    *ngFor="let sidebarItem of sidebarItems"
-                    [sidebarItem]="sidebarItem"
-                    [childrenItems]="sidebarItem.children">
+                      *ngFor="let sidebarItem of sidebarItems"
+                      [sidebarItem]="sidebarItem"
+                      [childrenItems]="sidebarItem.children">
     </app-sidebar-item>
 
     <br>

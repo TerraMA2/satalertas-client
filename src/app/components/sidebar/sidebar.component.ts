@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 
 import { ConfigService } from '../../services/config.service';
 
 import { LayerGroup } from 'src/app/models/layer-group.model';
 
 import { Layer } from 'src/app/models/layer.model';
+import * as L from 'leaflet';
 
 import { SidebarService } from 'src/app/services/sidebar.service';
 import { MapService } from 'src/app/services/map.service';
@@ -15,12 +16,17 @@ import { MapService } from 'src/app/services/map.service';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
+
+  @Input() displayFilterControl = true;
+
   sidebarItems: LayerGroup[] = [];
 
   sidebarConfig;
 
   logoPath: string;
   logoLink: string;
+
+  displayFilter = false;
 
   constructor(
     private configService: ConfigService,
@@ -39,6 +45,11 @@ export class SidebarComponent implements OnInit {
     });
   }
 
+  setFilterControlEvent() {
+    L.DomEvent.on(L.DomUtil.get('filterBtn'), 'dblclick', L.DomEvent.stopPropagation);
+    document.querySelector('#filterBtn').addEventListener('click', () => this.displayFilter = !this.displayFilter);
+  }
+
   setSidebarItems() {
     this.sidebarItems = [];
     this.sidebarConfig.sidebarItems.forEach(sidebarItem => {
@@ -55,6 +66,7 @@ export class SidebarComponent implements OnInit {
       if (children && !link) {
         sidebarItem.children.forEach(sidebarItemChild => {
           const layer = new Layer(
+            sidebarItemChild.codGroup,
             sidebarItemChild.label,
             sidebarItemChild.shortLabel,
             sidebarItemChild.value,
@@ -77,6 +89,10 @@ export class SidebarComponent implements OnInit {
       layerGroup.children = layerChildren;
       this.sidebarItems.push(layerGroup);
     });
+  }
+
+  filterClick(event) {
+    console.log(event);
   }
 
 }
