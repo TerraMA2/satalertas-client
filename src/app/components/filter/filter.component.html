@@ -1,53 +1,17 @@
 <p-dialog #filterDialog
-        header="Filtro"
+        [header]="filterLabel"
         [positionLeft]="375"
         [positionTop]="60"
-        maximizable="true"
         [(visible)]="displayFilter"
         (onHide)="onDialogHide()"
+        [transitionOptions]="'0ms'"
         [styleClass]="'filter-dialog'">
 
     <br>
 
     <div class="p-grid p-nogutter">
         <form #filterForm="ngForm" (ngSubmit)="onFilterClicked()" class="width-100">
-            <div class="p-col-12 p-col-nogutter">
-                <span class="ui-float-label">
-                    <p-dropdown
-                        [options]="groups"
-                        [(ngModel)]="selectedGroup"
-                        [autoDisplayFirst]="false"
-                        styleClass="width-100"
-                        [name]="groupsField.name"
-                        [autofocus]="true"
-                        >
-                    </p-dropdown>
-                    <label for="float-input">{{groupsField.label}}</label>
-                </span>
-            </div>
-            <br>
-            <div class="p-col-12 p-col-nogutter">
-                <span class="ui-float-label">
-                    <p-calendar
-                        [appendTo]="filterDialog"
-                        [(ngModel)]="dateInput"
-                        [inline]="false"
-                        [monthNavigator]="true"
-                        [yearNavigator]="true"
-                        [numberOfMonths]="dateField.numberOfMonths"
-                        [showButtonBar]="dateField.showButtonBar"
-                        [selectionMode]="dateField.selectionMode"
-                        [showTime]="dateField.showTime"
-                        [dateFormat]="dateField.dateFormat"
-                        [name]="dateField.name"
-                        [locale]="localizationField.locale"
-                        styleClass="width-100"
-                        inputStyleClass="width-100"
-                    >
-                    </p-calendar>
-                    <label for="float-input">{{dateField.label}}</label>
-                </span>
-            </div>
+
 
             <br>
 
@@ -59,17 +23,46 @@
                         [(ngModel)]="selectedLocalization"
                         [autoDisplayFirst]="false"
                         [name]="localizationField.name"
+                        (onChange)="onChangeLocalizationField($event)"
+                        [showClear]="true"
+                        [disabled]="false"
                         >
                     </p-dropdown>
                     <label for="float-input">{{localizationField.label}}</label>
                 </span>
             </div>
 
+            <div *ngIf="localization.label" >
+                <br>
+
+                <div class="p-col-12 p-col-nogutter" >
+                    <span class="ui-float-label">
+                        <p-dropdown
+                                styleClass="width-100"
+                                [options]="optionsFilterLocalizations"
+                                [(ngModel)]="localization.value"
+                                [autoDisplayFirst]="false"
+                                [name]="localization.name"
+                                optionLabel="name"
+                                [showClear]="true"
+                                [disabled]="false"
+                        >
+                        </p-dropdown>
+                        <label for="float-input">{{localization.label}}</label>
+                    </span>
+                </div>
+            </div>
+
             <br>
 
             <div class="p-col-12 p-col-nogutter">
                 <span class="ui-float-label">
-                    <input type="text" pInputText pKeyFilter="num" class="width-100" [name]="areaField.name" [(ngModel)]="areaInput">
+                    <input type="text"
+                           pInputText
+                           pKeyFilter="num"
+                           class="width-100"
+                           [name]="areaField.name"
+                           [(ngModel)]="areaInput">
                     <label for="float-input">{{areaField.label}}</label>
                 </span>
             </div>
@@ -77,28 +70,21 @@
             <br>
 
             <div class="p-col-12 p-col-nogutter">
-                <button pButton type="submit" label="Filtrar" class="ui-button-rounded width-100"></button>
+                <button pButton
+                        type="button"
+                        label="Limpar filtro"
+                        class="ui-button-rounded ui-button-secondary
+                               width-100 ui-button ui-widget ui-state-default
+                               ui-corner-all ui-button-text-only"
+                        (click)="onClearFilterClicked()"></button>
                 <br><br>
-                <button pButton type="button" label="Limpar filtro" class="ui-button-rounded width-100" (click)="onClearFilterClicked()"></button>
+                <button pButton
+                        type="submit"
+                        label="Filtrar"
+                        class="ui-button-rounded width-100"
+                        (click)="onFilterClicked()"></button>
             </div>
 
-            <div class="p-col-12">
-
-                <div class="p-grid">
-
-                    <div class="p-col-6 text-center">
-                        <h3>Alertas</h3>
-                        <label>0 <small>(un)</small></label>
-                    </div>
-
-                    <div class="p-col-6 text-center">
-                        <h3>Área</h3>
-                        <label>0 <small>(ha)</small></label>
-                    </div>
-
-                </div>
-
-            </div>
         </form>
 
         <br />

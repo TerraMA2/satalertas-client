@@ -3,5 +3,6 @@ export class Tool {
     public title: string,
     public name: string,
     public icon: string
-  ) {}
+) {}
 }
+

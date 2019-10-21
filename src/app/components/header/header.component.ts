@@ -101,6 +101,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     const firstDate = new Date('01/01/' + currentDate.getFullYear());
     const currentDateInput = JSON.parse(localStorage.getItem('dateFilter'));
 
+    if (JSON.parse(localStorage.getItem('dataFilter')) !== null) {
+      localStorage.removeItem('dataFilter');
+    }
+
     if (currentDateInput !== null) {
       this.dateInput = [new Date(currentDateInput[0]), new Date(currentDateInput[1])];
     } else {

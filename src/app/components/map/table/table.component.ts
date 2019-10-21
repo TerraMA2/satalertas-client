@@ -79,6 +79,10 @@ export class TableComponent implements OnInit {
     this.filterService.filterTable.subscribe(filter => {
       this.tableService.loadTableData.next(this.selectedLayer);
     });
+
+    // Implementar Filter
+    this.filterService.filterLayerMap.subscribe();
+    this.filterService.filterLayerMap.subscribe();
   }
 
   loadTableData(layer, limit: number, offset: number) {
@@ -99,8 +103,8 @@ export class TableComponent implements OnInit {
     const date = JSON.parse(localStorage.getItem('dateFilter'));
 
     this.hTTPService
-    .get(url, {viewId, limit, offset, count, date})
-    .subscribe(data => this.setData(data));
+      .get(url, {viewId, limit, offset, count, date})
+      .subscribe(data => this.setData(data));
   }
 
   setData(data) {

@@ -1,43 +1,41 @@
 <div class="sidebar-item-content"
     *ngIf="displayChild"
     [ngClass]="{'sidebar-item-margin': child.type === 'analysis' && !child.isPrimary}">
-    <div class="sidebar-item-label"
-        (click)="onChildClicked()">
+    <div    class="sidebar-item-label"
+            (click)="onChildClicked()">
 
-      <a>{{ child.shortLabel }}</a>
+        <a> {{ child.shortLabel }} </a>
 
     </div>
 
     <div class="sidebar-item-switch">
 
-      <p-radioButton *ngIf="child.isPrimary && displayControls"
+        <p-radioButton *ngIf="child.isPrimary && displayControls"
                     [value]="child.label"
                     name="primary"
                     [(ngModel)]="primaryRadio"
                     binary="true"
                     checkboxIcon="pi pi-circle-on"
                     (onClick)="onChildRadioClicked()">
-      </p-radioButton>
+        </p-radioButton>
 
-      &nbsp;
-
-      <p-inputSwitch *ngIf="displayControls"
+        <p-inputSwitch *ngIf="displayControls"
                     [(ngModel)]="parentSwitchChecked"
                     (onChange)="onChildSwitchChanged($event)">
-      </p-inputSwitch>
+        </p-inputSwitch>
 
     </div>
 </div>
 
-<div *ngIf="child.tools && displayControls"
-    class="sidebar-item-tools"
-    [ngClass]="{'show': isToolsOpened && isParentOpened, 'hide': !isToolsOpened || !isParentOpened}">
+<div    *ngIf="child.tools && displayControls"
+        class="sidebar-item-tools"
+        [ngClass]="{'show': isToolsOpened && isParentOpened, 'hide': !isToolsOpened || !isParentOpened}">
 
-    <i *ngFor="let tool of child.tools"
-      class="{{tool.icon}}"
-      (click)="onToolClicked(tool.name)"
-      pTooltip="{{tool.title}}"
-      tooltipPosition="top">
+    <i      *ngFor="let tool of child.tools"
+          class="{{tool.icon}}"
+          (click)="onToolClicked(tool.name)"
+          pTooltip="{{tool.title}}"
+          tooltipPosition="top">
     </i>
 
 </div>
