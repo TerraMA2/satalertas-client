@@ -11,7 +11,14 @@ import { HTTPService } from 'src/app/services/http.service';
 import { MapService } from 'src/app/services/map.service';
 
 import {FilterService} from '../../services/filter.service';
+
 import {Layer} from '../../models/layer.model';
+
+import {Filter} from '../../models/filter.model';
+import {Localization} from '../../models/localization.model';
+import {LinkPopupService} from '../../services/link-popup.service';
+import {BiomeService} from '../../services/biome.service';
+import {CityService} from '../../services/city.service';
 
 @Component({
   selector: 'app-filter',
@@ -27,27 +34,32 @@ export class FilterComponent implements OnInit, AfterViewInit {
   private displayFilter: boolean;
   private codGroup: string;
   private layer: Layer;
-  private selectedFilters: [];
+  private selectedFilters: Filter[] = [];
 
-  dateInput: Date;
-  areaInput;
+  areaInput: string;
 
   areaField;
   groupsField;
   localizationField;
 
   localizations: SelectItem[];
-  selectedLocalization;
+  selectedLocalization: string;
   selectedGroup;
 
   groups: SelectItem[];
   filterLabel: string;
 
+  localization: Localization;
+
+  optionsFilterLocalizations;
+
   constructor(
     private configService: ConfigService,
     private hTTPService: HTTPService,
     private mapService: MapService,
-    private filterService: FilterService
+    private filterService: FilterService,
+    private biomeService: BiomeService,
+    private cityService: CityService
   ) { }
 
   ngOnInit() {
@@ -58,6 +70,24 @@ export class FilterComponent implements OnInit, AfterViewInit {
     this.localizationField = this.filterConfig.localization;
     this.localizations = this.localizationField.options;
     this.groups = this.groupsField.options;
+
+    this.localization = new Localization(undefined, undefined, undefined);
+  }
+
+  loadComboCity() {
+    this.cityService.getAll().then(
+      result => {
+        this.optionsFilterLocalizations = result;
+      }
+    );
+  }
+
+  loadComboBiome() {
+    this.biomeService.getAll().then(
+      result => {
+        this.optionsFilterLocalizations = result;
+      }
+    );
   }
 
   ngAfterViewInit() {
@@ -73,7 +103,7 @@ export class FilterComponent implements OnInit, AfterViewInit {
     this.displayFilter = this.codGroup !== layer.codGroup;
 
     this.filterLabel = 'Filtro - ' + layer.label;
-    this.codGroup = this.displayFilter ? layer.codGroup : '';
+    this.codGroup = this.displayFilter ? layer.codGroup : undefined;
     this.layer = this.displayFilter ? layer : null;
   }
 
@@ -84,9 +114,11 @@ export class FilterComponent implements OnInit, AfterViewInit {
   }
 
   onClearFilterClicked() {
-    this.selectedGroup = '';
-    this.selectedLocalization = '';
-    this.areaInput = '';
+    this.selectedGroup = undefined;
+    this.selectedLocalization = undefined;
+    this.areaInput = undefined;
+
+    this.clearValuesFilter();
   }
 
   onDialogHide() {
@@ -95,27 +127,48 @@ export class FilterComponent implements OnInit, AfterViewInit {
   }
 
   updateFilter(layer) {
-    const filter = {
-      codGroup: layer.codGroup,
-      area: this.areaInput,
-      localization: this.selectedLocalization
-    };
-
-    this.updateFilterSelected(filter);
+    this.updateFilterSelected(new Filter(layer.codGroup, this.areaInput, this.selectedLocalization));
   }
 
   updateFilterSelected(filter) {
     if (this.selectedFilters && this.selectedFilters.length > 0) {
-      this.selectedFilters.forEach((filter_, index) => {
-        if (filter_.codGroup === filter.codGroup) {
+      this.selectedFilters.forEach((item: Filter, index) => {
+        if (item.codGroup === filter.codGroup) {
           this.selectedFilters.splice(index, 1);
         }
       });
     }
 
-    this.selectedFilters.push(filter);
+    if (filter.area || filter.localization) {
+      this.selectedFilters.push(filter);
+    }
 
-    localStorage.removeItem('dataFilter');
-    localStorage.setItem('dataFilter', this.selectedFilters.toString());
+    localStorage.removeItem('filterList');
+    localStorage.setItem('filterList', JSON.stringify(this.selectedFilters));
+  }
+
+  onChangeLocalizationField($event: any) {
+
+    if (this.selectedLocalization === 'city') {
+      this.localization.label = 'Município';
+      this.localization.name = 'city';
+      this.localization.value = undefined;
+
+      this.loadComboCity();
+    } else if (this.selectedLocalization === 'biome') {
+      this.localization.label = 'Bioma';
+      this.localization.name = 'biome';
+      this.localization.value = undefined;
+
+      this.loadComboBiome();
+    } else {
+      this.clearValuesFilter();
+    }
+  }
+
+  clearValuesFilter() {
+    this.localization.label = undefined;
+    this.localization.name = undefined;
+    this.localization.value = undefined;
   }
 }

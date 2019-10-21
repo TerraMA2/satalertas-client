@@ -35,6 +35,10 @@ import { LayerInfoFeature } from 'src/app/models/layer-info-feature.model';
 
 import { SelectedMarker } from 'src/app/models/selected-marker.model';
 
+import {BiomeService} from '../../services/biome.service';
+
+import {CityService} from '../../services/city.service';
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',

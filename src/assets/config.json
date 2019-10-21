@@ -1746,16 +1746,12 @@
         "numberOfMonths": 2
       },
       "localization": {
-        "label": "Localização",
+        "label": "Filtrar por",
         "name": "localization",
         "options": [
           {
-            "label": "Municipios",
+            "label": "Municípios",
             "value": "city"
-          },
-          {
-            "label": "Estados",
-            "value": "state"
           },
           {
             "label": "Biomas",

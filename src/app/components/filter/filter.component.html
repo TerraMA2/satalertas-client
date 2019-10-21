@@ -23,10 +23,34 @@
                         [(ngModel)]="selectedLocalization"
                         [autoDisplayFirst]="false"
                         [name]="localizationField.name"
+                        (onChange)="onChangeLocalizationField($event)"
+                        [showClear]="true"
+                        [disabled]="false"
                         >
                     </p-dropdown>
                     <label for="float-input">{{localizationField.label}}</label>
                 </span>
+            </div>
+
+            <div *ngIf="localization.label" >
+                <br>
+
+                <div class="p-col-12 p-col-nogutter" >
+                    <span class="ui-float-label">
+                        <p-dropdown
+                                styleClass="width-100"
+                                [options]="optionsFilterLocalizations"
+                                [(ngModel)]="localization.value"
+                                [autoDisplayFirst]="false"
+                                [name]="localization.name"
+                                optionLabel="name"
+                                [showClear]="true"
+                                [disabled]="false"
+                        >
+                        </p-dropdown>
+                        <label for="float-input">{{localization.label}}</label>
+                    </span>
+                </div>
             </div>
 
             <br>
