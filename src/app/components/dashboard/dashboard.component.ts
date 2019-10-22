@@ -67,10 +67,18 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  // Gerando números aleatórios para exemplificação.
   private getValueAlert(layerGroup) {
     let value = null;
     ListAlert.listAlert.forEach( alert => {
       if (layerGroup.cod === alert.cod) {
+        const date = new Date();
+
+        // tslint:disable-next-line:max-line-length
+        alert.area = (Math.round(Math.random() * (100000.558)) * date.getMilliseconds() * date.getSeconds() / date.getMinutes() / date.getHours());
+        // tslint:disable-next-line:max-line-length
+        alert.numCar = (Math.round(Math.random() * (10000) * date.getMilliseconds() * date.getSeconds() / date.getMinutes() / date.getHours()));
+
         value = alert;
       }
     });
@@ -95,6 +103,15 @@ export class DashboardComponent implements OnInit {
 
     listAlertsGraphic.forEach((alertGraphic: AlertGraphic) => {
       if ((cod === alertGraphic.cod) && (type === alertGraphic.type)) {
+        // alertGraphic.graphicMunicipios.datasets.forEach( dataset => {
+        //   dataset.data.forEach( value => {
+        //
+        //   });
+        //
+        //   dataset.hoverBackgroundColor.forEach( color)
+        //   datset.backgroundColor
+        // });
+
         const aGraphic = {
           cod: layer.cod,
           label:  layer.label,
@@ -120,4 +137,7 @@ export class DashboardComponent implements OnInit {
     this.alertGraphics = [];
   }
 
+  isFocus(cod) {
+    return cod === 'FOCOS';
+  }
 }
