@@ -54,7 +54,10 @@ export class SidebarItemChildComponent implements OnInit {
     }
   }
   selectItem() {
-    this.router.navigate(['/map']);
+    if (this.router.url !== '/map') {
+      this.router.navigate(['/map']);
+      return;
+    }
     this.sidebarService.sidebarItemSelect.next(this.child);
   }
 

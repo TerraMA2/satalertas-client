@@ -15,7 +15,8 @@
                     </p-header>
                     <img src="{{detailedVision.image}}" class="map img-fluid" />
                     <p-footer *ngIf="detailedVision.description" class="card-footer">
-                        {{ detailedVision.description }}
+                        {{ detailedVision.description.text }}
+                        {{ detailedVision.description.value| number:'1.0-2':'pt' }} ha
                     </p-footer>
                 </p-card>
             </div>

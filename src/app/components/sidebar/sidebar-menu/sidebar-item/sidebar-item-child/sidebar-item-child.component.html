@@ -1,8 +1,8 @@
 <div class="sidebar-item-content"
     *ngIf="displayChild"
     [ngClass]="{'sidebar-item-margin': child.type === 'analysis' && !child.isPrimary}">
-    <div    class="sidebar-item-label"
-            (click)="onChildClicked()">
+    <div class="sidebar-item-label"
+        (click)="onChildClicked()">
 
         <a> {{ child.shortLabel }} </a>
 
@@ -20,6 +20,7 @@
         </p-radioButton>
 
         <p-inputSwitch *ngIf="displayControls"
+                    [style]="{'margin-left': '8px'}"
                     [(ngModel)]="parentSwitchChecked"
                     (onChange)="onChildSwitchChanged($event)">
         </p-inputSwitch>
@@ -27,11 +28,11 @@
     </div>
 </div>
 
-<div    *ngIf="child.tools && displayControls"
+<div *ngIf="child.tools && displayControls"
         class="sidebar-item-tools"
         [ngClass]="{'show': isToolsOpened && isParentOpened, 'hide': !isToolsOpened || !isParentOpened}">
 
-    <i      *ngFor="let tool of child.tools"
+    <i *ngFor="let tool of child.tools"
           class="{{tool.icon}}"
           (click)="onToolClicked(tool.name)"
           pTooltip="{{tool.title}}"
