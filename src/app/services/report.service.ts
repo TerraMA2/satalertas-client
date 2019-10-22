@@ -100,6 +100,32 @@ export class ReportService {
       ]
     );
 
+    if (visionData.description) {
+      const descriptionValue = this.replaceWildCards(
+        visionData.description['value'],
+        [
+          '{indigenousLand}',
+          '{conservationUnit}',
+          '{legalReserve}',
+          '{app}',
+          '{consolidatedArea}',
+          '{anthropizedUse}',
+          '{nativeVegetation}',
+        ],
+        [
+          propertyData.indigenousLand['area']?propertyData.indigenousLand['area']:0,
+          propertyData.conservationUnit['area']?propertyData.conservationUnit['area']:0,
+          propertyData.legalReserve['area']?propertyData.legalReserve['area']:0,
+          propertyData.app['area']?propertyData.app['area']:0,
+          propertyData.consolidatedArea['area']?propertyData.consolidatedArea['area']:0,
+          propertyData.anthropizedUse['area']?propertyData.anthropizedUse['area']:0,
+          propertyData.nativeVegetation['area']?propertyData.nativeVegetation['area']:0
+        ]
+      );
+
+      visionData.description['value'] = descriptionValue;
+    }
+
     const vision = new Vision(
       title,
       image,

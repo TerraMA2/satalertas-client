@@ -2194,7 +2194,10 @@
     "detailedVisions": [
       {
         "title": "Terra Indígena",
-        "description": null,
+        "description": {
+          "text": "",
+          "value": "{indigenousLand}"
+        },
         "registerCarColumn": "numero_do2;apv_car_deter_28_de_car_validado_sema_numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
@@ -2212,7 +2215,10 @@
       },
       {
         "title": "Unidade de Conservação",
-        "description": null,
+        "description": {
+          "text": "",
+          "value": "{conservationUnit}"
+        },
         "registerCarColumn": "numero_do2;apv_car_prodes_40_de_car_validado_sema_numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
@@ -2230,7 +2236,10 @@
       },
       {
         "title": "Reserva Legal",
-        "description": null,
+        "description": {
+          "text": "",
+          "value": "{legalReserve}"
+        },
         "registerCarColumn": "numero_do2;apv_car_deter_28_de_car_validado_sema_numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
@@ -2248,7 +2257,10 @@
       },
       {
         "title": "APP",
-        "description": null,
+        "description": {
+          "text": "",
+          "value": "{app}"
+        },
         "registerCarColumn": "numero_do2;apv_car_deter_28_de_car_validado_sema_numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
@@ -2266,7 +2278,10 @@
       },
       {
         "title": "Área Consolidada",
-        "description": null,
+        "description": {
+          "text": "",
+          "value": "{consolidatedArea}"
+        },
         "registerCarColumn": "numero_do2;apv_car_deter_28_de_car_validado_sema_numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
@@ -2284,7 +2299,10 @@
       },
       {
         "title": "Uso antropizado",
-        "description": null,
+        "description": {
+          "text": "",
+          "value": "{anthropizedUse}"
+        },
         "registerCarColumn": "numero_do2;apv_car_deter_28_de_car_validado_sema_numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
@@ -2302,7 +2320,10 @@
       },
       {
         "title": "Vegetação nativa",
-        "description": null,
+        "description": {
+          "text": "",
+          "value": "{nativeVegetation}"
+        },
         "registerCarColumn": "numero_do2;apv_car_deter_28_de_car_validado_sema_numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
