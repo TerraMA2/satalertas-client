@@ -24,9 +24,11 @@
                         [ngClass]="{'ui-card-active': alert.activeArea}"
                         [disabled]="alert.activeArea"
                         (click)="onAreaClick(alert) ">
-                    <p *ngIf="!isFocus(alert.cod)" class="btn-alert-title">Área:</p>
-                    <p *ngIf="isFocus(alert.cod)" class="btn-alert-title">Cicatriz:</p>
-                    <p class="btn-alert-valeu">{{alert.area | number:'1.0-0':'pt'}} ha</p>
+                    <p *ngIf="isOthers(alert.cod)" class="btn-alert-title">Área:</p>
+                    <p *ngIf="isFocus(alert.cod)" class="btn-alert-title">Nº Focos:</p>
+                    <p *ngIf="isBurnedArea(alert.cod)" class="btn-alert-title">Cicatriz:</p>
+                    <p *ngIf="isFocus(alert.cod)" class="btn-alert-valeu">{{alert.area | number:'1.0-0':'pt'}}</p>
+                    <p *ngIf="isOthers(alert.cod) || isBurnedArea(alert.cod)" class="btn-alert-valeu">{{alert.area | number:'1.0-0':'pt'}} ha</p>
                 </button>
 
                 <button pButton
