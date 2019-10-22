@@ -137,7 +137,15 @@ export class DashboardComponent implements OnInit {
     this.alertGraphics = [];
   }
 
+  isOthers(cod) {
+    return !((cod === 'FOCOS') || (cod === 'AREA_QUEIMADA'));
+  }
+
   isFocus(cod) {
     return cod === 'FOCOS';
+  }
+
+  isBurnedArea(cod) {
+    return cod === 'AREA_QUEIMADA';
   }
 }
