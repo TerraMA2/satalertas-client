@@ -60,6 +60,13 @@ export class ReportService {
       if (date && date.date === year) {
         area = (Number(date.area));
         spotlights = (Number(date.spotlights));
+        if (!area) {
+          area = 0;
+        }
+
+        if (!spotlights) {
+          spotlights = 0;
+        }
         count++;
       } else {
         area = 0;

@@ -35,10 +35,6 @@ import { LayerInfoFeature } from 'src/app/models/layer-info-feature.model';
 
 import { SelectedMarker } from 'src/app/models/selected-marker.model';
 
-import {BiomeService} from '../../services/biome.service';
-
-import {CityService} from '../../services/city.service';
-
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -57,6 +53,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   private searchControl;
 
   markerClusterGroup: L.MarkerClusterGroup;
+
+  selectedPrimaryLayer: Layer;
 
   markerInfo: L.Marker;
 
@@ -324,6 +322,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       if (this.markerInfo) {
         this.markerInfo.remove();
       }
+      if (this.selectedPrimaryLayer && this.selectedPrimaryLayer.value === itemUnselected.value) {
+        this.markerClusterGroup.clearLayers();
+      }
       if (itemUnselected instanceof Layer) {
         this.removeLayer(itemUnselected, true);
       }
@@ -334,6 +335,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.sidebarService.sidebarItemRadioSelect.subscribe((layer: Layer) => {
+      this.selectedPrimaryLayer = layer;
       if (this.markerInfo) {
         this.markerInfo.remove();
       }
@@ -342,6 +344,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.sidebarService.sidebarItemRadioUnselect.subscribe(layer => {
+      if (this.selectedPrimaryLayer && this.selectedPrimaryLayer.value === layer.value) {
+        this.selectedPrimaryLayer = null;
+      }
       layer.markerSelected = false;
       if (this.markerInfo) {
         this.markerInfo.remove();

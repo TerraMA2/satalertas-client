@@ -91,9 +91,9 @@ export class ReportComponent implements OnInit {
   }
 
   getPropertyData() {
-    const filterDate = JSON.parse(localStorage.getItem('dateFilter'));
-    const startDate = new Date(filterDate[0]).toLocaleDateString('pt-BR');
-    const endDate = new Date(filterDate[1]).toLocaleDateString('pt-BR');
+    const date = JSON.parse(localStorage.getItem('dateFilter'));
+    const startDate = new Date(date[0]).toLocaleDateString('pt-BR');
+    const endDate = new Date(date[1]).toLocaleDateString('pt-BR');
 
     this.formattedFilterDate = `${startDate} - ${endDate}`;
 
@@ -102,7 +102,7 @@ export class ReportComponent implements OnInit {
     const viewId = propertyConfig.viewId;
     const carRegister = this.carRegister;
     const intersectId = this.intersectId;
-    this.hTTPService.get(url, {viewId, carRegister, intersectId}).subscribe((propertyData: Property) => {
+    this.hTTPService.get(url, {viewId, carRegister, intersectId, date}).subscribe((propertyData: Property) => {
       const burnedAreas = propertyData.burnedAreas;
 
       const area = propertyData.area;
