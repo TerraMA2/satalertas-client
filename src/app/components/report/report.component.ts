@@ -69,17 +69,17 @@ export class ReportComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.filterService.filterReport.subscribe(() => {
-    //   const filterDate = JSON.parse(localStorage.getItem('dateFilter'));
-    //   const startDate = new Date(filterDate[0]).toLocaleDateString('pt-BR');
-    //   const endDate = new Date(filterDate[1]).toLocaleDateString('pt-BR');
+    this.filterService.filterReport.subscribe(() => {
+      const filterDate = JSON.parse(localStorage.getItem('dateFilter'));
+      const startDate = new Date(filterDate[0]).toLocaleDateString('pt-BR');
+      const endDate = new Date(filterDate[1]).toLocaleDateString('pt-BR');
 
-    //   this.formattedFilterDate = `${startDate} - ${endDate}`;
+      this.formattedFilterDate = `${startDate} - ${endDate}`;
 
-    //   this.router.navigateByUrl(`/report/${this.carRegister}/${this.intersectId}`, { skipLocationChange: true }).then(() => {
-    //     this.router.navigate(['report']);
-    //   });
-    // });
+      this.router.navigateByUrl(`/report/${this.carRegister}/${this.intersectId}`, { skipLocationChange: true }).then(() => {
+        this.router.navigate(['report', this.carRegister, this.intersectId]);
+      });
+    });
     this.activatedRoute.params.subscribe(params => {
       this.carRegister = params.carRegister;
       this.intersectId = params.intersectId;
@@ -120,6 +120,8 @@ export class ReportComponent implements OnInit {
       this.burnedAreas = this.reportService.getVisions(propertyData, this.reportConfig.burnedAreas);
 
       this.landsatHistories = this.reportService.getVisions(propertyData, this.reportConfig.landsatHistories);
+
+      this.burningSpotlights = this.reportService.getVisions(propertyData, this.reportConfig.burningSpotlights, 'spotlightsYear');
 
       this.burningSpotlightsChartData = this.reportService.getBurningSpotlightsChart(propertyData.burningSpotlights);
 

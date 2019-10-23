@@ -15,5 +15,7 @@ export class VisionComponent {
 
   @Input() legends: Legend[] = [];
 
+  @Input() formattedFilterDate: string;
+
   constructor() { }
 }

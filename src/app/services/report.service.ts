@@ -54,19 +54,21 @@ export class ReportService {
       );
       const date = years[count];
       let area = null;
+      let spotlights = null;
       const year = startYear;
 
       if (date && date.date === year) {
         area = (Number(date.area));
+        spotlights = (Number(date.spotlights));
         count++;
       } else {
         area = 0;
+        spotlights = 0;
       }
       const replacedTitle = this.replaceWildCard(title, '{year}', year);
       const replacedDescriptionText = this.replaceWildCard(description.text, '{year}', year);
-      const replacedDescriptionValue = this.replaceWildCard(description.value, '{area}', area);
-      let timeReplaced = this.replaceWildCard(time, '{dateYear}', (year));
-      timeReplaced = this.replaceWildCard(timeReplaced, '{year}', 'P1Y');
+      const replacedDescriptionValue = this.replaceWildCards(description.value, ['{area}', '{spotlights}'], [area, spotlights]);
+      const timeReplaced = this.replaceWildCards(time, ['{dateYear}', '{year}'], [year, 'P1Y']);
       visionDataCopy.title = replacedTitle;
       visionDataCopy.description = {
         text: replacedDescriptionText,
@@ -280,7 +282,7 @@ export class ReportService {
     return text;
   }
 
-  private replaceWildCard(text, wildCard, replaceValue, regexFlag = '') {
+  private replaceWildCard(text: string, wildCard: string, replaceValue: string, regexFlag: string = '') {
     return text.replace(new RegExp(wildCard, regexFlag), replaceValue);
   }
 

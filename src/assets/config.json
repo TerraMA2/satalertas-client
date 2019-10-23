@@ -2404,15 +2404,18 @@
     "burningSpotlights": [
       {
         "title": "{year}",
-        "description": null,
+        "description": {
+          "text":"",
+          "value": "{spotlights}"
+        },
         "registerCarColumn": "numero_do2;de_car_validado_sema_numero_do2",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_5:view5,terrama2_87:view87",
+          "layers": "terrama2_5:view5,terrama2_88:view88",
           "transparent": true,
           "format": "image/png",
           "version": "1.1.0",
-          "time": "{date}/{year}",
+          "time": "{dateYear}/{year}",
           "cql_filter": "{propertyCqlFilter};{propertyCqlFilter}",
           "bbox": "{bbox}",
           "width": "404",

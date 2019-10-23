@@ -17,6 +17,7 @@ export class Property {
     public burningSpotlights?: [],
     public burnedAreas?: [],
     public deter?: [],
-    public prodesYear?: []
+    public prodesYear?: [],
+    public spotlightsYear?: []
   ) {}
 }
