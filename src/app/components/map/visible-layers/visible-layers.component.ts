@@ -13,11 +13,9 @@ export class VisibleLayersComponent implements OnInit {
 
   draggedItem: Layer;
 
-  @Input() selectedLayers = [];
+  @Input() selectedLayers: Layer[] = [];
 
   @Input() displayVisibleLayers = false;
-
-  @Input() displayControls;
 
   constructor(
     private mapService: MapService

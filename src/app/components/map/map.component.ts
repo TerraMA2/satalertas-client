@@ -176,9 +176,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       this.setRestoreMapControl();
     }
 
-    // if (this.displayLayersControl) {
-    //   this.setLayersControl();
-    // }
+    if (this.displayVisibleLayersControl) {
+      this.setVisibleLayersControl();
+    }
 
     this.setMarkersGroup();
   }
@@ -387,7 +387,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         }
         layer = this.setDateFilter(layer);
         const layerToAdd = this.getLayer(layer.layerData);
-        layerToAdd.setZIndex(1000 + (this.selectedLayers.length));
+        layerToAdd.setZIndex(1000 + this.selectedLayers.length);
         layerToAdd.addTo(this.map);
       }
     }

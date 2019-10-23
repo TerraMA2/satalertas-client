@@ -6,14 +6,14 @@
 
         <ng-template #sidebarItemLink>
             <a class="sidebar-item-link"
-              routerLink="{{ sidebarItem.link }}">
-              {{ sidebarItem.label }}
+                routerLink="{{ sidebarItem.link }}">
+                {{ sidebarItem.label }}
             </a>
         </ng-template>
 
         <ng-template #sidebarItemDefault>
             <i class="fas sidebar-item-arrow"
-              [ngClass]="{'fa-chevron-down': isParentOpened, 'fa-chevron-right': !isParentOpened}">
+                [ngClass]="{'fa-chevron-down': isParentOpened, 'fa-chevron-right': !isParentOpened}">
             </i>
             <a>{{ sidebarItem.label }}</a>
         </ng-template>
