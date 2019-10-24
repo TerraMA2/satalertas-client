@@ -22,12 +22,6 @@ export class HTTPService {
       return;
     }
 
-    const headers = new HttpHeaders({
-      'Cache-Control':  'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
-      Pragma: 'no-cache',
-      Expires: '0'
-    });
-
     const terramaUrl = environment.terramaUrl;
     const terramaUrlProd = 'http://www.terrama2.dpi.inpe.br/mpmt';
 
@@ -35,7 +29,6 @@ export class HTTPService {
       url = terramaUrl + url;
     }
     return this.http.get(url, {
-      headers,
       params: parameters
     }).pipe(
       retry(1),

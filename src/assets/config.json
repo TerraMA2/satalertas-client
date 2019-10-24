@@ -1920,6 +1920,7 @@
         "position": "topleft",
         "zoom": 12,
         "minLength": 1,
+        "hideMarkerOnCollapse": true,
         "textErr": "Nenhum imóvel foi encontrado",
         "textCancel": "Cancelar",
         "textPlaceholder": "Buscar por registro do CAR",
