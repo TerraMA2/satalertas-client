@@ -65,7 +65,3 @@
 :host ::ng-deep .sidebar-item-body:hover i {
     color: #591111;
 }
-
-:host ::ng-deep .hide-sidebar-item {
-    display: none;
-}

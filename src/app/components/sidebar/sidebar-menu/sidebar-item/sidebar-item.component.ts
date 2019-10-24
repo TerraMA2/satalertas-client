@@ -25,8 +25,6 @@ export class SidebarItemComponent implements OnInit {
 
   isParentOpened = false;
 
-  @Input() display;
-
   constructor(
     private sidebarService: SidebarService,
     private tableService: TableService,

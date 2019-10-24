@@ -21,6 +21,8 @@ export class SidebarMenuComponent implements OnInit {
     this.authService.user.subscribe(user => {
       if (user) {
         this.isAuthenticated = true;
+      } else {
+        this.isAuthenticated = false;
       }
     });
   }

@@ -51,7 +51,8 @@ export class AuthComponent implements OnInit, OnDestroy {
 
     this.isLoading = true;
 
-    this.authSub = this.authService.login(form.value)
+    this.authSub = this.authService
+      .login(form.value)
       .subscribe(response => {
         const error = response['error'];
         const message = response['message'];

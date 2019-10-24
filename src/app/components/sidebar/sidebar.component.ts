@@ -57,7 +57,7 @@ export class SidebarComponent implements OnInit {
         sidebarItem.label,
         sidebarItem.parent,
         sidebarItem.link,
-        sidebarItem.isPrimary
+        sidebarItem.isPrivate
       );
 
       const layerChildren: Layer[] = [];

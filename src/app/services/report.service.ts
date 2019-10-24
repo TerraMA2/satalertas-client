@@ -134,7 +134,7 @@ export class ReportService {
       );
 
       visionDescription = {
-        text: visionData.title,
+        text: visionData.description['text'],
         value: descriptionValue
       };
     }

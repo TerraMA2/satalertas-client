@@ -1,8 +1,5 @@
 <div class="sidebar-item-body p-align-center"
-    [ngClass]="{
-        'active': isParentOpened && !sidebarItem.link,
-        'hide-sidebar-item': !display
-    }">
+    [ngClass]="{ 'active': isParentOpened && !sidebarItem.link }">
     <div class="sidebar-item-label"
         (click)="onParentClicked()">
 

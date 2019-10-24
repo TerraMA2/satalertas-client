@@ -3,8 +3,8 @@
     <app-sidebar-item class="sidebar-item"
                     *ngFor="let sidebarItem of sidebarItems"
                     [sidebarItem]="sidebarItem"
-                    [display]="sidebarItem.isPrivate && !isAuthenticated ? false : true"
-                    [childrenItems]="sidebarItem.children">
+                    [childrenItems]="sidebarItem.children"
+                    [ngClass]="{ 'hide-sidebar-item': sidebarItem.isPrivate && !isAuthenticated }">
     </app-sidebar-item>
 
     <br>

@@ -9,7 +9,6 @@ import { Layer } from 'src/app/models/layer.model';
 import { Router } from '@angular/router';
 
 import { FilterService } from '../../../../../services/filter.service';
-import {MapService} from '../../../../../services/map.service';
 
 @Component({
   selector: 'app-sidebar-item-child',

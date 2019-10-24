@@ -312,6 +312,7 @@
             ]
           },
           {
+            "codGroup": "DETER",
             "label": "TI X CAR_DETER",
             "shortLabel": "Terra Indigena",
             "value": "95",
