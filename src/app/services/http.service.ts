@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
 import { throwError } from 'rxjs';
 
@@ -21,6 +21,13 @@ export class HTTPService {
     if (!url) {
       return;
     }
+
+    const headers = new HttpHeaders({
+      'Cache-Control':  'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
+      Pragma: 'no-cache',
+      Expires: '0'
+    });
+
     const terramaUrl = environment.terramaUrl;
     const terramaUrlProd = 'http://www.terrama2.dpi.inpe.br/mpmt';
 
@@ -28,9 +35,10 @@ export class HTTPService {
       url = terramaUrl + url;
     }
     return this.http.get(url, {
+      headers,
       params: parameters
     }).pipe(
-      retry(0),
+      retry(1),
       catchError(this.handleError)
     );
   }

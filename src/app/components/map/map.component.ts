@@ -251,8 +251,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       let link = null;
       if (popupTitle && markerData[popupTitle]) {
         popup = markerData[popupTitle];
-        const intersectId = markerData.intersect_id;
-        link = `/report/${popup}/${intersectId}`;
+        link = `/report/${popup}`;
       } else {
         popup = popupTitle;
       }
@@ -692,9 +691,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   clearLayers() {
-    this.selectedLayers.forEach(layer => {
-      this.removeLayer(layer, false);
-    });
+    this.selectedLayers.forEach(layer => this.removeLayer(layer, false));
   }
 
   updateLayers() {

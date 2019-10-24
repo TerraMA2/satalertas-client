@@ -29,8 +29,6 @@ export class ReportComponent implements OnInit {
 
   property: Property;
 
-  intersectId: string;
-
   bbox: string;
 
   cityBBox: string;
@@ -70,20 +68,11 @@ export class ReportComponent implements OnInit {
 
   ngOnInit() {
     this.filterService.filterReport.subscribe(() => {
-      const filterDate = JSON.parse(localStorage.getItem('dateFilter'));
-      const startDate = new Date(filterDate[0]).toLocaleDateString('pt-BR');
-      const endDate = new Date(filterDate[1]).toLocaleDateString('pt-BR');
-
-      this.formattedFilterDate = `${startDate} - ${endDate}`;
-
-      this.router.navigateByUrl(`/report/${this.carRegister}/${this.intersectId}`, { skipLocationChange: true }).then(() => {
-        this.router.navigate(['report', this.carRegister, this.intersectId]);
-      });
+      if (this.router.url.startsWith('/report')) {
+        this.getPropertyData();
+      }
     });
-    this.activatedRoute.params.subscribe(params => {
-      this.carRegister = params.carRegister;
-      this.intersectId = params.intersectId;
-    });
+    this.activatedRoute.params.subscribe(params => this.carRegister = params.carRegister);
     this.reportConfig = this.configService.getConfig('report');
     this.visionLegends = this.reportConfig.visionslegends;
 
@@ -101,8 +90,8 @@ export class ReportComponent implements OnInit {
     const url = propertyConfig.url;
     const viewId = propertyConfig.viewId;
     const carRegister = this.carRegister;
-    const intersectId = this.intersectId;
-    this.hTTPService.get(url, {viewId, carRegister, intersectId, date}).subscribe((propertyData: Property) => {
+    this.hTTPService.get(url, {viewId, carRegister, date})
+                    .subscribe((propertyData: Property) => {
       const burnedAreas = propertyData.burnedAreas;
 
       const area = propertyData.area;
