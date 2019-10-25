@@ -560,6 +560,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       popupContent += `<h2>Layer não encontrado.</h2>`;
     }
 
+    let popupTable = '';
     for (const selectedLayer of this.selectedLayers) {
       const layer = this.getLayer(selectedLayer.layerData);
       const layerName = selectedLayer.label;
@@ -571,17 +572,22 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       await this.hTTPService.get(url, params).toPromise().then((layerInfo: LayerInfo) => {
         const features = layerInfo.features;
         if (features && features.length > 0) {
-          popupContent += this.getFeatureInfoPopup(layerName, features);
+          popupTable += this.getFeatureInfoPopup(layerName, features);
         }
       });
     }
+    if (!popupTable) {
+      popupTable = 'Nenhuma informação foi encontrada.';
+    }
+    popupContent += popupTable;
+
+    popupContent += `</div>`;
 
     if (this.markerInfo) {
       this.markerInfo.removeFrom(this.map);
     }
 
-    popupContent += `</div>`;
-    this.markerInfo = this.createMarker('info', popupContent, '', latLong);
+    this.markerInfo = this.createMarker('info', popupContent, latLong, '');
     if (this.markerInfo) {
       this.markerInfo.addTo(this.map);
       this.markerInfo.openPopup();
@@ -589,7 +595,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getFeatureInfoParams(layer: L.TileLayer.WMS, event: L.LeafletMouseEvent) {
-    const layerId = layer.wmsParams.layers;
     const layerPoint = this.map.layerPointToContainerPoint(event.layerPoint);
     const bbox = this.map.getBounds().toBBoxString();
     const mapSize = this.map.getSize();
@@ -598,14 +603,18 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     const x = Math.round(layerPoint.x);
     const y = Math.round(layerPoint.y);
     const params = {
-      service: 'WMS',
-      version: '1.1.0',
       request: 'GetFeatureInfo',
-      layers: layerId,
+      service: 'WMS',
+      srs: 'EPSG:4326',
+      styles: layer.wmsParams.styles,
+      transparent: layer.wmsParams.transparent,
+      version: layer.wmsParams.version,
+      format: layer.wmsParams.format,
       bbox,
-      width,
       height,
-      query_layers: layerId,
+      width,
+      layers: layer.wmsParams.layers,
+      query_layers: layer.wmsParams.layers,
       info_format: 'application/json',
       x,
       y
