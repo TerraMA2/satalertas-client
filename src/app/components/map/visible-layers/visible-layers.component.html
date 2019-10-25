@@ -6,7 +6,7 @@
         [(visible)]="displayVisibleLayers"
         [contentStyle]="{'width': '400px','max-height':'40vh'}">
 
-        <div class="visible-layers-item"
+        <!-- <div class="visible-layers-item"
             pDraggable="dd"
             pDroppable="dd"
             *ngFor="let selectedLayer of selectedLayers.reverse();trackBy: trackByFunction"
@@ -14,6 +14,14 @@
             (onDragEnd)="dragEnd($event)"
             (onDrop)="drop($event)">
             {{ selectedLayer.label }}
-        </div>
+        </div> -->
+
+        <p-table [columns]="cols" [value]="selectedLayers.reverse()" [reorderableColumns]="true">
+            <ng-template pTemplate="body" let-rowData let-columns="selectedLayers" let-index="rowIndex">
+                <tr [pReorderableRow]="index">
+                    <td pReorderableRowHandle>{{rowData['label']}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
 
 </p-dialog>
