@@ -86,9 +86,6 @@ export class SidebarItemChildComponent implements OnInit {
         break;
       case 'temporalDimension':
         break;
-      case 'filter':
-        this.filterService.displayFilter.next(this.child);
-        break;
       case 'opacity':
         break;
       default:

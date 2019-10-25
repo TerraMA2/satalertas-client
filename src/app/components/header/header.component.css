@@ -15,7 +15,7 @@
 }
 
 .header-filter{
-  margin: 10% 0% 10% 10%;
+  margin: 10% 0% 10% 0%;
   float: right;
 }
 
@@ -48,7 +48,6 @@
 
 .date-footer{
   margin-top: 5rem;
-  -webkit-align-content: right;
 }
 
 .date-button{
@@ -63,6 +62,10 @@
 
 .button-right {
   float: right;
+}
+
+.button-filter {
+  margin: 15% 0% 15% 2%;
 }
 
 .background-color-white {

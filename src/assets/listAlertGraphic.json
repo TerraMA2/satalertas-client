@@ -3,11 +3,13 @@
     {
       "cod": "DETER",
       "label": "Deter",
+      "labelCity": "Área por Municípios",
+      "labelBiome": "Área por biomas",
       "type": "AREA",
       "nameType": "Área",
       "idView": 0,
       "active": false,
-      "graphicMunicipios": {
+      "graphicCity": {
         "labels": ["A", "B", "C","d","e","f","g"],
         "datasets": [{
           "data": [300, 50, 100, 15, 158, 1000, 339],
@@ -31,7 +33,7 @@
           ]
         }]
       },
-      "graphicBiomas": {
+      "graphicBiome": {
         "labels": ["A", "B", "C","d","e","f","g"],
         "datasets": [{
           "data": [300, 50, 100, 15, 158, 1000, 339],
@@ -59,13 +61,16 @@
     {
       "cod": "DETER",
       "label": "Deter",
+      "labelCity": "CAR por Municípios",
+      "labelBiome": "CAR por biomas",
       "type": "NUM_CAR",
       "nameType": "Número de Cars",
       "idView": 0,
       "active": false,
-      "graphicMunicipios": {
+      "graphicCity": {
         "labels": ["A", "B", "C","d","e","f","g"],
         "datasets": [{
+          "subtitle": "Legenda Bioma",
           "data": [300, 50, 100, 15, 158, 1000, 339],
           "backgroundColor": [
             "#FF6384",
@@ -87,7 +92,7 @@
           ]
         }]
       },
-      "graphicBiomas": {
+      "graphicBiome": {
         "labels": ["A", "B", "C","d","e","f","g"],
         "datasets": [{
           "data": [300, 50, 100, 15, 158, 1000, 339],
@@ -115,11 +120,13 @@
     {
       "cod": "PRODES",
       "label": "Prodes",
+      "labelCity": "Número de focos por Municípios",
+      "labelBiome": "Número de focos por biomas",
       "type": "AREA",
       "nameType": "Área",
       "idView": 0,
       "active": false,
-      "graphicMunicipios": {
+      "graphicCity": {
         "labels": ["A", "B", "C","d","e","f","g"],
         "datasets": [{
           "data": [300, 50, 100, 15, 158, 1000, 339],
@@ -143,7 +150,7 @@
           ]
         }]
       },
-      "graphicBiomas": {
+      "graphicBiome": {
         "labels": ["A", "B", "C","d","e","f","g"],
         "datasets": [{
           "data": [300, 50, 100, 15, 158, 1000, 339],
@@ -171,11 +178,13 @@
     {
       "cod": "PRODES",
       "label": "Prodes",
+      "labelCity": "Número de focos por Municípios",
+      "labelBiome": "Número de focos por biomas",
       "type": "NUM_CAR",
       "nameType": "Número de Cars",
       "idView": 0,
       "active": false,
-      "graphicMunicipios": {
+      "graphicCity": {
         "labels": ["A", "B", "C","d","e","f","g"],
         "datasets": [{
           "data": [300, 50, 100, 15, 158, 1000, 339],
@@ -199,7 +208,7 @@
           ]
         }]
       },
-      "graphicBiomas": {
+      "graphicBiome": {
         "labels": ["A", "B", "C","d","e","f","g"],
         "datasets": [{
           "data": [300, 50, 100, 15, 158, 1000, 339],
@@ -227,11 +236,13 @@
     {
       "cod": "FOCOS",
       "label": "Focos",
+      "labelCity": "Número de focos por Municípios",
+      "labelBiome": "Número de focos por biomas",
       "type": "AREA",
       "nameType": "Área",
       "idView": 0,
       "active": false,
-      "graphicMunicipios": {
+      "graphicCity": {
         "labels": ["A", "B", "C","d","e","f","g"],
         "datasets": [{
           "data": [300, 50, 100, 15, 158, 1000, 339],
@@ -255,7 +266,7 @@
           ]
         }]
       },
-      "graphicBiomas": {
+      "graphicBiome": {
         "labels": ["A", "B", "C","d","e","f","g"],
         "datasets": [{
           "data": [300, 50, 100, 15, 158, 1000, 339],
@@ -283,11 +294,13 @@
     {
       "cod": "FOCOS",
       "label": "Focos",
+      "labelCity": "CAR apresentando focos por Municípios",
+      "labelBiome": "CAR apresentando focos por biomas",
       "type": "NUM_CAR",
       "nameType": "Número de Cars",
       "idView": 0,
       "active": false,
-      "graphicMunicipios": {
+      "graphicCity": {
         "labels": ["A", "B", "C","d","e","f","g"],
         "datasets": [{
           "data": [300, 50, 100, 15, 158, 1000, 339],
@@ -311,7 +324,7 @@
           ]
         }]
       },
-      "graphicBiomas": {
+      "graphicBiome": {
         "labels": ["A", "B", "C","d","e","f","g"],
         "datasets": [{
           "data": [300, 50, 100, 15, 158, 1000, 339],
@@ -339,11 +352,13 @@
     {
       "cod": "AREA_QUEIMADA",
       "label": "Área queimada",
+      "labelCity": "Cicatriz por Municípios",
+      "labelBiome": "Cicatriz por biomas",
       "type": "AREA",
       "nameType": "Área",
       "idView": 0,
       "active": false,
-      "graphicMunicipios": {
+      "graphicCity": {
         "labels": ["A", "B", "C","d","e","f","g"],
         "datasets": [{
           "data": [300, 50, 100, 15, 158, 1000, 339],
@@ -367,7 +382,7 @@
           ]
         }]
       },
-      "graphicBiomas": {
+      "graphicBiome": {
         "labels": ["A", "B", "C","d","e","f","g"],
         "datasets": [{
           "data": [300, 50, 100, 15, 158, 1000, 339],
@@ -395,11 +410,13 @@
     {
       "cod": "AREA_QUEIMADA",
       "label": "Área queimada",
+      "labelCity": "Quantidade de CAR com aviso de área queimada por Municípios",
+      "labelBiome": "Quantidade de CAR com aviso de área queimada por biomas",
       "type": "NUM_CAR",
       "nameType": "Número de Cars",
       "idView": 0,
       "active": false,
-      "graphicMunicipios": {
+      "graphicCity": {
         "labels": ["A", "B", "C","d","e","f","g"],
         "datasets": [{
           "data": [300, 50, 100, 15, 158, 1000, 339],
@@ -423,7 +440,7 @@
           ]
         }]
       },
-      "graphicBiomas": {
+      "graphicBiome": {
         "labels": ["A", "B", "C","d","e","f","g"],
         "datasets": [{
           "data": [300, 50, 100, 15, 158, 1000, 339],
