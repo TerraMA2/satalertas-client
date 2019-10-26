@@ -382,6 +382,22 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
           layer.setZIndex(draggedItemFromIndex);
         }
       });
+
+      // this.map.eachLayer((layer: L.TileLayer.WMS) => {
+      //   const layerIndex = this.selectedLayers.findIndex(selectedLayer => selectedLayer.layerData.layers === layer.options.layers);
+      //   if (layerIndex !== -1) {
+      //     if (layer.options.zIndex === draggedItemFrom) {
+      //       layer.setZIndex(draggedItemToIndex);
+      //     }
+      //     const zindex = layer.options.zIndex;
+      //     if (layer.options.layers === draggedItemFrom.layerData.layers) {
+      //       layer.setZIndex(draggedItemToIndex);
+      //     }
+      //     if (layer.options.layers === draggedItemTo.layerData.layers) {
+      //       layer.setZIndex(draggedItemFromIndex);
+      //     }
+      //   }
+      // });
     });
   }
 

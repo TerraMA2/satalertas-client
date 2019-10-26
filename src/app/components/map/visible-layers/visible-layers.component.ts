@@ -34,34 +34,6 @@ export class VisibleLayersComponent implements OnInit {
     return index;
   }
 
-  // dragStart(event, item: Layer) {
-  //   this.draggedItem = item;
-  // }
-
-  // drop(event) {
-  //   if (this.draggedItem) {
-  //     let draggedItemIndex = this.selectedLayers.findIndex(child => child.label === this.draggedItem.label);
-
-  //     const itemDraggedToLabel = event.target.innerText;
-  //     let itemDraggedToIndex = this.selectedLayers.findIndex(child => child.label === itemDraggedToLabel);
-  //     const itemDraggedTo = this.selectedLayers[itemDraggedToIndex];
-
-  //     this.selectedLayers[draggedItemIndex] = this.selectedLayers.splice(itemDraggedToIndex, 1, this.selectedLayers[draggedItemIndex])[0];
-
-  //     const items = [];
-
-  //     itemDraggedToIndex += 1001;
-  //     draggedItemIndex += 1001;
-
-  //     items.push({item: this.draggedItem, index: draggedItemIndex});
-  //     items.push({item: itemDraggedTo, index: itemDraggedToIndex});
-  //     this.mapService.resetLayers.next(items);
-  //   }
-  // }
-
-  // dragEnd(event) {
-  //   this.draggedItem = null;
-  // }
   dragStart(event, item: Layer) {
     this.draggedItem = item;
   }
@@ -90,6 +62,5 @@ export class VisibleLayersComponent implements OnInit {
   dragEnd(event) {
     this.draggedItem = null;
   }
-
 
 }
