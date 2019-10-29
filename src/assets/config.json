@@ -36,6 +36,15 @@
         "activeArea": false
       },
       {
+        "cod": "MAPA",
+        "label": "Mapa",
+        "icon": "fas fa-map",
+        "type": "map",
+        "link": "/map",
+        "viewGraph": false,
+        "activeArea": false
+      },
+      {
         "cod": "DETER",
         "label": "Análise DETER",
         "parent": true,

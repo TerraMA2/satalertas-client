@@ -6,6 +6,7 @@ import {CarService} from '../../../services/car.service';
   templateUrl: './analyze-car-grid.component.html',
   styleUrls: ['./analyze-car-grid.component.css']
 })
+
 export class AnalyzeCarGridComponent implements OnInit, AfterViewInit {
 
   cars;
@@ -31,7 +32,6 @@ export class AnalyzeCarGridComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    console.log(this.cars);
   }
 
 }
