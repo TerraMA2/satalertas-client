@@ -3,3 +3,29 @@
     background-color: #d8dae2 !important;
     color: #7a0000 !important;
 }
+
+.btn-filter {
+    width: 8em;
+}
+
+.btn-filter-left {
+    margin: 0.5em;
+}
+
+.btn-filter-right {
+    margin: 0.5em 0.5em 0.5em 3.5em;
+}
+
+.dropdown-filter {
+    margin: 1.8em 0;
+}
+
+.filter-dropdown-value {
+    margin-top: 0.5em;
+    margin-bottom: 1.8em;
+}
+
+.filter-footer {
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}

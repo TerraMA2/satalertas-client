@@ -1,0 +1,20 @@
+<div class="p-grid box">
+    <p-accordion [multiple]="true" class="p-col-12">
+        <p-accordionTab header="Gráfico {{alertGraphic.nameType}} do {{alertGraphic.label}}"
+                        [selected]="alertGraphic.active"
+                        *ngFor="let alertGraphic of alertGraphics">
+
+            <div class="p-grid">
+                <p-card class="p-md-6">
+                    <p class="p-col-12"> {{alertGraphic.labelBiome}} </p>
+                    <p-chart type="pie" height="350px" [data]="alertGraphic.graphicBiome"></p-chart>
+                </p-card>
+
+                <p-card class="p-md-6">
+                    <p class="p-col-12">{{alertGraphic.labelCity}}</p>
+                    <p-chart type="pie" height="350px" [data]="alertGraphic.graphicCity"></p-chart>
+                </p-card>
+            </div>
+        </p-accordionTab>
+    </p-accordion>
+</div>
