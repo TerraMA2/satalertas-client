@@ -4,8 +4,6 @@ import { TableService } from 'src/app/services/table.service';
 
 import { SidebarService } from 'src/app/services/sidebar.service';
 
-import { AuthService } from 'src/app/services/auth.service';
-
 import { Layer } from 'src/app/models/layer.model';
 
 import { LayerGroup } from 'src/app/models/layer-group.model';
@@ -27,21 +25,13 @@ export class SidebarItemComponent implements OnInit {
 
   isParentOpened = false;
 
-  isAuthenticated = false;
-
   constructor(
     private sidebarService: SidebarService,
     private tableService: TableService,
-    private authService: AuthService,
     private router: Router
   ) { }
 
   ngOnInit() {
-    this.authService.user.subscribe(user => {
-      if (user) {
-        this.isAuthenticated = true;
-      }
-    });
   }
 
   onParentClicked() {

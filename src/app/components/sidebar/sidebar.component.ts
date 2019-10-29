@@ -56,7 +56,8 @@ export class SidebarComponent implements OnInit {
       const layerGroup = new LayerGroup(
         sidebarItem.label,
         sidebarItem.parent,
-        sidebarItem.link
+        sidebarItem.link,
+        sidebarItem.isPrivate
       );
 
       const layerChildren: Layer[] = [];

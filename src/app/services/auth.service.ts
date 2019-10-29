@@ -12,6 +12,8 @@ import { catchError, tap } from 'rxjs/operators';
 
 import { HttpErrorResponse } from '@angular/common/http';
 
+import { SidebarService } from './sidebar.service';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -24,10 +26,11 @@ export class AuthService {
 
   constructor(
     private hTTPService: HTTPService,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private sidebarService: SidebarService
   ) {
     this.authConfig = this.configService.getConfig('auth');
-   }
+  }
 
   login(params) {
     return this.hTTPService.post(this.authConfig.url, params)
@@ -79,10 +82,12 @@ export class AuthService {
       clearTimeout(this.tokenExpirationTimer);
     }
     this.tokenExpirationTimer = null;
+    this.sidebarService.sidebarReload.next();
   }
 
   autoLogout(expirationDuration: number) {
     this.tokenExpirationTimer = setTimeout(() => this.logout(), expirationDuration);
+    this.sidebarService.sidebarReload.next();
   }
 
   private handleAuthentication(loggedUser) {

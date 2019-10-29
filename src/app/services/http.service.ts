@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
 import { throwError } from 'rxjs';
 
@@ -21,6 +21,7 @@ export class HTTPService {
     if (!url) {
       return;
     }
+
     const terramaUrl = environment.terramaUrl;
     const terramaUrlProd = 'http://www.terrama2.dpi.inpe.br/mpmt';
 
@@ -30,7 +31,7 @@ export class HTTPService {
     return this.http.get(url, {
       params: parameters
     }).pipe(
-      retry(0),
+      retry(1),
       catchError(this.handleError)
     );
   }

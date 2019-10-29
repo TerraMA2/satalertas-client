@@ -5,3 +5,7 @@
   border-bottom: 2px solid #cecece;
   font-size: 18px;
 }
+
+:host ::ng-deep .hide-sidebar-item {
+  display: none;
+}

@@ -13,17 +13,21 @@ export class VisibleLayersComponent implements OnInit {
 
   draggedItem: Layer;
 
-  @Input() selectedLayers = [];
+  @Input() selectedLayers: Layer[] = [];
 
   @Input() displayVisibleLayers = false;
 
-  @Input() displayControls;
+  cols;
 
   constructor(
     private mapService: MapService
   ) { }
 
   ngOnInit() {
+    this.cols = [{
+      field: '',
+      header: ''
+    }];
   }
 
   trackByFunction(index, item) {

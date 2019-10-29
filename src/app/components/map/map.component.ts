@@ -35,10 +35,6 @@ import { LayerInfoFeature } from 'src/app/models/layer-info-feature.model';
 
 import { SelectedMarker } from 'src/app/models/selected-marker.model';
 
-import {BiomeService} from '../../services/biome.service';
-
-import {CityService} from '../../services/city.service';
-
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -57,6 +53,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   private searchControl;
 
   markerClusterGroup: L.MarkerClusterGroup;
+
+  selectedPrimaryLayer: Layer;
 
   markerInfo: L.Marker;
 
@@ -176,9 +174,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       this.setRestoreMapControl();
     }
 
-    // if (this.displayLayersControl) {
-    //   this.setLayersControl();
-    // }
+    if (this.displayVisibleLayersControl) {
+      this.setVisibleLayersControl();
+    }
 
     this.setMarkersGroup();
   }
@@ -195,13 +193,13 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     if (localStorage.getItem('mapState')) {
       const mapState: MapState = JSON.parse(localStorage.getItem('mapState'));
       const previousSelectedLayers: Layer[] = mapState.selectedLayers;
-      const previousSelectedMarker: SelectedMarker = mapState.selectedMaker;
+      this.selectedMarker = mapState.selectedMaker;
       const previousLatLong = mapState.mapLatLong;
       const previousZoom = mapState.mapZoom;
 
       previousSelectedLayers.forEach((layer: Layer) => {
         this.addLayer(layer, true);
-        if (previousSelectedMarker && previousSelectedMarker.overlayName === layer.label) {
+        if (layer.markerSelected) {
           this.updateMarkers(layer);
         }
       });
@@ -249,12 +247,12 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     this.layerControl.removeLayer(this.markerClusterGroup);
     data.forEach(markerData => {
-      let popup = null;
+      let popup = '';
       let link = null;
       if (popupTitle && markerData[popupTitle]) {
         popup = markerData[popupTitle];
-        const intersectId = markerData.intersect_id;
-        link = `/report/${popup}/${intersectId}`;
+        popup = popup.replace('/', '\\');
+        link = `/report/${popup}`;
       } else {
         popup = popupTitle;
       }
@@ -270,6 +268,17 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.map.addLayer(this.markerClusterGroup);
     this.searchControl.setLayer(this.markerClusterGroup);
     this.searchControl.options.layer = this.markerClusterGroup;
+
+    if (this.selectedMarker) {
+      const markerLatLong = new L.LatLng(this.selectedMarker.latLong[0], this.selectedMarker.latLong[1]);
+      this.markerClusterGroup.eachLayer((marker: L.Marker) => {
+        if (marker.getLatLng().equals(markerLatLong)) {
+          this.panMap(markerLatLong, 18);
+          marker.fire('click');
+          this.selectedMarker = null;
+        }
+      });
+    }
   }
 
   createMarker(popupTitle, popupContent, latLong, overlayName, link = '') {
@@ -324,6 +333,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       if (this.markerInfo) {
         this.markerInfo.remove();
       }
+      if (this.selectedPrimaryLayer && this.selectedPrimaryLayer.value === itemUnselected.value) {
+        this.markerClusterGroup.clearLayers();
+      }
       if (itemUnselected instanceof Layer) {
         this.removeLayer(itemUnselected, true);
       }
@@ -334,6 +346,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.sidebarService.sidebarItemRadioSelect.subscribe((layer: Layer) => {
+      this.selectedPrimaryLayer = layer;
       if (this.markerInfo) {
         this.markerInfo.remove();
       }
@@ -342,6 +355,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.sidebarService.sidebarItemRadioUnselect.subscribe(layer => {
+      if (this.selectedPrimaryLayer && this.selectedPrimaryLayer.value === layer.value) {
+        this.selectedPrimaryLayer = null;
+      }
       layer.markerSelected = false;
       if (this.markerInfo) {
         this.markerInfo.remove();
@@ -366,6 +382,22 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
           layer.setZIndex(draggedItemFromIndex);
         }
       });
+
+      // this.map.eachLayer((layer: L.TileLayer.WMS) => {
+      //   const layerIndex = this.selectedLayers.findIndex(selectedLayer => selectedLayer.layerData.layers === layer.options.layers);
+      //   if (layerIndex !== -1) {
+      //     if (layer.options.zIndex === draggedItemFrom) {
+      //       layer.setZIndex(draggedItemToIndex);
+      //     }
+      //     const zindex = layer.options.zIndex;
+      //     if (layer.options.layers === draggedItemFrom.layerData.layers) {
+      //       layer.setZIndex(draggedItemToIndex);
+      //     }
+      //     if (layer.options.layers === draggedItemTo.layerData.layers) {
+      //       layer.setZIndex(draggedItemFromIndex);
+      //     }
+      //   }
+      // });
     });
   }
 
@@ -387,7 +419,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         }
         layer = this.setDateFilter(layer);
         const layerToAdd = this.getLayer(layer.layerData);
-        layerToAdd.setZIndex(1000 + (this.selectedLayers.length));
+        layerToAdd.setZIndex(1000 + this.selectedLayers.length);
         layerToAdd.addTo(this.map);
       }
     }
@@ -487,6 +519,14 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   setSearchControl() {
     const searchOptions = this.mapConfig.controls.search;
+    searchOptions.moveToLocation = latlng => {
+      this.markerClusterGroup.eachLayer((marker: L.Marker) => {
+        if (marker.getLatLng().equals(latlng)) {
+          this.panMap(latlng, 18);
+          marker.fire('click');
+        }
+      });
+    };
     searchOptions.marker = L.circleMarker([0, 0], this.mapConfig.controls.search.marker);
     this.searchControl = new Search(searchOptions);
     this.map.addControl(this.searchControl);
@@ -517,7 +557,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         document.querySelector('#infoBtn').classList.add('leaflet-custom-icon-selected');
         document.querySelector('#map').classList.remove('cursor-grab');
         document.querySelector('#map').classList.add('cursor-help');
-
         this.map.on('click', (event: L.LeafletMouseEvent) => this.getFeatureInfo(event));
       } else {
         this.displayInfo = false;
@@ -537,6 +576,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       popupContent += `<h2>Layer não encontrado.</h2>`;
     }
 
+    let popupTable = '';
     for (const selectedLayer of this.selectedLayers) {
       const layer = this.getLayer(selectedLayer.layerData);
       const layerName = selectedLayer.label;
@@ -548,17 +588,22 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       await this.hTTPService.get(url, params).toPromise().then((layerInfo: LayerInfo) => {
         const features = layerInfo.features;
         if (features && features.length > 0) {
-          popupContent += this.getFeatureInfoPopup(layerName, features);
+          popupTable += this.getFeatureInfoPopup(layerName, features);
         }
       });
     }
+    if (!popupTable) {
+      popupTable = 'Nenhuma informação foi encontrada.';
+    }
+    popupContent += popupTable;
+
+    popupContent += `</div>`;
 
     if (this.markerInfo) {
       this.markerInfo.removeFrom(this.map);
     }
 
-    popupContent += `</div>`;
-    this.markerInfo = this.createMarker('info', popupContent, '', latLong);
+    this.markerInfo = this.createMarker('info', popupContent, latLong, '');
     if (this.markerInfo) {
       this.markerInfo.addTo(this.map);
       this.markerInfo.openPopup();
@@ -566,7 +611,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getFeatureInfoParams(layer: L.TileLayer.WMS, event: L.LeafletMouseEvent) {
-    const layerId = layer.wmsParams.layers;
     const layerPoint = this.map.layerPointToContainerPoint(event.layerPoint);
     const bbox = this.map.getBounds().toBBoxString();
     const mapSize = this.map.getSize();
@@ -575,14 +619,18 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     const x = Math.round(layerPoint.x);
     const y = Math.round(layerPoint.y);
     const params = {
-      service: 'WMS',
-      version: '1.1.0',
       request: 'GetFeatureInfo',
-      layers: layerId,
+      service: 'WMS',
+      srs: 'EPSG:4326',
+      styles: layer.wmsParams.styles,
+      transparent: layer.wmsParams.transparent,
+      version: layer.wmsParams.version,
+      format: layer.wmsParams.format,
       bbox,
-      width,
       height,
-      query_layers: layerId,
+      width,
+      layers: layer.wmsParams.layers,
+      query_layers: layer.wmsParams.layers,
       info_format: 'application/json',
       x,
       y
@@ -592,7 +640,14 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   getFeatureInfoPopup(layerName: string, features: LayerInfoFeature[]) {
     let popupContent = '';
-    features.forEach(feature => popupContent += this.getPopupContent(feature.properties, layerName));
+    if (features) {
+      features.forEach(feature => {
+        const properties = feature.properties;
+        if (properties) {
+          popupContent += this.getPopupContent(properties, layerName);
+        }
+      });
+    }
     return popupContent;
   }
 
@@ -687,9 +742,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   clearLayers() {
-    this.selectedLayers.forEach(layer => {
-      this.removeLayer(layer, false);
-    });
+    this.selectedLayers.forEach(layer => this.removeLayer(layer, false));
   }
 
   updateLayers() {

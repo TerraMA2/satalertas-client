@@ -1,23 +1,19 @@
 <p-dialog
-        header="Layers"
+        header="Layers visíveis"
         [positionLeft]="375"
         [positionTop]="60"
         resizable="false"
         [(visible)]="displayVisibleLayers"
-        [contentStyle]="{'width': '400px','max-height':'40vh'}"
-    >
+        [contentStyle]="{'width': '400px','max-height':'40vh'}">
 
-    <app-sidebar-item-child class="sidebar-item-body p-dir-col p-align-stretch"
-                            pDraggable="sbItem"
-                            pDroppable="sbItem"
-                            [isParentOpened]="true"
-                            *ngFor="let selectedLayer of selectedLayers"
-                            [child]="selectedLayer"
-                            (onDragStart)="dragStart($event,selectedLayer)"
-                            (onDragEnd)="dragEnd($event)"
-                            (onDrop)="drop($event)"
-                            [displayControls]="displayControls"
-                            >
-    </app-sidebar-item-child>
+        <div class="visible-layers-item"
+            pDraggable="dd"
+            pDroppable="dd"
+            *ngFor="let selectedLayer of selectedLayers.reverse();trackBy: trackByFunction"
+            (onDragStart)="dragStart($event, selectedLayer)"
+            (onDragEnd)="dragEnd($event)"
+            (onDrop)="drop($event)">
+            {{ selectedLayer.label }}
+        </div>
 
 </p-dialog>

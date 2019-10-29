@@ -33,10 +33,10 @@
         [ngClass]="{'show': isToolsOpened && isParentOpened, 'hide': !isToolsOpened || !isParentOpened}">
 
     <i *ngFor="let tool of child.tools"
-          class="{{tool.icon}}"
-          (click)="onToolClicked(tool.name)"
-          pTooltip="{{tool.title}}"
-          tooltipPosition="top">
+        class="{{tool.icon}}"
+        (click)="onToolClicked(tool.name)"
+        pTooltip="{{tool.title}}"
+        tooltipPosition="top">
     </i>
 
 </div>

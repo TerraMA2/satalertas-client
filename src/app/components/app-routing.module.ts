@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: '', component: DashboardComponent },
   { path: 'map', component: MapComponent, data: { reuseRoute: true } },
   { path: 'report', component: ReportComponent },
-  { path: 'report/:carRegister/:intersectId', component: ReportComponent },
+  { path: 'report/:carRegister', component: ReportComponent },
   { path: 'list-car-reports', component: AnalyzeCarComponent }
 ];
 

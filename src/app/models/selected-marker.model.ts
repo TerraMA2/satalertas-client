@@ -3,7 +3,7 @@ export class SelectedMarker {
     public overlayName: string,
     public title: string,
     public content: string,
-    public latLong?: [],
+    public latLong?: number[],
     public link?: string
   ) {}
 }

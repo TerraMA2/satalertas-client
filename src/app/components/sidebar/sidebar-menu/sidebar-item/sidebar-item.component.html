@@ -1,19 +1,20 @@
 <div class="sidebar-item-body p-align-center"
-    [ngClass]="{'active': isParentOpened && !sidebarItem.link}">
-    <div class="sidebar-item-label" (click)="onParentClicked()">
+    [ngClass]="{ 'active': isParentOpened && !sidebarItem.link }">
+    <div class="sidebar-item-label"
+        (click)="onParentClicked()">
 
         <ng-container *ngIf="sidebarItem.link; then sidebarItemLink; else sidebarItemDefault"></ng-container>
 
         <ng-template #sidebarItemLink>
             <a class="sidebar-item-link"
-              routerLink="{{ sidebarItem.link }}">
-              {{ sidebarItem.label }}
+                routerLink="{{ sidebarItem.link }}">
+                {{ sidebarItem.label }}
             </a>
         </ng-template>
 
         <ng-template #sidebarItemDefault>
             <i class="fas sidebar-item-arrow"
-              [ngClass]="{'fa-chevron-down': isParentOpened, 'fa-chevron-right': !isParentOpened}">
+                [ngClass]="{'fa-chevron-down': isParentOpened, 'fa-chevron-right': !isParentOpened}">
             </i>
             <a>{{ sidebarItem.label }}</a>
         </ng-template>

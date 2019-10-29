@@ -54,19 +54,28 @@ export class ReportService {
       );
       const date = years[count];
       let area = null;
+      let spotlights = null;
       const year = startYear;
 
       if (date && date.date === year) {
         area = (Number(date.area));
+        spotlights = (Number(date.spotlights));
+        if (!area) {
+          area = 0;
+        }
+
+        if (!spotlights) {
+          spotlights = 0;
+        }
         count++;
       } else {
         area = 0;
+        spotlights = 0;
       }
       const replacedTitle = this.replaceWildCard(title, '{year}', year);
       const replacedDescriptionText = this.replaceWildCard(description.text, '{year}', year);
-      const replacedDescriptionValue = this.replaceWildCard(description.value, '{area}', area);
-      let timeReplaced = this.replaceWildCard(time, '{dateYear}', (year));
-      timeReplaced = this.replaceWildCard(timeReplaced, '{year}', 'P1Y');
+      const replacedDescriptionValue = this.replaceWildCards(description.value, ['{area}', '{spotlights}'], [area, spotlights]);
+      const timeReplaced = this.replaceWildCards(time, ['{dateYear}', '{year}'], [year, 'P1Y']);
       visionDataCopy.title = replacedTitle;
       visionDataCopy.description = {
         text: replacedDescriptionText,
@@ -99,9 +108,10 @@ export class ReportService {
         `${startDate} - ${endDate}`
       ]
     );
-
+    let descriptionValue;
+    let visionDescription;
     if (visionData.description) {
-      const descriptionValue = this.replaceWildCards(
+      descriptionValue = this.replaceWildCards(
         visionData.description['value'],
         [
           '{indigenousLand}',
@@ -113,23 +123,26 @@ export class ReportService {
           '{nativeVegetation}',
         ],
         [
-          propertyData.indigenousLand['area']?propertyData.indigenousLand['area']:0,
-          propertyData.conservationUnit['area']?propertyData.conservationUnit['area']:0,
-          propertyData.legalReserve['area']?propertyData.legalReserve['area']:0,
-          propertyData.app['area']?propertyData.app['area']:0,
-          propertyData.consolidatedArea['area']?propertyData.consolidatedArea['area']:0,
-          propertyData.anthropizedUse['area']?propertyData.anthropizedUse['area']:0,
-          propertyData.nativeVegetation['area']?propertyData.nativeVegetation['area']:0
+          propertyData.indigenousLand['area'] ? propertyData.indigenousLand['area'] : 0,
+          propertyData.conservationUnit['area'] ? propertyData.conservationUnit['area'] : 0,
+          propertyData.legalReserve['area'] ? propertyData.legalReserve['area'] : 0,
+          propertyData.app['area'] ? propertyData.app['area'] : 0,
+          propertyData.consolidatedArea['area'] ? propertyData.consolidatedArea['area'] : 0,
+          propertyData.anthropizedUse['area'] ? propertyData.anthropizedUse['area'] : 0,
+          propertyData.nativeVegetation['area'] ? propertyData.nativeVegetation['area'] : 0
         ]
       );
 
-      visionData.description['value'] = descriptionValue;
+      visionDescription = {
+        text: visionData.description['text'],
+        value: descriptionValue
+      };
     }
 
     const vision = new Vision(
       title,
       image,
-      visionData.description,
+      visionDescription,
       visionData.registerCarColumn,
       visionData.layerData
     );
@@ -280,7 +293,7 @@ export class ReportService {
     return text;
   }
 
-  private replaceWildCard(text, wildCard, replaceValue, regexFlag = '') {
+  private replaceWildCard(text: string, wildCard: string, replaceValue: string, regexFlag: string = '') {
     return text.replace(new RegExp(wildCard, regexFlag), replaceValue);
   }
 

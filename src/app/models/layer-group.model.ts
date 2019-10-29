@@ -5,6 +5,7 @@ export class LayerGroup {
     public label: string,
     public parent: boolean,
     public link: string,
+    public isPrivate: boolean,
     public children?: Layer[],
     public selected?: boolean,
     public viewGraph?: boolean
