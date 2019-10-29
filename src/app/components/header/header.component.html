@@ -9,13 +9,20 @@
     <span class="app-title">&nbsp;&nbsp;{{mainApplication}}&nbsp;&nbsp;</span>
     <span class="header-title">|&nbsp;&nbsp;{{headerTitle}}</span>
 
+    <button #filter
+            pButton
+            type="button"
+            icon="fas fa-filter"
+            label="Filtrar"
+            class="ui-button-raised ui-button-secondary button-filter"
+            (click)="showFilter()">
+    </button>
 
     <div class="ui-g-12 ui-md-4 header-filter" header-filter-date>
         <p-calendar #dataFilter
-                [inputStyle]="{height: '26.5px'}"
                 [(ngModel)]="dateInput"
                 [maxDate]="maxDate"
-                [showIcon]="true"
+                [showIcon]="false"
                 [readonlyInput]="false"
                 yearRange="2000:2030"
                 [yearNavigator]="false"
@@ -117,3 +124,6 @@
 
     </p-dialog>
 </div>
+
+
+<app-filter></app-filter>

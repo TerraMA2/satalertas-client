@@ -21,6 +21,7 @@ import {Localization} from '../../models/localization.model';
 import {BiomeService} from '../../services/biome.service';
 
 import {CityService} from '../../services/city.service';
+import {RegionService} from '../../services/region.service';
 
 @Component({
   selector: 'app-filter',
@@ -61,7 +62,8 @@ export class FilterComponent implements OnInit, AfterViewInit {
     private mapService: MapService,
     private filterService: FilterService,
     private biomeService: BiomeService,
-    private cityService: CityService
+    private cityService: CityService,
+    private regionService: RegionService
   ) { }
 
   ngOnInit() {
@@ -85,7 +87,11 @@ export class FilterComponent implements OnInit, AfterViewInit {
   }
 
   loadComboBiome() {
-    this.biomeService.getAll().then(
+    this.biomeService.getAll().then( result => this.optionsFilterLocalizations = result );
+  }
+
+  loadComboRegion() {
+    this.regionService.getAll().then(
       result => {
         this.optionsFilterLocalizations = result;
       }
@@ -101,12 +107,12 @@ export class FilterComponent implements OnInit, AfterViewInit {
   }
 
 
-  onDisplayFilter(layer) {
-    this.displayFilter = this.codGroup !== layer.codGroup;
+  onDisplayFilter(layer: unknown) {
+    this.displayFilter = !this.displayFilter;
 
-    this.filterLabel = 'Filtro - ' + layer.label;
-    this.codGroup = this.displayFilter ? layer.codGroup : undefined;
-    this.layer = this.displayFilter ? layer : null;
+    this.filterLabel = 'Filtro';
+    this.codGroup = undefined;
+    this.layer = null;
   }
 
   onFilterClicked() {
@@ -163,6 +169,11 @@ export class FilterComponent implements OnInit, AfterViewInit {
       this.localization.value = undefined;
 
       this.loadComboBiome();
+    } else if (this.selectedLocalization === 'region') {
+      this.localization.label = 'Comarca';
+      this.localization.name = 'region';
+      this.localization.value = undefined;
+      this.loadComboRegion();
     } else {
       this.clearValuesFilter();
     }

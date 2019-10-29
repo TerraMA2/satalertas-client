@@ -27,6 +27,15 @@
         "activeArea": false
       },
       {
+        "cod": "GENERATE_REPORT",
+        "label": "Gerar relatórios",
+        "icon": "fa fa-file-text-o",
+        "type": "report",
+        "link": "/list-car-reports",
+        "viewGraph": false,
+        "activeArea": false
+      },
+      {
         "cod": "MAPA",
         "label": "Mapa",
         "icon": "fas fa-map",
@@ -83,11 +92,6 @@
                 "title": "Dimensão temporal",
                 "name": "temporalDimension",
                 "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Filtro",
-                "name": "filter",
-                "icon": "fas fa-filter"
               },
               {
                 "title": "Transparência",
@@ -404,11 +408,6 @@
                 "title": "Dimensão temporal",
                 "name": "temporalDimension",
                 "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Filtro",
-                "name": "filter",
-                "icon": "fas fa-filter"
               },
               {
                 "title": "Transparência",
@@ -766,11 +765,6 @@
                 "title": "Dimensão temporal",
                 "name": "temporalDimension",
                 "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Filtro",
-                "name": "filter",
-                "icon": "fas fa-filter"
               },
               {
                 "title": "Transparência",
@@ -1781,11 +1775,6 @@
                 "icon": "fas fa-sliders-h"
               },
               {
-                "title": "Filtro",
-                "name": "filter",
-                "icon": "fas fa-filter"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -1834,11 +1823,6 @@
                 "icon": "fas fa-sliders-h"
               },
               {
-                "title": "Filtro",
-                "name": "filter",
-                "icon": "fas fa-filter"
-              },
-              {
                 "title": "Transparência",
                 "name": "opacity",
                 "icon": "fas fa-adjust"
@@ -1885,11 +1869,6 @@
                 "title": "Dimensão temporal",
                 "name": "temporalDimension",
                 "icon": "fas fa-sliders-h"
-              },
-              {
-                "title": "Filtro",
-                "name": "filter",
-                "icon": "fas fa-filter"
               },
               {
                 "title": "Transparência",
@@ -2010,12 +1989,24 @@
         "name": "localization",
         "options": [
           {
-            "label": "Municípios",
-            "value": "city"
+            "label": "Área",
+            "value": "area"
           },
           {
             "label": "Biomas",
             "value": "biome"
+          },
+          {
+            "label": "Código CAR",
+            "value": "car"
+          },
+          {
+            "label": "Comarca",
+            "value": "region"
+          },
+          {
+            "label": "Municípios",
+            "value": "city"
           }
         ],
         "locale": {

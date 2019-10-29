@@ -1,0 +1,38 @@
+<div class="p-grid box">
+    <div class="">
+        <p-table [columns]="cols" [value]="cars"  [(selection)]="selectedCars" datakey="vin">
+
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th style="width: 3em">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr>
+                    <td>
+                        <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                    </td>
+                    <td *ngFor="let col of columns">
+                        {{rowData[col.field]}}
+                    </td>
+
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="summary">
+                <ul>
+                    <li *ngFor="let car of selectedCars" style="text-align: left">
+                        {{car.mt_car_number + ' - ' + car.property_name + ' - ' + car.city_name + ' - ' + car.property_area}}
+                    </li>
+                </ul>
+            </ng-template>
+
+        </p-table>
+    </div>
+</div>
