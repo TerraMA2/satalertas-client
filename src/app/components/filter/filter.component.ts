@@ -106,7 +106,6 @@ export class FilterComponent implements OnInit, AfterViewInit {
     this.filterService.displayFilter.subscribe(layer => { this.onDisplayFilter(layer); });
   }
 
-
   onDisplayFilter(layer: unknown) {
     this.displayFilter = !this.displayFilter;
 

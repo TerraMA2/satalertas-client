@@ -1,13 +1,15 @@
-import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit} from '@angular/core';
 
 import { ConfigService } from '../../services/config.service';
 
 import { LayerGroup } from 'src/app/models/layer-group.model';
 
 import { Layer } from 'src/app/models/layer.model';
+
 import * as L from 'leaflet';
 
 import { SidebarService } from 'src/app/services/sidebar.service';
+
 import { MapService } from 'src/app/services/map.service';
 
 @Component({
@@ -58,7 +60,14 @@ export class SidebarComponent implements OnInit {
         sidebarItem.label,
         sidebarItem.parent,
         sidebarItem.link,
-        sidebarItem.isPrivate
+        sidebarItem.isPrivate,
+        sidebarItem.icon,
+        sidebarItem.method,
+        sidebarItem.value,
+        sidebarItem.type,
+        sidebarItem.carRegisterColumn,
+        sidebarItem.layerData,
+        sidebarItem.legend
       );
 
       const layerChildren: Layer[] = [];

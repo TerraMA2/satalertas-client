@@ -35,6 +35,8 @@ import { LayerInfoFeature } from 'src/app/models/layer-info-feature.model';
 
 import { SelectedMarker } from 'src/app/models/selected-marker.model';
 
+import { TableService } from 'src/app/services/table.service';
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -60,10 +62,20 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   selectedMarker: SelectedMarker;
 
+  tableSelectedLayer: L.TileLayer.WMS;
+
   displayTable = false;
   displayLegend = false;
   displayInfo = false;
   displayVisibleLayers = false;
+
+  tableReportActive = false;
+
+  sidebarTableHeight = '48vh';
+
+  tableHeight = '30vh';
+
+  tableFullscreen = false;
 
   @Input() displayZoomControl = true;
   @Input() displayScaleControl = true;
@@ -92,10 +104,27 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     private hTTPService: HTTPService,
     private configService: ConfigService,
     private sidebarService: SidebarService,
+    private tableService: TableService,
     private mapService: MapService,
     private filterService: FilterService,
     private linkPopupService: LinkPopupService
   ) { }
+
+  expandShrinkTable() {
+    if (this.sidebarTableHeight === '48vh') {
+      this.sidebarTableHeight = 'calc(100vh - 50px)';
+      this.tableHeight = '78vh';
+      this.tableFullscreen = true;
+    } else if (this.sidebarTableHeight === 'calc(100vh - 50px)') {
+      this.sidebarTableHeight = '48vh';
+      this.tableHeight = '30vh';
+      this.tableFullscreen = false;
+    } else if (this.sidebarTableHeight === '28vh') {
+      this.sidebarTableHeight = '48vh';
+      this.tableHeight = '30vh';
+      this.tableFullscreen = false;
+    }
+  }
 
   ngOnInit() {
     this.mapConfig = this.configService.getConfig('map');
@@ -109,6 +138,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.setMap();
     this.setControls();
     this.setLayers();
+    this.setOverlayEvents();
     this.getLocalStorageData();
   }
 
@@ -183,7 +213,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   setLayers() {
     this.setBaseLayers();
-    this.setOverlayEvents();
     if (this.overlay) {
       this.setOverlay();
     }
@@ -200,6 +229,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       previousSelectedLayers.forEach((layer: Layer) => {
         this.addLayer(layer, true);
         if (layer.markerSelected) {
+          this.selectedPrimaryLayer = layer;
           this.updateMarkers(layer);
         }
       });
@@ -224,8 +254,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setOverlay() {
-    const layer = this.getLayer(this.overlay).addTo(this.map);
-    layer.addTo(this.map);
+    this.getLayer(this.overlay).addTo(this.map);
   }
 
   setBaseLayers() {
@@ -251,7 +280,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       let link = null;
       if (popupTitle && markerData[popupTitle]) {
         popup = markerData[popupTitle];
-        popup = popup.replace('/', '\\');
+        // popup = popup.replace('/', '\\');
         link = `/report/${popup}`;
       } else {
         popup = popupTitle;
@@ -300,14 +329,89 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   clearMap() {
-    this.map.eachLayer((layer) => layer.remove());
-    this.layerControl.remove();
-    this.setLayerControl();
-    this.setLayers();
+    this.clearLayers();
+    this.markerClusterGroup.clearLayers();
     this.selectedLayers = [];
   }
 
   setOverlayEvents() {
+    this.mapService.showMarker.subscribe(markerData => {
+      if (this.tableSelectedLayer) {
+        this.clearLayers();
+        this.tableSelectedLayer = null;
+        this.markerClusterGroup.clearLayers();
+      }
+
+      this.tableHeight = '10vh';
+      this.sidebarTableHeight = '28vh';
+
+      let propertyData = markerData['data'];
+      if (!Array.isArray(propertyData)) {
+        propertyData = [propertyData];
+      }
+
+      const propertyCount = propertyData.length;
+
+      propertyData.forEach(data => {
+        const latLong = [data.lat, data.long];
+
+        const layer: LayerGroup = markerData['layer'];
+
+        let popupTitle = '';
+
+        let link = null;
+
+        const carRegister = data[layer.carRegisterColumn];
+
+        if (this.tableReportActive) {
+          const newLayer = JSON.parse(JSON.stringify(layer));
+
+          const layerData = newLayer.layerData;
+
+          const cqlFilter = layerData['cql_filter'];
+
+          if (cqlFilter) {
+            layerData['cql_filter'] = cqlFilter.replace('{carRegister}', `'${carRegister}'`);
+          }
+
+          this.tableSelectedLayer = this.addLayer(newLayer, true);
+
+        }
+        link = `/report/${carRegister}`;
+
+        if (propertyCount === 1 && this.markerInfo) {
+          this.markerInfo.removeFrom(this.map);
+        }
+        popupTitle = carRegister;
+
+        this.markerInfo = this.createMarker(popupTitle,
+                                            this.getPopupContent(data, layer.label),
+                                            latLong,
+                                            layer.label,
+                                            link
+                                            );
+
+        this.markerClusterGroup.addLayer(this.markerInfo);
+        if (propertyCount === 1) {
+          this.panMap(latLong, 13);
+        }
+
+      });
+
+      this.markerClusterGroup.addTo(this.map);
+      if (propertyCount === 1) {
+        this.markerInfo.fire('click');
+      }
+      this.searchControl.setLayer(this.markerClusterGroup);
+      this.searchControl.options.layer = this.markerClusterGroup;
+    });
+
+    this.mapService.reportTable.subscribe(sidebarItem => {
+      this.displayTable = true;
+      this.tableReportActive = true;
+      this.tableService.loadTableData.next(sidebarItem);
+    });
+
     this.mapService.clearMap.subscribe(() => this.clearMap());
 
     this.filterService.filterMap.subscribe(() => {
@@ -318,6 +422,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.sidebarService.sidebarItemSelect.subscribe(itemSelected => {
       if (this.markerInfo) {
         this.markerInfo.remove();
+        this.markerInfo = null;
+      }
+      if (this.tableReportActive) {
+        this.clearReportTable();
       }
       if (itemSelected instanceof Layer) {
         this.addLayer(itemSelected, true);
@@ -332,6 +440,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.sidebarService.sidebarItemUnselect.subscribe(itemUnselected => {
       if (this.markerInfo) {
         this.markerInfo.remove();
+        this.markerInfo = null;
+      }
+      if (this.tableReportActive) {
+        this.clearReportTable();
       }
       if (this.selectedPrimaryLayer && this.selectedPrimaryLayer.value === itemUnselected.value) {
         this.markerClusterGroup.clearLayers();
@@ -349,6 +461,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       this.selectedPrimaryLayer = layer;
       if (this.markerInfo) {
         this.markerInfo.remove();
+        this.markerInfo = null;
+      }
+      if (this.tableReportActive) {
+        this.clearReportTable();
       }
       layer.markerSelected = true;
       this.updateMarkers(layer);
@@ -361,6 +477,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       layer.markerSelected = false;
       if (this.markerInfo) {
         this.markerInfo.remove();
+        this.markerInfo = null;
+      }
+      if (this.tableReportActive) {
+        this.clearReportTable();
       }
       if (this.selectedMarker && this.selectedMarker.overlayName === layer.label) {
         this.markerClusterGroup.clearLayers();
@@ -382,22 +502,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
           layer.setZIndex(draggedItemFromIndex);
         }
       });
-
-      // this.map.eachLayer((layer: L.TileLayer.WMS) => {
-      //   const layerIndex = this.selectedLayers.findIndex(selectedLayer => selectedLayer.layerData.layers === layer.options.layers);
-      //   if (layerIndex !== -1) {
-      //     if (layer.options.zIndex === draggedItemFrom) {
-      //       layer.setZIndex(draggedItemToIndex);
-      //     }
-      //     const zindex = layer.options.zIndex;
-      //     if (layer.options.layers === draggedItemFrom.layerData.layers) {
-      //       layer.setZIndex(draggedItemToIndex);
-      //     }
-      //     if (layer.options.layers === draggedItemTo.layerData.layers) {
-      //       layer.setZIndex(draggedItemFromIndex);
-      //     }
-      //   }
-      // });
     });
   }
 
@@ -411,32 +515,35 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   addLayer(layer, addLayer) {
+    let layerToAdd = null;
     if (layer && layer.layerData) {
-      const layerIndex = this.selectedLayers.findIndex(selectedLayer => selectedLayer.label === layer.label);
-      if (layerIndex === -1 || !addLayer) {
-        if (addLayer) {
-          this.selectedLayers.push(layer);
-        }
-        layer = this.setDateFilter(layer);
-        const layerToAdd = this.getLayer(layer.layerData);
-        layerToAdd.setZIndex(1000 + this.selectedLayers.length);
-        layerToAdd.addTo(this.map);
+      if (addLayer) {
+        this.selectedLayers.push(layer);
       }
+      layer = this.setDateFilter(layer);
+      layerToAdd = this.getLayer(layer.layerData);
+      layerToAdd.setZIndex(1000 + this.selectedLayers.length);
+      layerToAdd.addTo(this.map);
     }
+    return layerToAdd;
   }
 
   removeLayer(layer, deselectLayer) {
     if (layer) {
-      const layerData = layer.layerData;
-      let zindex = 0;
       if (deselectLayer) {
         this.selectedLayers.splice(this.selectedLayers.findIndex(selectedLayer => selectedLayer.value === layer.value), 1);
       }
+      if (layer instanceof L.TileLayer.WMS) {
+        layer.removeFrom(this.map);
+        return;
+      }
+      const layerData = layer.layerData;
+      let zindex = 0;
       this.map.eachLayer((mapLayer: L.TileLayer.WMS) => {
 
         if (mapLayer.options.layers === layerData.layers) {
           zindex = mapLayer.options.zIndex;
-          mapLayer.remove();
+          mapLayer.removeFrom(this.map);
         }
 
         if (mapLayer.options.zIndex > zindex) {
@@ -760,20 +867,37 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     const appConfig = this.configService.getConfig('app');
     let url = '';
     let popupTitle = null;
+    let label = '';
     if (layer.type === LayerType.ANALYSIS) {
       url = appConfig.analysisLayerUrl;
       popupTitle = layer.carRegisterColumn;
+      label = layer.label;
     } else if (layer.type === LayerType.STATIC) {
       url = appConfig.staticLayerUrl;
       popupTitle = layer.carRegisterColumn;
+      label = layer.label;
     } else if (layer.type === LayerType.DYNAMIC) {
       url = appConfig.dynamicLayerUrl;
+      label = layer.label;
+    } else if (layer.type === LayerType.REPORT) {
+      url = appConfig.reportUrl;
+      popupTitle = layer.carRegisterColumn;
+      label = layer.label;
     }
     const viewId = layer.value;
 
     const date = JSON.parse(localStorage.getItem('dateFilter'));
 
     this.hTTPService.get(url, {viewId, date})
-                    .subscribe(data => this.setMarkers(data, popupTitle, layer.label));
+                    .subscribe(data => this.setMarkers(data, popupTitle, label));
   }
+
+  clearReportTable() {
+      this.tableService.clearTable.next();
+      this.tableReportActive = false;
+      this.markerClusterGroup.clearLayers();
+      this.clearLayers();
+      this.tableSelectedLayer = null;
+      this.selectedLayers = [];
+    }
 }

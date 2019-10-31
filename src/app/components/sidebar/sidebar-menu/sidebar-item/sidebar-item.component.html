@@ -1,13 +1,15 @@
 <div class="sidebar-item-body p-align-center"
-    [ngClass]="{ 'active': isParentOpened && !sidebarItem.link }">
+    [ngClass]="{ 'active': isParentOpened && !sidebarItem.link && !sidebarItem.method }">
+
+    <i [class]="sidebarItem.icon"></i>
+
     <div class="sidebar-item-label"
         (click)="onParentClicked()">
 
-        <ng-container *ngIf="sidebarItem.link; then sidebarItemLink; else sidebarItemDefault"></ng-container>
+        <ng-container *ngIf="sidebarItem.link || sidebarItem.method; then sidebarItemLink; else sidebarItemDefault"></ng-container>
 
         <ng-template #sidebarItemLink>
-            <a class="sidebar-item-link"
-                routerLink="{{ sidebarItem.link }}">
+            <a class="sidebar-item-link">
                 {{ sidebarItem.label }}
             </a>
         </ng-template>
@@ -23,7 +25,7 @@
 
     <div class="sidebar-item-switch">
 
-        <p-inputSwitch *ngIf="!sidebarItem.link"
+        <p-inputSwitch *ngIf="!sidebarItem.link && !sidebarItem.method"
                         (onChange)="onParentSwitchChanged($event)">
         </p-inputSwitch>
 

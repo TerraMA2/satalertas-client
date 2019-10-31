@@ -13,5 +13,9 @@ export class MapService {
 
   clearMap = new Subject();
 
+  reportTable = new Subject();
+
+  showMarker = new Subject();
+
   constructor() { }
 }

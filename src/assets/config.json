@@ -7,7 +7,8 @@
     "headerLogoLink": "http://www.terrama2.dpi.inpe.br/mpmt/monitor/",
     "staticLayerUrl": "/api/report/getStaticData",
     "dynamicLayerUrl": "/api/report/getDynamicData",
-    "analysisLayerUrl": "/api/report/getAnalysisData"
+    "analysisLayerUrl": "/api/report/getAnalysisData",
+    "reportUrl": "http://localhost:36000/api/car/getAllSimplified"
   },
   "auth": {
     "url": "/api/login",
@@ -21,17 +22,7 @@
         "cod": "DASHBOARD",
         "label": "Dashboard",
         "icon": "fas fa-chart-line",
-        "type": "dashboard",
         "link": "/",
-        "viewGraph": false,
-        "activearea": false
-      },
-      {
-        "cod": "GENERATE_REPORT",
-        "label": "Gerar relatórios",
-        "icon": "fa fa-file-text-o",
-        "type": "report",
-        "link": "/list-car-reports",
         "viewGraph": false,
         "activearea": false
       },
@@ -39,10 +30,32 @@
         "cod": "MAPA",
         "label": "Mapa",
         "icon": "fas fa-map",
-        "type": "map",
         "link": "/map",
         "viewGraph": false,
         "activearea": false
+      },
+      {
+        "cod": "GENERATE_REPORT",
+        "label": "Relatórios",
+        "icon": "fas fa-file-alt",
+        "value": "5",
+        "type": "report",
+        "method": "openReportTable",
+        "carRegisterColumn": "numero_do2",
+        "viewGraph": false,
+        "activeArea": false,
+        "layerData": {
+          "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
+          "layers": "terrama2_5:view5",
+          "transparent": true,
+          "format": "image/png",
+          "version": "1.1.0",
+          "cql_filter": "numero_do2 = {carRegister}"
+        },
+        "legend": {
+          "title": "CAR Validado",
+          "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_5:view5"
+        }
       },
       {
         "cod": "DETER",
