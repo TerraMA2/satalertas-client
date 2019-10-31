@@ -361,12 +361,12 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
         let link = null;
 
+        const carRegister = data[layer.carRegisterColumn];
+
         if (this.tableReportActive) {
           const newLayer = JSON.parse(JSON.stringify(layer));
 
           const layerData = newLayer.layerData;
-
-          const carRegister = data[newLayer.carRegisterColumn];
 
           const cqlFilter = layerData['cql_filter'];
 
@@ -376,14 +376,13 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
           this.tableSelectedLayer = this.addLayer(newLayer, true);
 
-          link = `/report/${carRegister}`;
-
-          if (propertyCount === 1 && this.markerInfo) {
-            this.markerInfo.removeFrom(this.map);
-          }
-          popupTitle = carRegister;
         }
+        link = `/report/${carRegister}`;
 
+        if (propertyCount === 1 && this.markerInfo) {
+          this.markerInfo.removeFrom(this.map);
+        }
+        popupTitle = carRegister;
 
         this.markerInfo = this.createMarker(popupTitle,
                                             this.getPopupContent(data, layer.label),
@@ -391,6 +390,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
                                             layer.label,
                                             link
                                             );
+
         this.markerClusterGroup.addLayer(this.markerInfo);
         if (propertyCount === 1) {
           this.panMap(latLong, 13);
