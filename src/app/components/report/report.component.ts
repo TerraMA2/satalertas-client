@@ -89,7 +89,7 @@ export class ReportComponent implements OnInit {
     const propertyConfig = this.reportConfig.propertyData;
     const url = propertyConfig.url;
     const viewId = propertyConfig.viewId;
-    // this.carRegister = this.carRegister.replace('\\', '/');
+    this.carRegister = this.carRegister.replace('\\', '/');
     const carRegister = this.carRegister;
     this.hTTPService.get(url, {viewId, carRegister, date})
                     .subscribe((propertyData: Property) => {

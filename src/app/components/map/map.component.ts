@@ -280,7 +280,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       let link = null;
       if (popupTitle && markerData[popupTitle]) {
         popup = markerData[popupTitle];
-        // popup = popup.replace('/', '\\');
+        popup = popup.replace('/', '\\');
         link = `/report/${popup}`;
       } else {
         popup = popupTitle;
@@ -361,7 +361,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
         let link = null;
 
-        const carRegister = data[layer.carRegisterColumn];
+        let carRegister = data[layer.carRegisterColumn];
 
         if (this.tableReportActive) {
           const newLayer = JSON.parse(JSON.stringify(layer));
@@ -378,6 +378,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
         }
         if (carRegister) {
+          carRegister = carRegister.replace('/', '\\');
           link = `/report/${carRegister}`;
         }
 
