@@ -69,11 +69,6 @@ import { PopupLinkComponent } from './map/popup-link/popup-link.component';
 import { GraphicsAreaComponent } from './dashboard/graphics-area/graphics-area.component';
 import { CardAreaComponent } from './dashboard/card-area/card-area.component';
 import { CardButtonComponent } from './dashboard/card-area/card-button/card-button.component';
-import { AnalyzeCarComponent } from './analyze-car/analyze-car.component';
-import { AnalyzeCarGridComponent } from './analyze-car/analyze-car-grid/analyze-car-grid.component';
-import { AnalyzeCarFilterComponent } from './analyze-car/analyze-car-filter/analyze-car-filter.component';
-import {FieldsetModule} from 'primeng/fieldset';
-import {PanelModule} from 'primeng/panel';
 
 registerLocaleData(localePt, 'pt');
 
@@ -112,9 +107,6 @@ registerLocaleData(localePt, 'pt');
     GraphicsAreaComponent,
     CardAreaComponent,
     CardButtonComponent,
-    AnalyzeCarComponent,
-    AnalyzeCarGridComponent,
-    AnalyzeCarFilterComponent
   ],
 
   imports: [
@@ -149,8 +141,6 @@ registerLocaleData(localePt, 'pt');
     RadioButtonModule,
     NgxPrintModule,
     ToolbarModule,
-    FieldsetModule,
-    PanelModule
   ],
   providers: [
     TreeDragDropService,
