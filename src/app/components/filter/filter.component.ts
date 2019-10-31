@@ -106,7 +106,6 @@ export class FilterComponent implements OnInit, AfterViewInit {
     this.filterService.displayFilter.subscribe(layer => { this.onDisplayFilter(layer); });
   }
 
-
   onDisplayFilter(layer: unknown) {
     this.displayFilter = !this.displayFilter;
 
@@ -117,7 +116,6 @@ export class FilterComponent implements OnInit, AfterViewInit {
 
   onFilterClicked() {
     this.updateFilter(this.layer);
-    this.filterService.filterLayerMap.next(this.layer);
     this.filterService.filterLayerMap.next(this.layer);
   }
 

@@ -12,8 +12,11 @@ import { LayerType } from 'src/app/enum/layer-type.enum';
 
 import { FilterService } from 'src/app/services/filter.service';
 
-import {Layer} from '../../../models/layer.model';
+import { Layer } from '../../../models/layer.model';
 
+import { LayerGroup } from 'src/app/models/layer-group.model';
+
+import { MapService } from 'src/app/services/map.service';
 
 @Component({
   selector: 'app-table',
@@ -30,7 +33,15 @@ export class TableComponent implements OnInit {
 
   @Input() selectedLayers = [];
 
+  @Input() tableReportActive = false;
+
+  @Input() tableHeight = '30vh';
+
+  selectedProperties;
+
   selectedLayer: Layer;
+
+  selectedLayerLabel: string;
 
   selectedLayerValue: number;
 
@@ -48,13 +59,14 @@ export class TableComponent implements OnInit {
     private hTTPService: HTTPService,
     private configService: ConfigService,
     private tableService: TableService,
-    private filterService: FilterService
+    private filterService: FilterService,
+    private mapService: MapService
   ) { }
 
   ngOnInit() {
     this.tableConfig = this.configService.getConfig('map').table;
 
-    this.tableService.loadTableData.subscribe((layer: Layer) => {
+    this.tableService.loadTableData.subscribe((layer: Layer|LayerGroup) => {
       if (layer) {
         this.loading = true;
         this.loadTableData(layer, this.selectedRowsPerPage, 0);
@@ -64,14 +76,25 @@ export class TableComponent implements OnInit {
     this.tableService.unloadTableData.subscribe((layer: Layer) => {
       if (layer) {
         if (layer.value === this.selectedLayerValue) {
-          this.selectedLayer = undefined;
-          this.selectedLayerValue = 0;
           this.tableData = undefined;
+          this.selectedLayer = undefined;
+          this.selectedLayerLabel = '';
+          this.selectedLayerValue = 0;
           this.selectedColumns = undefined;
           this.selectedRowsPerPage = 10;
           this.totalRecords = 0;
         }
       }
+    });
+
+    this.tableService.clearTable.subscribe(() => {
+        this.tableData = undefined;
+        this.selectedLayer = undefined;
+        this.selectedLayerLabel = '';
+        this.selectedLayerValue = 0;
+        this.selectedColumns = undefined;
+        this.selectedRowsPerPage = 10;
+        this.totalRecords = 0;
     });
 
     this.rowsPerPage = this.tableConfig.rowsPerPage;
@@ -82,28 +105,31 @@ export class TableComponent implements OnInit {
 
     // Implementar Filter
     this.filterService.filterLayerMap.subscribe();
-    this.filterService.filterLayerMap.subscribe();
   }
 
   loadTableData(layer, limit: number, offset: number) {
     if (!layer) {
       return;
     }
-    const appConfig = this.configService.getConfig('app');
     let url = '';
+    const count = true;
+    const date = JSON.parse(localStorage.getItem('dateFilter'));
+    const viewId = layer.value;
+    const params = {viewId, limit, offset, count, date};
+    const appConfig = this.configService.getConfig('app');
     if (layer.type === LayerType.ANALYSIS) {
       url = appConfig.analysisLayerUrl;
     } else if (layer.type === LayerType.STATIC) {
       url = appConfig.staticLayerUrl;
     } else if (layer.type === LayerType.DYNAMIC) {
       url = appConfig.dynamicLayerUrl;
+    } else if (layer.type === LayerType.REPORT) {
+      url = appConfig.reportUrl;
+      this.selectedLayer = layer;
     }
-    const count = true;
-    const viewId = layer.value;
-    const date = JSON.parse(localStorage.getItem('dateFilter'));
 
     this.hTTPService
-      .get(url, {viewId, limit, offset, count, date})
+      .get(url, params)
       .subscribe(data => this.setData(data));
   }
 
@@ -122,6 +148,13 @@ export class TableComponent implements OnInit {
 
       this.totalRecords = data.pop();
       this.tableData = data;
+
+      this.rowsPerPage = this.rowsPerPage.filter((row) => row.value !== this.totalRecords);
+
+      this.rowsPerPage.push({
+        label: this.totalRecords,
+        value: this.totalRecords
+      });
     }
     this.loading = false;
   }
@@ -132,6 +165,7 @@ export class TableComponent implements OnInit {
 
   onSelectedLayerChange(layer) {
     this.selectedLayer = layer.selectedOption;
+    this.selectedLayerLabel = this.selectedLayer.label;
     this.tableService.loadTableData.next(layer.selectedOption);
   }
 
@@ -142,6 +176,20 @@ export class TableComponent implements OnInit {
 
   trackByFunction(index, item) {
     return index;
+  }
+
+  onShowMapClicked(rowData) {
+    if (!rowData) {
+      rowData = this.selectedProperties;
+    }
+    this.mapService.showMarker.next({
+      layer: this.selectedLayer,
+      data: rowData
+    });
+  }
+
+  onGenerateReportClick() {
+
   }
 
 }

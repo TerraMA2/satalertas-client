@@ -5,11 +5,22 @@
             [modal]="false"
             [dismissible]="false"
             [showCloseIcon]="true"
-            [style]="{width:'inherit', left: 'unset', height: '48vh'}"
+            [style]="{width:'inherit', left: 'unset', height: sidebarTableHeight, 'text-align': 'center' }"
             (onShow)="onShowTable()"
             (onHide)="onHideTable()">
+            <a class="ui-sidebar-close"
+              (click)="expandShrinkTable()">
+              <span [ngClass]="{
+                                'pi-window-minimize': tableFullscreen,
+                                'pi-window-maximize': !tableFullscreen
+                              }"
+                    class="pi"></span>
+            </a>
 
-  <app-table [(selectedLayers)]="selectedLayers"></app-table>
+  <app-table [(selectedLayers)]="selectedLayers"
+              [(tableReportActive)]="tableReportActive"
+              [tableHeight]="tableHeight">
+  </app-table>
 
 </p-sidebar>
 

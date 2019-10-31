@@ -57,6 +57,7 @@ export class SidebarItemChildComponent implements OnInit {
       this.router.navigate(['/map']);
       return;
     }
+    this.tableService.unloadTableData.next();
     this.sidebarService.sidebarItemSelect.next(this.child);
   }
 
@@ -78,18 +79,19 @@ export class SidebarItemChildComponent implements OnInit {
   }
 
   onToolClicked(name) {
-    switch (name) {
-      case 'info':
-        break;
-      case 'export':
-        break;
-      case 'temporalDimension':
-        break;
-      case 'opacity':
-        break;
-      default:
-        break;
-    }
+    this[name]();
+    // switch (name) {
+    //   case 'info':
+    //     break;
+    //   case 'export':
+    //     break;
+    //   case 'temporalDimension':
+    //     break;
+    //   case 'opacity':
+    //     break;
+    //   default:
+    //     break;
+    // }
   }
 
 }
