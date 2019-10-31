@@ -179,6 +179,9 @@ export class TableComponent implements OnInit {
   }
 
   onShowMapClicked(rowData) {
+    if (!rowData) {
+      rowData = this.selectedProperties;
+    }
     this.mapService.showMarker.next({
       layer: this.selectedLayer,
       data: rowData

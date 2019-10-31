@@ -26,13 +26,13 @@
 
                 <div class="text-left">
 
-                    <p-multiSelect
-                        [options]="columns"
-                        [(ngModel)]="selectedColumns"
-                        optionLabel="header"
-                        selectedItemsLabel="{0} columns selected"
-                        [style]="{minWidth: '200px'}"
-                        defaultLabel="Selecione as colunas">
+                    <p-multiSelect *ngIf="!tableReportActive"
+                                    [options]="columns"
+                                    [(ngModel)]="selectedColumns"
+                                    optionLabel="header"
+                                    selectedItemsLabel="{0} columns selected"
+                                    [style]="{minWidth: '200px'}"
+                                    defaultLabel="Selecione as colunas">
                     </p-multiSelect>
 
                     &nbsp;&nbsp;
@@ -84,6 +84,7 @@
                     &nbsp;&nbsp;
 
                     <button
+                        *ngIf="tableReportActive"
                         pButton
                         type="button"
                         icon="fas fa-file-alt"
@@ -91,6 +92,20 @@
                         label="Gerar relatório"
                         (click)="onGenerateReportClick()"
                         pTooltip="Gerar relatório a partir dos imóveis selecionados"
+                        tooltipPosition="top">
+                    </button>
+
+                    &nbsp;&nbsp;
+
+                    <button
+                        *ngIf="tableReportActive"
+                        pButton
+                        type="button"
+                        icon="fas fa-map-marker-alt"
+                        iconPos="left"
+                        label="Visualizar no mapa"
+                        (click)="onShowMapClicked()"
+                        pTooltip="Visualizar selecionados no mapa"
                         tooltipPosition="top">
                     </button>
 
@@ -136,9 +151,9 @@
             <td *ngFor="let col of columns" class="ui-resizable-column">
                 {{rowData[col.field]}}
             </td>
-            <td *ngIf="tableReportActive"
-                style="width: 8em">
-                <button pButton
+            <td style="width: 8em">
+                <button *ngIf="tableReportActive"
+                        pButton
                         icon="fas fa-file-alt"
                         pTooltip="Gerar relatório"
                         tooltipPosition="top">
