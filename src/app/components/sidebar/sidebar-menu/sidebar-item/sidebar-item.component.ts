@@ -10,6 +10,8 @@ import { LayerGroup } from 'src/app/models/layer-group.model';
 
 import { Router } from '@angular/router';
 
+import { MapService } from 'src/app/services/map.service';
+
 @Component({
   selector: 'app-sidebar-item',
   templateUrl: './sidebar-item.component.html',
@@ -28,6 +30,7 @@ export class SidebarItemComponent implements OnInit {
   constructor(
     private sidebarService: SidebarService,
     private tableService: TableService,
+    private mapService: MapService,
     private router: Router
   ) { }
 
@@ -36,6 +39,16 @@ export class SidebarItemComponent implements OnInit {
 
   onParentClicked() {
     this.isParentOpened = !this.isParentOpened;
+    if (this.sidebarItem.link) {
+      this.router.navigateByUrl(this.sidebarItem.link);
+    } else if (this.sidebarItem.method) {
+      this[this.sidebarItem.method]();
+    }
+  }
+
+  openReportTable() {
+    this.sidebarService.sidebarReload.next();
+    this.mapService.reportTable.next(this.sidebarItem);
   }
 
   onParentSwitchChanged(event) {
@@ -50,4 +63,5 @@ export class SidebarItemComponent implements OnInit {
     });
     this.parentSwitchChecked = !this.parentSwitchChecked;
   }
+
 }

@@ -6,7 +6,7 @@
         [rows]="selectedRowsPerPage"
         [scrollable]="true"
         [resizableColumns]="true"
-        scrollHeight="30vh"
+        [scrollHeight]="tableHeight"
         [responsive]="true"
         [columns]="selectedColumns"
         [reorderableColumns]="true"
@@ -14,9 +14,10 @@
         [lazy]="true"
         [totalRecords]="totalRecords"
         [loading]="loading"
-        [exportFilename]="selectedLayer"
+        [exportFilename]="selectedLayerLabel"
         [rowTrackBy]="trackByFunction"
-        (onLazyLoad)="lazyLoad($event)">
+        (onLazyLoad)="lazyLoad($event)"
+        [(selection)]="selectedProperties">
 
     <ng-template pTemplate="caption">
         <div class="p-grid p-nogutter">
@@ -45,6 +46,7 @@
                     &nbsp;&nbsp;
 
                     <p-dropdown #selectedLayersDropdown
+                        *ngIf="!tableReportActive"
                         [(options)]="selectedLayers"
                         [(ngModel)]="selectedLayerValue"
                         [style]="{minWidth: '300px'}"
@@ -59,14 +61,36 @@
 
                 <div class="text-right">
 
+                    <i class="fa fa-search"></i>
+                    <input type="text"
+                            pInputText
+                            size="30"
+                            placeholder="Buscar"
+                            (input)="attributesTable.filterGlobal($event.target.value, 'contains')">
+
+                    &nbsp;&nbsp;
+
                     <button
                         pButton
                         type="button"
-                        icon="fas fa-download"
+                        icon="fas fa-file-csv"
                         iconPos="left"
                         label="Exportar"
-                        (click)="attributesTable.exportCSV()"
-                        pTooltip="Exportar como CSV"
+                        (click)="attributesTable.exportCSV({selectionOnly:selectedProperties?true:false})"
+                        pTooltip="Exportar selecionados como CSV"
+                        tooltipPosition="top">
+                    </button>
+
+                    &nbsp;&nbsp;
+
+                    <button
+                        pButton
+                        type="button"
+                        icon="fas fa-file-alt"
+                        iconPos="left"
+                        label="Gerar relatório"
+                        (click)="onGenerateReportClick()"
+                        pTooltip="Gerar relatório a partir dos imóveis selecionados"
                         tooltipPosition="top">
                     </button>
 
@@ -85,21 +109,46 @@
 
     <ng-template pTemplate="header" let-columns>
         <tr>
-            <th style="width:2.5em"></th>
+            <th style="width: 2.5em">
+            </th>
+            <th *ngIf="tableReportActive"
+                style="width: 3em">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
             <th *ngFor="let col of columns" [pSortableColumn]="col.field" pReorderableColumn pResizableColumn>
                 {{col.header}}
                 <p-sortIcon [field]="col.field"></p-sortIcon>
             </th>
+            <th *ngIf="tableReportActive"
+                pReorderableColumn pResizableColumn style="width: 8em"></th>
         </tr>
     </ng-template>
 
     <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex">
         <tr [pSelectableRow]="rowData" [pReorderableRow]="index">
-            <td style="width:2.5em">
+            <td style="width: 2.5em">
                 <i class="fa fa-bars" pReorderableRowHandle></i>
+            </td>
+            <td *ngIf="tableReportActive"
+                style="width:3em">
+                <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
             </td>
             <td *ngFor="let col of columns" class="ui-resizable-column">
                 {{rowData[col.field]}}
+            </td>
+            <td *ngIf="tableReportActive"
+                style="width: 8em">
+                <button pButton
+                        icon="fas fa-file-alt"
+                        pTooltip="Gerar relatório"
+                        tooltipPosition="top">
+                </button>
+                &nbsp;
+                <button pButton
+                        icon="fas fa-map-marker-alt"
+                        (click)="onShowMapClicked(rowData)"
+                        pTooltip="Visualizar no mapa">
+                </button>
             </td>
         </tr>
     </ng-template>
@@ -107,5 +156,16 @@
     <ng-template pTemplate="paginatorleft" let-state>
         &nbsp;&nbsp;<strong>{{ state.totalRecords }} registros</strong>
     </ng-template>
+
+    <button
+        pButton
+        type="button"
+        icon="fas fa-file-alt"
+        iconPos="left"
+        label="Gerar relatório"
+        (click)="onGenerateReportClick()"
+        pTooltip="Gerar relatório"
+        tooltipPosition="top">
+    </button>
 
 </p-table>
