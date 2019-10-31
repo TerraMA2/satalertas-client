@@ -1,6 +1,6 @@
 export class Filter {
   constructor(
-    public codGroup: string,
+    public codgroup: string,
     public area: string,
     public localization: string
   ) {}

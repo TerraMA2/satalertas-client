@@ -6,13 +6,11 @@
 
             <div class="p-grid">
                 <p-card class="p-md-6">
-                    <p class="p-col-12"> {{alertGraphic.labelBiome}} </p>
-                    <p-chart type="pie" height="350px" [data]="alertGraphic.graphicBiome"></p-chart>
+                    <p-chart type="pie" height="350px" [data]="alertGraphic.graphicBiome.data" [options]="alertGraphic.graphicBiome.options"></p-chart>
                 </p-card>
 
                 <p-card class="p-md-6">
-                    <p class="p-col-12">{{alertGraphic.labelCity}}</p>
-                    <p-chart type="pie" height="350px" [data]="alertGraphic.graphicCity"></p-chart>
+                    <p-chart type="pie" height="350px" [data]="alertGraphic.graphicCity.data" [options]="alertGraphic.graphicCity.options"></p-chart>
                 </p-card>
             </div>
         </p-accordionTab>

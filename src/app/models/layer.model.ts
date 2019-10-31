@@ -6,7 +6,8 @@ import { Tool } from './tool.model';
 
 export class Layer {
   constructor(
-    public codGroup: string,
+    public cod: string,
+    public codgroup: string,
     public label: string,
     public shortLabel: string,
     public value: number,

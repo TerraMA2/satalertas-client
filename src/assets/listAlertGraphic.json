@@ -7,55 +7,89 @@
       "labelBiome": "Área por biomas",
       "type": "AREA",
       "nameType": "Área",
-      "idView": 0,
+      "idview": 0,
       "active": false,
       "graphicCity": {
-        "labels": ["A", "B", "C","d","e","f","g"],
-        "datasets": [{
-          "data": [300, 50, 100, 15, 158, 1000, 339],
-          "backgroundColor": [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56",
-            "#FF6384",
-            "#36A2EB",
-            "#FF6384",
-            "#36A2EB"
+        "data":{
+          "labels": [ "Cuiabá",
+                      "Santa Rita do Trivelato",
+                      "Campo Novo do Parecis",
+                      "Nova Ubiratã",
+                      "Sapezal",
+                      "Diamantino",
+                      "Santa Carmem",
+                      "Santo Antônio do Leste",
+                      "Querência",
+                      " Campos de Júlio"
           ],
-          "hoverBackgroundColor": [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56",
-            "#FFCE56",
-            "#FF6384",
-            "#36A2EB",
-            "#36A2EB"
-          ]
-        }]
+          "datasets": [{
+            "data": [300, 50, 100, 15, 158, 1000, 339, 158, 1000, 339],
+            "backgroundColor": [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#FF6384",
+              "#36A2EB",
+              "#FF6384",
+              "#36A2EB"
+            ],
+            "hoverBackgroundColor": [
+              "#36A2EB",
+              "#36A2EB",
+              "#FFCE56",
+              "#FFCE56",
+              "#FF6384",
+              "#36A2EB",
+              "#36A2EB"
+            ]
+          }]
+        },
+        "options": {
+          "title": {
+            "display": true,
+            "text": "Área por Municípios",
+            "fontSize": 16
+          },
+          "legend": {
+            "position": "bottom"
+          }
+        }
       },
       "graphicBiome": {
-        "labels": ["A", "B", "C","d","e","f","g"],
-        "datasets": [{
-          "data": [300, 50, 100, 15, 158, 1000, 339],
-          "backgroundColor": [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56",
-            "#36A2EB",
-            "#FFCE56",
-            "#36A2EB",
-            "#FFCE56"
-          ],
-          "hoverBackgroundColor": [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56",
-            "#36A2EB",
-            "#FFCE56",
-            "#36A2EB",
-            "#FFCE56"
-          ]
-        }]
+        "data":{
+          "labels": ["Amazônia", "Cerrado", "Pantanal"],
+          "datasets": [{
+            "data": [300, 50, 100],
+            "backgroundColor": [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#FF6384",
+              "#36A2EB",
+              "#FF6384",
+              "#36A2EB"
+            ],
+            "hoverBackgroundColor": [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#FFCE56",
+              "#FF6384",
+              "#36A2EB",
+              "#36A2EB"
+            ]
+          }]
+        },
+        "options": {
+          "title": {
+            "display": true,
+            "text": "Área por biomas",
+            "fontSize": 16
+          },
+          "legend": {
+            "position": "bottom"
+          }
+        }
       }
     },
     {
@@ -65,56 +99,79 @@
       "labelBiome": "CAR por biomas",
       "type": "NUM_CAR",
       "nameType": "Número de Cars",
-      "idView": 0,
+      "idview": 0,
       "active": false,
       "graphicCity": {
-        "labels": ["A", "B", "C","d","e","f","g"],
-        "datasets": [{
-          "subtitle": "Legenda Bioma",
-          "data": [300, 50, 100, 15, 158, 1000, 339],
-          "backgroundColor": [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56",
-            "#FF6384",
-            "#36A2EB",
-            "#FF6384",
-            "#36A2EB"
-          ],
-          "hoverBackgroundColor": [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56",
-            "#FFCE56",
-            "#FF6384",
-            "#36A2EB",
-            "#36A2EB"
-          ]
-        }]
+        "data":{
+          "labels": ["A", "B", "C","d","e","f","g"],
+          "datasets": [{
+            "data": [300, 50, 100, 15, 158, 1000, 339],
+            "backgroundColor": [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#FF6384",
+              "#36A2EB",
+              "#FF6384",
+              "#36A2EB"
+            ],
+            "hoverBackgroundColor": [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#FFCE56",
+              "#FF6384",
+              "#36A2EB",
+              "#36A2EB"
+            ]
+          }]
+        },
+        "options": {
+          "title": {
+            "display": true,
+            "text": "My Title",
+            "fontSize": 16
+          },
+          "legend": {
+            "position": "bottom"
+          }
+        }
       },
-      "graphicBiome": {
-        "labels": ["A", "B", "C","d","e","f","g"],
-        "datasets": [{
-          "data": [300, 50, 100, 15, 158, 1000, 339],
-          "backgroundColor": [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56",
-            "#36A2EB",
-            "#FFCE56",
-            "#36A2EB",
-            "#FFCE56"
-          ],
-          "hoverBackgroundColor": [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56",
-            "#36A2EB",
-            "#FFCE56",
-            "#36A2EB",
-            "#FFCE56"
-          ]
-        }]
+      "graphicBiome":{
+        "data":{
+          "labels": ["A", "B", "C","d","e","f","g"],
+          "datasets": [{
+            "data": [300, 50, 100, 15, 158, 1000, 339],
+            "backgroundColor": [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#FF6384",
+              "#36A2EB",
+              "#FF6384",
+              "#36A2EB"
+            ],
+            "hoverBackgroundColor": [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#FFCE56",
+              "#FF6384",
+              "#36A2EB",
+              "#36A2EB"
+            ]
+          }]
+        },
+        "options": {
+          "title": {
+            "display": true,
+            "text": "My Title",
+            "fontSize": 16
+          },
+          "legend": {
+            "position": "bottom"
+          }
+        }
       }
     },
     {
@@ -124,55 +181,79 @@
       "labelBiome": "Número de focos por biomas",
       "type": "AREA",
       "nameType": "Área",
-      "idView": 0,
+      "idview": 0,
       "active": false,
       "graphicCity": {
-        "labels": ["A", "B", "C","d","e","f","g"],
-        "datasets": [{
-          "data": [300, 50, 100, 15, 158, 1000, 339],
-          "backgroundColor": [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56",
-            "#FF6384",
-            "#36A2EB",
-            "#FF6384",
-            "#36A2EB"
-          ],
-          "hoverBackgroundColor": [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56",
-            "#FFCE56",
-            "#FF6384",
-            "#36A2EB",
-            "#36A2EB"
-          ]
-        }]
+        "data":{
+          "labels": ["A", "B", "C","d","e","f","g"],
+          "datasets": [{
+            "data": [300, 50, 100, 15, 158, 1000, 339],
+            "backgroundColor": [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#FF6384",
+              "#36A2EB",
+              "#FF6384",
+              "#36A2EB"
+            ],
+            "hoverBackgroundColor": [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#FFCE56",
+              "#FF6384",
+              "#36A2EB",
+              "#36A2EB"
+            ]
+          }]
+        },
+        "options": {
+          "title": {
+            "display": true,
+            "text": "My Title",
+            "fontSize": 16
+          },
+          "legend": {
+            "position": "bottom"
+          }
+        }
       },
       "graphicBiome": {
-        "labels": ["A", "B", "C","d","e","f","g"],
-        "datasets": [{
-          "data": [300, 50, 100, 15, 158, 1000, 339],
-          "backgroundColor": [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56",
-            "#36A2EB",
-            "#FFCE56",
-            "#36A2EB",
-            "#FFCE56"
-          ],
-          "hoverBackgroundColor": [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56",
-            "#36A2EB",
-            "#FFCE56",
-            "#36A2EB",
-            "#FFCE56"
-          ]
-        }]
+        "data":{
+          "labels": ["A", "B", "C","d","e","f","g"],
+          "datasets": [{
+            "data": [300, 50, 100, 15, 158, 1000, 339],
+            "backgroundColor": [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#FF6384",
+              "#36A2EB",
+              "#FF6384",
+              "#36A2EB"
+            ],
+            "hoverBackgroundColor": [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#FFCE56",
+              "#FF6384",
+              "#36A2EB",
+              "#36A2EB"
+            ]
+          }]
+        },
+        "options": {
+          "title": {
+            "display": true,
+            "text": "My Title",
+            "fontSize": 16
+          },
+          "legend": {
+            "position": "bottom"
+          }
+        }
       }
     },
     {
@@ -182,55 +263,79 @@
       "labelBiome": "Número de focos por biomas",
       "type": "NUM_CAR",
       "nameType": "Número de Cars",
-      "idView": 0,
+      "idview": 0,
       "active": false,
       "graphicCity": {
-        "labels": ["A", "B", "C","d","e","f","g"],
-        "datasets": [{
-          "data": [300, 50, 100, 15, 158, 1000, 339],
-          "backgroundColor": [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56",
-            "#FF6384",
-            "#36A2EB",
-            "#FF6384",
-            "#36A2EB"
-          ],
-          "hoverBackgroundColor": [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56",
-            "#FFCE56",
-            "#FF6384",
-            "#36A2EB",
-            "#36A2EB"
-          ]
-        }]
+        "data":{
+          "labels": ["A", "B", "C","d","e","f","g"],
+          "datasets": [{
+            "data": [300, 50, 100, 15, 158, 1000, 339],
+            "backgroundColor": [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#FF6384",
+              "#36A2EB",
+              "#FF6384",
+              "#36A2EB"
+            ],
+            "hoverBackgroundColor": [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#FFCE56",
+              "#FF6384",
+              "#36A2EB",
+              "#36A2EB"
+            ]
+          }]
+        },
+        "options": {
+          "title": {
+            "display": true,
+            "text": "My Title",
+            "fontSize": 16
+          },
+          "legend": {
+            "position": "bottom"
+          }
+        }
       },
       "graphicBiome": {
-        "labels": ["A", "B", "C","d","e","f","g"],
-        "datasets": [{
-          "data": [300, 50, 100, 15, 158, 1000, 339],
-          "backgroundColor": [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56",
-            "#36A2EB",
-            "#FFCE56",
-            "#36A2EB",
-            "#FFCE56"
-          ],
-          "hoverBackgroundColor": [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56",
-            "#36A2EB",
-            "#FFCE56",
-            "#36A2EB",
-            "#FFCE56"
-          ]
-        }]
+        "data":{
+          "labels": ["A", "B", "C","d","e","f","g"],
+          "datasets": [{
+            "data": [300, 50, 100, 15, 158, 1000, 339],
+            "backgroundColor": [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#FF6384",
+              "#36A2EB",
+              "#FF6384",
+              "#36A2EB"
+            ],
+            "hoverBackgroundColor": [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#FFCE56",
+              "#FF6384",
+              "#36A2EB",
+              "#36A2EB"
+            ]
+          }]
+        },
+        "options": {
+          "title": {
+            "display": true,
+            "text": "My Title",
+            "fontSize": 16
+          },
+          "legend": {
+            "position": "bottom"
+          }
+        }
       }
     },
     {
@@ -240,55 +345,79 @@
       "labelBiome": "Número de focos por biomas",
       "type": "AREA",
       "nameType": "Área",
-      "idView": 0,
+      "idview": 0,
       "active": false,
       "graphicCity": {
-        "labels": ["A", "B", "C","d","e","f","g"],
-        "datasets": [{
-          "data": [300, 50, 100, 15, 158, 1000, 339],
-          "backgroundColor": [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56",
-            "#FF6384",
-            "#36A2EB",
-            "#FF6384",
-            "#36A2EB"
-          ],
-          "hoverBackgroundColor": [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56",
-            "#FFCE56",
-            "#FF6384",
-            "#36A2EB",
-            "#36A2EB"
-          ]
-        }]
+        "data":{
+          "labels": ["A", "B", "C","d","e","f","g"],
+          "datasets": [{
+            "data": [300, 50, 100, 15, 158, 1000, 339],
+            "backgroundColor": [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#FF6384",
+              "#36A2EB",
+              "#FF6384",
+              "#36A2EB"
+            ],
+            "hoverBackgroundColor": [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#FFCE56",
+              "#FF6384",
+              "#36A2EB",
+              "#36A2EB"
+            ]
+          }]
+        },
+        "options": {
+          "title": {
+            "display": true,
+            "text": "My Title",
+            "fontSize": 16
+          },
+          "legend": {
+            "position": "bottom"
+          }
+        }
       },
       "graphicBiome": {
-        "labels": ["A", "B", "C","d","e","f","g"],
-        "datasets": [{
-          "data": [300, 50, 100, 15, 158, 1000, 339],
-          "backgroundColor": [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56",
-            "#36A2EB",
-            "#FFCE56",
-            "#36A2EB",
-            "#FFCE56"
-          ],
-          "hoverBackgroundColor": [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56",
-            "#36A2EB",
-            "#FFCE56",
-            "#36A2EB",
-            "#FFCE56"
-          ]
-        }]
+        "data":{
+          "labels": ["A", "B", "C","d","e","f","g"],
+          "datasets": [{
+            "data": [300, 50, 100, 15, 158, 1000, 339],
+            "backgroundColor": [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#FF6384",
+              "#36A2EB",
+              "#FF6384",
+              "#36A2EB"
+            ],
+            "hoverBackgroundColor": [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#FFCE56",
+              "#FF6384",
+              "#36A2EB",
+              "#36A2EB"
+            ]
+          }]
+        },
+        "options": {
+          "title": {
+            "display": true,
+            "text": "My Title",
+            "fontSize": 16
+          },
+          "legend": {
+            "position": "bottom"
+          }
+        }
       }
     },
     {
@@ -298,55 +427,79 @@
       "labelBiome": "CAR apresentando focos por biomas",
       "type": "NUM_CAR",
       "nameType": "Número de Cars",
-      "idView": 0,
+      "idview": 0,
       "active": false,
       "graphicCity": {
-        "labels": ["A", "B", "C","d","e","f","g"],
-        "datasets": [{
-          "data": [300, 50, 100, 15, 158, 1000, 339],
-          "backgroundColor": [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56",
-            "#FF6384",
-            "#36A2EB",
-            "#FF6384",
-            "#36A2EB"
-          ],
-          "hoverBackgroundColor": [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56",
-            "#FFCE56",
-            "#FF6384",
-            "#36A2EB",
-            "#36A2EB"
-          ]
-        }]
+        "data":{
+          "labels": ["A", "B", "C","d","e","f","g"],
+          "datasets": [{
+            "data": [300, 50, 100, 15, 158, 1000, 339],
+            "backgroundColor": [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#FF6384",
+              "#36A2EB",
+              "#FF6384",
+              "#36A2EB"
+            ],
+            "hoverBackgroundColor": [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#FFCE56",
+              "#FF6384",
+              "#36A2EB",
+              "#36A2EB"
+            ]
+          }]
+        },
+        "options": {
+          "title": {
+            "display": true,
+            "text": "My Title",
+            "fontSize": 16
+          },
+          "legend": {
+            "position": "bottom"
+          }
+        }
       },
       "graphicBiome": {
-        "labels": ["A", "B", "C","d","e","f","g"],
-        "datasets": [{
-          "data": [300, 50, 100, 15, 158, 1000, 339],
-          "backgroundColor": [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56",
-            "#36A2EB",
-            "#FFCE56",
-            "#36A2EB",
-            "#FFCE56"
-          ],
-          "hoverBackgroundColor": [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56",
-            "#36A2EB",
-            "#FFCE56",
-            "#36A2EB",
-            "#FFCE56"
-          ]
-        }]
+        "data":{
+          "labels": ["A", "B", "C","d","e","f","g"],
+          "datasets": [{
+            "data": [300, 50, 100, 15, 158, 1000, 339],
+            "backgroundColor": [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#FF6384",
+              "#36A2EB",
+              "#FF6384",
+              "#36A2EB"
+            ],
+            "hoverBackgroundColor": [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#FFCE56",
+              "#FF6384",
+              "#36A2EB",
+              "#36A2EB"
+            ]
+          }]
+        },
+        "options": {
+          "title": {
+            "display": true,
+            "text": "My Title",
+            "fontSize": 16
+          },
+          "legend": {
+            "position": "bottom"
+          }
+        }
       }
     },
     {
@@ -356,55 +509,79 @@
       "labelBiome": "Cicatriz por biomas",
       "type": "AREA",
       "nameType": "Área",
-      "idView": 0,
+      "idview": 0,
       "active": false,
       "graphicCity": {
-        "labels": ["A", "B", "C","d","e","f","g"],
-        "datasets": [{
-          "data": [300, 50, 100, 15, 158, 1000, 339],
-          "backgroundColor": [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56",
-            "#FF6384",
-            "#36A2EB",
-            "#FF6384",
-            "#36A2EB"
-          ],
-          "hoverBackgroundColor": [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56",
-            "#FFCE56",
-            "#FF6384",
-            "#36A2EB",
-            "#36A2EB"
-          ]
-        }]
+        "data":{
+          "labels": ["A", "B", "C","d","e","f","g"],
+          "datasets": [{
+            "data": [300, 50, 100, 15, 158, 1000, 339],
+            "backgroundColor": [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#FF6384",
+              "#36A2EB",
+              "#FF6384",
+              "#36A2EB"
+            ],
+            "hoverBackgroundColor": [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#FFCE56",
+              "#FF6384",
+              "#36A2EB",
+              "#36A2EB"
+            ]
+          }]
+        },
+        "options": {
+          "title": {
+            "display": true,
+            "text": "My Title",
+            "fontSize": 16
+          },
+          "legend": {
+            "position": "bottom"
+          }
+        }
       },
       "graphicBiome": {
-        "labels": ["A", "B", "C","d","e","f","g"],
-        "datasets": [{
-          "data": [300, 50, 100, 15, 158, 1000, 339],
-          "backgroundColor": [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56",
-            "#36A2EB",
-            "#FFCE56",
-            "#36A2EB",
-            "#FFCE56"
-          ],
-          "hoverBackgroundColor": [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56",
-            "#36A2EB",
-            "#FFCE56",
-            "#36A2EB",
-            "#FFCE56"
-          ]
-        }]
+        "data":{
+          "labels": ["A", "B", "C","d","e","f","g"],
+          "datasets": [{
+            "data": [300, 50, 100, 15, 158, 1000, 339],
+            "backgroundColor": [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#FF6384",
+              "#36A2EB",
+              "#FF6384",
+              "#36A2EB"
+            ],
+            "hoverBackgroundColor": [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#FFCE56",
+              "#FF6384",
+              "#36A2EB",
+              "#36A2EB"
+            ]
+          }]
+        },
+        "options": {
+          "title": {
+            "display": true,
+            "text": "My Title",
+            "fontSize": 16
+          },
+          "legend": {
+            "position": "bottom"
+          }
+        }
       }
     },
     {
@@ -414,55 +591,79 @@
       "labelBiome": "Quantidade de CAR com aviso de área queimada por biomas",
       "type": "NUM_CAR",
       "nameType": "Número de Cars",
-      "idView": 0,
+      "idview": 0,
       "active": false,
       "graphicCity": {
-        "labels": ["A", "B", "C","d","e","f","g"],
-        "datasets": [{
-          "data": [300, 50, 100, 15, 158, 1000, 339],
-          "backgroundColor": [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56",
-            "#FF6384",
-            "#36A2EB",
-            "#FF6384",
-            "#36A2EB"
-          ],
-          "hoverBackgroundColor": [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56",
-            "#FFCE56",
-            "#FF6384",
-            "#36A2EB",
-            "#36A2EB"
-          ]
-        }]
+        "data":{
+          "labels": ["A", "B", "C","d","e","f","g"],
+          "datasets": [{
+            "data": [300, 50, 100, 15, 158, 1000, 339],
+            "backgroundColor": [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#FF6384",
+              "#36A2EB",
+              "#FF6384",
+              "#36A2EB"
+            ],
+            "hoverBackgroundColor": [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#FFCE56",
+              "#FF6384",
+              "#36A2EB",
+              "#36A2EB"
+            ]
+          }]
+        },
+        "options": {
+          "title": {
+            "display": true,
+            "text": "My Title",
+            "fontSize": 16
+          },
+          "legend": {
+            "position": "bottom"
+          }
+        }
       },
       "graphicBiome": {
-        "labels": ["A", "B", "C","d","e","f","g"],
-        "datasets": [{
-          "data": [300, 50, 100, 15, 158, 1000, 339],
-          "backgroundColor": [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56",
-            "#36A2EB",
-            "#FFCE56",
-            "#36A2EB",
-            "#FFCE56"
-          ],
-          "hoverBackgroundColor": [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56",
-            "#36A2EB",
-            "#FFCE56",
-            "#36A2EB",
-            "#FFCE56"
-          ]
-        }]
+        "data":{
+          "labels": ["A", "B", "C","d","e","f","g"],
+          "datasets": [{
+            "data": [300, 50, 100, 15, 158, 1000, 339],
+            "backgroundColor": [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#FF6384",
+              "#36A2EB",
+              "#FF6384",
+              "#36A2EB"
+            ],
+            "hoverBackgroundColor": [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#FFCE56",
+              "#FF6384",
+              "#36A2EB",
+              "#36A2EB"
+            ]
+          }]
+        },
+        "options": {
+          "title": {
+            "display": true,
+            "text": "My Title",
+            "fontSize": 16
+          },
+          "legend": {
+            "position": "bottom"
+          }
+        }
       }
     }
   ]

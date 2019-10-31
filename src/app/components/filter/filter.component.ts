@@ -35,7 +35,7 @@ export class FilterComponent implements OnInit, AfterViewInit {
 
   private filterConfig;
   public displayFilter: boolean;
-  private codGroup: string;
+  private codgroup: string;
   private layer: Layer;
   private selectedFilters: Filter[] = [];
 
@@ -111,13 +111,12 @@ export class FilterComponent implements OnInit, AfterViewInit {
     this.displayFilter = !this.displayFilter;
 
     this.filterLabel = 'Filtro';
-    this.codGroup = undefined;
+    this.codgroup = undefined;
     this.layer = null;
   }
 
   onFilterClicked() {
     this.updateFilter(this.layer);
-    this.filterService.filterLayerMap.next(this.layer);
     this.filterService.filterLayerMap.next(this.layer);
   }
 
@@ -135,13 +134,13 @@ export class FilterComponent implements OnInit, AfterViewInit {
   }
 
   updateFilter(layer) {
-    this.updateFilterSelected(new Filter(layer.codGroup, this.areaInput, this.selectedLocalization));
+    this.updateFilterSelected(new Filter(layer.codgroup, this.areaInput, this.selectedLocalization));
   }
 
   updateFilterSelected(filter) {
     if (this.selectedFilters && this.selectedFilters.length > 0) {
       this.selectedFilters.forEach((item: Filter, index) => {
-        if (item.codGroup === filter.codGroup) {
+        if (item.codgroup === filter.codgroup) {
           this.selectedFilters.splice(index, 1);
         }
       });

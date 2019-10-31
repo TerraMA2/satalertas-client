@@ -46,11 +46,11 @@ export class CardAreaComponent implements OnInit {
   }
 
   getValeuArea(alert: Alert) {
-    return alert.area;
+    return alert.value2;
   }
 
   getValueNumCars(alert: Alert) {
-    return alert.numCar;
+    return alert.value1;
   }
 
   isFocus(cod) {

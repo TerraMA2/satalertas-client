@@ -54,6 +54,7 @@ export class SidebarComponent implements OnInit {
     this.sidebarItems = [];
     this.sidebarConfig.sidebarItems.forEach(sidebarItem => {
       const layerGroup = new LayerGroup(
+        sidebarItem.cod,
         sidebarItem.label,
         sidebarItem.parent,
         sidebarItem.link,
@@ -67,7 +68,8 @@ export class SidebarComponent implements OnInit {
       if (children && !link) {
         sidebarItem.children.forEach(sidebarItemChild => {
           const layer = new Layer(
-            sidebarItemChild.codGroup,
+            sidebarItemChild.cod,
+            sidebarItemChild.codgroup,
             sidebarItemChild.label,
             sidebarItemChild.shortLabel,
             sidebarItemChild.value,

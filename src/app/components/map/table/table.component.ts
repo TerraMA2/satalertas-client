@@ -80,8 +80,6 @@ export class TableComponent implements OnInit {
       this.tableService.loadTableData.next(this.selectedLayer);
     });
 
-    // Implementar Filter
-    this.filterService.filterLayerMap.subscribe();
     this.filterService.filterLayerMap.subscribe();
   }
 

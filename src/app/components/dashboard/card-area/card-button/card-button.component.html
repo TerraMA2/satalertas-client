@@ -1,8 +1,8 @@
 <button pButton
         class="ui-button-raised ui-button-secondary btn-alert"
         title="Área total de avisos de {{alert.label}}"
-        [ngClass]="{'ui-card-active': alert.activeArea}"
-        [disabled]="alert.activeArea"
+        [ngClass]="{'ui-card-active': alert.activearea}"
+        [disabled]="alert.activearea"
         (click)="onAreaClick.emit(alert) ">
 
     <p class="btn-alert-title">{{labelArea}}</p>
@@ -12,8 +12,8 @@
 <button pButton
         class="ui-button-raised ui-button-secondary btn-alert btn-alert-cars"
         title="Total de cars {{alert.label}}"
-        [ngClass]="{'ui-card-active': alert.immobileActive}"
-        [disabled]="alert.immobileActive"
+        [ngClass]="{'ui-card-active': alert.immobileactive}"
+        [disabled]="alert.immobileactive"
         (click)="onNubermImmobileClick.emit(alert)">
 
     <p class="btn-alert-title">{{labelNumCars}}</p>

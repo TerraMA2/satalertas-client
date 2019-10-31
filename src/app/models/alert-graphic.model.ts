@@ -8,7 +8,7 @@ export class AlertGraphic {
     public labelBiome: string,
     public type: string,
     public nameType: string,
-    public idView: number,
+    public idview: number,
     public active: boolean,
     public graphicCity: Graphic,
     public graphicBiome: Graphic
