@@ -377,7 +377,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
           this.tableSelectedLayer = this.addLayer(newLayer, true);
 
         }
-        link = `/report/${carRegister}`;
+        if (carRegister) {
+          link = `/report/${carRegister}`;
+        }
 
         if (propertyCount === 1 && this.markerInfo) {
           this.markerInfo.removeFrom(this.map);
