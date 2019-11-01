@@ -26,8 +26,7 @@
 
                 <div class="text-left">
 
-                    <p-multiSelect *ngIf="!tableReportActive"
-                                    [options]="columns"
+                    <p-multiSelect [options]="columns"
                                     [(ngModel)]="selectedColumns"
                                     optionLabel="header"
                                     selectedItemsLabel="{0} columns selected"
@@ -61,14 +60,14 @@
 
                 <div class="text-right">
 
-                    <i class="fa fa-search"></i>
+                    <!-- <i class="fa fa-search"></i>
                     <input type="text"
                             pInputText
                             size="30"
                             placeholder="Buscar"
                             (input)="attributesTable.filterGlobal($event.target.value, 'contains')">
 
-                    &nbsp;&nbsp;
+                    &nbsp;&nbsp; -->
 
                     <button
                         pButton

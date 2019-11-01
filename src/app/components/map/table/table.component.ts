@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { LazyLoadEvent } from 'primeng/api';
 
@@ -51,7 +51,7 @@ export class TableComponent implements OnInit {
 
   rowsPerPage: any[];
   defaultRowsPerPage = 10;
-  selectedRowsPerPage = this.defaultRowsPerPage;
+  selectedRowsPerPage: number = this.defaultRowsPerPage;
 
   private tableConfig;
 
@@ -126,6 +126,11 @@ export class TableComponent implements OnInit {
     } else if (layer.type === LayerType.REPORT) {
       url = appConfig.reportUrl;
       this.selectedLayer = layer;
+      const source = layer.source;
+      const layerLimit = layer.limit;
+      params['source'] = source;
+      this.selectedRowsPerPage = Number(layerLimit);
+      params.limit = layerLimit;
     }
 
     this.hTTPService

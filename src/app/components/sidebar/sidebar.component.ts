@@ -66,7 +66,9 @@ export class SidebarComponent implements OnInit {
         sidebarItem.type,
         sidebarItem.carRegisterColumn,
         sidebarItem.layerData,
-        sidebarItem.legend
+        sidebarItem.legend,
+        sidebarItem.source,
+        sidebarItem.limit
       );
 
       const layerChildren: Layer[] = [];
