@@ -81,7 +81,7 @@ export class ReportService {
         text: replacedDescriptionText,
         value: replacedDescriptionValue
       };
-      visionData.layerData.time = timeReplaced;
+      visionDataCopy.layerData.time = timeReplaced;
       visions.push(this.getVision(visionDataCopy, propertyData));
       startYear++;
     }
