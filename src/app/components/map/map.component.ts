@@ -315,7 +315,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       return null;
     }
     const marker = L.marker(latLong, {title: popupTitle});
-    marker.bindPopup(popupContent);
+    marker.bindPopup(popupContent, {maxWidth: 500, maxHeight: 500});
     if (link) {
       this.linkPopupService.register(marker, link, 'Relatório');
       marker.on('popupopen', () =>
@@ -691,9 +691,15 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       const layer = this.getLayer(selectedLayer.layerData);
       const layerName = selectedLayer.label;
 
-      const params = this.getFeatureInfoParams(layer, event);
-
-      const url = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms`;
+      let params = null;
+      let url = '';
+      if (selectedLayer.type === LayerType.ANALYSIS || selectedLayer.type === LayerType.DYNAMIC) {
+        url = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wfs`;
+        params = this.getWFSFeatureInfoParams(layer);
+      } else {
+        url = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms`;
+        params = this.getWMSFeatureInfoParams(layer, event);
+      }
 
       await this.hTTPService.get(url, params).toPromise().then((layerInfo: LayerInfo) => {
         const features = layerInfo.features;
@@ -720,7 +726,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  getFeatureInfoParams(layer: L.TileLayer.WMS, event: L.LeafletMouseEvent) {
+  getWMSFeatureInfoParams(layer: L.TileLayer.WMS, event: L.LeafletMouseEvent) {
     const layerPoint = this.map.layerPointToContainerPoint(event.layerPoint);
     const bbox = this.map.getBounds().toBBoxString();
     const mapSize = this.map.getSize();
@@ -748,6 +754,19 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     return params;
   }
 
+  getWFSFeatureInfoParams(layer: L.TileLayer.WMS) {
+    const params = {
+      request: 'GetFeature',
+      service: 'WFS',
+      srs: 'EPSG:4326',
+      version: '2.0',
+      outputFormat: 'application/json',
+      typeNames: layer.wmsParams.layers,
+      count: 1
+    };
+    return params;
+  }
+
   getFeatureInfoPopup(layerName: string, features: LayerInfoFeature[]) {
     let popupContent = '';
     if (features) {
@@ -768,7 +787,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       if (key !== 'lat' &&
           key !== 'long' &&
           key !== 'geom' &&
-          key !== 'intersection_geom'
+          key !== 'intersection_geom' &&
+          key !== 'bbox'
           ) {
         popupContentBody += `
             <tr>

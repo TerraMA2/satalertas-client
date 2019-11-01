@@ -98,12 +98,3 @@ body {
     border: 1px solid #eee;
   }
 }
-
-/deep/ p-grid {
-    padding: 0;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    margin: 0;
-}
