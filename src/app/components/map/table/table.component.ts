@@ -99,15 +99,27 @@ export class TableComponent implements OnInit {
     this.filterService.filterLayerMap.subscribe();
   }
 
-  loadTableData(layer, limit: number, offset: number) {
+  loadTableData(layer,
+                limit: number,
+                offset: number,
+                sortColumn?: string,
+                sortOrder?: number
+                ) {
     if (!layer) {
       return;
     }
+
     let url = '';
     const count = true;
     const date = JSON.parse(localStorage.getItem('dateFilter'));
     const viewId = layer.value;
     const params = {viewId, limit, offset, count, date};
+    if (sortColumn) {
+      params['sortColumn'] = sortColumn;
+    }
+    if (sortOrder) {
+      params['sortOrder'] = sortOrder;
+    }
     const appConfig = this.configService.getConfig('app');
     if (layer.type === LayerType.ANALYSIS) {
       url = appConfig.analysisLayerUrl;
@@ -158,7 +170,13 @@ export class TableComponent implements OnInit {
   }
 
   lazyLoad(event: LazyLoadEvent) {
-    this.loadTableData(this.selectedLayer, event.rows, event.first);
+    this.loadTableData(
+                        this.selectedLayer,
+                        event.rows,
+                        event.first,
+                        event.sortField,
+                        event.sortOrder
+                      );
   }
 
   onSelectedLayerChange(layer) {
