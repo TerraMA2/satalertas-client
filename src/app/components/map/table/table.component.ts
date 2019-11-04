@@ -69,6 +69,10 @@ export class TableComponent implements OnInit {
     this.tableService.loadTableData.subscribe((layer: Layer|LayerGroup) => {
       if (layer) {
         this.loading = true;
+        const layerLimit = layer['limit'];
+        if (layerLimit) {
+          this.selectedRowsPerPage = Number(layerLimit);
+        }
         this.loadTableData(layer, this.selectedRowsPerPage, 0);
       }
     });
@@ -76,25 +80,13 @@ export class TableComponent implements OnInit {
     this.tableService.unloadTableData.subscribe((layer: Layer) => {
       if (layer) {
         if (layer.value === this.selectedLayerValue) {
-          this.tableData = undefined;
-          this.selectedLayer = undefined;
-          this.selectedLayerLabel = '';
-          this.selectedLayerValue = 0;
-          this.selectedColumns = undefined;
-          this.selectedRowsPerPage = 10;
-          this.totalRecords = 0;
+          this.clearTable();
         }
       }
     });
 
     this.tableService.clearTable.subscribe(() => {
-        this.tableData = undefined;
-        this.selectedLayer = undefined;
-        this.selectedLayerLabel = '';
-        this.selectedLayerValue = 0;
-        this.selectedColumns = undefined;
-        this.selectedRowsPerPage = 10;
-        this.totalRecords = 0;
+      this.clearTable();
     });
 
     this.rowsPerPage = this.tableConfig.rowsPerPage;
@@ -127,10 +119,8 @@ export class TableComponent implements OnInit {
       url = appConfig.reportUrl;
       this.selectedLayer = layer;
       const source = layer.source;
-      const layerLimit = layer.limit;
       params['source'] = source;
-      this.selectedRowsPerPage = Number(layerLimit);
-      params.limit = layerLimit;
+      params.limit = limit;
     }
 
     this.hTTPService
@@ -156,10 +146,13 @@ export class TableComponent implements OnInit {
 
       this.rowsPerPage = this.rowsPerPage.filter((row) => row.value !== this.totalRecords);
 
-      this.rowsPerPage.push({
-        label: this.totalRecords,
-        value: this.totalRecords
-      });
+      if (this.totalRecords > 1000) {
+        this.rowsPerPage.push({
+          label: this.totalRecords,
+          value: this.totalRecords
+        });
+      }
+
     }
     this.loading = false;
   }
@@ -171,12 +164,14 @@ export class TableComponent implements OnInit {
   onSelectedLayerChange(layer) {
     this.selectedLayer = layer.selectedOption;
     this.selectedLayerLabel = this.selectedLayer.label;
-    this.tableService.loadTableData.next(layer.selectedOption);
+    this.loading = true;
+    this.loadTableData(layer.selectedOption, this.selectedRowsPerPage, 0);
   }
 
   onRowsPerPageChange(event) {
-    this.selectedRowsPerPage = event.value;
-    this.tableService.loadTableData.next(this.selectedLayer);
+    this.loading = true;
+    this.selectedRowsPerPage = Number(event.value);
+    this.loadTableData(this.selectedLayer, this.selectedRowsPerPage, 0);
   }
 
   trackByFunction(index, item) {
@@ -191,6 +186,16 @@ export class TableComponent implements OnInit {
       layer: this.selectedLayer,
       data: rowData
     });
+  }
+
+  clearTable() {
+    this.tableData = undefined;
+    this.selectedLayer = undefined;
+    this.selectedLayerLabel = '';
+    this.selectedLayerValue = 0;
+    this.selectedColumns = undefined;
+    this.selectedRowsPerPage = this.defaultRowsPerPage;
+    this.totalRecords = 0;
   }
 
   onGenerateReportClick() {
