@@ -5,10 +5,12 @@
     "headerTitle": "Análise Ambiental de Imóvel Rural",
     "hasLogin": true,
     "headerLogoLink": "http://www.terrama2.dpi.inpe.br/mpmt/monitor/",
-    "staticLayerUrl": "/api/report/getStaticData",
-    "dynamicLayerUrl": "/api/report/getDynamicData",
-    "analysisLayerUrl": "/api/report/getAnalysisData",
-    "reportUrl": "http://localhost:36000/api/car/getAllSimplified"
+    "layerUrls": {
+      "static": "/api/report/getStaticData",
+      "dynamic": "/api/report/getDynamicData",
+      "analysis": "/api/report/getAnalysisData",
+      "report": "http://localhost:36000/api/car/getAllSimplified"
+    }
   },
   "auth": {
     "url": "/api/login",
@@ -33,81 +35,6 @@
         "link": "/map",
         "viewGraph": false,
         "activeArea": false
-      },
-      {
-        "cod": "GENERATE_REPORT_DETER",
-        "label": "100+ DETER",
-        "icon": "fas fa-file-alt",
-        "value": "5",
-        "type": "report",
-        "method": "openReportTable",
-        "source": "deter",
-        "limit": "100",
-        "carRegisterColumn": "numero_do1",
-        "viewGraph": false,
-        "activeArea": false,
-        "layerData": {
-          "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
-          "layers": "terrama2_5:view5",
-          "transparent": true,
-          "format": "image/png",
-          "version": "1.1.0",
-          "cql_filter": "numero_do1 = {carRegister}"
-        },
-        "legend": {
-          "title": "CAR Validado",
-          "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_5:view5"
-        }
-      },
-      {
-        "cod": "GENERATE_REPORT_PRODES",
-        "label": "100+ PRODES",
-        "icon": "fas fa-file-alt",
-        "value": "5",
-        "type": "report",
-        "method": "openReportTable",
-        "source": "prodes",
-        "limit": "100",
-        "carRegisterColumn": "numero_do1",
-        "viewGraph": false,
-        "activeArea": false,
-        "layerData": {
-          "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
-          "layers": "terrama2_5:view5",
-          "transparent": true,
-          "format": "image/png",
-          "version": "1.1.0",
-          "cql_filter": "numero_do1 = {carRegister}"
-        },
-        "legend": {
-          "title": "CAR Validado",
-          "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_5:view5"
-        }
-      },
-      {
-        "cod": "GENERATE_REPORT_FOCUS",
-        "label": "100+ FOCOS",
-        "icon": "fas fa-file-alt",
-        "value": "5",
-        "type": "report",
-        "method": "openReportTable",
-        "source": "focus",
-        "limit": "100",
-        "carRegisterColumn": "numero_do1",
-        "viewGraph": false,
-        "activeArea": false,
-        "layerData": {
-          "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
-          "layers": "terrama2_5:view5",
-          "transparent": true,
-          "format": "image/png",
-          "version": "1.1.0",
-          "cql_filter": "numero_do1 = {carRegister}"
-        },
-        "legend": {
-          "title": "CAR Validado",
-          "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_5:view5"
-        }
       },
       {
         "cod": "DETER",
@@ -2751,7 +2678,7 @@
       }
     ]
   },
-  "languages": [
+  "language": [
     {
       "label": "Português",
       "flag": "pt-br"

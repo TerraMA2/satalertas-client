@@ -73,7 +73,7 @@ export class ReportComponent implements OnInit {
       }
     });
     this.activatedRoute.params.subscribe(params => this.carRegister = params.carRegister);
-    this.reportConfig = this.configService.getConfig('report');
+    this.reportConfig = this.configService.getReportConfig();
     this.visionLegends = this.reportConfig.visionslegends;
 
     this.getPropertyData();

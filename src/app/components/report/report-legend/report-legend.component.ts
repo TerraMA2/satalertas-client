@@ -18,7 +18,7 @@ export class ReportLegendComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.configService.getConfig('report');
+    this.configService.getReportConfig();
   }
 
 }

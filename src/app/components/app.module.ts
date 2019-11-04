@@ -63,7 +63,6 @@ import { SidebarMenuComponent } from './sidebar/sidebar-menu/sidebar-menu.compon
 import { SidebarItemComponent } from './sidebar/sidebar-menu/sidebar-item/sidebar-item.component';
 import { SidebarFooterComponent } from './sidebar/sidebar-footer/sidebar-footer.component';
 import { SidebarItemChildComponent } from './sidebar/sidebar-menu/sidebar-item/sidebar-item-child/sidebar-item-child.component';
-import { ToolsComponent } from './map/tools/tools.component';
 import { VisibleLayersComponent } from './map/visible-layers/visible-layers.component';
 import { PopupLinkComponent } from './map/popup-link/popup-link.component';
 import { GraphicsAreaComponent } from './dashboard/graphics-area/graphics-area.component';
@@ -101,7 +100,6 @@ registerLocaleData(localePt, 'pt');
     SidebarMenuComponent,
     SidebarItemComponent,
     SidebarItemChildComponent,
-    ToolsComponent,
     VisibleLayersComponent,
     PopupLinkComponent,
     GraphicsAreaComponent,

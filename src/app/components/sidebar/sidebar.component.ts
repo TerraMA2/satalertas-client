@@ -37,7 +37,7 @@ export class SidebarComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.sidebarConfig = this.configService.getConfig('sidebar');
+    this.sidebarConfig = this.configService.getSidebarConfig();
     this.logoPath = this.sidebarConfig.logoPath;
     this.logoLink = this.sidebarConfig.logoLink;
     this.setSidebarItems();

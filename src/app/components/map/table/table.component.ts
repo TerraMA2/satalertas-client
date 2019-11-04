@@ -64,7 +64,7 @@ export class TableComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.tableConfig = this.configService.getConfig('map').table;
+    this.tableConfig = this.configService.getMapConfig('table');
 
     this.tableService.loadTableData.subscribe((layer: Layer|LayerGroup) => {
       if (layer) {
@@ -109,7 +109,7 @@ export class TableComponent implements OnInit {
       return;
     }
 
-    let url = '';
+    const url = this.configService.getAppConfig('layerUrls')[layer.type];
     const count = true;
     const date = JSON.parse(localStorage.getItem('dateFilter'));
     const viewId = layer.value;
@@ -120,15 +120,8 @@ export class TableComponent implements OnInit {
     if (sortOrder) {
       params['sortOrder'] = sortOrder;
     }
-    const appConfig = this.configService.getConfig('app');
-    if (layer.type === LayerType.ANALYSIS) {
-      url = appConfig.analysisLayerUrl;
-    } else if (layer.type === LayerType.STATIC) {
-      url = appConfig.staticLayerUrl;
-    } else if (layer.type === LayerType.DYNAMIC) {
-      url = appConfig.dynamicLayerUrl;
-    } else if (layer.type === LayerType.REPORT) {
-      url = appConfig.reportUrl;
+
+    if (layer.type === LayerType.REPORT) {
       this.selectedLayer = layer;
       const source = layer.source;
       params['source'] = source;
