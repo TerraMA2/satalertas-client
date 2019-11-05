@@ -63,8 +63,6 @@ export class TableComponent implements OnInit {
     private mapService: MapService
   ) { }
 
-  // teste
-
   ngOnInit() {
     this.tableConfig = this.configService.getMapConfig('table');
 
