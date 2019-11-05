@@ -21,21 +21,21 @@
     "logoLink": "https://mpmt.mp.br/",
     "sidebarItems": [
       {
-        "cod": "DASHBOARD",
-        "label": "Dashboard",
         "icon": "fas fa-chart-line",
+        "label": "Dashboard",
         "link": "/",
-        "viewGraph": false,
-        "activearea": false
+        "method": "",
+        "value": ""
       },
       {
-        "cod": "MAPA",
-        "label": "Mapa",
         "icon": "fas fa-map",
+        "label": "Mapa",
         "link": "/map",
-        "viewGraph": false,
-        "activearea": false
-      },
+        "method": "",
+        "value": ""
+      }
+    ],
+    "sidebarLayers": [
       {
         "cod": "DETER",
         "label": "Análise DETER",
@@ -2712,19 +2712,5 @@
         }
       }
     ]
-  },
-  "language": [
-    {
-      "label": "Português",
-      "flag": "pt-br"
-    },
-    {
-      "label": "Inglês",
-      "flag": "en"
-    },
-    {
-      "label": "Espanhol",
-      "flag": "es"
-    }
-  ]
+  }
 }

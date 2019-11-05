@@ -6,11 +6,13 @@ import { LayerGroup } from 'src/app/models/layer-group.model';
 
 import { Layer } from 'src/app/models/layer.model';
 
-import * as L from 'leaflet';
-
 import { SidebarService } from 'src/app/services/sidebar.service';
 
 import { MapService } from 'src/app/services/map.service';
+
+import { SidebarItem } from 'src/app/models/sidebar-item.model';
+
+import { SidebarGroup } from 'src/app/models/sidebar-group.model';
 
 @Component({
   selector: 'app-sidebar',
@@ -21,7 +23,11 @@ export class SidebarComponent implements OnInit {
 
   @Input() displayFilterControl = true;
 
-  sidebarItems: LayerGroup[] = [];
+  sidebarGroups: SidebarGroup[] = [];
+
+  sidebarItems: SidebarItem[] = [];
+
+  sidebarLayerGroups: LayerGroup[] = [];
 
   sidebarConfig;
 
@@ -47,66 +53,61 @@ export class SidebarComponent implements OnInit {
     });
   }
 
-  setFilterControlEvent() {
-    L.DomEvent.on(L.DomUtil.get('filterBtn'), 'dblclick', L.DomEvent.stopPropagation);
-    document.querySelector('#filterBtn').addEventListener('click', () => this.displayFilter = !this.displayFilter);
-  }
-
   setSidebarItems() {
     this.sidebarItems = [];
-    this.sidebarConfig.sidebarItems.forEach(sidebarItem => {
+    this.sidebarConfig.sidebarItems.forEach(sbItem => {
+      const sidebarItem = new SidebarItem(
+        sbItem.label,
+        sbItem.link,
+        sbItem.method,
+        sbItem.value,
+        sbItem.icon
+      );
+      this.sidebarItems.push(sidebarItem);
+    });
+
+    this.sidebarLayerGroups = [];
+    this.sidebarConfig.sidebarLayers.forEach(sidebarLayer => {
       const layerGroup = new LayerGroup(
-        sidebarItem.cod,
-        sidebarItem.label,
-        sidebarItem.parent,
-        sidebarItem.link,
-        sidebarItem.isPrivate,
-        sidebarItem.icon,
-        sidebarItem.method,
-        sidebarItem.value,
-        sidebarItem.type,
-        sidebarItem.carRegisterColumn,
-        sidebarItem.layerData,
-        sidebarItem.legend,
-        sidebarItem.source,
-        sidebarItem.limit
+        sidebarLayer.cod,
+        sidebarLayer.label,
+        sidebarLayer.parent,
+        sidebarLayer.isPrivate,
+        sidebarLayer.icon,
+        sidebarLayer.viewGraph,
+        sidebarLayer.activeArea
       );
 
       const layerChildren: Layer[] = [];
 
-      const children = sidebarItem.children;
-      const link = sidebarItem.link;
-      if (children && !link) {
-        sidebarItem.children.forEach(sidebarItemChild => {
+      const children = sidebarLayer.children;
+      if (children) {
+        sidebarLayer.children.forEach(sidebarLayerChild => {
           const layer = new Layer(
-            sidebarItemChild.cod,
-            sidebarItemChild.codgroup,
-            sidebarItemChild.label,
-            sidebarItemChild.shortLabel,
-            sidebarItemChild.value,
-            sidebarItemChild.dateColumn,
-            sidebarItemChild.geomColumn,
-            sidebarItemChild.areaColumn,
-            sidebarItemChild.carRegisterColumn,
-            sidebarItemChild.classNameColumn,
-            sidebarItemChild.type,
-            sidebarItemChild.isPrivate,
-            sidebarItemChild.isPrimary,
-            sidebarItemChild.layerData,
-            sidebarItemChild.legend,
-            sidebarItemChild.popupTitle,
-            sidebarItemChild.tools
+            sidebarLayerChild.cod,
+            sidebarLayerChild.codgroup,
+            sidebarLayerChild.label,
+            sidebarLayerChild.shortLabel,
+            sidebarLayerChild.value,
+            sidebarLayerChild.dateColumn,
+            sidebarLayerChild.geomColumn,
+            sidebarLayerChild.areaColumn,
+            sidebarLayerChild.carRegisterColumn,
+            sidebarLayerChild.classNameColumn,
+            sidebarLayerChild.type,
+            sidebarLayerChild.isPrivate,
+            sidebarLayerChild.isPrimary,
+            sidebarLayerChild.layerData,
+            sidebarLayerChild.legend,
+            sidebarLayerChild.popupTitle,
+            sidebarLayerChild.tools
           );
           layerChildren.push(layer);
         });
       }
       layerGroup.children = layerChildren;
-      this.sidebarItems.push(layerGroup);
+      this.sidebarLayerGroups.push(layerGroup);
     });
-  }
-
-  filterClick(event) {
-    console.log(event);
   }
 
 }

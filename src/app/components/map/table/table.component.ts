@@ -78,22 +78,16 @@ export class TableComponent implements OnInit {
     });
 
     this.tableService.unloadTableData.subscribe((layer: Layer) => {
-      if (layer) {
-        if (layer.value === this.selectedLayerValue) {
-          this.clearTable();
-        }
+      if (layer && layer.value === this.selectedLayerValue) {
+        this.clearTable();
       }
     });
 
-    this.tableService.clearTable.subscribe(() => {
-      this.clearTable();
-    });
+    this.tableService.clearTable.subscribe(() => this.clearTable());
 
     this.rowsPerPage = this.tableConfig.rowsPerPage;
 
-    this.filterService.filterTable.subscribe(filter => {
-      this.tableService.loadTableData.next(this.selectedLayer);
-    });
+    this.filterService.filterTable.subscribe(() => this.tableService.loadTableData.next(this.selectedLayer));
 
     this.filterService.filterLayerMap.subscribe(null);
   }
@@ -162,13 +156,12 @@ export class TableComponent implements OnInit {
   }
 
   lazyLoad(event: LazyLoadEvent) {
-    this.loadTableData(
-                        this.selectedLayer,
-                        event.rows,
-                        event.first,
-                        event.sortField,
-                        event.sortOrder
-                      );
+    this.loadTableData(this.selectedLayer,
+                      event.rows,
+                      event.first,
+                      event.sortField,
+                      event.sortOrder
+    );
   }
 
   onSelectedLayerChange(layer) {

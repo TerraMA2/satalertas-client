@@ -1,12 +1,19 @@
 import {Component, OnInit} from '@angular/core';
 
 import {ConfigService} from '../../services/config.service';
+
 import {Alert} from '../../models/alert.model';
+
 import {AlertGraphic} from '../../models/alert-graphic.model';
+
 import {ReportService} from '../../services/report.service';
+
 import {FilterService} from '../../services/filter.service';
+
 import {LayerGroup} from '../../models/layer-group.model';
+
 import {Layer} from '../../models/layer.model';
+
 import {ParamAlert} from '../../models/param-alert.model';
 
 @Component({
@@ -29,7 +36,7 @@ export class DashboardComponent implements OnInit {
 
 
   ngOnInit() {
-    this.sidebarItems = this.configService.getConfig('sidebar').sidebarItems;
+    this.sidebarItems = this.configService.getSidebarConfig('sidebarLayers');
 
     this.setOverlayEvents();
     this.getGraphicLayers();

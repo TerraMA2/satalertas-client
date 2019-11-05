@@ -1,18 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { TableService } from 'src/app/services/table.service';
-
-import { SidebarService } from 'src/app/services/sidebar.service';
-
-import { Layer } from 'src/app/models/layer.model';
-
-import { LayerGroup } from 'src/app/models/layer-group.model';
+import { SidebarItem } from 'src/app/models/sidebar-item.model';
 
 import { Router } from '@angular/router';
-
-import { MapService } from 'src/app/services/map.service';
-
-import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-sidebar-item',
@@ -21,59 +11,21 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class SidebarItemComponent implements OnInit {
 
-  @Input() sidebarItem: LayerGroup;
-
-  @Input() childrenItems: Layer[];
-
-  parentSwitchChecked = false;
-
-  isParentOpened = false;
-
-  isAuthenticated = false;
+  @Input() sidebarItem: SidebarItem;
 
   constructor(
-    private sidebarService: SidebarService,
-    private tableService: TableService,
-    private mapService: MapService,
-    private router: Router,
-    private authService: AuthService
+    private router: Router
   ) { }
 
   ngOnInit() {
-    this.authService.user.subscribe(user => {
-      if (user) {
-        this.isAuthenticated = true;
-      } else {
-        this.isAuthenticated = false;
-      }
-    });
   }
 
-  onParentClicked() {
-    this.isParentOpened = !this.isParentOpened;
+  onSidebarItemClicked() {
     if (this.sidebarItem.link) {
       this.router.navigateByUrl(this.sidebarItem.link);
     } else if (this.sidebarItem.method) {
       this[this.sidebarItem.method]();
     }
-  }
-
-  openReportTable() {
-    this.sidebarService.sidebarReload.next();
-    this.mapService.reportTable.next(this.sidebarItem);
-  }
-
-  onParentSwitchChanged(event) {
-    this.childrenItems.forEach(child => {
-      if (event.checked === true) {
-        this.router.navigate(['/map']);
-        this.sidebarService.sidebarItemSelect.next(child);
-      } else if (event.checked === false) {
-        this.sidebarService.sidebarItemUnselect.next(child);
-        this.tableService.unloadTableData.next(child);
-      }
-    });
-    this.parentSwitchChecked = !this.parentSwitchChecked;
   }
 
 }

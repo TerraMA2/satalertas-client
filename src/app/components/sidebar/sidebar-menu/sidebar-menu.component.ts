@@ -2,6 +2,10 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { AuthService } from 'src/app/services/auth.service';
 
+import { SidebarItem } from 'src/app/models/sidebar-item.model';
+
+import { LayerGroup } from 'src/app/models/layer-group.model';
+
 @Component({
   selector: 'app-sidebar-menu',
   templateUrl: './sidebar-menu.component.html',
@@ -9,7 +13,9 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class SidebarMenuComponent implements OnInit {
 
-  @Input() sidebarItems;
+  @Input() sidebarItems: SidebarItem;
+
+  @Input() sidebarLayerGroups: LayerGroup;
 
   isAuthenticated = false;
 

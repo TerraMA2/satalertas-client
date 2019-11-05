@@ -3,9 +3,15 @@
     <app-sidebar-item class="sidebar-item"
                     *ngFor="let sidebarItem of sidebarItems"
                     [sidebarItem]="sidebarItem"
-                    [childrenItems]="sidebarItem.children"
                     [ngClass]="{ 'hide-sidebar-item': sidebarItem.isPrivate && !isAuthenticated }">
     </app-sidebar-item>
+
+    <app-sidebar-layer-group class="sidebar-item"
+                    *ngFor="let sidebarLayerGroup of sidebarLayerGroups"
+                    [sidebarItem]="sidebarLayerGroup"
+                    [childrenItems]="sidebarLayerGroup.children"
+                    [ngClass]="{ 'hide-sidebar-item': sidebarLayerGroup.isPrivate && !isAuthenticated }">
+    </app-sidebar-layer-group>
 
     <br>
 </p-scrollPanel>

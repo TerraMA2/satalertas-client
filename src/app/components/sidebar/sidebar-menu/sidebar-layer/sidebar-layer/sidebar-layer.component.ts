@@ -6,16 +6,12 @@ import { TableService } from 'src/app/services/table.service';
 
 import { Layer } from 'src/app/models/layer.model';
 
-import { Router } from '@angular/router';
-
-import { FilterService } from '../../../../../services/filter.service';
-
 @Component({
-  selector: 'app-sidebar-item-child',
-  templateUrl: './sidebar-item-child.component.html',
-  styleUrls: ['./sidebar-item-child.component.css']
+  selector: 'app-sidebar-layer',
+  templateUrl: './sidebar-layer.component.html',
+  styleUrls: ['./sidebar-layer.component.css']
 })
-export class SidebarItemChildComponent implements OnInit {
+export class SidebarLayerComponent implements OnInit {
 
   @Input() child: Layer;
 
@@ -23,7 +19,7 @@ export class SidebarItemChildComponent implements OnInit {
 
   primaryRadio: string;
 
-  @Input() isParentOpened;
+  @Input() isLayerGroupOpened;
 
   isToolsOpened = false;
 
@@ -33,9 +29,7 @@ export class SidebarItemChildComponent implements OnInit {
 
   constructor(
     private sidebarService: SidebarService,
-    private tableService: TableService,
-    private router: Router,
-    private filterService: FilterService
+    private tableService: TableService
   ) { }
 
   ngOnInit() {
@@ -53,10 +47,6 @@ export class SidebarItemChildComponent implements OnInit {
     }
   }
   selectItem() {
-    if (this.router.url !== '/map') {
-      this.router.navigate(['/map']);
-      return;
-    }
     this.tableService.unloadTableData.next();
     this.sidebarService.sidebarItemSelect.next(this.child);
   }
@@ -80,18 +70,6 @@ export class SidebarItemChildComponent implements OnInit {
 
   onToolClicked(name) {
     this[name]();
-    // switch (name) {
-    //   case 'info':
-    //     break;
-    //   case 'export':
-    //     break;
-    //   case 'temporalDimension':
-    //     break;
-    //   case 'opacity':
-    //     break;
-    //   default:
-    //     break;
-    // }
   }
 
 }

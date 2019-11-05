@@ -269,7 +269,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       propertyData.forEach(data => {
         const latLong = [data.lat, data.long];
 
-        const layer: LayerGroup = markerData['layer'];
+        const layer: Layer = markerData['layer'];
 
         let popupTitle = '';
 
