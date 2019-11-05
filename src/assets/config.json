@@ -115,6 +115,7 @@
             ]
           },
           {
+            "cod": "APP_CAR_X_DETER",
             "codgroup": "DETER",
             "label": "APP x CAR_DETER",
             "shortLabel": "APP",
@@ -158,6 +159,7 @@
             ]
           },
           {
+            "cod": "USOANT_CAR_X_DETER",
             "codgroup": "DETER",
             "label": "UsoAnt x CAR_DETER",
             "shortLabel": "Uso antropizado",
@@ -201,6 +203,7 @@
             ]
           },
           {
+            "cod": "RESERVA_CAR_X_DETER",
             "codgroup": "DETER",
             "label": "Reserva x CAR_DETER",
             "shortLabel": "Reserva legal",
@@ -244,6 +247,7 @@
             ]
           },
           {
+            "cod": "VEGNAT_CAR_X_DETER",
             "codgroup": "DETER",
             "label": "VegNat x CAR_DETER",
             "shortLabel": "Vegetação nativa",
@@ -287,6 +291,7 @@
             ]
           },
           {
+            "cod": "USOCON_CAR_X_DETER",
             "codgroup": "DETER",
             "label": "UsoCon x CAR_DETER",
             "shortLabel": "Uso consolidado",
@@ -330,6 +335,7 @@
             ]
           },
           {
+            "cod": "TI_CAR_X_DETER",
             "codgroup": "DETER",
             "label": "TI X CAR_DETER",
             "shortLabel": "Terra Indigena",
@@ -432,6 +438,7 @@
             ]
           },
           {
+            "cod": "APP_CAR_X_PRODES",
             "codgroup": "PRODES",
             "label": "APP x CAR_PRODES",
             "shortLabel": "APP",
@@ -475,6 +482,7 @@
             ]
           },
           {
+            "cod": "USOANT_CAR_X_PRODES",
             "codgroup": "PRODES",
             "label": "UsoAnt x CAR_PRODES",
             "shortLabel": "Uso antropizado",
@@ -518,6 +526,7 @@
             ]
           },
           {
+            "cod": "RESERVA_CAR_X_PRODES",
             "codgroup": "PRODES",
             "label": "Reserva x CAR_PRODES",
             "shortLabel": "Reserva legal",
@@ -561,10 +570,11 @@
             ]
           },
           {
+            "cod": "VEGNAT_CAR_X_PRODES",
             "codgroup": "PRODES",
             "label": "VegNat x CAR_PRODES",
             "shortLabel": "Vegetação nativa",
-            "value": "79",
+            "value": "84",
             "dateColumn": "execution_date",
             "areaColumn": "calculated_area_ha",
             "geomColumn": "intersection_geom",
@@ -604,6 +614,7 @@
             ]
           },
           {
+            "cod": "USOCON_CAR_X_PRODES",
             "codgroup": "PRODES",
             "label": "UsoCon x CAR_PRODES",
             "shortLabel": "Uso consolidado",
@@ -647,6 +658,8 @@
             ]
           },
           {
+            "cod": "TI_CAR_X_PRODES",
+            "codgroup": "PRODES",
             "label": "TI x CAR_PRODES",
             "shortLabel": "Terra indigena",
             "value": "97",
@@ -689,6 +702,8 @@
             ]
           },
           {
+            "cod": "UC_CAR_X_PRODES",
+            "codgroup": "PRODES",
             "label": "UC x CAR_PRODES",
             "shortLabel": "Unidade de conservação",
             "value": "100",
@@ -790,6 +805,7 @@
             ]
           },
           {
+            "cod": "APP_CAR_X_FOCOS",
             "codgroup": "FOCOS",
             "label": "APP x CAR_FOCOS",
             "shortLabel": "APP",
@@ -833,6 +849,7 @@
             ]
           },
           {
+            "cod": "USOANT_CAR_X_FOCOS",
             "codgroup": "FOCOS",
             "label": "UsoAnt x CAR_FOCOS",
             "shortLabel": "Uso antropizado",
@@ -876,6 +893,7 @@
             ]
           },
           {
+            "cod": "RESERVA_CAR_X_FOCOS",
             "codgroup": "FOCOS",
             "label": "Reserva x CAR_FOCOS",
             "shortLabel": "Reserva legal",
@@ -919,6 +937,7 @@
             ]
           },
           {
+            "cod": "VEGNAT_CAR_X_FOCOS",
             "codgroup": "FOCOS",
             "label": "VegNat x CAR_FOCOS",
             "shortLabel": "Vegetação nativa",
@@ -962,6 +981,7 @@
             ]
           },
           {
+            "cod": "USOCON_CAR_X_FOCOS",
             "codgroup": "FOCOS",
             "label": "UsoCon x CAR_FOCOS",
             "shortLabel": "Uso consolidado",
@@ -1005,6 +1025,8 @@
             ]
           },
           {
+            "cod": "TI_CAR_X_FOCOS",
+            "codgroup": "FOCOS",
             "label": "TI x CAR_FOCOS",
             "shortLabel": "Terra indigena",
             "value": "96",
@@ -1047,6 +1069,8 @@
             ]
           },
           {
+            "cod": "UC_CAR_X_FOCOS",
+            "codgroup": "FOCOS",
             "label": "UC x CAR_FOCOS",
             "shortLabel": "Unidade de conservação",
             "value": "99",
@@ -1113,6 +1137,7 @@
         "isPrivate": false,
         "children" : [
           {
+            "cod": "LE_DADOS_ESTATICOS",
             "codgroup": "DADOS_ESTATICOS",
             "label": "Limite Estadual",
             "shortLabel": "Limite Estadual",
@@ -1155,6 +1180,7 @@
             ]
           },
           {
+            "cod": "MUNICIPIOS_DADOS_ESTATICOS",
             "codgroup": "DADOS_ESTATICOS",
             "label": "Municípios",
             "shortLabel": "Municípios",
@@ -1197,6 +1223,7 @@
             ]
           },
           {
+            "cod": "USOCON_DADOS_ESTATICOS",
             "codgroup": "DADOS_ESTATICOS",
             "label": "Uso consolidado",
             "shortLabel": "Uso consolidado",
@@ -1239,6 +1266,7 @@
             ]
           },
           {
+            "cod": "CAR_DADOS_ESTATICOS",
             "codgroup": "DADOS_ESTATICOS",
             "label": "CAR Validado",
             "shortLabel": "CAR Validado",
@@ -1281,6 +1309,7 @@
             ]
           },
           {
+            "cod": "LE_DADOS_ESTATICOS",
             "codgroup": "DADOS_ESTATICOS",
             "label": "Microregião",
             "shortLabel": "Microregião",

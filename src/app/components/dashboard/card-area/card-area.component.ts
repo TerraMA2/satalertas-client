@@ -27,9 +27,9 @@ export class CardAreaComponent implements OnInit {
   getLabelArea(alert: Alert) {
     let label: string;
 
-    if (this.isBurnedArea(alert.cod)) {
+    if (this.isBurnedArea(alert.codgroup)) {
       label = 'Cicatriz:';
-    } else if (this.isFocus(alert.cod)) {
+    } else if (this.isFocus(alert.codgroup)) {
       label = 'Nº Focos:';
     } else {
       label = 'Área:';
@@ -37,12 +37,13 @@ export class CardAreaComponent implements OnInit {
 
     return label;
   }
+
   getUnitOfMeasurement(alert: Alert) {
-    return (this.isFocus(alert.cod) ? '' : 'ha');
+    return (this.isFocus(alert.codgroup) ? '' : 'ha');
   }
 
   getLabelNumCars(alert: Alert) {
-    return 'Nº de Cars:';
+    return 'Alertas:';
   }
 
   getValeuArea(alert: Alert) {
@@ -53,11 +54,11 @@ export class CardAreaComponent implements OnInit {
     return alert.value1;
   }
 
-  isFocus(cod) {
-    return cod === 'FOCOS';
+  isFocus(codgroup) {
+    return codgroup === 'FOCOS';
   }
 
-  isBurnedArea(cod) {
-    return cod === 'AREA_QUEIMADA';
+  isBurnedArea(codgroup) {
+    return codgroup === 'AREA_QUEIMADA';
   }
 }

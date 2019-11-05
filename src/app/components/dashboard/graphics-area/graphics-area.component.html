@@ -1,16 +1,26 @@
-<div class="p-grid box">
+<div  [style]="{width: '100%', height: 'calc(100vh - 50px)'}" >
+
+    <div id="charts-panel" class="p-grid box">
+        <div class="box-title-panel p-col-12">
+            <div class="p-md-12">
+                <span id="title-chart"></span>
+            </div>
+        </div>
+    </div>
+
     <p-accordion [multiple]="true" class="p-col-12">
         <p-accordionTab header="Gráfico {{alertGraphic.nameType}} do {{alertGraphic.label}}"
                         [selected]="alertGraphic.active"
-                        *ngFor="let alertGraphic of alertGraphics">
+                        *ngFor="let alertGraphic of alertGraphics"
+                        [disabled]="alertGraphic.isEmpty">
 
             <div class="p-grid">
                 <p-card class="p-md-6">
-                    <p-chart type="pie" height="350px" [data]="alertGraphic.graphicBiome.data" [options]="alertGraphic.graphicBiome.options"></p-chart>
+                    <p-chart type="pie" height="350px" [data]="alertGraphic.graphics[0].data" [options]="alertGraphic.graphics[0].options"></p-chart>
                 </p-card>
 
                 <p-card class="p-md-6">
-                    <p-chart type="pie" height="350px" [data]="alertGraphic.graphicCity.data" [options]="alertGraphic.graphicCity.options"></p-chart>
+                    <p-chart type="pie" height="350px" [data]="alertGraphic.graphics[1].data" [options]="alertGraphic.graphics[1].options"></p-chart>
                 </p-card>
             </div>
         </p-accordionTab>

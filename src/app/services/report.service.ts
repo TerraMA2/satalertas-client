@@ -317,4 +317,18 @@ export class ReportService {
     const parameters = { listAlert, date, groupCod, projectName, group, localization, area, count };
     return await this.http.get(url, { params: parameters }).toPromise();
   }
+
+  async getDetailsAnalysisTotals(
+    alerts: Alert [] = [], groupCod = null, projectName = null, group = null,
+    localization = null, area = null, count = null) {
+
+    const url = this.urlReport + '/getDetailsAnalysisTotals';
+
+    const date = JSON.parse(localStorage.getItem('dateFilter'));
+
+    const listAlert = JSON.stringify(alerts);
+
+    const parameters = { listAlert, date, groupCod, projectName, group, localization, area, count };
+    return await this.http.get(url, { params: parameters }).toPromise();
+  }
 }

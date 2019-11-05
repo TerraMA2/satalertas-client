@@ -1,16 +1,12 @@
-import { Graphic } from './Graphic.model';
+import {ChartData} from './chart-data.model';
 
 export class AlertGraphic {
   constructor(
     public cod: string,
+    public codGroup: string,
     public label: string,
-    public labelCity: string,
-    public labelBiome: string,
-    public type: string,
-    public nameType: string,
-    public idview: number,
     public active: boolean,
-    public graphicCity: Graphic,
-    public graphicBiome: Graphic
+    public isEmpty: boolean,
+    public graphics: ChartData[]
   ) {}
 }

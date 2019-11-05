@@ -1,3 +1,4 @@
+import {ParamAlert} from './param-alert.model';
 
 export class Alert {
   constructor(
@@ -9,6 +10,7 @@ export class Alert {
     public value1: number,
     public selected?: boolean,
     public activearea?: boolean,
-    public immobileactive?: boolean
+    public immobileactive?: boolean,
+    public alertsgraphics?: ParamAlert[]
   ) {}
 }
