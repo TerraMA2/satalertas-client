@@ -11,10 +11,12 @@ export class FilterService {
 
   filterMap = new Subject();
   filterTable = new Subject();
+  filterDashboard = new Subject();
 
   displayFilter = new Subject();
 
-  filterReport = new Subject();
+
+  filterReport = new Subject<Layer>();
   filterLayerMap = new Subject<Layer>();
   filterLayerTable = new Subject<Layer>();
 

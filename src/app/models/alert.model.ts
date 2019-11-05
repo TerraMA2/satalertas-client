@@ -1,13 +1,16 @@
+import {ParamAlert} from './param-alert.model';
 
 export class Alert {
   constructor(
+    public idview: number,
     public cod: string,
+    public codgroup: string,
     public label: string,
-    public area: number,
-    public numCar: number,
+    public value2: number,
+    public value1: number,
     public selected?: boolean,
-    public viewGraph?: boolean,
-    public activeArea?: boolean,
-    public immobileActive?: boolean
+    public activearea?: boolean,
+    public immobileactive?: boolean,
+    public alertsgraphics?: ParamAlert[]
   ) {}
 }

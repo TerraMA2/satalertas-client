@@ -26,7 +26,7 @@
         "icon": "fas fa-chart-line",
         "link": "/",
         "viewGraph": false,
-        "activeArea": false
+        "activearea": false
       },
       {
         "cod": "MAPA",
@@ -34,18 +34,19 @@
         "icon": "fas fa-map",
         "link": "/map",
         "viewGraph": false,
-        "activeArea": false
+        "activearea": false
       },
       {
         "cod": "DETER",
         "label": "Análise DETER",
         "parent": true,
         "viewGraph": true,
-        "activeArea": true,
+        "activearea": true,
         "isPrivate": true,
         "children": [
           {
-            "codGroup": "DETER",
+            "cod": "CAR_X_DETER",
+            "codgroup": "DETER",
             "label": "CAR X DETER",
             "shortLabel": "CAR X DETER",
             "value": "86",
@@ -93,7 +94,8 @@
             ]
           },
           {
-            "codGroup": "DETER",
+            "cod": "APP_CAR_X_DETER",
+            "codgroup": "DETER",
             "label": "APP x CAR_DETER",
             "shortLabel": "APP",
             "value": "75",
@@ -136,7 +138,8 @@
             ]
           },
           {
-            "codGroup": "DETER",
+            "cod": "USOANT_CAR_X_DETER",
+            "codgroup": "DETER",
             "label": "UsoAnt x CAR_DETER",
             "shortLabel": "Uso antropizado",
             "value": "77",
@@ -179,7 +182,8 @@
             ]
           },
           {
-            "codGroup": "DETER",
+            "cod": "RESERVA_CAR_X_DETER",
+            "codgroup": "DETER",
             "label": "Reserva x CAR_DETER",
             "shortLabel": "Reserva legal",
             "value": "76",
@@ -222,7 +226,8 @@
             ]
           },
           {
-            "codGroup": "DETER",
+            "cod": "VEGNAT_CAR_X_DETER",
+            "codgroup": "DETER",
             "label": "VegNat x CAR_DETER",
             "shortLabel": "Vegetação nativa",
             "value": "79",
@@ -265,7 +270,8 @@
             ]
           },
           {
-            "codGroup": "DETER",
+            "cod": "USOCON_CAR_X_DETER",
+            "codgroup": "DETER",
             "label": "UsoCon x CAR_DETER",
             "shortLabel": "Uso consolidado",
             "value": "78",
@@ -308,7 +314,8 @@
             ]
           },
           {
-            "codGroup": "DETER",
+            "cod": "TI_CAR_X_DETER",
+            "codgroup": "DETER",
             "label": "TI X CAR_DETER",
             "shortLabel": "Terra Indigena",
             "value": "95",
@@ -357,11 +364,12 @@
         "label": "Análise PRODES",
         "parent": true,
         "viewGraph": true,
-        "activeArea": false,
+        "activearea": false,
         "isPrivate": true,
         "children": [
           {
-            "codGroup": "PRODES",
+            "cod": "CAR_X_PRODES",
+            "codgroup": "PRODES",
             "label": "CAR X PRODES",
             "shortLabel": "CAR X PRODES",
             "value": "87",
@@ -409,7 +417,8 @@
             ]
           },
           {
-            "codGroup": "PRODES",
+            "cod": "APP_CAR_X_PRODES",
+            "codgroup": "PRODES",
             "label": "APP x CAR_PRODES",
             "shortLabel": "APP",
             "value": "80",
@@ -452,7 +461,8 @@
             ]
           },
           {
-            "codGroup": "PRODES",
+            "cod": "USOANT_CAR_X_PRODES",
+            "codgroup": "PRODES",
             "label": "UsoAnt x CAR_PRODES",
             "shortLabel": "Uso antropizado",
             "value": "82",
@@ -495,7 +505,8 @@
             ]
           },
           {
-            "codGroup": "PRODES",
+            "cod": "RESERVA_CAR_X_PRODES",
+            "codgroup": "PRODES",
             "label": "Reserva x CAR_PRODES",
             "shortLabel": "Reserva legal",
             "value": "81",
@@ -538,10 +549,11 @@
             ]
           },
           {
-            "codGroup": "PRODES",
+            "cod": "VEGNAT_CAR_X_PRODES",
+            "codgroup": "PRODES",
             "label": "VegNat x CAR_PRODES",
             "shortLabel": "Vegetação nativa",
-            "value": "79",
+            "value": "84",
             "dateColumn": "execution_date",
             "areaColumn": "calculated_area_ha",
             "geomColumn": "intersection_geom",
@@ -581,7 +593,8 @@
             ]
           },
           {
-            "codGroup": "PRODES",
+            "cod": "USOCON_CAR_X_PRODES",
+            "codgroup": "PRODES",
             "label": "UsoCon x CAR_PRODES",
             "shortLabel": "Uso consolidado",
             "value": "83",
@@ -624,6 +637,8 @@
             ]
           },
           {
+            "cod": "TI_CAR_X_PRODES",
+            "codgroup": "PRODES",
             "label": "TI x CAR_PRODES",
             "shortLabel": "Terra indigena",
             "value": "97",
@@ -666,6 +681,8 @@
             ]
           },
           {
+            "cod": "UC_CAR_X_PRODES",
+            "codgroup": "PRODES",
             "label": "UC x CAR_PRODES",
             "shortLabel": "Unidade de conservação",
             "value": "100",
@@ -714,11 +731,12 @@
         "label": "Análise FOCOS",
         "parent": true,
         "viewGraph": true,
-        "activeArea": false,
+        "activearea": false,
         "isPrivate": true,
         "children": [
           {
-            "codGroup": "FOCOS",
+            "cod": "CAR_X_FOCOS",
+            "codgroup": "FOCOS",
             "label": "CAR X FOCOS",
             "shortLabel": "CAR X FOCOS",
             "value": "88",
@@ -766,7 +784,8 @@
             ]
           },
           {
-            "codGroup": "FOCOS",
+            "cod": "APP_CAR_X_FOCOS",
+            "codgroup": "FOCOS",
             "label": "APP x CAR_FOCOS",
             "shortLabel": "APP",
             "value": "89",
@@ -809,7 +828,8 @@
             ]
           },
           {
-            "codGroup": "FOCOS",
+            "cod": "USOANT_CAR_X_FOCOS",
+            "codgroup": "FOCOS",
             "label": "UsoAnt x CAR_FOCOS",
             "shortLabel": "Uso antropizado",
             "value": "91",
@@ -852,7 +872,8 @@
             ]
           },
           {
-            "codGroup": "FOCOS",
+            "cod": "RESERVA_CAR_X_FOCOS",
+            "codgroup": "FOCOS",
             "label": "Reserva x CAR_FOCOS",
             "shortLabel": "Reserva legal",
             "value": "90",
@@ -895,7 +916,8 @@
             ]
           },
           {
-            "codGroup": "FOCOS",
+            "cod": "VEGNAT_CAR_X_FOCOS",
+            "codgroup": "FOCOS",
             "label": "VegNat x CAR_FOCOS",
             "shortLabel": "Vegetação nativa",
             "value": "93",
@@ -938,7 +960,8 @@
             ]
           },
           {
-            "codGroup": "FOCOS",
+            "cod": "USOCON_CAR_X_FOCOS",
+            "codgroup": "FOCOS",
             "label": "UsoCon x CAR_FOCOS",
             "shortLabel": "Uso consolidado",
             "value": "92",
@@ -981,6 +1004,8 @@
             ]
           },
           {
+            "cod": "TI_CAR_X_FOCOS",
+            "codgroup": "FOCOS",
             "label": "TI x CAR_FOCOS",
             "shortLabel": "Terra indigena",
             "value": "96",
@@ -1023,6 +1048,8 @@
             ]
           },
           {
+            "cod": "UC_CAR_X_FOCOS",
+            "codgroup": "FOCOS",
             "label": "UC x CAR_FOCOS",
             "shortLabel": "Unidade de conservação",
             "value": "99",
@@ -1071,10 +1098,13 @@
         "label": "Análise área queimada",
         "parent": true,
         "viewGraph": true,
-        "activeArea": false,
+        "activearea": false,
         "isPrivate": true,
         "children": [
-
+          {
+            "cod": "CAR_X_AREA_QUEIMADA",
+            "codgroup": "AREA_QUEIMADA"
+          }
         ]
       },
       {
@@ -1082,11 +1112,12 @@
         "label": "Dados estáticos",
         "parent": true,
         "viewGraph": false,
-        "activeArea": false,
+        "activearea": false,
         "isPrivate": false,
         "children" : [
           {
-            "codGroup": "DADOS_ESTATICOS",
+            "cod": "LE_DADOS_ESTATICOS",
+            "codgroup": "DADOS_ESTATICOS",
             "label": "Limite Estadual",
             "shortLabel": "Limite Estadual",
             "value": "15",
@@ -1128,7 +1159,8 @@
             ]
           },
           {
-            "codGroup": "DADOS_ESTATICOS",
+            "cod": "MUNICIPIOS_DADOS_ESTATICOS",
+            "codgroup": "DADOS_ESTATICOS",
             "label": "Municípios",
             "shortLabel": "Municípios",
             "value": "14",
@@ -1170,7 +1202,8 @@
             ]
           },
           {
-            "codGroup": "DADOS_ESTATICOS",
+            "cod": "USOCON_DADOS_ESTATICOS",
+            "codgroup": "DADOS_ESTATICOS",
             "label": "Uso consolidado",
             "shortLabel": "Uso consolidado",
             "value": "73",
@@ -1212,7 +1245,8 @@
             ]
           },
           {
-            "codGroup": "DADOS_ESTATICOS",
+            "cod": "CAR_DADOS_ESTATICOS",
+            "codgroup": "DADOS_ESTATICOS",
             "label": "CAR Validado",
             "shortLabel": "CAR Validado",
             "value": "5",
@@ -1254,7 +1288,8 @@
             ]
           },
           {
-            "codGroup": "DADOS_ESTATICOS",
+            "cod": "LE_DADOS_ESTATICOS",
+            "codgroup": "DADOS_ESTATICOS",
             "label": "Microregião",
             "shortLabel": "Microregião",
             "value": "6",
@@ -1296,7 +1331,7 @@
             ]
           },
           {
-            "codGroup": "DADOS_ESTATICOS",
+            "codgroup": "DADOS_ESTATICOS",
             "label": "Reserva_Legal",
             "shortLabel": "Reserva_Legal",
             "value": "13",
@@ -1338,7 +1373,7 @@
             ]
           },
           {
-            "codGroup": "DADOS_ESTATICOS",
+            "codgroup": "DADOS_ESTATICOS",
             "label": "Rodovias",
             "shortLabel": "Rodovias",
             "value": "12",
@@ -1380,7 +1415,7 @@
             ]
           },
           {
-            "codGroup": "DADOS_ESTATICOS",
+            "codgroup": "DADOS_ESTATICOS",
             "label": "Sub-bacias",
             "shortLabel": "Sub-bacias",
             "value": "11",
@@ -1422,7 +1457,7 @@
             ]
           },
           {
-            "codGroup": "DADOS_ESTATICOS",
+            "codgroup": "DADOS_ESTATICOS",
             "label": "Área Pantaneira",
             "shortLabel": "Área Pantaneira",
             "value": "10",
@@ -1464,7 +1499,7 @@
             ]
           },
           {
-            "codGroup": "DADOS_ESTATICOS",
+            "codgroup": "DADOS_ESTATICOS",
             "label": "Uso Antropizado",
             "shortLabel": "Uso Antropizado",
             "value": "9",
@@ -1506,7 +1541,7 @@
             ]
           },
           {
-            "codGroup": "DADOS_ESTATICOS",
+            "codgroup": "DADOS_ESTATICOS",
             "label": "Área_APP",
             "shortLabel": "Área_APP",
             "value": "4",
@@ -1548,7 +1583,7 @@
             ]
           },
           {
-            "codGroup": "DADOS_ESTATICOS",
+            "codgroup": "DADOS_ESTATICOS",
             "label": "Vegetação Nativa",
             "shortLabel": "Vegetação Nativa",
             "value": "3",
@@ -1590,7 +1625,7 @@
             ]
           },
           {
-            "codGroup": "DADOS_ESTATICOS",
+            "codgroup": "DADOS_ESTATICOS",
             "label": "Biomas MT",
             "shortLabel": "Biomas MT",
             "value": "94",
@@ -1632,7 +1667,7 @@
             ]
           },
           {
-            "codGroup": "DADOS_ESTATICOS",
+            "codgroup": "DADOS_ESTATICOS",
             "label": "Unidade Conservação",
             "shortLabel": "Unidade Conservação",
             "value": "46",
@@ -1674,7 +1709,7 @@
             ]
           },
           {
-            "codGroup": "DADOS_ESTATICOS",
+            "codgroup": "DADOS_ESTATICOS",
             "label": "Terra Indígena",
             "shortLabel": "Terra Indígena",
             "value": "47",
@@ -1722,11 +1757,11 @@
         "label": "Dados dinâmicos",
         "parent": true,
         "viewGraph": false,
-        "activeArea": false,
+        "activearea": false,
         "isPrivate": false,
         "children" : [
           {
-            "codGroup": "DADOS_DINAMICOS",
+            "codgroup": "DADOS_DINAMICOS",
             "label": "Focos Queimadas",
             "shortLabel": "Focos Queimadas",
             "value": "20",
@@ -1774,7 +1809,7 @@
             ]
           },
           {
-            "codGroup": "DADOS_DINAMICOS",
+            "codgroup": "DADOS_DINAMICOS",
             "label": "DETER",
             "shortLabel": "DETER",
             "value": "18",
@@ -1822,7 +1857,7 @@
             ]
           },
           {
-            "codGroup": "DADOS_DINAMICOS",
+            "codgroup": "DADOS_DINAMICOS",
             "label": "PRODES",
             "shortLabel": "PRODES",
             "value": "45",

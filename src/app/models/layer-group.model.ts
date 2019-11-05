@@ -6,6 +6,7 @@ import { Legend } from './legend.model';
 
 export class LayerGroup {
   constructor(
+    public cod: string,
     public label: string,
     public parent: boolean,
     public link: string,

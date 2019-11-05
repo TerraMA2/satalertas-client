@@ -3,9 +3,11 @@ import {Component, OnInit} from '@angular/core';
 import {ConfigService} from '../../services/config.service';
 import {Alert} from '../../models/alert.model';
 import {AlertGraphic} from '../../models/alert-graphic.model';
-import ListAlert from '../../../assets/listAlert.json';
-import ListAlertGraphic from '../../../assets/listAlertGraphic.json';
-import {Graphic} from '../../models/Graphic.model';
+import {ReportService} from '../../services/report.service';
+import {FilterService} from '../../services/filter.service';
+import {LayerGroup} from '../../models/layer-group.model';
+import {Layer} from '../../models/layer.model';
+import {ParamAlert} from '../../models/param-alert.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,158 +18,179 @@ import {Graphic} from '../../models/Graphic.model';
 export class DashboardComponent implements OnInit {
 
   alertsDisplayed: Alert [] = [];
-  alertGraphics: AlertGraphic [] = [];
+  alertGraphics: any [] = [];
+  sidebarItems: LayerGroup[];
 
   constructor(
-    private configService: ConfigService
+    private configService: ConfigService,
+    private reportService: ReportService,
+    private filterService: FilterService
   ) { }
 
+
   ngOnInit() {
-    this.getGraphicLayers(this.configService.getSidebarConfig('sidebarItems'));
+    this.sidebarItems = this.configService.getConfig('sidebar').sidebarItems;
+
+    this.setOverlayEvents();
+    this.getGraphicLayers();
   }
 
-  private getGraphicLayers(sidebarItems) {
-    sidebarItems.forEach(layerGroup => {
-      if (layerGroup.viewGraph) {
-        this.alertsDisplayed.push(this.getValueAlert(layerGroup));
+  setOverlayEvents() {
+    this.filterService.filterDashboard.subscribe(() => {
+      this.alertsDisplayed = [];
+      this.getGraphicLayers();
+    });
+  }
 
-        if (layerGroup.activeArea) { this.onAreaClick(this.getValueAlert(layerGroup)); }
+  private async getGraphicLayers() {
+    const listAlerts: Alert[] = [];
 
+    this.sidebarItems.forEach((group: LayerGroup) => {
+      if (group.viewGraph) {
+        listAlerts.push(this.getidviewAlert(group));
+      }
+    });
+
+    await this.reportService.getAnalysisTotals( listAlerts ).then( (alerts: Alert[]) => {
+      this.alertsDisplayed = alerts;
+
+      this.setAlertsGraphics();
+
+      this.setactivearea();
+    });
+  }
+
+  setAlertsGraphics() {
+    if (this.alertsDisplayed && this.alertsDisplayed.length > 0) {
+      this.alertsDisplayed.forEach((alert: Alert) => {
+        if (this.sidebarItems && this.sidebarItems.length > 0) {
+          this.sidebarItems.forEach( group => {
+            if (group.cod === alert.codgroup) {
+              alert.alertsgraphics = this.getAlerts(group.children);
+            }
+          });
+        }
+      });
+    }
+  }
+
+  setactivearea() {
+    this.alertsDisplayed.forEach(alert => {
+      if (alert.activearea) {
+        this.onAreaClick(alert);
       }
     });
   }
 
-  private getValueAlert(layerGroup) {
-    let value = null;
-    ListAlert.listAlert.forEach( alert => {
-      if (layerGroup.cod === alert.cod) {
-        const date = new Date();
+  getidviewAlert(group: LayerGroup) {
 
-        // tslint:disable-next-line:max-line-length
-        alert.area = (Math.round(Math.random() * (100000.558)) * date.getMilliseconds() * date.getSeconds() / date.getMinutes() / date.getHours());
-        // tslint:disable-next-line:max-line-length
-        alert.numCar = (Math.round(Math.random() * (10000) * date.getMilliseconds() * date.getSeconds() / date.getMinutes() / date.getHours()));
+    const alert = new Alert(
+      0,
+      '',
+      group.cod,
+      group.label,
+      0,
+      0,
+      group.cod === 'DETER',
+      group.cod === 'DETER',
+      false,
+      []);
 
-        value = alert;
+    group.children.forEach( (view: Layer) => {
+      if (view.isPrimary && view.type === 'analysis') {
+        alert.cod = view.cod;
+        alert.idview = view.value;
       }
     });
-    return value;
-  }
 
-  private getLayer(cod) {
-    const sidebarItens = this.configService.getSidebarConfig('sidebarItems');
-    let itemSelected = null;
-
-    sidebarItens.forEach(item => {
-      if (cod === item.cod) {
-        itemSelected = item.children;
-      }
-    });
-    return itemSelected;
-  }
-
-  private getListAlertsGraphics(cod, type) {
-    const listAlertsGraphics: AlertGraphic[] = [];
-    const childrenLayer = this.getLayer(cod);
-
-    childrenLayer.forEach(layer => {
-      listAlertsGraphics.push(this.getAlertGraphics(cod, type, layer));
-    });
-
-    return listAlertsGraphics;
+    return alert;
   }
 
   onAreaClick(alertSelected) {
     this.cleanActive();
-    this.alertGraphics = this.getListAlertsGraphics(alertSelected.cod, 'AREA');
 
-    alertSelected.activeArea = true;
-    alertSelected.immobileActive = false;
+    console.log(alertSelected);
 
-    this.alertGraphics[0].active = true;
-  }
+    this.activeArea(alertSelected.alertsgraphics);
 
-  private getAlertGraphics(cod, type, layer) {
-    const listAlertsGraphic = ListAlertGraphic.listAlertsGraphic;
-    let alertSelected: AlertGraphic;
+    this.reportService.getDetailsAnalysisTotals(alertSelected.alertsgraphics).then( (alertsGraphics: AlertGraphic[]) => {
+      this.alertGraphics = alertsGraphics;
 
-    // @ts-ignore
-    listAlertsGraphic.forEach((alertGraphic: AlertGraphic) => {
-      if ((cod === alertGraphic.cod) && (type === alertGraphic.type)) {
-        this.setValues(alertGraphic.graphicCity);
-        this.setValues(alertGraphic.graphicBiome);
+      alertSelected.activearea = true;
+      alertSelected.immobileactive = false;
 
-        alertSelected = new AlertGraphic(
-          alertGraphic.cod,
-          alertGraphic.label,
-          alertGraphic.labelCity,
-          alertGraphic.labelBiome,
-          alertGraphic.type,
-          alertGraphic.nameType,
-          alertGraphic.idView,
-          alertGraphic.active,
-          alertGraphic.graphicCity,
-          alertGraphic.graphicBiome
-        );
+      if (this.alertGraphics && this.alertGraphics.length > 0) {
+        this.alertGraphics[0].active = true;
       }
     });
-
-    return alertSelected;
-  }
-
-  setValues(graphic: Graphic) {
-    const data = [300, 50, 100, 15, 158, 1000, 339];
-    this.adjustColor(graphic.datasets[0]);
-    this.setSubtitle(graphic);
-
-    graphic.datasets[0].data = [];
-  }
-
-  setSubtitle(graphic: Graphic) {
-    graphic.labels = [];
-  }
-
-  adjustColor(dataset) {
-/*    ,
-      "backgroundColor": [
-      "#FF6384",
-      "#36A2EB",
-      "#FFCE56",
-      "#36A2EB",
-      "#FFCE56",
-      "#36A2EB",
-      "#FFCE56"
-    ],
-      "hoverBackgroundColor": [
-      "#FF6384",
-      "#36A2EB",
-      "#FFCE56",
-      "#36A2EB",
-      "#FFCE56",
-      "#36A2EB",
-      "#FFCE56"
-    ]*/
-
-    dataset.hoverBackgroundColor = [];
-
-    dataset.backgroundColor = [];
   }
 
   onNubermImmobileClick(alertSelected) {
     this.cleanActive();
-    this.alertGraphics = this.getListAlertsGraphics(alertSelected.cod, 'NUM_CAR');
 
-    alertSelected.immobileActive = true;
-    alertSelected.activeArea = false;
-    this.alertGraphics[0].active = true;
+    this.activeImmobile(alertSelected.alertsgraphics);
+
+    this.reportService.getDetailsAnalysisTotals(alertSelected.alertsgraphics).then( (alertsGraphics: AlertGraphic[]) => {
+      this.alertGraphics = alertsGraphics;
+
+      alertSelected.immobileactive = true;
+      alertSelected.activearea = false;
+
+      if (this.alertGraphics && this.alertGraphics.length > 0) {
+        this.alertGraphics[0].active = true;
+      }
+    });
   }
 
   private cleanActive() {
-    this.alertsDisplayed.forEach( groupLayer => {
-      groupLayer.immobileActive = false;
-      groupLayer.activeArea = false;
-    });
+    if (this.alertsDisplayed && this.alertsDisplayed.length > 0) {
+      this.alertsDisplayed.forEach(groupLayer => {
+        groupLayer.immobileactive = false;
+        groupLayer.activearea = false;
+      });
+    }
 
     this.alertGraphics = [];
+  }
+
+  private adjustGraphValues(alertsGraphics) {
+    const listAlertGraphics = [];
+
+    this.reportService.getDetailsAnalysisTotals(alertsGraphics);
+
+    this.alertGraphics = listAlertGraphics; // ListAlertGraphic.listAlertsGraphic;
+  }
+
+  private activeArea(alertsgraphics) {
+    if (alertsgraphics && alertsgraphics.length > 0) {
+      alertsgraphics.forEach(alert => {
+        alert.activearea = true;
+      });
+    }
+  }
+
+  private activeImmobile(alertsgraphics) {
+    if (alertsgraphics && alertsgraphics.length > 0) {
+      alertsgraphics.forEach(alert => {
+        alert.activearea = false;
+      });
+    }
+  }
+
+  private getAlerts(layers) {
+    const listAlert: ParamAlert[] = [];
+
+    layers.forEach( layer => {
+      listAlert.push(new ParamAlert(
+        layer.value,
+        layer.cod,
+        layer.codgroup,
+        layer.label,
+        true,
+        layer.isPrimary,
+        layer.type === 'analysis'));
+    });
+
+    return listAlert;
   }
 }

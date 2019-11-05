@@ -5,15 +5,22 @@ import { Property } from '../models/property.model';
 import { Subject } from 'rxjs';
 
 import { Vision } from '../models/vision.model';
+import {environment} from '../../environments/environment';
+import {HttpClient} from '@angular/common/http';
+import {Alert} from '../models/alert.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReportService {
 
+  urlReport = environment.terramaUrl + '/api/report';
+
   property = new Subject<Property>();
 
-  constructor() { }
+  constructor(
+    private http: HttpClient
+  ) {}
 
   getVisions(propertyData: Property, visionsData, key: string = null): Vision[] {
     let visions: Vision[] = [];
@@ -128,7 +135,7 @@ export class ReportService {
           propertyData.legalReserve['area'] ? propertyData.legalReserve['area'] : 0,
           propertyData.app['area'] ? propertyData.app['area'] : 0,
           propertyData.consolidatedArea['area'] ? propertyData.consolidatedArea['area'] : 0,
-          propertyData.anthropizedUse['area'] ? propertyData.anthropizedUse['area'] : 0,
+          propertyData.anthropizedUse['area'] ? propertyData.anthropizedUse['area']: 0,
           propertyData.nativeVegetation['area'] ? propertyData.nativeVegetation['area'] : 0
         ]
       );
@@ -153,8 +160,8 @@ export class ReportService {
     const burningSpotlightsYears = [];
     const burningSpotlights = [];
     burningSpotlightsData.forEach(burningSpotlightData => {
-      const focusCount = burningSpotlightData['focuscount'];
-      const year = burningSpotlightData['year'];
+      const focusCount = burningSpotlightData.focuscount;
+      const year = burningSpotlightData.year;
       burningSpotlightsYears.push(year);
       burningSpotlights.push(focusCount);
     });
@@ -166,8 +173,8 @@ export class ReportService {
     const burnedAreasYears = [];
     const burnedAreas = [];
     burnedAreasData.forEach(burnedAreaData => {
-      const focusCount = burnedAreaData['focuscount'];
-      const year = burnedAreaData['year'];
+      const focusCount = burnedAreaData.focuscount;
+      const year = burnedAreaData.year;
       burnedAreasYears.push(year);
       burnedAreas.push(focusCount);
     });
@@ -179,7 +186,7 @@ export class ReportService {
     const burnedAreasPerPropertyChartDatas = [];
     const burnedAreasPerProperty = [];
     burnedAreasData.forEach(burnedAreaData => {
-      const focusCount = burnedAreaData['focuscount'];
+      const focusCount = burnedAreaData.focuscount;
       burnedAreasPerProperty.push([propertyArea, focusCount]);
     });
 
@@ -264,11 +271,11 @@ export class ReportService {
     const srs = layerData.srs;
 
     url += `&layers=${layers}&styles=&bbox=${bbox}&width=${width}&height=${height}`;
-    if (layerData['time']) {
-      url += `&time=${layerData['time']}`;
+    if (layerData.time) {
+      url += `&time=${layerData.time}`;
     }
-    if (layerData['cql_filter']) {
-      url += `&cql_filter=${layerData['cql_filter']}`;
+    if (layerData.cql_filter) {
+      url += `&cql_filter=${layerData.cql_filter}`;
     }
     url += `&srs=${srs}&format=${format}`;
     return url;
@@ -297,4 +304,31 @@ export class ReportService {
     return text.replace(new RegExp(wildCard, regexFlag), replaceValue);
   }
 
+  async getAnalysisTotals(
+    alerts: Alert [] = [], groupCod = null, projectName = null, group = null,
+    localization = null, area = null, count = null) {
+
+    const url = this.urlReport + '/getAnalysisTotals';
+
+    const date = JSON.parse(localStorage.getItem('dateFilter'));
+
+    const listAlert = JSON.stringify(alerts);
+
+    const parameters = { listAlert, date, groupCod, projectName, group, localization, area, count };
+    return await this.http.get(url, { params: parameters }).toPromise();
+  }
+
+  async getDetailsAnalysisTotals(
+    alerts: Alert [] = [], groupCod = null, projectName = null, group = null,
+    localization = null, area = null, count = null) {
+
+    const url = this.urlReport + '/getDetailsAnalysisTotals';
+
+    const date = JSON.parse(localStorage.getItem('dateFilter'));
+
+    const listAlert = JSON.stringify(alerts);
+
+    const parameters = { listAlert, date, groupCod, projectName, group, localization, area, count };
+    return await this.http.get(url, { params: parameters }).toPromise();
+  }
 }

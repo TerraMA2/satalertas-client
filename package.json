@@ -25,6 +25,7 @@
     "@types/leaflet.markercluster": "^1.4.0",
     "bootstrap": "^4.3.1",
     "chart.js": "^2.8.0",
+    "fix": "0.0.6",
     "leaflet": "^1.5.1",
     "leaflet-search": "^2.9.8",
     "leaflet.fullscreen": "^1.6.0",
