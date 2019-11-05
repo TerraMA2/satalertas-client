@@ -95,7 +95,7 @@ export class TableComponent implements OnInit {
       this.tableService.loadTableData.next(this.selectedLayer);
     });
 
-    this.filterService.filterLayerMap.subscribe();
+    this.filterService.filterLayerMap.subscribe(null);
   }
 
   loadTableData(layer,

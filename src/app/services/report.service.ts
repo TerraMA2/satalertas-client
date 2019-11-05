@@ -135,7 +135,7 @@ export class ReportService {
           propertyData.legalReserve['area'] ? propertyData.legalReserve['area'] : 0,
           propertyData.app['area'] ? propertyData.app['area'] : 0,
           propertyData.consolidatedArea['area'] ? propertyData.consolidatedArea['area'] : 0,
-          propertyData.anthropizedUse['area'] ? propertyData.anthropizedUse['area']: 0,
+          propertyData.anthropizedUse['area'] ? propertyData.anthropizedUse['area'] : 0,
           propertyData.nativeVegetation['area'] ? propertyData.nativeVegetation['area'] : 0
         ]
       );
