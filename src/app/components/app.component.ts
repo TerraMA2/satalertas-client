@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.authService.autoLogin();
 
-    this.appConfig = this.configService.getConfig('app');
+    this.appConfig = this.configService.getAppConfig();
     this.titleService.setTitle(`${this.appConfig.mainApplication} | ${this.appConfig.headerTitle}`);
   }
 

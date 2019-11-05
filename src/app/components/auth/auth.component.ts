@@ -23,7 +23,7 @@ export class AuthComponent implements OnInit, OnDestroy {
 
   @Output() closeLoginClicked = new EventEmitter<boolean>();
 
-  loginConfig;
+  authConfig;
 
   isLoading = false;
 
@@ -37,7 +37,7 @@ export class AuthComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.loginConfig = this.configService.getConfig('login');
+    this.authConfig = this.configService.getAuthConfig();
   }
 
   onCloseLoginClick() {

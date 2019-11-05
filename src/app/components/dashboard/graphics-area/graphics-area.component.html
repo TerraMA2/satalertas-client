@@ -10,7 +10,7 @@
 
     <p-accordion [multiple]="true" class="p-col-12">
         <p-accordionTab header="Gráfico {{alertGraphic.nameType}} do {{alertGraphic.label}}"
-                        [selected]="alertGraphic.active"
+                        [selected]="alertGraphic.active && !alertGraphic.isEmpty"
                         *ngFor="let alertGraphic of alertGraphics"
                         [disabled]="alertGraphic.isEmpty">
 

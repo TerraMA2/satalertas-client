@@ -88,7 +88,7 @@ export class ReportService {
         text: replacedDescriptionText,
         value: replacedDescriptionValue
       };
-      visionData.layerData.time = timeReplaced;
+      visionDataCopy.layerData.time = timeReplaced;
       visions.push(this.getVision(visionDataCopy, propertyData));
       startYear++;
     }
@@ -249,7 +249,7 @@ export class ReportService {
     const replaceValues = [
       bbox,
       cityBBox,
-      `municipio='${propertyData.city}';numero_do2='${propertyData.register}'`,
+      `municipio='${propertyData.city}';numero_do1='${propertyData.register}'`,
       `${date[0]}/${date[1]}`
     ];
     if (registerCarColumn) {

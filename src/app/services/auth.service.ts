@@ -29,7 +29,7 @@ export class AuthService {
     private configService: ConfigService,
     private sidebarService: SidebarService
   ) {
-    this.authConfig = this.configService.getConfig('auth');
+    this.authConfig = this.configService.getAuthConfig();
   }
 
   login(params) {

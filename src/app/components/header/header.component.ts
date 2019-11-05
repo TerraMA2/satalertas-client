@@ -10,7 +10,9 @@ import { AuthService } from 'src/app/services/auth.service';
 import { MessageService } from 'primeng/api';
 
 import { FilterService } from '../../services/filter.service';
+
 import { SidebarService } from 'src/app/services/sidebar.service';
+
 import { MapService } from 'src/app/services/map.service';
 
 @Component({
@@ -52,10 +54,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   appConfig;
 
-  // languages = [];
-
-  // selectedLanguage;
-
   constructor(
     private configService: ConfigService,
     private authService: AuthService,
@@ -68,14 +66,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.setFilterSettings();
 
-    this.appConfig = this.configService.getConfig('app');
+    this.appConfig = this.configService.getAppConfig();
     this.mainApplication = this.appConfig.mainApplication;
     this.headerLogoLink = this.appConfig.headerLogoLink;
     this.headerTitle = this.appConfig.headerTitle;
     this.headerLogo = this.appConfig.headerLogo;
     this.hasLogin = this.appConfig.hasLogin;
-
-    // this.languages = this.configService.getConfig('languages');
 
     this.userSub = this.authService.user.subscribe(user => {
       if (user) {
@@ -87,7 +83,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   setFilterSettings() {
-    this.filterConfig = this.configService.getConfig('map').filter;
+    this.filterConfig = this.configService.getMapConfig('filter');
     this.areaField = this.filterConfig.area;
     this.dateField = this.filterConfig.date;
     this.localizationField = this.filterConfig.localization;
