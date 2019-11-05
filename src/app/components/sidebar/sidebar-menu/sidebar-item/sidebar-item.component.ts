@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 
 import { MapService } from 'src/app/services/map.service';
 
+import { AuthService } from 'src/app/services/auth.service';
+
 @Component({
   selector: 'app-sidebar-item',
   templateUrl: './sidebar-item.component.html',
@@ -27,14 +29,24 @@ export class SidebarItemComponent implements OnInit {
 
   isParentOpened = false;
 
+  isAuthenticated = false;
+
   constructor(
     private sidebarService: SidebarService,
     private tableService: TableService,
     private mapService: MapService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
+    this.authService.user.subscribe(user => {
+      if (user) {
+        this.isAuthenticated = true;
+      } else {
+        this.isAuthenticated = false;
+      }
+    });
   }
 
   onParentClicked() {
