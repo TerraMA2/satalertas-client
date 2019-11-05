@@ -73,7 +73,7 @@ export class ReportComponent implements OnInit {
       }
     });
     this.activatedRoute.params.subscribe(params => this.carRegister = params.carRegister);
-    this.reportConfig = this.configService.getConfig('report');
+    this.reportConfig = this.configService.getReportConfig();
     this.visionLegends = this.reportConfig.visionslegends;
 
     this.getPropertyData();
@@ -89,7 +89,7 @@ export class ReportComponent implements OnInit {
     const propertyConfig = this.reportConfig.propertyData;
     const url = propertyConfig.url;
     const viewId = propertyConfig.viewId;
-    // this.carRegister = this.carRegister.replace('\\', '/');
+    this.carRegister = this.carRegister.replace('\\', '/');
     const carRegister = this.carRegister;
     this.hTTPService.get(url, {viewId, carRegister, date})
                     .subscribe((propertyData: Property) => {

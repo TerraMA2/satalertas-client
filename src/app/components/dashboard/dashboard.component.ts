@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getGraphicLayers(this.configService.getConfig('sidebar').sidebarItems);
+    this.getGraphicLayers(this.configService.getSidebarConfig('sidebarItems'));
   }
 
   private getGraphicLayers(sidebarItems) {
@@ -55,7 +55,7 @@ export class DashboardComponent implements OnInit {
   }
 
   private getLayer(cod) {
-    const sidebarItens = this.configService.getConfig('sidebar').sidebarItems;
+    const sidebarItens = this.configService.getSidebarConfig('sidebarItems');
     let itemSelected = null;
 
     sidebarItens.forEach(item => {

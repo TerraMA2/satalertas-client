@@ -1,14 +1,10 @@
-import {Component, OnInit, Input, ViewChild, AfterViewInit} from '@angular/core';
+import {Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
 
 import { SelectItem } from 'primeng/api';
 
 import { ConfigService } from 'src/app/services/config.service';
 
 import { NgForm } from '@angular/forms';
-
-import { HTTPService } from 'src/app/services/http.service';
-
-import { MapService } from 'src/app/services/map.service';
 
 import {FilterService} from '../../services/filter.service';
 
@@ -21,6 +17,7 @@ import {Localization} from '../../models/localization.model';
 import {BiomeService} from '../../services/biome.service';
 
 import {CityService} from '../../services/city.service';
+
 import {RegionService} from '../../services/region.service';
 
 @Component({
@@ -58,8 +55,6 @@ export class FilterComponent implements OnInit, AfterViewInit {
 
   constructor(
     private configService: ConfigService,
-    private hTTPService: HTTPService,
-    private mapService: MapService,
     private filterService: FilterService,
     private biomeService: BiomeService,
     private cityService: CityService,
@@ -67,7 +62,7 @@ export class FilterComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit() {
-    this.filterConfig = this.configService.getConfig('map').filter;
+    this.filterConfig = this.configService.getMapConfig('filter');
     this.displayFilter = false;
     this.areaField = this.filterConfig.area;
     this.groupsField = this.filterConfig.group;
@@ -103,10 +98,10 @@ export class FilterComponent implements OnInit, AfterViewInit {
   }
 
   setOverlayEvents() {
-    this.filterService.displayFilter.subscribe(layer => { this.onDisplayFilter(layer); });
+    this.filterService.displayFilter.subscribe(() => this.onDisplayFilter());
   }
 
-  onDisplayFilter(layer: unknown) {
+  onDisplayFilter() {
     this.displayFilter = !this.displayFilter;
 
     this.filterLabel = 'Filtro';

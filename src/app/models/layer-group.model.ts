@@ -17,6 +17,8 @@ export class LayerGroup {
     public carRegisterColumn?: string,
     public layerData?: LayerData,
     public legend?: Legend,
+    public source?: string,
+    public limit?: string,
     public children?: Layer[],
     public selected?: boolean,
     public viewGraph?: boolean,

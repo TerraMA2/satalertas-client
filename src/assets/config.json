@@ -5,10 +5,12 @@
     "headerTitle": "Análise Ambiental de Imóvel Rural",
     "hasLogin": true,
     "headerLogoLink": "http://www.terrama2.dpi.inpe.br/mpmt/monitor/",
-    "staticLayerUrl": "/api/report/getStaticData",
-    "dynamicLayerUrl": "/api/report/getDynamicData",
-    "analysisLayerUrl": "/api/report/getAnalysisData",
-    "reportUrl": "http://localhost:36000/api/car/getAllSimplified"
+    "layerUrls": {
+      "static": "/api/report/getStaticData",
+      "dynamic": "/api/report/getDynamicData",
+      "analysis": "/api/report/getAnalysisData",
+      "report": "http://localhost:36000/api/car/getAllSimplified"
+    }
   },
   "auth": {
     "url": "/api/login",
@@ -35,29 +37,6 @@
         "activeArea": false
       },
       {
-        "cod": "GENERATE_REPORT",
-        "label": "Relatórios",
-        "icon": "fas fa-file-alt",
-        "value": "5",
-        "type": "report",
-        "method": "openReportTable",
-        "carRegisterColumn": "numero_do2",
-        "viewGraph": false,
-        "activeArea": false,
-        "layerData": {
-          "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
-          "layers": "terrama2_5:view5",
-          "transparent": true,
-          "format": "image/png",
-          "version": "1.1.0",
-          "cql_filter": "numero_do2 = {carRegister}"
-        },
-        "legend": {
-          "title": "CAR Validado",
-          "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_5:view5"
-        }
-      },
-      {
         "cod": "DETER",
         "label": "Análise DETER",
         "parent": true,
@@ -73,7 +52,7 @@
             "dateColumn": "execution_date",
             "areaColumn": "calculated_area_ha",
             "geomColumn": "intersection_geom",
-            "carRegisterColumn": "de_car_validado_sema_numero_do2",
+            "carRegisterColumn": "de_car_validado_sema_numero_do1",
             "classNameColumn": "dd_deter_inpe_classname",
             "type": "analysis",
             "isPrivate": false,
@@ -121,7 +100,7 @@
             "dateColumn": "execution_date",
             "areaColumn": "calculated_area_ha",
             "geomColumn": "intersection_geom",
-            "carRegisterColumn": "apv_car_deter_28_de_car_validado_sema_numero_do2",
+            "carRegisterColumn": "apv_car_deter_28_de_car_validado_sema_numero_do1",
             "classNameColumn": "dd_deter_inpe_classname",
             "type": "analysis",
             "isPrivate": false,
@@ -164,7 +143,7 @@
             "dateColumn": "execution_date",
             "areaColumn": "calculated_area_ha",
             "geomColumn": "intersection_geom",
-            "carRegisterColumn": "apv_car_deter_28_de_car_validado_sema_numero_do2",
+            "carRegisterColumn": "apv_car_deter_28_de_car_validado_sema_numero_do1",
             "classNameColumn": "dd_deter_inpe_classname",
             "type": "analysis",
             "isPrivate": false,
@@ -207,7 +186,7 @@
             "dateColumn": "execution_date",
             "areaColumn": "calculated_area_ha",
             "geomColumn": "intersection_geom",
-            "carRegisterColumn": "apv_car_deter_28_de_car_validado_sema_numero_do2",
+            "carRegisterColumn": "apv_car_deter_28_de_car_validado_sema_numero_do1",
             "classNameColumn": "dd_deter_inpe_classname",
             "type": "analysis",
             "isPrivate": false,
@@ -250,7 +229,7 @@
             "dateColumn": "execution_date",
             "areaColumn": "calculated_area_ha",
             "geomColumn": "intersection_geom",
-            "carRegisterColumn": "apv_car_deter_28_de_car_validado_sema_numero_do2",
+            "carRegisterColumn": "apv_car_deter_28_de_car_validado_sema_numero_do1",
             "classNameColumn": "dd_deter_inpe_classname",
             "type": "analysis",
             "isPrivate": false,
@@ -293,7 +272,7 @@
             "dateColumn": "execution_date",
             "areaColumn": "calculated_area_ha",
             "geomColumn": "intersection_geom",
-            "carRegisterColumn": "apv_car_deter_28_de_car_validado_sema_numero_do2",
+            "carRegisterColumn": "apv_car_deter_28_de_car_validado_sema_numero_do1",
             "classNameColumn": "dd_deter_inpe_classname",
             "type": "analysis",
             "isPrivate": false,
@@ -336,7 +315,7 @@
             "dateColumn": "execution_date",
             "areaColumn": "calculated_area_ha",
             "geomColumn": "intersection_geom",
-            "carRegisterColumn": "apv_car_deter_28_de_car_validado_sema_numero_do2",
+            "carRegisterColumn": "apv_car_deter_28_de_car_validado_sema_numero_do1",
             "classNameColumn": "dd_deter_inpe_classname",
             "type": "analysis",
             "isPrivate": false,
@@ -389,7 +368,7 @@
             "dateColumn": "execution_date",
             "areaColumn": "calculated_area_ha",
             "geomColumn": "intersection_geom",
-            "carRegisterColumn": "de_car_validado_sema_numero_do2",
+            "carRegisterColumn": "de_car_validado_sema_numero_do1",
             "classNameColumn": "dd_prodes_inpe_mainclass",
             "type": "analysis",
             "isPrivate": false,
@@ -437,7 +416,7 @@
             "dateColumn": "execution_date",
             "areaColumn": "calculated_area_ha",
             "geomColumn": "intersection_geom",
-            "carRegisterColumn": "apv_car_prodes_40_de_car_validado_sema_numero_do2",
+            "carRegisterColumn": "apv_car_prodes_40_de_car_validado_sema_numero_do1",
             "classNameColumn": "apv_car_prodes_40_dd_prodes_inpe_mainclass",
             "type": "analysis",
             "isPrivate": false,
@@ -480,7 +459,7 @@
             "dateColumn": "execution_date",
             "areaColumn": "calculated_area_ha",
             "geomColumn": "intersection_geom",
-            "carRegisterColumn": "apv_car_prodes_40_de_car_validado_sema_numero_do2",
+            "carRegisterColumn": "apv_car_prodes_40_de_car_validado_sema_numero_do1",
             "classNameColumn": "apv_car_prodes_40_dd_prodes_inpe_mainclass",
             "type": "analysis",
             "isPrivate": false,
@@ -523,7 +502,7 @@
             "dateColumn": "execution_date",
             "areaColumn": "calculated_area_ha",
             "geomColumn": "intersection_geom",
-            "carRegisterColumn": "apv_car_prodes_40_de_car_validado_sema_numero_do2",
+            "carRegisterColumn": "apv_car_prodes_40_de_car_validado_sema_numero_do1",
             "classNameColumn": "apv_car_prodes_40_dd_prodes_inpe_mainclass",
             "type": "analysis",
             "isPrivate": false,
@@ -566,7 +545,7 @@
             "dateColumn": "execution_date",
             "areaColumn": "calculated_area_ha",
             "geomColumn": "intersection_geom",
-            "carRegisterColumn": "apv_car_prodes_40_de_car_validado_sema_numero_do2",
+            "carRegisterColumn": "apv_car_prodes_40_de_car_validado_sema_numero_do1",
             "classNameColumn": "apv_car_prodes_40_dd_prodes_inpe_mainclass",
             "type": "analysis",
             "isPrivate": false,
@@ -609,7 +588,7 @@
             "dateColumn": "execution_date",
             "areaColumn": "calculated_area_ha",
             "geomColumn": "intersection_geom",
-            "carRegisterColumn": "apv_car_prodes_40_de_car_validado_sema_numero_do2",
+            "carRegisterColumn": "apv_car_prodes_40_de_car_validado_sema_numero_do1",
             "classNameColumn": "apv_car_prodes_40_dd_prodes_inpe_mainclass",
             "type": "analysis",
             "isPrivate": false,
@@ -651,7 +630,7 @@
             "dateColumn": "execution_date",
             "areaColumn": "calculated_area_ha",
             "geomColumn": "intersection_geom",
-            "carRegisterColumn": "apv_car_prodes_40_de_car_validado_sema_numero_do2",
+            "carRegisterColumn": "apv_car_prodes_40_de_car_validado_sema_numero_do1",
             "classNameColumn": "apv_car_prodes_40_dd_prodes_inpe_mainclass",
             "type": "analysis",
             "isPrivate": false,
@@ -693,7 +672,7 @@
             "dateColumn": "execution_date",
             "areaColumn": "calculated_area_ha",
             "geomColumn": "intersection_geom",
-            "carRegisterColumn": "apv_car_prodes_40_de_car_validado_sema_numero_do2",
+            "carRegisterColumn": "apv_car_prodes_40_de_car_validado_sema_numero_do1",
             "classNameColumn": "apv_car_prodes_40_dd_prodes_inpe_mainclass",
             "type": "analysis",
             "isPrivate": false,
@@ -746,7 +725,7 @@
             "dateColumn": "execution_date",
             "areaColumn": "calculated_area_ha",
             "geomColumn": "intersection_geom",
-            "carRegisterColumn": "de_car_validado_sema_numero_do2",
+            "carRegisterColumn": "de_car_validado_sema_numero_do1",
             "classNameColumn": "dd_prodes_inpe_mainclass",
             "type": "analysis",
             "isPrivate": false,
@@ -794,7 +773,7 @@
             "dateColumn": "execution_date",
             "areaColumn": "calculated_area_ha",
             "geomColumn": "intersection_geom",
-            "carRegisterColumn": "apv_car_focos_48_de_car_validado_sema_numero_do2",
+            "carRegisterColumn": "apv_car_focos_48_de_car_validado_sema_numero_do1",
             "classNameColumn": null,
             "type": "analysis",
             "isPrivate": false,
@@ -837,7 +816,7 @@
             "dateColumn": "execution_date",
             "areaColumn": "calculated_area_ha",
             "geomColumn": "intersection_geom",
-            "carRegisterColumn": "apv_car_focos_48_de_car_validado_sema_numero_do2",
+            "carRegisterColumn": "apv_car_focos_48_de_car_validado_sema_numero_do1",
             "classNameColumn": null,
             "type": "analysis",
             "isPrivate": false,
@@ -880,7 +859,7 @@
             "dateColumn": "execution_date",
             "areaColumn": "calculated_area_ha",
             "geomColumn": "intersection_geom",
-            "carRegisterColumn": "apv_car_focos_48_de_car_validado_sema_numero_do2",
+            "carRegisterColumn": "apv_car_focos_48_de_car_validado_sema_numero_do1",
             "classNameColumn": null,
             "type": "analysis",
             "isPrivate": false,
@@ -923,7 +902,7 @@
             "dateColumn": "execution_date",
             "areaColumn": "calculated_area_ha",
             "geomColumn": "intersection_geom",
-            "carRegisterColumn": "apv_car_focos_48_de_car_validado_sema_numero_do2",
+            "carRegisterColumn": "apv_car_focos_48_de_car_validado_sema_numero_do1",
             "classNameColumn": null,
             "type": "analysis",
             "isPrivate": false,
@@ -966,7 +945,7 @@
             "dateColumn": "execution_date",
             "areaColumn": "calculated_area_ha",
             "geomColumn": "intersection_geom",
-            "carRegisterColumn": "apv_car_focos_48_de_car_validado_sema_numero_do2",
+            "carRegisterColumn": "apv_car_focos_48_de_car_validado_sema_numero_do1",
             "classNameColumn": null,
             "type": "analysis",
             "isPrivate": false,
@@ -1008,7 +987,7 @@
             "dateColumn": "execution_date",
             "areaColumn": "calculated_area_ha",
             "geomColumn": "intersection_geom",
-            "carRegisterColumn": "apv_car_focos_48_de_car_validado_sema_numero_do2",
+            "carRegisterColumn": "apv_car_focos_48_de_car_validado_sema_numero_do1",
             "classNameColumn": null,
             "type": "analysis",
             "isPrivate": false,
@@ -1050,7 +1029,7 @@
             "dateColumn": "execution_date",
             "areaColumn": "calculated_area_ha",
             "geomColumn": "intersection_geom",
-            "carRegisterColumn": "apv_car_focos_48_de_car_validado_sema_numero_do2",
+            "carRegisterColumn": "apv_car_focos_48_de_car_validado_sema_numero_do1",
             "classNameColumn": null,
             "type": "analysis",
             "isPrivate": false,
@@ -1240,7 +1219,7 @@
             "dateColumn": null,
             "areaColumn": null,
             "geomColumn": null,
-            "carRegisterColumn": "numero_do2",
+            "carRegisterColumn": "numero_do1",
             "classNameColumn": null,
             "type": "static",
             "isPrivate": false,
@@ -2042,47 +2021,47 @@
     "table": {
       "rowsPerPage": [
         {
-          "label": 10,
+          "label": "10",
           "value": 10
         },
         {
-          "label": 20,
+          "label": "20",
           "value": 20
         },
         {
-          "label": 30,
+          "label": "30",
           "value": 30
         },
         {
-          "label": 40,
+          "label": "40",
           "value": 40
         },
         {
-          "label": 50,
+          "label": "50",
           "value": 50
         },
         {
-          "label": 80,
+          "label": "80",
           "value": 80
         },
         {
-          "label": 100,
+          "label": "100",
           "value": 100
         },
         {
-          "label": 150,
+          "label": "150",
           "value": 150
         },
         {
-          "label": 250,
+          "label": "250",
           "value": 250
         },
         {
-          "label": 500,
+          "label": "500",
           "value": 500
         },
         {
-          "label": 1000,
+          "label": "1000",
           "value": 1000
         }
       ]
@@ -2157,7 +2136,7 @@
       {
         "title": "Visão do Município",
         "description": null,
-        "registerCarColumn": "numero_do2",
+        "registerCarColumn": "numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_14:view14,terrama2_5:view5",
@@ -2175,7 +2154,7 @@
       {
         "title": "Visão do alerta no Imóvel",
         "description": null,
-        "registerCarColumn": "numero_do2;apv_car_deter_28_de_car_validado_sema_numero_do2;apv_car_deter_28_de_car_validado_sema_numero_do2;apv_car_deter_28_de_car_validado_sema_numero_do2;apv_car_deter_28_de_car_validado_sema_numero_do2;apv_car_deter_28_de_car_validado_sema_numero_do2;apv_car_deter_28_de_car_validado_sema_numero_do2",
+        "registerCarColumn": "numero_do1;apv_car_deter_28_de_car_validado_sema_numero_do1;apv_car_deter_28_de_car_validado_sema_numero_do1;apv_car_deter_28_de_car_validado_sema_numero_do1;apv_car_deter_28_de_car_validado_sema_numero_do1;apv_car_deter_28_de_car_validado_sema_numero_do1;apv_car_deter_28_de_car_validado_sema_numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5,terrama2_95:view95,terrama2_76:view76,terrama2_78:view78,terrama2_75:view75,terrama2_77:view77,terrama2_79:view79",
@@ -2193,7 +2172,7 @@
       {
         "title": "Degradação Ambiental{break}{filterDate}",
         "description": null,
-        "registerCarColumn": "numero_do2;de_car_validado_sema_numero_do2",
+        "registerCarColumn": "numero_do1;de_car_validado_sema_numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5,terrama2_86:view86",
@@ -2211,7 +2190,7 @@
       {
         "title": "Desmatamento{break}{filterDate}",
         "description": null,
-        "registerCarColumn": "numero_do2;de_car_validado_sema_numero_do2",
+        "registerCarColumn": "numero_do1;de_car_validado_sema_numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5,terrama2_86:view86",
@@ -2229,7 +2208,7 @@
       {
         "title": "Queimadas{break}{filterDate}",
         "description": null,
-        "registerCarColumn": "numero_do2;de_car_validado_sema_numero_do2",
+        "registerCarColumn": "numero_do1;de_car_validado_sema_numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5,terrama2_87:view87",
@@ -2252,7 +2231,7 @@
           "text": "",
           "value": "{indigenousLand}"
         },
-        "registerCarColumn": "numero_do2;apv_car_deter_28_de_car_validado_sema_numero_do2",
+        "registerCarColumn": "numero_do1;apv_car_deter_28_de_car_validado_sema_numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5,terrama2_95:view95",
@@ -2273,7 +2252,7 @@
           "text": "",
           "value": "{conservationUnit}"
         },
-        "registerCarColumn": "numero_do2;apv_car_prodes_40_de_car_validado_sema_numero_do2",
+        "registerCarColumn": "numero_do1;apv_car_prodes_40_de_car_validado_sema_numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5,terrama2_100:view100",
@@ -2294,7 +2273,7 @@
           "text": "",
           "value": "{legalReserve}"
         },
-        "registerCarColumn": "numero_do2;apv_car_deter_28_de_car_validado_sema_numero_do2",
+        "registerCarColumn": "numero_do1;apv_car_deter_28_de_car_validado_sema_numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5,terrama2_76:view76",
@@ -2315,7 +2294,7 @@
           "text": "",
           "value": "{app}"
         },
-        "registerCarColumn": "numero_do2;apv_car_deter_28_de_car_validado_sema_numero_do2",
+        "registerCarColumn": "numero_do1;apv_car_deter_28_de_car_validado_sema_numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5,terrama2_75:view75",
@@ -2336,7 +2315,7 @@
           "text": "",
           "value": "{consolidatedArea}"
         },
-        "registerCarColumn": "numero_do2;apv_car_deter_28_de_car_validado_sema_numero_do2",
+        "registerCarColumn": "numero_do1;apv_car_deter_28_de_car_validado_sema_numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5,terrama2_78:view78",
@@ -2357,7 +2336,7 @@
           "text": "",
           "value": "{anthropizedUse}"
         },
-        "registerCarColumn": "numero_do2;apv_car_deter_28_de_car_validado_sema_numero_do2",
+        "registerCarColumn": "numero_do1;apv_car_deter_28_de_car_validado_sema_numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5,terrama2_77:view77",
@@ -2378,7 +2357,7 @@
           "text": "",
           "value": "{nativeVegetation}"
         },
-        "registerCarColumn": "numero_do2;apv_car_deter_28_de_car_validado_sema_numero_do2",
+        "registerCarColumn": "numero_do1;apv_car_deter_28_de_car_validado_sema_numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5,terrama2_79:view79",
@@ -2398,7 +2377,7 @@
       {
         "title": "Desmatamento DETER sobre imagem LANDSAT 07/02/2019",
         "description": null,
-        "registerCarColumn": "numero_do2",
+        "registerCarColumn": "numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -2416,7 +2395,7 @@
       {
         "title": "Desmatamento DETER sobre imagem LANDSAT 28/04/2019",
         "description": null,
-        "registerCarColumn": "numero_do2",
+        "registerCarColumn": "numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -2439,7 +2418,7 @@
           "text": "Total de Área Desmatada em {year}: ",
           "value": "{area}"
         },
-        "registerCarColumn": "numero_do2;de_car_validado_sema_numero_do2",
+        "registerCarColumn": "numero_do1;de_car_validado_sema_numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5,terrama2_87:view87",
@@ -2462,7 +2441,7 @@
           "text":"",
           "value": "{spotlights}"
         },
-        "registerCarColumn": "numero_do2;de_car_validado_sema_numero_do2",
+        "registerCarColumn": "numero_do1;de_car_validado_sema_numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5,terrama2_88:view88",
@@ -2482,7 +2461,7 @@
       {
         "title": "Acumulado 2015",
         "description": null,
-        "registerCarColumn": "numero_do2",
+        "registerCarColumn": "numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -2500,7 +2479,7 @@
       {
         "title": "Acumulado 2017",
         "description": null,
-        "registerCarColumn": "numero_do2",
+        "registerCarColumn": "numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -2518,7 +2497,7 @@
       {
         "title": "Acumulado 2019",
         "description": null,
-        "registerCarColumn": "numero_do2",
+        "registerCarColumn": "numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -2538,7 +2517,7 @@
       {
         "title": "",
         "description": null,
-        "registerCarColumn": "numero_do2",
+        "registerCarColumn": "numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -2556,7 +2535,7 @@
       {
         "title": "",
         "description": null,
-        "registerCarColumn": "numero_do2",
+        "registerCarColumn": "numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -2574,7 +2553,7 @@
       {
         "title": "",
         "description": null,
-        "registerCarColumn": "numero_do2",
+        "registerCarColumn": "numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -2592,7 +2571,7 @@
       {
         "title": "",
         "description": null,
-        "registerCarColumn": "numero_do2",
+        "registerCarColumn": "numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -2610,7 +2589,7 @@
       {
         "title": "",
         "description": null,
-        "registerCarColumn": "numero_do2",
+        "registerCarColumn": "numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -2628,7 +2607,7 @@
       {
         "title": "",
         "description": null,
-        "registerCarColumn": "numero_do2",
+        "registerCarColumn": "numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -2646,7 +2625,7 @@
       {
         "title": "",
         "description": null,
-        "registerCarColumn": "numero_do2",
+        "registerCarColumn": "numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -2664,7 +2643,7 @@
       {
         "title": "",
         "description": null,
-        "registerCarColumn": "numero_do2",
+        "registerCarColumn": "numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -2682,7 +2661,7 @@
       {
         "title": "",
         "description": null,
-        "registerCarColumn": "numero_do2",
+        "registerCarColumn": "numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_5:view5",
@@ -2699,7 +2678,7 @@
       }
     ]
   },
-  "languages": [
+  "language": [
     {
       "label": "Português",
       "flag": "pt-br"

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { LazyLoadEvent } from 'primeng/api';
 
@@ -51,7 +51,7 @@ export class TableComponent implements OnInit {
 
   rowsPerPage: any[];
   defaultRowsPerPage = 10;
-  selectedRowsPerPage = this.defaultRowsPerPage;
+  selectedRowsPerPage: number = this.defaultRowsPerPage;
 
   private tableConfig;
 
@@ -64,11 +64,15 @@ export class TableComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.tableConfig = this.configService.getConfig('map').table;
+    this.tableConfig = this.configService.getMapConfig('table');
 
     this.tableService.loadTableData.subscribe((layer: Layer|LayerGroup) => {
       if (layer) {
         this.loading = true;
+        const layerLimit = layer['limit'];
+        if (layerLimit) {
+          this.selectedRowsPerPage = Number(layerLimit);
+        }
         this.loadTableData(layer, this.selectedRowsPerPage, 0);
       }
     });
@@ -76,25 +80,13 @@ export class TableComponent implements OnInit {
     this.tableService.unloadTableData.subscribe((layer: Layer) => {
       if (layer) {
         if (layer.value === this.selectedLayerValue) {
-          this.tableData = undefined;
-          this.selectedLayer = undefined;
-          this.selectedLayerLabel = '';
-          this.selectedLayerValue = 0;
-          this.selectedColumns = undefined;
-          this.selectedRowsPerPage = 10;
-          this.totalRecords = 0;
+          this.clearTable();
         }
       }
     });
 
     this.tableService.clearTable.subscribe(() => {
-        this.tableData = undefined;
-        this.selectedLayer = undefined;
-        this.selectedLayerLabel = '';
-        this.selectedLayerValue = 0;
-        this.selectedColumns = undefined;
-        this.selectedRowsPerPage = 10;
-        this.totalRecords = 0;
+      this.clearTable();
     });
 
     this.rowsPerPage = this.tableConfig.rowsPerPage;
@@ -107,25 +99,33 @@ export class TableComponent implements OnInit {
     this.filterService.filterLayerMap.subscribe();
   }
 
-  loadTableData(layer, limit: number, offset: number) {
+  loadTableData(layer,
+                limit: number,
+                offset: number,
+                sortColumn?: string,
+                sortOrder?: number
+                ) {
     if (!layer) {
       return;
     }
-    let url = '';
+
+    const url = this.configService.getAppConfig('layerUrls')[layer.type];
     const count = true;
     const date = JSON.parse(localStorage.getItem('dateFilter'));
     const viewId = layer.value;
     const params = {viewId, limit, offset, count, date};
-    const appConfig = this.configService.getConfig('app');
-    if (layer.type === LayerType.ANALYSIS) {
-      url = appConfig.analysisLayerUrl;
-    } else if (layer.type === LayerType.STATIC) {
-      url = appConfig.staticLayerUrl;
-    } else if (layer.type === LayerType.DYNAMIC) {
-      url = appConfig.dynamicLayerUrl;
-    } else if (layer.type === LayerType.REPORT) {
-      url = appConfig.reportUrl;
+    if (sortColumn) {
+      params['sortColumn'] = sortColumn;
+    }
+    if (sortOrder) {
+      params['sortOrder'] = sortOrder;
+    }
+
+    if (layer.type === LayerType.REPORT) {
       this.selectedLayer = layer;
+      const source = layer.source;
+      params['source'] = source;
+      params.limit = limit;
     }
 
     this.hTTPService
@@ -151,27 +151,38 @@ export class TableComponent implements OnInit {
 
       this.rowsPerPage = this.rowsPerPage.filter((row) => row.value !== this.totalRecords);
 
-      this.rowsPerPage.push({
-        label: this.totalRecords,
-        value: this.totalRecords
-      });
+      if (this.totalRecords > 1000) {
+        this.rowsPerPage.push({
+          label: this.totalRecords,
+          value: this.totalRecords
+        });
+      }
+
     }
     this.loading = false;
   }
 
   lazyLoad(event: LazyLoadEvent) {
-    this.loadTableData(this.selectedLayer, event.rows, event.first);
+    this.loadTableData(
+                        this.selectedLayer,
+                        event.rows,
+                        event.first,
+                        event.sortField,
+                        event.sortOrder
+                      );
   }
 
   onSelectedLayerChange(layer) {
     this.selectedLayer = layer.selectedOption;
     this.selectedLayerLabel = this.selectedLayer.label;
-    this.tableService.loadTableData.next(layer.selectedOption);
+    this.loading = true;
+    this.loadTableData(layer.selectedOption, this.selectedRowsPerPage, 0);
   }
 
   onRowsPerPageChange(event) {
-    this.selectedRowsPerPage = event.value;
-    this.tableService.loadTableData.next(this.selectedLayer);
+    this.loading = true;
+    this.selectedRowsPerPage = Number(event.value);
+    this.loadTableData(this.selectedLayer, this.selectedRowsPerPage, 0);
   }
 
   trackByFunction(index, item) {
@@ -186,6 +197,16 @@ export class TableComponent implements OnInit {
       layer: this.selectedLayer,
       data: rowData
     });
+  }
+
+  clearTable() {
+    this.tableData = undefined;
+    this.selectedLayer = undefined;
+    this.selectedLayerLabel = '';
+    this.selectedLayerValue = 0;
+    this.selectedColumns = undefined;
+    this.selectedRowsPerPage = this.defaultRowsPerPage;
+    this.totalRecords = 0;
   }
 
   onGenerateReportClick() {
