@@ -188,7 +188,7 @@ export class TableComponent implements OnInit {
     return index;
   }
 
-  onShowMapClicked(rowData) {
+  onShowMapClicked(rowData = null) {
     if (!rowData) {
       rowData = this.selectedProperties;
     }
