@@ -1,46 +1,20 @@
-<div class="sidebar-item-body p-align-center"
-    [ngClass]="{ 'active': isParentOpened && !sidebarItem.link && !sidebarItem.method }">
+<div class="p-align-center"
+    [ngClass]="
+            {
+                'sidebar-separator': sidebarItem.separator,
+                'sidebar-item-body': !sidebarItem.separator
+            }">
 
-    <i [class]="sidebarItem.icon"></i>
+    <i *ngIf="!sidebarItem.separator"
+        [class]="sidebarItem.icon"></i>
 
-    <div class="sidebar-item-label"
-        (click)="onParentClicked()">
+    <div *ngIf="!sidebarItem.separator"
+        class="sidebar-item-label"
+        (click)="onSidebarItemClicked()">
 
-        <ng-container *ngIf="sidebarItem.link || sidebarItem.method; then sidebarItemLink; else sidebarItemDefault"></ng-container>
-
-        <ng-template #sidebarItemLink>
-            <a class="sidebar-item-link">
-                {{ sidebarItem.label }}
-            </a>
-        </ng-template>
-
-        <ng-template #sidebarItemDefault>
-            <i class="fas sidebar-item-arrow"
-                [ngClass]="{'fa-chevron-down': isParentOpened, 'fa-chevron-right': !isParentOpened}">
-            </i>
-            <a>{{ sidebarItem.label }}</a>
-        </ng-template>
+        <a class="sidebar-item-link">
+            {{ sidebarItem.label }}
+        </a>
 
     </div>
-
-    <div class="sidebar-item-switch">
-
-        <p-inputSwitch *ngIf="!sidebarItem.link && !sidebarItem.method"
-                        (onChange)="onParentSwitchChanged($event)">
-        </p-inputSwitch>
-
-    </div>
-</div>
-<div class="collapse"
-    [ngClass]="{show: isParentOpened, hide: !isParentOpened}">
-
-    <app-sidebar-item-child class="sidebar-item-body p-dir-col p-align-stretch"
-                            *ngFor="let child of childrenItems"
-                            [child]="child"
-                            [displayChild]="child.isPrivate && !isAuthenticated ? false : true"
-                            [parentSwitchChecked]="parentSwitchChecked"
-                            [isParentOpened]="isParentOpened"
-    >
-    </app-sidebar-item-child>
-
 </div>

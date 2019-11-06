@@ -1,17 +1,17 @@
-<div class="sidebar-item-content"
+<div class="sidebar-layer-content"
     *ngIf="displayChild"
-    [ngClass]="{'sidebar-item-margin': child.type === 'analysis' && !child.isPrimary}">
-    <div class="sidebar-item-label"
+    [ngClass]="{'sidebar-layer-margin': layer.type === 'analysis' && !layer.isPrimary}">
+    <div class="sidebar-layer-label"
         (click)="onChildClicked()">
 
-        <a> {{ child.shortLabel }} </a>
+        <a> {{ layer.shortLabel }} </a>
 
     </div>
 
-    <div class="sidebar-item-switch">
+    <div class="sidebar-layer-switch">
 
-        <p-radioButton *ngIf="child.isPrimary && displayControls"
-                    [value]="child.label"
+        <p-radioButton *ngIf="layer.isPrimary && displayControls"
+                    [value]="layer.label"
                     name="primary"
                     [(ngModel)]="primaryRadio"
                     binary="true"
@@ -28,11 +28,14 @@
     </div>
 </div>
 
-<div *ngIf="child.tools && displayControls"
-        class="sidebar-item-tools"
-        [ngClass]="{'show': isToolsOpened && isParentOpened, 'hide': !isToolsOpened || !isParentOpened}">
+<div *ngIf="layer.tools && displayControls"
+        class="sidebar-layer-tools"
+        [ngClass]="{
+                    'show': isToolsOpened && isLayerGroupOpened,
+                    'hide': !isToolsOpened || !isLayerGroupOpened
+                    }">
 
-    <i *ngFor="let tool of child.tools"
+    <i *ngFor="let tool of layer.tools"
         class="{{tool.icon}}"
         (click)="onToolClicked(tool.name)"
         pTooltip="{{tool.title}}"
