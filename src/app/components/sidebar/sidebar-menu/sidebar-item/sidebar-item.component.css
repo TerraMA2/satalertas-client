@@ -22,3 +22,7 @@
     font-weight: bold;
     text-decoration: none;
 }
+
+.sidebar-separator {
+    background-color: #ccc;
+}

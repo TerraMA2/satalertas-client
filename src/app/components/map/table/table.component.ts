@@ -8,13 +8,9 @@ import { ConfigService } from 'src/app/services/config.service';
 
 import { TableService } from 'src/app/services/table.service';
 
-import { LayerType } from 'src/app/enum/layer-type.enum';
-
 import { FilterService } from 'src/app/services/filter.service';
 
 import { Layer } from '../../../models/layer.model';
-
-import { LayerGroup } from 'src/app/models/layer-group.model';
 
 import { MapService } from 'src/app/services/map.service';
 
@@ -39,7 +35,7 @@ export class TableComponent implements OnInit {
 
   selectedProperties;
 
-  selectedLayer: Layer;
+  selectedLayer;
 
   selectedLayerLabel: string;
 
@@ -66,13 +62,9 @@ export class TableComponent implements OnInit {
   ngOnInit() {
     this.tableConfig = this.configService.getMapConfig('table');
 
-    this.tableService.loadTableData.subscribe((layer: Layer|LayerGroup) => {
+    this.tableService.loadTableData.subscribe(layer => {
       if (layer) {
         this.loading = true;
-        const layerLimit = layer['limit'];
-        if (layerLimit) {
-          this.selectedRowsPerPage = Number(layerLimit);
-        }
         this.loadTableData(layer, this.selectedRowsPerPage, 0);
       }
     });
@@ -83,13 +75,19 @@ export class TableComponent implements OnInit {
       }
     });
 
+    this.tableService.loadReportTableData.subscribe(layer => {
+      if (layer) {
+        this.selectedLayer = layer;
+        this.loading = true;
+        this.loadTableData(layer, this.selectedRowsPerPage, 0);
+      }
+    });
+
     this.tableService.clearTable.subscribe(() => this.clearTable());
 
     this.rowsPerPage = this.tableConfig.rowsPerPage;
 
     this.filterService.filterTable.subscribe(() => this.tableService.loadTableData.next(this.selectedLayer));
-
-    this.filterService.filterLayerMap.subscribe(null);
   }
 
   loadTableData(layer,
@@ -97,7 +95,7 @@ export class TableComponent implements OnInit {
                 offset: number,
                 sortColumn?: string,
                 sortOrder?: number
-                ) {
+  ) {
     if (!layer) {
       return;
     }
@@ -112,13 +110,6 @@ export class TableComponent implements OnInit {
     }
     if (sortOrder) {
       params['sortOrder'] = sortOrder;
-    }
-
-    if (layer.type === LayerType.REPORT) {
-      this.selectedLayer = layer;
-      const source = layer.source;
-      params['source'] = source;
-      params.limit = limit;
     }
 
     this.hTTPService

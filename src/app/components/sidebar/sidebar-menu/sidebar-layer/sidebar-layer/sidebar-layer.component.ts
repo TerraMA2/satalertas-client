@@ -13,7 +13,7 @@ import { Layer } from 'src/app/models/layer.model';
 })
 export class SidebarLayerComponent implements OnInit {
 
-  @Input() child: Layer;
+  @Input() layer: Layer;
 
   @Input() parentSwitchChecked;
 
@@ -43,19 +43,19 @@ export class SidebarLayerComponent implements OnInit {
     if (event.checked) {
       this.selectItem();
     } else {
-      this.unSelectItem();
+      this.deselectItem();
     }
   }
   selectItem() {
     this.tableService.unloadTableData.next();
-    this.sidebarService.sidebarItemSelect.next(this.child);
+    this.sidebarService.sidebarLayerSelect.next(this.layer);
   }
 
-  unSelectItem() {
-    this.sidebarService.sidebarItemUnselect.next(this.child);
-    this.tableService.unloadTableData.next(this.child);
-    if (this.child.isPrimary && this.primaryRadio) {
-      this.sidebarService.sidebarItemRadioUnselect.next(this.child);
+  deselectItem() {
+    this.sidebarService.sidebarLayerDeselect.next(this.layer);
+    this.tableService.unloadTableData.next(this.layer);
+    if (this.layer.isPrimary && this.primaryRadio) {
+      this.sidebarService.sidebarItemRadioDeselect.next(this.layer);
       this.primaryRadio = '';
     }
   }
@@ -65,7 +65,7 @@ export class SidebarLayerComponent implements OnInit {
       this.selectItem();
       this.parentSwitchChecked = true;
     }
-    this.sidebarService.sidebarItemRadioSelect.next(this.child);
+    this.sidebarService.sidebarItemRadioSelect.next(this.layer);
   }
 
   onToolClicked(name) {

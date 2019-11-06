@@ -1,7 +1,7 @@
 <div class="sidebar-layer-group-body p-align-center"
     [ngClass]="{ 'active': isLayerGroupOpened }">
 
-    <i [class]="sidebarItem.icon"></i>
+    <i [class]="sidebarLayerGroup.icon"></i>
 
     <div class="sidebar-layer-group-label"
         (click)="onLayerGroupClicked()">
@@ -9,13 +9,13 @@
             <i class="fas sidebar-layer-group-arrow"
                 [ngClass]="{'fa-chevron-down': isLayerGroupOpened, 'fa-chevron-right': !isLayerGroupOpened}">
             </i>
-            <a>{{ sidebarItem.label }}</a>
+            <a>{{ sidebarLayerGroup.label }}</a>
 
     </div>
 
     <div class="sidebar-layer-group-switch">
 
-        <p-inputSwitch (onChange)="onParentSwitchChanged($event)">
+        <p-inputSwitch (onChange)="onSwitchChanged($event)">
         </p-inputSwitch>
 
     </div>
@@ -24,10 +24,10 @@
     [ngClass]="{show: isLayerGroupOpened, hide: !isLayerGroupOpened}">
 
     <app-sidebar-layer class="sidebar-layer-group-body p-dir-col p-align-stretch"
-                            *ngFor="let child of childrenItems"
-                            [child]="child"
-                            [displayChild]="child.isPrivate && !isAuthenticated ? false : true"
-                            [parentSwitchChecked]="parentSwitchChecked"
+                            *ngFor="let layer of sidebarLayers"
+                            [layer]="layer"
+                            [displayChild]="layer.isPrivate && !isAuthenticated ? false : true"
+                            [parentSwitchChecked]="switchChecked"
                             [isLayerGroupOpened]="isLayerGroupOpened"
     >
     </app-sidebar-layer>

@@ -12,8 +12,6 @@ import { MapService } from 'src/app/services/map.service';
 
 import { SidebarItem } from 'src/app/models/sidebar-item.model';
 
-import { SidebarGroup } from 'src/app/models/sidebar-group.model';
-
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -22,8 +20,6 @@ import { SidebarGroup } from 'src/app/models/sidebar-group.model';
 export class SidebarComponent implements OnInit {
 
   @Input() displayFilterControl = true;
-
-  sidebarGroups: SidebarGroup[] = [];
 
   sidebarItems: SidebarItem[] = [];
 
@@ -46,40 +42,36 @@ export class SidebarComponent implements OnInit {
     this.sidebarConfig = this.configService.getSidebarConfig();
     this.logoPath = this.sidebarConfig.logoPath;
     this.logoLink = this.sidebarConfig.logoLink;
-    this.setSidebarItems();
+    this.setItems();
     this.sidebarService.sidebarReload.subscribe(() => {
-      this.setSidebarItems();
+      this.setItems();
       this.mapService.clearMap.next();
     });
   }
 
+  setItems() {
+    this.setSidebarItems();
+    this.setSidebarLayers();
+  }
+
   setSidebarItems() {
+    if (!this.sidebarConfig.sidebarItems) {
+      return;
+    }
     this.sidebarItems = [];
     this.sidebarConfig.sidebarItems.forEach(sbItem => {
-      const sidebarItem = new SidebarItem(
-        sbItem.label,
-        sbItem.link,
-        sbItem.method,
-        sbItem.value,
-        sbItem.icon
-      );
+      const sidebarItem = this.getSidebarItem(sbItem);
       this.sidebarItems.push(sidebarItem);
     });
+  }
 
+  setSidebarLayers() {
+    if (!this.sidebarConfig.sidebarLayers) {
+      return;
+    }
     this.sidebarLayerGroups = [];
     this.sidebarConfig.sidebarLayers.forEach(sidebarLayer => {
-      const layerGroup = new LayerGroup(
-        sidebarLayer.cod,
-        sidebarLayer.label,
-        sidebarLayer.parent,
-        sidebarLayer.isPrivate,
-        sidebarLayer.icon,
-        sidebarLayer.viewGraph,
-        sidebarLayer.activeArea
-      );
-
       const layerChildren: Layer[] = [];
-
       const children = sidebarLayer.children;
       if (children) {
         sidebarLayer.children.forEach(sidebarLayerChild => {
@@ -100,14 +92,35 @@ export class SidebarComponent implements OnInit {
             sidebarLayerChild.layerData,
             sidebarLayerChild.legend,
             sidebarLayerChild.popupTitle,
-            sidebarLayerChild.tools
+            sidebarLayerChild.tools,
+            sidebarLayerChild.markerSelected
           );
           layerChildren.push(layer);
         });
       }
-      layerGroup.children = layerChildren;
+      const layerGroup = new LayerGroup(
+        sidebarLayer.cod,
+        sidebarLayer.label,
+        sidebarLayer.parent,
+        sidebarLayer.isPrivate,
+        sidebarLayer.icon,
+        sidebarLayer.viewGraph,
+        sidebarLayer.activeArea,
+        layerChildren
+      );
       this.sidebarLayerGroups.push(layerGroup);
     });
+  }
+
+  getSidebarItem(sidebarItem) {
+    return new SidebarItem(
+      sidebarItem.label,
+      sidebarItem.link,
+      sidebarItem.method,
+      sidebarItem.value,
+      sidebarItem.icon,
+      sidebarItem.separator
+    );
   }
 
 }

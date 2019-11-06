@@ -8,9 +8,9 @@
 
     <app-sidebar-layer-group class="sidebar-item"
                     *ngFor="let sidebarLayerGroup of sidebarLayerGroups"
-                    [sidebarItem]="sidebarLayerGroup"
-                    [childrenItems]="sidebarLayerGroup.children"
-                    [ngClass]="{ 'hide-sidebar-item': sidebarLayerGroup.isPrivate && !isAuthenticated }">
+                    [sidebarLayerGroup]="sidebarLayerGroup"
+                    [sidebarLayers]="sidebarLayerGroup.children"
+                    [ngClass]="{ 'hide-sidebar-item': sidebarLayerGroup.isPrivate && !isAuthenticated || !isMapShowing }">
     </app-sidebar-layer-group>
 
     <br>

@@ -1,16 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { TableService } from 'src/app/services/table.service';
-
 import { SidebarService } from 'src/app/services/sidebar.service';
 
 import { Layer } from 'src/app/models/layer.model';
 
-import { MapService } from 'src/app/services/map.service';
-
 import { AuthService } from 'src/app/services/auth.service';
 
-import { SidebarItem } from 'src/app/models/sidebar-item.model';
+import { LayerGroup } from 'src/app/models/layer-group.model';
 
 @Component({
   selector: 'app-sidebar-layer-group',
@@ -19,11 +15,11 @@ import { SidebarItem } from 'src/app/models/sidebar-item.model';
 })
 export class SidebarLayerGroupComponent implements OnInit {
 
-  @Input() sidebarItem: SidebarItem;
+  @Input() sidebarLayerGroup: LayerGroup;
 
-  @Input() childrenItems: Layer[];
+  @Input() sidebarLayers: Layer[];
 
-  parentSwitchChecked = false;
+  switchChecked = false;
 
   isLayerGroupOpened = false;
 
@@ -31,8 +27,6 @@ export class SidebarLayerGroupComponent implements OnInit {
 
   constructor(
     private sidebarService: SidebarService,
-    private tableService: TableService,
-    private mapService: MapService,
     private authService: AuthService
   ) { }
 
@@ -46,21 +40,13 @@ export class SidebarLayerGroupComponent implements OnInit {
     });
   }
 
-  openReportTable() {
-    this.sidebarService.sidebarReload.next();
-    this.mapService.reportTable.next(this.sidebarItem);
-  }
-
-  onParentSwitchChanged(event) {
-    this.childrenItems.forEach(child => {
-      if (event.checked === true) {
-        this.sidebarService.sidebarItemSelect.next(child);
-      } else if (event.checked === false) {
-        this.sidebarService.sidebarItemUnselect.next(child);
-        this.tableService.unloadTableData.next(child);
-      }
-    });
-    this.parentSwitchChecked = !this.parentSwitchChecked;
+  onSwitchChanged(event) {
+    if (event.checked === true) {
+      this.sidebarService.sidebarLayerGroupSelect.next(this.sidebarLayerGroup);
+    } else if (event.checked === false) {
+      this.sidebarService.sidebarLayerGroupDeselect.next(this.sidebarLayerGroup);
+    }
+    this.switchChecked = !this.switchChecked;
   }
 
   onLayerGroupClicked() {

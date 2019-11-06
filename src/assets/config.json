@@ -28,11 +28,21 @@
         "value": ""
       },
       {
+        "icon": "fas fa-file",
+        "label": "Gerar relatório",
+        "link": "",
+        "method": "generateReport",
+        "value": "5"
+      },
+      {
         "icon": "fas fa-map",
         "label": "Mapa",
         "link": "/map",
         "method": "",
         "value": ""
+      },
+      {
+        "separator": "true"
       }
     ],
     "sidebarLayers": [

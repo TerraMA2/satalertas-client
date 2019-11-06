@@ -4,6 +4,12 @@ import { SidebarItem } from 'src/app/models/sidebar-item.model';
 
 import { Router } from '@angular/router';
 
+import { SidebarService } from 'src/app/services/sidebar.service';
+
+import { MapService } from 'src/app/services/map.service';
+
+import { TableService } from 'src/app/services/table.service';
+
 @Component({
   selector: 'app-sidebar-item',
   templateUrl: './sidebar-item.component.html',
@@ -14,7 +20,10 @@ export class SidebarItemComponent implements OnInit {
   @Input() sidebarItem: SidebarItem;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private sidebarService: SidebarService,
+    private mapService: MapService,
+    private tableService: TableService
   ) { }
 
   ngOnInit() {
@@ -26,6 +35,18 @@ export class SidebarItemComponent implements OnInit {
     } else if (this.sidebarItem.method) {
       this[this.sidebarItem.method]();
     }
+  }
+
+  generateReport() {
+    const { value } = this.sidebarItem;
+    const type = 'report';
+    const layer = {
+      value,
+      type
+    };
+    this.sidebarService.sidebarReload.next();
+    this.mapService.reportTable.next();
+    this.tableService.loadReportTableData.next(layer);
   }
 
 }

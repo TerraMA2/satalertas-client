@@ -5,5 +5,6 @@ export class SidebarItem {
     public method?: string,
     public value?: number,
     public icon?: string,
+    public separator?: boolean
   ) {}
 }
