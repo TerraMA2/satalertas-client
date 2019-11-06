@@ -53,6 +53,15 @@
                         (onChange)="onSelectedLayerChange(selectedLayersDropdown)">
                     </p-dropdown>
 
+                    &nbsp;&nbsp;
+
+                    <p-dropdown *ngIf="tableReportActive"
+                        [options]="orderByOptions"
+                        [(ngModel)]="selectedOrderBy"
+                        (onChange)="onOrderByChange($event)">
+                    </p-dropdown>
+
+
                 </div>
             </div>
 

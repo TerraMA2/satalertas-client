@@ -49,6 +49,9 @@ export class TableComponent implements OnInit {
   defaultRowsPerPage = 10;
   selectedRowsPerPage: number = this.defaultRowsPerPage;
 
+  orderByOptions: string[];
+  selectedOrderBy: string;
+
   private tableConfig;
 
   constructor(
@@ -87,6 +90,8 @@ export class TableComponent implements OnInit {
 
     this.rowsPerPage = this.tableConfig.rowsPerPage;
 
+    this.orderByOptions = this.tableConfig.orderBy;
+
     this.filterService.filterTable.subscribe(() => this.tableService.loadTableData.next(this.selectedLayer));
   }
 
@@ -94,7 +99,8 @@ export class TableComponent implements OnInit {
                 limit: number,
                 offset: number,
                 sortColumn?: string,
-                sortOrder?: number
+                sortOrder?: number,
+
   ) {
     if (!layer) {
       return;
@@ -165,6 +171,12 @@ export class TableComponent implements OnInit {
   onRowsPerPageChange(event) {
     this.loading = true;
     this.selectedRowsPerPage = Number(event.value);
+    this.loadTableData(this.selectedLayer, this.selectedRowsPerPage, 0);
+  }
+
+  onOrderByChange(event) {
+    this.loading = true;
+    this.selectedOrderBy = event.value;
     this.loadTableData(this.selectedLayer, this.selectedRowsPerPage, 0);
   }
 
