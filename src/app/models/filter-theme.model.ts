@@ -1,7 +1,7 @@
-export class Localization {
+export class FilterTheme {
   constructor(
     public label: string,
     public value: string,
-    public name: string
+    public type: string
   ) {}
 }

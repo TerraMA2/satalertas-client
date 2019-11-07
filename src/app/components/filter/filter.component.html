@@ -1,85 +1,38 @@
 <p-dialog #filterDialog
         [header]="filterLabel"
-        [positionLeft]="334"
-        [positionTop]="72"
+        [positionLeft]="320"
+        [positionTop]="58"
         [(visible)]="displayFilter"
         (onHide)="onDialogHide()"
         [transitionOptions]="'0ms'">
 
-    <div class="p-grid p-nogutter">
-        <form #filterForm="ngForm" (ngSubmit)="onFilterClicked()" class="width-20em">
-            <div class="p-col-12 p-col-nogutter dropdown-filter">
-                <span class="ui-float-label">
-                    <p-dropdown
-                        styleClass="width-100"
-                        [options]="localizations"
-                        [(ngModel)]="selectedLocalization"
-                        [autoDisplayFirst]="false"
-                        [name]="localizationField.name"
-                        (onChange)="onChangeLocalizationField($event)"
-                        [showClear]="true"
-                        [disabled]="false"
-                        scrollHeight="60px">
-                    </p-dropdown>
-                    <label for="float-input">{{localizationField.label}}</label>
-                </span>
-            </div>
+    <app-theme-area
+            #themeAreaComponent
+            (onchangeOptionSelected)="onUpdateFilterTheme($event)"
+            [disable]="filterParam.specificSearch">
+    </app-theme-area>
 
-            <div *ngIf="localization.label" class="p-col-12 p-col-nogutter filter-dropdown-value" >
-                <span class="ui-float-label">
-                    <p-dropdown
-                            styleClass="width-100"
-                            [options]="optionsFilterLocalizations"
-                            [(ngModel)]="localization.value"
-                            [autoDisplayFirst]="false"
-                            [name]="localization.name"
-                            optionLabel="name"
-                            [showClear]="true"
-                            [disabled]="false"
-                            scrollHeight="80px">
-                    </p-dropdown>
-                    <label for="float-input">{{localization.label}}</label>
-                </span>
-            </div>
+    <app-alert-type-area
+            #alertTypeAreaComponent
+            (onchangeAlertType)="onUpdateAlertType($event)"
+            [disable]="filterParam.specificSearch">
+    </app-alert-type-area>
 
-<!--    IMPLEMENTAR O TREM DA LÓGICA.. SE CASO
-        AREA OU NÚMERO DE CAR...     -->
-<!--            <div *ngIf="localization.label" >-->
-<!--                <div class="p-col-12 p-col-nogutter">-->
-<!--                    <span class="ui-float-label">-->
-<!--                        <input type="text"-->
-<!--                               pInputText-->
-<!--                               pKeyFilter="num"-->
-<!--                               class="width-100"-->
-<!--                               [name]="areaField.name"-->
-<!--                               [(ngModel)]="areaInput">-->
-<!--                        <label for="float-input">{{areaField.label}}</label>-->
-<!--                    </span>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <br>-->
+    <app-authorization-area
+            #authorizationAreaComponent
+            (onchangeAuthorization)="onUpdateAuthorization($event)"
+            [disable]="authorizationDisable">
+    </app-authorization-area>
 
-            <div class="p-col-12 p-col-nogutter filter-footer">
-                <div class="p-grid">
-                    <button pButton
-                            type="button"
-                            label="Limpar filtro"
-                            class="ui-button-rounded ui-button-secondary
-                                    p-col-order-6 ui-button ui-widget ui-state-default
-                                    ui-corner-all ui-button-text-only btn-filter btn-filter-left"
-                            (click)="onClearFilterClicked()"></button>
-                    <button pButton
-                            type="submit"
-                            label="Filtrar"
-                            class="ui-button-rounded p-col-order-6 btn-filter btn-filter-right"
-                            (click)="onFilterClicked()"></button>
-                </div>
-            </div>
+    <app-specific-search-area
+            #specificSearchAreaComponent
+            (onchangeAuthorization)="onUpdateSpacificSearch($event)">
+    </app-specific-search-area>
 
-        </form>
-
-        <br />
-
-    </div>
+    <app-footer-filter-area
+            (onCloseClicked)="onCloseClicked()"
+            (onClearFilterClicked)="onClearFilterClicked()"
+            (onFilterClicked)="onFilterClicked()">
+    </app-footer-filter-area>
 
 </p-dialog>

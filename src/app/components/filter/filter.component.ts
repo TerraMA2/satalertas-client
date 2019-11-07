@@ -1,24 +1,16 @@
-import {Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
-
-import { SelectItem } from 'primeng/api';
-
+import {Component, OnInit, ViewChild, AfterViewInit, Input} from '@angular/core';
 import { ConfigService } from 'src/app/services/config.service';
-
 import { NgForm } from '@angular/forms';
-
 import {FilterService} from '../../services/filter.service';
-
-import {Layer} from '../../models/layer.model';
-
-import {Filter} from '../../models/filter.model';
-
-import {Localization} from '../../models/localization.model';
-
-import {BiomeService} from '../../services/biome.service';
-
-import {CityService} from '../../services/city.service';
-
-import {RegionService} from '../../services/region.service';
+import {FilterTheme} from '../../models/filter-theme.model';
+import {ThemeAreaComponent} from './theme-area/theme-area.component';
+import {FilterParam} from '../../models/filter-param.model';
+import {FilterAuthorization} from '../../models/filter-authorization.model';
+import {AuthorizationAreaComponent} from './authorization-area/authorization-area.component';
+import {AlertTypeAreaComponent} from './alert-type-area/alert-type-area.component';
+import {SpecificSearchAreaComponent} from './specific-search-area/specific-search-area.component';
+import {FilterSpecificSearch} from '../../models/filter-specific-search.model';
+import {FilterAlertType} from '../../models/filter-alert-type.model';
 
 @Component({
   selector: 'app-filter',
@@ -29,68 +21,26 @@ import {RegionService} from '../../services/region.service';
 export class FilterComponent implements OnInit, AfterViewInit {
 
   @ViewChild('filterForm', { static: false }) filterForm: NgForm;
+  @ViewChild('themeAreaComponent', {static: false}) themeAreaComponent: ThemeAreaComponent;
+  @ViewChild('alertTypeAreaComponent', {static: false}) alertTypeAreaComponent: AlertTypeAreaComponent;
+  @ViewChild('authorizationAreaComponent', {static: false}) authorizationAreaComponent: AuthorizationAreaComponent;
+  @ViewChild('specificSearchAreaComponent', {static: false}) specificSearchAreaComponent: SpecificSearchAreaComponent;
 
-  private filterConfig;
-  public displayFilter: boolean;
-  private codgroup: string;
-  private layer: Layer;
-  private selectedFilters: Filter[] = [];
+  authorizationDisable: boolean;
 
-  areaInput: string;
-
-  areaField;
-  groupsField;
-  localizationField;
-
-  localizations: SelectItem[];
-  selectedLocalization: string;
-  selectedGroup;
-
-  groups: SelectItem[];
+  filterParam: FilterParam;
   filterLabel: string;
-
-  localization: Localization;
-
-  optionsFilterLocalizations;
+  displayFilter: boolean;
 
   constructor(
     private configService: ConfigService,
-    private filterService: FilterService,
-    private biomeService: BiomeService,
-    private cityService: CityService,
-    private regionService: RegionService
+    private filterService: FilterService
   ) { }
 
   ngOnInit() {
-    this.filterConfig = this.configService.getMapConfig('filter');
-    this.displayFilter = false;
-    this.areaField = this.filterConfig.area;
-    this.groupsField = this.filterConfig.group;
-    this.localizationField = this.filterConfig.localization;
-    this.localizations = this.localizationField.options;
-    this.groups = this.groupsField.options;
+    this.authorizationDisable = true;
 
-    this.localization = new Localization(undefined, undefined, undefined);
-  }
-
-  loadComboCity() {
-    this.cityService.getAll().then(
-      result => {
-        this.optionsFilterLocalizations = result;
-      }
-    );
-  }
-
-  loadComboBiome() {
-    this.biomeService.getAll().then( result => this.optionsFilterLocalizations = result );
-  }
-
-  loadComboRegion() {
-    this.regionService.getAll().then(
-      result => {
-        this.optionsFilterLocalizations = result;
-      }
-    );
+    this.filterParam = new FilterParam(undefined, undefined, undefined, undefined);
   }
 
   ngAfterViewInit() {
@@ -101,80 +51,64 @@ export class FilterComponent implements OnInit, AfterViewInit {
     this.filterService.displayFilter.subscribe(() => this.onDisplayFilter());
   }
 
+  updateFilter() {
+    localStorage.removeItem('filterList');
+    localStorage.setItem('filterList', JSON.stringify(this.filterParam));
+  }
+
+  onDialogHide() {
+    this.onCloseClicked();
+  }
+
   onDisplayFilter() {
     this.displayFilter = !this.displayFilter;
 
     this.filterLabel = 'Filtro';
-    this.codgroup = undefined;
-    this.layer = null;
   }
 
-  onFilterClicked() {
-    this.updateFilter(this.layer);
-    this.filterService.filterLayerMap.next(this.layer);
-  }
-
-  onClearFilterClicked() {
-    this.selectedGroup = undefined;
-    this.selectedLocalization = undefined;
-    this.areaInput = undefined;
-
-    this.clearValuesFilter();
-  }
-
-  onDialogHide() {
-    this.onClearFilterClicked();
+  onCloseClicked() {
     this.displayFilter = false;
   }
 
-  updateFilter(layer) {
-    this.updateFilterSelected(new Filter(layer.codgroup, this.areaInput, this.selectedLocalization));
+  onFilterClicked() {
+    this.updateFilter();
+
+    console.log(this.filterParam);
+
+    this.filterService.filterMap.next();
+    this.filterService.filterDashboard.next();
+    this.filterService.filterTable.next();
+    this.filterService.filterReport.next();
   }
 
-  updateFilterSelected(filter) {
-    if (this.selectedFilters && this.selectedFilters.length > 0) {
-      this.selectedFilters.forEach((item: Filter, index) => {
-        if (item.codgroup === filter.codgroup) {
-          this.selectedFilters.splice(index, 1);
-        }
-      });
-    }
+  onClearFilterClicked() {
+    this.authorizationDisable = true;
 
-    if (filter.area || filter.localization) {
-      this.selectedFilters.push(filter);
-    }
-
-    localStorage.removeItem('filterList');
-    localStorage.setItem('filterList', JSON.stringify(this.selectedFilters));
+    this.cleanOthers();
+    this.specificSearchAreaComponent.clearAll();
   }
 
-  onChangeLocalizationField($event: any) {
-
-    if (this.selectedLocalization === 'city') {
-      this.localization.label = 'Município';
-      this.localization.name = 'city';
-      this.localization.value = undefined;
-
-      this.loadComboCity();
-    } else if (this.selectedLocalization === 'biome') {
-      this.localization.label = 'Bioma';
-      this.localization.name = 'biome';
-      this.localization.value = undefined;
-
-      this.loadComboBiome();
-    } else if (this.selectedLocalization === 'region') {
-      this.localization.label = 'Comarca';
-      this.localization.name = 'region';
-      this.localization.value = undefined;
-      this.loadComboRegion();
-    } else {
-      this.clearValuesFilter();
-    }
+  onUpdateFilterTheme(theme: FilterTheme) {
+    this.filterParam.themeSelected = theme;
   }
 
-  clearValuesFilter() {
-    this.localization.label = undefined;
-    this.localization.name = undefined;
-    this.localization.value = undefined;
+  onUpdateAlertType(alertType: FilterAlertType) {
+    this.filterParam.alertType = alertType;
+  }
+
+  onUpdateAuthorization(authorization: FilterAuthorization) {
+    console.log('OnUpdateAuthorization: ', authorization);
+    this.filterParam.autorization = authorization;
+  }
+
+  onUpdateSpacificSearch(spacificSearch: FilterSpecificSearch) {
+    if (spacificSearch) { this.cleanOthers(); }
+    this.filterParam.specificSearch = spacificSearch;
+  }
+
+  cleanOthers() {
+    this.themeAreaComponent.clearAll();
+    this.authorizationAreaComponent.clearAll();
+    this.alertTypeAreaComponent.clearAll();
   }
 }

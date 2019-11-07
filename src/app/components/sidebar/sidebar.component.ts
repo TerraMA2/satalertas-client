@@ -30,8 +30,6 @@ export class SidebarComponent implements OnInit {
   logoPath: string;
   logoLink: string;
 
-  displayFilter = false;
-
   constructor(
     private configService: ConfigService,
     private sidebarService: SidebarService,

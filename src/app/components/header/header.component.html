@@ -34,12 +34,12 @@
                 [name]="dateField.name"
                 [showOnFocus]="true"
                 [hideOnDateTimeSelect]="true"
-                [locale]="localizationField.locale"
+                [locale]="optionField.locale"
                 (onClose)="onFilterClose()" >
             <p-footer class="date-footer">
                 <button pButton
                         type="button"
-                        [label]="localizationField.locale.today"
+                        [label]="optionField.locale.today"
                         class="date-button date-button-today"
                         (click)="onTodayClick()">
                 </button>
