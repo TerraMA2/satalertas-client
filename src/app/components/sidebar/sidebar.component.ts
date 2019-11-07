@@ -6,11 +6,11 @@ import { LayerGroup } from 'src/app/models/layer-group.model';
 
 import { Layer } from 'src/app/models/layer.model';
 
-import * as L from 'leaflet';
-
 import { SidebarService } from 'src/app/services/sidebar.service';
 
 import { MapService } from 'src/app/services/map.service';
+
+import { SidebarItem } from 'src/app/models/sidebar-item.model';
 
 @Component({
   selector: 'app-sidebar',
@@ -19,7 +19,11 @@ import { MapService } from 'src/app/services/map.service';
 })
 export class SidebarComponent implements OnInit {
 
-  sidebarItems: LayerGroup[] = [];
+  @Input() displayFilterControl = true;
+
+  sidebarItems: SidebarItem[] = [];
+
+  sidebarLayerGroups: LayerGroup[] = [];
 
   sidebarConfig;
 
@@ -36,72 +40,85 @@ export class SidebarComponent implements OnInit {
     this.sidebarConfig = this.configService.getSidebarConfig();
     this.logoPath = this.sidebarConfig.logoPath;
     this.logoLink = this.sidebarConfig.logoLink;
-    this.setSidebarItems();
+    this.setItems();
     this.sidebarService.sidebarReload.subscribe(() => {
-      this.setSidebarItems();
+      this.setItems();
       this.mapService.clearMap.next();
     });
   }
 
-  setFilterControlEvent() {
-    L.DomEvent.on(L.DomUtil.get('filterBtn'), 'dblclick', L.DomEvent.stopPropagation);
+  setItems() {
+    this.setSidebarItems();
+    this.setSidebarLayers();
   }
 
   setSidebarItems() {
+    if (!this.sidebarConfig.sidebarItems) {
+      return;
+    }
     this.sidebarItems = [];
-    this.sidebarConfig.sidebarItems.forEach(sidebarItem => {
-      const layerGroup = new LayerGroup(
-        sidebarItem.cod,
-        sidebarItem.label,
-        sidebarItem.parent,
-        sidebarItem.link,
-        sidebarItem.isPrivate,
-        sidebarItem.icon,
-        sidebarItem.method,
-        sidebarItem.value,
-        sidebarItem.type,
-        sidebarItem.carRegisterColumn,
-        sidebarItem.layerData,
-        sidebarItem.legend,
-        sidebarItem.source,
-        sidebarItem.limit
-      );
+    this.sidebarConfig.sidebarItems.forEach(sbItem => {
+      const sidebarItem = this.getSidebarItem(sbItem);
+      this.sidebarItems.push(sidebarItem);
+    });
+  }
 
+  setSidebarLayers() {
+    if (!this.sidebarConfig.sidebarLayers) {
+      return;
+    }
+    this.sidebarLayerGroups = [];
+    this.sidebarConfig.sidebarLayers.forEach(sidebarLayer => {
       const layerChildren: Layer[] = [];
-
-      const children = sidebarItem.children;
-      const link = sidebarItem.link;
-      if (children && !link) {
-        sidebarItem.children.forEach(sidebarItemChild => {
+      const children = sidebarLayer.children;
+      if (children) {
+        sidebarLayer.children.forEach(sidebarLayerChild => {
           const layer = new Layer(
-            sidebarItemChild.cod,
-            sidebarItemChild.codgroup,
-            sidebarItemChild.label,
-            sidebarItemChild.shortLabel,
-            sidebarItemChild.value,
-            sidebarItemChild.dateColumn,
-            sidebarItemChild.geomColumn,
-            sidebarItemChild.areaColumn,
-            sidebarItemChild.carRegisterColumn,
-            sidebarItemChild.classNameColumn,
-            sidebarItemChild.type,
-            sidebarItemChild.isPrivate,
-            sidebarItemChild.isPrimary,
-            sidebarItemChild.layerData,
-            sidebarItemChild.legend,
-            sidebarItemChild.popupTitle,
-            sidebarItemChild.tools
+            sidebarLayerChild.cod,
+            sidebarLayerChild.codgroup,
+            sidebarLayerChild.label,
+            sidebarLayerChild.shortLabel,
+            sidebarLayerChild.value,
+            sidebarLayerChild.dateColumn,
+            sidebarLayerChild.geomColumn,
+            sidebarLayerChild.areaColumn,
+            sidebarLayerChild.carRegisterColumn,
+            sidebarLayerChild.classNameColumn,
+            sidebarLayerChild.type,
+            sidebarLayerChild.isPrivate,
+            sidebarLayerChild.isPrimary,
+            sidebarLayerChild.layerData,
+            sidebarLayerChild.legend,
+            sidebarLayerChild.popupTitle,
+            sidebarLayerChild.tools,
+            sidebarLayerChild.markerSelected
           );
           layerChildren.push(layer);
         });
       }
-      layerGroup.children = layerChildren;
-      this.sidebarItems.push(layerGroup);
+      const layerGroup = new LayerGroup(
+        sidebarLayer.cod,
+        sidebarLayer.label,
+        sidebarLayer.parent,
+        sidebarLayer.isPrivate,
+        sidebarLayer.icon,
+        sidebarLayer.viewGraph,
+        sidebarLayer.activeArea,
+        layerChildren
+      );
+      this.sidebarLayerGroups.push(layerGroup);
     });
   }
 
-  filterClick(event) {
-    console.log(event);
+  getSidebarItem(sidebarItem) {
+    return new SidebarItem(
+      sidebarItem.label,
+      sidebarItem.link,
+      sidebarItem.method,
+      sidebarItem.value,
+      sidebarItem.icon,
+      sidebarItem.separator
+    );
   }
 
 }

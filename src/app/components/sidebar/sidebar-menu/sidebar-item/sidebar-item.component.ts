@@ -1,16 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { TableService } from 'src/app/services/table.service';
-
-import { SidebarService } from 'src/app/services/sidebar.service';
-
-import { Layer } from 'src/app/models/layer.model';
-
-import { LayerGroup } from 'src/app/models/layer-group.model';
+import { SidebarItem } from 'src/app/models/sidebar-item.model';
 
 import { Router } from '@angular/router';
 
+import { SidebarService } from 'src/app/services/sidebar.service';
+
 import { MapService } from 'src/app/services/map.service';
+
+import { TableService } from 'src/app/services/table.service';
 
 @Component({
   selector: 'app-sidebar-item',
@@ -19,26 +17,19 @@ import { MapService } from 'src/app/services/map.service';
 })
 export class SidebarItemComponent implements OnInit {
 
-  @Input() sidebarItem: LayerGroup;
-
-  @Input() childrenItems: Layer[];
-
-  parentSwitchChecked = false;
-
-  isParentOpened = false;
+  @Input() sidebarItem: SidebarItem;
 
   constructor(
+    private router: Router,
     private sidebarService: SidebarService,
-    private tableService: TableService,
     private mapService: MapService,
-    private router: Router
+    private tableService: TableService
   ) { }
 
   ngOnInit() {
   }
 
-  onParentClicked() {
-    this.isParentOpened = !this.isParentOpened;
+  onSidebarItemClicked() {
     if (this.sidebarItem.link) {
       this.router.navigateByUrl(this.sidebarItem.link);
     } else if (this.sidebarItem.method) {
@@ -46,22 +37,16 @@ export class SidebarItemComponent implements OnInit {
     }
   }
 
-  openReportTable() {
+  generateReport() {
+    const { value } = this.sidebarItem;
+    const type = 'report';
+    const layer = {
+      value,
+      type
+    };
     this.sidebarService.sidebarReload.next();
-    this.mapService.reportTable.next(this.sidebarItem);
-  }
-
-  onParentSwitchChanged(event) {
-    this.childrenItems.forEach(child => {
-      if (event.checked === true) {
-        this.router.navigate(['/map']);
-        this.sidebarService.sidebarItemSelect.next(child);
-      } else if (event.checked === false) {
-        this.sidebarService.sidebarItemUnselect.next(child);
-        this.tableService.unloadTableData.next(child);
-      }
-    });
-    this.parentSwitchChecked = !this.parentSwitchChecked;
+    this.mapService.reportTable.next();
+    this.tableService.loadReportTableData.next(layer);
   }
 
 }

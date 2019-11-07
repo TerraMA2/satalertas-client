@@ -15,15 +15,14 @@
     <app-alert-type-area
             #alertTypeAreaComponent
             (onchangeAlertType)="onUpdateAlertType($event)"
-            [disable]="filterParam.specificSearch"
-        >
+            [disable]="filterParam.specificSearch">
     </app-alert-type-area>
 
     <app-authorization-area
             #authorizationAreaComponent
             (onchangeAuthorization)="onUpdateAuthorization($event)"
-            [disable]="authorizationDisable"
-    ></app-authorization-area>
+            [disable]="authorizationDisable">
+    </app-authorization-area>
 
     <app-specific-search-area
             #specificSearchAreaComponent
@@ -35,4 +34,5 @@
             (onClearFilterClicked)="onClearFilterClicked()"
             (onFilterClicked)="onFilterClicked()">
     </app-footer-filter-area>
+
 </p-dialog>

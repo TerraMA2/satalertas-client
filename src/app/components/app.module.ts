@@ -60,9 +60,10 @@ import { AuthComponent } from './auth/auth.component';
 import { AboutComponent } from './about/about.component';
 import { SidebarHeaderComponent } from './sidebar/sidebar-header/sidebar-header.component';
 import { SidebarMenuComponent } from './sidebar/sidebar-menu/sidebar-menu.component';
+import { SidebarLayerGroupComponent } from './sidebar/sidebar-menu/sidebar-layer/sidebar-layer-group.component';
 import { SidebarItemComponent } from './sidebar/sidebar-menu/sidebar-item/sidebar-item.component';
 import { SidebarFooterComponent } from './sidebar/sidebar-footer/sidebar-footer.component';
-import { SidebarItemChildComponent } from './sidebar/sidebar-menu/sidebar-item/sidebar-item-child/sidebar-item-child.component';
+import { SidebarLayerComponent } from './sidebar/sidebar-menu/sidebar-layer/sidebar-layer/sidebar-layer.component';
 import { VisibleLayersComponent } from './map/visible-layers/visible-layers.component';
 import { PopupLinkComponent } from './map/popup-link/popup-link.component';
 import { GraphicsAreaComponent } from './dashboard/graphics-area/graphics-area.component';
@@ -103,8 +104,8 @@ registerLocaleData(localePt, 'pt');
     SidebarHeaderComponent,
     SidebarFooterComponent,
     SidebarMenuComponent,
-    SidebarItemComponent,
-    SidebarItemChildComponent,
+    SidebarLayerGroupComponent,
+    SidebarLayerComponent,
     VisibleLayersComponent,
     PopupLinkComponent,
     GraphicsAreaComponent,
@@ -115,6 +116,7 @@ registerLocaleData(localePt, 'pt');
     AuthorizationAreaComponent,
     SpecificSearchAreaComponent,
     FooterFilterAreaComponent,
+    SidebarItemComponent
   ],
 
   imports: [

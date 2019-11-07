@@ -1,13 +1,22 @@
 import {Component, OnInit} from '@angular/core';
 
 import {ConfigService} from '../../services/config.service';
+
 import {Alert} from '../../models/alert.model';
+
 import {AlertGraphic} from '../../models/alert-graphic.model';
+
 import {ReportService} from '../../services/report.service';
+
 import {FilterService} from '../../services/filter.service';
+
 import {LayerGroup} from '../../models/layer-group.model';
+
 import {Layer} from '../../models/layer.model';
+
 import {ParamAlert} from '../../models/param-alert.model';
+
+import { SidebarService } from 'src/app/services/sidebar.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,17 +28,20 @@ export class DashboardComponent implements OnInit {
 
   alertsDisplayed: Alert [] = [];
   alertGraphics: any [] = [];
-  sidebarItems: LayerGroup[];
+  sidebarLayers: LayerGroup[];
 
   constructor(
     private configService: ConfigService,
     private reportService: ReportService,
-    private filterService: FilterService
+    private filterService: FilterService,
+    private sidebarService: SidebarService
   ) { }
 
 
   ngOnInit() {
-    this.sidebarItems = this.configService.getConfig('sidebar').sidebarItems;
+    this.sidebarLayers = this.configService.getSidebarConfig('sidebarLayers');
+
+    this.sidebarService.sidebarLayerShowHide.next(false);
 
     this.setOverlayEvents();
     this.getGraphicLayers();
@@ -45,7 +57,7 @@ export class DashboardComponent implements OnInit {
   private async getGraphicLayers() {
     const listAlerts: Alert[] = [];
 
-    this.sidebarItems.forEach((group: LayerGroup) => {
+    this.sidebarLayers.forEach((group: LayerGroup) => {
       if (group.viewGraph) {
         listAlerts.push(this.getidviewAlert(group));
       }
@@ -63,8 +75,8 @@ export class DashboardComponent implements OnInit {
   setAlertsGraphics() {
     if (this.alertsDisplayed && this.alertsDisplayed.length > 0) {
       this.alertsDisplayed.forEach((alert: Alert) => {
-        if (this.sidebarItems && this.sidebarItems.length > 0) {
-          this.sidebarItems.forEach( group => {
+        if (this.sidebarLayers && this.sidebarLayers.length > 0) {
+          this.sidebarLayers.forEach( group => {
             if (group.cod === alert.codgroup) {
               alert.alertsgraphics = this.getAlerts(group.children);
             }

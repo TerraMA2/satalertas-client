@@ -1,35 +1,35 @@
-.sidebar-item-tools {
+.sidebar-layer-tools {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.sidebar-item-tools.hide {
+.sidebar-layer-tools.hide {
     max-height: 0;
     visibility: hidden;
 }
 
-.sidebar-item-tools.show {
+.sidebar-layer-tools.show {
     visibility: visible;
     max-height: 100%;
     padding: 15px 10px;
 }
 
-.sidebar-item-content {
+.sidebar-layer-content {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.sidebar-item-label {
+.sidebar-layer-label {
     flex-grow: 1;
 }
 
-.sidebar-item-switch {
+.sidebar-layer-switch {
     flex-grow: 0;
 }
 
-.sidebar-item-margin {
+.sidebar-layer-margin {
     margin-left: 15px;
     font-size: 90%;
 }
