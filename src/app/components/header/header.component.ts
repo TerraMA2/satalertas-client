@@ -37,9 +37,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   dateInput;
   maxDate = new Date();
   dateField;
-  areaField;
-  localizationField;
-  localizations;
+  optionField;
 
   displaySidebar = true;
   displayLogin = false;
@@ -84,10 +82,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   setFilterSettings() {
     this.filterConfig = this.configService.getMapConfig('filter');
-    this.areaField = this.filterConfig.area;
     this.dateField = this.filterConfig.date;
-    this.localizationField = this.filterConfig.localization;
-    this.localizations = this.localizationField.options;
+    this.optionField = this.filterConfig.optionField;
 
     this.setDefaultDate();
   }

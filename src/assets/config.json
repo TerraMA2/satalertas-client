@@ -1994,21 +1994,98 @@
     ],
     "filter": {
       "url": "/api/report/getData",
+      "alertType": {
+        "analyzes": [
+          {
+            "label": "Análise DETER",
+            "value": "deter"
+          },
+          {
+            "label": "Análise PRODES",
+            "value": "deforestation"
+          },
+          {
+            "label": "Análise FOCOS",
+            "value": "burned"
+          },
+          {
+            "label": "Análise Área Queimada",
+            "value": "burned_area"
+          },
+          {
+            "label": "Área do Imóvel CAR",
+            "value": "car_area"
+          }
+        ],
+        "optionsFocos": [
+          {
+            "label": "< 10",
+            "value": 0
+          },
+          {
+            "label": "10 a 20",
+            "value": 1
+          },
+          {
+            "label": "20 a 50",
+            "value": 2
+          },
+          {
+            "label": "50 a 100",
+            "value": 3
+          },
+          {
+            "label": "Valor > que ...",
+            "value": 4
+          }
+        ],
+        "options": [
+          {
+            "label": "< 5",
+            "value": 0
+          },
+          {
+            "label": "5 a 25",
+            "value": 1
+          },
+          {
+            "label": "50 a 100",
+            "value": 2
+          },
+          {
+            "label": " > 100",
+            "value": 3
+          },
+          {
+            "label": "Valor > que ...",
+            "value": 4
+          }
+        ]
+      },
+
       "group": {
         "label": "Grupo",
         "name": "group",
         "options": [
           {
-            "label": "DETER",
+            "label": "Análise DETER",
             "value": "deter"
           },
           {
-            "label": "PRODES",
+            "label": "Análise PRODES",
             "value": "deforestation"
           },
           {
-            "label": "FOCOS",
+            "label": "Análise FOCOS",
             "value": "burned"
+          },
+          {
+            "label": "Análise Área Queimada",
+            "value": "burned_area"
+          },
+          {
+            "label": "Área do Imóvel CAR",
+            "value": "car_area"
           }
         ]
       },
@@ -2021,29 +2098,41 @@
         "showButtonBar": true,
         "numberOfMonths": 2
       },
-      "localization": {
-        "label": "Filtrar por",
+      "optionField": {
+        "label": "Tema: ",
         "name": "localization",
         "options": [
           {
-            "label": "Área",
-            "value": "area"
+            "label": "TODOS",
+            "value": "all"
           },
           {
             "label": "Biomas",
             "value": "biome"
           },
           {
-            "label": "Código CAR",
-            "value": "car"
-          },
-          {
             "label": "Comarca",
             "value": "region"
           },
           {
+            "label": "Mesoregiões",
+            "value": "mesoregion"
+          },
+          {
+            "label": "Microregiões",
+            "value": "microregion"
+          },
+          {
             "label": "Municípios",
             "value": "city"
+          },
+          {
+            "label": "UCs",
+            "value": "uc"
+          },
+          {
+            "label": "TIs",
+            "value": "ti"
           }
         ],
         "locale": {

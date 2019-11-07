@@ -1,0 +1,29 @@
+
+<div class="p-grid p-nogutter" class="width-37em">
+    <div class="p-col-12 p-col-nogutter filter-footer">
+        <div class="p-grid">
+            <button pButton
+                    type="button"
+                    label="Remover Filtros"
+                    class="ui-button-rounded ui-button-secondary
+                                        p-col-order-6 ui-button ui-widget ui-state-default
+                                        ui-corner-all ui-button-text-only btn-filter btn-filter-left"
+                    (click)="onClearFilterClicked.emit($event)"></button>
+
+            <button pButton
+                    type="submit"
+                    label="Aplicar"
+                    class="ui-button-rounded p-col-order-6 btn-filter btn-filter-right"
+                    (click)="onFilterClicked.emit($event)"></button>
+
+            <button pButton
+                    type="button"
+                    label="Fechar"
+                    class="ui-button-rounded ui-button-secondary
+                                        p-col-order-6 ui-button ui-widget ui-state-default
+                                        ui-corner-all ui-button-text-only btn-filter btn-filter-left"
+                    (click)="onCloseClicked.emit($event)"></button>
+
+        </div>
+    </div>
+</div>
