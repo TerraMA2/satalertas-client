@@ -109,8 +109,6 @@ export class DashboardComponent implements OnInit {
   onAreaClick(alertSelected) {
     this.cleanActive();
 
-    console.log(alertSelected);
-
     this.activeArea(alertSelected.alertsgraphics);
 
     this.reportService.getDetailsAnalysisTotals(alertSelected.alertsgraphics).then( (alertsGraphics: AlertGraphic[]) => {

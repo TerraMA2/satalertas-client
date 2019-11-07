@@ -15,10 +15,8 @@ export class FilterService {
 
   displayFilter = new Subject();
 
-
   filterReport = new Subject<Layer>();
   filterLayerMap = new Subject<Layer>();
-  filterLayerTable = new Subject<Layer>();
 
   constructor() { }
 }

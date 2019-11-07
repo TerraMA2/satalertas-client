@@ -68,6 +68,11 @@ import { PopupLinkComponent } from './map/popup-link/popup-link.component';
 import { GraphicsAreaComponent } from './dashboard/graphics-area/graphics-area.component';
 import { CardAreaComponent } from './dashboard/card-area/card-area.component';
 import { CardButtonComponent } from './dashboard/card-area/card-button/card-button.component';
+import { ThemeAreaComponent } from './filter/theme-area/theme-area.component';
+import { AlertTypeAreaComponent } from './filter/alert-type-area/alert-type-area.component';
+import { AuthorizationAreaComponent } from './filter/authorization-area/authorization-area.component';
+import { SpecificSearchAreaComponent } from './filter/specific-search-area/specific-search-area.component';
+import { FooterFilterAreaComponent } from './filter/footer-filter-area/footer-filter-area.component';
 
 registerLocaleData(localePt, 'pt');
 
@@ -105,6 +110,11 @@ registerLocaleData(localePt, 'pt');
     GraphicsAreaComponent,
     CardAreaComponent,
     CardButtonComponent,
+    ThemeAreaComponent,
+    AlertTypeAreaComponent,
+    AuthorizationAreaComponent,
+    SpecificSearchAreaComponent,
+    FooterFilterAreaComponent,
   ],
 
   imports: [

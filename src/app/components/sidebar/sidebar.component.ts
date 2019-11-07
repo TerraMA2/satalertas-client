@@ -19,16 +19,12 @@ import { MapService } from 'src/app/services/map.service';
 })
 export class SidebarComponent implements OnInit {
 
-  @Input() displayFilterControl = true;
-
   sidebarItems: LayerGroup[] = [];
 
   sidebarConfig;
 
   logoPath: string;
   logoLink: string;
-
-  displayFilter = false;
 
   constructor(
     private configService: ConfigService,
@@ -49,7 +45,6 @@ export class SidebarComponent implements OnInit {
 
   setFilterControlEvent() {
     L.DomEvent.on(L.DomUtil.get('filterBtn'), 'dblclick', L.DomEvent.stopPropagation);
-    document.querySelector('#filterBtn').addEventListener('click', () => this.displayFilter = !this.displayFilter);
   }
 
   setSidebarItems() {

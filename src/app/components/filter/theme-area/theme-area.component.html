@@ -1,0 +1,39 @@
+
+<div class="p-grid p-nogutter width-37em">
+    <div class="p-col-12 p-col-nogutter dropdown-filter">
+
+        <label><b>{{optionField.label}}</b></label>
+        <span>
+            <p-dropdown
+                    styleClass="width-100"
+                    [options]="options"
+                    [(ngModel)]="selectedOption"
+                    [autoDisplayFirst]="false"
+                    [name]="optionField.name"
+                    (onChange)="onChangeOptionField($event)"
+                    [showClear]="true"
+                    [disabled]="disable"
+                    scrollHeight="180px">
+            </p-dropdown>
+        </span>
+    </div>
+
+    <div *ngIf="optionSelectedByFilter && optionSelectedByFilter.label" class="p-col-12 p-col-nogutter filter-dropdown-value" >
+        <span class="ui-float-label">
+            <p-dropdown
+                    styleClass="width-100"
+                    [options]="optionsFilterLocalizations"
+                    [(ngModel)]="optionSelectedByFilter.value"
+                    [autoDisplayFirst]="false"
+                    [name]="optionSelectedByFilter.type"
+                    optionLabel="name"
+                    [showClear]="true"
+                    [disabled]="false"
+                    (onChange)="onchangeSelected($event)"
+                    filter="true"
+                    scrollHeight="180px">
+            </p-dropdown>
+            <label for="float-input" >{{optionSelectedByFilter.label}}</label>
+        </span>
+    </div>
+</div>
