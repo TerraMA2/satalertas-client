@@ -1,47 +1,57 @@
-<div class="p-grid" *ngIf="checkAlertTypeValid()">
-    <label class="p-col-12"><b>Tipo do alerta</b></label>
-    <div class="p-grid p-col-12">
-        <div class="p-col-6 p-grid ">
-            <p-radioButton class="p-col-12" name="ALL" value="ALL" label="Todos"
-                           [(ngModel)]="alertType.radioValue" inputId="preopt1"
-                           [disabled]="disable"></p-radioButton>
-        </div>
-        <div class="p-col-6 p-grid ">
-            <p-radioButton class="p-col-12" name="OCCURRENCE-AREA" value="OCCURRENCE-AREA" label="Áreas/Ocorrências"
-                           [(ngModel)]="alertType.radioValue" inputId="preopt2"
-                           [disabled]="disable"></p-radioButton>
-        </div>
-    </div>
+<div *ngIf="checkAlertTypeValid()">
+    <h3 class="no-margin">Tipo do alerta</h3>
+    <p-radioButton name="ALL"
+                    value="ALL"
+                    label="Todos"
+                    [(ngModel)]="alertType.radioValue"
+                    inputId="preopt1"
+                    [disabled]="disable">
+    </p-radioButton>
+    &nbsp;&nbsp;
+    <p-radioButton name="OCCURRENCE-AREA"
+                    value="OCCURRENCE-AREA"
+                    label="Áreas/Ocorrências"
+                    [(ngModel)]="alertType.radioValue"
+                    inputId="preopt2"
+                    [disabled]="disable">
+    </p-radioButton>
 
     <div *ngIf="checkAnalyzesValid()" >
-        <div class="p-grid p-col-12" style="margin-left:1em" *ngFor="let analyze of alertType.analyzes">
-                <label class="p-col-12">{{analyze.label}}</label>
-                <p-dropdown
-                        class="p-col-6"
-                        styleClass="width-100"
-                        [options]="analyze.options"
-                        [(ngModel)]="analyze.valueOption"
-                        [autoDisplayFirst]="false"
-                        [name]="analyze.type"
-                        optionLabel="label"
-                        [showClear]="true"
-                        [disabled]="false"
-                        filter="true"
-                        scrollHeight="100px">
-                </p-dropdown>
-                <span class="p-grid ui-float-label p-col-6" *ngIf="analyze.valueOption && analyze.valueOption.value && analyze.valueOption.value === 4">
-                    <input type="text"
-                           pInputText
-                           class="p-col-12"
-                           [name]="'specificValueInput'"
-                           [(ngModel)]="analyze.valueOptionBiggerThen"
-                           (ngModelChange)="onChange($event)">
-                    <label
-                            class="p-col-12"
-                            for="float-input">
-                        Digite o valor
-                    </label>
-                </span>
+        <div *ngFor="let analyze of alertType.analyzes">
+            <h3 class="no-margin">{{analyze.label}}</h3>
+            <div class="p-grid">
+                <div [ngClass]="{
+                                    'p-col-6': isCustomSelected(analyze),
+                                    'p-col-12': !isCustomSelected(analyze)
+                                }">
+                    <p-dropdown
+                            [options]="analyze.options"
+                            [(ngModel)]="analyze.valueOption"
+                            [autoDisplayFirst]="false"
+                            [name]="analyze.type"
+                            optionLabel="label"
+                            [showClear]="true"
+                            [disabled]="false"
+                            filter="true"
+                            styleClass="width-100"
+                            scrollHeight="100px">
+                    </p-dropdown>
+                </div>
+                <div *ngIf="isCustomSelected(analyze)"
+                    [ngClass]="{
+                                    'p-col-6': isCustomSelected(analyze),
+                                    'p-col-12': !isCustomSelected(analyze)
+                                }">
+                    <input *ngIf="isCustomSelected(analyze)"
+                            type="text"
+                            pInputText
+                            [name]="'specificValueInput'"
+                            [(ngModel)]="analyze.valueOptionBiggerThen"
+                            class="width-100"
+                            placeholder="Digite o valor"
+                            (ngModelChange)="onChange($event)">
+                </div>
+            </div>
         </div>
     </div>
 </div>

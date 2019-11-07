@@ -28,7 +28,7 @@
         "value": ""
       },
       {
-        "icon": "fas fa-file",
+        "icon": "fas fa-file-alt",
         "label": "Gerar relatório",
         "link": "",
         "method": "generateReport",
@@ -2197,6 +2197,28 @@
         {
           "label": "1000",
           "value": 1000
+        }
+      ],
+      "orderBy": [
+        {
+          "label": "Filtrar",
+          "value": ""
+        },
+        {
+          "label": "DETER",
+          "value": "deter"
+        },
+        {
+          "label": "PRODES",
+          "value": "prodes"
+        },
+        {
+          "label": "FOCOS",
+          "value": "focos"
+        },
+        {
+          "label": "ÁREA QUEIMADA",
+          "value": "area_queimada"
         }
       ]
     }

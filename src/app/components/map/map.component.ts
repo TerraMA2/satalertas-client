@@ -264,7 +264,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
       if (this.tableReportActive) {
         markerLabel = 'CAR Validado';
-        carRegister = data['numero_do1'];
+        carRegister = data['registro_estadual'];
         const layerData = {
                             url: 'http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms',
                             layers: 'terrama2_5:view5',
@@ -282,11 +282,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         const layer: Layer = markerData['layer'];
         markerLabel = layer.label;
         const newLayer = JSON.parse(JSON.stringify(layer));
-        const layerData = newLayer.layerData;
-        const cqlFilter = layerData['cql_filter'];
-        if (cqlFilter) {
-          layerData['cql_filter'] = cqlFilter.replace('{carRegister}', `'${carRegister}'`);
-        }
 
         this.tableSelectedLayer = this.addLayer(newLayer, false);
         carRegister = data[layer.carRegisterColumn];
@@ -301,7 +296,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         this.clearMarkerInfo();
       }
 
-      let popupContent = this.getPopupContent(data, markerLabel);
+      const popupContent = this.getPopupContent(data, markerLabel);
       this.markerInfo = this.createMarker(carRegister,
                                           popupContent,
                                           latLong,

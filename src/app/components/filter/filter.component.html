@@ -1,38 +1,52 @@
 <p-dialog #filterDialog
         [header]="filterLabel"
-        [positionLeft]="320"
-        [positionTop]="58"
+        [positionLeft]="375"
+        [positionTop]="60"
         [(visible)]="displayFilter"
+        [style]="{width: '20vw'}"
         (onHide)="onDialogHide()"
         [transitionOptions]="'0ms'">
 
-    <app-theme-area
-            #themeAreaComponent
-            (onchangeOptionSelected)="onUpdateFilterTheme($event)"
-            [disable]="filterParam.specificSearch">
-    </app-theme-area>
+        <div class="p-grid">
 
-    <app-alert-type-area
-            #alertTypeAreaComponent
-            (onchangeAlertType)="onUpdateAlertType($event)"
-            [disable]="filterParam.specificSearch">
-    </app-alert-type-area>
+                <div class="p-col-12">
+                        <app-theme-area
+                                #themeAreaComponent
+                                (onchangeOptionSelected)="onUpdateFilterTheme($event)"
+                                [disable]="filterParam.specificSearch">
+                        </app-theme-area>
+                </div>
 
-    <app-authorization-area
-            #authorizationAreaComponent
-            (onchangeAuthorization)="onUpdateAuthorization($event)"
-            [disable]="authorizationDisable">
-    </app-authorization-area>
+                <div class="p-col-12">
+                        <app-alert-type-area
+                                #alertTypeAreaComponent
+                                (onchangeAlertType)="onUpdateAlertType($event)"
+                                [disable]="filterParam.specificSearch">
+                        </app-alert-type-area>
+                </div>
 
-    <app-specific-search-area
-            #specificSearchAreaComponent
-            (onchangeAuthorization)="onUpdateSpacificSearch($event)">
-    </app-specific-search-area>
+                <div class="p-col-12">
+                        <app-authorization-area
+                                #authorizationAreaComponent
+                                (onchangeAuthorization)="onUpdateAuthorization($event)"
+                                [disable]="authorizationDisable">
+                        </app-authorization-area>
+                </div>
 
-    <app-footer-filter-area
-            (onCloseClicked)="onCloseClicked()"
-            (onClearFilterClicked)="onClearFilterClicked()"
-            (onFilterClicked)="onFilterClicked()">
-    </app-footer-filter-area>
+                <div class="p-col-12">
+                        <app-specific-search-area
+                                #specificSearchAreaComponent
+                                (onchangeAuthorization)="onUpdateSpacificSearch($event)">
+                        </app-specific-search-area>
+                </div>
+
+                <div class="p-col-12">
+                        <app-footer-filter-area
+                                (onCloseClicked)="onCloseClicked()"
+                                (onClearFilterClicked)="onClearFilterClicked()"
+                                (onFilterClicked)="onFilterClicked()">
+                        </app-footer-filter-area>
+                </div>
+        </div>
 
 </p-dialog>

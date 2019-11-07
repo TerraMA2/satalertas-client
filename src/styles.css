@@ -39,10 +39,6 @@ body {
     width: 100%;
 }
 
-.width-37em {
-    width: 37em;
-}
-
 .text-left {
   text-align: left;
 }
@@ -97,4 +93,8 @@ body {
   body .ui-card {
     border: 1px solid #eee;
   }
+}
+
+.no-margin {
+  margin: 5px 0;
 }
