@@ -8,6 +8,7 @@ import { Vision } from '../models/vision.model';
 import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Alert} from '../models/alert.model';
+import {FilterService} from './filter.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,8 @@ export class ReportService {
   property = new Subject<Property>();
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private filterService: FilterService
   ) {}
 
   getVisions(propertyData: Property, visionsData, key: string = null): Vision[] {
@@ -304,31 +306,20 @@ export class ReportService {
     return text.replace(new RegExp(wildCard, regexFlag), replaceValue);
   }
 
-  async getAnalysisTotals(
-    alerts: Alert [] = [], groupCod = null, projectName = null, group = null,
-    localization = null, area = null, count = null) {
+  async getAnalysisTotals( alerts: Alert [] = [] ) {
 
     const url = this.urlReport + '/getAnalysisTotals';
 
-    const date = JSON.parse(localStorage.getItem('dateFilter'));
+    const parameters = this.filterService.getParams(alerts);
 
-    const listAlert = JSON.stringify(alerts);
-
-    const parameters = { listAlert, date, groupCod, projectName, group, localization, area, count };
     return await this.http.get(url, { params: parameters }).toPromise();
   }
 
-  async getDetailsAnalysisTotals(
-    alerts: Alert [] = [], groupCod = null, projectName = null, group = null,
-    localization = null, area = null, count = null) {
-
+  async getDetailsAnalysisTotals( alerts: Alert [] = [] ) {
     const url = this.urlReport + '/getDetailsAnalysisTotals';
 
-    const date = JSON.parse(localStorage.getItem('dateFilter'));
+    const parameters = this.filterService.getParams(alerts);
 
-    const listAlert = JSON.stringify(alerts);
-
-    const parameters = { listAlert, date, groupCod, projectName, group, localization, area, count };
     return await this.http.get(url, { params: parameters }).toPromise();
   }
 }
