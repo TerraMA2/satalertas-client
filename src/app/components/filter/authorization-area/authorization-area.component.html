@@ -1,12 +1,9 @@
-
-<div class="p-grid" >
-    <label class="p-col-12"><b>Autorização</b></label>
-    <p-dropdown
-            [options]="authorizations"
-            [(ngModel)]="authorization"
-            filter="true"
-            scrollHeight="100px"
-            (onChange)="onChange($event)"
-            [disabled]="disable">
-    </p-dropdown>
-</div>
+<h3 class="no-margin">Autorização</h3>
+<p-dropdown
+        [options]="authorizations"
+        [(ngModel)]="authorization"
+        filter="true"
+        scrollHeight="100px"
+        (onChange)="onChange($event)"
+        [disabled]="disable">
+</p-dropdown>
