@@ -27,7 +27,7 @@ export class TableComponent implements OnInit {
 
   @Input() selectedColumns: any[] = [];
 
-  @Input() selectedLayers = [];
+  @Input() selectedLayers: Layer[] = [];
 
   @Input() tableReportActive = false;
 
@@ -49,8 +49,9 @@ export class TableComponent implements OnInit {
   defaultRowsPerPage = 10;
   selectedRowsPerPage: number = this.defaultRowsPerPage;
 
-  orderByOptions: string[];
-  selectedOrderBy: string;
+  filters: any[];
+  selectedFilter: object;
+  selectedFilterValue: number;
 
   private tableConfig;
 
@@ -65,6 +66,8 @@ export class TableComponent implements OnInit {
   ngOnInit() {
     this.tableConfig = this.configService.getMapConfig('table');
 
+    this.rowsPerPage = this.tableConfig.rowsPerPage;
+
     this.tableService.loadTableData.subscribe(layer => {
       if (layer) {
         this.loading = true;
@@ -78,19 +81,17 @@ export class TableComponent implements OnInit {
       }
     });
 
-    this.tableService.loadReportTableData.subscribe(layer => {
-      if (layer) {
-        this.selectedLayer = layer;
-        this.loading = true;
-        this.loadTableData(layer, this.selectedRowsPerPage, 0);
-      }
+    this.tableService.loadReportTableData.subscribe(() => {
+      this.loading = true;
+      this.filters = this.configService.getMapConfig('table').reportLayers;
+      const selectedOption = this.filters[0];
+      this.selectedFilter = selectedOption;
+      this.selectedLayer = selectedOption;
+      this.selectedLayerValue = selectedOption.value;
+      this.loadTableData(this.filters[0], this.selectedRowsPerPage, 0, selectedOption.order);
     });
 
     this.tableService.clearTable.subscribe(() => this.clearTable());
-
-    this.rowsPerPage = this.tableConfig.rowsPerPage;
-
-    this.orderByOptions = this.tableConfig.orderBy;
 
     this.filterService.filterTable.subscribe(() => this.tableService.loadTableData.next(this.selectedLayer));
   }
@@ -99,8 +100,7 @@ export class TableComponent implements OnInit {
                 limit: number,
                 offset: number,
                 sortColumn?: string,
-                sortOrder?: number,
-
+                sortOrder?: number
   ) {
     if (!layer) {
       return;
@@ -162,9 +162,9 @@ export class TableComponent implements OnInit {
   }
 
   onSelectedLayerChange(layer) {
+    this.loading = true;
     this.selectedLayer = layer.selectedOption;
     this.selectedLayerLabel = this.selectedLayer.label;
-    this.loading = true;
     this.loadTableData(layer.selectedOption, this.selectedRowsPerPage, 0);
   }
 
@@ -174,10 +174,13 @@ export class TableComponent implements OnInit {
     this.loadTableData(this.selectedLayer, this.selectedRowsPerPage, 0);
   }
 
-  onOrderByChange(event) {
+  onFilterChange(filter) {
     this.loading = true;
-    this.selectedOrderBy = event.value;
-    this.loadTableData(this.selectedLayer, this.selectedRowsPerPage, 0);
+    const selectedOption = filter.selectedOption;
+    this.selectedFilter = selectedOption;
+    this.selectedLayer = selectedOption;
+    this.selectedLayerValue = selectedOption.value;
+    this.loadTableData(selectedOption, this.selectedRowsPerPage, 0, selectedOption.order);
   }
 
   trackByFunction(index, item) {
@@ -197,6 +200,7 @@ export class TableComponent implements OnInit {
   clearTable() {
     this.tableData = undefined;
     this.selectedLayer = undefined;
+    this.selectedFilter = undefined;
     this.selectedLayerLabel = '';
     this.selectedLayerValue = 0;
     this.selectedColumns = undefined;

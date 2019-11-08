@@ -1614,26 +1614,36 @@
           "value": 1000
         }
       ],
-      "orderBy": [
+      "reportLayers": [
         {
-          "label": "Filtrar",
-          "value": ""
+            "label": "CAR",
+            "value": "5",
+            "type": "report",
+            "order": "car_area"
         },
         {
-          "label": "DETER",
-          "value": "deter"
+          "label": "CAR X DETER",
+          "value": "86",
+          "type": "report",
+          "order": "deter"
         },
         {
-          "label": "PRODES",
-          "value": "prodes"
+          "label": "CAR X PRODES",
+          "value": "87",
+          "type": "report",
+          "order": "prodes"
         },
         {
-          "label": "FOCOS",
-          "value": "focos"
+          "label": "CAR X FOCOS",
+          "value": "88",
+          "type": "report",
+          "order": "burnlight"
         },
         {
-          "label": "ÁREA QUEIMADA",
-          "value": "area_queimada"
+          "label": "CAR X AREA QUEIMADA",
+          "value": "",
+          "type": "report",
+          "order": "burnedArea"
         }
       ]
     }

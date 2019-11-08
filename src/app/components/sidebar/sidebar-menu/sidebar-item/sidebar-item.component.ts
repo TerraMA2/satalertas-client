@@ -38,15 +38,9 @@ export class SidebarItemComponent implements OnInit {
   }
 
   generateReport() {
-    const { value } = this.sidebarItem;
-    const type = 'report';
-    const layer = {
-      value,
-      type
-    };
-    this.sidebarService.sidebarReload.next();
     this.mapService.reportTable.next();
-    this.tableService.loadReportTableData.next(layer);
+    this.tableService.loadReportTableData.next();
+    this.sidebarService.sidebarReload.next();
   }
 
 }
