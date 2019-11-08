@@ -50,6 +50,7 @@ export class ThemeAreaComponent implements OnInit, AfterViewInit {
       this.loadComboCity();
     } else if (option.value  === 'biome') {
       this.optionSelectedByFilter = new FilterTheme('Bioma', undefined, 'biome' );
+      this.optionsFilterLocalizations = [];
 
       this.loadComboBiome();
     } else if (option.value  === 'region') {
