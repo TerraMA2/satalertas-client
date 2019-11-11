@@ -51,7 +51,8 @@ export class TableComponent implements OnInit {
 
   filters: any[];
   selectedFilter: object;
-  selectedFilterValue: number;
+  selectedFilterValue: string;
+  selectedFilterSource: string;
 
   private tableConfig;
 
@@ -87,8 +88,10 @@ export class TableComponent implements OnInit {
       const selectedOption = this.filters[0];
       this.selectedFilter = selectedOption;
       this.selectedLayer = selectedOption;
+      this.selectedFilterValue = selectedOption.value;
       this.selectedLayerValue = selectedOption.value;
-      this.loadTableData(this.filters[0], this.selectedRowsPerPage, 0, selectedOption.order);
+      this.selectedFilterSource = selectedOption.source;
+      this.loadTableData(this.filters[0], this.selectedRowsPerPage, 0, this.selectedFilterSource);
     });
 
     this.tableService.clearTable.subscribe(() => this.clearTable());
@@ -104,6 +107,10 @@ export class TableComponent implements OnInit {
   ) {
     if (!layer) {
       return;
+    }
+
+    if (this.selectedFilterSource) {
+      sortColumn = this.selectedFilterSource;
     }
 
     const url = this.configService.getAppConfig('layerUrls')[layer.type];
@@ -153,10 +160,14 @@ export class TableComponent implements OnInit {
   }
 
   lazyLoad(event: LazyLoadEvent) {
+    let sortField = event.sortField;
+    if (this.selectedFilterSource) {
+      sortField = this.selectedFilterSource;
+    }
     this.loadTableData(this.selectedLayer,
                       event.rows,
                       event.first,
-                      event.sortField,
+                      sortField,
                       event.sortOrder
     );
   }
@@ -170,8 +181,11 @@ export class TableComponent implements OnInit {
 
   onRowsPerPageChange(event) {
     this.loading = true;
-    this.selectedRowsPerPage = Number(event.value);
-    this.loadTableData(this.selectedLayer, this.selectedRowsPerPage, 0);
+    let sortField = null;
+    if (this.selectedFilterSource) {
+      sortField = this.selectedFilterSource;
+    }
+    this.loadTableData(this.selectedLayer, this.selectedRowsPerPage, 0, sortField);
   }
 
   onFilterChange(filter) {
@@ -179,8 +193,8 @@ export class TableComponent implements OnInit {
     const selectedOption = filter.selectedOption;
     this.selectedFilter = selectedOption;
     this.selectedLayer = selectedOption;
-    this.selectedLayerValue = selectedOption.value;
-    this.loadTableData(selectedOption, this.selectedRowsPerPage, 0, selectedOption.order);
+    this.selectedFilterSource = selectedOption.source;
+    this.loadTableData(selectedOption, this.selectedRowsPerPage, 0, this.selectedFilterSource);
   }
 
   trackByFunction(index, item) {
@@ -201,6 +215,7 @@ export class TableComponent implements OnInit {
     this.tableData = undefined;
     this.selectedLayer = undefined;
     this.selectedFilter = undefined;
+    this.selectedFilterValue = undefined;
     this.selectedLayerLabel = '';
     this.selectedLayerValue = 0;
     this.selectedColumns = undefined;

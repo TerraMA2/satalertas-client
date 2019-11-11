@@ -1616,34 +1616,34 @@
       ],
       "reportLayers": [
         {
-            "label": "CAR",
-            "value": "5",
-            "type": "report",
-            "order": "car_area"
+          "label": "CAR",
+          "value": "5",
+          "type": "report",
+          "source": "car"
         },
         {
           "label": "CAR X DETER",
           "value": "86",
           "type": "report",
-          "order": "deter"
+          "source": "deter"
         },
         {
           "label": "CAR X PRODES",
           "value": "87",
           "type": "report",
-          "order": "prodes"
+          "source": "prodes"
         },
         {
           "label": "CAR X FOCOS",
           "value": "88",
           "type": "report",
-          "order": "burnlight"
+          "source": "focos"
         },
         {
           "label": "CAR X AREA QUEIMADA",
           "value": "",
           "type": "report",
-          "order": "burnedArea"
+          "source": "area_queimada"
         }
       ]
     }
