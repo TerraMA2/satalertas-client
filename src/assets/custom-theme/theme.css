@@ -1264,7 +1264,8 @@ body .ui-button.ui-state-default.ui-button-danger:enabled:active, body .ui-butto
 
 body .ui-widget-content p {
   line-height: 1.5;
-  margin: 0;
+  margin-top: 0;
+  margin-bottom: 1rem;
 }
 body .ui-panel {
   padding: 0;

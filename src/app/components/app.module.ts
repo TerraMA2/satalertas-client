@@ -6,9 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { registerLocaleData } from '@angular/common';
 
 import localePt from '@angular/common/locales/pt';
-
 import { AppRoutingModule } from './app-routing.module';
-import { PanelMenuModule } from 'primeng/panelmenu';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { SidebarModule } from 'primeng/sidebar';
 import { CardModule } from 'primeng/card';
@@ -19,22 +17,20 @@ import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { DropdownModule } from 'primeng/dropdown';
 import { MultiSelectModule } from 'primeng/multiselect';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
 import { DialogModule } from 'primeng/dialog';
 import { CalendarModule } from 'primeng/calendar';
 import { AccordionModule } from 'primeng/accordion';
 import { KeyFilterModule } from 'primeng/keyfilter';
-import { TreeModule } from 'primeng/tree';
 import { TreeDragDropService, MessageService } from 'primeng/api';
-import { SelectButtonModule } from 'primeng/selectbutton';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ToastModule } from 'primeng/toast';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { NgxPrintModule } from 'ngx-print';
 import { ToolbarModule } from 'primeng/toolbar';
+import { PDFExportModule } from '@progress/kendo-angular-pdf-export';
 
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
@@ -74,9 +70,8 @@ import { AlertTypeAreaComponent } from './filter/alert-type-area/alert-type-area
 import { AuthorizationAreaComponent } from './filter/authorization-area/authorization-area.component';
 import { SpecificSearchAreaComponent } from './filter/specific-search-area/specific-search-area.component';
 import { FooterFilterAreaComponent } from './filter/footer-filter-area/footer-filter-area.component';
-
+import { FinalReportComponent } from './final-report/final-report.component';
 registerLocaleData(localePt, 'pt');
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -116,7 +111,8 @@ registerLocaleData(localePt, 'pt');
     AuthorizationAreaComponent,
     SpecificSearchAreaComponent,
     FooterFilterAreaComponent,
-    SidebarItemComponent
+    SidebarItemComponent,
+    FinalReportComponent
   ],
 
   imports: [
@@ -124,8 +120,6 @@ registerLocaleData(localePt, 'pt');
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    OverlayPanelModule,
-    PanelMenuModule,
     CardModule,
     ChartModule,
     ScrollPanelModule,
@@ -143,14 +137,13 @@ registerLocaleData(localePt, 'pt');
     CalendarModule,
     AccordionModule,
     KeyFilterModule,
-    TreeModule,
-    SelectButtonModule,
     InputSwitchModule,
     CheckboxModule,
     ToastModule,
     RadioButtonModule,
     NgxPrintModule,
     ToolbarModule,
+    PDFExportModule
   ],
   providers: [
     TreeDragDropService,
