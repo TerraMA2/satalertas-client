@@ -55,10 +55,11 @@
 
                     &nbsp;&nbsp;
 
-                    <p-dropdown *ngIf="tableReportActive"
-                        [options]="orderByOptions"
-                        [(ngModel)]="selectedOrderBy"
-                        (onChange)="onOrderByChange($event)">
+                    <p-dropdown #selectedFilter
+                        *ngIf="tableReportActive"
+                        [(options)]="filters"
+                        [(ngModel)]="selectedFilterValue"
+                        (onChange)="onFilterChange(selectedFilter)">
                     </p-dropdown>
 
 

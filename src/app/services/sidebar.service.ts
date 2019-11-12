@@ -30,4 +30,5 @@ export class SidebarService {
   sidebarLayerShowHide = new Subject<boolean>();
 
   constructor() { }
+
 }
