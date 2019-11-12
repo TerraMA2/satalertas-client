@@ -5,10 +5,9 @@ import {HttpClient} from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class RegionService {
+export class IndigenousLand {
 
-
-  urlRegion = environment.terramaUrl + '/api/city';
+  urlRegion = environment.terramaUrl + '/api/indigenousLand';
 
   constructor(
     private http: HttpClient
