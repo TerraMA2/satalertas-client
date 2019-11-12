@@ -37,7 +37,6 @@ export class DashboardComponent implements OnInit {
     private sidebarService: SidebarService
   ) { }
 
-
   ngOnInit() {
     this.sidebarLayers = this.configService.getSidebarConfig('sidebarLayers');
 
@@ -106,7 +105,9 @@ export class DashboardComponent implements OnInit {
       group.cod === 'DETER',
       group.cod === 'DETER',
       false,
-      []);
+      [],
+      true,
+      true);
 
     group.children.forEach( (view: Layer) => {
       if (view.isPrimary && view.type === 'analysis') {

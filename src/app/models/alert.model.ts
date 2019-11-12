@@ -11,6 +11,8 @@ export class Alert {
     public selected?: boolean,
     public activearea?: boolean,
     public immobileactive?: boolean,
-    public alertsgraphics?: ParamAlert[]
+    public alertsgraphics?: ParamAlert[],
+    public isAnalysis?: boolean,
+    public isPrimary?: boolean
   ) {}
 }

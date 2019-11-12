@@ -18,5 +18,13 @@ export class FilterService {
   filterReport = new Subject<Layer>();
   filterLayerMap = new Subject<Layer>();
 
+  getParams(value) {
+    const date = JSON.parse(localStorage.getItem('dateFilter'));
+
+    const specificParameters = JSON.stringify(value);
+    const filter = localStorage.getItem('filterList');
+    return {specificParameters, date, filter};
+  }
+
   constructor() { }
 }
