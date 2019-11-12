@@ -65,7 +65,7 @@ export class AlertTypeAreaComponent implements OnInit, AfterViewInit {
   }
 
   isCustomSelected(analisys) {
-    return analisys.valueOption && analisys.valueOption.value && analisys.valueOption.value === 4;
+    return analisys.valueOption && analisys.valueOption.value && analisys.valueOption.value === 5;
   }
 
 }

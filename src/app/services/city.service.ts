@@ -15,4 +15,16 @@ export class CityService {
   getAll() {
     return this.http.get(this.urlCity + '/getAll').toPromise();
   }
+
+  getAllRegions() {
+    return this.http.get(this.urlCity + '/getAllRegions').toPromise();
+  }
+
+  getAllMesoregions() {
+    return this.http.get(this.urlCity + '/getAllMesoregions').toPromise();
+  }
+
+  getAllMicroregions() {
+    return this.http.get(this.urlCity + '/getAllMicroregions').toPromise();
+  }
 }

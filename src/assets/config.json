@@ -2035,8 +2035,12 @@
             "value": 3
           },
           {
-            "label": "Valor > que ...",
+            "label": " > 100 ",
             "value": 4
+          },
+          {
+            "label": "Valor > que ...",
+            "value": 5
           }
         ],
         "options": [
@@ -2049,16 +2053,20 @@
             "value": 1
           },
           {
-            "label": "50 a 100",
+            "label": "25 a 50",
             "value": 2
           },
           {
-            "label": " > 100",
+            "label": "50 a 100",
             "value": 3
           },
           {
-            "label": "Valor > que ...",
+            "label": " > 100",
             "value": 4
+          },
+          {
+            "label": "Valor > que ...",
+            "value": 5
           }
         ]
       },
