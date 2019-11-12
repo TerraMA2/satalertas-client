@@ -40,7 +40,7 @@ export class AlertTypeAreaComponent implements OnInit, AfterViewInit {
 
   onChangeAnalyzeOption(option) {
     this.alertType.analyzes.forEach( analyze => {
-      if (analyze.valueOption && analyze.valueOption['value'] && (analyze.valueOption['value'] !== 4)) {
+      if (analyze.valueOption && analyze.valueOption['value'] && (analyze.valueOption['value'] !== 6)) {
         analyze.valueOptionBiggerThen = undefined;
       }
     });
@@ -65,7 +65,7 @@ export class AlertTypeAreaComponent implements OnInit, AfterViewInit {
   }
 
   isCustomSelected(analisys) {
-    return analisys.valueOption && analisys.valueOption.value && analisys.valueOption.value === 5;
+    return analisys.valueOption && analisys.valueOption.value && analisys.valueOption.value === 6;
   }
 
 }

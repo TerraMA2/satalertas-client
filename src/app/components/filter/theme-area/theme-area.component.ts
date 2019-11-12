@@ -3,7 +3,7 @@ import {ConfigService} from '../../../services/config.service';
 import {FilterTheme} from '../../../models/filter-theme.model';
 import {BiomeService} from '../../../services/biome.service';
 import {CityService} from '../../../services/city.service';
-import {ConsolidatedUseAreaService} from '../../../services/consolidated-use-area.service';
+import {ConservationUnit} from '../../../services/conservation-unit.service';
 import {SelectItem} from 'primeng/api';
 import {IndigenousLand} from '../../../services/indigenous-land.service';
 
@@ -31,7 +31,7 @@ export class ThemeAreaComponent implements OnInit, AfterViewInit {
     private configService: ConfigService,
     private biomeService: BiomeService,
     private cityService: CityService,
-    private consolidatedUseAreaService: ConsolidatedUseAreaService,
+    private conservationUnit: ConservationUnit,
     private indigenousLand: IndigenousLand
   ) { }
 
@@ -104,7 +104,7 @@ export class ThemeAreaComponent implements OnInit, AfterViewInit {
 
   private loadComboMicroregion() { this.cityService.getAllMicroregions().then( result => this.optionsFilterLocalizations = result ); }
 
-  private loadComboUC() { this.consolidatedUseAreaService.getAll().then( result => this.optionsFilterLocalizations = result ); }
+  private loadComboUC() { this.conservationUnit.getAll().then( result => this.optionsFilterLocalizations = result ); }
 
   private loadComboTI() { this.indigenousLand.getAll().then( result => this.optionsFilterLocalizations = result ); }
 }
