@@ -61,7 +61,7 @@ export class TableComponent implements OnInit {
     private configService: ConfigService,
     private tableService: TableService,
     private filterService: FilterService,
-    private mapService: MapService
+    private mapService: MapService,
   ) { }
 
   ngOnInit() {
@@ -223,8 +223,7 @@ export class TableComponent implements OnInit {
     this.totalRecords = 0;
   }
 
-  onGenerateReportClick() {
-
+  onGenerateReportClick(rowData) {
   }
 
 }
