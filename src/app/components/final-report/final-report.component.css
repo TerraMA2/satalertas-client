@@ -1,0 +1,56 @@
+@font-face {
+    font-family: "DejaVu Sans";
+    src: url("../../../assets/fonts/DejaVuSans.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "DejaVu Sans";
+    font-weight: bold;
+    src: url("../../../assets/fonts/DejaVuSans-Bold.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "DejaVu Sans";
+    font-style: italic;
+    src: url("../../../assets/fonts/DejaVuSansMono-Oblique.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "DejaVu Sans";
+    font-style: italic;
+    font-weight: bold;
+    src: url("../../../assets/fonts/DejaVuSans-BoldOblique.ttf") format("truetype");
+}
+
+kendo-pdf-export {
+    font-size: 14px;
+    font-family: 'Arial Unicode MS', 'DejaVuSans', 'DejaVuSans-Bold', 'DejaVuSans-Oblique', "Arial", sans-serif;
+}
+
+.green {
+    color: green;
+}
+
+.background-color-gray {
+    background-color: #eee;
+}
+
+.container {
+    background: #fff;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 20px;
+    max-width: 90%;
+}
+
+.word-wrap {
+    overflow-wrap: break-word;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+p {
+    text-indent: 20px;
+}

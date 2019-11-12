@@ -8,11 +8,14 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 
 import { ReportComponent } from './report/report.component';
 
+import { FinalReportComponent } from './final-report/final-report.component';
+
 const routes: Routes = [
   { path: '', component: DashboardComponent },
   { path: 'map', component: MapComponent, data: { reuseRoute: true } },
   { path: 'report', component: ReportComponent },
-  { path: 'report/:carRegister', component: ReportComponent }
+  { path: 'report/:carRegister', component: ReportComponent },
+  { path: 'finalReport/:carRegister', component: FinalReportComponent }
 ];
 
 @NgModule({

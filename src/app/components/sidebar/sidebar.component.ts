@@ -19,8 +19,6 @@ import { SidebarItem } from 'src/app/models/sidebar-item.model';
 })
 export class SidebarComponent implements OnInit {
 
-  @Input() displayFilterControl = true;
-
   sidebarItems: SidebarItem[] = [];
 
   sidebarLayerGroups: LayerGroup[] = [];
@@ -42,7 +40,7 @@ export class SidebarComponent implements OnInit {
     this.logoLink = this.sidebarConfig.logoLink;
     this.setItems();
     this.sidebarService.sidebarReload.subscribe(() => {
-      this.setItems();
+      this.setSidebarLayers();
       this.mapService.clearMap.next();
     });
   }

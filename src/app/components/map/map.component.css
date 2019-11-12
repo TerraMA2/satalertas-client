@@ -37,36 +37,3 @@
   overflow: auto;
   text-align: center;
 }
-
-:host ::ng-deep .table-responsive {
-  display: block;
-  width: 100%;
-  overflow-x: auto;
-}
-
-:host ::ng-deep .table {
-  width: 100%;
-  color: #212529;
-}
-
-:host ::ng-deep .table-hover tbody tr:hover {
-  color: #212529;
-  background-color: rgba(0, 0, 0, 0.075);
-}
-
-:host ::ng-deep .table th,
-:host ::ng-deep .table td {
-  padding: 0.5rem;
-  border-top: 1px solid #dee2e6;
-}
-
-:host ::ng-deep .table thead th {
-  border-bottom: 2px solid #dee2e6;
-  color: #fff;
-  background-color: #591111;
-  border-color: #591111;
-}
-
-:host ::ng-deep .table tbody + tbody {
-  border-top: 2px solid #dee2e6;
-}

@@ -151,12 +151,13 @@
                 {{rowData[col.field]}}
             </td>
             <td style="width: 8em">
-                <button *ngIf="tableReportActive"
+                <a *ngIf="tableReportActive"
+                        routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
                         pButton
                         icon="fas fa-file-alt"
                         pTooltip="Gerar relatório"
                         tooltipPosition="top">
-                </button>
+                </a>
                 &nbsp;
                 <button pButton
                         icon="fas fa-map-marker-alt"
