@@ -6,8 +6,6 @@ import {Alert} from '../../models/alert.model';
 
 import {AlertGraphic} from '../../models/alert-graphic.model';
 
-import {ReportService} from '../../services/report.service';
-
 import {FilterService} from '../../services/filter.service';
 
 import {LayerGroup} from '../../models/layer-group.model';
@@ -32,7 +30,6 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private configService: ConfigService,
-    private reportService: ReportService,
     private filterService: FilterService,
     private sidebarService: SidebarService
   ) { }
@@ -62,7 +59,7 @@ export class DashboardComponent implements OnInit {
       }
     });
 
-    await this.reportService.getAnalysisTotals( listAlerts ).then( (alerts: Alert[]) => {
+    await this.filterService.getAnalysisTotals( listAlerts ).then( (alerts: Alert[]) => {
       this.alertsDisplayed = alerts;
 
       this.setAlertsGraphics();
@@ -124,7 +121,7 @@ export class DashboardComponent implements OnInit {
 
     this.activeArea(alertSelected.alertsgraphics);
 
-    this.reportService.getDetailsAnalysisTotals(alertSelected.alertsgraphics).then( (alertsGraphics: AlertGraphic[]) => {
+    this.filterService.getDetailsAnalysisTotals(alertSelected.alertsgraphics).then( (alertsGraphics: AlertGraphic[]) => {
       this.alertGraphics = alertsGraphics;
 
       alertSelected.activearea = true;
@@ -141,7 +138,7 @@ export class DashboardComponent implements OnInit {
 
     this.activeImmobile(alertSelected.alertsgraphics);
 
-    this.reportService.getDetailsAnalysisTotals(alertSelected.alertsgraphics).then( (alertsGraphics: AlertGraphic[]) => {
+    this.filterService.getDetailsAnalysisTotals(alertSelected.alertsgraphics).then( (alertsGraphics: AlertGraphic[]) => {
       this.alertGraphics = alertsGraphics;
 
       alertSelected.immobileactive = true;
@@ -167,7 +164,7 @@ export class DashboardComponent implements OnInit {
   private adjustGraphValues(alertsGraphics) {
     const listAlertGraphics = [];
 
-    this.reportService.getDetailsAnalysisTotals(alertsGraphics);
+    this.filterService.getDetailsAnalysisTotals(alertsGraphics);
 
     this.alertGraphics = listAlertGraphics; // ListAlertGraphic.listAlertsGraphic;
   }
