@@ -7,7 +7,6 @@ import {HttpClient} from '@angular/common/http';
 })
 export class CarService {
 
-
   urlCar = environment.terramaUrl + '/api/car';
 
   constructor(
@@ -20,5 +19,10 @@ export class CarService {
 
   getAllSimplified() {
     return this.http.get(this.urlCar + '/getAllSimplified').toPromise();
+  }
+  async getByCpf(cpf) {
+    const parameters = { cpf };
+
+    return await this.http.get(`${this.urlCar}/getByCpf`, { params: parameters }).toPromise();
   }
 }
