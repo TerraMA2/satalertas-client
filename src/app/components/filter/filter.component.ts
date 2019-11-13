@@ -73,8 +73,6 @@ export class FilterComponent implements OnInit, AfterViewInit {
   onFilterClicked() {
     this.updateFilter();
 
-    console.log(this.filterParam);
-
     this.filterService.filterMap.next();
     this.filterService.filterDashboard.next();
     this.filterService.filterTable.next();
@@ -97,7 +95,6 @@ export class FilterComponent implements OnInit, AfterViewInit {
   }
 
   onUpdateAuthorization(authorization: FilterAuthorization) {
-    console.log('OnUpdateAuthorization: ', authorization);
     this.filterParam.autorization = authorization;
   }
 
