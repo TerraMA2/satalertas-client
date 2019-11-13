@@ -15,34 +15,40 @@
             [useExistingCss]="true"
             printSectionId="print-section">
     </button>
+    &nbsp;
+    <button pButton
+            icon="fas fa-file-alt"
+            label="Visualizar laudo"
+            (click)="onViewReportClicked()">
+  </button>
   </div>
 </p-toolbar>
 <p-scrollPanel [style]="{width: '100%', height: 'calc(100vh - 100px)'}">
   <div class="background-color-gray">
     <br>
-    <div id="print-section" class="container">
-      <app-property-data [property]="property"></app-property-data>
-      <hr>
-      <app-vision [visions]="visions" [legends]="visionLegends"></app-vision>
-      <br>
-      <app-vision-detailed [detailedVisions]="detailedVisions" [formattedFilterDate]="formattedFilterDate"></app-vision-detailed>
-      <br>
-      <app-deforestation [deforestations]="deforestations"></app-deforestation>
-      <br>
-      <app-deforestation-history [deforestationHistories]="deforestationHistories"></app-deforestation-history>
-      <br>
-      <app-burning-spotlights [burningSpotlights]="burningSpotlights"></app-burning-spotlights>
-      <br>
-      <app-burning-spotlights-chart [data]="burningSpotlightsChartData"></app-burning-spotlights-chart>
-      <br>
-      <app-burned-areas [burnedAreas]="burnedAreas"></app-burned-areas>
-      <!-- <br>
-      <app-burned-areas-chart [burnedAreasChartData]="burnedAreasChartData"
-                              [burnedAreasPerPropertyChartDatas]="burnedAreasPerPropertyChartDatas">
-      </app-burned-areas-chart> -->
-      <br>
-      <app-image-history [landsatHistories]="landsatHistories"></app-image-history>
-      <hr>
-    </div>
+      <div id="print-section" class="container">
+        <app-property-data [property]="property"></app-property-data>
+        <hr>
+        <app-vision [visions]="visions" [legends]="visionLegends"></app-vision>
+        <br>
+        <app-vision-detailed [detailedVisions]="detailedVisions" [formattedFilterDate]="formattedFilterDate"></app-vision-detailed>
+        <br>
+        <app-deforestation [deforestations]="deforestations"></app-deforestation>
+        <br>
+        <app-deforestation-history [deforestationHistories]="deforestationHistories"></app-deforestation-history>
+        <br>
+        <app-burning-spotlights [burningSpotlights]="burningSpotlights"></app-burning-spotlights>
+        <br>
+        <app-burning-spotlights-chart [data]="burningSpotlightsChartData"></app-burning-spotlights-chart>
+        <br>
+        <app-burned-areas [burnedAreas]="burnedAreas"></app-burned-areas>
+        <!-- <br>
+        <app-burned-areas-chart [burnedAreasChartData]="burnedAreasChartData"
+                                [burnedAreasPerPropertyChartDatas]="burnedAreasPerPropertyChartDatas">
+        </app-burned-areas-chart> -->
+        <br>
+        <app-image-history [landsatHistories]="landsatHistories"></app-image-history>
+        <hr>
+      </div>
   </div>
 </p-scrollPanel>

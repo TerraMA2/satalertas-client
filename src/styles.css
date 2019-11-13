@@ -51,6 +51,14 @@ body {
   text-align: center;
 }
 
+.border {
+  border: 1px solid #ccc;
+}
+
+.padding {
+  padding: 10px;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }

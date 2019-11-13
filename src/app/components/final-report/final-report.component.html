@@ -11,7 +11,7 @@
                 ngxPrint
                 icon="fas fa-print"
                 label="Imprimir"
-                printTitle="Relatório ambiental CAR - {{carRegister}}"
+                printTitle="'Laudo CAR ' + property?.register"
                 [useExistingCss]="true"
                 printSectionId="printSection">
         </button>
@@ -20,8 +20,8 @@
                 pButton
                 icon="fas fa-download"
                 type="button"
-                (click)="pdf.saveAs(report?.title)"
-                label="Baixar relatório">
+                (click)="pdf.saveAs('Laudo CAR ' + property?.register)"
+                label="Baixar laudo">
         </button>
     </div>
 </p-toolbar>
@@ -31,9 +31,8 @@
         <div class="container">
             <kendo-pdf-export #pdf
                             paperSize="A4"
-                            margin="3cm"
-                            fileName="report?.title"
-                            forcePageBreak=".page-break">
+                            margin="1cm"
+                            fileName="'Laudo CAR ' + property?.register">
                 <div id="printSection" class="size-a4">
                     <div class="p-grid p-nogutter">
                         <div class="p-col-12">
@@ -42,11 +41,11 @@
                         </div>
                         <div class="p-col-12">
                             <strong class="word-wrap">MUNICÍPIO:</strong>
-                            {{ report?.city }}-MT
+                            {{ property?.city }}-MT
                         </div>
                         <div class="p-col-12">
                             <strong class="word-wrap">COMARCA: </strong>
-                            {{ report?.county }}
+                            {{ property?.county }}
                         </div>
                     </div>
 
@@ -55,7 +54,7 @@
                             <h2 class="text-center green">NOME DO PROJETO – TCT 30/2018 MP/INPE</h2>
                         </div>
                         <div class="p-col-12">
-                            <h2 class="text-center">RELATÓRIO Nº {{report?.reportNumber}}/2019</h2>
+                            <h2 class="text-center">RELATÓRIO Nº {{property?.reportNumber}}/2019</h2>
                         </div>
                     </div>
 
@@ -64,12 +63,12 @@
                             <h2>1 OBJETO</h2>
                         </div>
                         <p>
-                            Trata-se de relatório sobre desmatamento ilegal identificado com o uso de Sistema de Informações Geográficas no imóvel rural {{report?.farm}} (mapa de localização e do perímetro do imóvel – figura 1), localizado no município de {{report?.city}}-MT, pertencente a {{report?.cpf}}, conforme informações declaradas no Sistema Mato-grossense de Cadastro Ambiental Rural (SIMCAR), protocolo CAR {{report?.carRegister}} (Anexo I).
+                            Trata-se de relatório sobre desmatamento ilegal identificado com o uso de Sistema de Informações Geográficas no imóvel rural {{property?.farm}} (mapa de localização e do perímetro do imóvel – figura 1), localizado no município de {{property?.city}}-MT, pertencente a {{property?.cpf}}, conforme informações declaradas no Sistema Mato-grossense de Cadastro Ambiental Rural (SIMCAR), protocolo CAR {{property?.register}} (Anexo I).
                         </p>
-                        <div class="p-col-12 text-center">
-                            <img src="http://via.placeholder.com/500" class="img-fluid">
+                        <!-- <div class="p-col-12 text-center">
+                            <img src="http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={{property?.bbox}}&width=404&height=431&time={{dateFilter}}&cql_filter=numero_do1='{{property?.register}}'&srs=EPSG:4674&format=image/png" width="400">
                             <figcaption>Figura 1. Mapa de Localização e do Perímetro do Imóvel</figcaption>
-                        </div>
+                        </div> -->
                     </div>
 
                     <div class="p-grid p-nogutter">
@@ -102,7 +101,7 @@
                             <h2>2.2 Método utilizado</h2>
 
                             <p>Os dados de desmatamentos (localização e área) dos projetos DETER e PRODES (INPE) foram cruzados com informações geoespaciais de fontes oficiais para identificação, qualificação e quantificação dos danos ambientais causados por desmatamentos ilegais (recentes, via DETER, e passados, via PRODES), bem como para identificação dos responsáveis pelo imóvel rural atingido, para fins de responsabilização civil e, eventualmente, criminal.</p>
-                            <p>Os dados geoespaciais do SIMGEO, MMA e FUNAI foram cruzados com os dados do INPE para identificação e quantificação dos desmatamentos após 22.07.2008 em áreas protegidas (APP, ARL, AUR, UC e TI), bem como para identificar ilícitos ambientais, mediante o cruzamento com dados das Autorizações de Exploração (AUTEX) e de Desmatamento (AD) emitidas pela SEMA. Ainda, verificou-se se as áreas desmatadas já haviam sido autuadas ou embargadas pelos órgãos de controle ambiental (SEMA e IBAMA). Para qualificação da área desmatada, o tipo de vegetação desmatada foi identificada utilizando o mapa de vegetação do Projeto RadamBrasil.</p>
+                            <p>Os dados geoespaciais do SIMGEO, MMA e FUNAI foram cruzados com os dados do INPE para identificação e quantificação dos desmatamentos após 22.07.{{prodesStartYear}} em áreas protegidas (APP, ARL, AUR, UC e TI), bem como para identificar ilícitos ambientais, mediante o cruzamento com dados das Autorizações de Exploração (AUTEX) e de Desmatamento (AD) emitidas pela SEMA. Ainda, verificou-se se as áreas desmatadas já haviam sido autuadas ou embargadas pelos órgãos de controle ambiental (SEMA e IBAMA). Para qualificação da área desmatada, o tipo de vegetação desmatada foi identificada utilizando o mapa de vegetação do Projeto RadamBrasil.</p>
                             <p>As informações sobre o imóvel rural onde incidiu o desmatamento e sua titularidade foram coletadas na base de dados do SIMCAR, INTERMAT, INCRA e  INFOSEG.</p>
                             <p>Os projetos PRODES e DETER, utilizados para identificação ,  quantificação e qualificação dos desmatamentos, fazem parte do Programa de Monitoramento da Amazônia e Demais Biomas (PAMZ+) desenvolvido pela Coordenação-geral de Observação da Terra (CGOBT) e Centro Regional da Amazônia (CRA) do INPE. Além do PRODES e DETER, o PAMZ+ conta também com Sistema de Mapeamento do Uso e Ocupação da Terra (TerraClass). Estes três projetos são complementares e concebidos para atender diferentes objetivos.</p>
                             <p>O objetivo do DETER é identificar diariamente alterações na cobertura florestal em áreas acima de 3 ha com a emissão de alertas para apoio à fiscalização. Os alertas indicam áreas que sofreram corte raso ou intervenções pela exploração madeireira, mineração, queimadas e outras, ou seja, identificam e mapeiam áreas desflorestadas e degradadas em fisionomias florestais na Amazônia Legal (Estados do Acre, Amapá, Amazonas, Mato Grosso, Pará, Rondônia, Tocantins e parte do Maranhão).</p>
@@ -128,112 +127,62 @@
                         <div class="p-col-12">
                             <h2>3 ANÁLISE TÉCNICA</h2>
 
-                            <p>O Instituto Nacional de Pesquisas Espaciais, a partir dos dados geoespaciais, identificou desmatamento de {{report?.deforestation | number:'1.0-2':'pt'}} hectares na {{report?.farm}} após 22.07.2008 (período do filtro), conforme dinâmica de desmatamento explicitada em representação cartográfica que segue (figura 2):</p>
-                            <div class="p-col-12 text-center">
-                                <img src="http://via.placeholder.com/500" class="img-fluid">
-                                <figcaption>Figura 2. dinâmica de desmatamento - 2008/2019</figcaption>
-                            </div>
+                            <p>O Instituto Nacional de Pesquisas Espaciais, a partir dos dados geoespaciais, identificou desmatamento de {{property?.deforestation | number:'1.0-2':'pt'}} hectares na {{property?.farm}} após 22.07.{{prodesStartYear}} ({{formattedFilterDate}}), conforme dinâmica de desmatamento explicitada em representação cartográfica que segue (figura 2):</p>
+                            <!-- <div class="p-col-12 text-center">
+                                <img src="http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_86:view86&styles=&bbox={{property?.bbox}}&width=404&height=431&time={{prodesStartYear}}/{{currentYear}}&cql_filter=numero_do1='{{property?.register}}';de_car_validado_sema_numero_do1='{{property?.register}}'&srs=EPSG:4674&format=image/png" width="400">
+                                <figcaption>Figura 2. dinâmica de desmatamento - {{prodesStartYear}}/{{currentYear}}</figcaption>
+                            </div> -->
                             <p>No quadro demonstrativo abaixo consta a quantificação qualitativa das áreas desmatadas que foram identificadas com o cruzamento dos dados descritos no histórico desse relatório (quadro 1):</p>
-                            <p>Quadro 1 - Classes e quantitativos de áreas desmatadas na {{report?.farm}}.</p>
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <th>Área atingida</th>
-                                        <th>Desmatamento recente (DETER – nº de alertas)</th>
-                                        <th>Desmatamento pretérito (PRODES – ha ano-1)</th>
-                                    </thead>
-                                    <tbody>
+                            <p>Quadro 1 - Classes e quantitativos de áreas desmatadas na {{property?.farm}}.</p>
+                            <div class="p-col-12">
+                                <p-table [(value)]="tableData"
+                                        [responsive]="true"
+                                        [columns]="tableColumns">
+                                    <ng-template pTemplate="header" let-columns>
                                         <tr>
-                                            <td>APP</td>
-                                            <td></td>
-                                            <td></td>
+                                            <th *ngFor="let col of columns">
+                                                {{col.header}}
+                                            </th>
                                         </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-rowData let-columns="columns">
                                         <tr>
-                                            <td>ARL</td>
-                                            <td></td>
-                                            <td></td>
+                                            <td *ngFor="let col of columns">
+                                                {{rowData[col.field]}}
+                                            </td>
                                         </tr>
-                                        <tr>
-                                            <td>AUR</td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>UC – PI</td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>UC – US</td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>TI</td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>AUC</td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>AUAS</td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>AUTEX</td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>AD</td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Área autuada</td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Área embargada</td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Área desembargada</td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                    </ng-template>
+                                </p-table>
                             </div>
                             <p>Anota-se que os dados acima indicados indicam extreme de dúvidas, com grau de acurácia de aproximadamente 95% de acerto, o quantitativo dos desmatamentos, sendo que alterações mínimas poderão ocorrer em decorrência de trabalhos de campo ou uso de outras imagens de satélite com outras escalas ou resolução.</p>
-                            <p>Na representação cartográfica abaixo é possível visualizar, com imagens de alta resolução [Spot (2,5 m) e Planet (3 m)] como estava a cobertura do imóvel em 2008 e como se encontra atualmente (2019): </p>
-                            <div class="p-col-12 text-center">
-                                <img src="http://via.placeholder.com/300" class="img-fluid">
-                                <figcaption>Figura 3. dinâmica de desmatamento (comparativo imagens 2008 e 2019)</figcaption>
+                            <p>Na representação cartográfica abaixo é possível visualizar, com imagens de alta resolução [Spot (2,5 m) e Planet (3 m)] como estava a cobertura do imóvel em {{prodesStartYear}} e como se encontra atualmente ({{currentYear}}): </p>
+                            <!-- <div class="p-grid p-justify-center nowrap">
+                                <div class="text-right border padding">
+                                    <img src="http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_86:view86&styles=&bbox={{property?.bbox}}&width=300&height=300&time={{prodesStartYear}}/P1Y&cql_filter=numero_do1='{{property?.register}}';de_car_validado_sema_numero_do1='{{property?.register}}'&srs=EPSG:4674&format=image/png">
+                                </div>
+                                &nbsp;&nbsp;
+                                <div class="text-left border padding">
+                                    <img src="http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_86:view86&styles=&bbox={{property?.bbox}}&width=300&height=300&time={{currentYear}}/P1Y&cql_filter=numero_do1='{{property?.register}}';de_car_validado_sema_numero_do1='{{property?.register}}'&srs=EPSG:4674&format=image/png">
+                                </div>
                             </div>
+                            <figcaption class="text-center">Figura 3. dinâmica de desmatamento (comparativo imagens {{prodesStartYear}} e {{currentYear}})</figcaption> -->
                         </div>
                         <!-- <small>[ ADAMI, M. et al. A confiabilidade do PRODES: estimativa da acurácia do mapeamento do desmatamento no estado de Mato Grosso. Anais do XVIII Simpósio Brasileiro de Sensoriamento Remoto – SBSR, 2017.]</small>
                         <small>[ Disponível em XXXXX, acessado em 21.10.2019.]</small>
                         <small>[ SOUZA, A. et al. Metodologia utilizada nos Projetos PRODES e DETER. Instituto Nacional de Pesquisas Espaciais – INPE, 2019. Disponível em: http://www.obt.inpe.br/OBT/assuntos/programas/amazonia/prodes/pdfs/Metodologia_Prodes_Deter_revisada.pdf. Acessado em 13.10.2019. ].</small> -->
                     </div>
+                    <div class="p-grid p-nogutter">
+                        <div class="p-col-12">
+                            <h2>4 CONCLUSÃO</h2>
 
-                    <div class="p-col-12">
-                        <h2>4 CONCLUSÃO</h2>
-
-                        <p>Houve desmatamento no imóvel rural objeto deste Relatório Técnico conforme quadro 01 (vide item 3).</p>
-                        <p>Este é o relatório contendo 10 páginas e 02 anexos.</p>
+                            <p>Houve desmatamento no imóvel rural objeto deste Relatório Técnico conforme quadro 01 (vide item 3).</p>
+                            <p>Este é o relatório contendo 10 páginas e 02 anexos.</p>
+                        </div>
                     </div>
                 </div>
                 <ng-template kendoPDFTemplate let-pageNum="pageNum" let-totalPages="totalPages">
-                    <div class="pageNum">
-                        Page {{ pageNum }} of {{ totalPages }}
-                    </div>
+                    <hr>
+                    <small>Page {{ pageNum }} of {{ totalPages }}</small>
                 </ng-template>
             </kendo-pdf-export>
         </div>
