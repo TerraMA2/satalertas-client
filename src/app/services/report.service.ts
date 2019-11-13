@@ -5,24 +5,15 @@ import { Property } from '../models/property.model';
 import { Subject } from 'rxjs';
 
 import { Vision } from '../models/vision.model';
-import {environment} from '../../environments/environment';
-import {HttpClient} from '@angular/common/http';
-import {Alert} from '../models/alert.model';
-import {FilterService} from './filter.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReportService {
 
-  urlReport = environment.terramaUrl + '/api/report';
-
   property = new Subject<Property>();
 
-  constructor(
-    private http: HttpClient,
-    private filterService: FilterService
-  ) {}
+  constructor( ) {}
 
   getVisions(propertyData: Property, visionsData, key: string = null): Vision[] {
     let visions: Vision[] = [];
@@ -305,22 +296,5 @@ export class ReportService {
 
   private replaceWildCard(text: string, wildCard: string, replaceValue: string, regexFlag: string = '') {
     return text.replace(new RegExp(wildCard, regexFlag), replaceValue);
-  }
-
-  async getAnalysisTotals( alerts: Alert [] = [] ) {
-
-    const url = this.urlReport + '/getAnalysisTotals';
-
-    const parameters = this.filterService.getParams(alerts);
-
-    return await this.http.get(url, { params: parameters }).toPromise();
-  }
-
-  async getDetailsAnalysisTotals( alerts: Alert [] = [] ) {
-    const url = this.urlReport + '/getDetailsAnalysisTotals';
-
-    const parameters = this.filterService.getParams(alerts);
-
-    return await this.http.get(url, { params: parameters }).toPromise();
   }
 }

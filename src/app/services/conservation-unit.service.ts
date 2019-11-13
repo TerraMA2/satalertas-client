@@ -5,10 +5,10 @@ import {HttpClient} from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class ConsolidatedUseAreaService {
+export class ConservationUnit {
 
 
-  urlRegion = environment.terramaUrl + '/api/consolidatedUseArea';
+  urlRegion = environment.terramaUrl + '/api/conservationUnit';
 
   constructor(
     private http: HttpClient

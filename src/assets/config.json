@@ -1436,53 +1436,53 @@
         "optionsFocos": [
           {
             "label": "< 10",
-            "value": 0
-          },
-          {
-            "label": "10 a 20",
             "value": 1
           },
           {
-            "label": "20 a 50",
+            "label": "10 a 20",
             "value": 2
           },
           {
-            "label": "50 a 100",
+            "label": "20 a 50",
             "value": 3
           },
           {
-            "label": " > 100 ",
+            "label": "50 a 100",
             "value": 4
           },
           {
-            "label": "Valor > que ...",
+            "label": " > 100 ",
             "value": 5
+          },
+          {
+            "label": "Valor > que ...",
+            "value": 6
           }
         ],
         "options": [
           {
             "label": "< 5",
-            "value": 0
-          },
-          {
-            "label": "5 a 25",
             "value": 1
           },
           {
-            "label": "25 a 50",
+            "label": "5 a 25",
             "value": 2
           },
           {
-            "label": "50 a 100",
+            "label": "25 a 50",
             "value": 3
           },
           {
-            "label": " > 100",
+            "label": "50 a 100",
             "value": 4
           },
           {
-            "label": "Valor > que ...",
+            "label": " > 100",
             "value": 5
+          },
+          {
+            "label": "Valor > que ...",
+            "value": 6
           }
         ]
       },
@@ -1548,6 +1548,10 @@
           {
             "label": "Municípios",
             "value": "city"
+          },
+          {
+            "label": "Projus bacia",
+            "value": "projus"
           },
           {
             "label": "UCs",
