@@ -3,9 +3,10 @@ import {ConfigService} from '../../../services/config.service';
 import {FilterTheme} from '../../../models/filter-theme.model';
 import {BiomeService} from '../../../services/biome.service';
 import {CityService} from '../../../services/city.service';
-import {ConservationUnit} from '../../../services/conservation-unit.service';
+import {ConservationUnitService} from '../../../services/conservation-unit.service';
 import {SelectItem} from 'primeng/api';
-import {IndigenousLand} from '../../../services/indigenous-land.service';
+import {IndigenousLandService} from '../../../services/indigenous-land.service';
+import {ProjusService} from '../../../services/projus.service';
 
 @Component({
   selector: 'app-theme-area',
@@ -31,8 +32,9 @@ export class ThemeAreaComponent implements OnInit, AfterViewInit {
     private configService: ConfigService,
     private biomeService: BiomeService,
     private cityService: CityService,
-    private conservationUnit: ConservationUnit,
-    private indigenousLand: IndigenousLand
+    private conservationUnitService: ConservationUnitService,
+    private indigenousLandService: IndigenousLandService,
+    private projusService: ProjusService
   ) { }
 
   ngOnInit() {
@@ -77,7 +79,13 @@ export class ThemeAreaComponent implements OnInit, AfterViewInit {
       this.optionSelectedByFilter = new FilterTheme('Unidade de conservação', undefined, 'uc' );
 
       this.loadComboUC();
-    }  else { this.clearValuesFilter(); }
+    }   else if (option.value  === 'projus') {
+      this.optionSelectedByFilter = new FilterTheme('Projus Bacias', undefined, 'projus' );
+
+      this.loadComboProjus();
+    }  else {
+      this.clearValuesFilter();
+    }
   }
 
   onchangeSelected(event) {
@@ -104,7 +112,25 @@ export class ThemeAreaComponent implements OnInit, AfterViewInit {
 
   private loadComboMicroregion() { this.cityService.getAllMicroregions().then( result => this.optionsFilterLocalizations = result ); }
 
-  private loadComboUC() { this.conservationUnit.getAll().then( result => this.optionsFilterLocalizations = result ); }
+  private loadComboUC() { this.conservationUnitService.getAll().then( result => this.optionsFilterLocalizations = this.addElementeAll(result) ); }
 
-  private loadComboTI() { this.indigenousLand.getAll().then( result => this.optionsFilterLocalizations = result ); }
+  private loadComboTI() { this.indigenousLandService.getAll().then( result => this.optionsFilterLocalizations = this.addElementeAll(result) ); }
+
+  private loadComboProjus() { this.projusService.getAll().then( result => this.optionsFilterLocalizations = this.addElementeAll(result) ); }
+
+  private addElementeAll(options) {
+    const result = [];
+    result.push({ gid: -1, name: 'Todos' });
+
+    if (options && options.length > 0) {
+      options.forEach(option => {
+        result.push(option);
+      });
+    }
+
+    this.optionSelectedByFilter.value = result[0];
+    this.onchangeSelected(this.optionSelectedByFilter);
+
+    return result;
+  }
 }
