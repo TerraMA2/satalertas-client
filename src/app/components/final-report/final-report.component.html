@@ -74,7 +74,7 @@
                             <h2 class="text-center green">NOME DO PROJETO – TCT 30/2018 MP/INPE</h2>
                         </div>
                         <div class="p-col-12">
-                            <h2 class="text-center">RELATÓRIO Nº {{property?.reportNumber}}/2019</h2>
+                            <h2 class="text-center">RELATÓRIO Nº 000001/2019</h2>
                         </div>
                     </div>
 
@@ -149,7 +149,7 @@
                         <div class="p-col-12">
                             <h2>3 ANÁLISE TÉCNICA</h2>
 
-                            <p>O Instituto Nacional de Pesquisas Espaciais, a partir dos dados geoespaciais, identificou desmatamento de {{property?.deforestation | number:'1.0-2':'pt'}} hectares na {{property?.farm}} após 22.07.{{prodesStartYear}} ({{formattedFilterDate}}), conforme dinâmica de desmatamento explicitada em representação cartográfica que segue (figura 2):</p>
+                            <p>O Instituto Nacional de Pesquisas Espaciais, a partir dos dados geoespaciais, identificou desmatamento de {{property?.prodesArea | number:'1.0-2':'pt'}} hectares na {{property?.farm}} após 22.07.{{prodesStartYear}} ({{formattedFilterDate}}), conforme dinâmica de desmatamento explicitada em representação cartográfica que segue (figura 2):</p>
                             <div class="p-col-12 p-grid p-justify-center">
                                 <div class="border padding text-center">
                                     <img src="http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_86:view86&styles=&bbox={{property?.bbox}}&width=404&height=431&time={{prodesStartYear}}/{{currentYear}}&cql_filter=numero_do1='{{property?.register}}';de_car_validado_sema_numero_do1='{{property?.register}}'&srs=EPSG:4674&format=image/png" width="200">
@@ -157,7 +157,7 @@
                                 </div>
                             </div>
                             <p>No quadro demonstrativo abaixo consta a quantificação qualitativa das áreas desmatadas que foram identificadas com o cruzamento dos dados descritos no histórico desse relatório (quadro 1):</p>
-                            <p>Quadro 1 - Classes e quantitativos de áreas desmatadas na {{property?.farm}}.</p>
+                            <p>Quadro 1 - Classes e quantitativos de áreas desmatadas na {{property?.name}}.</p>
                             <div class="p-col-12 prevent-split">
                                 <p-table [(value)]="tableData"
                                         [responsive]="true"
