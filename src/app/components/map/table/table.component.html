@@ -62,7 +62,6 @@
                         (onChange)="onFilterChange(selectedFilter)">
                     </p-dropdown>
 
-
                 </div>
             </div>
 
@@ -90,7 +89,7 @@
                         icon="fas fa-file-alt"
                         iconPos="left"
                         label="Gerar relatório"
-                        (click)="onGenerateReportClick()"
+                        (click)="onGenerateReportClick($event)"
                         pTooltip="Gerar relatório a partir dos imóveis selecionados"
                         tooltipPosition="top">
                     </button>
@@ -116,12 +115,6 @@
         </div>
     </ng-template>
 
-    <ng-template pTemplate="colgroup" let-columns>
-        <colgroup>
-            <col *ngFor="let col of columns">
-        </colgroup>
-    </ng-template>
-
     <ng-template pTemplate="header" let-columns>
         <tr>
             <th style="width: 2.5em">
@@ -134,7 +127,7 @@
                 {{col.header}}
                 <p-sortIcon [field]="col.field"></p-sortIcon>
             </th>
-            <th pReorderableColumn pResizableColumn style="width: 8em"></th>
+            <th pResizableColumn style="width: 8em"></th>
         </tr>
     </ng-template>
 
