@@ -120,4 +120,8 @@ export class ReportComponent implements OnInit {
       this.burnedAreasPerPropertyChartDatas = this.reportService.getBurnedAreasPerPropertyChart(burnedAreas, area);
     });
   }
+
+  onViewReportClicked() {
+    this.router.navigateByUrl(`/finalReport/${this.carRegister.replace('/', '\\')}`);
+  }
 }

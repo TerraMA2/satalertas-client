@@ -45,13 +45,14 @@ export class ReportService {
     }
     let count = 0;
     while (startYear <= endYear) {
-      const visionDataCopy = new Vision(
-        visionData.title,
-        visionData.image,
-        visionData.description,
-        visionData.registerCarColumn,
-        visionData.layerData
-      );
+      const visionDataCopy = JSON.parse(JSON.stringify(visionData));
+      // const visionDataCopy = new Vision(
+      //   visionData.title,
+      //   visionData.image,
+      //   visionData.description,
+      //   visionData.registerCarColumn,
+      //   visionData.layerData
+      // );
       const date = years[count];
       let area = null;
       let spotlights = null;

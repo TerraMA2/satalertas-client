@@ -14,10 +14,13 @@ export class Property {
     public consolidatedArea: string,
     public anthropizedUse: string,
     public nativeVegetation: string,
+    public county?: string,
+    public farm?: string,
+    public prodesArea?: number,
     public burningSpotlights?: [],
     public burnedAreas?: [],
     public deter?: [],
-    public prodesYear?: [],
+    public prodesYear?: string[],
     public spotlightsYear?: []
   ) {}
 }

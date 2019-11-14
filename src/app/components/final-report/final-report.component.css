@@ -23,7 +23,7 @@
 }
 
 kendo-pdf-export {
-    font-size: 14px;
+    font-size: 12px;
     font-family: 'Arial Unicode MS', 'DejaVuSans', 'DejaVuSans-Bold', 'DejaVuSans-Oblique', "Arial", sans-serif;
 }
 
@@ -53,4 +53,12 @@ kendo-pdf-export {
 
 p {
     text-indent: 20px;
+}
+
+h2 {
+    margin: 10px 0;
+}
+
+.nowrap {
+    flex-wrap: nowrap;
 }
