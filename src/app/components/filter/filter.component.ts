@@ -84,6 +84,8 @@ export class FilterComponent implements OnInit, AfterViewInit {
 
     this.cleanOthers();
     this.specificSearchAreaComponent.clearAll();
+
+    this.onFilterClicked();
   }
 
   onUpdateFilterTheme(theme: FilterTheme) {
