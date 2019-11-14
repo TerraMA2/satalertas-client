@@ -9,7 +9,7 @@
       "static": "/api/report/getStaticData",
       "dynamic": "/api/report/getDynamicData",
       "analysis": "/api/report/getAnalysisData",
-      "report": "http://localhost:36000/api/car/getAllSimplified"
+      "report": "/api/car/getAllSimplified"
     }
   },
   "auth": {
@@ -1631,30 +1631,45 @@
           "label": "CAR",
           "value": "5",
           "type": "report",
+          "sum": true,
+          "count": false,
+          "sortField": "area",
           "source": "car"
         },
         {
           "label": "CAR X DETER",
           "value": "86",
           "type": "report",
+          "sum": true,
+          "count": true,
+          "sortField": "deter_count",
           "source": "deter"
         },
         {
           "label": "CAR X PRODES",
           "value": "87",
           "type": "report",
+          "sum": true,
+          "count": true,
+          "sortField": "prodes_count",
           "source": "prodes"
         },
         {
           "label": "CAR X FOCOS",
           "value": "88",
           "type": "report",
+          "sum": true,
+          "count": true,
+          "sortField": "focos_count",
           "source": "focos"
         },
         {
           "label": "CAR X AREA QUEIMADA",
           "value": "",
           "type": "report",
+          "sum": true,
+          "count": true,
+          "sortField": "area_queimada_count",
           "source": "area_queimada"
         }
       ]
