@@ -36,9 +36,7 @@ export class TableComponent implements OnInit {
   selectedProperties;
 
   selectedLayer;
-
   selectedLayerLabel: string;
-
   selectedLayerValue: number;
 
   loading = false;
@@ -50,9 +48,8 @@ export class TableComponent implements OnInit {
   selectedRowsPerPage: number = this.defaultRowsPerPage;
 
   filters: any[];
-  selectedFilter: object;
   selectedFilterValue: string;
-  selectedFilterSource: string;
+  selectedFilterSortField: string;
 
   private tableConfig;
 
@@ -86,12 +83,11 @@ export class TableComponent implements OnInit {
       this.loading = true;
       this.filters = this.configService.getMapConfig('table').reportLayers;
       const selectedOption = this.filters[0];
-      this.selectedFilter = selectedOption;
       this.selectedLayer = selectedOption;
       this.selectedFilterValue = selectedOption.value;
       this.selectedLayerValue = selectedOption.value;
-      this.selectedFilterSource = selectedOption.source;
-      this.loadTableData(this.filters[0], this.selectedRowsPerPage, 0, this.selectedFilterSource);
+      this.selectedFilterSortField = selectedOption.sortField;
+      this.loadTableData(selectedOption, this.selectedRowsPerPage, 0, this.selectedFilterSortField, 1);
     });
 
     this.tableService.clearTable.subscribe(() => this.clearTable());
@@ -107,10 +103,6 @@ export class TableComponent implements OnInit {
   ) {
     if (!layer) {
       return;
-    }
-
-    if (this.selectedFilterSource) {
-      sortColumn = this.selectedFilterSource;
     }
 
     const url = this.configService.getAppConfig('layerUrls')[layer.type];
@@ -160,14 +152,10 @@ export class TableComponent implements OnInit {
   }
 
   lazyLoad(event: LazyLoadEvent) {
-    let sortField = event.sortField;
-    if (this.selectedFilterSource) {
-      sortField = this.selectedFilterSource;
-    }
     this.loadTableData(this.selectedLayer,
                       event.rows,
                       event.first,
-                      sortField,
+                      event.sortField,
                       event.sortOrder
     );
   }
@@ -181,20 +169,14 @@ export class TableComponent implements OnInit {
 
   onRowsPerPageChange(event) {
     this.loading = true;
-    let sortField = null;
-    if (this.selectedFilterSource) {
-      sortField = this.selectedFilterSource;
-    }
-    this.loadTableData(this.selectedLayer, this.selectedRowsPerPage, 0, sortField);
+    this.loadTableData(this.selectedLayer, this.selectedRowsPerPage, 0);
   }
 
   onFilterChange(filter) {
     this.loading = true;
     const selectedOption = filter.selectedOption;
-    this.selectedFilter = selectedOption;
     this.selectedLayer = selectedOption;
-    this.selectedFilterSource = selectedOption.source;
-    this.loadTableData(selectedOption, this.selectedRowsPerPage, 0, this.selectedFilterSource);
+    this.loadTableData(selectedOption, this.selectedRowsPerPage, 0);
   }
 
   trackByFunction(index, item) {
@@ -214,7 +196,6 @@ export class TableComponent implements OnInit {
   clearTable() {
     this.tableData = undefined;
     this.selectedLayer = undefined;
-    this.selectedFilter = undefined;
     this.selectedFilterValue = undefined;
     this.selectedLayerLabel = '';
     this.selectedLayerValue = 0;

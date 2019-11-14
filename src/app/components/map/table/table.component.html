@@ -17,7 +17,8 @@
         [exportFilename]="selectedLayerLabel"
         [rowTrackBy]="trackByFunction"
         (onLazyLoad)="lazyLoad($event)"
-        [(selection)]="selectedProperties">
+        [(selection)]="selectedProperties"
+        dataKey="car">
 
     <ng-template pTemplate="caption">
         <div class="p-grid p-nogutter">
@@ -117,8 +118,8 @@
 
     <ng-template pTemplate="header" let-columns>
         <tr>
-            <th style="width: 2.5em">
-            </th>
+            <th style="width: 2.5em"></th>
+            <th style="width: 2.5em"></th>
             <th *ngIf="tableReportActive"
                 style="width: 3em">
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
@@ -131,8 +132,18 @@
         </tr>
     </ng-template>
 
-    <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex">
-        <tr [pSelectableRow]="rowData" [pReorderableRow]="index">
+    <ng-template pTemplate="body"
+                let-rowData
+                let-columns="columns"
+                let-index="rowIndex"
+                let-expanded="expanded">
+        <tr [pSelectableRow]="rowData"
+            [pReorderableRow]="index">
+            <td style="width: 2.5em">
+                <a [pRowToggler]="rowData">
+                    <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+                </a>
+            </td>
             <td style="width: 2.5em">
                 <i class="fa fa-bars" pReorderableRowHandle></i>
             </td>
@@ -145,11 +156,11 @@
             </td>
             <td style="width: 8em">
                 <a *ngIf="tableReportActive"
-                        routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                        pButton
-                        icon="fas fa-file-alt"
-                        pTooltip="Gerar laudo"
-                        tooltipPosition="top">
+                    routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
+                    pButton
+                    icon="fas fa-file-alt"
+                    pTooltip="Gerar laudo"
+                    tooltipPosition="top">
                 </a>
                 &nbsp;
                 <button pButton
@@ -157,6 +168,27 @@
                         (click)="onShowMapClicked(rowData)"
                         pTooltip="Visualizar no mapa">
                 </button>
+            </td>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
+        <tr>
+            <td [attr.colspan]="columns.length + 4">
+                <div class="p-grid">
+                    <div class="p-col-2">
+                        <label>{{rowData.registro_estadual}}</label>
+                    </div>
+                    <div class="p-col-2">
+                        <label>{{rowData.municipio}}</label>
+                    </div>
+                    <div class="p-col-2">
+                        <label>{{rowData.area}}</label>
+                    </div>
+                    <div class="p-col-2">
+                        <label>{{rowData.situacao}}</label>
+                    </div>
+                </div>
             </td>
         </tr>
     </ng-template>
