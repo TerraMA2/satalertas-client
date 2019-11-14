@@ -5,7 +5,7 @@ import {HttpClient} from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class ConservationUnit {
+export class ConservationUnitService  {
 
 
   urlRegion = environment.terramaUrl + '/api/conservationUnit';
