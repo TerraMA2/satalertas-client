@@ -23,6 +23,13 @@
                 (click)="pdf.saveAs('Laudo CAR ' + property?.register)"
                 label="Baixar laudo">
         </button>
+        &nbsp;
+        <button pButton
+                icon="fas fa-download"
+                type="button"
+                (click)="generatePdf('open')"
+                label="Baixar laudo (PDFMake)">
+        </button>
     </div>
 </p-toolbar>
 <p-scrollPanel [style]="{width: '100%', height: 'calc(100vh - 100px)'}">
@@ -31,9 +38,22 @@
         <div class="container">
             <kendo-pdf-export #pdf
                             paperSize="A4"
-                            margin="1cm"
+                            margin="3cm"
                             fileName="'Laudo CAR ' + property?.register">
-                <div id="printSection" class="size-a4">
+                <div id="printSection">
+                    <div class="p-grid">
+                        <div class="p-col-2">
+                            <img src="../../../assets/img/logos/logo-mpmt2.png" width="200px">
+                        </div>
+                        <div class="p-col-10">
+                            <label><strong>Procuradoria Geral de Justiça</strong></label>
+                            <br>
+                            <label>Centros de Apoio Operacional</label>
+                            <br>
+                            <label>Centro de Apoio à Execução Ambiental</label>
+                        </div>
+                    </div>
+                    <br><br>
                     <div class="p-grid p-nogutter">
                         <div class="p-col-12">
                             <strong class="word-wrap">NOTÍCIA DE FATO SIMP:</strong>
@@ -65,10 +85,12 @@
                         <p>
                             Trata-se de relatório sobre desmatamento ilegal identificado com o uso de Sistema de Informações Geográficas no imóvel rural {{property?.farm}} (mapa de localização e do perímetro do imóvel – figura 1), localizado no município de {{property?.city}}-MT, pertencente a {{property?.cpf}}, conforme informações declaradas no Sistema Mato-grossense de Cadastro Ambiental Rural (SIMCAR), protocolo CAR {{property?.register}} (Anexo I).
                         </p>
-                        <!-- <div class="p-col-12 text-center">
-                            <img src="http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={{property?.bbox}}&width=404&height=431&time={{dateFilter}}&cql_filter=numero_do1='{{property?.register}}'&srs=EPSG:4674&format=image/png" width="400">
-                            <figcaption>Figura 1. Mapa de Localização e do Perímetro do Imóvel</figcaption>
-                        </div> -->
+                        <div class="p-col-12 p-grid p-justify-center">
+                            <div class="border padding text-center">
+                                <img src="http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={{property?.bbox}}&width=404&height=431&time={{dateFilter}}&cql_filter=numero_do1='{{property?.register}}'&srs=EPSG:4674&format=image/png" width="200">
+                                <figcaption>Figura 1. Mapa de Localização e do Perímetro do Imóvel</figcaption>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="p-grid p-nogutter">
@@ -128,13 +150,15 @@
                             <h2>3 ANÁLISE TÉCNICA</h2>
 
                             <p>O Instituto Nacional de Pesquisas Espaciais, a partir dos dados geoespaciais, identificou desmatamento de {{property?.deforestation | number:'1.0-2':'pt'}} hectares na {{property?.farm}} após 22.07.{{prodesStartYear}} ({{formattedFilterDate}}), conforme dinâmica de desmatamento explicitada em representação cartográfica que segue (figura 2):</p>
-                            <!-- <div class="p-col-12 text-center">
-                                <img src="http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_86:view86&styles=&bbox={{property?.bbox}}&width=404&height=431&time={{prodesStartYear}}/{{currentYear}}&cql_filter=numero_do1='{{property?.register}}';de_car_validado_sema_numero_do1='{{property?.register}}'&srs=EPSG:4674&format=image/png" width="400">
-                                <figcaption>Figura 2. dinâmica de desmatamento - {{prodesStartYear}}/{{currentYear}}</figcaption>
-                            </div> -->
+                            <div class="p-col-12 p-grid p-justify-center">
+                                <div class="border padding text-center">
+                                    <img src="http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_86:view86&styles=&bbox={{property?.bbox}}&width=404&height=431&time={{prodesStartYear}}/{{currentYear}}&cql_filter=numero_do1='{{property?.register}}';de_car_validado_sema_numero_do1='{{property?.register}}'&srs=EPSG:4674&format=image/png" width="200">
+                                    <figcaption>Figura 2. dinâmica de desmatamento - {{prodesStartYear}}/{{currentYear}}</figcaption>
+                                </div>
+                            </div>
                             <p>No quadro demonstrativo abaixo consta a quantificação qualitativa das áreas desmatadas que foram identificadas com o cruzamento dos dados descritos no histórico desse relatório (quadro 1):</p>
                             <p>Quadro 1 - Classes e quantitativos de áreas desmatadas na {{property?.farm}}.</p>
-                            <div class="p-col-12">
+                            <div class="p-col-12 prevent-split">
                                 <p-table [(value)]="tableData"
                                         [responsive]="true"
                                         [columns]="tableColumns">
@@ -156,16 +180,16 @@
                             </div>
                             <p>Anota-se que os dados acima indicados indicam extreme de dúvidas, com grau de acurácia de aproximadamente 95% de acerto, o quantitativo dos desmatamentos, sendo que alterações mínimas poderão ocorrer em decorrência de trabalhos de campo ou uso de outras imagens de satélite com outras escalas ou resolução.</p>
                             <p>Na representação cartográfica abaixo é possível visualizar, com imagens de alta resolução [Spot (2,5 m) e Planet (3 m)] como estava a cobertura do imóvel em {{prodesStartYear}} e como se encontra atualmente ({{currentYear}}): </p>
-                            <!-- <div class="p-grid p-justify-center nowrap">
+                            <div class="p-grid p-justify-center nowrap">
                                 <div class="text-right border padding">
-                                    <img src="http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_86:view86&styles=&bbox={{property?.bbox}}&width=300&height=300&time={{prodesStartYear}}/P1Y&cql_filter=numero_do1='{{property?.register}}';de_car_validado_sema_numero_do1='{{property?.register}}'&srs=EPSG:4674&format=image/png">
+                                    <img src="http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_86:view86&styles=&bbox={{property?.bbox}}&width=300&height=300&time={{prodesStartYear}}/P1Y&cql_filter=numero_do1='{{property?.register}}';de_car_validado_sema_numero_do1='{{property?.register}}'&srs=EPSG:4674&format=image/png" width="200">
                                 </div>
                                 &nbsp;&nbsp;
                                 <div class="text-left border padding">
-                                    <img src="http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_86:view86&styles=&bbox={{property?.bbox}}&width=300&height=300&time={{currentYear}}/P1Y&cql_filter=numero_do1='{{property?.register}}';de_car_validado_sema_numero_do1='{{property?.register}}'&srs=EPSG:4674&format=image/png">
+                                    <img src="http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_86:view86&styles=&bbox={{property?.bbox}}&width=300&height=300&time={{currentYear}}/P1Y&cql_filter=numero_do1='{{property?.register}}';de_car_validado_sema_numero_do1='{{property?.register}}'&srs=EPSG:4674&format=image/png" width="200">
                                 </div>
                             </div>
-                            <figcaption class="text-center">Figura 3. dinâmica de desmatamento (comparativo imagens {{prodesStartYear}} e {{currentYear}})</figcaption> -->
+                            <figcaption class="text-center">Figura 3. dinâmica de desmatamento (comparativo imagens {{prodesStartYear}} e {{currentYear}})</figcaption>
                         </div>
                         <!-- <small>[ ADAMI, M. et al. A confiabilidade do PRODES: estimativa da acurácia do mapeamento do desmatamento no estado de Mato Grosso. Anais do XVIII Simpósio Brasileiro de Sensoriamento Remoto – SBSR, 2017.]</small>
                         <small>[ Disponível em XXXXX, acessado em 21.10.2019.]</small>

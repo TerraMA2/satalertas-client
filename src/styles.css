@@ -94,7 +94,7 @@ body {
     margin: 0.5cm
   }
 
-  section {
+  img, section {
     page-break-inside: avoid;
   }
 
@@ -102,6 +102,15 @@ body {
     border: 1px solid #eee;
   }
 }
+
+img {
+  page-break-inside: avoid;
+}
+
+/*
+section {
+  page-break-inside: avoid;
+} */
 
 .no-margin {
   margin: 5px 0;
