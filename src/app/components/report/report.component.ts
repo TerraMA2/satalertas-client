@@ -84,6 +84,8 @@ export class ReportComponent implements OnInit {
     const startDate = new Date(date[0]).toLocaleDateString('pt-BR');
     const endDate = new Date(date[1]).toLocaleDateString('pt-BR');
 
+    const filter = JSON.parse(localStorage.getItem('filterList'));
+
     this.formattedFilterDate = `${startDate} - ${endDate}`;
 
     const propertyConfig = this.reportConfig.propertyData;
@@ -91,7 +93,7 @@ export class ReportComponent implements OnInit {
     const viewId = propertyConfig.viewId;
     this.carRegister = this.carRegister.replace('\\', '/');
     const carRegister = this.carRegister;
-    this.hTTPService.get(url, {viewId, carRegister, date})
+    this.hTTPService.get(url, {viewId, carRegister, date, filter})
                     .subscribe((propertyData: Property) => {
       const burnedAreas = propertyData.burnedAreas;
 

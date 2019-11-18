@@ -36,6 +36,7 @@ import { LayerInfoFeature } from 'src/app/models/layer-info-feature.model';
 import { SelectedMarker } from 'src/app/models/selected-marker.model';
 
 import { TableService } from 'src/app/services/table.service';
+import {View} from '../../models/view.model';
 
 @Component({
   selector: 'app-map',
@@ -804,11 +805,20 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     const popupTitle = layer.carRegisterColumn;
     const label = layer.label;
 
-    const viewId = layer.value;
+    const view = JSON.stringify(
+      new View(
+        layer.value,
+        layer.cod,
+        layer.codgroup,
+        (layer.type === 'analysis'),
+        layer.isPrimary
+    ));
 
     const date = JSON.parse(localStorage.getItem('dateFilter'));
 
-    this.hTTPService.get(url, {viewId, date})
+    const filter = localStorage.getItem('filterList');
+
+    this.hTTPService.get(url, {view, date, filter})
                     .subscribe(data => this.setMarkers(data, popupTitle, label));
   }
 
