@@ -80,6 +80,8 @@ export class FinalReportComponent implements OnInit {
     const startDate = new Date(date[0]).toLocaleDateString('pt-BR');
     const endDate = new Date(date[1]).toLocaleDateString('pt-BR');
 
+    const filter = localStorage.getItem('filterList');
+
     this.currentYear = new Date().getFullYear();
 
     this.formattedFilterDate = `${startDate} - ${endDate}`;
@@ -90,7 +92,7 @@ export class FinalReportComponent implements OnInit {
     const viewId = propertyConfig.viewId;
     this.carRegister = this.carRegister.replace('\\', '/');
     const carRegister = this.carRegister;
-    this.hTTPService.get(url, {viewId, carRegister, date}).subscribe((reportData: Property) => {
+    this.hTTPService.get(url, {viewId, carRegister, date, filter}).subscribe((reportData: Property) => {
       this.prodesStartYear = reportData.prodesYear[0]['date'];
 
       const bboxArray = reportData.bbox.split(',');

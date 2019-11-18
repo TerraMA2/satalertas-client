@@ -13,6 +13,7 @@ import { FilterService } from 'src/app/services/filter.service';
 import { Layer } from '../../../models/layer.model';
 
 import { MapService } from 'src/app/services/map.service';
+import {View} from '../../../models/view.model';
 
 @Component({
   selector: 'app-table',
@@ -116,8 +117,23 @@ export class TableComponent implements OnInit {
     const url = this.configService.getAppConfig('layerUrls')[layer.type];
     const count = true;
     const date = JSON.parse(localStorage.getItem('dateFilter'));
+
+
+    const view = JSON.stringify(
+      new View(
+        layer.value,
+        layer.cod,
+        layer.codgroup,
+        (layer.type === 'analysis'),
+        layer.isPrimary
+      ));
+
+    const filter = localStorage.getItem('filterList');
+
     const viewId = layer.value;
-    const params = {viewId, limit, offset, count, date};
+
+    const params = {view, limit, offset, count, date, filter};
+
     if (sortColumn) {
       params['sortColumn'] = sortColumn;
     }
