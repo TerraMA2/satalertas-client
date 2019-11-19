@@ -112,20 +112,18 @@ export class TableComponent implements OnInit {
     const countTotal = true;
     const date = JSON.parse(localStorage.getItem('dateFilter'));
 
-
     const view = JSON.stringify(
       new View(
         layer.value,
         layer.cod,
         layer.codgroup,
-        (layer.type === 'analysis'),
-        layer.isPrimary
+        (layer.type === 'analysis' || this.tableReportActive),
+        (layer.isPrimary || this.tableReportActive)
       ));
 
     const filter = localStorage.getItem('filterList');
 
-    const viewId = layer.value;
-    const params = {viewId, limit, offset, countTotal, date, filter};
+    const params = {view, limit, offset, countTotal, date, filter};
     if (sortField) {
       params['sortField'] = sortField;
     }
