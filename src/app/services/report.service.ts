@@ -93,6 +93,7 @@ export class ReportService {
     const image = this.generateImageURL(propertyData, visionData);
 
     const filterDate = JSON.parse(localStorage.getItem('dateFilter'));
+
     const startDate = new Date(filterDate[0]).toLocaleDateString('pt-BR');
     const endDate = new Date(filterDate[1]).toLocaleDateString('pt-BR');
 
