@@ -118,7 +118,7 @@
 
     <ng-template pTemplate="header" let-columns>
         <tr>
-            <th style="width: 2.5em"></th>
+            <!-- <th *ngIf="tableReportActive" style="width: 2.5em"></th> -->
             <th style="width: 2.5em"></th>
             <th *ngIf="tableReportActive"
                 style="width: 3em">
@@ -139,11 +139,12 @@
                 let-expanded="expanded">
         <tr [pSelectableRow]="rowData"
             [pReorderableRow]="index">
-            <td style="width: 2.5em">
+            <!-- <td *ngIf="tableReportActive"
+                style="width: 2.5em">
                 <a [pRowToggler]="rowData">
                     <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
                 </a>
-            </td>
+            </td> -->
             <td style="width: 2.5em">
                 <i class="fa fa-bars" pReorderableRowHandle></i>
             </td>
@@ -172,7 +173,7 @@
         </tr>
     </ng-template>
 
-    <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
+    <!-- <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
         <tr>
             <td [attr.colspan]="columns.length + 4">
                 <div class="p-grid">
@@ -191,7 +192,7 @@
                 </div>
             </td>
         </tr>
-    </ng-template>
+    </ng-template> -->
 
     <ng-template pTemplate="paginatorleft" let-state>
         &nbsp;&nbsp;<strong>{{ state.totalRecords }} registros</strong>

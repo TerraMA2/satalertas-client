@@ -48,6 +48,7 @@ export class TableComponent implements OnInit {
   selectedRowsPerPage: number = this.defaultRowsPerPage;
 
   filters: any[];
+  selectedFilter;
   selectedFilterValue: string;
   selectedFilterSortField: string;
 
@@ -84,6 +85,7 @@ export class TableComponent implements OnInit {
       this.filters = this.configService.getMapConfig('table').reportLayers;
       const selectedOption = this.filters[0];
       this.selectedLayer = selectedOption;
+      this.selectedFilter = selectedOption;
       this.selectedFilterValue = selectedOption.value;
       this.selectedLayerValue = selectedOption.value;
       this.selectedFilterSortField = selectedOption.sortField;
@@ -98,7 +100,7 @@ export class TableComponent implements OnInit {
   loadTableData(layer,
                 limit: number,
                 offset: number,
-                sortColumn?: string,
+                sortField?: string,
                 sortOrder?: number
   ) {
     if (!layer) {
@@ -106,15 +108,26 @@ export class TableComponent implements OnInit {
     }
 
     const url = this.configService.getAppConfig('layerUrls')[layer.type];
-    const count = true;
+    const countTotal = true;
     const date = JSON.parse(localStorage.getItem('dateFilter'));
     const viewId = layer.value;
-    const params = {viewId, limit, offset, count, date};
-    if (sortColumn) {
-      params['sortColumn'] = sortColumn;
+    const params = {viewId, limit, offset, countTotal, date};
+    if (sortField) {
+      params['sortField'] = sortField;
     }
     if (sortOrder) {
       params['sortOrder'] = sortOrder;
+    }
+
+    if (this.selectedFilter) {
+      params['count'] = this.selectedFilter.count;
+      params['sum'] = this.selectedFilter.sum;
+      params['isDynamic'] = this.selectedFilter.isDynamic;
+      params['tableAlias'] = this.selectedFilter.tableAlias;
+      params['sumAlias'] = this.selectedFilter.sumAlias;
+      params['countAlias'] = this.selectedFilter.countAlias;
+      params['sumField'] = this.selectedFilter.sumField;
+      params['sortField'] = this.selectedFilter.sortField;
     }
 
     this.hTTPService
@@ -176,7 +189,8 @@ export class TableComponent implements OnInit {
     this.loading = true;
     const selectedOption = filter.selectedOption;
     this.selectedLayer = selectedOption;
-    this.loadTableData(selectedOption, this.selectedRowsPerPage, 0);
+    this.selectedFilter = selectedOption;
+    this.loadTableData(selectedOption, this.selectedRowsPerPage, 0, selectedOption.sortField, 1);
   }
 
   trackByFunction(index, item) {
