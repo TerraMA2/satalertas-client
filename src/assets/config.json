@@ -9,7 +9,7 @@
       "static": "/api/report/getStaticData",
       "dynamic": "/api/report/getDynamicData",
       "analysis": "/api/report/getAnalysisData",
-      "report": "http://localhost:36000/api/car/getAllSimplified"
+      "report": "/api/car/getAllSimplified"
     }
   },
   "auth": {
@@ -1631,31 +1631,63 @@
           "label": "CAR",
           "value": "5",
           "type": "report",
-          "source": "car"
+          "sum": false,
+          "count": false,
+          "tableAlias": "property",
+          "sortField": "area",
+          "isDynamic": false
         },
         {
           "label": "CAR X DETER",
           "value": "86",
           "type": "report",
-          "source": "deter"
+          "sum": true,
+          "count": true,
+          "sumField": "calculated_area_ha",
+          "countAlias": "deter_count",
+          "sumAlias": "deter_sum",
+          "sortField": "deter_sum",
+          "tableAlias": "deter",
+          "isDynamic": true
         },
         {
           "label": "CAR X PRODES",
           "value": "87",
           "type": "report",
-          "source": "prodes"
+          "sum": true,
+          "count": true,
+          "sumField": "calculated_area_ha",
+          "countAlias": "prodes_count",
+          "sumAlias": "prodes_sum",
+          "sortField": "prodes_sum",
+          "tableAlias": "prodes",
+          "isDynamic": true
         },
         {
           "label": "CAR X FOCOS",
           "value": "88",
           "type": "report",
-          "source": "focos"
+          "sum": false,
+          "count": true,
+          "sumField": "calculated_area_ha",
+          "countAlias": "focos_count",
+          "sumAlias": "focos_sum",
+          "sortField": "focos_count",
+          "tableAlias": "focos",
+          "isDynamic": true
         },
         {
           "label": "CAR X AREA QUEIMADA",
           "value": "",
           "type": "report",
-          "source": "area_queimada"
+          "sum": true,
+          "count": true,
+          "sumField": "calculated_area_ha",
+          "countAlias": "area_queimada_count",
+          "sumAlias": "area_queimada_sum",
+          "sortField": "area_queimada_sum",
+          "tableAlias": "area_queimada",
+          "isDynamic": true
         }
       ]
     }

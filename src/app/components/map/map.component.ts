@@ -120,7 +120,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       tooltipAnchor: [16, -28],
       shadowSize: [41, 41]
     });
-
   }
 
   setControls() {
@@ -203,8 +202,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         this.markerClusterGroup.addLayer(marker);
       }
     });
-
-    this.map.addLayer(this.markerClusterGroup);
     this.searchControl.setLayer(this.markerClusterGroup);
     this.searchControl.options.layer = this.markerClusterGroup;
 
@@ -236,6 +233,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   setMarkersGroup() {
     this.markerClusterGroup = L.markerClusterGroup({chunkedLoading: true, spiderfyOnMaxZoom: true});
+    const marker = L.marker([-55.160858504521762, -11.919630299680204], {title: 'popupTitle'});
+    this.markerClusterGroup.addLayer(marker);
+    this.map.addLayer(this.markerClusterGroup);
   }
 
   clearMap() {
