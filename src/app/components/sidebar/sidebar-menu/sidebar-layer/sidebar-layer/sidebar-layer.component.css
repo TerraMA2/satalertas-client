@@ -26,6 +26,7 @@
 }
 
 .sidebar-layer-switch {
+    margin-top: 5px;
     flex-grow: 0;
 }
 

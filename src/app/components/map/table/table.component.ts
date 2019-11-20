@@ -14,6 +14,7 @@ import { Layer } from '../../../models/layer.model';
 
 import { MapService } from 'src/app/services/map.service';
 import {View} from '../../../models/view.model';
+import { LayerType } from 'src/app/enum/layer-type.enum';
 
 @Component({
   selector: 'app-table',
@@ -112,19 +113,17 @@ export class TableComponent implements OnInit {
     const countTotal = true;
     const date = JSON.parse(localStorage.getItem('dateFilter'));
 
-
     const view = JSON.stringify(
       new View(
         layer.value,
         layer.cod,
         layer.codgroup,
-        (layer.type === 'analysis'),
-        layer.isPrimary
+        (layer.type === LayerType.ANALYSIS || this.tableReportActive),
+        (layer.isPrimary || this.tableReportActive)
       ));
 
     const filter = localStorage.getItem('filterList');
 
-    const viewId = layer.value;
     const params = {view, limit, offset, countTotal, date, filter};
     if (sortField) {
       params['sortField'] = sortField;
@@ -178,7 +177,7 @@ export class TableComponent implements OnInit {
     this.loading = false;
   }
 
-  lazyLoad(event: LazyLoadEvent) {
+  onLazyLoad(event: LazyLoadEvent) {
     this.loadTableData(this.selectedLayer,
                       event.rows,
                       event.first,
@@ -197,6 +196,10 @@ export class TableComponent implements OnInit {
   onRowsPerPageChange(event) {
     this.loading = true;
     this.loadTableData(this.selectedLayer, this.selectedRowsPerPage, 0);
+  }
+
+  onRowExpand(event) {
+    const carRegister = event.data.registro_estadual;
   }
 
   onFilterChange(filter) {
@@ -233,6 +236,9 @@ export class TableComponent implements OnInit {
   }
 
   onGenerateReportClick(rowData) {
+    if (!rowData) {
+      const selectedProperties = this.selectedProperties;
+    }
   }
 
 }

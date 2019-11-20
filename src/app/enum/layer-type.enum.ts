@@ -1,5 +1,6 @@
 export enum LayerType {
   STATIC = 'static',
   DYNAMIC = 'dynamic',
-  ANALYSIS = 'analysis'
+  ANALYSIS = 'analysis',
+  REPORT = 'report'
 }

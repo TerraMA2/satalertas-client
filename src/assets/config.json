@@ -1638,6 +1638,7 @@
           "isDynamic": false
         },
         {
+          "codgroup": "DETER",
           "label": "CAR X DETER",
           "value": "86",
           "type": "report",
@@ -1651,6 +1652,7 @@
           "isDynamic": true
         },
         {
+          "codgroup": "PRODES",
           "label": "CAR X PRODES",
           "value": "87",
           "type": "report",
@@ -1664,6 +1666,7 @@
           "isDynamic": true
         },
         {
+          "codgroup": "FOCOS",
           "label": "CAR X FOCOS",
           "value": "88",
           "type": "report",
@@ -1677,6 +1680,7 @@
           "isDynamic": true
         },
         {
+          "codgroup": "AREA_QUEIMADA",
           "label": "CAR X AREA QUEIMADA",
           "value": "",
           "type": "report",

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, AfterViewInit, Input} from '@angular/core';
+import {Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
 import { ConfigService } from 'src/app/services/config.service';
 import { NgForm } from '@angular/forms';
 import {FilterService} from '../../services/filter.service';
@@ -30,10 +30,9 @@ export class FilterComponent implements OnInit, AfterViewInit {
 
   filterParam: FilterParam;
   filterLabel: string;
-  displayFilter: boolean;
+  displayFilter = false;
 
   constructor(
-    private configService: ConfigService,
     private filterService: FilterService
   ) { }
 
@@ -44,10 +43,10 @@ export class FilterComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.setOverlayEvents();
+    this.setFilterEvents();
   }
 
-  setOverlayEvents() {
+  setFilterEvents() {
     this.filterService.displayFilter.subscribe(() => this.onDisplayFilter());
   }
 
@@ -62,7 +61,6 @@ export class FilterComponent implements OnInit, AfterViewInit {
 
   onDisplayFilter() {
     this.displayFilter = !this.displayFilter;
-
     this.filterLabel = 'Filtro';
   }
 

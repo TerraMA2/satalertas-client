@@ -202,6 +202,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   showFilter() {
-    this.filterService.displayFilter.next(null);
+    this.filterService.displayFilter.next();
   }
 }

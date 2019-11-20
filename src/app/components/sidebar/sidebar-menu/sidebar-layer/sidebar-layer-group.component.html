@@ -23,7 +23,7 @@
 <div class="collapse"
     [ngClass]="{show: isLayerGroupOpened, hide: !isLayerGroupOpened}">
 
-    <app-sidebar-layer class="sidebar-layer-group-body p-dir-col p-align-stretch"
+    <app-sidebar-layer class="sidebar-layer-body p-dir-col p-align-stretch"
                             *ngFor="let layer of sidebarLayers"
                             [layer]="layer"
                             [displayChild]="layer.isPrivate && !isAuthenticated ? false : true"
