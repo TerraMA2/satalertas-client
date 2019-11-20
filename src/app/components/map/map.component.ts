@@ -261,7 +261,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setTableMarker(markerData) {
-    let propertyData = markerData['data'];
+    let propertyData = markerData.data;
     if (!Array.isArray(propertyData)) {
       propertyData = [propertyData];
     }
@@ -281,14 +281,15 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
       if (this.tableReportActive) {
         markerLabel = 'CAR Validado';
-        carRegister = data['registro_estadual'];
+        carRegister = data.registro_estadual;
+
         const layerData = {
                             url: 'http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms',
                             layers: 'terrama2_5:view5',
                             transparent: true,
                             format: 'image/png',
                             version: '1.1.0',
-                            'cql_filter': `numero_do1 = '${carRegister}'`
+                            cql_filter: `numero_do1 = '${carRegister}'`
                           };
         const newLayer = this.getLayer(layerData);
 
@@ -296,7 +297,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
         this.tableSelectedLayer = newLayer;
       } else {
-        const layer: Layer = markerData['layer'];
+        const layer: Layer = markerData.layer;
         markerLabel = layer.label;
         const newLayer = JSON.parse(JSON.stringify(layer));
 
@@ -314,12 +315,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       }
 
       const popupContent = this.getPopupContent(data, markerLabel);
-      this.markerInfo = this.createMarker(carRegister,
-                                          popupContent,
-                                          latLong,
-                                          markerLabel,
-                                          link
-      );
+      this.markerInfo = this.createMarker(carRegister, popupContent, latLong, markerLabel, link );
 
       this.markerClusterGroup.addLayer(this.markerInfo);
 
@@ -435,11 +431,173 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  setDateFilter(layer) {
+  setSpecificSearch(layer, filter, cFilter) {
+    let cqlFilter = cFilter;
+
+    if (filter.specificSearch && filter.specificSearch.isChecked) {
+      if (filter.specificSearch.CarCPF === 'CAR') {
+        cqlFilter = ` de_car_validado_sema_numero_do1 = '${filter.specificSearch.inputValue}' `;
+      } else if (filter.specificSearch.CarCPF === 'CPF') {
+        // Missing table associating CARs with CPFCNPJ
+        cqlFilter = ``;
+      }
+    }
+
+    return cqlFilter;
+  }
+
+  setThemeSelected(layer, filter, cFilter) {
+    let cqlFilter = cFilter;
+    if (filter.themeSelected && filter.themeSelected.type) {
+
+      if (filter.themeSelected.type === 'biome') {
+        if (layer.codgroup === 'FOCOS') {
+          const column = (layer.isPrimary) ? `dd_focos_inpe_bioma` : `apv_car_focos_48_dd_focos_inpe_bioma`;
+          cqlFilter += cqlFilter ? ', ' : '';
+          cqlFilter += ` ${column} = '${filter.themeSelected.value.name}' `;
+        } else {
+          const column = `gid`;
+          cqlFilter += cqlFilter ? ', ' : '';
+          cqlFilter += ` ${column} = ${filter.themeSelected.value.gid} `;
+        }
+      } else if (filter.themeSelected.type === 'region') {
+        if (layer.codgroup === 'FOCOS') {
+          // const column = (layer.isPrimary) ? `dd_focos_inpe_bioma` : `apv_car_focos_48_dd_focos_inpe_bioma`;
+          // cqlFilter += ` ${column} = '${filter.themeSelected.value.name}' `;
+        } else {
+
+        }
+      } else if (filter.themeSelected.type === 'mesoregion') {
+        if (layer.codgroup === 'FOCOS') {
+          // const column = (layer.isPrimary) ? `dd_focos_inpe_bioma` : `apv_car_focos_48_dd_focos_inpe_bioma`;
+          // cqlFilter += ` ${column} = '${filter.themeSelected.value.name}' `;
+        } else {
+
+        }
+      } else if (filter.themeSelected.type === 'microregion') {
+        if (layer.codgroup === 'FOCOS') {
+          // const column = (layer.isPrimary) ? `dd_focos_inpe_bioma` : `apv_car_focos_48_dd_focos_inpe_bioma`;
+          // cqlFilter += ` ${column} = '${filter.themeSelected.value.name}' `;
+        } else {
+
+        }
+      } else if (filter.themeSelected.type === 'city') {
+        if (layer.codgroup === 'FOCOS') {
+          const column = (layer.isPrimary) ? `dd_focos_inpe_id_2` : `apv_car_focos_48_dd_focos_inpe_id_2`;
+          cqlFilter += cqlFilter ? ', ' : '';
+          // tslint:disable-next-line:radix
+          cqlFilter += ` ${column} = ${parseInt(filter.themeSelected.value.geocodigo)} `;
+        } else {
+
+        }
+      } else if (filter.themeSelected.type === 'uc') {
+
+      } else if (filter.themeSelected.type === 'ti') {
+
+      } else if (filter.themeSelected.type === 'projus') {
+
+      }
+    }
+    return cqlFilter;
+  }
+
+  setAlertType(layer, filter, cFilter) {
+    let cqlFilter = cFilter;
+    if (filter.alertType && (filter.alertType.radioValue !== 'ALL') && (filter.alertType.analyzes.length > 0)) {
+      filter.alertType.analyzes.forEach(analyze => {
+
+        const values = this.getValues(analyze);
+
+        if (analyze.valueOption && analyze.valueOption.value) {
+          if ((analyze.type && analyze.type === 'deter') && (layer.codgroup === 'DETER')) {
+            cqlFilter += cqlFilter ? ', ' : '';
+            cqlFilter += ` calculated_area_ha ${values.columnValue} `;
+          }
+
+          if ((analyze.type && analyze.type === 'deforestation') && (layer.codgroup === 'PRODES')) {
+            cqlFilter += cqlFilter ? ', ' : '';
+            cqlFilter += ` calculated_area_ha ${values.columnValue} `;
+          }
+
+          if ((analyze.type && analyze.type === 'burned') && (layer.codgroup === 'FOCOS')) {
+            cqlFilter += cqlFilter ? ', ' : '';
+            cqlFilter += ` HAVING count(1) ${values.columnValueFocos} `;
+          }
+
+          if ((analyze.type && analyze.type === 'burned_area') && (layer.codgroup === 'AREA_QUEIMADA')) {
+            cqlFilter += cqlFilter ? ', ' : '';
+            cqlFilter += ` AND calculated_area_ha ${values.columnValue} `;
+          }
+
+          if ((analyze.type && analyze.type === 'car_area')) {
+            // secondaryTables += ' , public.de_car_validado_sema car ';
+            // cqlFilter += ` AND car.area_ha_ ${values.columnValue} `;
+            // cqlFilter += ` AND car.numero_do1 = ${columns.column1} `;
+          }
+        }
+      });
+    }
+    return cqlFilter;
+  }
+
+  getValues(analyze) {
+    const values = {columnValue: '', columnValueFocos: ''};
+    if (analyze.valueOption && analyze.valueOption.value) {
+      switch (analyze.valueOption.value) {
+        case 1 :
+          values.columnValue = ` <= 5 `;
+          values.columnValueFocos = ` BETWEEN 0 AND 10 `;
+          break;
+        case 2:
+          values.columnValue = ` BETWEEN 5 AND 25 `;
+          values.columnValueFocos = ` BETWEEN 10 AND 20 `;
+          break;
+        case 3:
+          values.columnValue = ` BETWEEN 25 AND 50 `;
+          values.columnValueFocos = ` BETWEEN 20 AND 50 `;
+          break;
+        case 4:
+          values.columnValue = ` BETWEEN 50 AND 100 `;
+          values.columnValueFocos = ` BETWEEN 50 AND 100 `;
+          break;
+        case 5:
+          values.columnValue = ` >= 100 `;
+          values.columnValueFocos = ` > 100 `;
+          break;
+        case 6:
+          values.columnValue = ` > ${analyze.valueOptionBiggerThen} `;
+          values.columnValueFocos = ` > ${analyze.valueOptionBiggerThen} `;
+          break;
+      }
+    }
+    return values;
+  }
+
+  setCqlFilter(layer) {
+    const filter = JSON.parse(localStorage.getItem('filterList'));
+
+    let cqlFilter = ``;
+
+    if (filter) {
+      cqlFilter = this.setThemeSelected(layer, filter, cqlFilter);
+      cqlFilter = this.setAlertType(layer, filter, cqlFilter);
+      cqlFilter = this.setSpecificSearch(layer, filter, cqlFilter);
+    }
+
+    if (cqlFilter) {
+      layer.layerData.cql_filter = cqlFilter;
+    }
+
+    return layer;
+  }
+
+  setFilter(layer) {
     if (layer.type === LayerType.ANALYSIS || layer.type === LayerType.DYNAMIC) {
       const currentDateInput = JSON.parse(localStorage.getItem('dateFilter'));
 
       layer.layerData.time = `${currentDateInput[0]}/${currentDateInput[1]}`;
+
+      layer = this.setCqlFilter(layer);
     }
     return layer;
   }
@@ -450,7 +608,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       if (addLayer) {
         this.selectedLayers.push(layer);
       }
-      layer = this.setDateFilter(layer);
+      layer = this.setFilter(layer);
       layerToAdd = this.getLayer(layer.layerData);
       layerToAdd.setZIndex(1000 + this.selectedLayers.length);
       layerToAdd.addTo(this.map);
