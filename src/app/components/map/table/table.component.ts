@@ -125,7 +125,7 @@ export class TableComponent implements OnInit {
     const filter = localStorage.getItem('filterList');
 
     const viewId = layer.value;
-    const params = {viewId, limit, offset, countTotal, date, filter};
+    const params = {view, limit, offset, countTotal, date, filter};
     if (sortField) {
       params['sortField'] = sortField;
     }
