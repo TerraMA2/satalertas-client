@@ -70,7 +70,7 @@
             "isPrimary": true,
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
-              "layers": "terrama2_86:view86",
+              "layers": "terrama2_109:car_deter_sql",
               "transparent": true,
               "format": "image/png",
               "version": "1.1.0",
@@ -78,7 +78,7 @@
             },
             "legend": {
               "title": "CAR x DETER",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_86:view86"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_109:car_deter_sql"
             }
           },
           {
@@ -1009,7 +1009,7 @@
           {
             "label": "Biomas MT",
             "shortLabel": "Biomas MT",
-            "value": "94",
+            "value": "106",
             "dateColumn": null,
             "areaColumn": null,
             "geomColumn": null,
@@ -1020,14 +1020,14 @@
             "isPrimary": false,
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
-              "layers": "terrama2_94:view94",
+              "layers": "terrama2_106:view106",
               "transparent": true,
               "format": "image/png",
               "version": "1.1.0"
             },
             "legend": {
               "title": "Biomas MT",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_94:view94"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_106:view106"
             }
           },
           {
