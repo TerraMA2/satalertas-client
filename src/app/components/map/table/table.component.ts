@@ -14,6 +14,7 @@ import { Layer } from '../../../models/layer.model';
 
 import { MapService } from 'src/app/services/map.service';
 import {View} from '../../../models/view.model';
+import { LayerType } from 'src/app/enum/layer-type.enum';
 
 @Component({
   selector: 'app-table',
@@ -117,7 +118,7 @@ export class TableComponent implements OnInit {
         layer.value,
         layer.cod,
         layer.codgroup,
-        (layer.type === 'analysis' || this.tableReportActive),
+        (layer.type === LayerType.ANALYSIS || this.tableReportActive),
         (layer.isPrimary || this.tableReportActive)
       ));
 
@@ -176,7 +177,7 @@ export class TableComponent implements OnInit {
     this.loading = false;
   }
 
-  lazyLoad(event: LazyLoadEvent) {
+  onLazyLoad(event: LazyLoadEvent) {
     this.loadTableData(this.selectedLayer,
                       event.rows,
                       event.first,
@@ -195,6 +196,10 @@ export class TableComponent implements OnInit {
   onRowsPerPageChange(event) {
     this.loading = true;
     this.loadTableData(this.selectedLayer, this.selectedRowsPerPage, 0);
+  }
+
+  onRowExpand(event) {
+    const carRegister = event.data.registro_estadual;
   }
 
   onFilterChange(filter) {
@@ -231,6 +236,9 @@ export class TableComponent implements OnInit {
   }
 
   onGenerateReportClick(rowData) {
+    if (!rowData) {
+      const selectedProperties = this.selectedProperties;
+    }
   }
 
 }

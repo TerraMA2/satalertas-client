@@ -58,14 +58,14 @@ body .ui-corner-right {
   border-bottom-right-radius: 3px;
 }
 body a {
-  color: #591111;
+  color: #000;
   text-decoration: none;
 }
 body a:hover {
-  color: #850404;
+  color: #444;
 }
 body a:active {
-  color: #440000;
+  color: #444;
 }
 body .ui-helper-reset {
   line-height: normal;

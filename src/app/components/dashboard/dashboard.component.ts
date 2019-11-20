@@ -15,6 +15,7 @@ import {Layer} from '../../models/layer.model';
 import {ParamAlert} from '../../models/param-alert.model';
 
 import { SidebarService } from 'src/app/services/sidebar.service';
+import { LayerType } from 'src/app/enum/layer-type.enum';
 
 @Component({
   selector: 'app-dashboard',
@@ -107,7 +108,7 @@ export class DashboardComponent implements OnInit {
       true);
 
     group.children.forEach( (view: Layer) => {
-      if (view.isPrimary && view.type === 'analysis') {
+      if (view.isPrimary && view.type === LayerType.ANALYSIS) {
         alert.cod = view.cod;
         alert.idview = view.value;
       }
@@ -196,7 +197,7 @@ export class DashboardComponent implements OnInit {
         layer.label,
         true,
         layer.isPrimary,
-        layer.type === 'analysis'));
+        layer.type === LayerType.ANALYSIS));
     });
 
     return listAlert;

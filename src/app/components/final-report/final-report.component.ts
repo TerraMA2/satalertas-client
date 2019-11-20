@@ -43,7 +43,7 @@ export class FinalReportComponent implements OnInit {
     private configService: ConfigService,
     private scriptService: ScriptService
   ) {
-    this.scriptService.load('pdfMake', 'vfsFonts');
+    // this.scriptService.load('pdfMake', 'vfsFonts');
   }
 
   ngOnInit() {
