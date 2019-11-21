@@ -53,23 +53,25 @@ export class FinalReportComponent implements OnInit {
     this.tableColumns = [
       { field: 'affectedArea', header: 'Área atingida' },
       { field: 'recentDeforestation', header: 'Desmatamento recente (DETER – nº de alertas)' },
-      { field: 'pastDeforestation', header: 'Desmatamento pretérito (PRODES – ha ano-1)' }
+      { field: 'pastDeforestation', header: 'Desmatamento pretérito (PRODES – ha ano-1)' },
+      { field: 'burnlights', header: 'Focos de Queimadas (Num.de focos)' },
+      { field: 'burnAreas', header: 'Áreas Queimadas (ha ano-1)' }
     ];
 
     this.tableData = [
-      { affectedArea: 'APP', recentDeforestation: '', pastDeforestation: '' },
-      { affectedArea: 'ARL', recentDeforestation: '', pastDeforestation: '' },
-      { affectedArea: 'AUR', recentDeforestation: '', pastDeforestation: '' },
-      { affectedArea: 'UC - PI', recentDeforestation: '', pastDeforestation: '' },
-      { affectedArea: 'UC - US', recentDeforestation: '', pastDeforestation: '' },
-      { affectedArea: 'TI', recentDeforestation: '', pastDeforestation: '' },
-      { affectedArea: 'AUC', recentDeforestation: '', pastDeforestation: '' },
-      { affectedArea: 'AUAS', recentDeforestation: '', pastDeforestation: '' },
-      { affectedArea: 'AUTEX', recentDeforestation: '', pastDeforestation: '' },
-      { affectedArea: 'AD', recentDeforestation: '', pastDeforestation: '' },
-      { affectedArea: 'Área autuada', recentDeforestation: '', pastDeforestation: '' },
-      { affectedArea: 'Área embargada', recentDeforestation: '', pastDeforestation: '' },
-      { affectedArea: 'Área desembargada', recentDeforestation: '', pastDeforestation: '' }
+      { affectedArea: 'APP', recentDeforestation: '', pastDeforestation: '', burnlights: '', burnAreas: '' },
+      { affectedArea: 'ARL', recentDeforestation: '', pastDeforestation: '', burnlights: '', burnAreas: '' },
+      { affectedArea: 'AUR', recentDeforestation: '', pastDeforestation: '', burnlights: '', burnAreas: '' },
+      { affectedArea: 'UC - PI', recentDeforestation: '', pastDeforestation: '', burnlights: '', burnAreas: '' },
+      { affectedArea: 'UC - US', recentDeforestation: '', pastDeforestation: '', burnlights: '', burnAreas: '' },
+      { affectedArea: 'TI', recentDeforestation: '', pastDeforestation: '', burnlights: '', burnAreas: '' },
+      { affectedArea: 'AUC', recentDeforestation: '', pastDeforestation: '', burnlights: '', burnAreas: '' },
+      { affectedArea: 'AUAS', recentDeforestation: '', pastDeforestation: '', burnlights: '', burnAreas: '' },
+      { affectedArea: 'AUTEX', recentDeforestation: '', pastDeforestation: '', burnlights: '', burnAreas: '' },
+      { affectedArea: 'AD', recentDeforestation: '', pastDeforestation: '', burnlights: '', burnAreas: '' },
+      { affectedArea: 'Área autuada', recentDeforestation: '', pastDeforestation: '', burnlights: '', burnAreas: '' },
+      { affectedArea: 'Área embargada', recentDeforestation: '', pastDeforestation: '', burnlights: '', burnAreas: '' },
+      { affectedArea: 'Área desembargada', recentDeforestation: '', pastDeforestation: '', burnlights: '', burnAreas: '' }
     ];
 
     this.getReportData();

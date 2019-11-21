@@ -57,7 +57,6 @@
                     <div class="p-grid p-nogutter">
                         <div class="p-col-12">
                             <strong class="word-wrap">NOTÍCIA DE FATO SIMP:</strong>
-                            <!-- {{  }} -->
                         </div>
                         <div class="p-col-12">
                             <strong class="word-wrap">MUNICÍPIO:</strong>
@@ -83,7 +82,11 @@
                             <h2>1 OBJETO</h2>
                         </div>
                         <p>
-                            Trata-se de relatório sobre desmatamento ilegal identificado com o uso de Sistema de Informações Geográficas no imóvel rural {{property?.name}} (mapa de localização e do perímetro do imóvel – figura 1), localizado no município de {{property?.city}}-MT, pertencente a {{property?.cpf}}, conforme informações declaradas no Sistema Mato-grossense de Cadastro Ambiental Rural (SIMCAR), protocolo CAR {{property?.register}} (Anexo I).
+                            Trata-se de relatório sobre desmatamento ilegal identificado com o uso de Sistema de Informações Geográficas no
+                            imóvel
+                            rural {{property?.name}} (mapa de localização e do perímetro do imóvel – figura 1), localizado no município de
+                            {{property?.city}}-MT, pertencente a {{property?.cpf}}, conforme informações declaradas no Sistema Mato-grossense de
+                            Cadastro Ambiental Rural (SIMCAR), protocolo CAR {{property?.register}} (<strong>Anexo I</strong>).
                         </p>
                         <div class="p-col-12 p-grid p-justify-center">
                             <div class="border padding text-center">
@@ -98,65 +101,103 @@
                             <h2>2 HISTÓRICO</h2>
                         </div>
                         <p>
-                            As informações sobre desmatamentos foram geradas no âmbito do Termo de Cooperação Técnica n. 30/2018 firmado entre Ministério Público do Estado de Mato Grosso e Instituto Nacional de Pesquisas Espaciais (INPE) cujo objeto consiste na coleta automática, armazenamento e tratamento de dados geoespaciais para interseções entre produtos do PRODES/DETER e Queimadas do INPE com os dados de fontes estatais oficiais.
+                            As informações sobre desmatamentos foram geradas no âmbito do Termo de Cooperação Técnica n. 30/2018 firmado entre
+                            Ministério Público do Estado de Mato Grosso e Instituto Nacional de Pesquisas Espaciais (INPE) cujo objeto consiste
+                            na coleta automática, armazenamento e tratamento de dados geoespaciais para interseções entre produtos do PRODES,
+                            DETER e Queimadas do INPE com os dados de fontes estatais oficiais.
                         </p>
 
                         <div class="p-col-12">
                             <h2>2.1 Materiais e equipamentos utilizados</h2>
                             <ol type="a">
-                                <li>Dados das áreas desmatadas no Estado de Mato Grosso mapeadas pelos projetos: Programa de Monitoramento da Floresta Amazônica Brasileira por Satélite (PRODES) e Sistema de Detecção de Desmatamento em Tempo Real (DETER), ambos desenvolvidos pelo Instituto Nacional de Pesquisas Espaciais (INPE);</li>
-                                <li>Informações e dados geográficos do SIMCAR Parceiros e Público, da Secretaria de Meio Ambiente do Estado de Mato Grosso (SEMA):  i. proprietário(s)/posseiro(s); ii. Base de referência do CAR validado; iii. Base de referência do CAR em análise; iv. Base de referência do CAR aguardando complementação; v. Base de referência do CAR cancelado e indeferido; e vi. Base de referência do Programa de Regularização Ambiental (PRA);</li>
-                                <li>Dados do Navegador Geográfico da SEMA (SIMGEO): i. Base de referência das áreas embargadas pela SEMA. ii. Base de referência das áreas desembargadas pela SEMA; iii. Base de referência das Autorizações de Exploração (AUTEX); iv. Base de referência das Autorizações de Desmatamento (AD); v. Base de referência das Áreas de Preservação Permanente (APP), Reserva Legal (ARL), Uso Restrito (AUS) e Áreas de Uso Consolidado (AUC);</li>
-                                <li>Dados dos imóveis rurais cadastrados no Instituto de Terras de Mato Grosso (INTERMAT);</li>
-                                <li>Dados do acervo fundiário do Instituto Nacional de Colonização e Reforma Agrária (INCRA);</li>
-                                <li>Dados geográficos das autuações e áreas embargadas pelo Instituto Nacional de Meio Ambiente e Recursos Naturais Renováveis (IBAMA);</li>
-                                <li>Dados geográficos das Unidades de Conservação (UC) no Estado de Mato Grosso, disponíveis no Cadastro Nacional de Unidades de Conservação do Ministério de Meio Ambiente (MMA);</li>
-                                <li>Dados geográficos das Terras Indígenas no Estado de Mato Grosso, disponíveis no sítio eletrônico da Fundação Nacional do Índio (FUNAI);</li>
+                                <li>Dados das áreas desmatadas no Estado de Mato Grosso mapeadas pelos projetos: Programa de Monitoramento da Floresta
+                                    Amazônica Brasileira por Satélite (PRODES), Sistema de Detecção de Desmatamento em Tempo Real (DETER) e Programa
+                                    Queimadas, ambos desenvolvidos pelo Instituto Nacional de Pesquisas Espaciais (INPE);
+                                </li>
+                                <li>Informações e dados geográficos do SIMCAR Parceiros e Público, da Secretaria de Meio Ambiente do Estado de Mato
+                                    Grosso (SEMA): i. proprietário(s)/posseiro(s); ii. Base de referência do CAR validado; iii. Base de referência do
+                                    CAR em análise; iv. Base de referência do CAR aguardando complementação; v. Base de referência do CAR cancelado e
+                                    indeferido; e vi. Base de referência do Programa de Regularização Ambiental (PRA);</li>
+                                <li>Dados do Navegador Geográfico da SEMA (SIMGEO): i. Base de referência das áreas embargadas pela SEMA. ii. Base de
+                                    referência das áreas desembargadas pela SEMA; iii. Base de referência das Autorizações de Exploração (AUTEX); iv.
+                                    Base de referência das Autorizações de Desmatamento (AD); v. Base de referência das Áreas de Preservação Permanente
+                                    (APP), Reserva Legal (ARL), Uso Restrito (AUS) e Áreas de Uso Consolidado (AUC);
+                                </li>
+                                <li>Dados dos imóveis rurais cadastrados no Instituto de Terras de Mato Grosso (INTERMAT);
+                                </li>
+                                <li>Dados do acervo fundiário do Instituto Nacional de Colonização e Reforma Agrária (INCRA);
+                                </li>
+                                <li>Dados geográficos das Unidades de Conservação (UC) no Estado de Mato Grosso, disponíveis no Cadastro Nacional de
+                                    Unidades de Conservação do Ministério de Meio Ambiente (MMA);</li>
+                                <li>Dados geográficos das Terras Indígenas no Estado de Mato Grosso, disponíveis no sítio eletrônico da Fundação
+                                    Nacional do Índio (FUNAI);</li>
+                                <li>Dados geográficos das Terras Indígenas no Estado de Mato Grosso, disponíveis no sítio eletrônico da Fundação
+                                    Nacional do Índio (FUNAI);</li>
                                 <li>Mapa de vegetação do Projeto RadamBrasil;</li>
-                                <li>Plataforma de monitoramento, análise e alerta a extremos ambientais TerraMA2, desenvolvida pelo INPE.</li>
-                                <li>Dados disponíveis no INFOSEG.</li>
-                                <li>Imagens dos Satélite Landsat, SPOT, Plantet, Sentinel-2 e  CBERS-4.</li>
+                                <li>Plataforma de monitoramento, análise e alerta a extremos ambientais TerraMA2, desenvolvida pelo INPE;</li>
+                                <li>Dados disponíveis no INFOSEG;</li>
+                                <li>Imagens dos Satélites Landsat, SPOT, Planet, Sentinel-2, CBERS-4 e outras imagens que possam ser acrescidas.</li>
                             </ol>
                         </div>
 
                         <div class="p-col-12">
                             <h2>2.2 Método utilizado</h2>
 
-                            <p>Os dados de desmatamentos (localização e área) dos projetos DETER e PRODES (INPE) foram cruzados com informações geoespaciais de fontes oficiais para identificação, qualificação e quantificação dos danos ambientais causados por desmatamentos ilegais (recentes, via DETER, e passados, via PRODES), bem como para identificação dos responsáveis pelo imóvel rural atingido, para fins de responsabilização civil e, eventualmente, criminal.</p>
-                            <p>Os dados geoespaciais do SIMGEO, MMA e FUNAI foram cruzados com os dados do INPE para identificação e quantificação dos desmatamentos após 22.07.{{prodesStartYear}} em áreas protegidas (APP, ARL, AUR, UC e TI), bem como para identificar ilícitos ambientais, mediante o cruzamento com dados das Autorizações de Exploração (AUTEX) e de Desmatamento (AD) emitidas pela SEMA. Ainda, verificou-se se as áreas desmatadas já haviam sido autuadas ou embargadas pelos órgãos de controle ambiental (SEMA e IBAMA). Para qualificação da área desmatada, o tipo de vegetação desmatada foi identificada utilizando o mapa de vegetação do Projeto RadamBrasil.</p>
-                            <p>As informações sobre o imóvel rural onde incidiu o desmatamento e sua titularidade foram coletadas na base de dados do SIMCAR, INTERMAT, INCRA e  INFOSEG.</p>
-                            <p>Os projetos PRODES e DETER, utilizados para identificação ,  quantificação e qualificação dos desmatamentos, fazem parte do Programa de Monitoramento da Amazônia e Demais Biomas (PAMZ+) desenvolvido pela Coordenação-geral de Observação da Terra (CGOBT) e Centro Regional da Amazônia (CRA) do INPE. Além do PRODES e DETER, o PAMZ+ conta também com Sistema de Mapeamento do Uso e Ocupação da Terra (TerraClass). Estes três projetos são complementares e concebidos para atender diferentes objetivos.</p>
-                            <p>O objetivo do DETER é identificar diariamente alterações na cobertura florestal em áreas acima de 3 ha com a emissão de alertas para apoio à fiscalização. Os alertas indicam áreas que sofreram corte raso ou intervenções pela exploração madeireira, mineração, queimadas e outras, ou seja, identificam e mapeiam áreas desflorestadas e degradadas em fisionomias florestais na Amazônia Legal (Estados do Acre, Amapá, Amazonas, Mato Grosso, Pará, Rondônia, Tocantins e parte do Maranhão).</p>
-                            <p>O DETER é operado com imagens do sensor WFI do satélite CBERS-4 do INPE/CRESDA (Brasil/China), com resolução espacial de 64m e 4 bandas espectrais (azul, verde, vermelho e infravermelho próximo), que permitem a identificação de casos de degradação, além do desmatamento. Para isso, as frações de solo, vegetação e sombra em uma imagem são estimadas a partir do Modelo Linear de Mistura Espectral (MLME), a fim de realçar feições de extração seletiva de madeira e de queimadas, que fazem parte do processo de desmatamento.</p>
+                            <p>Os dados de desmatamentos (polígonos) dos projetos DETER e PRODES, além dos dados do Programa de Queimadas na forma de focos (pontos) e áreas queimadas (INPE) foram cruzados com informações geoespaciais de fontes oficiais para identificação, qualificação e quantificação dos danos ambientais causados por desmatamentos ilegais (recentes, via DETER, e passados, via PRODES), bem como para identificação dos responsáveis pelo imóvel rural atingido, para fins de responsabilização civil e, eventualmente, criminal.
+                            </p>
+                            <p>Os dados geoespaciais do SIMGEO, MMA e FUNAI foram cruzados com os dados do INPE para identificação e quantificação dos desmatamentos após 22.07.2008 em áreas protegidas (APP, ARL, AUR, UC e TI), bem como para identificar ilícitos ambientais, mediante o cruzamento com dados das Autorizações de Exploração (AUTEX) e de Desmatamento (AD) emitidas pela SEMA. Ainda, verificou-se se as áreas desmatadas já haviam sido autuadas ou embargadas pelos órgãos de controle ambiental (SEMA e IBAMA). Para qualificação da área desmatada, o tipo de vegetação desmatada foi identificada utilizando o mapa de vegetação do Projeto RadamBrasil.
+                            </p>
+                            <p>As informações sobre o imóvel rural onde incidiu o desmatamento e sua titularidade foram coletadas na base de dados do SIMCAR, INTERMAT, INCRA e INFOSEG.
+                            </p>
+                            <p>Os projetos PRODES e DETER, utilizados para identificação, quantificação e qualificação dos desmatamentos, fazem parte do Programa de Monitoramento da Amazônia e Demais Biomas (PAMZ+) desenvolvido pela Coordenação-geral de Observação da Terra (CGOBT) e Centro Regional da Amazônia (CRA) do INPE. Além do PRODES e DETER, o PAMZ+ conta também com Sistema de Mapeamento do Uso e Ocupação da Terra (TerraClass). Estes três projetos são complementares e concebidos para atender diferentes objetivos.
+                            </p>
+                            <p>O objetivo do DETER é identificar diariamente alterações na cobertura natural dentro dos biomas Amazônia e Cerrado, em áreas acima de 3 ha com a emissão de alertas para apoio à fiscalização. Os alertas indicam áreas que sofreram corte raso ou intervenções pela exploração madeireira, mineração, queimadas ou seja, identificam e mapeiam áreas desflorestadas e degradadas em fisionomias florestais no bioma  Amazônia. Para o bioma Cerrado são identificadas apenas a supressão da vegetação natural.</p>
+                            <p>O DETER é operado com imagens do sensor WFI do satélite CBERS-4 do INPE/CRESDA (Brasil/China), com resolução espacial de 64m e 4 bandas espectrais (azul, verde, vermelho e infravermelho próximo).. Para isso, as frações de solo, vegetação e sombra em uma imagem são estimadas a partir do Modelo Linear de Mistura Espectral (MLME), a fim de realçar feições de extração seletiva de madeira e de queimadas, que fazem parte do processo de desmatamento.</p>
                             <p>Assim, no âmbito do DETER, diariamente são escolhidas imagens com menor cobertura de nuvens e feita a composição das bandas espectrais mais sensíveis às respostas da contribuição do solo e da vegetação para realçar áreas de desmatamento, que são identificadas por fotointerpretação considerando a tonalidade, textura e contexto da área na imagem de satélite processada. Com essa metodologia, o sistema é capaz de diferenciar impactos naturais de antrópicos, em razão das feições das áreas analisadas. O tempo entre o mapeamento dos alertas, validação e inclusão no banco de dados é de aproximadamente 72 horas.</p>
-                            <p>Diferentemente do DETER, o objetivo do PRODES é estimar a taxa anual de desmatamento por corte raso da floresta primária na Amazônia Legal, ou seja, das áreas com vegetação classificadas pelo projeto RadamBrasil como de fisionomia florestal na Amazônia Legal, excluídas as “não florestas”, da mesma forma que o DETER. Importante ressaltar, que o termo “desmatamento” é definido como a “supressão de áreas de fisionomia florestal primária por ações antropogênicas”, ou seja, tratam-se de áreas sem histórico de intervenções pelo Homem no passado (INPE, 2019). (VERIFICAR A QUESTÃO DA TIPOLOGIA)</p>
+                            <p>Diferentemente do DETER, o objetivo do PRODES é estimar a taxa anual de desmatamento por corte raso da floresta primária no bioma Amazônia, , excluídas as “não florestas”, da mesma forma que o DETER. Importante ressaltar, que o termo “desmatamento” é definido como a “supressão de áreas de fisionomia florestal primária por ações antropogênicas”, ou seja, tratam-se de áreas sem histórico de intervenções pelo Homem no passado (INPE, 2019). No bioma Cerrado, da mesma forma que o DETER, o PRODES mapeia a supressão de vegetação natural do cerrado.</p>
                             <p>O PRODES utiliza imagens de satélite compatíveis com as geradas pela série Landsat da NASA/USGS (EUA), caracterizadas por apresentarem resolução espacial de cerca de 30m e pelo menos três bandas espectrais. Atualmente, também podem ser utilizadas imagens dos satélites Landsat-8, Sentinel-2 (União Europeia) ou CBERS-4. As imagens desses satélites são disponibilizadas pelos seus provedores já ortorretificadas, com correção geométrica de sistema refinada pelo uso de pontos de controle e de modelos digitais de elevação do terreno, o que confere um nível mais alto da qualidade das informações, em concordância com as normas cartográficas vigentes. A avaliação da acurácia da metodologia do PRODES foi feita por Adami et al. (2017) para o ano 2014 no Estado de Mato Grosso, resultando em uma precisão global de 94,5% ± 2,05.</p>
-                            <p>Os dados do INPE constituem fonte de acentuada importância para a gestão ambiental, sendo que, inclusive, embasaram importantes acordos com setores ligados ao agronegócio, como o TAC do Boi, Moratória da Soja e outros acordos intergovernamentais como na Conferência das Nações Unidas Sobre Mudanças Climáticas (COP21), como lembrado por ADAMI et al (op.cit.). Tamanha a importância e credibilidade dos monitoramentos realizados pelo INPE é testemunhada por terem embasado mais de 7.000 publicações científicas (Google SchoScholar)</p>
-                            <p>Em resumo, a metodologia do PRODES parte dos pressupostos abaixo, cujo detalhamento pode ser consultado em Souza et al. (2019)</p>
+                            <p>Os dados do INPE constituem fonte de acentuada importância para a gestão ambiental, sendo que, inclusive, embasaram importantes acordos com setores ligados ao agronegócio, como o TAC da carne, Moratória da Soja e outros acordos intergovernamentais como na Conferência das Nações Unidas Sobre Mudanças Climáticas (COP21), como lembrado por ADAMI et al (op.cit.). Tamanha a importância e credibilidade dos monitoramentos realizados pelo INPE é testemunhada por terem embasado mais de 7.000 publicações científicas (Google Scholar)²
+                            </p>
+                            <p>Em resumo, a metodologia do PRODES parte dos pressupostos abaixo, cujo detalhamento pode ser consultado em Souza et al. (2019)³.</p>
                             <ol>
-                                <li>“O PRODES só identifica polígonos de desmatamento por corte raso (remoção completa da cobertura florestal primária) cuja área for superior a 6,25 ha.</li>
-                                <li>As imagens utilizadas são da classe Landsat, ou seja, apresentam resolução espacial da ordem de 30 metros, taxa de revisita da ordem de 15 – 20 dias, 3 ou mais bandas espectrais, como por exemplo imagens do satélite Landsat-8, CBERS-4 ou similares.</li>
-                                <li>Numa imagem a ser analisada pode haver áreas não-observadas devido a cobertura de nuvens. Estas áreas deverão ser levadas em conta no procedimento de cálculo do incremento estimado para cada imagem. Em casos de alta cobertura de nuvem, imagens de múltiplos satélites (ou datas) podem ser usadas para compor uma localização.</li>
-                                <li>Assume-se que a maioria dos desmatamentos ocorrem dentro da estação seca. Devido à larga extensão da ALB [Amazônia Legal Brasileira], a estação seca varia em função da região. Estabeleceu-se para cada imagem a data da estação seca para aquela localização com base em parâmetros climatológicos.</li>
-                                <li>Os satélites utilizados (órbita baixa e quase polar) tornam impossível adquirir todas imagens necessárias para cobrir a ALB do mesmo dia/mês de referência em todos os anos. Para fornecer uma taxa anualizada de desmatamento em uma imagem os incrementos de desmatamento nela mapeados são projetados para uma data de referência comum. Considerando o grande número de imagens cuja estação seca está entre os meses de junho e setembro, tomou-se a data de 1/agosto (dia juliano 211) como data de referência para o cálculo das taxas anualizadas.</li>
-                                <li>O ano PRODES, ou ano-calendário do desmatamento, refere-se ao período que vai de 1º de agosto de um ano até 31 de julho do ano subsequente. Por exemplo a taxa divulgada para o ano PRODES 2018 estima o desmatamento ocorrido entre 01/08/2017 e 31/07/2018.</li>
-                                <li>O PRODES realiza o mapeamento dos incrementos de desmatamento através de fotointerpretação por especialistas. O PRODES adota uma metodologia de mapeamento incremental.</li>
-                                <li>Na produção do mapeamento incremental, o PRODES usa uma máscara de exclusão, que encobre as áreas desmatadas nos anos anteriores. O trabalho de interpretação é feito apenas no pedaço da imagem do ano de referência que ainda contém floresta primária. Esta máscara é usada para eliminar a possibilidade de que desmatamentos antigos sejam mapeados novamente. A máscara de exclusão também inclui as áreas onde não há ocorrência natural de florestas, chamadas no PRODES de ‘não floresta’, além de áreas de hidrografia, sejam mapeadas como desmatamento”</li>
+                                <li>"O PRODES só identifica polígonos de desmatamento por corte raso (remoção completa da cobertura florestal primária)
+                                    cuja área for superior a 6,25 ha;</li>
+                                <li>As imagens utilizadas são da classe Landsat, ou seja, apresentam resolução espacial da ordem de 30 metros, taxa de
+                                    revisita da ordem de 10 – 26 dias, 3 ou mais bandas espectrais, como por exemplo imagens do satélite Landsat-8,
+                                    CBERS-4 ou similares;</li>
+                                <li>Numa imagem a ser analisada pode haver áreas não-observadas devido a cobertura de nuvens. Em casos de alta cobertura
+                                    de nuvem, imagens de múltiplos satélites (ou datas) podem ser usadas para compor uma localização;</li>
+                                <li>O PRODES realiza o mapeamento dos incrementos de desmatamento através de fotointerpretação por especialistas. O
+                                    PRODES adota uma metodologia de mapeamento incremental;</li>
+                                <li>Na produção do mapeamento incremental, o PRODES usa uma máscara de exclusão, que encobre as áreas desmatadas nos
+                                    anos anteriores. O trabalho de interpretação é feito apenas no pedaço da imagem do ano de referência que ainda
+                                    contém floresta primária. Esta máscara é usada para eliminar a possibilidade de que desmatamentos antigos sejam
+                                    mapeados novamente. A máscara de exclusão também inclui as áreas onde não há ocorrência natural de florestas,
+                                    chamadas no PRODES de ‘não floresta’, além de áreas de hidrografia, sejam mapeadas como desmatamento".</li>
                             </ol>
-                            <p>Todas as informações acima descritas foram integradas utilizando a plataforma computacional TerraMA2. Essa plataforma foi desenvolvida pelo INPE para o monitoramento, análise e emissão de alertas sobre extremos ambientais[ Informações mais detalhadas sobre o funcionamento do TerraMA2 podem ser obtidas em http://www.terrama2.dpi.inpe.br/sobre (acessado em 07.10.2019)]. Assim, utilizando esta base tecnológica inovadora, no domínio de softwares abertos, as tarefas executadas pela plataforma foram definidas para coletar, analisar, visualizar e interpolar dados sobre danos ambientais causados por desmatamentos. Para isso, dados dinâmicos e estáticos foram processados para produzirem as informações que foram sistematizadas neste relatório.</p>
+                            <p>Todas as informações acima descritas foram integradas utilizando a plataforma computacional TerraMA2. Essa plataforma
+                                foi desenvolvida pelo INPE para o monitoramento, análise e emissão de alertas sobre extremos ambientais. Assim,
+                                utilizando esta base tecnológica inovadora, no domínio de softwares abertos, as tarefas executadas pela plataforma
+                                foram definidas para coletar, analisar (intersecção de geometrias dos mapas), visualizar e consultar dados sobre
+                                danos ambientais causados por desmatamentos e queimadas. Para isso, dados dinâmicos e estáticos foram processados
+                                para produzirem as informações que foram sistematizadas neste relatório.</p>
                         </div>
 
                         <div class="p-col-12">
                             <h2>3 ANÁLISE TÉCNICA</h2>
 
-                            <p>O Instituto Nacional de Pesquisas Espaciais, a partir dos dados geoespaciais, identificou desmatamento de {{property?.prodesArea | number:'1.0-2':'pt'}} hectares na {{property?.name}} após 22.07.{{prodesStartYear}} ({{formattedFilterDate}}), conforme dinâmica de desmatamento explicitada em representação cartográfica que segue (figura 2):</p>
+                            <p>O Instituto Nacional de Pesquisas Espaciais, a partir dos dados geoespaciais, identificou desmatamento de
+                                {{property?.prodesArea | number:'1.0-2':'pt'}} hectares na {{property?.name}} após 22.07.{{prodesStartYear}}
+                                ({{formattedFilterDate}}), conforme dinâmica de desmatamento explicitada em representação cartográfica que segue
+                                (figura 2):</p>
                             <div class="p-col-12 p-grid p-justify-center">
                                 <div class="border padding text-center">
                                     <img src="http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_86:view86&styles=&bbox={{property?.bbox}}&width=404&height=431&time={{prodesStartYear}}/{{currentYear}}&cql_filter=numero_do1='{{property?.register}}';de_car_validado_sema_numero_do1='{{property?.register}}'&srs=EPSG:4674&format=image/png" width="200">
                                     <figcaption>Figura 2. dinâmica de desmatamento - {{prodesStartYear}}/{{currentYear}}</figcaption>
                                 </div>
                             </div>
-                            <p>No quadro demonstrativo abaixo consta a quantificação qualitativa das áreas desmatadas que foram identificadas com o cruzamento dos dados descritos no histórico desse relatório (quadro 1):</p>
+                            <p>No quadro demonstrativo abaixo consta a quantificação qualitativa das áreas desmatadas que foram identificadas com o
+                                cruzamento dos dados descritos no histórico deste relatório (quadro 1):</p>
                             <p>Quadro 1 - Classes e quantitativos de áreas desmatadas na {{property?.name}}.</p>
                             <div class="p-col-12 prevent-split">
                                 <p-table [(value)]="tableData"
@@ -178,8 +219,11 @@
                                     </ng-template>
                                 </p-table>
                             </div>
-                            <p>Anota-se que os dados acima indicados indicam extreme de dúvidas, com grau de acurácia de aproximadamente 95% de acerto, o quantitativo dos desmatamentos, sendo que alterações mínimas poderão ocorrer em decorrência de trabalhos de campo ou uso de outras imagens de satélite com outras escalas ou resolução.</p>
-                            <p>Na representação cartográfica abaixo é possível visualizar, com imagens de alta resolução [Spot (2,5 m) e Planet (3 m)] como estava a cobertura do imóvel em {{prodesStartYear}} e como se encontra atualmente ({{currentYear}}): </p>
+                            <p>Anota-se que os dados acima indicados indicam extreme de dúvidas, com grau de acurácia de aproximadamente 95% de
+                                acerto, o quantitativo dos desmatamentos, sendo que alterações mínimas poderão ocorrer em decorrência de trabalhos
+                                de campo ou uso de outras imagens de satélite com outras escalas ou resolução.</p>
+                            <p>Na representação cartográfica abaixo é possível visualizar, com imagens de alta resolução [Spot (2,5 m) e Planet (3
+                                m)] como estava a cobertura do imóvel em {{prodesStartYear}} e como se encontra atualmente ({{currentYear}}): </p>
                             <div class="p-grid p-justify-center nowrap">
                                 <div class="text-right border padding">
                                     <img src="http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_86:view86&styles=&bbox={{property?.bbox}}&width=300&height=300&time={{prodesStartYear}}/P1Y&cql_filter=numero_do1='{{property?.register}}';de_car_validado_sema_numero_do1='{{property?.register}}'&srs=EPSG:4674&format=image/png" width="200">
