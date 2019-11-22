@@ -79,28 +79,30 @@ export class FinalReportComponent implements OnInit {
 
   getReportData() {
     const date = JSON.parse(localStorage.getItem('dateFilter'));
+    this.dateFilter = `${date[0]}/${date[1]}`;
     const startDate = new Date(date[0]).toLocaleDateString('pt-BR');
     const endDate = new Date(date[1]).toLocaleDateString('pt-BR');
 
-    const filter = localStorage.getItem('filterList');
+    this.formattedFilterDate = `${startDate} - ${endDate}`;
 
     this.currentYear = new Date().getFullYear();
 
-    this.formattedFilterDate = `${startDate} - ${endDate}`;
+    const filter = localStorage.getItem('filterList');
 
-    this.dateFilter = `${date[0]}/${date[1]}`;
     const propertyConfig = this.reportConfig.propertyData;
     const url = propertyConfig.url;
     const viewId = propertyConfig.viewId;
     this.carRegister = this.carRegister.replace('\\', '/');
     const carRegister = this.carRegister;
-    this.hTTPService.get(url, {viewId, carRegister, date, filter}).subscribe((reportData: Property) => {
+    this.hTTPService.get(url, {viewId, carRegister, date, filter})
+                    .subscribe((reportData: Property) => {
       this.prodesStartYear = reportData.prodesYear[0]['date'];
 
       const bboxArray = reportData.bbox.split(',');
       const bbox = bboxArray[0].split(' ').join(',') + ',' + bboxArray[1].split(' ').join(',');
 
       reportData.bbox = bbox;
+
       this.property = reportData;
     });
   }
