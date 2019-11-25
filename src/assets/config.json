@@ -68,9 +68,59 @@
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": true,
+            "filter": {
+              "defoult": {
+                "view": "terrama2_86:view86"
+              },
+              "biome": {
+                "view": "terrama2_112:car_deter_biome_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "region": {
+                "view": "terrama2_112:car_deter_city_sql",
+                "field": "comarca",
+                "value": "name"
+              },
+              "mesoregion": {
+                "view": "terrama2_112:car_deter_city_sql",
+                "field": "nm_meso",
+                "value": "name"
+              },
+              "microregion": {
+                "view": "terrama2_112:car_deter_city_sql",
+                "field": "nm_micro",
+                "value": "name"
+              },
+              "city": {
+                "view": "terrama2_112:car_deter_city_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "uc": {
+                "view": "terrama2_112:car_deter_uc_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "ti": {
+                "view": "terrama2_112:car_deter_ti_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "car": {
+                "view": "terrama2_112:car_deter_car_sql",
+                "field": "de_car_validado_sema_area_ha_",
+                "value": ""
+              },
+              "projus": {
+                "view": "terrama2_112:car_deter_projus_sql",
+                "field": "gid",
+                "value": "gid"
+              }
+            },
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
-              "layers": "terrama2_109:car_deter_sql",
+              "layers": "terrama2_86:view86",
               "transparent": true,
               "format": "image/png",
               "version": "1.1.0",
@@ -78,7 +128,7 @@
             },
             "legend": {
               "title": "CAR x DETER",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_109:car_deter_sql"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_86:view86"
             }
           },
           {
@@ -95,6 +145,55 @@
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": false,
+            "filter": {
+              "defoult": {
+                "view": "terrama2_75:view75"
+              },
+              "biome": {
+                "view": "terrama2_112:app_car_deter_biome_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "region": {
+                "view": "terrama2_112:app_car_deter_city_sql",
+                "field": "comarca",
+                "value": "name"
+              },
+              "mesoregion": {
+                "view": "terrama2_112:app_car_deter_city_sql",
+                "field": "nm_meso",
+                "value": "name"
+              },
+              "microregion": {
+                "view": "terrama2_112:app_car_deter_city_sql",
+                "field": "nm_micro",
+                "value": "name"
+              },
+              "city": {
+                "view": "terrama2_112:app_car_deter_city_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "uc": {
+                "view": "terrama2_112:app_car_deter_uc_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "ti": {
+                "view": "terrama2_112:app_car_deter_ti_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "car": {
+                "view": "terrama2_112:app_car_deter_car_sql",
+                "field": "apv_car_deter_28_de_car_validado_sema_area_ha_"
+              },
+              "projus": {
+                "view": "terrama2_112:app_car_deter_projus_sql",
+                "field": "gid",
+                "value": "gid"
+              }
+            },
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
               "layers": "terrama2_75:view75",
@@ -122,6 +221,55 @@
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": false,
+            "filter": {
+              "defoult": {
+                "view": "terrama2_77:view77"
+              },
+              "biome": {
+                "view": "terrama2_112:usoant_car_deter_biome_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "region": {
+                "view": "terrama2_112:usoant_car_deter_city_sql",
+                "field": "comarca",
+                "value": "name"
+              },
+              "mesoregion": {
+                "view": "terrama2_112:usoant_car_deter_city_sql",
+                "field": "nm_meso",
+                "value": "name"
+              },
+              "microregion": {
+                "view": "terrama2_112:usoant_car_deter_city_sql",
+                "field": "nm_micro",
+                "value": "name"
+              },
+              "city": {
+                "view": "terrama2_112:usoant_car_deter_city_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "uc": {
+                "view": "terrama2_112:usoant_car_deter_uc_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "ti": {
+                "view": "terrama2_112:usoant_car_deter_ti_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "car": {
+                "view": "terrama2_112:usoant_car_deter_car_sql",
+                "field": "apv_car_deter_28_de_car_validado_sema_area_ha_"
+              },
+              "projus": {
+                "view": "terrama2_112:usoant_car_deter_projus_sql",
+                "field": "gid",
+                "value": "gid"
+              }
+            },
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
               "layers": "terrama2_77:view77",
@@ -149,6 +297,55 @@
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": false,
+            "filter": {
+              "defoult": {
+                "view": "terrama2_76:view76"
+              },
+              "biome": {
+                "view": "terrama2_112:reserva_car_deter_biome_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "region": {
+                "view": "terrama2_112:reserva_car_deter_city_sql",
+                "field": "comarca",
+                "value": "name"
+              },
+              "mesoregion": {
+                "view": "terrama2_112:reserva_car_deter_city_sql",
+                "field": "nm_meso",
+                "value": "name"
+              },
+              "microregion": {
+                "view": "terrama2_112:reserva_car_deter_city_sql",
+                "field": "nm_micro",
+                "value": "name"
+              },
+              "city": {
+                "view": "terrama2_112:reserva_car_deter_city_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "uc": {
+                "view": "terrama2_112:reserva_car_deter_uc_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "ti": {
+                "view": "terrama2_112:reserva_car_deter_ti_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "car": {
+                "view": "terrama2_112:reserva_car_deter_car_sql",
+                "field": "apv_car_deter_28_de_car_validado_sema_area_ha_"
+              },
+              "projus": {
+                "view": "terrama2_112:reserva_car_deter_projus_sql",
+                "field": "gid",
+                "value": "gid"
+              }
+            },
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
               "layers": "terrama2_76:view76",
@@ -176,6 +373,55 @@
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": false,
+            "filter": {
+              "defoult": {
+                "view": "terrama2_79:view79"
+              },
+              "biome": {
+                "view": "terrama2_112:veg_car_deter_biome_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "region": {
+                "view": "terrama2_112:veg_car_deter_city_sql",
+                "field": "comarca",
+                "value": "name"
+              },
+              "mesoregion": {
+                "view": "terrama2_112:veg_car_deter_city_sql",
+                "field": "nm_meso",
+                "value": "name"
+              },
+              "microregion": {
+                "view": "terrama2_112:veg_car_deter_city_sql",
+                "field": "nm_micro",
+                "value": "name"
+              },
+              "city": {
+                "view": "terrama2_112:veg_car_deter_city_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "uc": {
+                "view": "terrama2_112:veg_car_deter_uc_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "ti": {
+                "view": "terrama2_112:veg_car_deter_ti_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "car": {
+                "view": "terrama2_112:veg_car_deter_car_sql",
+                "field": "apv_car_deter_28_de_car_validado_sema_area_ha_"
+              },
+              "projus": {
+                "view": "terrama2_112:veg_car_deter_projus_sql",
+                "field": "gid",
+                "value": "gid"
+              }
+            },
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
               "layers": "terrama2_79:view79",
@@ -203,6 +449,55 @@
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": false,
+            "filter": {
+              "defoult": {
+                "view": "terrama2_78:view78"
+              },
+              "biome": {
+                "view": "terrama2_112:usocon_car_deter_biome_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "region": {
+                "view": "terrama2_112:usocon_car_deter_city_sql",
+                "field": "comarca",
+                "value": "name"
+              },
+              "mesoregion": {
+                "view": "terrama2_112:usocon_car_deter_city_sql",
+                "field": "nm_meso",
+                "value": "name"
+              },
+              "microregion": {
+                "view": "terrama2_112:usocon_car_deter_city_sql",
+                "field": "nm_micro",
+                "value": "name"
+              },
+              "city": {
+                "view": "terrama2_112:usocon_car_deter_city_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "uc": {
+                "view": "terrama2_112:usocon_car_deter_uc_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "ti": {
+                "view": "terrama2_112:usocon_car_deter_ti_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "car": {
+                "view": "terrama2_112:usocon_car_deter_car_sql",
+                "field": "apv_car_deter_28_de_car_validado_sema_area_ha_"
+              },
+              "projus": {
+                "view": "terrama2_112:usocon_car_deter_projus_sql",
+                "field": "gid",
+                "value": "gid"
+              }
+            },
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
               "layers": "terrama2_78:view78",
@@ -230,6 +525,55 @@
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": false,
+            "filter": {
+              "defoult": {
+                "view": "terrama2_95:view95"
+              },
+              "biome": {
+                "view": "terrama2_112:ti_car_deter_biome_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "region": {
+                "view": "terrama2_112:ti_car_deter_city_sql",
+                "field": "comarca",
+                "value": "name"
+              },
+              "mesoregion": {
+                "view": "terrama2_112:ti_car_deter_city_sql",
+                "field": "nm_meso",
+                "value": "name"
+              },
+              "microregion": {
+                "view": "terrama2_112:ti_car_deter_city_sql",
+                "field": "nm_micro",
+                "value": "name"
+              },
+              "city": {
+                "view": "terrama2_112:ti_car_deter_city_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "uc": {
+                "view": "terrama2_112:ti_car_deter_uc_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "ti": {
+                "view": "terrama2_112:ti_car_deter_ti_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "car": {
+                "view": "terrama2_112:ti_car_deter_car_sql",
+                "field": "apv_car_deter_28_de_car_validado_sema_area_ha_"
+              },
+              "projus": {
+                "view": "terrama2_112:ti_car_deter_projus_sql",
+                "field": "gid",
+                "value": "gid"
+              }
+            },
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
               "layers": "terrama2_95:view95",
@@ -1009,7 +1353,7 @@
           {
             "label": "Biomas MT",
             "shortLabel": "Biomas MT",
-            "value": "106",
+            "value": "111",
             "dateColumn": null,
             "areaColumn": null,
             "geomColumn": null,
@@ -1020,7 +1364,7 @@
             "isPrimary": false,
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
-              "layers": "terrama2_106:view106",
+              "layers": "terrama2_111:view111",
               "transparent": true,
               "format": "image/png",
               "version": "1.1.0"
@@ -1526,8 +1870,8 @@
         "name": "localization",
         "options": [
           {
-            "label": "TODOS",
-            "value": "all"
+            "label": "Todos",
+            "value": "ALL"
           },
           {
             "label": "Biomas",

@@ -19,12 +19,11 @@ export class SpecificSearchAreaComponent implements OnInit {
   }
 
   onChange(event) {
-    const result = this.specificSearchFilter.isChecked ? this.specificSearchFilter : undefined;
-    this.onchangeAuthorization.emit(result);
+    this.onchangeAuthorization.emit(this.specificSearchFilter);
   }
 
   public clearAll() {
     this.specificSearchFilter = new FilterSpecificSearch(false, 'CAR', undefined);
-    this.onchangeAuthorization.emit(undefined);
+    this.onChange(this.specificSearchFilter);
   }
 }

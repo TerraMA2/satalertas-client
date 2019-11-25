@@ -4,6 +4,8 @@ import { Legend } from './legend.model';
 
 import { Tool } from './tool.model';
 
+import { LayerFilter } from './layer-filter.model';
+
 export class Layer {
   constructor(
     public cod: string,
@@ -19,6 +21,7 @@ export class Layer {
     public type: string,
     public isPrivate: boolean,
     public isPrimary: boolean,
+    public filter: LayerFilter[],
     public layerData: LayerData,
     public legend: Legend,
     public popupTitle: string,

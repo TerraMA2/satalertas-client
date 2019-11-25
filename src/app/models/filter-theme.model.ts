@@ -1,7 +1,7 @@
 export class FilterTheme {
   constructor(
-    public label: string,
-    public value: string,
-    public type: string
+    public value?: string,
+    public label?: string,
+    public type?: string
   ) {}
 }

@@ -38,6 +38,7 @@ import { SelectedMarker } from 'src/app/models/selected-marker.model';
 import { TableService } from 'src/app/services/table.service';
 
 import {View} from '../../models/view.model';
+import {FilterUtils} from '../../utils/filter.utils';
 
 @Component({
   selector: 'app-map',
@@ -433,113 +434,85 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  setSpecificSearch(layer, filter, cFilter) {
-    let cqlFilter = cFilter;
+  setSpecificSearch(layer, filter) {
 
-    if (filter.specificSearch && filter.specificSearch.isChecked) {
-      if (filter.specificSearch.CarCPF === 'CAR') {
-        cqlFilter = ` de_car_validado_sema_numero_do1 = '${filter.specificSearch.inputValue}' `;
-      } else if (filter.specificSearch.CarCPF === 'CPF') {
-        // Missing table associating CARs with CPFCNPJ
-        cqlFilter = ``;
-      }
+    if ((!filter.specificSearch || !filter.specificSearch.isChecked)) {
+      return layer;
     }
 
-    return cqlFilter;
+    if (layer.layerData.cql_filter) {
+      delete layer.layerData.cql_filter;
+    }
+
+    layer.layerData.layers = layer.filter.defoult.view;
+
+    const specificSearch = {
+      car(value) { return ` de_car_validado_sema_numero_do1 = '${value}' `; },
+      cpf(value) { return ``; }
+    };
+
+    layer.layerData.cql_filter = specificSearch[filter.specificSearch.CarCPF.toLowerCase()](filter.specificSearch.inputValue);
+
+    return layer;
   }
 
-  setThemeSelected(layer, filter, cFilter) {
-    let cqlFilter = cFilter;
-    if (filter.themeSelected && filter.themeSelected.type) {
-
-      if (filter.themeSelected.type === 'biome') {
-        if (layer.codgroup === 'FOCOS') {
-          const column = (layer.isPrimary) ? `dd_focos_inpe_bioma` : `apv_car_focos_48_dd_focos_inpe_bioma`;
-          cqlFilter += cqlFilter ? ', ' : '';
-          cqlFilter += ` ${column} = '${filter.themeSelected.value.name}' `;
-        } else {
-          const column = `gid`;
-          cqlFilter += cqlFilter ? ', ' : '';
-          cqlFilter += ` ${column} = ${filter.themeSelected.value.gid} `;
-        }
-      } else if (filter.themeSelected.type === 'region') {
-        if (layer.codgroup === 'FOCOS') {
-          // const column = (layer.isPrimary) ? `dd_focos_inpe_bioma` : `apv_car_focos_48_dd_focos_inpe_bioma`;
-          // cqlFilter += ` ${column} = '${filter.themeSelected.value.name}' `;
-        } else {
-
-        }
-      } else if (filter.themeSelected.type === 'mesoregion') {
-        if (layer.codgroup === 'FOCOS') {
-          // const column = (layer.isPrimary) ? `dd_focos_inpe_bioma` : `apv_car_focos_48_dd_focos_inpe_bioma`;
-          // cqlFilter += ` ${column} = '${filter.themeSelected.value.name}' `;
-        } else {
-
-        }
-      } else if (filter.themeSelected.type === 'microregion') {
-        if (layer.codgroup === 'FOCOS') {
-          // const column = (layer.isPrimary) ? `dd_focos_inpe_bioma` : `apv_car_focos_48_dd_focos_inpe_bioma`;
-          // cqlFilter += ` ${column} = '${filter.themeSelected.value.name}' `;
-        } else {
-
-        }
-      } else if (filter.themeSelected.type === 'city') {
-        if (layer.codgroup === 'FOCOS') {
-          const column = (layer.isPrimary) ? `dd_focos_inpe_id_2` : `apv_car_focos_48_dd_focos_inpe_id_2`;
-          cqlFilter += cqlFilter ? ', ' : '';
-          // tslint:disable-next-line:radix
-          cqlFilter += ` ${column} = ${parseInt(filter.themeSelected.value.geocodigo)} `;
-        } else {
-
-        }
-      } else if (filter.themeSelected.type === 'uc') {
-
-      } else if (filter.themeSelected.type === 'ti') {
-
-      } else if (filter.themeSelected.type === 'projus') {
-
+  setThemeSelected(layer, filter, cleanCqlFilter) {
+    if (filter.specificSearch && filter.specificSearch.isChecked || (!filter.themeSelected.type)) {
+      if (layer.layerData.cql_filter) {
+        delete layer.layerData.cql_filter;
       }
+      layer.layerData.layers = layer.filter.defoult.view;
+
+      return layer;
     }
-    return cqlFilter;
+
+    const cqlFilter = cleanCqlFilter || !layer.layer.layerData.cql_filter ? '' : layer.layer.layerData.cql_filter;
+
+    return FilterUtils.themeSelected( filter, layer, cqlFilter);
   }
 
-  setAlertType(layer, filter, cFilter) {
-    let cqlFilter = cFilter;
-    if (filter.alertType && (filter.alertType.radioValue !== 'ALL') && (filter.alertType.analyzes.length > 0)) {
-      filter.alertType.analyzes.forEach(analyze => {
-
-        const values = this.getValues(analyze);
-
-        if (analyze.valueOption && analyze.valueOption.value) {
-          if ((analyze.type && analyze.type === 'deter') && (layer.codgroup === 'DETER')) {
-            cqlFilter += cqlFilter ? ', ' : '';
-            cqlFilter += ` calculated_area_ha ${values.columnValue} `;
-          }
-
-          if ((analyze.type && analyze.type === 'deforestation') && (layer.codgroup === 'PRODES')) {
-            cqlFilter += cqlFilter ? ', ' : '';
-            cqlFilter += ` calculated_area_ha ${values.columnValue} `;
-          }
-
-          if ((analyze.type && analyze.type === 'burned') && (layer.codgroup === 'FOCOS')) {
-            cqlFilter += cqlFilter ? ', ' : '';
-            cqlFilter += ` HAVING count(1) ${values.columnValueFocos} `;
-          }
-
-          if ((analyze.type && analyze.type === 'burned_area') && (layer.codgroup === 'AREA_QUEIMADA')) {
-            cqlFilter += cqlFilter ? ', ' : '';
-            cqlFilter += ` AND calculated_area_ha ${values.columnValue} `;
-          }
-
-          if ((analyze.type && analyze.type === 'car_area')) {
-            // secondaryTables += ' , public.de_car_validado_sema car ';
-            // cqlFilter += ` AND car.area_ha_ ${values.columnValue} `;
-            // cqlFilter += ` AND car.numero_do1 = ${columns.column1} `;
-          }
-        }
-      });
+  setAlertType(layer, filter, cleanCqlFilter) {
+    if ((filter.specificSearch && filter.specificSearch.isChecked) || !filter.alertType ||
+      !filter.alertType.radioValue || (filter.alertType.radioValue === 'ALL')) {
+      return layer;
     }
-    return cqlFilter;
+
+    let cqlFilter = cleanCqlFilter || !layer.layerData.cql_filter ? '' : layer.layerData.cql_filter;
+
+    filter.alertType.analyzes.forEach(analyze => {
+
+      const values = this.getValues(analyze);
+
+      if (analyze.valueOption && analyze.valueOption.value) {
+        if ((analyze.type && analyze.type === 'deter') && (layer.codgroup === 'DETER')) {
+          cqlFilter += cqlFilter ? ' and ' : '';
+          cqlFilter += ` calculated_area_ha ${values.columnValue} `;
+        }
+
+        if ((analyze.type && analyze.type === 'deforestation') && (layer.codgroup === 'PRODES')) {
+          cqlFilter += cqlFilter ? ' and ' : '';
+          cqlFilter += ` calculated_area_ha ${values.columnValue} `;
+        }
+
+        if ((analyze.type && analyze.type === 'burned') && (layer.codgroup === 'FOCOS')) {
+          cqlFilter += cqlFilter ? ' and ' : '';
+          cqlFilter += ` HAVING count(1) ${values.columnValueFocos} `;
+        }
+
+        if ((analyze.type && analyze.type === 'burned_area') && (layer.codgroup === 'AREA_QUEIMADA')) {
+          cqlFilter += cqlFilter ? ' and ' : '';
+          cqlFilter += ` calculated_area_ha ${values.columnValue} `;
+        }
+
+        if ((analyze.type && analyze.type === 'car_area')) {
+          cqlFilter += cqlFilter ? ' and ' : '';
+          cqlFilter += ` ${layer.filter.car.field} ${values.columnValue} `;
+        }
+      }
+    });
+
+    layer.layerData.cql_filter = cqlFilter;
+    return layer;
   }
 
   getValues(analyze) {
@@ -578,29 +551,40 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   setCqlFilter(layer) {
     const filter = JSON.parse(localStorage.getItem('filterList'));
 
-    let cqlFilter = ``;
+    if (  !filter || (filter.alertType.radioValue === 'ALL') && (filter.autorization.value === 'ALL') &&
+          !filter.specificSearch.isChecked && !filter.themeSelected.type) {
+      if (layer.layerData.cql_filter) {
+        delete layer.layerData.cql_filter;
+      }
 
-    if (filter) {
-      cqlFilter = this.setThemeSelected(layer, filter, cqlFilter);
-      cqlFilter = this.setAlertType(layer, filter, cqlFilter);
-      cqlFilter = this.setSpecificSearch(layer, filter, cqlFilter);
+      layer.layerData.layers = layer.filter.defoult.view;
+
+      return layer;
     }
 
-    if (cqlFilter) {
-      layer.layerData.cql_filter = cqlFilter;
+    if (filter.specificSearch.isChecked) {
+      return this.setSpecificSearch(layer, filter);
     }
+
+    layer = this.setThemeSelected(layer, filter, true);
+    layer = this.setAlertType(layer, filter, false);
 
     return layer;
   }
 
   setFilter(layer) {
-    if (layer.type === LayerType.ANALYSIS || layer.type === LayerType.DYNAMIC) {
-      const currentDateInput = JSON.parse(localStorage.getItem('dateFilter'));
-
-      layer.layerData.time = `${currentDateInput[0]}/${currentDateInput[1]}`;
-
-      layer = this.setCqlFilter(layer);
+    if (layer.type !== LayerType.ANALYSIS && layer.type !== LayerType.DYNAMIC) {
+      return layer;
     }
+
+    const currentDateInput = JSON.parse(localStorage.getItem('dateFilter'));
+
+    layer.layerData.time = `${currentDateInput[0]}/${currentDateInput[1]}`;
+
+    if (layer.type === LayerType.DYNAMIC) { return layer; }
+
+    layer = this.setCqlFilter(layer);
+
     return layer;
   }
 

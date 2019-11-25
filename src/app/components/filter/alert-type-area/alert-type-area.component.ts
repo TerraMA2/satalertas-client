@@ -48,8 +48,8 @@ export class AlertTypeAreaComponent implements OnInit, AfterViewInit {
   }
 
   public clearAll() {
-    this.alertType.radioValue = 'ALL';
-    this.onchangeAlertType.emit(undefined);
+    this.alertType = new FilterAlertType('ALL', this.alertType.analyzes);
+    this.onchangeAlertType.emit(this.alertType);
   }
 
   checkAlertTypeValid() {
