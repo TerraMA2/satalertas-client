@@ -8,7 +8,7 @@ export class FilterUtils {
       const value = {
         name: `'${filter.themeSelected.value.name}'`,
         gid: filter.themeSelected.value.gid,
-        geocode: `'${filter.themeSelected.value.geocode}'`
+        geocode: `'${filter.themeSelected.value.geocodigo}'`
       };
 
       layer.layerData.cql_filter =
