@@ -2,6 +2,7 @@
 <p-dropdown
         [options]="authorizations"
         [(ngModel)]="authorization"
+        optionLabel="name"
         filter="true"
         scrollHeight="100px"
         (onChange)="onChange($event)"

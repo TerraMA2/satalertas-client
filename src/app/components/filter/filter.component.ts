@@ -39,7 +39,11 @@ export class FilterComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.authorizationDisable = true;
 
-    this.filterParam = new FilterParam(undefined, undefined, undefined, undefined);
+    this.filterParam = new FilterParam(
+      new FilterTheme(),
+      new FilterAlertType('ALL'),
+      new FilterAuthorization('Todos', 'ALL'),
+      new FilterSpecificSearch(false));
   }
 
   ngAfterViewInit() {

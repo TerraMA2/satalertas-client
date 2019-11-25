@@ -12,7 +12,7 @@
                         <app-theme-area
                                 #themeAreaComponent
                                 (onchangeOptionSelected)="onUpdateFilterTheme($event)"
-                                [disable]="filterParam.specificSearch">
+                                [disable]="filterParam.specificSearch.isChecked">
                         </app-theme-area>
                 </div>
 
@@ -20,7 +20,7 @@
                         <app-alert-type-area
                                 #alertTypeAreaComponent
                                 (onchangeAlertType)="onUpdateAlertType($event)"
-                                [disable]="filterParam.specificSearch">
+                                [disable]="filterParam.specificSearch.isChecked">
                         </app-alert-type-area>
                 </div>
 

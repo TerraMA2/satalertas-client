@@ -13,22 +13,21 @@ export class AuthorizationAreaComponent implements OnInit {
 
   constructor() { }
 
-  authorizations: FilterAuthorization[];
+  authorizations: FilterAuthorization[] = [];
 
-  authorization: FilterAuthorization = 'TODOS';
+  authorization = 'ALL';
 
   ngOnInit() {
-    this.authorizations = [
-      {label: 'TODOS', value: 'TODOS'}
-    ];
+    this.authorizations.push(new FilterAuthorization('Todos', 'ALL'));
+    this.authorization = 'ALL';
   }
 
   onChange(event) {
-    this.onchangeAuthorization.emit(this.authorization);
+    this.onchangeAuthorization.emit(event);
   }
 
   public clearAll() {
-    this.authorization = 'TODOS';
-    this.onchangeAuthorization.emit(this.authorization);
+    this.authorization = 'ALL';
+    this.onchangeAuthorization.emit(new FilterAuthorization('Todos', 'ALL'));
   }
 }
