@@ -12,7 +12,7 @@
             scrollHeight="180px">
     </p-dropdown>
 </span>
-<div *ngIf="optionSelectedByFilter && optionSelectedByFilter.label">
+<div *ngIf="optionSelectedByFilter.label">
         <p-dropdown
                 [placeholder]="optionSelectedByFilter.label"
                 [options]="optionsFilterLocalizations"

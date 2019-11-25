@@ -38,10 +38,11 @@ export class ThemeAreaComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit() {
-    this.optionSelectedByFilter = new FilterTheme(undefined, undefined, undefined );
+    this.optionSelectedByFilter = new FilterTheme('ALL', undefined, undefined );
     this.optionField = this.configService.getMapConfig('filter').optionField;
     this.options = this.optionField.options;
-    this.selectedOption = 'all';
+    this.selectedOption = 'ALL';
+    this.onchangeSelected({ value: this.selectedOption });
   }
 
   ngAfterViewInit() {
@@ -50,57 +51,54 @@ export class ThemeAreaComponent implements OnInit, AfterViewInit {
   onChangeOptionField(option) {
 
     if (option.value === 'city') {
-      this.optionSelectedByFilter = new FilterTheme('Município', undefined, 'city' );
+      this.optionSelectedByFilter = new FilterTheme(undefined, 'Município',  'city' );
 
       this.loadComboCity();
     } else if (option.value  === 'biome') {
-      this.optionSelectedByFilter = new FilterTheme('Bioma', undefined, 'biome' );
+      this.optionSelectedByFilter = new FilterTheme(undefined, 'Bioma', 'biome' );
       this.optionsFilterLocalizations = [];
 
       this.loadComboBiome();
     } else if (option.value  === 'region') {
-      this.optionSelectedByFilter = new FilterTheme('Comarca', undefined, 'region' );
+      this.optionSelectedByFilter = new FilterTheme(undefined, 'Comarca',  'region' );
 
       this.loadComboRegion();
     } else if (option.value === 'mesoregion') {
-      this.optionSelectedByFilter = new FilterTheme('Mesoregião', undefined, 'mesoregion' );
+      this.optionSelectedByFilter = new FilterTheme(undefined, 'Mesoregião',  'mesoregion' );
 
       this.loadComboMesoregion();
     } else if (option.value  === 'microregion') {
-      this.optionSelectedByFilter = new FilterTheme('Microregião', undefined, 'microregion' );
+      this.optionSelectedByFilter = new FilterTheme(undefined, 'Microregião', 'microregion' );
       this.optionsFilterLocalizations = [];
 
       this.loadComboMicroregion();
     } else if (option.value  === 'ti') {
-      this.optionSelectedByFilter = new FilterTheme('Terra indígena', undefined, 'ti' );
+      this.optionSelectedByFilter = new FilterTheme(undefined, 'Terra indígena', 'ti' );
 
       this.loadComboTI();
     }  else if (option.value  === 'uc') {
-      this.optionSelectedByFilter = new FilterTheme('Unidade de conservação', undefined, 'uc' );
+      this.optionSelectedByFilter = new FilterTheme(undefined, 'Unidade de conservação', 'uc' );
 
       this.loadComboUC();
     }   else if (option.value  === 'projus') {
-      this.optionSelectedByFilter = new FilterTheme('Projus Bacias', undefined, 'projus' );
+      this.optionSelectedByFilter = new FilterTheme(undefined, 'Projus Bacias', 'projus' );
 
       this.loadComboProjus();
-    }  else {
-      this.clearValuesFilter();
+    } else {
+      this.clearAll();
     }
   }
 
   onchangeSelected(event) {
-    const selected = event.value ? this.optionSelectedByFilter : undefined;
-
-    this.onchangeOptionSelected.emit(selected);
+    this.optionSelectedByFilter.value = event.value;
+    this.onchangeOptionSelected.emit(this.optionSelectedByFilter);
   }
 
   public clearAll() {
-    this.optionSelectedByFilter = undefined;
+    this.optionSelectedByFilter = new FilterTheme('ALL');
     this.onchangeOptionSelected.emit(this.optionSelectedByFilter);
-    this.selectedOption = 'all';
+    this.selectedOption = 'ALL';
   }
-
-  clearValuesFilter() { this.optionSelectedByFilter = new FilterTheme(undefined, undefined, undefined ); }
 
   private loadComboCity() { this.cityService.getAll().then( result => this.optionsFilterLocalizations = result ); }
 
@@ -120,7 +118,7 @@ export class ThemeAreaComponent implements OnInit, AfterViewInit {
 
   private addElementeAll(options) {
     const result = [];
-    result.push({ gid: -1, name: 'Todos' });
+    result.push({ gid: -1, name: 'Todos', value: 'ALL' });
 
     if (options && options.length > 0) {
       options.forEach(option => {
