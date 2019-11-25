@@ -24,8 +24,9 @@ export class HTTPService {
 
     const terramaUrl = environment.terramaUrl;
     const terramaUrlProd = 'http://www.terrama2.dpi.inpe.br/mpmt';
+    const testUrl = 'http://localhost:3200';
 
-    if (!url.includes(terramaUrl) && !url.includes(terramaUrlProd)) {
+    if (!url.includes(terramaUrl) && !url.includes(terramaUrlProd) && !url.includes(testUrl)) {
       url = terramaUrl + url;
     }
     return this.http.get(url, {

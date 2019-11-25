@@ -12,6 +12,8 @@ import { MapService } from 'src/app/services/map.service';
 
 import { SidebarItem } from 'src/app/models/sidebar-item.model';
 
+import { HTTPService } from 'src/app/services/http.service';
+
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -23,6 +25,8 @@ export class SidebarComponent implements OnInit {
 
   sidebarLayerGroups: LayerGroup[] = [];
 
+  sidebarLayers: LayerGroup[] = [];
+
   sidebarConfig;
 
   logoPath: string;
@@ -31,6 +35,7 @@ export class SidebarComponent implements OnInit {
   constructor(
     private configService: ConfigService,
     private sidebarService: SidebarService,
+    private hTTPService: HTTPService,
     private mapService: MapService
   ) {}
 
@@ -62,11 +67,11 @@ export class SidebarComponent implements OnInit {
   }
 
   setSidebarLayers() {
-    if (!this.sidebarConfig.sidebarLayers) {
-      return;
-    }
+    this.sidebarLayers = this.sidebarConfig.sidebarLayers;
+    // this.hTTPService.get('http://localhost:3200/view/get').subscribe((layers: LayerGroup[]) => {
+      // this.sidebarLayers = layers;
     this.sidebarLayerGroups = [];
-    this.sidebarConfig.sidebarLayers.forEach(sidebarLayer => {
+    this.sidebarLayers.forEach(sidebarLayer => {
       const layerChildren: Layer[] = [];
       const children = sidebarLayer.children;
       if (children) {
@@ -107,6 +112,7 @@ export class SidebarComponent implements OnInit {
       );
       this.sidebarLayerGroups.push(layerGroup);
     });
+    // });
   }
 
   getSidebarItem(sidebarItem) {
