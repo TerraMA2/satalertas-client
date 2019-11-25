@@ -46,13 +46,6 @@ export class ReportService {
     let count = 0;
     while (startYear <= endYear) {
       const visionDataCopy = JSON.parse(JSON.stringify(visionData));
-      // const visionDataCopy = new Vision(
-      //   visionData.title,
-      //   visionData.image,
-      //   visionData.description,
-      //   visionData.registerCarColumn,
-      //   visionData.layerData
-      // );
       const date = years[count];
       let area = null;
       let spotlights = null;
@@ -145,7 +138,7 @@ export class ReportService {
       title,
       image,
       visionDescription,
-      visionData.registerCarColumn,
+      visionData.carRegisterColumn,
       visionData.layerData
     );
     return vision;
@@ -217,7 +210,7 @@ export class ReportService {
   }
 
   private replaceURLWildCards(text, propertyData: Property, visionData: Vision) {
-    const registerCarColumn = visionData.registerCarColumn;
+    const carRegisterColumn = visionData.carRegisterColumn;
     const date = JSON.parse(localStorage.getItem('dateFilter'));
 
     const bboxArray = propertyData.bbox.split(',');
@@ -233,7 +226,7 @@ export class ReportService {
       '{filterDate}'
     ];
     const cqlFilter = visionData.layerData['cql_filter'];
-    if (registerCarColumn) {
+    if (carRegisterColumn) {
       const cqlFilterArr = cqlFilter.split(';');
       cqlFilterArr.forEach((propertyCqlFilterWildCard: string) => {
         const startBracket = propertyCqlFilterWildCard.indexOf('{');
@@ -247,9 +240,9 @@ export class ReportService {
       `municipio='${propertyData.city}';numero_do1='${propertyData.register}'`,
       `${date[0]}/${date[1]}`
     ];
-    if (registerCarColumn) {
-      const registerCarColumnArr = registerCarColumn.split(';');
-      registerCarColumnArr.forEach(column => replaceValues.push(`${column}='${propertyData.register}'`));
+    if (carRegisterColumn) {
+      const carRegisterColumnArr = carRegisterColumn.split(';');
+      carRegisterColumnArr.forEach(column => replaceValues.push(`${column}='${propertyData.register}'`));
     }
     return this.replaceWildCards(text, wildCards, replaceValues);
   }

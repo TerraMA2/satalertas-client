@@ -25,7 +25,7 @@ export class SidebarComponent implements OnInit {
 
   sidebarLayerGroups: LayerGroup[] = [];
 
-  sidebarLayers = [];
+  sidebarLayers: LayerGroup[] = [];
 
   sidebarConfig;
 
@@ -67,13 +67,11 @@ export class SidebarComponent implements OnInit {
   }
 
   setSidebarLayers() {
-    // this.hTTPService.get('http://localhost:3200/view/get');
     this.sidebarLayers = this.sidebarConfig.sidebarLayers;
-    if (!this.setSidebarLayers) {
-      return;
-    }
+    // this.hTTPService.get('http://localhost:3200/view/get').subscribe((layers: LayerGroup[]) => {
+      // this.sidebarLayers = layers;
     this.sidebarLayerGroups = [];
-    this.sidebarConfig.sidebarLayers.forEach(sidebarLayer => {
+    this.sidebarLayers.forEach(sidebarLayer => {
       const layerChildren: Layer[] = [];
       const children = sidebarLayer.children;
       if (children) {
@@ -113,6 +111,7 @@ export class SidebarComponent implements OnInit {
       );
       this.sidebarLayerGroups.push(layerGroup);
     });
+    // });
   }
 
   getSidebarItem(sidebarItem) {

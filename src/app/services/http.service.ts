@@ -29,7 +29,7 @@ export class HTTPService {
     if (!url.includes(terramaUrl) && !url.includes(terramaUrlProd) && !url.includes(testUrl)) {
       url = terramaUrl + url;
     }
-    return this.http.get<any[]>(url, {
+    return this.http.get(url, {
       params: parameters
     }).pipe(
       retry(1),

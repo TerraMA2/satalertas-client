@@ -302,7 +302,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         const newLayer = JSON.parse(JSON.stringify(layer));
 
         this.tableSelectedLayer = this.addLayer(newLayer, false);
-        carRegister = data[layer.carRegisterColumn];
+
+        const carRegisterKey = Object.keys(data).find(key => key.includes(layer.carRegisterColumn));
+        carRegister = data[carRegisterKey];
       }
 
       if (carRegister) {
