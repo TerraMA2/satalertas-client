@@ -8,7 +8,7 @@
 
         <div class="p-grid">
 
-                <div class="p-col-12">
+                <div class="p-col-12 form-padding">
                         <app-theme-area
                                 #themeAreaComponent
                                 (onchangeOptionSelected)="onUpdateFilterTheme($event)"
@@ -16,7 +16,7 @@
                         </app-theme-area>
                 </div>
 
-                <div class="p-col-12">
+                <div class="p-col-12 form-padding">
                         <app-alert-type-area
                                 #alertTypeAreaComponent
                                 (onchangeAlertType)="onUpdateAlertType($event)"
@@ -24,7 +24,7 @@
                         </app-alert-type-area>
                 </div>
 
-                <div class="p-col-12">
+                <div class="p-col-12 form-padding">
                         <app-authorization-area
                                 #authorizationAreaComponent
                                 (onchangeAuthorization)="onUpdateAuthorization($event)"
@@ -32,14 +32,14 @@
                         </app-authorization-area>
                 </div>
 
-                <div class="p-col-12">
+                <div class="p-col-12 form-padding">
                         <app-specific-search-area
                                 #specificSearchAreaComponent
                                 (onchangeAuthorization)="onUpdateSpacificSearch($event)">
                         </app-specific-search-area>
                 </div>
 
-                <div class="p-col-12">
+                <div class="p-col-12 form-padding">
                         <app-footer-filter-area
                                 (onCloseClicked)="onCloseClicked()"
                                 (onClearFilterClicked)="onClearFilterClicked()"

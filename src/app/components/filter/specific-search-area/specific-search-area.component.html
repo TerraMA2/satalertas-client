@@ -1,36 +1,41 @@
-<p-checkbox
-        inputId="isChecked"
-        name="isChecked"
-        [(ngModel)]="specificSearchFilter.isChecked"
-        binary="true"
-        label="Busca específica"
-        (onChange)="onChange($event)">
-</p-checkbox>
-<br /><br />
-<div *ngIf="specificSearchFilter.isChecked">
-        <p-radioButton
-                name="CAR"
-                value="CAR"
-                label="CAR Estadual"
-                [(ngModel)]="specificSearchFilter.CarCPF"
-                inputId="CAR"
-                (ngModelChange)="onChange($event)">
-        </p-radioButton>
-        &nbsp;&nbsp;
-        <p-radioButton
-                name="CPF"
-                value="CPF"
-                label="CPF Proprietário"
-                [(ngModel)]="specificSearchFilter.CarCPF"
-                inputId="CPF"
-                disabled="true"
-                (ngModelChange)="onChange($event)">
-        </p-radioButton>
-        <input type="text"
-                pInputText
-                [name]="'specificValueInput'"
-                [(ngModel)]="specificSearchFilter.inputValue"
-                class="width-100"
-                placeholder="Digite o valor"
-                (ngModelChange)="onChange($event)">
+<div class="p-grid">
+        <div class="p-col-12">
+                <p-checkbox
+                        inputId="isChecked"
+                        name="isChecked"
+                        [(ngModel)]="specificSearchFilter.isChecked"
+                        binary="true"
+                        label="Busca específica"
+                        (onChange)="onChange($event)">
+                </p-checkbox>
+        </div>
+        <div class="p-col-12">
+                <div *ngIf="specificSearchFilter.isChecked">
+                        <p-radioButton
+                                name="CAR"
+                                value="CAR"
+                                label="CAR Estadual"
+                                [(ngModel)]="specificSearchFilter.CarCPF"
+                                inputId="CAR"
+                                (ngModelChange)="onChange($event)">
+                        </p-radioButton>
+                        &nbsp;&nbsp;
+                        <p-radioButton
+                                name="CPF"
+                                value="CPF"
+                                label="CPF Proprietário"
+                                [(ngModel)]="specificSearchFilter.CarCPF"
+                                inputId="CPF"
+                                disabled="true"
+                                (ngModelChange)="onChange($event)">
+                        </p-radioButton>
+                        <input type="text"
+                                pInputText
+                                [name]="'specificValueInput'"
+                                [(ngModel)]="specificSearchFilter.inputValue"
+                                class="width-100"
+                                placeholder="Digite o valor"
+                                (ngModelChange)="onChange($event)">
+                </div>
+        </div>
 </div>

@@ -1,5 +1,5 @@
 <div *ngIf="checkAlertTypeValid()">
-    <h3 class="no-margin">Tipo do alerta</h3>
+    <h3 class="form-margin">Tipo do alerta</h3>
     <p-radioButton name="ALL"
                     value="ALL"
                     label="Todos"
@@ -18,11 +18,11 @@
 
     <div *ngIf="checkAnalyzesValid()" >
         <div *ngFor="let analyze of alertType.analyzes">
-            <h3 class="no-margin">{{analyze.label}}</h3>
+            <h3 class="form-margin">{{analyze.label}}</h3>
             <div class="p-grid">
                 <div [ngClass]="{
                                     'p-col-6': isCustomSelected(analyze),
-                                    'p-col-12': !isCustomSelected(analyze)
+                                    'p-col-12 form-padding': !isCustomSelected(analyze)
                                 }">
                     <p-dropdown
                             [options]="analyze.options"
@@ -41,7 +41,7 @@
                 <div *ngIf="isCustomSelected(analyze)"
                     [ngClass]="{
                                     'p-col-6': isCustomSelected(analyze),
-                                    'p-col-12': !isCustomSelected(analyze)
+                                    'p-col-12 form-padding': !isCustomSelected(analyze)
                                 }">
                     <input *ngIf="isCustomSelected(analyze)"
                             type="text"

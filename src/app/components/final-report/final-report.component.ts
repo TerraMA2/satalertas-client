@@ -41,10 +41,7 @@ export class FinalReportComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private hTTPService: HTTPService,
     private configService: ConfigService,
-    private scriptService: ScriptService
-  ) {
-    // this.scriptService.load('pdfMake', 'vfsFonts');
-  }
+  ) {}
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => this.carRegister = params.carRegister);
