@@ -28,13 +28,6 @@
         "value": ""
       },
       {
-        "icon": "fas fa-file-alt",
-        "label": "Gerar relatório",
-        "link": "",
-        "method": "generateReport",
-        "value": "5"
-      },
-      {
         "icon": "fas fa-map",
         "label": "Mapa",
         "link": "/map",
@@ -2464,7 +2457,7 @@
     "maxZoom": 18,
     "controls": {
       "layers": {
-        "position": "topright",
+        "position": "topleft",
         "collapsed": true,
         "autoZIndex": false,
         "hideSingleBase": false

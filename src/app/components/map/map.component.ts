@@ -130,6 +130,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.setScaleControl();
     this.setLegendControl();
     this.setTableControl();
+    this.setReportTableControl();
     this.setSearchControl();
     this.setInfoControl();
     this.setRestoreMapControl();
@@ -699,6 +700,33 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   setTableControlEvent() {
     L.DomEvent.on(L.DomUtil.get('tableBtn'), 'dblclick', L.DomEvent.stopPropagation);
     document.querySelector('#tableBtn').addEventListener('click', () => this.displayTable = !this.displayTable);
+  }
+
+  setReportTableControl() {
+    const ReportTable = L.Control.extend({
+      onAdd: () => {
+        const div = L.DomUtil.create('div');
+        div.innerHTML = `
+          <div id="reportTableBtn" class="leaflet-control-layers leaflet-custom-icon" title="Gerar relatório">
+            <a><i class='fas fa-file-alt'></i> Gerar relatório</a>
+          </div>`;
+        return div;
+      }
+    });
+
+    new ReportTable({ position: 'topright' }).addTo(this.map);
+
+    this.setReportTableControlEvent();
+  }
+
+  setReportTableControlEvent() {
+    L.DomEvent.on(L.DomUtil.get('reportTableBtn'), 'dblclick', L.DomEvent.stopPropagation);
+    document.querySelector('#reportTableBtn').addEventListener('click', () => {
+      this.displayTable = !this.displayTable;
+      this.tableReportActive = !this.tableReportActive;
+      this.tableService.loadReportTableData.next();
+      this.sidebarService.sidebarReload.next();
+    });
   }
 
   setSearchControl() {
