@@ -112,8 +112,12 @@ section {
   page-break-inside: avoid;
 } */
 
-.no-margin {
+.form-margin {
   margin: 5px 0;
+}
+
+.form-padding {
+  padding: .1rem .5rem;
 }
 
 .table-responsive {

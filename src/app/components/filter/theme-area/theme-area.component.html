@@ -1,16 +1,16 @@
-<h3 class="no-margin">{{optionField.label}}</h3>
+<h3 class="form-margin">{{optionField.label}}</h3>
 <span>
-    <p-dropdown
-            [options]="options"
-            [(ngModel)]="selectedOption"
-            [autoDisplayFirst]="false"
-            [name]="optionField.name"
-            (onChange)="onChangeOptionField($event)"
-            [showClear]="false"
-            [disabled]="disable"
-            styleClass="width-100"
-            scrollHeight="180px">
-    </p-dropdown>
+        <p-dropdown
+                [options]="options"
+                [(ngModel)]="selectedOption"
+                [autoDisplayFirst]="false"
+                [name]="optionField.name"
+                (onChange)="onChangeOptionField($event)"
+                [showClear]="false"
+                [disabled]="disable"
+                styleClass="width-100"
+                scrollHeight="180px">
+        </p-dropdown>
 </span>
 <div *ngIf="optionSelectedByFilter.label">
         <p-dropdown
