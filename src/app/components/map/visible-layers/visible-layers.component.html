@@ -9,7 +9,7 @@
         <div class="visible-layers-item"
             pDraggable="dd"
             pDroppable="dd"
-            *ngFor="let selectedLayer of selectedLayers.reverse();trackBy: trackByFunction"
+            *ngFor="let selectedLayer of selectedLayers;trackBy: trackByFunction"
             (onDragStart)="dragStart($event, selectedLayer)"
             (onDragEnd)="dragEnd($event)"
             (onDrop)="drop($event)">
