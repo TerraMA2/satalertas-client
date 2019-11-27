@@ -8,7 +8,7 @@ import { ConfigService } from 'src/app/services/config.service';
 
 import { Property } from 'src/app/models/property.model';
 
-import { ScriptService } from 'src/app/services/script.service';
+import { SidebarService } from 'src/app/services/sidebar.service';
 
 declare let pdfMake: any ;
 
@@ -41,11 +41,14 @@ export class FinalReportComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private hTTPService: HTTPService,
     private configService: ConfigService,
+    private sidebarService: SidebarService
   ) {}
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => this.carRegister = params.carRegister);
     this.reportConfig = this.configService.getReportConfig();
+
+    this.sidebarService.sidebarLayerShowHide.next(false);
 
     this.tableColumns = [
       { field: 'affectedArea', header: 'Área atingida' },

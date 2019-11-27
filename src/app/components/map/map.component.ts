@@ -134,7 +134,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.setSearchControl();
     this.setInfoControl();
     this.setRestoreMapControl();
-    this.setVisibleLayersControl();
+    // this.setVisibleLayersControl();
     this.setMarkersGroup();
   }
 
@@ -707,8 +707,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       onAdd: () => {
         const div = L.DomUtil.create('div');
         div.innerHTML = `
-          <div id="reportTableBtn" class="leaflet-control-layers leaflet-custom-icon" title="Gerar relatório">
-            <a><i class='fas fa-file-alt'></i> Gerar relatório</a>
+          <div id="reportTableBtn" class="leaflet-control-layers leaflet-custom-icon" title="Gerar laudo">
+            <a><i class='fas fa-file-alt'></i> Gerar laudo</a>
           </div>`;
         return div;
       }

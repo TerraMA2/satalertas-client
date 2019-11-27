@@ -16,6 +16,8 @@ import { ReportService } from 'src/app/services/report.service';
 
 import { FilterService } from 'src/app/services/filter.service';
 
+import { SidebarService } from 'src/app/services/sidebar.service';
+
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html',
@@ -63,6 +65,7 @@ export class ReportComponent implements OnInit {
     private configService: ConfigService,
     private reportService: ReportService,
     private filterService: FilterService,
+    private sidebarService: SidebarService,
     private router: Router
   ) { }
 
@@ -75,6 +78,8 @@ export class ReportComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => this.carRegister = params.carRegister);
     this.reportConfig = this.configService.getReportConfig();
     this.visionLegends = this.reportConfig.visionslegends;
+
+    this.sidebarService.sidebarLayerShowHide.next(false);
 
     this.getPropertyData();
   }
