@@ -2,7 +2,7 @@
   "app": {
     "mainApplication": "TerraMA²",
     "headerLogo": "./assets/img/logos/terrama2_logo.png",
-    "headerTitle": "Análise Ambiental de Imóvel Rural",
+    "headerTitle": "Satélites Alertas: Sistema Integrado de Informações Geográficas de Degradação Ambiental",
     "hasLogin": true,
     "headerLogoLink": "http://www.terrama2.dpi.inpe.br/mpmt/monitor/",
     "layerUrls": {
