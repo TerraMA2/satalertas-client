@@ -1,4 +1,3 @@
-
 export class FilterAlertAnalyses {
   constructor(
     public label: string,
