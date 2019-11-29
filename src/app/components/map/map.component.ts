@@ -495,8 +495,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         }
 
         if ((analyze.type && analyze.type === 'burned') && (layer.codgroup === 'FOCOS')) {
-          cqlFilter += cqlFilter ? ' and ' : '';
-          cqlFilter += ` HAVING count(1) ${values.columnValueFocos} `;
+          layer.layerData.viewparams = `min:${values.min};max:${values.max}`;
         }
 
         if ((analyze.type && analyze.type === 'burned_area') && (layer.codgroup === 'AREA_QUEIMADA')) {
@@ -511,37 +510,52 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
 
-    layer.layerData.cql_filter = cqlFilter;
+    if (cqlFilter) {
+      layer.layerData.cql_filter = cqlFilter;
+    }
+
     return layer;
   }
 
   getValues(analyze) {
-    const values = {columnValue: '', columnValueFocos: ''};
+    const values = {columnValue: '', columnValueFocos: '', min: null, max: null };
     if (analyze.valueOption && analyze.valueOption.value) {
       switch (analyze.valueOption.value) {
         case 1 :
           values.columnValue = ` <= 5 `;
           values.columnValueFocos = ` BETWEEN 0 AND 10 `;
+          values.min = 0;
+          values.max = 10;
           break;
         case 2:
           values.columnValue = ` BETWEEN 5 AND 25 `;
           values.columnValueFocos = ` BETWEEN 10 AND 20 `;
+          values.min = 10;
+          values.max = 20;
           break;
         case 3:
           values.columnValue = ` BETWEEN 25 AND 50 `;
           values.columnValueFocos = ` BETWEEN 20 AND 50 `;
+          values.min = 20;
+          values.max = 50;
           break;
         case 4:
           values.columnValue = ` BETWEEN 50 AND 100 `;
           values.columnValueFocos = ` BETWEEN 50 AND 100 `;
+          values.min = 50;
+          values.max = 100;
           break;
         case 5:
           values.columnValue = ` >= 100 `;
           values.columnValueFocos = ` > 100 `;
+          values.min = 100;
+          values.max = 9999999999;
           break;
         case 6:
           values.columnValue = ` > ${analyze.valueOptionBiggerThen} `;
           values.columnValueFocos = ` > ${analyze.valueOptionBiggerThen} `;
+          values.min = analyze.valueOptionBiggerThen;
+          values.max = 9999999999;
           break;
       }
     }
