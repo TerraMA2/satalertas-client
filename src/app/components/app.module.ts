@@ -71,6 +71,7 @@ import { AuthorizationAreaComponent } from './filter/authorization-area/authoriz
 import { SpecificSearchAreaComponent } from './filter/specific-search-area/specific-search-area.component';
 import { FooterFilterAreaComponent } from './filter/footer-filter-area/footer-filter-area.component';
 import { FinalReportComponent } from './final-report/final-report.component';
+import { DeforestationDeterComponent } from './report/deforestation-deter/deforestation-deter.component';
 registerLocaleData(localePt, 'pt');
 @NgModule({
   declarations: [
@@ -112,7 +113,8 @@ registerLocaleData(localePt, 'pt');
     SpecificSearchAreaComponent,
     FooterFilterAreaComponent,
     SidebarItemComponent,
-    FinalReportComponent
+    FinalReportComponent,
+    DeforestationDeterComponent
   ],
 
   imports: [

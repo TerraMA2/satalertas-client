@@ -6,11 +6,7 @@ import { HTTPService } from 'src/app/services/http.service';
 
 import { ConfigService } from 'src/app/services/config.service';
 
-import { Property } from 'src/app/models/property.model';
-
 import { SidebarService } from 'src/app/services/sidebar.service';
-import { PropertyDeforestation } from 'src/app/models/property-deforestation.model';
-import { PropertyArea } from 'src/app/models/property-area.model';
 
 declare let pdfMake: any ;
 
