@@ -178,7 +178,7 @@
                 "value": "gid"
               },
               "car": {
-                "view": "terrama2_112:app_car_deter_car_sql",
+                "view": "terrama2_75:view75",
                 "field": "apv_car_deter_28_de_car_validado_sema_area_ha_"
               },
               "projus": {
@@ -254,7 +254,7 @@
                 "value": "gid"
               },
               "car": {
-                "view": "terrama2_112:usoant_car_deter_car_sql",
+                "view": "terrama2_77:view77",
                 "field": "apv_car_deter_28_de_car_validado_sema_area_ha_"
               },
               "projus": {
@@ -330,7 +330,7 @@
                 "value": "gid"
               },
               "car": {
-                "view": "terrama2_112:reserva_car_deter_car_sql",
+                "view": "terrama2_76:view76",
                 "field": "apv_car_deter_28_de_car_validado_sema_area_ha_"
               },
               "projus": {
@@ -406,7 +406,7 @@
                 "value": "gid"
               },
               "car": {
-                "view": "terrama2_112:veg_car_deter_car_sql",
+                "view": "terrama2_79:view79",
                 "field": "apv_car_deter_28_de_car_validado_sema_area_ha_"
               },
               "projus": {
@@ -482,7 +482,7 @@
                 "value": "gid"
               },
               "car": {
-                "view": "terrama2_112:usocon_car_deter_car_sql",
+                "view": "terrama2_78:view78",
                 "field": "apv_car_deter_28_de_car_validado_sema_area_ha_"
               },
               "projus": {
@@ -558,7 +558,7 @@
                 "value": "gid"
               },
               "car": {
-                "view": "terrama2_112:ti_car_deter_car_sql",
+                "view": "terrama2_95:view95",
                 "field": "apv_car_deter_28_de_car_validado_sema_area_ha_"
               },
               "projus": {
@@ -644,7 +644,7 @@
                 "value": "gid"
               },
               "car": {
-                "view": "terrama2_112:car_prodes_car_sql",
+                "view": "terrama2_87:view87",
                 "field": "de_car_validado_sema_area_ha_",
                 "value": ""
               },
@@ -1257,7 +1257,7 @@
               },
               "car": {
                 "view": "terrama2_88:view88",
-                "field": "apv_car_deter_28_de_car_validado_sema_area_ha_"
+                "field": "de_car_validado_sema_area_ha_"
               },
               "projus": {
                 "view": "terrama2_112:car_focos_projus_sql",
@@ -1332,7 +1332,6 @@
                 "value": "gid"
               },
               "car": {
-                "view": "terrama2_112:app_car_deter_car_sql",
                 "field": "apv_car_focos_48_de_car_validado_sema_area_ha_"
               },
               "projus": {
@@ -1409,7 +1408,7 @@
               },
               "car": {
                 "view": "terrama2_91:view91",
-                "field": "apv_car_deter_28_de_car_validado_sema_area_ha_"
+                "field": "apv_car_focos_48_de_car_validado_sema_area_ha_"
               },
               "projus": {
                 "view": "terrama2_112:usoant_car_focos_projus_sql",
@@ -1485,7 +1484,7 @@
               },
               "car": {
                 "view": "terrama2_90:view90",
-                "field": "apv_car_deter_28_de_car_validado_sema_area_ha_"
+                "field": "apv_car_focos_48_de_car_validado_sema_area_ha_"
               },
               "projus": {
                 "view": "terrama2_112:reserva_car_focos_projus_sql",
@@ -1560,8 +1559,7 @@
                 "value": "gid"
               },
               "car": {
-                "view": "terrama2_93:view93",
-                "field": "apv_car_deter_28_de_car_validado_sema_area_ha_"
+                "field": "apv_car_focos_48_de_car_validado_sema_area_ha_"
               },
               "projus": {
                 "view": "terrama2_112:veg_car_focos_projus_sql",
@@ -1636,8 +1634,7 @@
                 "value": "gid"
               },
               "car": {
-                "view": "terrama2_92:view92",
-                "field": "apv_car_deter_28_de_car_validado_sema_area_ha_"
+                "field": "apv_car_focos_48_de_car_validado_sema_area_ha_"
               },
               "projus": {
                 "view": "terrama2_112:usocon_car_deter_projus_sql",
@@ -1713,7 +1710,7 @@
               },
               "car": {
                 "view": "terrama2_96:view96",
-                "field": "apv_car_deter_28_de_car_validado_sema_area_ha_"
+                "field": "apv_car_focos_48_de_car_validado_sema_area_ha_"
               },
               "projus": {
                 "view": "terrama2_112:ti_car_deter_projus_sql",
@@ -1758,17 +1755,17 @@
                 "value": "name"
               },
               "region": {
-                "view": "terrama2_112:car_focos_city_sql",
+                "view": "terrama2_112:uc_car_focos_city_sql",
                 "field": "comarca",
                 "value": "name"
               },
               "mesoregion": {
-                "view": "terrama2_112:car_focos_city_sql",
+                "view": "terrama2_112:uc_car_focos_city_sql",
                 "field": "nm_meso",
                 "value": "name"
               },
               "microregion": {
-                "view": "terrama2_112:car_focos_city_sql",
+                "view": "terrama2_112:uc_car_focos_city_sql",
                 "field": "nm_micro",
                 "value": "name"
               },
@@ -1778,21 +1775,20 @@
                 "value": "geocode"
               },
               "uc": {
-                "view": "terrama2_112:car_focos_uc_sql",
+                "view": "terrama2_112:uc_car_focos_uc_sql",
                 "field": "gid",
                 "value": "gid"
               },
               "ti": {
-                "view": "terrama2_112:usoant_car_focos_ti_sql",
+                "view": "terrama2_112:uc_car_focos_ti_sql",
                 "field": "gid",
                 "value": "gid"
               },
               "car": {
-                "view": "terrama2_112:usoant_car_deter_car_sql",
-                "field": "apv_car_deter_28_de_car_validado_sema_area_ha_"
+                "field": "apv_car_focos_48_de_car_validado_sema_area_ha_"
               },
               "projus": {
-                "view": "terrama2_112:usoant_car_deter_projus_sql",
+                "view": "terrama2_112:uc_car_focos_projus_sql",
                 "field": "gid",
                 "value": "gid"
               }
