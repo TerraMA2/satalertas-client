@@ -41,7 +41,9 @@ export class ReportComponent implements OnInit {
 
   deforestations: Vision[] = [];
 
-  deforestationDeters: Vision[] = [];
+  deforestationHistoryDeters: Vision[] = [];
+
+  deforestationHistoryProdes: Vision[] = [];
 
   deforestationHistories: Vision[] = [];
 
@@ -114,9 +116,9 @@ export class ReportComponent implements OnInit {
 
       this.deforestations = this.reportService.getVisions(propertyData, this.reportConfig.deforestations);
 
-      this.deforestationDeters = this.reportService.getVisions(propertyData, this.reportConfig.deforestationDeters, 'deterYear');
+      this.deforestationHistoryDeters = this.reportService.getVisions(propertyData, this.reportConfig.deforestationHistoryDeters, 'deterYear');
 
-      this.deforestationHistories = this.reportService.getVisions(propertyData, this.reportConfig.deforestationHistories, 'prodesYear');
+      this.deforestationHistoryProdes = this.reportService.getVisions(propertyData, this.reportConfig.deforestationHistoryProdes, 'prodesYear');
 
       this.burnedAreas = this.reportService.getVisions(propertyData, this.reportConfig.burnedAreas);
 
