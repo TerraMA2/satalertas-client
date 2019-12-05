@@ -4,13 +4,13 @@
     <div class="p-grid">
         <div *ngFor="let burningSpotlight of burningSpotlights"
                 class="p-col-4 p-md-4">
-            <div class="card">
+            <div class="card text-center">
                 <p-card styleClass="ui-card-shadow">
                     <p-header class="card-header">
                         <span>{{ burningSpotlight.title }}</span>
                     </p-header>
                     <img src="{{burningSpotlight.image}}" class="map img-fluid" />
-                    <p-footer *ngIf="burningSpotlight.description" class="card-footer">
+                    <p-footer *ngIf="burningSpotlight.description" class="card text-center -footer">
                         {{ burningSpotlight.description.text }}
                         {{ burningSpotlight.description.value }} foco(s)
                     </p-footer>

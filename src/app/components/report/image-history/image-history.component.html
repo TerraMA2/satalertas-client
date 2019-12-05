@@ -4,13 +4,13 @@
     <div class="p-grid">
         <div *ngFor="let landsatHistory of landsatHistories"
                 class="p-col-4 p-md-4">
-            <div class="card">
+            <div class="card text-center ">
                 <p-card styleClass="ui-card-shadow">
                     <p-header class="card-header">
                         <span>{{ landsatHistory.title }}</span>
                     </p-header>
                     <img src="{{landsatHistory.image}}" class="map img-fluid" />
-                    <p-footer *ngIf="landsatHistory.description" class="card-footer">
+                    <p-footer *ngIf="landsatHistory.description" class="card text-center -footer">
                         {{ landsatHistory.description }}
                     </p-footer>
                 </p-card>

@@ -4,12 +4,12 @@
     <div class="p-grid">
         <div *ngFor="let deforestation of deforestations"
                 class="p-col-4 p-md-4">
-            <div class="card">
+            <div class="card text-center">
                 <p-card styleClass="ui-card-shadow">
                     <p-header class="card-header">
                         <span>{{ deforestation.title }}</span>
                     </p-header>
-                    <img src="{{deforestation.image}}" class="map img-fluid" />
+                    <img src="{{deforestation.image}}" class="img-fluid" />
                     <p-footer *ngIf="deforestation.description" class="card-footer">
                         {{ deforestation.description }}
                     </p-footer>
