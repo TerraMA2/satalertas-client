@@ -1,5 +1,6 @@
 export class Property {
   constructor(
+    public gid: number,
     public register: string,
     public area: number,
     public name: string,
@@ -21,6 +22,8 @@ export class Property {
     public burnedAreas?: [],
     public deter?: [],
     public prodesYear?: string[],
-    public spotlightsYear?: []
+    public deterYear?: string[],
+    public spotlightsYear?: [],
+    // public prodesInfo?: []
   ) {}
 }

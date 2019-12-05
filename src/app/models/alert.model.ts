@@ -1,4 +1,4 @@
-import {ParamAlert} from './param-alert.model';
+import { ParamAlert } from './param-alert.model';
 
 export class Alert {
   constructor(

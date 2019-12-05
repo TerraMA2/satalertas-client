@@ -15,6 +15,7 @@ import {Layer} from '../../models/layer.model';
 import {ParamAlert} from '../../models/param-alert.model';
 
 import { SidebarService } from 'src/app/services/sidebar.service';
+
 import { LayerType } from 'src/app/enum/layer-type.enum';
 
 @Component({

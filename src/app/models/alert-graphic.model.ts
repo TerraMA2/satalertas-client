@@ -1,4 +1,4 @@
-import {ChartData} from './chart-data.model';
+import { ChartData } from './chart-data.model';
 
 export class AlertGraphic {
   constructor(

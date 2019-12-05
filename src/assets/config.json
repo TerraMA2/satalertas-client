@@ -2,7 +2,7 @@
   "app": {
     "mainApplication": "TerraMA²",
     "headerLogo": "./assets/img/logos/terrama2_logo.png",
-    "headerTitle": "Análise Ambiental de Imóvel Rural",
+    "headerTitle": "Satélites Alertas: Sistema Integrado de Informações Geográficas de Degradação Ambiental",
     "hasLogin": true,
     "headerLogoLink": "http://www.terrama2.dpi.inpe.br/mpmt/monitor/",
     "layerUrls": {
@@ -3115,43 +3115,66 @@
     ],
     "deforestations": [
       {
-        "title": "Desmatamento DETER sobre imagem LANDSAT 07/02/2019",
+        "title": "Desmatamento DETER sobre imagem SPOT 2008",
         "description": null,
         "carRegisterColumn": "numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_5:view5",
+          "layers": "terrama2_5:MosaicSpot2008_car_validado",
           "transparent": true,
           "format": "image/png",
           "version": "1.1.0",
           "time": "{filterDate}",
-          "cql_filter": "{propertyCqlFilter}",
           "bbox": "{bbox}",
           "width": "404",
           "height": "431",
-          "srs": "EPSG:4674"
+          "cql_filter": "{propertyCqlFilter}",
+          "srs": "EPSG:4326"
         }
       },
       {
-        "title": "Desmatamento DETER sobre imagem LANDSAT 28/04/2019",
+        "title": "Desmatamento DETER sobre imagem  2019",
         "description": null,
         "carRegisterColumn": "numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_5:view5",
+          "layers": "terrama2_5:MosaicSpot2008_car_validado",
           "transparent": true,
           "format": "image/png",
           "version": "1.1.0",
           "time": "{filterDate}",
-          "cql_filter": "{propertyCqlFilter}",
           "bbox": "{bbox}",
           "width": "404",
           "height": "431",
-          "srs": "EPSG:4674"
+          "cql_filter": "{propertyCqlFilter}",
+          "srs": "EPSG:4326"
         }
       }
     ],
-    "deforestationHistories": [
+    "deforestationHistoryDeters": [
+      {
+        "title": "DETER {year}",
+        "description": {
+          "text": "Total de Área Desmatada em {year}: ",
+          "value": "{area}"
+        },
+        "carRegisterColumn": "numero_do1;de_car_validado_sema_numero_do1",
+        "layerData": {
+          "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
+          "layers": "terrama2_5:view5,terrama2_86:view86",
+          "transparent": true,
+          "format": "image/png",
+          "version": "1.1.0",
+          "time": "{dateYear}/{year}",
+          "cql_filter": "{propertyCqlFilter};{propertyCqlFilter}",
+          "bbox": "{bbox}",
+          "width": "404",
+          "height": "431",
+          "srs": "EPSG:4326"
+        }
+      }
+    ],
+    "deforestationHistoryProdes": [
       {
         "title": "PRODES {year}",
         "description": {

@@ -4,13 +4,13 @@
     <div class="p-grid">
         <div *ngFor="let burnedArea of burnedAreas"
                 class="p-col-4 p-md-4">
-            <div class="card">
+            <div class="card text-center">
                 <p-card styleClass="ui-card-shadow">
                     <p-header class="card-header">
                         <span>{{ burnedArea.title }}</span>
                     </p-header>
                     <img src="{{burnedArea.image}}" class="map img-fluid" />
-                    <p-footer *ngIf="burnedArea.description" class="card-footer">
+                    <p-footer *ngIf="burnedArea.description" class="card text-center -footer">
                         {{ burnedArea.description }}
                     </p-footer>
                 </p-card>

@@ -1,16 +1,16 @@
 <section>
-    <h2 class="text-center">Histórico de Desmatamento</h2>
+    <h2 class="text-center">Histórico de Desmatamento - PRODES</h2>
     <hr>
     <div class="p-grid">
-        <div *ngFor="let deforestationHistory of deforestationHistories"
+        <div *ngFor="let deforestationHistory of deforestationHistoryProdes"
                 class="p-col-4 p-md-4">
-            <div class="card">
+            <div class="card text-center ">
                 <p-card styleClass="ui-card-shadow">
                     <p-header class="card-header">
                         <span>{{ deforestationHistory.title }}</span>
                     </p-header>
                     <img src="{{deforestationHistory.image}}" class="map img-fluid" />
-                    <p-footer *ngIf="deforestationHistory.description" class="card-footer">
+                    <p-footer *ngIf="deforestationHistory.description" class="card text-center -footer">
                         {{ deforestationHistory.description.text }}
                         {{ deforestationHistory.description.value| number:'1.0-2':'pt' }} ha
                     </p-footer>
