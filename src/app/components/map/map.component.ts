@@ -445,7 +445,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       delete layer.layerData.cql_filter;
     }
 
-    layer.layerData.layers = layer.filter.defoult.view;
+    layer.layerData.layers = layer.filter.default.view;
 
     const specificSearch = {
       car(value) { return ` de_car_validado_sema_numero_do1 = '${value}' `; },
@@ -462,7 +462,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       if (layer.layerData.cql_filter) {
         delete layer.layerData.cql_filter;
       }
-      layer.layerData.layers = layer.filter.defoult.view;
+      layer.layerData.layers = layer.filter.default.view;
 
       return layer;
     }
@@ -572,7 +572,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         delete layer.layerData.cql_filter;
       }
 
-      layer.layerData.layers = layer.filter.defoult.view;
+      layer.layerData.layers = layer.filter.default.view;
 
       return layer;
     }
