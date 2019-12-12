@@ -6,9 +6,7 @@ import { HTTPService } from 'src/app/services/http.service';
 
 import { ConfigService } from 'src/app/services/config.service';
 
-import { Property } from 'src/app/models/property.model';
-
-import { ScriptService } from 'src/app/services/script.service';
+import { SidebarService } from 'src/app/services/sidebar.service';
 
 declare let pdfMake: any ;
 
@@ -22,7 +20,7 @@ export class FinalReportComponent implements OnInit {
 
   private reportConfig;
 
-  property: Property;
+  property;
 
   carRegister: string;
 
@@ -41,11 +39,14 @@ export class FinalReportComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private hTTPService: HTTPService,
     private configService: ConfigService,
+    private sidebarService: SidebarService
   ) {}
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => this.carRegister = params.carRegister);
     this.reportConfig = this.configService.getReportConfig();
+
+    this.sidebarService.sidebarLayerShowHide.next(false);
 
     this.tableColumns = [
       { field: 'affectedArea', header: 'Área atingida' },
@@ -53,22 +54,6 @@ export class FinalReportComponent implements OnInit {
       { field: 'pastDeforestation', header: 'Desmatamento pretérito (PRODES – ha ano-1)' },
       { field: 'burnlights', header: 'Focos de Queimadas (Num.de focos)' },
       { field: 'burnAreas', header: 'Áreas Queimadas (ha ano-1)' }
-    ];
-
-    this.tableData = [
-      { affectedArea: 'APP', recentDeforestation: '', pastDeforestation: '', burnlights: '', burnAreas: '' },
-      { affectedArea: 'ARL', recentDeforestation: '', pastDeforestation: '', burnlights: '', burnAreas: '' },
-      { affectedArea: 'AUR', recentDeforestation: '', pastDeforestation: '', burnlights: '', burnAreas: '' },
-      { affectedArea: 'UC - PI', recentDeforestation: '', pastDeforestation: '', burnlights: '', burnAreas: '' },
-      { affectedArea: 'UC - US', recentDeforestation: '', pastDeforestation: '', burnlights: '', burnAreas: '' },
-      { affectedArea: 'TI', recentDeforestation: '', pastDeforestation: '', burnlights: '', burnAreas: '' },
-      { affectedArea: 'AUC', recentDeforestation: '', pastDeforestation: '', burnlights: '', burnAreas: '' },
-      { affectedArea: 'AUAS', recentDeforestation: '', pastDeforestation: '', burnlights: '', burnAreas: '' },
-      { affectedArea: 'AUTEX', recentDeforestation: '', pastDeforestation: '', burnlights: '', burnAreas: '' },
-      { affectedArea: 'AD', recentDeforestation: '', pastDeforestation: '', burnlights: '', burnAreas: '' },
-      { affectedArea: 'Área autuada', recentDeforestation: '', pastDeforestation: '', burnlights: '', burnAreas: '' },
-      { affectedArea: 'Área embargada', recentDeforestation: '', pastDeforestation: '', burnlights: '', burnAreas: '' },
-      { affectedArea: 'Área desembargada', recentDeforestation: '', pastDeforestation: '', burnlights: '', burnAreas: '' }
     ];
 
     this.getReportData();
@@ -92,15 +77,39 @@ export class FinalReportComponent implements OnInit {
     this.carRegister = this.carRegister.replace('\\', '/');
     const carRegister = this.carRegister;
     this.hTTPService.get(url, {viewId, carRegister, date, filter})
-                    .subscribe((reportData: Property) => {
-      this.prodesStartYear = reportData.prodesYear[0]['date'];
+                    .subscribe(reportData => {
+      this.prodesStartYear = reportData['prodesYear'][0]['date'];
 
-      const bboxArray = reportData.bbox.split(',');
+      const bboxArray = reportData['bbox'].split(',');
       const bbox = bboxArray[0].split(' ').join(',') + ',' + bboxArray[1].split(' ').join(',');
 
-      reportData.bbox = bbox;
+      reportData['bbox'] = bbox;
 
       this.property = reportData;
+
+      const app = reportData['app'];
+      const legalReserve = reportData['legalReserve'];
+      const conservationUnit = reportData['conservationUnit'];
+      const indigenousLand = reportData['indigenousLand'];
+      const consolidatedUse = reportData['consolidatedUse'];
+      const exploration = reportData['exploration'];
+      const deforestation = reportData['deforestation'];
+      const embargoedArea = reportData['embargoedArea'];
+      const landArea = reportData['landArea'];
+
+      const propertyDeforestation = [
+        app,
+        legalReserve,
+        conservationUnit,
+        indigenousLand,
+        consolidatedUse,
+        // exploration,
+        // deforestation,
+        // embargoedArea,
+        // landArea
+      ];
+
+      this.tableData = propertyDeforestation;
     });
   }
 

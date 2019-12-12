@@ -2,13 +2,13 @@
   <div class="p-grid">
       <div *ngFor="let vision of visions"
             class="p-col-4 p-md-4">
-        <div class="card">
+        <div class="card text-center ">
           <p-card styleClass="ui-card-shadow">
             <p-header class="card-header text-center">
               <span [innerHTML]="vision.title"></span>
             </p-header>
             <img src="{{vision.image}}" class="img-fluid" />
-            <p-footer *ngIf="vision.description" class="card-footer">
+            <p-footer *ngIf="vision.description" class="card text-center -footer">
                 {{ vision.description }}
             </p-footer>
           </p-card>

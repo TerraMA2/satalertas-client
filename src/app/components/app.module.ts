@@ -46,7 +46,8 @@ import { PropertyDataComponent } from './report/property-data/property-data.comp
 import { VisionComponent } from './report/vision/vision.component';
 import { VisionDetailedComponent } from './report/vision-detailed/vision-detailed.component';
 import { DeforestationComponent } from './report/deforestation/deforestation.component';
-import { DeforestationHistoryComponent } from './report/deforestation-history/deforestation-history.component';
+import { DeforestationHistoryProdesComponent } from './report/deforestation-history-prodes/deforestation-history-prodes.component';
+import { DeforestationHistoryDeterComponent } from './report/deforestation-history-deter/deforestation-history-deter.component';
 import { BurningSpotlightsComponent } from './report/burning-spotlights/burning-spotlights.component';
 import { BurningSpotlightsChartComponent } from './report/burning-spotlights-chart/burning-spotlights-chart.component';
 import { BurnedAreasComponent } from './report/burned-areas/burned-areas.component';
@@ -87,7 +88,8 @@ registerLocaleData(localePt, 'pt');
     VisionComponent,
     VisionDetailedComponent,
     DeforestationComponent,
-    DeforestationHistoryComponent,
+    DeforestationHistoryProdesComponent,
+    DeforestationHistoryDeterComponent,
     BurningSpotlightsComponent,
     BurningSpotlightsChartComponent,
     BurnedAreasComponent,
@@ -112,7 +114,7 @@ registerLocaleData(localePt, 'pt');
     SpecificSearchAreaComponent,
     FooterFilterAreaComponent,
     SidebarItemComponent,
-    FinalReportComponent
+    FinalReportComponent,
   ],
 
   imports: [

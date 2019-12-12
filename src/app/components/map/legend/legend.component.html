@@ -4,16 +4,14 @@
         [positionTop]="60"
         resizable="false"
         [(visible)]="displayLegend"
-        [contentStyle]="{'width': '400px','max-height':'50vh'}"
-    >
+        [contentStyle]="{'width': '400px','max-height':'50vh'}">
 
     <div class="p-grid p-nogutter">
         <p-accordion [multiple]="true" class="width-100">
           <p-accordionTab
               *ngFor="let selectedLayer of selectedLayers;trackBy: trackByFunction"
               selected="true"
-              header="{{ selectedLayer.legend.title }}"
-              class="width-100">
+              header="{{ selectedLayer.legend.title }}">
             <img src="{{ selectedLayer.legend.url }}" />
           </p-accordionTab>
       </p-accordion>
