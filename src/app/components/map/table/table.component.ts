@@ -153,9 +153,14 @@ export class TableComponent implements OnInit {
       this.selectedColumns = [];
       this.columns = [];
 
+      const aliases = this.configService.getMapConfig('infoColumns');
+      const infoColumns = this.selectedLayer.infoColumns;
       Object.keys(data[0]).forEach(key => {
-        if (key !== 'lat' && key !== 'long' && key !== 'geom' && key !== 'intersection_geom') {
-          this.columns.push({field: key, header: key});
+        const column = infoColumns[key];
+        const show = column.show;
+        const alias = column.alias;
+        if (show) {
+          this.columns.push({field: key, header: alias});
         }
       });
 

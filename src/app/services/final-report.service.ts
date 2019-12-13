@@ -1,247 +1,18 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Injectable } from '@angular/core';
 
-import { ActivatedRoute } from '@angular/router';
+import { Property } from '../models/property.model';
 
-import { HTTPService } from 'src/app/services/http.service';
-
-import { ConfigService } from 'src/app/services/config.service';
-
-import { SidebarService } from 'src/app/services/sidebar.service';
-
-import { Property } from 'src/app/models/property.model';
-
-declare let pdfMake: any ;
-
-@Component({
-  selector: 'app-final-report',
-  templateUrl: './final-report.component.html',
-  styleUrls: ['./final-report.component.css'],
-  encapsulation: ViewEncapsulation.None
+@Injectable({
+  providedIn: 'root'
 })
-export class FinalReportComponent implements OnInit {
+export class FinalReportService {
 
-  private reportConfig;
+  constructor( ) {}
 
-  private image64mpmt;
-  private image64mpmt1;
-  private image64mpmt2;
-  private image64mpmt3;
-  private image64mpmt4;
-
-  private imageHeader;
-
-  private pages;
-  private media;
-
-  property;
-
-  carRegister: string;
-
-  dateFilter: string;
-
-  formattedFilterDate: string;
-
-  currentYear: number;
-  prodesStartYear: string;
-
-  tableColumns;
-
-  tableData;
-
-  bbox: string;
-
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private hTTPService: HTTPService,
-    private configService: ConfigService,
-    private sidebarService: SidebarService
-  ) {}
-
-  async ngOnInit() {
-    this.pages = 10;
-    this.media = 3;
-
-    this.activatedRoute.params.subscribe(params => this.carRegister = params.carRegister);
-    this.reportConfig = this.configService.getReportConfig();
-
-    this.sidebarService.sidebarLayerShowHide.next(false);
-
-    this.tableColumns = [
-      { field: 'affectedArea', header: 'Área atingida' },
-      { field: 'recentDeforestation', header: 'Desmatamento recente (DETER – nº de alertas)' },
-      { field: 'pastDeforestation', header: 'Desmatamento pretérito (PRODES – ha ano-1)' },
-      { field: 'burnlights', header: 'Focos de Queimadas (Num.de focos)' },
-      { field: 'burnAreas', header: 'Áreas Queimadas (ha ano-1)' }
-    ];
-
-    await this.getReportData();
-
-    // this.image64mpmt1
-    // this.image64mpmt2
-    // this.image64mpmt3
-    // this.image64mpmt4
-    // this.imageHeader
-
-    // const documentDefinition = this.getDocumentDefinition();
-    // await pdfMake.createPdf(documentDefinition).getBase64(base64Document => {
-    //   this.hTTPService.post('http://localhost:3200/report/add', {base64Document})
-    //                 .toPromise().then(response => {
-    //     console.log(response);
-    //   });
-    // });
-  }
-
-  getReportData() {
-    const date = JSON.parse(localStorage.getItem('dateFilter'));
-    this.dateFilter = `${date[0]}/${date[1]}`;
-    const startDate = new Date(date[0]).toLocaleDateString('pt-BR');
-    const endDate = new Date(date[1]).toLocaleDateString('pt-BR');
-
-    this.formattedFilterDate = `${startDate} - ${endDate}`;
-
-    this.currentYear = new Date().getFullYear();
-
-    const filter = localStorage.getItem('filterList');
-
-    const propertyConfig = this.reportConfig.propertyData;
-    const url = propertyConfig.url;
-    const viewId = propertyConfig.viewId;
-    this.carRegister = this.carRegister.replace('\\', '/');
-    const carRegister = this.carRegister;
-    this.hTTPService.get(url, {viewId, carRegister, date, filter})
-                    .subscribe((reportData: Property) => {
-      this.prodesStartYear = reportData.prodesYear[0]['date'];
-
-      const bboxArray = reportData.bbox.split(',');
-      this.bbox = bboxArray[0].split(' ').join(',') + ',' + bboxArray[1].split(' ').join(',');
-
-      reportData.bbox = this.bbox;
-
-      this.property = reportData;
-
-      const app = reportData.app;
-      const legalReserve = reportData.legalReserve;
-      const conservationUnit = reportData.conservationUnit;
-      const indigenousLand = reportData.indigenousLand;
-      const consolidatedUse = reportData['consolidatedUse'];
-      const exploration = reportData['exploration'];
-      const deforestation = reportData['deforestation'];
-      const embargoedArea = reportData['embargoedArea'];
-      const landArea = reportData['landArea'];
-
-      const propertyDeforestation = [
-        app,
-        legalReserve,
-        conservationUnit,
-        indigenousLand,
-        consolidatedUse,
-        // exploration,
-        // deforestation,
-        // embargoedArea,
-        // landArea
-      ];
-
-      this.tableData = propertyDeforestation;
-
-      this.hTTPService.getBlob(`http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_107:view107,terrama2_107:view107,terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=250&height=250&cql_filter=id_munic>0;municipio='${this.property.city}';numero_do1='${this.property.register}'&srs=EPSG:4326&format=image/png`)
-                    .subscribe((response) => {
-                      return new Promise((resolve, reject) => {
-                        const fileReader  = new FileReader();
-                        fileReader.addEventListener('load', () => resolve(fileReader.result), false);
-                        fileReader.onerror = () => reject(this);
-                        const fileBase64 = fileReader.readAsDataURL(response);
-                        this.image64mpmt = fileBase64;
-                      });
-                    }
-      );
-      this.hTTPService.getBlob(`http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox=${this.property.bbox}&width=400&height=400&time=${this.prodesStartYear}/P1Y&cql_filter=numero_do1='${this.property.register}'&srs=EPSG:4326&format=image/png`)
-                    .subscribe((response) => {
-                      return new Promise((resolve, reject) => {
-                        const fileReader  = new FileReader();
-                        fileReader.addEventListener('load', () => resolve(fileReader.result), false);
-                        fileReader.onerror = () => reject(this);
-                        const fileBase64 = fileReader.readAsDataURL(response);
-                        this.image64mpmt = fileBase64;
-                      });
-                    }
-      );
-      this.hTTPService.getBlob(`http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_86:view86&styles=&bbox=${this.property.bbox}&width=404&height=431&time=${this.property.prodesYear}/${this.currentYear}&cql_filter=numero_do1='${this.property.register}';de_car_validado_sema_numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`)
-                    .subscribe((response) => {
-                      return new Promise((resolve, reject) => {
-                        const fileReader  = new FileReader();
-                        fileReader.addEventListener('load', () => resolve(fileReader.result), false);
-                        fileReader.onerror = () => reject(this);
-                        const fileBase64 = fileReader.readAsDataURL(response);
-                        this.image64mpmt = fileBase64;
-                      });
-                    }
-      );
-      this.hTTPService.getBlob(`http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_86:view86&styles=&bbox=${this.property.bbox}&width=400&height=400&time=${this.property.prodesYear}/P1Y&cql_filter=numero_do1='${this.property.register}';de_car_validado_sema_numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`)
-                    .subscribe((response) => {
-                      return new Promise((resolve, reject) => {
-                        const fileReader  = new FileReader();
-                        fileReader.addEventListener('load', () => resolve(fileReader.result), false);
-                        fileReader.onerror = () => reject(this);
-                        const fileBase64 = fileReader.readAsDataURL(response);
-                        this.image64mpmt = fileBase64;
-                      });
-                    }
-      );
-      this.hTTPService.getBlob(`http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_86:view86&styles=&bbox=${this.property.bbox}&width=400&height=400&time=2019/P1Y&cql_filter=numero_do1='${this.property.register}';de_car_validado_sema_numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`)
-                    .subscribe((response) => {
-                      return new Promise((resolve, reject) => {
-                        const fileReader  = new FileReader();
-                        fileReader.addEventListener('load', () => resolve(fileReader.result), false);
-                        fileReader.onerror = () => reject(this);
-                        const fileBase64 = fileReader.readAsDataURL(response);
-                        this.image64mpmt = fileBase64;
-                      });
-                    }
-      );
-      this.imageHeader = this.getBaseImage('assets/img/logos/logo-mpmt2.png');
-
-    });
-  }
-
-  async getBase64ImageFromUrl(imageUrl) {
-    const res = await fetch(imageUrl);
-    const blob = await res.blob();
-    return new Promise((resolve, reject) => {
-      const reader  = new FileReader();
-      reader.addEventListener('load', () => resolve(reader.result), false);
-      reader.onerror = () => reject(this);
-      reader.readAsDataURL(blob);
-    });
-  }
-
-  getBaseImageUrl(url: string) {
-    const baseImage = [];
-    this.getBase64ImageFromUrl(url).then(result => baseImage.push(result)).catch(err => console.error(err));
-    return baseImage;
-  }
-
-  toDataUrl(file, callback) {
-    const xhr = new XMLHttpRequest();
-    xhr.responseType = 'blob';
-    xhr.onload = () => {
-      const reader = new FileReader();
-      reader.onloadend = () => callback(reader.result);
-      reader.readAsDataURL(xhr.response);
-    };
-    xhr.open('GET', file);
-    xhr.send();
-  }
-
-  getBaseImage(fileLocation: string) {
-    const baseImage = [];
-    this.toDataUrl(fileLocation, base64Image => baseImage.push(base64Image));
-    return baseImage;
-  }
-
-  getHeaderDocument() {
+  getHeader() {
     return [
       {
-        image: this.imageHeader,
+        image: this.getBaseImage('assets/img/logos/logo-mpmt2.png'),
         width: 180,
         height: 50,
         alignment: 'left',
@@ -269,17 +40,42 @@ export class FinalReportComponent implements OnInit {
     ];
   }
 
-  generatePdf(action = 'open') {
-    const documentDefinition = this.getDocumentDefinition();
-    switch (action) {
-      case 'open': pdfMake.createPdf(documentDefinition).open(); break;
-      case 'print': pdfMake.createPdf(documentDefinition).print(); break;
-      case 'download': pdfMake.createPdf(documentDefinition).download(); break;
-      default: pdfMake.createPdf(documentDefinition).open(); break;
-    }
+  getBaseImageUrl(url: string) {
+    const baseImage = [];
+    this.getBase64ImageFromUrl(url).then(result => baseImage.push(result)).catch(err => console.error(err));
+    return baseImage;
   }
 
-  getDocumentDefinition() {
+  async getBase64ImageFromUrl(imageUrl) {
+    const res = await fetch(imageUrl);
+    const blob = await res.blob();
+    return new Promise((resolve, reject) => {
+      const reader  = new FileReader();
+      reader.addEventListener('load', () => resolve(reader.result), false);
+      reader.onerror = () => reject(this);
+      reader.readAsDataURL(blob);
+    });
+  }
+
+  toDataUrl(file, callback) {
+    const xhr = new XMLHttpRequest();
+    xhr.responseType = 'blob';
+    xhr.onload = () => {
+      const reader = new FileReader();
+      reader.onloadend = () => callback(reader.result);
+      reader.readAsDataURL(xhr.response);
+    };
+    xhr.open('GET', file);
+    xhr.send();
+  }
+
+  getBaseImage(fileLocation: string) {
+    const baseImage = [];
+    this.toDataUrl(fileLocation, base64Image => baseImage.push(base64Image));
+    return baseImage;
+  }
+
+  getDocument(property: Property, tableData, images) {
     return {
       info: {
         title: 'relatorio'
@@ -303,7 +99,7 @@ export class FinalReportComponent implements OnInit {
       },
       content: [
         {
-          columns: this.getHeaderDocument()
+          columns: this.getHeader()
         },
         {
           text: [
@@ -325,7 +121,7 @@ export class FinalReportComponent implements OnInit {
               bold: true
             },
             {
-              text: ` ${this.property.city}-MT`,
+              text: ` ${property.city}-MT`,
               bold: false
             }
           ],
@@ -338,7 +134,7 @@ export class FinalReportComponent implements OnInit {
               bold: true
             },
             {
-              text: ` ${this.property.county}`,
+              text: ` ${property.county}`,
               bold: false
             }
           ],
@@ -378,18 +174,16 @@ export class FinalReportComponent implements OnInit {
         {
           columns: [
             {
-              image: this.image64mpmt,
+              image: images[0],
               margin: [0, 0, 0, 10],
               alignment: 'center',
-              width: 200,
-              height: 200
+              fit: [200, 200]
             },
             {
-              image: this.image64mpmt1,
+              image: images[1],
               margin: [0, 0, 0, 10],
               alignment: 'center',
-              width: 200,
-              height: 200
+              fit: [200, 200]
             }
           ]
         },
@@ -432,7 +226,7 @@ export class FinalReportComponent implements OnInit {
           pageBreak: 'after'
         },
         {
-          columns: this.getHeaderDocument()
+          columns: this.getHeader()
         },
         {
           text: '2.1 Materiais e equipamentos utilizados',
@@ -660,7 +454,7 @@ export class FinalReportComponent implements OnInit {
           pageBreak: 'after'
         },
         {
-          columns: this.getHeaderDocument()
+          columns: this.getHeader()
         },
         {
           text: '2.2 Método utilizado',
@@ -785,7 +579,7 @@ export class FinalReportComponent implements OnInit {
           pageBreak: 'after'
         },
         {
-          columns: this.getHeaderDocument()
+          columns: this.getHeader()
         },
         {
           text: (
@@ -960,7 +754,7 @@ export class FinalReportComponent implements OnInit {
           pageBreak: 'after'
         },
         {
-          columns: this.getHeaderDocument()
+          columns: this.getHeader()
         },
         {
           text: 'Todas as informações acima descritas foram integradas utilizando',
@@ -1000,11 +794,11 @@ export class FinalReportComponent implements OnInit {
           style: 'body'
         },
         {
-          image: this.image64mpmt2,
+          image: images[2],
           alignment: 'center',
           margin: [0, 0, 0, 10],
-          width: 200,
-          height: 200
+          width: 250,
+          height: 250
         },
         {
           text: [
@@ -1025,7 +819,7 @@ export class FinalReportComponent implements OnInit {
           pageBreak: 'after'
         },
         {
-          columns: this.getHeaderDocument()
+          columns: this.getHeader()
         },
         {
           text: 'No quadro demonstrativo abaixo consta a quantificação qualitativa das',
@@ -1084,7 +878,7 @@ export class FinalReportComponent implements OnInit {
                   style: 'tableHeader'
                 }
               ],
-              ...this.tableData.map(rel => {
+              ...tableData.map(rel => {
                 return [
                         rel.affectedArea,
                         rel.recentDeforestation,
@@ -1117,7 +911,7 @@ export class FinalReportComponent implements OnInit {
           pageBreak: 'after'
         },
         {
-          columns: this.getHeaderDocument()
+          columns: this.getHeader()
         },
         {
           text: 'Na representação cartográfica abaixo é possível visualizar, com',
@@ -1136,18 +930,16 @@ export class FinalReportComponent implements OnInit {
         {
           columns: [
             {
-              image: this.image64mpmt3,
+              image: images[3],
               margin: [0, 0, 0, 10],
               alignment: 'center',
-              width: 200,
-              height: 200
+              fit: [200, 200]
             },
             {
-              image: this.image64mpmt4,
+              image: images[4],
               margin: [0, 0, 0, 10],
               alignment: 'center',
-              width: 200,
-              height: 200
+              fit: [200, 200]
             }
           ]
         },
@@ -1182,7 +974,7 @@ export class FinalReportComponent implements OnInit {
           style: 'body'
         },
         {
-          text: ('Este é o relatório contendo ' + this.pages.toString() + ' páginas e ' + this.media.toString() + ' anexos'),
+          text: ('Este é o relatório contendo 10 páginas e 3 anexos'),
           margin: [30, 0, 30, 15],
           style: 'body'
         },

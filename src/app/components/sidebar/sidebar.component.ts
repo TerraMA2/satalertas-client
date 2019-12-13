@@ -94,6 +94,7 @@ export class SidebarComponent implements OnInit {
             sidebarLayerChild.layerData,
             sidebarLayerChild.legend,
             sidebarLayerChild.popupTitle,
+            sidebarLayerChild.infoColumns,
             sidebarLayerChild.tools,
             sidebarLayerChild.markerSelected
           );

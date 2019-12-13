@@ -25,6 +25,7 @@ export class Layer {
     public layerData: LayerData,
     public legend: Legend,
     public popupTitle: string,
+    public infoColumns: object[],
     public tools?: Tool[],
     public markerSelected?: boolean
   ) {}

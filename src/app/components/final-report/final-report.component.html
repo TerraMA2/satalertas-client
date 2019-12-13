@@ -16,19 +16,11 @@
                 printSectionId="printSection">
         </button>
         &nbsp;
-        <button kendo-button
-                pButton
-                icon="fas fa-download"
-                type="button"
-                (click)="pdf.saveAs('Laudo CAR ' + property?.register)"
-                label="Baixar laudo">
-        </button>
-        &nbsp;
         <button pButton
                 icon="fas fa-download"
                 type="button"
                 (click)="generatePdf('open')"
-                label="Baixar laudo (PDFMake)">
+                label="Baixar laudo">
         </button>
     </div>
 </p-toolbar>
@@ -89,8 +81,16 @@
                             Cadastro Ambiental Rural (SIMCAR), protocolo CAR {{property?.register}} (<strong>Anexo I</strong>).
                         </p>
                         <div class="p-col-12 p-grid p-justify-center">
-                            <div class="border padding text-center">
-                                <img src="http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={{property?.bbox}}&width=404&height=431&time={{dateFilter}}&cql_filter=numero_do1='{{property?.register}}'&srs=EPSG:4674&format=image/png" width="200">
+                            <div class="padding text-center">
+                                <div class="p-grid p-justify-center nowrap">
+                                    <div class="text-right padding">
+                                        <img src="http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_107:view107,terrama2_107:view107,terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=250&height=250&cql_filter=id_munic>0;municipio='{{property?.city}}';numero_do1='{{property?.register}}'&srs=EPSG:4326&format=image/png" width="400">
+                                    </div>
+                                    &nbsp;&nbsp;
+                                    <div class="text-left padding">
+                                        <img src="http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox={{property?.bbox}}&width=400&height=400&time={{prodesStartYear}}/P1Y&cql_filter=numero_do1='{{property?.register}}'&srs=EPSG:4326&format=image/png" width="400">
+                                    </div>
+                                </div>
                                 <figcaption>Figura 1. Mapa de Localização e do Perímetro do Imóvel</figcaption>
                             </div>
                         </div>
@@ -191,8 +191,8 @@
                                 ({{formattedFilterDate}}), conforme dinâmica de desmatamento explicitada em representação cartográfica que segue
                                 (figura 2):</p>
                             <div class="p-col-12 p-grid p-justify-center">
-                                <div class="border padding text-center">
-                                    <img src="http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_86:view86&styles=&bbox={{property?.bbox}}&width=404&height=431&time={{prodesStartYear}}/{{currentYear}}&cql_filter=numero_do1='{{property?.register}}';de_car_validado_sema_numero_do1='{{property?.register}}'&srs=EPSG:4674&format=image/png" width="200">
+                                <div class="padding text-center">
+                                    <img src="http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_86:view86&styles=&bbox={{property?.bbox}}&width=404&height=431&time={{prodesStartYear}}/{{currentYear}}&cql_filter=numero_do1='{{property?.register}}';de_car_validado_sema_numero_do1='{{property?.register}}'&srs=EPSG:4674&format=image/png" width="400">
                                     <figcaption>Figura 2. dinâmica de desmatamento - {{prodesStartYear}}/{{currentYear}}</figcaption>
                                 </div>
                             </div>
@@ -225,12 +225,12 @@
                             <p>Na representação cartográfica abaixo é possível visualizar, com imagens de alta resolução [Spot (2,5 m) e Planet (3
                                 m)] como estava a cobertura do imóvel em {{prodesStartYear}} e como se encontra atualmente ({{currentYear}}): </p>
                             <div class="p-grid p-justify-center nowrap">
-                                <div class="text-right border padding">
-                                    <img src="http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:MosaicSpot2008_car_validado&styles=&bbox={{property?.bbox}}&width=300&height=300&time={{prodesStartYear}}/P1Y&cql_filter=numero_do1='{{property?.register}}'&srs=EPSG:4326&format=image/png" width="200">
+                                <div class="text-right padding">
+                                    <img src="http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:MosaicSpot2008_X_car_validado&styles=&bbox={{property?.bbox}}&width=400&height=400&time={{prodesStartYear}}/P1Y&cql_filter=numero_do1='{{property?.register}}'&srs=EPSG:4326&format=image/png" width="400">
                                 </div>
                                 &nbsp;&nbsp;
-                                <div class="text-left border padding">
-                                    <img src="http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_86:view86&styles=&bbox={{property?.bbox}}&width=300&height=300&time={{currentYear}}/P1Y&cql_filter=numero_do1='{{property?.register}}';de_car_validado_sema_numero_do1='{{property?.register}}'&srs=EPSG:4674&format=image/png" width="200">
+                                <div class="text-left padding">
+                                    <img src="http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_86:view86&styles=&bbox={{property?.bbox}}&width=400&height=400&time={{currentYear}}/P1Y&cql_filter=numero_do1='{{property?.register}}';de_car_validado_sema_numero_do1='{{property?.register}}'&srs=EPSG:4674&format=image/png" width="400">
                                 </div>
                             </div>
                             <figcaption class="text-center">Figura 3. dinâmica de desmatamento (comparativo imagens {{prodesStartYear}} e {{currentYear}})</figcaption>
