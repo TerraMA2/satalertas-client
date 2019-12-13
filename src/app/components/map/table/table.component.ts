@@ -111,7 +111,6 @@ export class TableComponent implements OnInit {
 
     const url = this.configService.getAppConfig('layerUrls')[layer.type];
     const countTotal = true;
-    const date = JSON.parse(localStorage.getItem('dateFilter'));
 
     const view = JSON.stringify(
       new View(
@@ -122,9 +121,8 @@ export class TableComponent implements OnInit {
         (layer.isPrimary || this.tableReportActive)
       ));
 
-    const filter = localStorage.getItem('filterList');
+    const params = {view, limit, offset, countTotal};
 
-    const params = {view, limit, offset, countTotal, date, filter};
     if (sortField) {
       params['sortField'] = sortField;
     }
@@ -144,7 +142,7 @@ export class TableComponent implements OnInit {
     }
 
     this.hTTPService
-      .get(url, params)
+      .get(url, this.filterService.getParams(params))
       .subscribe(data => this.setData(data));
   }
 
