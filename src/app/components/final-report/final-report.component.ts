@@ -177,7 +177,7 @@ export class FinalReportComponent implements OnInit {
           margin: [30, 40, 0, 5]
         },
         // {
-        //   image: `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5&styles=&bbox=${this.property.bbox}&width=404&height=431&time=${this.dateFilter}&cql_filter=numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`,
+        //   image: `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_8:view8&styles=&bbox=${this.property.bbox}&width=404&height=431&time=${this.dateFilter}&cql_filter=numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`,
         //   width: 450,
         //   alignment: 'center'
         // },
