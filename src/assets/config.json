@@ -235,7 +235,7 @@
             },
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
-              "layers": "terrama2_75:view75",
+              "layers": "terrama2_28:view28",
               "transparent": true,
               "format": "image/png",
               "version": "1.1.0",
@@ -243,7 +243,7 @@
             },
             "legend": {
               "title": "APP x CAR_DETER",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_75:view75"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_28:view28"
             },
             "infoColumns":{
               "apv_app_cardeter_35_id": {
@@ -4895,7 +4895,7 @@
       "reportLayers": [
         {
           "label": "CAR",
-          "value": "5",
+          "value": "8",
           "type": "report",
           "sum": false,
           "count": false,
@@ -4906,7 +4906,7 @@
         {
           "codgroup": "DETER",
           "label": "CAR X DETER",
-          "value": "86",
+          "value": "27",
           "type": "report",
           "sum": true,
           "count": true,
@@ -4920,7 +4920,7 @@
         {
           "codgroup": "PRODES",
           "label": "CAR X PRODES",
-          "value": "87",
+          "value": "39",
           "type": "report",
           "sum": true,
           "count": true,
@@ -4934,7 +4934,7 @@
         {
           "codgroup": "FOCOS",
           "label": "CAR X FOCOS",
-          "value": "88",
+          "value": "52",
           "type": "report",
           "sum": false,
           "count": true,
@@ -4970,35 +4970,35 @@
       },
       {
         "title": "APP",
-        "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=30&HEIGHT=30&legend_options=forceLabels:on&LAYER=terrama2_75:view75"
+        "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=30&HEIGHT=30&legend_options=forceLabels:on&LAYER=terrama2_10:view10"
       },
       {
         "title": "Uso Antropizado",
-        "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=30&HEIGHT=30&legend_options=forceLabels:on&LAYER=terrama2_77:view77"
+        "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=30&HEIGHT=30&legend_options=forceLabels:on&LAYER=terrama2_13:view13"
       },
       {
         "title": "Reserva legal",
-        "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=30&HEIGHT=30&legend_options=forceLabels:on&LAYER=terrama2_76:view76"
+        "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=30&HEIGHT=30&legend_options=forceLabels:on&LAYER=terrama2_25:view25"
       },
       {
         "title": "Vegetação Nativa",
-        "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=30&HEIGHT=30&legend_options=forceLabels:on&LAYER=terrama2_79:view79"
+        "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=30&HEIGHT=30&legend_options=forceLabels:on&LAYER=terrama2_14:view14"
       },
       {
         "title": "Uso consolidado",
-        "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=30&HEIGHT=30&legend_options=forceLabels:on&LAYER=terrama2_78:view78"
+        "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=30&HEIGHT=30&legend_options=forceLabels:on&LAYER=terrama2_12:view12"
       },
       {
         "title": "CAR x DETER",
-        "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=30&HEIGHT=30&legend_options=forceLabels:on&LAYER=terrama2_86:view86"
+        "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=30&HEIGHT=30&legend_options=forceLabels:on&LAYER=terrama2_27:view27"
       },
       {
         "title": "CAR x PRODES",
-        "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=30&HEIGHT=30&legend_options=forceLabels:on&LAYER=terrama2_87:view87"
+        "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=30&HEIGHT=30&legend_options=forceLabels:on&LAYER=terrama2_39:view39"
       },
       {
         "title": "CAR x TI",
-        "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=30&HEIGHT=30&legend_options=forceLabels:on&LAYER=terrama2_95:view95"
+        "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=30&HEIGHT=30&legend_options=forceLabels:on&LAYER=terrama2_33:view33"
       },
       {
         "title": "Imóvel",
@@ -5007,7 +5007,7 @@
     ],
     "propertyData": {
       "url": "/api/report/getCarData",
-      "viewId": "5"
+      "viewId": "8"
     },
     "visions": [
       {
@@ -5052,7 +5052,7 @@
         "carRegisterColumn": "numero_do1;a_cardeter_3_de_car_validado_sema_numero_do1;a_cardeter_3_de_car_validado_sema_numero_do1;a_cardeter_3_de_car_validado_sema_numero_do1;a_cardeter_3_de_car_validado_sema_numero_do1;a_cardeter_3_de_car_validado_sema_numero_do1;a_cardeter_3_de_car_validado_sema_numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_8:view8,terrama2_95:view95,terrama2_76:view76,terrama2_78:view78,terrama2_75:view75,terrama2_77:view77,terrama2_79:view79",
+          "layers": "terrama2_8:view8,terrama2_33:view33,terrama2_25:view25,terrama2_12:view12terrama2_10:view10,terrama2_13:view13,terrama2_14:view14",
           "transparent": true,
           "format": "image/png",
           "version": "1.1.0",
@@ -5070,7 +5070,7 @@
         "carRegisterColumn": "numero_do1;de_car_validado_sema_numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_8:view8,terrama2_86:view86",
+          "layers": "terrama2_8:view8,terrama2_27:view27",
           "transparent": true,
           "format": "image/png",
           "version": "1.1.0",
@@ -5088,7 +5088,7 @@
         "carRegisterColumn": "numero_do1;de_car_validado_sema_numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_8:view8,terrama2_86:view86",
+          "layers": "terrama2_8:view8,terrama2_27:view27",
           "transparent": true,
           "format": "image/png",
           "version": "1.1.0",
@@ -5129,7 +5129,7 @@
         "carRegisterColumn": "numero_do1;a_cardeter_3_de_car_validado_sema_numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_8:view8,terrama2_95:view95",
+          "layers": "terrama2_8:view8,terrama2_33:view33",
           "transparent": true,
           "format": "image/png",
           "version": "1.1.0",
@@ -5171,7 +5171,7 @@
         "carRegisterColumn": "numero_do1;a_cardeter_3_de_car_validado_sema_numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_8:view8,terrama2_76:view76",
+          "layers": "terrama2_8:view8,terrama2_25:view25",
           "transparent": true,
           "format": "image/png",
           "version": "1.1.0",
@@ -5192,7 +5192,7 @@
         "carRegisterColumn": "numero_do1;a_cardeter_3_de_car_validado_sema_numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_8:view8,terrama2_75:view75",
+          "layers": "terrama2_8:view8,terrama2_10:view10",
           "transparent": true,
           "format": "image/png",
           "version": "1.1.0",
@@ -5213,7 +5213,7 @@
         "carRegisterColumn": "numero_do1;a_cardeter_3_de_car_validado_sema_numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_8:view8,terrama2_78:view78",
+          "layers": "terrama2_8:view8,terrama2_12:view12",
           "transparent": true,
           "format": "image/png",
           "version": "1.1.0",
@@ -5234,7 +5234,7 @@
         "carRegisterColumn": "numero_do1;a_cardeter_3_de_car_validado_sema_numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_8:view8,terrama2_77:view77",
+          "layers": "terrama2_8:view8,terrama2_13:view13",
           "transparent": true,
           "format": "image/png",
           "version": "1.1.0",
@@ -5255,7 +5255,7 @@
         "carRegisterColumn": "numero_do1;a_cardeter_3_de_car_validado_sema_numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_8:view8,terrama2_79:view79",
+          "layers": "terrama2_8:view8,terrama2_14:view14",
           "transparent": true,
           "format": "image/png",
           "version": "1.1.0",
@@ -5316,7 +5316,7 @@
         "carRegisterColumn": "numero_do1;de_car_validado_sema_numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_8:view8,terrama2_86:view86",
+          "layers": "terrama2_8:view8,terrama2_27:view27",
           "transparent": true,
           "format": "image/png",
           "version": "1.1.0",
