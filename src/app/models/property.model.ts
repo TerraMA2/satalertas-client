@@ -14,6 +14,7 @@ export class Property {
     public consolidatedArea: string,
     public anthropizedUse: string,
     public nativeVegetation: string,
+    public owner: string,
     public cpf?: string,
     public county?: string,
     public prodesArea?: number,

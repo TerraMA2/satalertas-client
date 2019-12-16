@@ -68,7 +68,7 @@ export class FinalReportComponent implements OnInit {
 
     this.tableColumns = [
       { field: 'affectedArea', header: 'Área atingida' },
-      { field: 'recentDeforestation', header: 'Desmatamento recente (DETER – nº de alertas)' },
+      { field: 'recentDeforestation', header: 'Desmatamento recente (DETER – ha ano-1)' },
       { field: 'pastDeforestation', header: 'Desmatamento pretérito (PRODES – ha ano-1)' },
       { field: 'burnlights', header: 'Focos de Queimadas (Num.de focos)' },
       { field: 'burnAreas', header: 'Áreas Queimadas (ha ano-1)' }
@@ -136,14 +136,14 @@ export class FinalReportComponent implements OnInit {
         indigenousLand,
         consolidatedUse,
         // exploration,
-        // deforestation,
-        // embargoedArea,
-        // landArea
+        deforestation,
+        embargoedArea,
+        landArea
       ];
 
       this.tableData = propertyDeforestation;
 
-      this.hTTPService.getBlob(`http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:view6,terrama2_6:view6,terrama2_5:view5&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=250&height=250&cql_filter=id_munic>0;municipio='${this.property.city}';numero_do1='${this.property.register}'&srs=EPSG:4326&format=image/png`)
+      this.hTTPService.getBlob(`http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:view6,terrama2_6:view6,terrama2_8:view8&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=250&height=250&cql_filter=id_munic>0;municipio='${this.property.city}';numero_do1='${this.property.register}'&srs=EPSG:4326&format=image/png`)
                     .subscribe((response) => {
                       return new Promise((resolve, reject) => {
                         const fileReader  = new FileReader();

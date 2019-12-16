@@ -156,12 +156,12 @@ export class TableComponent implements OnInit {
       if (!this.tableReportActive) {
         const infoColumns = this.selectedLayer.infoColumns;
         Object.keys(data[0]).forEach(key => {
-          const column = infoColumns[key];
-          const show = column.show;
-          const alias = column.alias;
-          if (show) {
-            this.columns.push({field: key, header: alias});
-          }
+          // const column = infoColumns[key];
+          // const show = column.show;
+          // const alias = column.alias;
+          // if (show) {
+            this.columns.push({field: key, header: key});
+          // }
         });
       } else {
         Object.keys(data[0]).forEach(key => {

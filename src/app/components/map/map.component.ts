@@ -817,8 +817,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         url = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wfs`;
         params = this.getWFSFeatureInfoParams(layer);
       } else {
-      url = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms`;
-      params = this.getWMSFeatureInfoParams(layer, event);
+        url = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms`;
+        params = this.getWMSFeatureInfoParams(layer, event);
       }
 
       await this.hTTPService.get(url, params).toPromise().then((layerInfo: LayerInfo) => {
@@ -902,17 +902,17 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     let popupContent = '';
     let popupContentBody = '';
     Object.keys(data).forEach(key => {
-      const column = infoColumns[key];
-      const show = column.show;
-      const alias = column.alias;
-      if (show) {
+      // const column = infoColumns[key];
+      // const show = column.show;
+      // const alias = column.alias;
+      // if (show) {
         popupContentBody += `
             <tr>
-              <td>${alias}</td>
+              <td>${key}</td>
               <td>${data[key]}</td>
             </tr>
         `;
-      }
+      // }
     });
 
     popupContent += `

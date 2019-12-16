@@ -125,13 +125,13 @@
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_27:view27"
             },
             "infoColumns": {
-              "apv_car_deter_28_id": {
+              "a_cardeter_3_id": {
                 "show": false,
-                "alias": "apv_car_deter_28_id"
+                "alias": "a_cardeter_3_id"
               },
               "calculated_area_ha": {
                 "show": true,
-                "alias": "Área"
+                "alias": "Área (ha)"
               },
               "dd_deter_inpe_classname": {
                 "show": false,
@@ -141,17 +141,61 @@
                 "show": true,
                 "alias": "Município"
               },
-              "de_car_validado_sema_area_ha_": {
+              "dd_deter_inpe_lot": {
+                "show": false,
+                "alias": "dd_deter_inpe_lot"
+              },
+              "dd_deter_inpe_orbitpoint": {
                 "show": true,
-                "alias": "Área imóvel (ha)"
+                "alias": "Órbita/Ponto"
+              },
+              "dd_deter_inpe_quadrant": {
+                "show": false,
+                "alias": "dd_deter_inpe_quadrant"
+              },
+              "dd_deter_inpe_satellite": {
+                "show": true,
+                "alias": "Satélite"
+              },
+              "dd_deter_inpe_sensor": {
+                "show": true,
+                "alias": "Sensor"
+              },
+              "dd_deter_inpe_uc": {
+                "show": false,
+                "alias": "dd_deter_inpe_uc"
+              },
+              "de_car_validado_sema_area_ha_": {
+                "show": false,
+                "alias": "de_car_validado_sema_area_ha_"
+              },
+              "de_car_validado_sema_cpfcnpj": {
+                "show": false,
+                "alias": "de_car_validado_sema_cpfcnpj"
+              },
+              "de_car_validado_sema_municipio1": {
+                "show": false,
+                "alias": "de_car_validado_sema_municipio1"
+              },
+              "de_car_validado_sema_nome_da_p1": {
+                "show": false,
+                "alias": "de_car_validado_sema_nome_da_p1"
+              },
+              "de_car_validado_sema_nomepropri": {
+                "show": false,
+                "alias": "de_car_validado_sema_nomepropri"
               },
               "de_car_validado_sema_numero_do1": {
-                "show": true,
-                "alias": "CAR estadual"
+                "show": false,
+                "alias": "de_car_validado_sema_numero_do1"
               },
               "de_car_validado_sema_numero_do2": {
-                "show": true,
-                "alias": "CAR federal"
+                "show": false,
+                "alias": "de_car_validado_sema_numero_do2"
+              },
+              "de_car_validado_sema_situacao_1": {
+                "show": false,
+                "alias": "de_car_validado_sema_situacao_1"
               },
               "execution_date": {
                 "show": true,
@@ -248,29 +292,45 @@
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_28:view28"
             },
             "infoColumns":{
-              "apv_app_cardeter_35_id": {
+              "a_cardeter_3_dd_deter_inpe_classname": {
                 "show": false,
-                "alias": "apv_app_cardeter_35_id"
+                "alias": "a_cardeter_3_dd_deter_inpe_classname"
               },
-              "apv_car_deter_28_dd_deter_inpe_classname": {
+              "a_cardeter_3_de_car_validado_sema_area_ha_": {
                 "show": false,
-                "alias": "apv_car_deter_28_dd_deter_inpe_classname"
+                "alias": "a_cardeter_3_de_car_validado_sema_area_ha_"
               },
-              "apv_car_deter_28_dd_deter_inpe_county": {
-                "show": true,
-                "alias": "Município"
+              "a_cardeter_3_de_car_validado_sema_cpfcnpj": {
+                "show": false,
+                "alias": "a_cardeter_3_de_car_validado_sema_cpfcnpj"
               },
-              "apv_car_deter_28_de_car_validado_sema_area_ha_": {
-                "show": true,
-                "alias": "Área do imóvel (ha)"
+              "a_cardeter_3_de_car_validado_sema_municipio1": {
+                "show": "true",
+                "alias": "Municípios"
               },
-              "apv_car_deter_28_de_car_validado_sema_numero_do1": {
+              "a_cardeter_3_de_car_validado_sema_nome_da_p1": {
+                "show": false,
+                "alias": "a_cardeter_3_de_car_validado_sema_nome_da_p1"
+              },
+              "a_cardeter_3_de_car_validado_sema_nomepropri": {
+                "show": false,
+                "alias": "a_cardeter_3_de_car_validado_sema_nomepropri"
+              },
+              "a_cardeter_3_de_car_validado_sema_numero_do1": {
                 "show": true,
                 "alias": "CAR estadual"
               },
-              "apv_car_deter_28_de_car_validado_sema_numero_do2": {
+              "a_cardeter_3_de_car_validado_sema_numero_do2": {
                 "show": true,
                 "alias": "CAR federal"
+              },
+              "a_cardeter_3_de_car_validado_sema_situacao_1": {
+                "show": false,
+                "alias": "a_cardeter_3_de_car_validado_sema_situacao_1"
+              },
+              "a_cardeter_app_4_id": {
+                "show": false,
+                "alias": "a_cardeter_app_4_id"
               },
               "calculated_area_ha": {
                 "show": true,
@@ -278,7 +338,15 @@
               },
               "de_area_app_sema_area_ha_": {
                 "show": true,
-                "alias": "de_area_app_sema_area_ha_"
+                "alias": "Área do imóvel (ha)"
+              },
+              "de_area_app_sema_municipio1": {
+                "show": false,
+                "alias": "de_area_app_sema_municipio1"
+              },
+              "de_area_app_sema_nome_da_p1": {
+                "show": false,
+                "alias": "de_area_app_sema_nome_da_p1"
               },
               "execution_date": {
                 "show": true,
@@ -5075,7 +5143,7 @@
         "carRegisterColumn": "numero_do1;a_cardeter_3_de_car_validado_sema_numero_do1;a_cardeter_3_de_car_validado_sema_numero_do1;a_cardeter_3_de_car_validado_sema_numero_do1;a_cardeter_3_de_car_validado_sema_numero_do1;a_cardeter_3_de_car_validado_sema_numero_do1;a_cardeter_3_de_car_validado_sema_numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_8:view8,terrama2_33:view33,terrama2_25:view25,terrama2_12:view12terrama2_10:view10,terrama2_13:view13,terrama2_14:view14",
+          "layers": "terrama2_8:view8,terrama2_33:view33,terrama2_25:view25,terrama2_12:view12,terrama2_10:view10,terrama2_13:view13,terrama2_14:view14",
           "transparent": true,
           "format": "image/png",
           "version": "1.1.0",
@@ -5129,7 +5197,7 @@
         "carRegisterColumn": "numero_do1;de_car_validado_sema_numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_8:view8,terrama2_87:view87",
+          "layers": "terrama2_8:view8,terrama2_28:view28",
           "transparent": true,
           "format": "image/png",
           "version": "1.1.0",
@@ -5173,7 +5241,7 @@
         "carRegisterColumn": "numero_do1;a_carprodes_15_de_car_validado_sema_numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_8:view8,terrama2_100:view100",
+          "layers": "terrama2_8:view8,terrama2_47:view47",
           "transparent": true,
           "format": "image/png",
           "version": "1.1.0",
@@ -5298,7 +5366,7 @@
         "carRegisterColumn": "numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_5:MosaicSpot2008_X_car_validado",
+          "layers": "terrama2_8:MosaicSpot2008_car_validado",
           "transparent": true,
           "format": "image/png",
           "version": "1.1.0",
@@ -5316,7 +5384,7 @@
         "carRegisterColumn": "numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_5:MosaicSpot2008_X_car_validado",
+          "layers": "terrama2_8:MosaicSpot2008_car_validado",
           "transparent": true,
           "format": "image/png",
           "version": "1.1.0",
