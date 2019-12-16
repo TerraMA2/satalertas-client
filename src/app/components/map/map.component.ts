@@ -817,8 +817,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         url = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wfs`;
         params = this.getWFSFeatureInfoParams(layer);
       } else {
-      url = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms`;
-      params = this.getWMSFeatureInfoParams(layer, event);
+        url = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms`;
+        params = this.getWMSFeatureInfoParams(layer, event);
       }
 
       await this.hTTPService.get(url, params).toPromise().then((layerInfo: LayerInfo) => {
