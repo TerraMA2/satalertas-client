@@ -595,7 +595,7 @@
             "codgroup": "PRODES",
             "label": "CAR X PRODES",
             "shortLabel": "CAR X PRODES",
-            "value": "87",
+            "value": "39",
             "dateColumn": "execution_date",
             "areaColumn": "calculated_area_ha",
             "geomColumn": "intersection_geom",
@@ -606,7 +606,7 @@
             "isPrimary": true,
             "filter": {
               "default": {
-                "view": "terrama2_87:view87"
+                "view": "terrama2_39:view39"
               },
               "biome": {
                 "view": "mpmt_alertas:car_prodes_biome_sql",
@@ -644,7 +644,7 @@
                 "value": "gid"
               },
               "car": {
-                "view": "terrama2_87:view87",
+                "view": "terrama2_39:view39",
                 "field": "de_car_validado_sema_area_ha_",
                 "value": ""
               },
@@ -656,7 +656,7 @@
             },
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
-              "layers": "terrama2_87:view87",
+              "layers": "terrama2_39:view39",
               "transparent": true,
               "format": "image/png",
               "version": "1.1.0",
@@ -664,7 +664,7 @@
             },
             "legend": {
               "title": "CAR x PRODES",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_87:view87"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_39:view39"
             }
           },
           {
@@ -672,18 +672,18 @@
             "codgroup": "PRODES",
             "label": "APP x CAR_PRODES",
             "shortLabel": "APP",
-            "value": "80",
+            "value": "40",
             "dateColumn": "execution_date",
             "areaColumn": "calculated_area_ha",
             "geomColumn": "intersection_geom",
-            "carRegisterColumn": "apv_car_prodes_40_de_car_validado_sema_numero_do1",
-            "classNameColumn": "apv_car_prodes_40_dd_prodes_inpe_mainclass",
+            "carRegisterColumn": "a_carprodes_15_de_car_validado_sema_numero_do1",
+            "classNameColumn": "a_carprodes_15_dd_prodes_inpe_mainclass",
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": false,
             "filter": {
               "default": {
-                "view": "terrama2_80:view80"
+                "view": "terrama2_40:view40"
               },
               "biome": {
                 "view": "mpmt_alertas:app_car_prodes_biome_sql",
@@ -721,7 +721,7 @@
                 "value": "gid"
               },
               "car": {
-                "field": "apv_car_prodes_40_de_car_validado_sema_area_ha_"
+                "field": "a_carprodes_15_de_car_validado_sema_area_ha_"
               },
               "projus": {
                 "view": "mpmt_alertas:app_car_prodes_projus_sql",
@@ -731,7 +731,7 @@
             },
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
-              "layers": "terrama2_80:view80",
+              "layers": "terrama2_40:view40",
               "transparent": true,
               "format": "image/png",
               "version": "1.1.0",
@@ -739,7 +739,7 @@
             },
             "legend": {
               "title": "APP x CAR_PRODES",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_80:view80"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_40:view40"
             }
           },
           {
@@ -747,18 +747,18 @@
             "codgroup": "PRODES",
             "label": "UsoAnt x CAR_PRODES",
             "shortLabel": "Uso antropizado",
-            "value": "82",
+            "value": "42",
             "dateColumn": "execution_date",
             "areaColumn": "calculated_area_ha",
             "geomColumn": "intersection_geom",
-            "carRegisterColumn": "apv_car_prodes_40_de_car_validado_sema_numero_do1",
-            "classNameColumn": "apv_car_prodes_40_dd_prodes_inpe_mainclass",
+            "carRegisterColumn": "a_carprodes_15_de_car_validado_sema_numero_do1",
+            "classNameColumn": "a_carprodes_15_dd_prodes_inpe_mainclass",
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": false,
             "filter": {
               "default": {
-                "view": "terrama2_82:view82"
+                "view": "terrama2_42:view42"
               },
               "biome": {
                 "view": "mpmt_alertas:usoant_car_prodes_biome_sql",
@@ -796,7 +796,7 @@
                 "value": "gid"
               },
               "car": {
-                "field": "apv_car_prodes_40_de_car_validado_sema_area_ha_"
+                "field": "a_carprodes_15_de_car_validado_sema_area_ha_"
               },
               "projus": {
                 "view": "mpmt_alertas:usoant_car_prodes_projus_sql",
@@ -806,7 +806,7 @@
             },
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
-              "layers": "terrama2_82:view82",
+              "layers": "terrama2_42:view42",
               "transparent": true,
               "format": "image/png",
               "version": "1.1.0",
@@ -814,7 +814,7 @@
             },
             "legend": {
               "title": "UsoAnt x CAR_PRODES",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_82:view82"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_42:view42"
             }
           },
           {
@@ -822,18 +822,18 @@
             "codgroup": "PRODES",
             "label": "Reserva x CAR_PRODES",
             "shortLabel": "Reserva legal",
-            "value": "81",
+            "value": "43",
             "dateColumn": "execution_date",
             "areaColumn": "calculated_area_ha",
             "geomColumn": "intersection_geom",
-            "carRegisterColumn": "apv_car_prodes_40_de_car_validado_sema_numero_do1",
-            "classNameColumn": "apv_car_prodes_40_dd_prodes_inpe_mainclass",
+            "carRegisterColumn": "a_carprodes_15_de_car_validado_sema_numero_do1",
+            "classNameColumn": "a_carprodes_15_dd_prodes_inpe_mainclass",
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": false,
             "filter": {
               "default": {
-                "view": "terrama2_81:view81"
+                "view": "terrama2_43:view43"
               },
               "biome": {
                 "view": "mpmt_alertas:reserva_car_prodes_biome_sql",
@@ -871,7 +871,7 @@
                 "value": "gid"
               },
               "car": {
-                "field": "apv_car_prodes_40_de_car_validado_sema_area_ha_"
+                "field": "a_carprodes_15_de_car_validado_sema_area_ha_"
               },
               "projus": {
                 "view": "mpmt_alertas:reserva_car_prodes_projus_sql",
@@ -881,7 +881,7 @@
             },
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
-              "layers": "terrama2_81:view81",
+              "layers": "terrama2_43:view43",
               "transparent": true,
               "format": "image/png",
               "version": "1.1.0",
@@ -889,7 +889,7 @@
             },
             "legend": {
               "title": "Reserva x CAR_PRODES",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_81:view81"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_43:view43"
             }
           },
           {
@@ -897,18 +897,18 @@
             "codgroup": "PRODES",
             "label": "VegNat x CAR_PRODES",
             "shortLabel": "Vegetação nativa",
-            "value": "84",
+            "value": "44",
             "dateColumn": "execution_date",
             "areaColumn": "calculated_area_ha",
             "geomColumn": "intersection_geom",
-            "carRegisterColumn": "apv_car_prodes_40_de_car_validado_sema_numero_do1",
-            "classNameColumn": "apv_car_prodes_40_dd_prodes_inpe_mainclass",
+            "carRegisterColumn": "a_carprodes_15_de_car_validado_sema_numero_do1",
+            "classNameColumn": "a_carprodes_15_dd_prodes_inpe_mainclass",
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": false,
             "filter": {
               "default": {
-                "view": "terrama2_79:view79"
+                "view": "terrama2_44:view44"
               },
               "biome": {
                 "view": "mpmt_alertas:veg_car_prodes_biome_sql",
@@ -946,7 +946,7 @@
                 "value": "gid"
               },
               "car": {
-                "field": "apv_car_prodes_40_de_car_validado_sema_area_ha_"
+                "field": "a_carprodes_15_de_car_validado_sema_area_ha_"
               },
               "projus": {
                 "view": "mpmt_alertas:veg_car_prodes_projus_sql",
@@ -956,7 +956,7 @@
             },
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
-              "layers": "terrama2_79:view79",
+              "layers": "terrama2_44:view44",
               "transparent": true,
               "format": "image/png",
               "version": "1.1.0",
@@ -964,7 +964,7 @@
             },
             "legend": {
               "title": "VegNat x CAR_PRODES",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_79:view79"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_44:view44"
             }
           },
           {
@@ -972,18 +972,18 @@
             "codgroup": "PRODES",
             "label": "UsoCon x CAR_PRODES",
             "shortLabel": "Uso consolidado",
-            "value": "83",
+            "value": "45",
             "dateColumn": "execution_date",
             "areaColumn": "calculated_area_ha",
             "geomColumn": "intersection_geom",
-            "carRegisterColumn": "apv_car_prodes_40_de_car_validado_sema_numero_do1",
-            "classNameColumn": "apv_car_prodes_40_dd_prodes_inpe_mainclass",
+            "carRegisterColumn": "a_carprodes_15_de_car_validado_sema_numero_do1",
+            "classNameColumn": "a_carprodes_15_dd_prodes_inpe_mainclass",
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": false,
             "filter": {
               "default": {
-                "view": "terrama2_83:view83"
+                "view": "terrama2_45:view45"
               },
               "biome": {
                 "view": "mpmt_alertas:usocon_car_prodes_biome_sql",
@@ -1021,7 +1021,7 @@
                 "value": "gid"
               },
               "car": {
-                "field": "apv_car_prodes_40_de_car_validado_sema_area_ha_"
+                "field": "a_carprodes_15_de_car_validado_sema_area_ha_"
               },
               "projus": {
                 "view": "mpmt_alertas:usocon_car_prodes_projus_sql",
@@ -1031,7 +1031,7 @@
             },
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
-              "layers": "terrama2_83:view83",
+              "layers": "terrama2_45:view45",
               "transparent": true,
               "format": "image/png",
               "version": "1.1.0",
@@ -1039,7 +1039,7 @@
             },
             "legend": {
               "title": "UsoCon x CAR_PRODES",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_83:view83"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_45:view45"
             }
           },
           {
@@ -1047,18 +1047,18 @@
             "codgroup": "PRODES",
             "label": "TI x CAR_PRODES",
             "shortLabel": "Terra indigena",
-            "value": "97",
+            "value": "46",
             "dateColumn": "execution_date",
             "areaColumn": "calculated_area_ha",
             "geomColumn": "intersection_geom",
-            "carRegisterColumn": "apv_car_prodes_40_de_car_validado_sema_numero_do1",
-            "classNameColumn": "apv_car_prodes_40_dd_prodes_inpe_mainclass",
+            "carRegisterColumn": "a_carprodes_15_de_car_validado_sema_numero_do1",
+            "classNameColumn": "a_carprodes_15_dd_prodes_inpe_mainclass",
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": false,
             "filter": {
               "default": {
-                "view": "terrama2_97:view97"
+                "view": "terrama2_46:view46"
               },
               "biome": {
                 "view": "mpmt_alertas:ti_car_prodes_biome_sql",
@@ -1096,7 +1096,7 @@
                 "value": "gid"
               },
               "car": {
-                "field": "apv_car_prodes_40_de_car_validado_sema_area_ha_"
+                "field": "a_carprodes_15_de_car_validado_sema_area_ha_"
               },
               "projus": {
                 "view": "mpmt_alertas:ti_car_prodes_projus_sql",
@@ -1106,7 +1106,7 @@
             },
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
-              "layers": "terrama2_97:view97",
+              "layers": "terrama2_46:view46",
               "transparent": true,
               "format": "image/png",
               "version": "1.1.0",
@@ -1114,7 +1114,7 @@
             },
             "legend": {
               "title": "TI x CAR_PRODES",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_97:view97"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_46:view46"
             }
           },
           {
@@ -1122,18 +1122,18 @@
             "codgroup": "PRODES",
             "label": "UC x CAR_PRODES",
             "shortLabel": "Unidade de conservação",
-            "value": "100",
+            "value": "47",
             "dateColumn": "execution_date",
             "areaColumn": "calculated_area_ha",
             "geomColumn": "intersection_geom",
-            "carRegisterColumn": "apv_car_prodes_40_de_car_validado_sema_numero_do1",
-            "classNameColumn": "apv_car_prodes_40_dd_prodes_inpe_mainclass",
+            "carRegisterColumn": "a_carprodes_15_de_car_validado_sema_numero_do1",
+            "classNameColumn": "a_carprodes_15_dd_prodes_inpe_mainclass",
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": false,
             "filter": {
               "default": {
-                "view": "terrama2_100:view100"
+                "view": "terrama2_47:view47"
               },
               "biome": {
                 "view": "mpmt_alertas:uc_car_prodes_biome_sql",
@@ -1171,7 +1171,7 @@
                 "value": "gid"
               },
               "car": {
-                "field": "apv_car_prodes_40_de_car_validado_sema_area_ha_"
+                "field": "a_carprodes_15_de_car_validado_sema_area_ha_"
               },
               "projus": {
                 "view": "mpmt_alertas:uc_car_prodes_projus_sql",
@@ -1181,7 +1181,7 @@
             },
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
-              "layers": "terrama2_100:view100",
+              "layers": "terrama2_47:view47",
               "transparent": true,
               "format": "image/png",
               "version": "1.1.0",
@@ -1189,7 +1189,7 @@
             },
             "legend": {
               "title": "UC x CAR_PRODES",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_100:view100"
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_47:view47"
             }
           }
         ]
@@ -2969,7 +2969,7 @@
           "text": "",
           "value": "{conservationUnit}"
         },
-        "carRegisterColumn": "numero_do1;apv_car_prodes_40_de_car_validado_sema_numero_do1",
+        "carRegisterColumn": "numero_do1;a_carprodes_15_de_car_validado_sema_numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_8:view8,terrama2_100:view100",
