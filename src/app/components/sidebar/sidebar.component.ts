@@ -90,6 +90,7 @@ export class SidebarComponent implements OnInit {
             sidebarLayerChild.type,
             sidebarLayerChild.isPrivate,
             sidebarLayerChild.isPrimary,
+            sidebarLayerChild.isChild,
             sidebarLayerChild.filter,
             sidebarLayerChild.layerData,
             sidebarLayerChild.legend,

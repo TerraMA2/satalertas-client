@@ -21,6 +21,7 @@ export class Layer {
     public type: string,
     public isPrivate: boolean,
     public isPrimary: boolean,
+    public isChild: boolean,
     public filter: LayerFilter[],
     public layerData: LayerData,
     public legend: Legend,
