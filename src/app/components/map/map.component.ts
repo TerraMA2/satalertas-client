@@ -902,17 +902,17 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     let popupContent = '';
     let popupContentBody = '';
     Object.keys(data).forEach(key => {
-      const column = infoColumns[key];
-      const show = column.show;
-      const alias = column.alias;
-      if (show) {
+      // const column = infoColumns[key];
+      // const show = column.show;
+      // const alias = column.alias;
+      // if (show) {
         popupContentBody += `
             <tr>
-              <td>${alias}</td>
+              <td>${key}</td>
               <td>${data[key]}</td>
             </tr>
         `;
-      }
+      // }
     });
 
     popupContent += `
