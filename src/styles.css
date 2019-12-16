@@ -157,3 +157,18 @@ section {
   max-width: 100%;
   height: auto;
 }
+
+.sidebar-layer-margin .ui-inputswitch {
+  width: 2.8em;
+  height: 1.4em;
+}
+
+.sidebar-layer-margin .ui-inputswitch .ui-inputswitch-slider:before {
+  background-color: #ffffff;
+  height: .9em;
+  width: .9em;
+  left: 0.25em;
+  bottom: 0.25em;
+  border-radius: 50%;
+  transition: 0.2s;
+}

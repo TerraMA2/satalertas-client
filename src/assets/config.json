@@ -61,6 +61,7 @@
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": true,
+            "isChild": false,
             "filter": {
               "default": {
                 "view": "terrama2_27:view27"
@@ -122,6 +123,52 @@
             "legend": {
               "title": "CAR x DETER",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_27:view27"
+            },
+            "infoColumns": {
+              "apv_car_deter_28_id": {
+                "show": false,
+                "alias": "apv_car_deter_28_id"
+              },
+              "calculated_area_ha": {
+                "show": true,
+                "alias": "Área"
+              },
+              "dd_deter_inpe_classname": {
+                "show": false,
+                "alias": "dd_deter_inpe_classname"
+              },
+              "dd_deter_inpe_county": {
+                "show": true,
+                "alias": "Município"
+              },
+              "de_car_validado_sema_area_ha_": {
+                "show": true,
+                "alias": "Área imóvel (ha)"
+              },
+              "de_car_validado_sema_numero_do1": {
+                "show": true,
+                "alias": "CAR estadual"
+              },
+              "de_car_validado_sema_numero_do2": {
+                "show": true,
+                "alias": "CAR federal"
+              },
+              "execution_date": {
+                "show": true,
+                "alias": "Data"
+              },
+              "intersect_id": {
+                "show": false,
+                "alias": "intersect_id"
+              },
+              "intersection_geom": {
+                "show": false,
+                "alias": "intersection_geom"
+              },
+              "monitored_id": {
+                "show": false,
+                "alias": "monitored_id"
+              }
             }
           },
           {
@@ -138,6 +185,7 @@
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": false,
+            "isChild": true,
             "filter": {
               "default": {
                 "view": "terrama2_28:view28"
@@ -198,6 +246,56 @@
             "legend": {
               "title": "APP x CAR_DETER",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_28:view28"
+            },
+            "infoColumns":{
+              "apv_app_cardeter_35_id": {
+                "show": false,
+                "alias": "apv_app_cardeter_35_id"
+              },
+              "apv_car_deter_28_dd_deter_inpe_classname": {
+                "show": false,
+                "alias": "apv_car_deter_28_dd_deter_inpe_classname"
+              },
+              "apv_car_deter_28_dd_deter_inpe_county": {
+                "show": true,
+                "alias": "Município"
+              },
+              "apv_car_deter_28_de_car_validado_sema_area_ha_": {
+                "show": true,
+                "alias": "Área do imóvel (ha)"
+              },
+              "apv_car_deter_28_de_car_validado_sema_numero_do1": {
+                "show": true,
+                "alias": "CAR estadual"
+              },
+              "apv_car_deter_28_de_car_validado_sema_numero_do2": {
+                "show": true,
+                "alias": "CAR federal"
+              },
+              "calculated_area_ha": {
+                "show": true,
+                "alias": "Área (ha)"
+              },
+              "de_area_app_sema_area_ha_": {
+                "show": true,
+                "alias": "de_area_app_sema_area_ha_"
+              },
+              "execution_date": {
+                "show": true,
+                "alias": "Data"
+              },
+              "intersect_id": {
+                "show": false,
+                "alias": "intersect_id"
+              },
+              "intersection_geom": {
+                "show": false,
+                "alias": "intersection_geom"
+              },
+              "monitored_id": {
+                "show": false,
+                "alias": "monitored_id"
+              }
             }
           },
           {
@@ -214,6 +312,7 @@
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": false,
+            "isChild": true,
             "filter": {
               "default": {
                 "view": "terrama2_29:view29"
@@ -274,6 +373,48 @@
             "legend": {
               "title": "UsoAnt x CAR_DETER",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_29:view29"
+            },
+            "infoColumns": {
+              "apv_car_deter_28_dd_deter_inpe_classname": {
+                "show": false,
+                "alias": "apv_car_deter_28_dd_deter_inpe_classname"
+              },
+              "apv_car_deter_28_dd_deter_inpe_county": {
+                "show": true,
+                "alias": "Município"
+              },
+              "apv_car_deter_28_de_car_validado_sema_numero_do1": {
+                "show": true,
+                "alias": "CAR estadual"
+              },
+              "apv_car_deter_28_de_car_validado_sema_numero_do2": {
+                "show": true,
+                "alias": "CAR federal"
+              },
+              "apv_usoant_cardeter_36_id": {
+                "show": false,
+                "alias": "apv_usoant_cardeter_36_id"
+              },
+              "calculated_area_ha": {
+                "show": true,
+                "alias": "Área (ha)"
+              },
+              "execution_date": {
+                "show": true,
+                "alias": "Data"
+              },
+              "intersect_id": {
+                "show": false,
+                "alias": "intersect_id"
+              },
+              "intersection_geom": {
+                "show": false,
+                "alias": "intersection_geom"
+              },
+              "monitored_id": {
+                "show": false,
+                "alias": "monitored_id"
+              }
             }
           },
           {
@@ -290,6 +431,7 @@
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": false,
+            "isChild": true,
             "filter": {
               "default": {
                 "view": "terrama2_30:view30"
@@ -350,6 +492,48 @@
             "legend": {
               "title": "Reserva x CAR_DETER",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_30:view30"
+            },
+            "infoColumns": {
+              "apv_car_deter_28_dd_deter_inpe_classname": {
+                "show": false,
+                "alias": "apv_car_deter_28_dd_deter_inpe_classname"
+              },
+              "apv_car_deter_28_dd_deter_inpe_county": {
+                "show": true,
+                "alias": "Município"
+              },
+              "apv_car_deter_28_de_car_validado_sema_numero_do1": {
+                "show": true,
+                "alias": "CAR estadual"
+              },
+              "apv_car_deter_28_de_car_validado_sema_numero_do2": {
+                "show": true,
+                "alias": "CAR federal"
+              },
+              "apv_reserva_cardeter_37_id": {
+                "show": false,
+                "alias": "apv_usoant_cardeter_36_id"
+              },
+              "calculated_area_ha": {
+                "show": true,
+                "alias": "Área (ha)"
+              },
+              "execution_date": {
+                "show": true,
+                "alias": "Data"
+              },
+              "intersect_id": {
+                "show": false,
+                "alias": "intersect_id"
+              },
+              "intersection_geom": {
+                "show": false,
+                "alias": "intersection_geom"
+              },
+              "monitored_id": {
+                "show": false,
+                "alias": "monitored_id"
+              }
             }
           },
           {
@@ -366,6 +550,7 @@
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": false,
+            "isChild": true,
             "filter": {
               "default": {
                 "view": "terrama2_31:view31"
@@ -426,6 +611,52 @@
             "legend": {
               "title": "VegNat x CAR_DETER",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_31:view31"
+            },
+            "infoColumns": {
+              "apv_car_deter_28_dd_deter_inpe_classname": {
+                "show": false,
+                "alias": "apv_car_deter_28_dd_deter_inpe_classname"
+              },
+              "apv_car_deter_28_dd_deter_inpe_county": {
+                "show": true,
+                "alias": "Município"
+              },
+              "apv_car_deter_28_de_car_validado_sema_numero_do1": {
+                "show": true,
+                "alias": "CAR estadual"
+              },
+              "apv_car_deter_28_de_car_validado_sema_numero_do2": {
+                "show": true,
+                "alias": "CAR federal"
+              },
+              "apv_veg_cardeter_38_id": {
+                "show": false,
+                "alias": "apv_usoant_cardeter_36_id"
+              },
+              "calculated_area_ha": {
+                "show": true,
+                "alias": "Área (ha)"
+              },
+              "de_area_vegetacao_nativa_sema_municipio1": {
+                "show": false,
+                "alias": "de_area_vegetacao_nativa_sema_municipio1"
+              },
+              "execution_date": {
+                "show": true,
+                "alias": "Data"
+              },
+              "intersect_id": {
+                "show": false,
+                "alias": "intersect_id"
+              },
+              "intersection_geom": {
+                "show": false,
+                "alias": "intersection_geom"
+              },
+              "monitored_id": {
+                "show": false,
+                "alias": "monitored_id"
+              }
             }
           },
           {
@@ -442,6 +673,7 @@
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": false,
+            "isChild": true,
             "filter": {
               "default": {
                 "view": "terrama2_32:view32"
@@ -502,6 +734,52 @@
             "legend": {
               "title": "UsoCon x CAR_DETER",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_32:view32"
+            },
+            "infoColumns": {
+              "apv_car_deter_28_dd_deter_inpe_classname": {
+                "show": false,
+                "alias": "apv_car_deter_28_dd_deter_inpe_classname"
+              },
+              "apv_car_deter_28_dd_deter_inpe_county": {
+                "show": true,
+                "alias": "Município"
+              },
+              "apv_car_deter_28_de_car_validado_sema_numero_do1": {
+                "show": true,
+                "alias": "CAR estadual"
+              },
+              "apv_car_deter_28_de_car_validado_sema_numero_do2": {
+                "show": true,
+                "alias": "CAR federal"
+              },
+              "apv_und_cons_car_deter_60_id": {
+                "show": false,
+                "alias": "apv_und_cons_car_deter_60_id"
+              },
+              "calculated_area_ha": {
+                "show": true,
+                "alias": "Área (ha)"
+              },
+              "de_unidade_cons_sema_nome": {
+                "show": false,
+                "alias": "de_unidade_cons_sema_nome"
+              },
+              "execution_date": {
+                "show": true,
+                "alias": "Data"
+              },
+              "intersect_id": {
+                "show": false,
+                "alias": "intersect_id"
+              },
+              "intersection_geom": {
+                "show": false,
+                "alias": "intersection_geom"
+              },
+              "monitored_id": {
+                "show": false,
+                "alias": "monitored_id"
+              }
             }
           },
           {
@@ -518,6 +796,7 @@
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": false,
+            "isChild": false,
             "filter": {
               "default": {
                 "view": "terrama2_33:view33"
@@ -578,6 +857,52 @@
             "legend": {
               "title": "TI x CAR_DETER",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_33:view33"
+            },
+            "infoColumns": {
+              "apv_car_deter_28_dd_deter_inpe_classname": {
+                "show": false,
+                "alias": "apv_car_deter_28_dd_deter_inpe_classname"
+              },
+              "apv_car_deter_28_dd_deter_inpe_county": {
+                "show": true,
+                "alias": "Município"
+              },
+              "apv_car_deter_28_de_car_validado_sema_numero_do1": {
+                "show": true,
+                "alias": "CAR estadual"
+              },
+              "apv_car_deter_28_de_car_validado_sema_numero_do2": {
+                "show": true,
+                "alias": "CAR federal"
+              },
+              "apv_ti_cardeter_68_id": {
+                "show": false,
+                "alias": "apv_ti_cardeter_68_id"
+              },
+              "calculated_area_ha": {
+                "show": true,
+                "alias": "Área (ha)"
+              },
+              "de_unidade_cons_sema_nome": {
+                "show": false,
+                "alias": "de_unidade_cons_sema_nome"
+              },
+              "execution_date": {
+                "show": true,
+                "alias": "Data"
+              },
+              "intersect_id": {
+                "show": false,
+                "alias": "intersect_id"
+              },
+              "intersection_geom": {
+                "show": false,
+                "alias": "intersection_geom"
+              },
+              "monitored_id": {
+                "show": false,
+                "alias": "monitored_id"
+              }
             }
           }
         ]
@@ -604,6 +929,7 @@
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": true,
+            "isChild": false,
             "filter": {
               "default": {
                 "view": "terrama2_39:view39"
@@ -665,6 +991,52 @@
             "legend": {
               "title": "CAR x PRODES",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_39:view39"
+            },
+            "infoColumns": {
+              "apv_car_prodes_40_id": {
+                "show": false,
+                "alias": "apv_car_prodes_40_id"
+              },
+              "calculated_area_ha": {
+                "show": true,
+                "alias": "Área (ha)"
+              },
+              "dd_prodes_inpe_mainclass": {
+                "show": false,
+                "alias": "dd_prodes_inpe_mainclass"
+              },
+              "de_car_validado_sema_area_ha_": {
+                "show": true,
+                "alias": "Área do imóvel (ha)"
+              },
+              "de_car_validado_sema_municipio1": {
+                "show": true,
+                "alias": "Município"
+              },
+              "de_car_validado_sema_numero_do1": {
+                "show": true,
+                "alias": "CAR estadual"
+              },
+              "de_car_validado_sema_numero_do2": {
+                "show": true,
+                "alias": "CAR federal"
+              },
+              "execution_date": {
+                "show": false,
+                "alias": "Data"
+              },
+              "intersect_id": {
+                "show": false,
+                "alias": "intersect_id"
+              },
+              "intersection_geom": {
+                "show": false,
+                "alias": "intersection_geom"
+              },
+              "monitored_id": {
+                "show": false,
+                "alias": "monitored_id"
+              }
             }
           },
           {
@@ -681,6 +1053,7 @@
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": false,
+            "isChild": true,
             "filter": {
               "default": {
                 "view": "terrama2_40:view40"
@@ -740,6 +1113,48 @@
             "legend": {
               "title": "APP x CAR_PRODES",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_40:view40"
+            },
+            "infoColumns": {
+              "apv_app_carprodes_41_id": {
+                "show": false,
+                "alias": "apv_app_carprodes_41_id"
+              },
+              "apv_car_prodes_40_dd_prodes_inpe_mainclass": {
+                "show": false,
+                "alias": "apv_car_prodes_40_dd_prodes_inpe_mainclass"
+              },
+              "apv_car_prodes_40_de_car_validado_sema_area_ha_": {
+                "show": true,
+                "alias": "Área do imóvel (ha)"
+              },
+              "apv_car_prodes_40_de_car_validado_sema_numero_do1": {
+                "show": true,
+                "alias": "CAR estadual"
+              },
+              "apv_car_prodes_40_de_car_validado_sema_numero_do2": {
+                "show": true,
+                "alias": "CAR federal"
+              },
+              "calculated_area_ha": {
+                "show": true,
+                "alias": "Área (ha)"
+              },
+              "execution_date": {
+                "show": true,
+                "alias": "Data"
+              },
+              "intersect_id": {
+                "show": false,
+                "alias": "intersect_id"
+              },
+              "intersection_geom": {
+                "show": false,
+                "alias": "intersection_geom"
+              },
+              "monitored_id": {
+                "show": false,
+                "alias": "monitored_id"
+              }
             }
           },
           {
@@ -756,6 +1171,7 @@
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": false,
+            "isChild": true,
             "filter": {
               "default": {
                 "view": "terrama2_42:view42"
@@ -815,6 +1231,48 @@
             "legend": {
               "title": "UsoAnt x CAR_PRODES",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_42:view42"
+            },
+            "infoColumns": {
+              "apv_car_prodes_40_dd_prodes_inpe_mainclass": {
+                "show": false,
+                "alias": "apv_car_prodes_40_dd_prodes_inpe_mainclass"
+              },
+              "apv_car_prodes_40_de_car_validado_sema_area_ha_": {
+                "show": true,
+                "alias": "Área do imóvel (ha)"
+              },
+              "apv_car_prodes_40_de_car_validado_sema_numero_do1": {
+                "show": true,
+                "alias": "CAR estadual"
+              },
+              "apv_car_prodes_40_de_car_validado_sema_numero_do2": {
+                "show": true,
+                "alias": "CAR federal"
+              },
+              "apv_usoant_carprodes_42_id": {
+                "show": false,
+                "alias": "apv_usoant_carprodes_42_id"
+              },
+              "calculated_area_ha": {
+                "show": true,
+                "alias": "Área (ha)"
+              },
+              "execution_date": {
+                "show": true,
+                "alias": "Data"
+              },
+              "intersect_id": {
+                "show": false,
+                "alias": "intersect_id"
+              },
+              "intersection_geom": {
+                "show": false,
+                "alias": "intersection_geom"
+              },
+              "monitored_id": {
+                "show": false,
+                "alias": "monitored_id"
+              }
             }
           },
           {
@@ -831,6 +1289,7 @@
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": false,
+            "isChild": true,
             "filter": {
               "default": {
                 "view": "terrama2_43:view43"
@@ -890,6 +1349,48 @@
             "legend": {
               "title": "Reserva x CAR_PRODES",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_43:view43"
+            },
+            "infoColumns": {
+              "apv_car_prodes_40_dd_prodes_inpe_mainclass": {
+                "show": false,
+                "alias": "apv_car_prodes_40_dd_prodes_inpe_mainclass"
+              },
+              "apv_car_prodes_40_de_car_validado_sema_area_ha_": {
+                "show": true,
+                "alias": "Área do imóvel (ha)"
+              },
+              "apv_car_prodes_40_de_car_validado_sema_numero_do1": {
+                "show": true,
+                "alias": "CAR estadual"
+              },
+              "apv_car_prodes_40_de_car_validado_sema_numero_do2": {
+                "show": true,
+                "alias": "CAR federal"
+              },
+              "apv_reserva_carprodes_43_id": {
+                "show": false,
+                "alias": "apv_reserva_carprodes_43_id"
+              },
+              "calculated_area_ha": {
+                "show": true,
+                "alias": "Área (ha)"
+              },
+              "execution_date": {
+                "show": true,
+                "alias": "Data"
+              },
+              "intersect_id": {
+                "show": false,
+                "alias": "intersect_id"
+              },
+              "intersection_geom": {
+                "show": false,
+                "alias": "intersection_geom"
+              },
+              "monitored_id": {
+                "show": false,
+                "alias": "monitored_id"
+              }
             }
           },
           {
@@ -906,6 +1407,7 @@
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": false,
+            "isChild": true,
             "filter": {
               "default": {
                 "view": "terrama2_44:view44"
@@ -965,6 +1467,48 @@
             "legend": {
               "title": "VegNat x CAR_PRODES",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_44:view44"
+            },
+            "infoColumns": {
+              "apv_car_prodes_40_dd_prodes_inpe_mainclass": {
+                "show": false,
+                "alias": "apv_car_prodes_40_dd_prodes_inpe_mainclass"
+              },
+              "apv_car_prodes_40_de_car_validado_sema_area_ha_": {
+                "show": true,
+                "alias": "Área do imóvel (ha)"
+              },
+              "apv_car_prodes_40_de_car_validado_sema_numero_do1": {
+                "show": true,
+                "alias": "CAR estadual"
+              },
+              "apv_car_prodes_40_de_car_validado_sema_numero_do2": {
+                "show": true,
+                "alias": "CAR federal"
+              },
+              "apv_veg_carprodes_44_id": {
+                "show": false,
+                "alias": "apv_veg_carprodes_44_id"
+              },
+              "calculated_area_ha": {
+                "show": true,
+                "alias": "Área (ha)"
+              },
+              "execution_date": {
+                "show": true,
+                "alias": "Data"
+              },
+              "intersect_id": {
+                "show": false,
+                "alias": "intersect_id"
+              },
+              "intersection_geom": {
+                "show": false,
+                "alias": "intersection_geom"
+              },
+              "monitored_id": {
+                "show": false,
+                "alias": "monitored_id"
+              }
             }
           },
           {
@@ -981,6 +1525,7 @@
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": false,
+            "isChild": true,
             "filter": {
               "default": {
                 "view": "terrama2_45:view45"
@@ -1040,6 +1585,48 @@
             "legend": {
               "title": "UsoCon x CAR_PRODES",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_45:view45"
+            },
+            "infoColumns": {
+              "apv_car_prodes_40_dd_prodes_inpe_mainclass": {
+                "show": false,
+                "alias": "apv_car_prodes_40_dd_prodes_inpe_mainclass"
+              },
+              "apv_car_prodes_40_de_car_validado_sema_area_ha_": {
+                "show": true,
+                "alias": "Área do imóvel (ha)"
+              },
+              "apv_car_prodes_40_de_car_validado_sema_numero_do1": {
+                "show": true,
+                "alias": "CAR estadual"
+              },
+              "apv_car_prodes_40_de_car_validado_sema_numero_do2": {
+                "show": true,
+                "alias": "CAR federal"
+              },
+              "apv_usocon_carprodes_45_id": {
+                "show": false,
+                "alias": "apv_usocon_carprodes_45_id"
+              },
+              "calculated_area_ha": {
+                "show": true,
+                "alias": "Área (ha)"
+              },
+              "execution_date": {
+                "show": true,
+                "alias": "Data"
+              },
+              "intersect_id": {
+                "show": false,
+                "alias": "intersect_id"
+              },
+              "intersection_geom": {
+                "show": false,
+                "alias": "intersection_geom"
+              },
+              "monitored_id": {
+                "show": false,
+                "alias": "monitored_id"
+              }
             }
           },
           {
@@ -1056,6 +1643,7 @@
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": false,
+            "isChild": false,
             "filter": {
               "default": {
                 "view": "terrama2_46:view46"
@@ -1115,6 +1703,48 @@
             "legend": {
               "title": "TI x CAR_PRODES",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_46:view46"
+            },
+            "infoColumns": {
+              "apv_car_prodes_40_dd_prodes_inpe_mainclass": {
+                "show": false,
+                "alias": "apv_car_prodes_40_dd_prodes_inpe_mainclass"
+              },
+              "apv_car_prodes_40_de_car_validado_sema_area_ha_": {
+                "show": true,
+                "alias": "Área do imóvel (ha)"
+              },
+              "apv_car_prodes_40_de_car_validado_sema_numero_do1": {
+                "show": true,
+                "alias": "CAR estadual"
+              },
+              "apv_car_prodes_40_de_car_validado_sema_numero_do2": {
+                "show": true,
+                "alias": "CAR federal"
+              },
+              "apv_ti_carprodes_69_id": {
+                "show": false,
+                "alias": "apv_ti_carprodes_69_id"
+              },
+              "calculated_area_ha": {
+                "show": true,
+                "alias": "Área (ha)"
+              },
+              "execution_date": {
+                "show": true,
+                "alias": "Data"
+              },
+              "intersect_id": {
+                "show": false,
+                "alias": "intersect_id"
+              },
+              "intersection_geom": {
+                "show": false,
+                "alias": "intersection_geom"
+              },
+              "monitored_id": {
+                "show": false,
+                "alias": "monitored_id"
+              }
             }
           },
           {
@@ -1131,6 +1761,7 @@
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": false,
+            "isChild": false,
             "filter": {
               "default": {
                 "view": "terrama2_47:view47"
@@ -1190,6 +1821,48 @@
             "legend": {
               "title": "UC x CAR_PRODES",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_47:view47"
+            },
+            "infoColumns": {
+              "apv_car_prodes_40_dd_prodes_inpe_mainclass": {
+                "show": false,
+                "alias": "apv_car_prodes_40_dd_prodes_inpe_mainclass"
+              },
+              "apv_car_prodes_40_de_car_validado_sema_area_ha_": {
+                "show": true,
+                "alias": "Área do imóvel (ha)"
+              },
+              "apv_car_prodes_40_de_car_validado_sema_numero_do1": {
+                "show": true,
+                "alias": "CAR estadual"
+              },
+              "apv_car_prodes_40_de_car_validado_sema_numero_do2": {
+                "show": true,
+                "alias": "CAR federal"
+              },
+              "apv_uc_carprodes_65_id": {
+                "show": false,
+                "alias": "apv_uc_carprodes_65_id"
+              },
+              "calculated_area_ha": {
+                "show": true,
+                "alias": "Área (ha)"
+              },
+              "execution_date": {
+                "show": true,
+                "alias": "Data"
+              },
+              "intersect_id": {
+                "show": false,
+                "alias": "intersect_id"
+              },
+              "intersection_geom": {
+                "show": false,
+                "alias": "intersection_geom"
+              },
+              "monitored_id": {
+                "show": false,
+                "alias": "monitored_id"
+              }
             }
           }
         ]
@@ -1216,6 +1889,7 @@
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": true,
+            "isChild": false,
             "filter": {
               "default": {
                 "view": "terrama2_52:view52"
@@ -1276,6 +1950,56 @@
             "legend": {
               "title": "CAR x FOCOS",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_52:view52"
+            },
+            "infoColumns": {
+              "apv_car_prodes_40_id": {
+                "show": false,
+                "alias": "apv_car_focos_48_id"
+              },
+              "calculated_area_ha": {
+                "show": true,
+                "alias": "Área (ha)"
+              },
+              "dd_focos_inpe_bioma": {
+                "show": true,
+                "alias": "Bioma"
+              },
+              "dd_focos_inpe_id_2": {
+                "show": false,
+                "alias": "dd_focos_inpe_id_2"
+              },
+              "de_car_validado_sema_area_ha_": {
+                "show": true,
+                "alias": "Área do imóvel (ha)"
+              },
+              "de_car_validado_sema_municipio1": {
+                "show": true,
+                "alias": "Município"
+              },
+              "de_car_validado_sema_numero_do1": {
+                "show": true,
+                "alias": "CAR estadual"
+              },
+              "de_car_validado_sema_numero_do2": {
+                "show": true,
+                "alias": "CAR federal"
+              },
+              "execution_date": {
+                "show": false,
+                "alias": "Data"
+              },
+              "intersect_id": {
+                "show": false,
+                "alias": "intersect_id"
+              },
+              "intersection_geom": {
+                "show": false,
+                "alias": "intersection_geom"
+              },
+              "monitored_id": {
+                "show": false,
+                "alias": "monitored_id"
+              }
             }
           },
           {
@@ -1292,6 +2016,7 @@
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": false,
+            "isChild": true,
             "filter": {
               "default": {
                 "view": "terrama2_53:view53"
@@ -1351,6 +2076,60 @@
             "legend": {
               "title": "APP x CAR_FOCOS",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_53:view53"
+            },
+            "infoColumns": {
+              "apv_app_carfocos_49_id": {
+                "show": false,
+                "alias": "apv_app_carfocos_49_id"
+              },
+              "apv_car_focos_48_dd_focos_inpe_bioma": {
+                "show": true,
+                "alias": "Bioma"
+              },
+              "apv_car_focos_48_dd_focos_inpe_id_2": {
+                "show": false,
+                "alias": "apv_car_focos_48_dd_focos_inpe_id_2"
+              },
+              "apv_car_focos_48_dd_focos_inpe_municipio": {
+                "show": true,
+                "alias": "Município"
+              },
+              "apv_car_focos_48_dd_focos_inpe_satelite": {
+                "show": true,
+                "alias": "Satélite"
+              },
+              "apv_car_focos_48_de_car_validado_sema_area_ha_": {
+                "show": true,
+                "alias": "Área imóvel"
+              },
+              "apv_car_focos_48_de_car_validado_sema_numero_do1": {
+                "show": true,
+                "alias": "CAR estadual"
+              },
+              "apv_car_focos_48_de_car_validado_sema_numero_do2": {
+                "show": true,
+                "alias": "CAR federal"
+              },
+              "calculated_area_ha": {
+                "show": true,
+                "alias": "Área (ha)"
+              },
+              "execution_date": {
+                "show": true,
+                "alias": "Data"
+              },
+              "intersect_id": {
+                "show": false,
+                "alias": "intersect_id"
+              },
+              "intersection_geom": {
+                "show": false,
+                "alias": "intersection_geom"
+              },
+              "monitored_id": {
+                "show": false,
+                "alias": "monitored_id"
+              }
             }
           },
           {
@@ -1367,6 +2146,7 @@
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": false,
+            "isChild": true,
             "filter": {
               "default": {
                 "view": "terrama2_54:view54"
@@ -1427,6 +2207,60 @@
             "legend": {
               "title": "UsoAnt x CAR_FOCOS",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_54:view54"
+            },
+            "infoColumns": {
+              "apv_car_focos_48_dd_focos_inpe_bioma": {
+                "show": true,
+                "alias": "Bioma"
+              },
+              "apv_car_focos_48_dd_focos_inpe_id_2": {
+                "show": false,
+                "alias": "apv_car_focos_48_dd_focos_inpe_id_2"
+              },
+              "apv_car_focos_48_dd_focos_inpe_municipio": {
+                "show": true,
+                "alias": "Município"
+              },
+              "apv_car_focos_48_dd_focos_inpe_satelite": {
+                "show": true,
+                "alias": "Satélite"
+              },
+              "apv_car_focos_48_de_car_validado_sema_area_ha_": {
+                "show": true,
+                "alias": "Área imóvel"
+              },
+              "apv_car_focos_48_de_car_validado_sema_numero_do1": {
+                "show": true,
+                "alias": "CAR estadual"
+              },
+              "apv_car_focos_48_de_car_validado_sema_numero_do2": {
+                "show": true,
+                "alias": "CAR federal"
+              },
+              "apv_usoant_carfocos_50_id": {
+                "show": false,
+                "alias": "apv_usoant_carfocos_50_id"
+              },
+              "calculated_area_ha": {
+                "show": true,
+                "alias": "Área (ha)"
+              },
+              "execution_date": {
+                "show": true,
+                "alias": "Data"
+              },
+              "intersect_id": {
+                "show": false,
+                "alias": "intersect_id"
+              },
+              "intersection_geom": {
+                "show": false,
+                "alias": "intersection_geom"
+              },
+              "monitored_id": {
+                "show": false,
+                "alias": "monitored_id"
+              }
             }
           },
           {
@@ -1443,6 +2277,7 @@
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": false,
+            "isChild": true,
             "filter": {
               "default": {
                 "view": "terrama2_55:view55"
@@ -1503,6 +2338,60 @@
             "legend": {
               "title": "Reserva x CAR_FOCOS",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_55:view55"
+            },
+            "infoColumns": {
+              "apv_car_focos_48_dd_focos_inpe_bioma": {
+                "show": true,
+                "alias": "Bioma"
+              },
+              "apv_car_focos_48_dd_focos_inpe_id_2": {
+                "show": false,
+                "alias": "apv_car_focos_48_dd_focos_inpe_id_2"
+              },
+              "apv_car_focos_48_dd_focos_inpe_municipio": {
+                "show": true,
+                "alias": "Município"
+              },
+              "apv_car_focos_48_dd_focos_inpe_satelite": {
+                "show": true,
+                "alias": "Satélite"
+              },
+              "apv_car_focos_48_de_car_validado_sema_area_ha_": {
+                "show": true,
+                "alias": "Área imóvel"
+              },
+              "apv_car_focos_48_de_car_validado_sema_numero_do1": {
+                "show": true,
+                "alias": "CAR estadual"
+              },
+              "apv_car_focos_48_de_car_validado_sema_numero_do2": {
+                "show": true,
+                "alias": "CAR federal"
+              },
+              "apv_reserva_carfocos_51_id": {
+                "show": false,
+                "alias": "apv_usoant_carfocos_50_id"
+              },
+              "calculated_area_ha": {
+                "show": true,
+                "alias": "Área (ha)"
+              },
+              "execution_date": {
+                "show": true,
+                "alias": "Data"
+              },
+              "intersect_id": {
+                "show": false,
+                "alias": "intersect_id"
+              },
+              "intersection_geom": {
+                "show": false,
+                "alias": "intersection_geom"
+              },
+              "monitored_id": {
+                "show": false,
+                "alias": "monitored_id"
+              }
             }
           },
           {
@@ -1519,6 +2408,7 @@
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": false,
+            "isChild": true,
             "filter": {
               "default": {
                 "view": "terrama2_56:view56"
@@ -1578,6 +2468,60 @@
             "legend": {
               "title": "VegNat x CAR_FOCOS",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_56:view56"
+            },
+            "infoColumns": {
+              "apv_car_focos_48_dd_focos_inpe_bioma": {
+                "show": true,
+                "alias": "Bioma"
+              },
+              "apv_car_focos_48_dd_focos_inpe_id_2": {
+                "show": false,
+                "alias": "apv_car_focos_48_dd_focos_inpe_id_2"
+              },
+              "apv_car_focos_48_dd_focos_inpe_municipio": {
+                "show": true,
+                "alias": "Município"
+              },
+              "apv_car_focos_48_dd_focos_inpe_satelite": {
+                "show": true,
+                "alias": "Satélite"
+              },
+              "apv_car_focos_48_de_car_validado_sema_area_ha_": {
+                "show": true,
+                "alias": "Área imóvel"
+              },
+              "apv_car_focos_48_de_car_validado_sema_numero_do1": {
+                "show": true,
+                "alias": "CAR estadual"
+              },
+              "apv_car_focos_48_de_car_validado_sema_numero_do2": {
+                "show": true,
+                "alias": "CAR federal"
+              },
+              "apv_veg_carfocos_52_id": {
+                "show": false,
+                "alias": "apv_veg_carfocos_52_id"
+              },
+              "calculated_area_ha": {
+                "show": true,
+                "alias": "Área (ha)"
+              },
+              "execution_date": {
+                "show": true,
+                "alias": "Data"
+              },
+              "intersect_id": {
+                "show": false,
+                "alias": "intersect_id"
+              },
+              "intersection_geom": {
+                "show": false,
+                "alias": "intersection_geom"
+              },
+              "monitored_id": {
+                "show": false,
+                "alias": "monitored_id"
+              }
             }
           },
           {
@@ -1594,6 +2538,7 @@
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": false,
+            "isChild": true,
             "filter": {
               "default": {
                 "view": "terrama2_57:view57"
@@ -1653,6 +2598,60 @@
             "legend": {
               "title": "UsoCon x CAR_FOCOS",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_57:view57"
+            },
+            "infoColumns": {
+              "apv_car_focos_48_dd_focos_inpe_bioma": {
+                "show": true,
+                "alias": "Bioma"
+              },
+              "apv_car_focos_48_dd_focos_inpe_id_2": {
+                "show": false,
+                "alias": "apv_car_focos_48_dd_focos_inpe_id_2"
+              },
+              "apv_car_focos_48_dd_focos_inpe_municipio": {
+                "show": true,
+                "alias": "Município"
+              },
+              "apv_car_focos_48_dd_focos_inpe_satelite": {
+                "show": true,
+                "alias": "Satélite"
+              },
+              "apv_car_focos_48_de_car_validado_sema_area_ha_": {
+                "show": true,
+                "alias": "Área imóvel"
+              },
+              "apv_car_focos_48_de_car_validado_sema_numero_do1": {
+                "show": true,
+                "alias": "CAR estadual"
+              },
+              "apv_car_focos_48_de_car_validado_sema_numero_do2": {
+                "show": true,
+                "alias": "CAR federal"
+              },
+              "apv_usocon_carfocos_53_id": {
+                "show": false,
+                "alias": "apv_usocon_carfocos_53_id"
+              },
+              "calculated_area_ha": {
+                "show": true,
+                "alias": "Área (ha)"
+              },
+              "execution_date": {
+                "show": true,
+                "alias": "Data"
+              },
+              "intersect_id": {
+                "show": false,
+                "alias": "intersect_id"
+              },
+              "intersection_geom": {
+                "show": false,
+                "alias": "intersection_geom"
+              },
+              "monitored_id": {
+                "show": false,
+                "alias": "monitored_id"
+              }
             }
           },
           {
@@ -1669,6 +2668,7 @@
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": false,
+            "isChild": false,
             "filter": {
               "default": {
                 "view": "terrama2_58:view58"
@@ -1729,6 +2729,60 @@
             "legend": {
               "title": "TI x CAR_FOCOS",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_58:view58"
+            },
+            "infoColumns": {
+              "apv_car_focos_48_dd_focos_inpe_bioma": {
+                "show": true,
+                "alias": "Bioma"
+              },
+              "apv_car_focos_48_dd_focos_inpe_id_2": {
+                "show": false,
+                "alias": "apv_car_focos_48_dd_focos_inpe_id_2"
+              },
+              "apv_car_focos_48_dd_focos_inpe_municipio": {
+                "show": true,
+                "alias": "Município"
+              },
+              "apv_car_focos_48_dd_focos_inpe_satelite": {
+                "show": true,
+                "alias": "Satélite"
+              },
+              "apv_car_focos_48_de_car_validado_sema_area_ha_": {
+                "show": true,
+                "alias": "Área imóvel"
+              },
+              "apv_car_focos_48_de_car_validado_sema_numero_do1": {
+                "show": true,
+                "alias": "CAR estadual"
+              },
+              "apv_car_focos_48_de_car_validado_sema_numero_do2": {
+                "show": true,
+                "alias": "CAR federal"
+              },
+              "apv_ti_carfocos_70_id": {
+                "show": false,
+                "alias": "apv_ti_carfocos_70_id"
+              },
+              "calculated_area_ha": {
+                "show": true,
+                "alias": "Área (ha)"
+              },
+              "execution_date": {
+                "show": true,
+                "alias": "Data"
+              },
+              "intersect_id": {
+                "show": false,
+                "alias": "intersect_id"
+              },
+              "intersection_geom": {
+                "show": false,
+                "alias": "intersection_geom"
+              },
+              "monitored_id": {
+                "show": false,
+                "alias": "monitored_id"
+              }
             }
           },
           {
@@ -1745,6 +2799,7 @@
             "type": "analysis",
             "isPrivate": false,
             "isPrimary": false,
+            "isChild": false,
             "filter": {
               "default": {
                 "view": "terrama2_59:view59"
@@ -1804,6 +2859,60 @@
             "legend": {
               "title": "UC x CAR_FOCOS",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_59:view59"
+            },
+            "infoColumns": {
+              "apv_car_focos_48_dd_focos_inpe_bioma": {
+                "show": true,
+                "alias": "Bioma"
+              },
+              "apv_car_focos_48_dd_focos_inpe_id_2": {
+                "show": false,
+                "alias": "apv_car_focos_48_dd_focos_inpe_id_2"
+              },
+              "apv_car_focos_48_dd_focos_inpe_municipio": {
+                "show": true,
+                "alias": "Município"
+              },
+              "apv_car_focos_48_dd_focos_inpe_satelite": {
+                "show": true,
+                "alias": "Satélite"
+              },
+              "apv_car_focos_48_de_car_validado_sema_area_ha_": {
+                "show": true,
+                "alias": "Área imóvel"
+              },
+              "apv_car_focos_48_de_car_validado_sema_numero_do1": {
+                "show": true,
+                "alias": "CAR estadual"
+              },
+              "apv_car_focos_48_de_car_validado_sema_numero_do2": {
+                "show": true,
+                "alias": "CAR federal"
+              },
+              "de_unidade_cons_sema_gid": {
+                "show": false,
+                "alias": "de_unidade_cons_sema_gid"
+              },
+              "calculated_area_ha": {
+                "show": true,
+                "alias": "Área (ha)"
+              },
+              "execution_date": {
+                "show": true,
+                "alias": "Data"
+              },
+              "intersect_id": {
+                "show": false,
+                "alias": "intersect_id"
+              },
+              "intersection_geom": {
+                "show": false,
+                "alias": "intersection_geom"
+              },
+              "monitored_id": {
+                "show": false,
+                "alias": "monitored_id"
+              }
             }
           }
         ]
@@ -1851,6 +2960,28 @@
             "legend": {
               "title": "Limite Estadual",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_1:view1"
+            },
+            "infoColumns": {
+              "cd_geocuf": {
+                "show": false,
+                "alias": "cd_geocuf"
+              },
+              "geom": {
+                "show": false,
+                "alias": "geom"
+              },
+              "gid": {
+                "show": false,
+                "alias": "gid"
+              },
+              "nm_estado": {
+                "show": true,
+                "alias": "Estado"
+              },
+              "nm_regiao": {
+                "show": true,
+                "alias": "Região"
+              }
             }
           },
           {
@@ -1875,6 +3006,68 @@
             "legend": {
               "title": "Municípios",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_6:view6"
+            },
+            "infoColumns": {
+              "area__m2_": {
+                "show": true,
+                "alias": "area__m2_"
+              },
+              "cd_geocme": {
+                "show": false,
+                "alias": "cd_geocme"
+              },
+              "cd_geocmi": {
+                "show": false,
+                "alias": "cd_geocmi"
+              },
+              "comarca": {
+                "show": true,
+                "alias": "comarca"
+              },
+              "contato": {
+                "show": true,
+                "alias": "contato"
+              },
+              "entrancia": {
+                "show": true,
+                "alias": "entrancia"
+              },
+              "geocodigo": {
+                "show": false,
+                "alias": "geocodigo"
+              },
+              "geom": {
+                "show": false,
+                "alias": "geom"
+              },
+              "gid": {
+                "show": true,
+                "alias": "gid"
+              },
+              "id_munic": {
+                "show": true,
+                "alias": "id_munic"
+              },
+              "licenciam1": {
+                "show": true,
+                "alias": "licenciam1"
+              },
+              "municipio": {
+                "show": false,
+                "alias": "municipio"
+              },
+              "nm_meso": {
+                "show": false,
+                "alias": "nm_meso"
+              },
+              "nm_micro": {
+                "show": true,
+                "alias": "nm_micro"
+              },
+              "unidade_d1": {
+                "show": true,
+                "alias": "unidade_d1"
+              }
             }
           },
           {
@@ -1899,6 +3092,40 @@
             "legend": {
               "title": "Uso consolidado",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_12:view12"
+            },
+            "infoColumns": {
+              "area_ha_": {
+                "show": true,
+                "alias": "Área (ha)"
+              },
+              "geom": {
+                "show": false,
+                "alias": "geom"
+              },
+              "gid": {
+                "show": false,
+                "alias": "gid"
+              },
+              "id": {
+                "show": false,
+                "alias": "id"
+              },
+              "municipio1": {
+                "show": true,
+                "alias": "Município"
+              },
+              "nome_da_p1": {
+                "show": true,
+                "alias": "Imóvel"
+              },
+              "numero_do1": {
+                "show": true,
+                "alias": "CAR estadual"
+              },
+              "numero_do2": {
+                "show": true,
+                "alias": "CAR federal"
+              }
             }
           },
           {
@@ -1923,6 +3150,94 @@
             "legend": {
               "title": "CAR Validado",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_8:view8"
+            },
+            "infoColumns": {
+              "area_ha_": {
+                "show": true,
+                "alias": "Área (ha)"
+              },
+              "cpfcnpj": {
+                "show": true,
+                "alias": "CPF/CNPJ"
+              },
+              "geom": {
+                "show": false,
+                "alias": "geom"
+              },
+              "gid": {
+                "show": false,
+                "alias": "gid"
+              },
+              "id": {
+                "show": false,
+                "alias": "id"
+              },
+              "municipio1": {
+                "show": true,
+                "alias": "Município"
+              },
+              "nome_da_p1": {
+                "show": true,
+                "alias": "Imóvel"
+              },
+              "nomepropri": {
+                "show": true,
+                "alias": "Nome proprietário"
+              },
+              "numero_do1": {
+                "show": true,
+                "alias": "CAR estadual"
+              },
+              "numero_do2": {
+                "show": true,
+                "alias": "CAR federal"
+              },
+              "situacao_1": {
+                "show": true,
+                "alias": "Situação"
+              }
+            }
+          },
+          {
+            "label": "Microregião",
+            "shortLabel": "Microregião",
+            "value": "6",
+            "dateColumn": null,
+            "areaColumn": null,
+            "geomColumn": null,
+            "carRegisterColumn": null,
+            "classNameColumn": null,
+            "type": "static",
+            "isPrivate": false,
+            "isPrimary": false,
+            "layerData": {
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
+              "layers": "terrama2_6:view6",
+              "transparent": true,
+              "format": "image/png",
+              "version": "1.1.0"
+            },
+            "legend": {
+              "title": "Microregião",
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_6:view6"
+            },
+            "infoColumns": {
+              "cd_geocmi": {
+                "show": false,
+                "alias": "cd_geocmi"
+              },
+              "geom": {
+                "show": false,
+                "alias": "geom"
+              },
+              "gid": {
+                "show": false,
+                "alias": "gid"
+              },
+              "nm_micro": {
+                "show": true,
+                "alias": "Microregião"
+              }
             }
           },
           {
@@ -1946,7 +3261,45 @@
             },
             "legend": {
               "title": "Reserva_Legal",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_25:view25"
+                "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_25:view25"
+            },
+            "infoColumns": {
+              "area_ha_": {
+                "show": false,
+                "alias": "area_ha_"
+              },
+              "geom": {
+                "show": false,
+                "alias": "geom"
+              },
+              "gid": {
+                "show": false,
+                "alias": "gid"
+              },
+              "id": {
+                "show": false,
+                "alias": "id"
+              },
+              "municipio1": {
+                "show": false,
+                "alias": "municipio1"
+              },
+              "nome_da_p1": {
+                "show": false,
+                "alias": "nome_da_p1"
+              },
+              "numero_do1": {
+                "show": false,
+                "alias": "numero_do1"
+              },
+              "numero_do2": {
+                "show": false,
+                "alias": "numero_do2"
+              },
+              "tipologia": {
+                "show": false,
+                "alias": "tipologia"
+              }
             }
           },
           {
@@ -1971,6 +3324,128 @@
             "legend": {
               "title": "Rodovias",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_3:view3"
+            },
+            "infoColumns": {
+              "desc_coinc": {
+                "show": false,
+                "alias": "desc_coinc"
+              },
+              "ds_ato_leg": {
+                "show": false,
+                "alias": "ds_ato_leg"
+              },
+              "ds_coinc": {
+                "show": false,
+                "alias": "ds_coinc"
+              },
+              "ds_jurisdi": {
+                "show": false,
+                "alias": "ds_jurisdi"
+              },
+              "ds_legenda": {
+                "show": false,
+                "alias": "ds_legenda"
+              },
+              "ds_local_f": {
+                "show": false,
+                "alias": "ds_local_f"
+              },
+              "ds_local_i": {
+                "show": false,
+                "alias": "ds_local_i"
+              },
+              "ds_obra": {
+                "show": false,
+                "alias": "ds_obra"
+              },
+              "ds_superfi": {
+                "show": false,
+                "alias": "ds_superfi"
+              },
+              "ds_sup_fed": {
+                "show": false,
+                "alias": "ds_sup_fed"
+              },
+              "ds_tipo_ad": {
+                "show": false,
+                "alias": "ds_tipo_ad"
+              },
+              "est_coinc": {
+                "show": false,
+                "alias": "est_coinc"
+              },
+              "geom": {
+                "show": false,
+                "alias": "geom"
+              },
+              "gid": {
+                "show": false,
+                "alias": "gid"
+              },
+              "id_trecho_": {
+                "show": false,
+                "alias": "id_trecho_"
+              },
+              "id_versao": {
+                "show": false,
+                "alias": "id_versao"
+              },
+              "leg_multim": {
+                "show": false,
+                "alias": "leg_multim"
+              },
+              "marcador": {
+                "show": false,
+                "alias": "marcador"
+              },
+              "nm_tipo_tr": {
+                "show": false,
+                "alias": "nm_tipo_tr"
+              },
+              "sg_legenda": {
+                "show": false,
+                "alias": "sg_legenda"
+              },
+              "sg_tipo_tr": {
+                "show": false,
+                "alias": "sg_tipo_tr"
+              },
+              "sg_uf": {
+                "show": false,
+                "alias": "sg_uf"
+              },
+              "sup_est_co": {
+                "show": false,
+                "alias": "sup_est_co"
+              },
+              "ul": {
+                "show": false,
+                "alias": "ul"
+              },
+              "versao_snv": {
+                "show": false,
+                "alias": "versao_snv"
+              },
+              "vl_br": {
+                "show": false,
+                "alias": "vl_br"
+              },
+              "vl_codigo": {
+                "show": false,
+                "alias": "vl_codigo"
+              },
+              "vl_extensa": {
+                "show": false,
+                "alias": "vl_extensa"
+              },
+              "vl_km_fina": {
+                "show": false,
+                "alias": "vl_km_fina"
+              },
+              "vl_km_inic": {
+                "show": false,
+                "alias": "vl_km_inic"
+              }
             }
           },
           {
@@ -1995,6 +3470,48 @@
             "legend": {
               "title": "Sub-bacias",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_4:view4"
+            },
+            "infoColumns": {
+              "geom": {
+                "show": false,
+                "alias": "geom"
+              },
+              "gid": {
+                "show": false,
+                "alias": "gid"
+              },
+              "ps1_ar_ha": {
+                "show": false,
+                "alias": "ps1_ar_ha"
+              },
+              "ps1_ar_km2": {
+                "show": false,
+                "alias": "ps1_ar_km2"
+              },
+              "ps1_cd": {
+                "show": false,
+                "alias": "ps1_cd"
+              },
+              "ps1_gm_are": {
+                "show": false,
+                "alias": "ps1_gm_are"
+              },
+              "ps1_gm_per": {
+                "show": false,
+                "alias": "ps1_gm_per"
+              },
+              "ps1_gm_pol": {
+                "show": false,
+                "alias": "ps1_gm_pol"
+              },
+              "ps1_nm": {
+                "show": false,
+                "alias": "ps1_nm"
+              },
+              "ps1_rhi_cd": {
+                "show": false,
+                "alias": "ps1_rhi_cd"
+              }
             }
           },
           {
@@ -2019,6 +3536,68 @@
             "legend": {
               "title": "Área Pantaneira",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_16:view16"
+            },
+            "infoColumns": {
+              "area_ha_": {
+                "show": true,
+                "alias": "Área (ha)"
+              },
+              "area__m2_": {
+                "show": true,
+                "alias": "Área (m²)"
+              },
+              "codigo": {
+                "show": false,
+                "alias": "codigo"
+              },
+              "data_de_a1": {
+                "show": false,
+                "alias": "data_de_a1"
+              },
+              "data_de_e1": {
+                "show": false,
+                "alias": "data_de_e1"
+              },
+              "geom": {
+                "show": false,
+                "alias": "geom"
+              },
+              "gid": {
+                "show": false,
+                "alias": "gid"
+              },
+              "id": {
+                "show": false,
+                "alias": "id"
+              },
+              "idcar": {
+                "show": false,
+                "alias": "idcar"
+              },
+              "modulo_fi1": {
+                "show": false,
+                "alias": "modulo_fi1"
+              },
+              "municipio1": {
+                "show": true,
+                "alias": "Município"
+              },
+              "nome_da_p1": {
+                "show": true,
+                "alias": "Imóvel"
+              },
+              "numero_do1": {
+                "show": true,
+                "alias": "CAR estadual"
+              },
+              "numero_do2": {
+                "show": true,
+                "alias": "CAR federal"
+              },
+              "situacao_1": {
+                "show": true,
+                "alias": "Situação"
+              }
             }
           },
           {
@@ -2043,6 +3622,40 @@
             "legend": {
               "title": "Uso Antropizado",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_13:view13"
+            },
+            "infoColumns": {
+              "area_ha_": {
+                "show": true,
+                "alias": "Área (ha)"
+              },
+              "geom": {
+                "show": false,
+                "alias": "geom"
+              },
+              "gid": {
+                "show": false,
+                "alias": "gid"
+              },
+              "id": {
+                "show": false,
+                "alias": "id"
+              },
+              "municipio1": {
+                "show": true,
+                "alias": "Município"
+              },
+              "nome_da_p1": {
+                "show": true,
+                "alias": "Imóvel"
+              },
+              "numero_do1": {
+                "show": true,
+                "alias": "CAR estadual"
+              },
+              "numero_do2": {
+                "show": true,
+                "alias": "CAR federal"
+              }
             }
           },
           {
@@ -2067,6 +3680,40 @@
             "legend": {
               "title": "Área_APP",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_10:view10"
+            },
+            "infoColumns": {
+              "area_ha_": {
+                "show": true,
+                "alias": "Área (ha)"
+              },
+              "geom": {
+                "show": false,
+                "alias": "geom"
+              },
+              "gid": {
+                "show": false,
+                "alias": "gid"
+              },
+              "id": {
+                "show": false,
+                "alias": "id"
+              },
+              "municipio1": {
+                "show": true,
+                "alias": "Município"
+              },
+              "nome_da_p1": {
+                "show": true,
+                "alias": "Imóvel"
+              },
+              "numero_do1": {
+                "show": true,
+                "alias": "CAR estadual"
+              },
+              "numero_do2": {
+                "show": true,
+                "alias": "CAR federal"
+              }
             }
           },
           {
@@ -2091,6 +3738,40 @@
             "legend": {
               "title": "Vegetação Nativa",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_14:view14"
+            },
+            "infoColumns": {
+              "area_ha_": {
+                "show": true,
+                "alias": "Área (ha)"
+              },
+              "geom": {
+                "show": false,
+                "alias": "geom"
+              },
+              "gid": {
+                "show": false,
+                "alias": "gid"
+              },
+              "id": {
+                "show": false,
+                "alias": "id"
+              },
+              "municipio1": {
+                "show": true,
+                "alias": "Município"
+              },
+              "nome_da_p1": {
+                "show": true,
+                "alias": "Imóvel"
+              },
+              "numero_do1": {
+                "show": true,
+                "alias": "CAR estadual"
+              },
+              "numero_do2": {
+                "show": true,
+                "alias": "CAR federal"
+              }
             }
           },
           {
@@ -2115,6 +3796,24 @@
             "legend": {
               "title": "Biomas MT",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_106:view106"
+            },
+            "infoColumns": {
+              "bioma": {
+                "show": true,
+                "alias": "Bioma"
+              },
+              "cd_bioma": {
+                "show": false,
+                "alias": "cd_bioma"
+              },
+              "geom": {
+                "show": false,
+                "alias": "geom"
+              },
+              "gid": {
+                "show": false,
+                "alias": "gid"
+              }
             }
           },
           {
@@ -2139,6 +3838,72 @@
             "legend": {
               "title": "Unidade Conservação",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_18:view18"
+            },
+            "infoColumns": {
+              "area_calc1": {
+                "show": false,
+                "alias": "area_calc1"
+              },
+              "area__m2_": {
+                "show": false,
+                "alias": "area__m2_"
+              },
+              "area_ofic1": {
+                "show": false,
+                "alias": "area_ofic1"
+              },
+              "ato_legal": {
+                "show": false,
+                "alias": "ato_legal"
+              },
+              "categoria": {
+                "show": true,
+                "alias": "categoria"
+              },
+              "codigo_uc": {
+                "show": false,
+                "alias": "codigo_uc"
+              },
+              "data_cada1": {
+                "show": false,
+                "alias": "data_cada1"
+              },
+              "geom": {
+                "show": false,
+                "alias": "geom"
+              },
+              "gid": {
+                "show": true,
+                "alias": "gid"
+              },
+              "grupo": {
+                "show": false,
+                "alias": "grupo"
+              },
+              "jurisdica1": {
+                "show": false,
+                "alias": "jurisdica1"
+              },
+              "nome": {
+                "show": false,
+                "alias": "nome"
+              },
+              "operador": {
+                "show": false,
+                "alias": "operador"
+              },
+              "origem": {
+                "show": false,
+                "alias": "origem"
+              },
+              "plano_man1": {
+                "show": false,
+                "alias": "plano_man1"
+              },
+              "versao": {
+                "show": false,
+                "alias": "versao"
+              }
             }
           },
           {
@@ -2163,6 +3928,68 @@
             "legend": {
               "title": "Terra Indígena",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_17:view17"
+            },
+            "infoColumns": {
+              "ano_popul1": {
+                "show": false,
+                "alias": "ano_popul1"
+              },
+              "area_ha": {
+                "show": false,
+                "alias": "Área (ha)"
+              },
+              "area__m2_": {
+                "show": false,
+                "alias": "area__m2_"
+              },
+              "data_inst": {
+                "show": false,
+                "alias": "data_inst"
+              },
+              "etnia": {
+                "show": true,
+                "alias": "etnia"
+              },
+              "geom": {
+                "show": false,
+                "alias": "geom"
+              },
+              "gid": {
+                "show": false,
+                "alias": "gid"
+              },
+              "inst_lega1": {
+                "show": false,
+                "alias": "inst_lega1"
+              },
+              "municipio": {
+                "show": true,
+                "alias": "municipio"
+              },
+              "nome": {
+                "show": false,
+                "alias": "nome"
+              },
+              "nome_ti_a1": {
+                "show": false,
+                "alias": "nome_ti_a1"
+              },
+              "objectid": {
+                "show": false,
+                "alias": "objectid"
+              },
+              "populacao": {
+                "show": false,
+                "alias": "populacao"
+              },
+              "shape_len1": {
+                "show": false,
+                "alias": "shape_len1"
+              },
+              "sit_jurid1": {
+                "show": false,
+                "alias": "sit_jurid1"
+              }
             }
           },
           {
@@ -2187,6 +4014,36 @@
             "legend": {
               "title": "Sistema Viário",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_5:view5"
+            },
+            "infoColumns": {
+              "codigotipo": {
+                "show": false,
+                "alias": "codigotipo"
+              },
+              "geom": {
+                "show": false,
+                "alias": "geom"
+              },
+              "gid": {
+                "show": false,
+                "alias": "gid"
+              },
+              "km": {
+                "show": false,
+                "alias": "km"
+              },
+              "nome": {
+                "show": true,
+                "alias": "nome"
+              },
+              "shape_leng": {
+                "show": false,
+                "alias": "shape_leng"
+              },
+              "situacao": {
+                "show": false,
+                "alias": "situacao"
+              }
             }
           },
           {
@@ -2211,6 +4068,114 @@
             "legend": {
               "title": "Projus Bacias",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_15:view15"
+            },
+            "infoColumns": {
+              "area_ha": {
+                "show": false,
+                "alias": "area_ha"
+              },
+              "area_km2": {
+                "show": false,
+                "alias": "area_km2"
+              },
+              "fid_promot": {
+                "show": false,
+                "alias": "fid_promot"
+              },
+              "geom": {
+                "show": false,
+                "alias": "geom"
+              },
+              "gid": {
+                "show": true,
+                "alias": "gid"
+              },
+              "pjbh": {
+                "show": false,
+                "alias": "pjbh"
+              },
+              "promotoria": {
+                "show": false,
+                "alias": "promotoria"
+              },
+              "shape_area": {
+                "show": true,
+                "alias": "shape_area"
+              },
+              "shape_le_1": {
+                "show": false,
+                "alias": "shape_le_1"
+              },
+              "shape_leng": {
+                "show": false,
+                "alias": "shape_leng"
+              }
+            }
+          },
+          {
+            "label": "Comarcas - Entrância",
+            "shortLabel": "Comarcas - Entrância",
+            "value": "108",
+            "dateColumn": null,
+            "areaColumn": null,
+            "geomColumn": null,
+            "carRegisterColumn": null,
+            "classNameColumn": null,
+            "type": "static",
+            "isPrivate": false,
+            "isPrimary": false,
+            "layerData": {
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
+              "layers": "terrama2_108:view108",
+              "transparent": true,
+              "format": "image/png",
+              "version": "1.1.0"
+            },
+            "legend": {
+              "title": "Comarcas - Entrância",
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_108:view108"
+            },
+            "infoColumns": {
+              "area_ha": {
+                "show": false,
+                "alias": "area_ha"
+              },
+              "area_km2": {
+                "show": false,
+                "alias": "area_km2"
+              },
+              "fid_promot": {
+                "show": false,
+                "alias": "fid_promot"
+              },
+              "geom": {
+                "show": false,
+                "alias": "geom"
+              },
+              "gid": {
+                "show": true,
+                "alias": "gid"
+              },
+              "pjbh": {
+                "show": false,
+                "alias": "pjbh"
+              },
+              "promotoria": {
+                "show": false,
+                "alias": "promotoria"
+              },
+              "shape_area": {
+                "show": true,
+                "alias": "shape_area"
+              },
+              "shape_le_1": {
+                "show": false,
+                "alias": "shape_le_1"
+              },
+              "shape_leng": {
+                "show": false,
+                "alias": "shape_leng"
+              }
             }
           },
           {
@@ -2235,6 +4200,52 @@
             "legend": {
               "title": "Autorização Desmate",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_21:view21"
+            },
+            "infoColumns": {
+              "area_ha": {
+                "show": false,
+                "alias": "area_ha"
+              },
+              "data_da_a1": {
+                "show": false,
+                "alias": "data_da_a1"
+              },
+              "data_do_v1": {
+                "show": false,
+                "alias": "data_do_v1"
+              },
+              "empreendi1": {
+                "show": false,
+                "alias": "empreendi1"
+              },
+              "geom": {
+                "show": true,
+                "alias": "geom"
+              },
+              "gid": {
+                "show": false,
+                "alias": "gid"
+              },
+              "id": {
+                "show": false,
+                "alias": "id"
+              },
+              "modelo": {
+                "show": true,
+                "alias": "modelo"
+              },
+              "numero_do1": {
+                "show": false,
+                "alias": "numero_do1"
+              },
+              "numero_do2": {
+                "show": false,
+                "alias": "numero_do2"
+              },
+              "numero_do3": {
+                "show": false,
+                "alias": "numero_do3"
+              }
             }
           },
           {
@@ -2259,6 +4270,64 @@
             "legend": {
               "title": "Áreas Desembargadas",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_20:view20"
+            },
+            "infoColumns": {
+              "a_infraca1": {
+                "show": false,
+                "alias": "a_infraca1"
+              },
+              "ano": {
+                "show": false,
+                "alias": "ano"
+              },
+              "area_1": {
+                "show": false,
+                "alias": "area_1"
+              },
+              "area__m2_": {
+                "show": false,
+                "alias": "area__m2_"
+              },
+              "coord_x": {
+                "show": true,
+                "alias": "coord_x"
+              },
+              "coord_y": {
+                "show": false,
+                "alias": "coord_y"
+              },
+              "cpf": {
+                "show": false,
+                "alias": "cpf"
+              },
+              "dano": {
+                "show": true,
+                "alias": "dano"
+              },
+              "geom": {
+                "show": false,
+                "alias": "geom"
+              },
+              "gid": {
+                "show": false,
+                "alias": "gid"
+              },
+              "id": {
+                "show": false,
+                "alias": "id"
+              },
+              "nome": {
+                "show": true,
+                "alias": "nome"
+              },
+              "proprieda1": {
+                "show": false,
+                "alias": "proprieda1"
+              },
+              "t_embargo": {
+                "show": false,
+                "alias": "t_embargo"
+              }
             }
           },
           {
@@ -2283,6 +4352,64 @@
             "legend": {
               "title": "Autorização Queima Controlada",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_22:view22"
+            },
+            "infoColumns": {
+              "data_apro1": {
+                "show": false,
+                "alias": "data_apro1"
+              },
+              "data_venc1": {
+                "show": false,
+                "alias": "data_venc1"
+              },
+              "geom": {
+                "show": false,
+                "alias": "geom"
+              },
+              "gid": {
+                "show": false,
+                "alias": "gid"
+              },
+              "id": {
+                "show": true,
+                "alias": "id"
+              },
+              "municipio": {
+                "show": false,
+                "alias": "municipio"
+              },
+              "pdf_docum1": {
+                "show": false,
+                "alias": "pdf_docum1"
+              },
+              "proprieta1": {
+                "show": true,
+                "alias": "proprieta1"
+              },
+              "protocolo1": {
+                "show": false,
+                "alias": "protocolo1"
+              },
+              "razao_soc1": {
+                "show": false,
+                "alias": "razao_soc1"
+              },
+              "responsav1": {
+                "show": false,
+                "alias": "responsav1"
+              },
+              "situacao": {
+                "show": true,
+                "alias": "situacao"
+              },
+              "tipo": {
+                "show": false,
+                "alias": "tipo"
+              },
+              "titulo_nu1": {
+                "show": false,
+                "alias": "titulo_nu1"
+              }
             }
           },
           {
@@ -2307,6 +4434,80 @@
             "legend": {
               "title": "Áreas Embargadas",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_19:view19"
+            },
+            "infoColumns": {
+              "a_infrac": {
+                "show": false,
+                "alias": "a_infrac"
+              },
+              "ano": {
+                "show": false,
+                "alias": "ano"
+              },
+              "ano_desma1": {
+                "show": false,
+                "alias": "ano_desma1"
+              },
+              "area__m2_": {
+                "show": false,
+                "alias": "area__m2_"
+              },
+              "coord_x": {
+                "show": true,
+                "alias": "coord_x"
+              },
+              "coord_y": {
+                "show": false,
+                "alias": "coord_y"
+              },
+              "cpf": {
+                "show": false,
+                "alias": "cpf"
+              },
+              "dano": {
+                "show": true,
+                "alias": "dano"
+              },
+              "fonte": {
+                "show": false,
+                "alias": "fonte"
+              },
+              "geom": {
+                "show": false,
+                "alias": "geom"
+              },
+              "gid": {
+                "show": false,
+                "alias": "gid"
+              },
+              "mes": {
+                "show": true,
+                "alias": "mes"
+              },
+              "nome": {
+                "show": false,
+                "alias": "nome"
+              },
+              "proprieda1": {
+                "show": false,
+                "alias": "proprieda1"
+              },
+              "shape_are1": {
+                "show": false,
+                "alias": "shape_are1"
+              },
+              "shape_len1": {
+                "show": true,
+                "alias": "shape_len1"
+              },
+              "situacao": {
+                "show": false,
+                "alias": "situacao"
+              },
+              "t_embargo": {
+                "show": false,
+                "alias": "t_embargo"
+              }
             }
           }
         ]
@@ -2717,7 +4918,7 @@
       "reportLayers": [
         {
           "label": "CAR",
-          "value": "5",
+          "value": "8",
           "type": "report",
           "sum": false,
           "count": false,
@@ -2728,7 +4929,7 @@
         {
           "codgroup": "DETER",
           "label": "CAR X DETER",
-          "value": "86",
+          "value": "27",
           "type": "report",
           "sum": true,
           "count": true,
@@ -2742,7 +4943,7 @@
         {
           "codgroup": "PRODES",
           "label": "CAR X PRODES",
-          "value": "87",
+          "value": "39",
           "type": "report",
           "sum": true,
           "count": true,
@@ -2829,7 +5030,7 @@
     ],
     "propertyData": {
       "url": "/api/report/getCarData",
-      "viewId": "5"
+      "viewId": "8"
     },
     "visions": [
       {
@@ -3097,7 +5298,7 @@
         "carRegisterColumn": "numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_5:MosaicSpot2008_car_validado",
+          "layers": "terrama2_5:MosaicSpot2008_X_car_validado",
           "transparent": true,
           "format": "image/png",
           "version": "1.1.0",
@@ -3115,7 +5316,7 @@
         "carRegisterColumn": "numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_5:MosaicSpot2008_car_validado",
+          "layers": "terrama2_5:MosaicSpot2008_X_car_validado",
           "transparent": true,
           "format": "image/png",
           "version": "1.1.0",

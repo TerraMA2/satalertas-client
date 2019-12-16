@@ -38,6 +38,7 @@ import { SelectedMarker } from 'src/app/models/selected-marker.model';
 import { TableService } from 'src/app/services/table.service';
 
 import {View} from '../../models/view.model';
+
 import {FilterUtils} from '../../utils/filter.utils';
 
 @Component({
@@ -736,7 +737,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   setReportTableControlEvent() {
     L.DomEvent.on(L.DomUtil.get('reportTableBtn'), 'dblclick', L.DomEvent.stopPropagation);
     document.querySelector('#reportTableBtn').addEventListener('click', () => {
-      this.displayTable = !this.displayTable;
+      if (!this.displayTable) {
+        this.displayTable = true;
+      }
       this.tableReportActive = !this.tableReportActive;
       this.tableService.loadReportTableData.next();
       this.sidebarService.sidebarReload.next();
@@ -804,6 +807,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     let popupTable = '';
     for (const selectedLayer of this.selectedLayers) {
+      const infoColumns = selectedLayer.infoColumns;
       const layer = this.getLayer(selectedLayer.layerData);
       const layerName = selectedLayer.label;
 
@@ -813,14 +817,14 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         url = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wfs`;
         params = this.getWFSFeatureInfoParams(layer);
       } else {
-        url = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms`;
-        params = this.getWMSFeatureInfoParams(layer, event);
+      url = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms`;
+      params = this.getWMSFeatureInfoParams(layer, event);
       }
 
       await this.hTTPService.get(url, params).toPromise().then((layerInfo: LayerInfo) => {
         const features = layerInfo.features;
         if (features && features.length > 0) {
-          popupTable += this.getFeatureInfoPopup(layerName, features);
+          popupTable += this.getFeatureInfoPopup(layerName, features, infoColumns);
         }
       });
     }
@@ -881,32 +885,30 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     return params;
   }
 
-  getFeatureInfoPopup(layerName: string, features: LayerInfoFeature[]) {
+  getFeatureInfoPopup(layerName: string, features: LayerInfoFeature[], infoColumns = null) {
     let popupContent = '';
     if (features) {
       features.forEach(feature => {
         const properties = feature.properties;
         if (properties) {
-          popupContent += this.getPopupContent(properties, layerName);
+          popupContent += this.getPopupContent(properties, layerName, infoColumns);
         }
       });
     }
     return popupContent;
   }
 
-  getPopupContent(data, name) {
+  getPopupContent(data, name, infoColumns = null) {
     let popupContent = '';
     let popupContentBody = '';
     Object.keys(data).forEach(key => {
-      if (key !== 'lat' &&
-          key !== 'long' &&
-          key !== 'geom' &&
-          key !== 'intersection_geom' &&
-          key !== 'bbox'
-          ) {
+      const column = infoColumns[key];
+      const show = column.show;
+      const alias = column.alias;
+      if (show) {
         popupContentBody += `
             <tr>
-              <td>${key}</td>
+              <td>${alias}</td>
               <td>${data[key]}</td>
             </tr>
         `;
