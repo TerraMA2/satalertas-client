@@ -128,9 +128,9 @@ export class ReportComponent implements OnInit {
 
       this.burningSpotlightsChartData = this.reportService.getBurningSpotlightsChart(propertyData.burningSpotlights);
 
-      this.burnedAreasChartData = this.reportService.getBurnedAreasChart(burnedAreas);
+      // this.burnedAreasChartData = this.reportService.getBurnedAreasChart(burnedAreas);
 
-      this.burnedAreasPerPropertyChartDatas = this.reportService.getBurnedAreasPerPropertyChart(burnedAreas, area);
+      // this.burnedAreasPerPropertyChartDatas = this.reportService.getBurnedAreasPerPropertyChart(burnedAreas, area);
     });
   }
 
