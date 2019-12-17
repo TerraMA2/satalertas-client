@@ -3071,7 +3071,7 @@
           },
           {
             "cod": "APP_AREA_QUEIMADA",
-            "codgroup": "DETER",
+            "codgroup": "AREA_QUEIMADA",
             "label": "APP x Área Queimada",
             "shortLabel": "APP",
             "value": "65",
@@ -3148,7 +3148,7 @@
           },
           {
             "cod": "USOANT_AREA_QUEIMADA",
-            "codgroup": "DETER",
+            "codgroup": "AREA_QUEIMADA",
             "label": "UsoAnt x Área Queimada",
             "shortLabel": "Uso antropizado",
             "value": "66",
@@ -3225,7 +3225,7 @@
           },
           {
             "cod": "RESERVA_AREA_QUEIMADA",
-            "codgroup": "DETER",
+            "codgroup": "AREA_QUEIMADA",
             "label": "Reservax Área Queimada",
             "shortLabel": "Reserva legal",
             "value": "67",
@@ -3302,7 +3302,7 @@
           },
           {
             "cod": "VEGNAT_AREA_QUEIMADA",
-            "codgroup": "DETER",
+            "codgroup": "AREA_QUEIMADA",
             "label": "VegNatx Área Queimada",
             "shortLabel": "Vegetação nativa",
             "value": "68",
@@ -3379,7 +3379,7 @@
           },
           {
             "cod": "USOCON_AREA_QUEIMADA",
-            "codgroup": "DETER",
+            "codgroup": "AREA_QUEIMADA",
             "label": "UsoConx Área Queimada",
             "shortLabel": "Uso consolidado",
             "value": "69",
@@ -3456,7 +3456,7 @@
           },
           {
             "cod": "TI_AREA_QUEIMADA",
-            "codgroup": "DETER",
+            "codgroup": "AREA_QUEIMADA",
             "label": "TI X AREA_QUEIMADA",
             "shortLabel": "Terra Indigena",
             "value": "70",
@@ -5573,7 +5573,7 @@
         {
           "codgroup": "AREA_QUEIMADA",
           "label": "CAR X AREA QUEIMADA",
-          "value": "",
+          "value": "64",
           "type": "report",
           "sum": true,
           "count": true,
