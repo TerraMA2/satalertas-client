@@ -195,7 +195,19 @@ export class ReportService {
                 '#FFCE56',
                 '#aa7900',
                 '#36A2EB',
-                '#FF6384'
+                '#FF6384',
+                '#FF0000',
+                '#00FF00',
+                '#0000FF',
+                '#F0D00',
+                '#FC00E0',
+                '#FD0F0F',
+                '#00D0C0',
+                '#00FC00',
+                '#00D0CF',
+                '#C0B00D',
+                '#EB00DC',
+                '#CB0D0B'
               ],
               data
           }
@@ -219,31 +231,11 @@ export class ReportService {
     const cityBBoxArray = propertyData.citybbox.split(',');
     const cityBBox = cityBBoxArray[0].split(' ').join(',') + ',' + cityBBoxArray[1].split(' ').join(',');
 
-    // const datetime = propertyData.prodesInfo['date'];
-    // const orbitpoint = propertyData.prodesInfo['orbitpoint'];
-    // const satellite = propertyData.prodesInfo['satellite'];
-    // const sensor = propertyData.prodesInfo['sensor'];
-
-    // const dateFormatted = new Date(datetime);
-
-    // const day = dateFormatted.getDate() + '';
-    // const month = (dateFormatted.getMonth() + 1) + '';
-    // const year = dateFormatted.getFullYear();
-
-    // const dateFormattedStr = `${day.padStart(2, '0')}${month.padStart(2, '0')}${year}`;
-    // const satelliteFormatted = satellite.charAt(0) + satellite.charAt(satellite.length - 1);
-
-    // const orbitpointFormatted = orbitpoint.substr(0, 3) + '_' + orbitpoint.substr(3, 5);
-
     const wildCards = [
       '{bbox}',
       '{citybbox}',
       '{cityCqlFilter}',
-      '{filterDate}',
-      // '{date}',
-      // '{orbitpoint}',
-      // '{satellite}',
-      // '{sensor}'
+      '{filterDate}'
     ];
     const cqlFilter = visionData.layerData['cql_filter'];
     if (carRegisterColumn) {
@@ -258,11 +250,7 @@ export class ReportService {
       bbox,
       cityBBox,
       `municipio='${propertyData.city}';numero_do1='${propertyData.register}'`,
-      `${date[0]}/${date[1]}`,
-      // dateFormattedStr,
-      // orbitpointFormatted,
-      // satelliteFormatted,
-      // sensor
+      `${date[0]}/${date[1]}`
     ];
     if (carRegisterColumn) {
       const carRegisterColumnArr = carRegisterColumn.split(';');
