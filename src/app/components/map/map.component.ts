@@ -813,12 +813,13 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
       let params = null;
       let url = '';
+
       if (selectedLayer.type === LayerType.ANALYSIS || selectedLayer.type === LayerType.DYNAMIC) {
         url = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wfs`;
         params = this.getWFSFeatureInfoParams(layer);
       } else {
-        url = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms`;
-        params = this.getWMSFeatureInfoParams(layer, event);
+      url = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms`;
+      params = this.getWMSFeatureInfoParams(layer, event);
       }
 
       await this.hTTPService.get(url, params).toPromise().then((layerInfo: LayerInfo) => {
