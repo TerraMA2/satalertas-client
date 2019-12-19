@@ -290,80 +290,6 @@
             "legend": {
               "title": "APP x CAR_DETER",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_28:view28"
-            },
-            "infoColumns":{
-              "a_cardeter_3_dd_deter_inpe_classname": {
-                "show": false,
-                "alias": "a_cardeter_3_dd_deter_inpe_classname"
-              },
-              "a_cardeter_3_de_car_validado_sema_area_ha_": {
-                "show": false,
-                "alias": "a_cardeter_3_de_car_validado_sema_area_ha_"
-              },
-              "a_cardeter_3_de_car_validado_sema_cpfcnpj": {
-                "show": false,
-                "alias": "a_cardeter_3_de_car_validado_sema_cpfcnpj"
-              },
-              "a_cardeter_3_de_car_validado_sema_municipio1": {
-                "show": "true",
-                "alias": "Municípios"
-              },
-              "a_cardeter_3_de_car_validado_sema_nome_da_p1": {
-                "show": false,
-                "alias": "a_cardeter_3_de_car_validado_sema_nome_da_p1"
-              },
-              "a_cardeter_3_de_car_validado_sema_nomepropri": {
-                "show": false,
-                "alias": "a_cardeter_3_de_car_validado_sema_nomepropri"
-              },
-              "a_cardeter_3_de_car_validado_sema_numero_do1": {
-                "show": true,
-                "alias": "CAR estadual"
-              },
-              "a_cardeter_3_de_car_validado_sema_numero_do2": {
-                "show": true,
-                "alias": "CAR federal"
-              },
-              "a_cardeter_3_de_car_validado_sema_situacao_1": {
-                "show": false,
-                "alias": "a_cardeter_3_de_car_validado_sema_situacao_1"
-              },
-              "a_cardeter_app_4_id": {
-                "show": false,
-                "alias": "a_cardeter_app_4_id"
-              },
-              "calculated_area_ha": {
-                "show": true,
-                "alias": "Área (ha)"
-              },
-              "de_area_app_sema_area_ha_": {
-                "show": true,
-                "alias": "Área do imóvel (ha)"
-              },
-              "de_area_app_sema_municipio1": {
-                "show": false,
-                "alias": "de_area_app_sema_municipio1"
-              },
-              "de_area_app_sema_nome_da_p1": {
-                "show": false,
-                "alias": "de_area_app_sema_nome_da_p1"
-              },
-              "execution_date": {
-                "show": true,
-                "alias": "Data"
-              },
-              "intersect_id": {
-                "show": false,
-                "alias": "intersect_id"
-              },
-              "intersection_geom": {
-                "show": false,
-                "alias": "intersection_geom"
-              },
-              "monitored_id": {
-                "show": false,
-                "alias": "monitored_id"
-              }
             }
           },
           {
@@ -5789,10 +5715,10 @@
           "text": "",
           "value": "{legalReserve}"
         },
-        "carRegisterColumn": "numero_do1;numero_do1",
+        "carRegisterColumn": "numero_do1;a_cardeter_3_de_car_validado_sema_numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_8:view8,terrama2_25:view25",
+          "layers": "terrama2_8:view8,terrama2_30:view30",
           "transparent": true,
           "format": "image/png",
           "version": "1.1.0",
@@ -5810,10 +5736,10 @@
           "text": "",
           "value": "{app}"
         },
-        "carRegisterColumn": "numero_do1;numero_do1",
+        "carRegisterColumn": "numero_do1;a_cardeter_3_de_car_validado_sema_numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_8:view8,terrama2_10:view10",
+          "layers": "terrama2_8:view8,terrama2_28:view28",
           "transparent": true,
           "format": "image/png",
           "version": "1.1.0",
@@ -5831,10 +5757,10 @@
           "text": "",
           "value": "{consolidatedArea}"
         },
-        "carRegisterColumn": "numero_do1;numero_do1",
+        "carRegisterColumn": "numero_do1;a_cardeter_3_de_car_validado_sema_numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_8:view8,terrama2_12:view12",
+          "layers": "terrama2_8:view8,terrama2_32:view32",
           "transparent": true,
           "format": "image/png",
           "version": "1.1.0",
@@ -5852,10 +5778,10 @@
           "text": "",
           "value": "{anthropizedUse}"
         },
-        "carRegisterColumn": "numero_do1;numero_do1",
+        "carRegisterColumn": "numero_do1;a_cardeter_3_de_car_validado_sema_numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_8:view8,terrama2_13:view13",
+          "layers": "terrama2_8:view8,terrama2_29:view29",
           "transparent": true,
           "format": "image/png",
           "version": "1.1.0",
@@ -5873,10 +5799,10 @@
           "text": "",
           "value": "{nativeVegetation}"
         },
-        "carRegisterColumn": "numero_do1;numero_do1",
+        "carRegisterColumn": "numero_do1;a_cardeter_3_de_car_validado_sema_numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_8:view8,terrama2_14:view14",
+          "layers": "terrama2_8:view8,terrama2_31:view31",
           "transparent": true,
           "format": "image/png",
           "version": "1.1.0",
@@ -5998,53 +5924,20 @@
     ],
     "burnedAreas": [
       {
-        "title": "Acumulado 2015",
-        "description": null,
-        "carRegisterColumn": "numero_do1",
+        "title": "{year}",
+        "description": {
+          "text":"",
+          "value": "{burnedAreas}"
+        },
+        "carRegisterColumn": "numero_do1;de_car_validado_sema_numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_8:view8",
+          "layers": "terrama2_8:view8,terrama2_64:view64",
           "transparent": true,
           "format": "image/png",
           "version": "1.1.0",
-          "time": "{filterDate}",
-          "cql_filter": "{propertyCqlFilter}",
-          "bbox": "{bbox}",
-          "width": "404",
-          "height": "431",
-          "srs": "EPSG:4674"
-        }
-      },
-      {
-        "title": "Acumulado 2017",
-        "description": null,
-        "carRegisterColumn": "numero_do1",
-        "layerData": {
-          "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_8:view8",
-          "transparent": true,
-          "format": "image/png",
-          "version": "1.1.0",
-          "time": "{filterDate}",
-          "cql_filter": "{propertyCqlFilter}",
-          "bbox": "{bbox}",
-          "width": "404",
-          "height": "431",
-          "srs": "EPSG:4674"
-        }
-      },
-      {
-        "title": "Acumulado 2019",
-        "description": null,
-        "carRegisterColumn": "numero_do1",
-        "layerData": {
-          "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
-          "layers": "terrama2_8:view8",
-          "transparent": true,
-          "format": "image/png",
-          "version": "1.1.0",
-          "time": "{filterDate}",
-          "cql_filter": "{propertyCqlFilter}",
+          "time": "{dateYear}/{year}",
+          "cql_filter": "{propertyCqlFilter};{propertyCqlFilter}",
           "bbox": "{bbox}",
           "width": "404",
           "height": "431",

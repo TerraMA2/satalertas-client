@@ -161,7 +161,7 @@ export class FinalReportComponent implements OnInit {
                         fileReader.addEventListener('load', () => resolve(fileReader.result), false);
                         fileReader.onerror = () => reject(this);
                         const fileBase64 = fileReader.readAsDataURL(response);
-                        this.image64mpmt = fileBase64;
+                        this.image64mpmt1 = fileBase64;
                       });
                     }
       );
@@ -172,7 +172,7 @@ export class FinalReportComponent implements OnInit {
                         fileReader.addEventListener('load', () => resolve(fileReader.result), false);
                         fileReader.onerror = () => reject(this);
                         const fileBase64 = fileReader.readAsDataURL(response);
-                        this.image64mpmt = fileBase64;
+                        this.image64mpmt2 = fileBase64;
                       });
                     }
       );
@@ -183,7 +183,7 @@ export class FinalReportComponent implements OnInit {
                         fileReader.addEventListener('load', () => resolve(fileReader.result), false);
                         fileReader.onerror = () => reject(this);
                         const fileBase64 = fileReader.readAsDataURL(response);
-                        this.image64mpmt = fileBase64;
+                        this.image64mpmt3 = fileBase64;
                       });
                     }
       );
@@ -194,7 +194,7 @@ export class FinalReportComponent implements OnInit {
                         fileReader.addEventListener('load', () => resolve(fileReader.result), false);
                         fileReader.onerror = () => reject(this);
                         const fileBase64 = fileReader.readAsDataURL(response);
-                        this.image64mpmt = fileBase64;
+                        this.image64mpmt4 = fileBase64;
                       });
                     }
       );

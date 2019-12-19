@@ -120,7 +120,9 @@ export class ReportComponent implements OnInit {
 
       this.deforestationHistoryProdes = this.reportService.getVisions(propertyData, this.reportConfig.deforestationHistoryProdes, 'prodesYear');
 
-      this.burnedAreas = this.reportService.getVisions(propertyData, this.reportConfig.burnedAreas);
+      this.burnedAreas = this.reportService.getVisions(propertyData, this.reportConfig.burnedAreas, 'burnedAreasYear');
+
+      this.burnedAreasChartData = this.reportService.getVisions(propertyData, this.reportConfig.burnedAreas);
 
       this.landsatHistories = this.reportService.getVisions(propertyData, this.reportConfig.landsatHistories);
 
@@ -128,9 +130,9 @@ export class ReportComponent implements OnInit {
 
       this.burningSpotlightsChartData = this.reportService.getBurningSpotlightsChart(propertyData.burningSpotlights);
 
-      // this.burnedAreasChartData = this.reportService.getBurnedAreasChart(burnedAreas);
+      this.burnedAreasChartData = this.reportService.getBurnedAreasChart(burnedAreas);
 
-      // this.burnedAreasPerPropertyChartDatas = this.reportService.getBurnedAreasPerPropertyChart(burnedAreas, area);
+      this.burnedAreasPerPropertyChartDatas = this.reportService.getBurnedAreasPerPropertyChart(burnedAreas, area);
     });
   }
 

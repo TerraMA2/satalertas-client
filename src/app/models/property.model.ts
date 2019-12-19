@@ -24,6 +24,7 @@ export class Property {
     public prodesYear?: string[],
     public deterYear?: string[],
     public spotlightsYear?: [],
+    public burnedAreasYear?: []
     // public prodesInfo?: []
   ) {}
 }

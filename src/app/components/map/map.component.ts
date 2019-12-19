@@ -320,7 +320,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       }
 
       const popupContent = this.getPopupContent(data, markerLabel);
-      this.markerInfo = this.createMarker(carRegister, popupContent, latLong, markerLabel, link );
+      this.markerInfo = this.createMarker(carRegister, popupContent, latLong, markerLabel, link);
 
       this.markerClusterGroup.addLayer(this.markerInfo);
 

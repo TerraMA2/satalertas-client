@@ -49,11 +49,13 @@ export class ReportService {
       const date = years[count];
       let area = null;
       let spotlights = null;
+      let burnedAreas = null;
       const year = startYear;
 
       if (date && date.date === year) {
         area = (Number(date.area));
         spotlights = (Number(date.spotlights));
+        burnedAreas = (Number(date.burnedareas));
         if (!area) {
           area = 0;
         }
@@ -61,14 +63,18 @@ export class ReportService {
         if (!spotlights) {
           spotlights = 0;
         }
+        if (!burnedAreas) {
+          burnedAreas = 0;
+        }
         count++;
       } else {
         area = 0;
         spotlights = 0;
+        burnedAreas = 0;
       }
       const replacedTitle = this.replaceWildCard(title, '{year}', year);
       const replacedDescriptionText = this.replaceWildCard(description.text, '{year}', year);
-      const replacedDescriptionValue = this.replaceWildCards(description.value, ['{area}', '{spotlights}'], [area, spotlights]);
+      const replacedDescriptionValue = this.replaceWildCards(description.value, ['{area}', '{spotlights}', '{burnedAreas}'], [area, spotlights, burnedAreas]);
       const timeReplaced = this.replaceWildCards(time, ['{dateYear}', '{year}'], [year, 'P1Y']);
       visionDataCopy.title = replacedTitle;
       visionDataCopy.description = {
@@ -161,22 +167,19 @@ export class ReportService {
     const burnedAreasYears = [];
     const burnedAreas = [];
     burnedAreasData.forEach(burnedAreaData => {
-      const focusCount = burnedAreaData.focuscount;
+      const burnedArea = burnedAreaData.burnedareas;
       const year = burnedAreaData.year;
       burnedAreasYears.push(year);
-      burnedAreas.push(focusCount);
+      burnedAreas.push(burnedArea);
     });
 
-    return this.getChart('Focos', burnedAreasYears, burnedAreas);
+    return this.getChart('Área queimada', burnedAreasYears, burnedAreas);
   }
 
   getBurnedAreasPerPropertyChart(burnedAreasData, propertyArea) {
     const burnedAreasPerPropertyChartDatas = [];
     const burnedAreasPerProperty = [];
-    burnedAreasData.forEach(burnedAreaData => {
-      const focusCount = burnedAreaData.focuscount;
-      burnedAreasPerProperty.push([propertyArea, focusCount]);
-    });
+    burnedAreasData.forEach(burnedAreaData => burnedAreasPerProperty.push([propertyArea, burnedAreaData.burnedareas]));
 
     burnedAreasPerProperty.forEach(burnedArea => {
       burnedAreasPerPropertyChartDatas.push(this.getChart(null, ['Área imóvel', 'Área queimada'], burnedArea));
@@ -185,30 +188,17 @@ export class ReportService {
   }
 
   private getChart(legends: string|string[], labels: string|string[], data) {
+    if (!Array.isArray(labels)) {
+      labels = [labels];
+    }
+    const backgroundColors = [];
+    labels.forEach(label => backgroundColors.push('#' + Math.floor(Math.random() * 16777215).toString(16)));
     return {
       labels,
       datasets: [
           {
               label: legends,
-              backgroundColor: [
-                '#4BC0C0',
-                '#FFCE56',
-                '#aa7900',
-                '#36A2EB',
-                '#FF6384',
-                '#FF0000',
-                '#00FF00',
-                '#0000FF',
-                '#F0D00',
-                '#FC00E0',
-                '#FD0F0F',
-                '#00D0C0',
-                '#00FC00',
-                '#00D0CF',
-                '#C0B00D',
-                '#EB00DC',
-                '#CB0D0B'
-              ],
+              backgroundColor: backgroundColors,
               data
           }
       ]
