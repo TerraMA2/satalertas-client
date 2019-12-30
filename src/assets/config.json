@@ -1874,7 +1874,7 @@
             "codgroup": "FOCOS",
             "label": "CAR X FOCOS",
             "shortLabel": "CAR X FOCOS",
-            "value": "113",
+            "value": "103",
             "dateColumn": "execution_date",
             "areaColumn": "calculated_area_ha",
             "geomColumn": "intersection_geom",
