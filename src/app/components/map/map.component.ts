@@ -1022,7 +1022,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     const filter = localStorage.getItem('filterList');
 
-    this.hTTPService.get(url, {view, date, filter})
+    const params = this.filterService.getParams({ view });
+
+    this.hTTPService.get(url, params)
                     .subscribe(data => this.setMarkers(data, popupTitle, label));
   }
 
