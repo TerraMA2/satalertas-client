@@ -1,6 +1,6 @@
 <div class="sidebar-layer-content"
     *ngIf="displayChild"
-    [ngClass]="{'sidebar-layer-margin': layer.type === 'analysis' && !layer.isPrimary}">
+    [ngClass]="{'sidebar-layer-margin': layer.type === 'analysis' && layer.isChild === true}">
     <div class="sidebar-layer-label"
         (click)="onChildClicked()">
 

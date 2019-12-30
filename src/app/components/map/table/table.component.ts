@@ -13,7 +13,9 @@ import { FilterService } from 'src/app/services/filter.service';
 import { Layer } from '../../../models/layer.model';
 
 import { MapService } from 'src/app/services/map.service';
-import {View} from '../../../models/view.model';
+
+import { View } from '../../../models/view.model';
+
 import { LayerType } from 'src/app/enum/layer-type.enum';
 
 @Component({
@@ -151,11 +153,23 @@ export class TableComponent implements OnInit {
       this.selectedColumns = [];
       this.columns = [];
 
-      Object.keys(data[0]).forEach(key => {
-        if (key !== 'lat' && key !== 'long' && key !== 'geom' && key !== 'intersection_geom') {
-          this.columns.push({field: key, header: key});
-        }
-      });
+      if (!this.tableReportActive) {
+        const infoColumns = this.selectedLayer.infoColumns;
+        Object.keys(data[0]).forEach(key => {
+          // const column = infoColumns[key];
+          // const show = column.show;
+          // const alias = column.alias;
+          // if (show) {
+            this.columns.push({field: key, header: key});
+          // }
+        });
+      } else {
+        Object.keys(data[0]).forEach(key => {
+          if (key !== 'lat' && key !== 'long' && key !== 'geom' && key !== 'intersection_geom') {
+            this.columns.push({field: key, header: key});
+          }
+        });
+      }
 
       this.selectedColumns = this.columns;
 

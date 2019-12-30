@@ -16,19 +16,11 @@
                 printSectionId="printSection">
         </button>
         &nbsp;
-        <button kendo-button
-                pButton
-                icon="fas fa-download"
-                type="button"
-                (click)="pdf.saveAs('Laudo CAR ' + property?.register)"
-                label="Baixar laudo">
-        </button>
-        &nbsp;
         <button pButton
                 icon="fas fa-download"
                 type="button"
                 (click)="generatePdf('open')"
-                label="Baixar laudo (PDFMake)">
+                label="Baixar laudo">
         </button>
     </div>
 </p-toolbar>
@@ -85,12 +77,20 @@
                             Trata-se de relatório sobre desmatamento ilegal identificado com o uso de Sistema de Informações Geográficas no
                             imóvel
                             rural {{property?.name}} (mapa de localização e do perímetro do imóvel – figura 1), localizado no município de
-                            {{property?.city}}-MT, pertencente a {{property?.cpf}}, conforme informações declaradas no Sistema Mato-grossense de
+                            {{property?.city}}-MT, pertencente a {{property?.owner}}, conforme informações declaradas no Sistema Mato-grossense de
                             Cadastro Ambiental Rural (SIMCAR), protocolo CAR {{property?.register}} (<strong>Anexo I</strong>).
                         </p>
                         <div class="p-col-12 p-grid p-justify-center">
-                            <div class="border padding text-center">
-                                <img src="http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_8:view8&styles=&bbox={{property?.bbox}}&width=404&height=431&time={{dateFilter}}&cql_filter=numero_do1='{{property?.register}}'&srs=EPSG:4674&format=image/png" width="200">
+                            <div class="padding text-center">
+                                <div class="p-grid p-justify-center nowrap">
+                                    <div class="text-right padding">
+                                        <img src="http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:view6,terrama2_6:view6,terrama2_8:view8&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=250&height=250&cql_filter=id_munic>0;municipio='{{property?.city}}';numero_do1='{{property?.register}}'&srs=EPSG:4326&format=image/png" width="400">
+                                    </div>
+                                    &nbsp;&nbsp;
+                                    <div class="text-left padding">
+                                        <img src="http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_8:view8&styles=&bbox={{property?.bbox}}&width=400&height=400&time={{prodesStartYear}}/P1Y&cql_filter=numero_do1='{{property?.register}}'&srs=EPSG:4326&format=image/png" width="400">
+                                    </div>
+                                </div>
                                 <figcaption>Figura 1. Mapa de Localização e do Perímetro do Imóvel</figcaption>
                             </div>
                         </div>
@@ -111,7 +111,8 @@
                             <h2>2.1 Materiais e equipamentos utilizados</h2>
                             <ol type="a">
                                 <li>Dados das áreas desmatadas no Estado de Mato Grosso mapeadas pelos projetos: Programa de Monitoramento da Floresta
-                                    Amazônica Brasileira por Satélite (PRODES), Sistema de Detecção de Desmatamento em Tempo Real (DETER) e Programa
+                                    Amazônica Brasileira por Satélite (PRODES), Sistema de Detecção de Desmatamento em Tempo Real (DETER),
+                                    enquanto que os dados de ocorrência de fogo ativo e das cicatrizes das áreas queimadas são fornecidas pelo Programa
                                     Queimadas, ambos desenvolvidos pelo Instituto Nacional de Pesquisas Espaciais (INPE);
                                 </li>
                                 <li>Informações e dados geográficos do SIMCAR Parceiros e Público, da Secretaria de Meio Ambiente do Estado de Mato
@@ -143,7 +144,7 @@
                         <div class="p-col-12">
                             <h2>2.2 Método utilizado</h2>
 
-                            <p>Os dados de desmatamentos (polígonos) dos projetos DETER e PRODES, além dos dados do Programa de Queimadas na forma de focos (pontos) e áreas queimadas (INPE) foram cruzados com informações geoespaciais de fontes oficiais para identificação, qualificação e quantificação dos danos ambientais causados por desmatamentos ilegais (recentes, via DETER, e passados, via PRODES), bem como para identificação dos responsáveis pelo imóvel rural atingido, para fins de responsabilização civil e, eventualmente, criminal.
+                            <p>Os dados de desmatamentos (polígonos) dos projetos DETER e PRODES, além dos dados do Programa de Queimadas na forma de focos (pontos e polígonos representando á área nominal do píxel de fogo), bem como os polígonos das cicatrizes das áreas queimadas (INPE) foram cruzados com informações geoespaciais de fontes oficiais para identificação, qualificação e quantificação dos danos ambientais causados por desmatamentos ilegais (recentes, via DETER, e passados, via PRODES), bem como para identificação dos responsáveis pelo imóvel rural atingido, para fins de responsabilização civil e, eventualmente, criminal.
                             </p>
                             <p>Os dados geoespaciais do SIMGEO, MMA e FUNAI foram cruzados com os dados do INPE para identificação e quantificação dos desmatamentos após 22.07.2008 em áreas protegidas (APP, ARL, AUR, UC e TI), bem como para identificar ilícitos ambientais, mediante o cruzamento com dados das Autorizações de Exploração (AUTEX) e de Desmatamento (AD) emitidas pela SEMA. Ainda, verificou-se se as áreas desmatadas já haviam sido autuadas ou embargadas pelos órgãos de controle ambiental (SEMA e IBAMA). Para qualificação da área desmatada, o tipo de vegetação desmatada foi identificada utilizando o mapa de vegetação do Projeto RadamBrasil.
                             </p>
@@ -175,12 +176,20 @@
                                     mapeados novamente. A máscara de exclusão também inclui as áreas onde não há ocorrência natural de florestas,
                                     chamadas no PRODES de ‘não floresta’, além de áreas de hidrografia, sejam mapeadas como desmatamento".</li>
                             </ol>
-                            <p>Todas as informações acima descritas foram integradas utilizando a plataforma computacional TerraMA2. Essa plataforma
+                            <p>
+                                Quanto aos dados de queimadas estes possuem características distintas pois os focos representados na forma de um ponto são a indicação do centro de um píxel de uma imagem de um dos satélites recebidos e processados pelo INPE. A quantidade de satélites pode variar ao longo do tempo e por este motivo as comparações interanuais são realizadas apenas pelos dados do satélite AQUA. No entanto para identificar e confirmar a ocorrência de fogo na vegetação este relatório considera todos os focos dos satélites AQUA, TERRA, SNPP e NOAA-20 pelo fato de possuírem uma precisão geométrica maior. Devido a alta frequência de imageamento os pontos de todos os satélites são utilizados para indicar o primeiro e último dia de ocorrência de fogo numa data propriedade.
+                            </p>
+                            <p>
+                                As cicatrizes das áreas queimadas são produzidas sistematicamente para o bioma cerrado com uso das imagens do satélite Landsat-8 e estes dados, com resolução espacial de 30 metros confirmam a localização e extensão da superfície queimada.
+                            </p>
+                            <p>
+                                Todas as informações acima descritas foram integradas utilizando a plataforma computacional TerraMA2. Essa plataforma
                                 foi desenvolvida pelo INPE para o monitoramento, análise e emissão de alertas sobre extremos ambientais. Assim,
                                 utilizando esta base tecnológica inovadora, no domínio de softwares abertos, as tarefas executadas pela plataforma
                                 foram definidas para coletar, analisar (intersecção de geometrias dos mapas), visualizar e consultar dados sobre
                                 danos ambientais causados por desmatamentos e queimadas. Para isso, dados dinâmicos e estáticos foram processados
-                                para produzirem as informações que foram sistematizadas neste relatório.</p>
+                                para produzirem as informações que foram sistematizadas neste relatório.
+                            </p>
                         </div>
 
                         <div class="p-col-12">
@@ -192,7 +201,7 @@
                                 (figura 2):</p>
                             <div class="p-col-12 p-grid p-justify-center">
                                 <div class="border padding text-center">
-                                    <img src="http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_8:view8,terrama2_86:view86&styles=&bbox={{property?.bbox}}&width=404&height=431&time={{prodesStartYear}}/{{currentYear}}&cql_filter=numero_do1='{{property?.register}}';de_car_validado_sema_numero_do1='{{property?.register}}'&srs=EPSG:4674&format=image/png" width="200">
+                                    <img src="http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_8:view8,terrama2_27:view27&styles=&bbox={{property?.bbox}}&width=404&height=431&time={{prodesStartYear}}/{{currentYear}}&cql_filter=numero_do1='{{property?.register}}';de_car_validado_sema_numero_do1='{{property?.register}}'&srs=EPSG:4674&format=image/png" width="400">
                                     <figcaption>Figura 2. dinâmica de desmatamento - {{prodesStartYear}}/{{currentYear}}</figcaption>
                                 </div>
                             </div>
@@ -225,12 +234,12 @@
                             <p>Na representação cartográfica abaixo é possível visualizar, com imagens de alta resolução [Spot (2,5 m) e Planet (3
                                 m)] como estava a cobertura do imóvel em {{prodesStartYear}} e como se encontra atualmente ({{currentYear}}): </p>
                             <div class="p-grid p-justify-center nowrap">
-                                <div class="text-right border padding">
-                                    <img src="http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:MosaicSpot2008_car_validado&styles=&bbox={{property?.bbox}}&width=300&height=300&time={{prodesStartYear}}/P1Y&cql_filter=numero_do1='{{property?.register}}'&srs=EPSG:4326&format=image/png" width="200">
+                                <div class="text-right padding">
+                                    <img src="http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_8:MosaicSpot2008_car_validado&styles=&bbox={{property?.bbox}}&width=400&height=400&time={{prodesStartYear}}/P1Y&cql_filter=numero_do1='{{property?.register}}'&srs=EPSG:4326&format=image/png" width="400">
                                 </div>
                                 &nbsp;&nbsp;
                                 <div class="text-left border padding">
-                                    <img src="http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_8:view8,terrama2_86:view86&styles=&bbox={{property?.bbox}}&width=300&height=300&time={{currentYear}}/P1Y&cql_filter=numero_do1='{{property?.register}}';de_car_validado_sema_numero_do1='{{property?.register}}'&srs=EPSG:4674&format=image/png" width="200">
+                                    <img src="http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_8:view8&styles=&bbox={{property?.bbox}}&width=300&height=300&time={{currentYear}}/P1Y&cql_filter=numero_do1='{{property?.register}}';de_car_validado_sema_numero_do1='{{property?.register}}'&srs=EPSG:4674&format=image/png" width="400">
                                 </div>
                             </div>
                             <figcaption class="text-center">Figura 3. dinâmica de desmatamento (comparativo imagens {{prodesStartYear}} e {{currentYear}})</figcaption>
@@ -242,9 +251,29 @@
                     <div class="p-grid p-nogutter">
                         <div class="p-col-12">
                             <h2>4 CONCLUSÃO</h2>
-
                             <p>Houve desmatamento no imóvel rural objeto deste Relatório Técnico conforme quadro 01 (vide item 3).</p>
-                            <p>Este é o relatório contendo 10 páginas e 02 anexos.</p>
+                        </div>
+                    </div>
+                    <div class="p-grid p-nogutter">
+                        <div class="p-col-12">
+                            <h3>Laudo produzido em parceria com:</h3>
+                            <div class="p-grid">
+                                <div class="p-col">
+                                    <img src="/assets/img/logos/mpmt.png">
+                                </div>
+                                <div class="p-col">
+                                    <img src="/assets/img/logos/sema.png">
+                                </div>
+                                <div class="p-col">
+                                    <img src="/assets/img/logos/inpe.png">
+                                </div>
+                                <div class="p-col">
+                                    <img src="/assets/img/logos/dpi.png">
+                                </div>
+                                <div class="p-col">
+                                    <img src="/assets/img/logos/terrama.png">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

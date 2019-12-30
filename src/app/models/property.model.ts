@@ -1,6 +1,5 @@
 export class Property {
   constructor(
-    public gid: number,
     public register: string,
     public area: number,
     public name: string,
@@ -15,6 +14,7 @@ export class Property {
     public consolidatedArea: string,
     public anthropizedUse: string,
     public nativeVegetation: string,
+    public owner: string,
     public cpf?: string,
     public county?: string,
     public prodesArea?: number,
@@ -24,6 +24,7 @@ export class Property {
     public prodesYear?: string[],
     public deterYear?: string[],
     public spotlightsYear?: [],
+    public burnedAreasYear?: []
     // public prodesInfo?: []
   ) {}
 }

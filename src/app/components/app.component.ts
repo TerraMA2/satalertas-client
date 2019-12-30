@@ -28,6 +28,10 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.authService.autoLogin();
 
+    localStorage.removeItem('dateFilter');
+    localStorage.removeItem('mapState');
+    localStorage.removeItem('filterList');
+
     this.appConfig = this.configService.getAppConfig();
     this.titleService.setTitle(`${this.appConfig.mainApplication} | ${this.appConfig.headerTitle}`);
   }

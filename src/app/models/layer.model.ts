@@ -21,10 +21,12 @@ export class Layer {
     public type: string,
     public isPrivate: boolean,
     public isPrimary: boolean,
+    public isChild: boolean,
     public filter: LayerFilter[],
     public layerData: LayerData,
     public legend: Legend,
     public popupTitle: string,
+    public infoColumns: object[],
     public tools?: Tool[],
     public markerSelected?: boolean
   ) {}

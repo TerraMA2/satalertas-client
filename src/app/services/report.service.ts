@@ -49,11 +49,13 @@ export class ReportService {
       const date = years[count];
       let area = null;
       let spotlights = null;
+      let burnedAreas = null;
       const year = startYear;
 
       if (date && date.date === year) {
         area = (Number(date.area));
         spotlights = (Number(date.spotlights));
+        burnedAreas = (Number(date.burnedareas));
         if (!area) {
           area = 0;
         }
@@ -61,14 +63,18 @@ export class ReportService {
         if (!spotlights) {
           spotlights = 0;
         }
+        if (!burnedAreas) {
+          burnedAreas = 0;
+        }
         count++;
       } else {
         area = 0;
         spotlights = 0;
+        burnedAreas = 0;
       }
       const replacedTitle = this.replaceWildCard(title, '{year}', year);
       const replacedDescriptionText = this.replaceWildCard(description.text, '{year}', year);
-      const replacedDescriptionValue = this.replaceWildCards(description.value, ['{area}', '{spotlights}'], [area, spotlights]);
+      const replacedDescriptionValue = this.replaceWildCards(description.value, ['{area}', '{spotlights}', '{burnedAreas}'], [area, spotlights, burnedAreas]);
       const timeReplaced = this.replaceWildCards(time, ['{dateYear}', '{year}'], [year, 'P1Y']);
       visionDataCopy.title = replacedTitle;
       visionDataCopy.description = {
@@ -161,22 +167,19 @@ export class ReportService {
     const burnedAreasYears = [];
     const burnedAreas = [];
     burnedAreasData.forEach(burnedAreaData => {
-      const focusCount = burnedAreaData.focuscount;
+      const burnedArea = burnedAreaData.burnedareas;
       const year = burnedAreaData.year;
       burnedAreasYears.push(year);
-      burnedAreas.push(focusCount);
+      burnedAreas.push(burnedArea);
     });
 
-    return this.getChart('Focos', burnedAreasYears, burnedAreas);
+    return this.getChart('Área queimada', burnedAreasYears, burnedAreas);
   }
 
   getBurnedAreasPerPropertyChart(burnedAreasData, propertyArea) {
     const burnedAreasPerPropertyChartDatas = [];
     const burnedAreasPerProperty = [];
-    burnedAreasData.forEach(burnedAreaData => {
-      const focusCount = burnedAreaData.focuscount;
-      burnedAreasPerProperty.push([propertyArea, focusCount]);
-    });
+    burnedAreasData.forEach(burnedAreaData => burnedAreasPerProperty.push([propertyArea, burnedAreaData.burnedareas]));
 
     burnedAreasPerProperty.forEach(burnedArea => {
       burnedAreasPerPropertyChartDatas.push(this.getChart(null, ['Área imóvel', 'Área queimada'], burnedArea));
@@ -185,18 +188,17 @@ export class ReportService {
   }
 
   private getChart(legends: string|string[], labels: string|string[], data) {
+    if (!Array.isArray(labels)) {
+      labels = [labels];
+    }
+    const backgroundColors = [];
+    labels.forEach(label => backgroundColors.push('#' + Math.floor(Math.random() * 16777215).toString(16)));
     return {
       labels,
       datasets: [
           {
               label: legends,
-              backgroundColor: [
-                '#4BC0C0',
-                '#FFCE56',
-                '#aa7900',
-                '#36A2EB',
-                '#FF6384'
-              ],
+              backgroundColor: backgroundColors,
               data
           }
       ]
@@ -219,31 +221,11 @@ export class ReportService {
     const cityBBoxArray = propertyData.citybbox.split(',');
     const cityBBox = cityBBoxArray[0].split(' ').join(',') + ',' + cityBBoxArray[1].split(' ').join(',');
 
-    // const datetime = propertyData.prodesInfo['date'];
-    // const orbitpoint = propertyData.prodesInfo['orbitpoint'];
-    // const satellite = propertyData.prodesInfo['satellite'];
-    // const sensor = propertyData.prodesInfo['sensor'];
-
-    // const dateFormatted = new Date(datetime);
-
-    // const day = dateFormatted.getDate() + '';
-    // const month = (dateFormatted.getMonth() + 1) + '';
-    // const year = dateFormatted.getFullYear();
-
-    // const dateFormattedStr = `${day.padStart(2, '0')}${month.padStart(2, '0')}${year}`;
-    // const satelliteFormatted = satellite.charAt(0) + satellite.charAt(satellite.length - 1);
-
-    // const orbitpointFormatted = orbitpoint.substr(0, 3) + '_' + orbitpoint.substr(3, 5);
-
     const wildCards = [
       '{bbox}',
       '{citybbox}',
       '{cityCqlFilter}',
-      '{filterDate}',
-      // '{date}',
-      // '{orbitpoint}',
-      // '{satellite}',
-      // '{sensor}'
+      '{filterDate}'
     ];
     const cqlFilter = visionData.layerData['cql_filter'];
     if (carRegisterColumn) {
@@ -258,11 +240,7 @@ export class ReportService {
       bbox,
       cityBBox,
       `municipio='${propertyData.city}';numero_do1='${propertyData.register}'`,
-      `${date[0]}/${date[1]}`,
-      // dateFormattedStr,
-      // orbitpointFormatted,
-      // satelliteFormatted,
-      // sensor
+      `${date[0]}/${date[1]}`
     ];
     if (carRegisterColumn) {
       const carRegisterColumnArr = carRegisterColumn.split(';');
