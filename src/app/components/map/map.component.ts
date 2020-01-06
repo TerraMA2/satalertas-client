@@ -288,7 +288,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
         const layerData = {
                             url: 'http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms',
-                            layers: 'terrama2_8:view8',
+                            layers: 'terrama2_20:view20',
                             transparent: true,
                             format: 'image/png',
                             version: '1.1.0',

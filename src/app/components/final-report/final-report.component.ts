@@ -143,7 +143,7 @@ export class FinalReportComponent implements OnInit {
 
       this.tableData = propertyDeforestation;
 
-      this.hTTPService.getBlob(`http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:view6,terrama2_6:view6,terrama2_8:view8&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=250&height=250&cql_filter=id_munic>0;municipio='${this.property.city}';numero_do1='${this.property.register}'&srs=EPSG:4326&format=image/png`)
+      this.hTTPService.getBlob(`http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_5:view5,terrama2_20:view20&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=250&height=250&cql_filter=id_munic>0;municipio='${this.property.city}';numero_do1='${this.property.register}'&srs=EPSG:4326&format=image/png`)
                     .subscribe((response) => {
                       return new Promise((resolve, reject) => {
                         const fileReader  = new FileReader();
@@ -154,7 +154,7 @@ export class FinalReportComponent implements OnInit {
                       });
                     }
       );
-      this.hTTPService.getBlob(`http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_8:view8&styles=&bbox=${this.property.bbox}&width=400&height=400&time=${this.prodesStartYear}/P1Y&cql_filter=numero_do1='${this.property.register}'&srs=EPSG:4326&format=image/png`)
+      this.hTTPService.getBlob(`http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_20:view20&styles=&bbox=${this.property.bbox}&width=400&height=400&time=${this.prodesStartYear}/P1Y&cql_filter=numero_do1='${this.property.register}'&srs=EPSG:4326&format=image/png`)
                     .subscribe((response) => {
                       return new Promise((resolve, reject) => {
                         const fileReader  = new FileReader();
@@ -165,7 +165,7 @@ export class FinalReportComponent implements OnInit {
                       });
                     }
       );
-      this.hTTPService.getBlob(`http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_8:view8,terrama2_27:view27&styles=&bbox=${this.property.bbox}&width=404&height=431&time=${this.property.prodesYear}/${this.currentYear}&cql_filter=numero_do1='${this.property.register}';de_car_validado_sema_numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`)
+      this.hTTPService.getBlob(`http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_20:view20,terrama2_73:view73&styles=&bbox=${this.property.bbox}&width=404&height=431&time=${this.property.prodesYear}/${this.currentYear}&cql_filter=numero_do1='${this.property.register}';de_car_validado_sema_numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`)
                     .subscribe((response) => {
                       return new Promise((resolve, reject) => {
                         const fileReader  = new FileReader();
@@ -176,7 +176,7 @@ export class FinalReportComponent implements OnInit {
                       });
                     }
       );
-      this.hTTPService.getBlob(`http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_8:view8,terrama2_27:view27&styles=&bbox=${this.property.bbox}&width=400&height=400&time=${this.property.prodesYear}/P1Y&cql_filter=numero_do1='${this.property.register}';de_car_validado_sema_numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`)
+      this.hTTPService.getBlob(`http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_20:view20,terrama2_73:view73&styles=&bbox=${this.property.bbox}&width=400&height=400&time=${this.property.prodesYear}/P1Y&cql_filter=numero_do1='${this.property.register}';de_car_validado_sema_numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`)
                     .subscribe((response) => {
                       return new Promise((resolve, reject) => {
                         const fileReader  = new FileReader();
@@ -187,7 +187,7 @@ export class FinalReportComponent implements OnInit {
                       });
                     }
       );
-      this.hTTPService.getBlob(`http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_8:view8,terrama2_27:view27&styles=&bbox=${this.property.bbox}&width=400&height=400&time=2019/P1Y&cql_filter=numero_do1='${this.property.register}';de_car_validado_sema_numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`)
+      this.hTTPService.getBlob(`http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_20:view20,terrama2_73:view73&styles=&bbox=${this.property.bbox}&width=400&height=400&time=2019/P1Y&cql_filter=numero_do1='${this.property.register}';de_car_validado_sema_numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`)
                     .subscribe((response) => {
                       return new Promise((resolve, reject) => {
                         const fileReader  = new FileReader();
@@ -1034,7 +1034,7 @@ export class FinalReportComponent implements OnInit {
           style: 'body'
         },
         {
-          image: `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_8:view8&styles=&bbox=${this.property.bbox}&width=404&height=431&time=${this.dateFilter}&cql_filter=numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`,
+          image: `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_20:view20&styles=&bbox=${this.property.bbox}&width=404&height=431&time=${this.dateFilter}&cql_filter=numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`,
           width: 450,
           alignment: 'center'
         },
