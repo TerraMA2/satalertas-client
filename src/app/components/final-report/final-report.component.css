@@ -22,11 +22,6 @@
     src: url("../../../assets/fonts/DejaVuSans-BoldOblique.ttf") format("truetype");
 }
 
-kendo-pdf-export {
-    font-size: 14px;
-    font-family: 'Arial Unicode MS', 'DejaVuSans', 'DejaVuSans-Bold', 'DejaVuSans-Oblique', "Arial", sans-serif;
-}
-
 .green {
     color: green;
 }

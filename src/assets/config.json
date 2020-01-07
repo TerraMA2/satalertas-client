@@ -38,6 +38,2124 @@
         "separator": "true"
       }
     ],
+    "infoColumns": [
+      {
+        "DETER": {
+          "a_cardeter_49_dd_deter_inpe_classname": {
+            "show": false,
+            "alias": "a_cardeter_49_dd_deter_inpe_classname"
+          },
+          "a_cardeter_49_dd_deter_inpe_orbitpoint": {
+              "show": false,
+              "alias": "a_cardeter_49_dd_deter_inpe_orbitpoint"
+          },
+          "a_cardeter_49_dd_deter_inpe_satellite": {
+              "show": false,
+              "alias": "a_cardeter_49_dd_deter_inpe_satellite"
+          },
+          "a_cardeter_49_dd_deter_inpe_sensor": {
+              "show": false,
+              "alias": "a_cardeter_49_dd_deter_inpe_sensor"
+          },
+          "a_cardeter_49_de_car_validado_sema_area_ha_": {
+              "show": false,
+              "alias": "a_cardeter_49_de_car_validado_sema_area_ha_"
+          },
+          "a_cardeter_49_de_car_validado_sema_cpfcnpj": {
+              "show": false,
+              "alias": "a_cardeter_49_de_car_validado_sema_cpfcnpj"
+          },
+          "a_cardeter_49_de_car_validado_sema_municipio1": {
+              "show": false,
+              "alias": "a_cardeter_49_de_car_validado_sema_municipio1"
+          },
+          "a_cardeter_49_de_car_validado_sema_nome_da_p1": {
+              "show": false,
+              "alias": "a_cardeter_49_de_car_validado_sema_nome_da_p1"
+          },
+          "a_cardeter_49_de_car_validado_sema_nomepropri": {
+              "show": false,
+              "alias": "a_cardeter_49_de_car_validado_sema_nomepropri"
+          },
+          "a_cardeter_49_de_car_validado_sema_numero_do1": {
+              "show": false,
+              "alias": "a_cardeter_49_de_car_validado_sema_numero_do1"
+          },
+          "a_cardeter_49_de_car_validado_sema_numero_do2": {
+              "show": false,
+              "alias": "a_cardeter_49_de_car_validado_sema_numero_do2"
+          },
+          "a_cardeter_49_de_car_validado_sema_situacao_1": {
+              "show": false,
+              "alias": "a_cardeter_49_de_car_validado_sema_situacao_1"
+          },
+          "a_cardeter_49_id": {
+              "show": false,
+              "alias": "a_cardeter_49_id"
+          },
+          "a_cardeter_app_50_id": {
+              "show": false,
+              "alias": "a_cardeter_app_50_id"
+          },
+          "a_cardeter_desemb_59_id": {
+              "show": false,
+              "alias": "a_cardeter_desemb_59_id"
+          },
+          "a_cardeter_desmate_60_id": {
+              "show": false,
+              "alias": "a_cardeter_desmate_60_id"
+          },
+          "a_cardeter_emb_58_id": {
+              "show": false,
+              "alias": "a_cardeter_emb_58_id"
+          },
+          "a_cardeter_queima_61_id": {
+              "show": false,
+              "alias": "a_cardeter_queima_61_id"
+          },
+          "a_cardeter_reserva_52_id": {
+              "show": false,
+              "alias": "a_cardeter_reserva_52_id"
+          },
+          "a_cardeter_ti_56_id": {
+              "show": false,
+              "alias": "a_cardeter_ti_56_id"
+          },
+          "a_cardeter_uc_57_id": {
+              "show": false,
+              "alias": "a_cardeter_uc_57_id"
+          },
+          "a_cardeter_usoant_51_id": {
+              "show": false,
+              "alias": "a_cardeter_usoant_51_id"
+          },
+          "a_cardeter_usocon_54_id": {
+              "show": false,
+              "alias": "a_cardeter_usocon_54_id"
+          },
+          "a_cardeter_usocon_55_id": {
+              "show": false,
+              "alias": "a_cardeter_usocon_55_id"
+          },
+          "a_cardeter_veg_53_id": {
+              "show": false,
+              "alias": "a_cardeter_veg_53_id"
+          },
+          "affected_rows": {
+              "show": false,
+              "alias": "affected_rows"
+          },
+          "areamunkm": {
+              "show": false,
+              "alias": "areamunkm"
+          },
+          "areatotalk": {
+              "show": false,
+              "alias": "areatotalk"
+          },
+          "areauckm": {
+              "show": false,
+              "alias": "areauckm"
+          },
+          "calculated_area_ha": {
+              "show": false,
+              "alias": "calculated_area_ha"
+          },
+          "classname": {
+              "show": false,
+              "alias": "classname"
+          },
+          "county": {
+              "show": false,
+              "alias": "county"
+          },
+          "date": {
+              "show": false,
+              "alias": "date"
+          },
+          "date_audit": {
+              "show": false,
+              "alias": "date_audit"
+          },
+          "dd_deter_inpe_classname": {
+              "show": false,
+              "alias": "dd_deter_inpe_classname"
+          },
+          "dd_deter_inpe_orbitpoint": {
+              "show": false,
+              "alias": "dd_deter_inpe_orbitpoint"
+          },
+          "dd_deter_inpe_satellite": {
+              "show": false,
+              "alias": "dd_deter_inpe_satellite"
+          },
+          "dd_deter_inpe_sensor": {
+              "show": false,
+              "alias": "dd_deter_inpe_sensor"
+          },
+          "de_area_app_sema_nome_da_p1": {
+              "show": false,
+              "alias": "de_area_app_sema_nome_da_p1"
+          },
+          "de_area_desembargadas_sema_a_infraca1": {
+              "show": false,
+              "alias": "de_area_desembargadas_sema_a_infraca1"
+          },
+          "de_area_desembargadas_sema_ano": {
+              "show": false,
+              "alias": "de_area_desembargadas_sema_ano"
+          },
+          "de_area_desembargadas_sema_area_1": {
+              "show": false,
+              "alias": "de_area_desembargadas_sema_area_1"
+          },
+          "de_area_desembargadas_sema_coord_x": {
+              "show": false,
+              "alias": "de_area_desembargadas_sema_coord_x"
+          },
+          "de_area_desembargadas_sema_coord_y": {
+              "show": false,
+              "alias": "de_area_desembargadas_sema_coord_y"
+          },
+          "de_area_desembargadas_sema_cpf": {
+              "show": false,
+              "alias": "de_area_desembargadas_sema_cpf"
+          },
+          "de_area_desembargadas_sema_dano": {
+              "show": false,
+              "alias": ""
+          },
+          "de_area_desembargadas_sema_nome": {
+              "show": false,
+              "alias": "de_area_desembargadas_sema_dano"
+          },
+          "de_area_desembargadas_sema_proprieda1": {
+              "show": false,
+              "alias": "de_area_desembargadas_sema_proprieda1"
+          },
+          "de_area_desembargadas_sema_t_embargo": {
+              "show": false,
+              "alias": "de_area_desembargadas_sema_t_embargo"
+          },
+          "de_area_embargadas_sema_a_infrac": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_a_infrac"
+          },
+          "de_area_embargadas_sema_ano": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_ano"
+          },
+          "de_area_embargadas_sema_ano_desma1": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_ano_desma1"
+          },
+          "de_area_embargadas_sema_coord_x": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_coord_x"
+          },
+          "de_area_embargadas_sema_coord_y": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_coord_y"
+          },
+          "de_area_embargadas_sema_cpf": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_cpf"
+          },
+          "de_area_embargadas_sema_dano": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_dano"
+          },
+          "de_area_embargadas_sema_fonte": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_fonte"
+          },
+          "de_area_embargadas_sema_mes": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_mes"
+          },
+          "de_area_embargadas_sema_nome": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_nome"
+          },
+          "de_area_embargadas_sema_proprieda1": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_proprieda1"
+          },
+          "de_area_embargadas_sema_situacao": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_situacao"
+          },
+          "de_area_embargadas_sema_t_embargo": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_t_embargo"
+          },
+          "de_area_reserva_legal_nativa_sema_nome_da_p1": {
+              "show": false,
+              "alias": "de_area_reserva_legal_nativa_sema_nome_da_p1"
+          },
+          "de_area_reserva_legal_nativa_sema_tipologia": {
+              "show": false,
+              "alias": "de_area_reserva_legal_nativa_sema_tipologia"
+          },
+          "de_area_uso_antropizado_solo_sema_nome_da_p1": {
+              "show": false,
+              "alias": ""
+          },
+          "de_area_uso_consolidado_sema_nome_da_p1": {
+              "show": false,
+              "alias": "de_area_uso_consolidado_sema_nome_da_p1"
+          },
+          "de_area_vegetacao_nativa_sema_nome_da_p1": {
+              "show": false,
+              "alias": "de_area_vegetacao_nativa_sema_nome_da_p1"
+          },
+          "de_autorizacao_desmate_sema_data_da_a1": {
+              "show": false,
+              "alias": "de_autorizacao_desmate_sema_data_da_a1"
+          },
+          "de_autorizacao_desmate_sema_data_do_v1": {
+              "show": false,
+              "alias": "de_autorizacao_desmate_sema_data_do_v1"
+          },
+          "de_autorizacao_desmate_sema_empreendi1": {
+              "show": false,
+              "alias": "de_autorizacao_desmate_sema_empreendi1"
+          },
+          "de_autorizacao_desmate_sema_modelo": {
+              "show": false,
+              "alias": "de_autorizacao_desmate_sema_modelo"
+          },
+          "de_autorizacao_desmate_sema_numero_do1": {
+              "show": false,
+              "alias": "de_autorizacao_desmate_sema_numero_do1"
+          },
+          "de_autorizacao_desmate_sema_numero_do2": {
+              "show": false,
+              "alias": "de_autorizacao_desmate_sema_numero_do2"
+          },
+          "de_autorizacao_desmate_sema_numero_do3": {
+              "show": false,
+              "alias": "de_autorizacao_desmate_sema_numero_do3"
+          },
+          "de_autorizacao_queima_sema_data_apro1": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_data_apro1"
+          },
+          "de_autorizacao_queima_sema_data_venc1": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_data_venc1"
+          },
+          "de_autorizacao_queima_sema_municipio": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_municipio"
+          },
+          "de_autorizacao_queima_sema_proprieta1": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_proprieta1"
+          },
+          "de_autorizacao_queima_sema_protocolo1": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_protocolo1"
+          },
+          "de_autorizacao_queima_sema_razao_soc1": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_razao_soc1"
+          },
+          "de_autorizacao_queima_sema_responsav1": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_responsav1"
+          },
+          "de_autorizacao_queima_sema_situacao": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_situacao"
+          },
+          "de_autorizacao_queima_sema_tipo": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_tipo"
+          },
+          "de_autorizacao_queima_sema_titulo_nu1": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_titulo_nu1"
+          },
+          "de_car_validado_sema_area_ha_": {
+              "show": false,
+              "alias": "de_car_validado_sema_area_ha_"
+          },
+          "de_car_validado_sema_cpfcnpj": {
+              "show": false,
+              "alias": "de_car_validado_sema_cpfcnpj"
+          },
+          "de_car_validado_sema_municipio1": {
+              "show": false,
+              "alias": "de_car_validado_sema_municipio1"
+          },
+          "de_car_validado_sema_nome_da_p1": {
+              "show": false,
+              "alias": "de_car_validado_sema_nome_da_p1"
+          },
+          "de_car_validado_sema_nomepropri": {
+              "show": false,
+              "alias": "de_car_validado_sema_nomepropri"
+          },
+          "de_car_validado_sema_numero_do1": {
+              "show": false,
+              "alias": "de_car_validado_sema_numero_do1"
+          },
+          "de_car_validado_sema_numero_do2": {
+              "show": false,
+              "alias": "de_car_validado_sema_numero_do2"
+          },
+          "de_car_validado_sema_situacao_1": {
+              "show": false,
+              "alias": "de_car_validado_sema_situacao_1"
+          },
+          "de_terra_indigena_sema_ano_popul1": {
+              "show": false,
+              "alias": "de_terra_indigena_sema_ano_popul1"
+          },
+          "de_terra_indigena_sema_data_inst": {
+              "show": false,
+              "alias": "de_terra_indigena_sema_data_inst"
+          },
+          "de_terra_indigena_sema_etnia": {
+              "show": false,
+              "alias": "de_terra_indigena_sema_etnia"
+          },
+          "de_terra_indigena_sema_inst_lega1": {
+              "show": false,
+              "alias": "de_terra_indigena_sema_inst_lega1"
+          },
+          "de_terra_indigena_sema_nome": {
+              "show": false,
+              "alias": "de_terra_indigena_sema_nome"
+          },
+          "de_terra_indigena_sema_nome_ti_a1": {
+              "show": false,
+              "alias": "de_terra_indigena_sema_nome_ti_a1"
+          },
+          "de_terra_indigena_sema_populacao": {
+              "show": false,
+              "alias": "de_terra_indigena_sema_populacao"
+          },
+          "de_terra_indigena_sema_sit_jurid1": {
+              "show": false,
+              "alias": "de_terra_indigena_sema_sit_jurid1"
+          },
+          "de_unidade_cons_sema_area_calc1": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_area_calc1"
+          },
+          "de_unidade_cons_sema_area_ofic1": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_area_ofic1"
+          },
+          "de_unidade_cons_sema_ato_legal": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_ato_legal"
+          },
+          "de_unidade_cons_sema_categoria": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_categoria"
+          },
+          "de_unidade_cons_sema_codigo_uc": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_codigo_uc"
+          },
+          "de_unidade_cons_sema_data_cada1": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_data_cada1"
+          },
+          "de_unidade_cons_sema_grupo": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_grupo"
+          },
+          "de_unidade_cons_sema_jurisdica1": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_jurisdica1"
+          },
+          "de_unidade_cons_sema_nome": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_nome"
+          },
+          "de_unidade_cons_sema_operador": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_operador"
+          },
+          "de_unidade_cons_sema_origem": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_origem"
+          },
+          "de_unidade_cons_sema_plano_man1": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_plano_man1"
+          },
+          "de_unidade_cons_sema_versao": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_versao"
+          },
+          "execution_date": {
+              "show": false,
+              "alias": "execution_date"
+          },
+          "geom": {
+              "show": false,
+              "alias": "geom"
+          },
+          "gid": {
+              "show": false,
+              "alias": "gid"
+          },
+          "intersect_id": {
+              "show": false,
+              "alias": "intersect_id"
+          },
+          "intersection_geom": {
+              "show": false,
+              "alias": "intersection_geom"
+          },
+          "lot": {
+              "show": false,
+              "alias": "lot"
+          },
+          "monitored_id": {
+              "show": false,
+              "alias": "monitored_id"
+          },
+          "orbitpoint": {
+              "show": false,
+              "alias": "orbitpoint"
+          },
+          "pid_a_cardeter": {
+              "show": false,
+              "alias": "pid_a_cardeter"
+          },
+          "pid_a_cardeter_app": {
+              "show": false,
+              "alias": "pid_a_cardeter_app"
+          },
+          "pid_a_cardeter_desemb": {
+              "show": false,
+              "alias": "pid_a_cardeter_desemb"
+          },
+          "pid_a_cardeter_desmate": {
+              "show": false,
+              "alias": "pid_a_cardeter_desmate"
+          },
+          "pid_a_cardeter_emb": {
+              "show": false,
+              "alias": "pid_a_cardeter_emb"
+          },
+          "pid_a_cardeter_queima": {
+              "show": false,
+              "alias": "pid_a_cardeter_queima"
+          },
+          "pid_a_cardeter_reserva": {
+              "show": false,
+              "alias": "pid_a_cardeter_reserva"
+          },
+          "pid_a_cardeter_ti": {
+              "show": false,
+              "alias": "pid_a_cardeter_ti"
+          },
+          "pid_a_cardeter_usoant": {
+              "show": false,
+              "alias": "pid_a_cardeter_usoant"
+          },
+          "pid_a_cardeter_usocon": {
+              "show": false,
+              "alias": "pid_a_cardeter_usocon"
+          },
+          "pid_a_cardeter_veg": {
+              "show": false,
+              "alias": "pid_a_cardeter_veg"
+          },
+          "quadrant": {
+              "show": false,
+              "alias": "quadrant"
+          },
+          "satellite": {
+              "show": false,
+              "alias": "satellite"
+          },
+          "sensor": {
+              "show": false,
+              "alias": "sensor"
+          },
+          "table_name": {
+              "show": false,
+              "alias": "table_name"
+          },
+          "uc": {
+              "show": false,
+              "alias": "uc"
+          },
+          "uf": {
+              "show": false,
+              "alias": "uf"
+          }
+        },
+        "PRODES": {
+          "a_carprodes_62_dd_prodes_inpe_class_name": {
+            "show": false,
+            "alias": "a_carprodes_62_dd_prodes_inpe_class_name"
+          },
+          "a_carprodes_62_dd_prodes_inpe_mainclass": {
+              "show": false,
+              "alias": "a_carprodes_62_dd_prodes_inpe_mainclass"
+          },
+          "a_carprodes_62_de_car_validado_sema_area_ha_": {
+              "show": false,
+              "alias": "a_carprodes_62_de_car_validado_sema_area_ha_"
+          },
+          "a_carprodes_62_de_car_validado_sema_cpfcnpj": {
+              "show": false,
+              "alias": "a_carprodes_62_de_car_validado_sema_cpfcnpj"
+          },
+          "a_carprodes_62_de_car_validado_sema_municipio1": {
+              "show": false,
+              "alias": "a_carprodes_62_de_car_validado_sema_municipio1"
+          },
+          "a_carprodes_62_de_car_validado_sema_nome_da_p1": {
+              "show": false,
+              "alias": "a_carprodes_62_de_car_validado_sema_nome_da_p1"
+          },
+          "a_carprodes_62_de_car_validado_sema_nomepropri": {
+              "show": false,
+              "alias": "a_carprodes_62_de_car_validado_sema_nomepropri"
+          },
+          "a_carprodes_62_de_car_validado_sema_numero_do1": {
+              "show": false,
+              "alias": "a_carprodes_62_de_car_validado_sema_numero_do1"
+          },
+          "a_carprodes_62_de_car_validado_sema_numero_do2": {
+              "show": false,
+              "alias": "a_carprodes_62_de_car_validado_sema_numero_do2"
+          },
+          "a_carprodes_62_de_car_validado_sema_situacao_1": {
+              "show": false,
+              "alias": "a_carprodes_62_de_car_validado_sema_situacao_1"
+          },
+          "a_carprodes_62_id": {
+              "show": false,
+              "alias": "a_carprodes_62_id"
+          },
+          "a_carprodes_app_63_id": {
+              "show": false,
+              "alias": "a_carprodes_app_63_id"
+          },
+          "a_carprodes_desemb_71_id": {
+              "show": false,
+              "alias": "a_carprodes_desemb_71_id"
+          },
+          "a_carprodes_desmate_72_id": {
+              "show": false,
+              "alias": "a_carprodes_desmate_72_id"
+          },
+          "a_carprodes_emb_70_id": {
+              "show": false,
+              "alias": "a_carprodes_emb_70_id"
+          },
+          "a_carprodes_queima_73_id": {
+              "show": false,
+              "alias": "a_carprodes_queima_73_id"
+          },
+          "a_carprodes_reserva_65_id": {
+              "show": false,
+              "alias": "a_carprodes_reserva_65_id"
+          },
+          "a_carprodes_ti_68_id": {
+              "show": false,
+              "alias": "a_carprodes_ti_68_id"
+          },
+          "a_carprodes_uc_69_id": {
+              "show": false,
+              "alias": "a_carprodes_uc_69_id"
+          },
+          "a_carprodes_usoant_64_id": {
+              "show": false,
+              "alias": "a_carprodes_usoant_64_id"
+          },
+          "a_carprodes_usocon_67_id": {
+              "show": false,
+              "alias": "a_carprodes_usocon_67_id"
+          },
+          "a_carprodes_veg_66_id": {
+              "show": false,
+              "alias": "a_carprodes_veg_66_id"
+          },
+          "affected_rows": {
+              "show": false,
+              "alias": "affected_rows"
+          },
+          "ano": {
+              "show": false,
+              "alias": "ano"
+          },
+          "areameters": {
+              "show": false,
+              "alias": "areameters"
+          },
+          "calculated_area_ha": {
+              "show": false,
+              "alias": "calculated_area_ha"
+          },
+          "class_n_01": {
+              "show": false,
+              "alias": "class_n_01"
+          },
+          "class_name": {
+              "show": false,
+              "alias": "class_name"
+          },
+          "dd_prodes_inpe_class_name": {
+              "show": false,
+              "alias": "dd_prodes_inpe_class_name"
+          },
+          "dd_prodes_inpe_mainclass": {
+              "show": false,
+              "alias": "dd_prodes_inpe_mainclass"
+          },
+          "de_area_app_sema_nome_da_p1": {
+              "show": false,
+              "alias": "de_area_app_sema_nome_da_p1"
+          },
+          "de_area_desembargadas_sema_a_infraca1": {
+              "show": false,
+              "alias": "de_area_desembargadas_sema_a_infraca1"
+          },
+          "de_area_desembargadas_sema_ano": {
+              "show": false,
+              "alias": "de_area_desembargadas_sema_ano"
+          },
+          "de_area_desembargadas_sema_cpf": {
+              "show": false,
+              "alias": "de_area_desembargadas_sema_cpf"
+          },
+          "de_area_desembargadas_sema_dano": {
+              "show": false,
+              "alias": "de_area_desembargadas_sema_dano"
+          },
+          "de_area_desembargadas_sema_nome": {
+              "show": false,
+              "alias": "de_area_desembargadas_sema_nome"
+          },
+          "de_area_desembargadas_sema_proprieda1": {
+              "show": false,
+              "alias": "de_area_desembargadas_sema_proprieda1"
+          },
+          "de_area_desembargadas_sema_t_embargo": {
+              "show": false,
+              "alias": "de_area_desembargadas_sema_t_embargo"
+          },
+          "de_area_embargadas_sema_a_infrac": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_a_infrac"
+          },
+          "de_area_embargadas_sema_ano": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_ano"
+          },
+          "de_area_embargadas_sema_ano_desma1": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_ano_desma1"
+          },
+          "de_area_embargadas_sema_cpf": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_cpf"
+          },
+          "de_area_embargadas_sema_dano": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_dano"
+          },
+          "de_area_embargadas_sema_fonte": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_fonte"
+          },
+          "de_area_embargadas_sema_mes": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_mes"
+          },
+          "de_area_embargadas_sema_nome": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_nome"
+          },
+          "de_area_embargadas_sema_proprieda1": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_proprieda1"
+          },
+          "de_area_embargadas_sema_situacao": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_situacao"
+          },
+          "de_area_embargadas_sema_t_embargo": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_t_embargo"
+          },
+          "de_area_reserva_legal_nativa_sema_nome_da_p1": {
+              "show": false,
+              "alias": "de_area_reserva_legal_nativa_sema_nome_da_p1"
+          },
+          "de_area_reserva_legal_nativa_sema_tipologia": {
+              "show": false,
+              "alias": "de_area_reserva_legal_nativa_sema_tipologia"
+          },
+          "de_area_uso_antropizado_solo_sema_nome_da_p1": {
+              "show": false,
+              "alias": "de_area_uso_antropizado_solo_sema_nome_da_p1"
+          },
+          "de_area_uso_consolidado_sema_nome_da_p1": {
+              "show": false,
+              "alias": "de_area_uso_consolidado_sema_nome_da_p1"
+          },
+          "de_area_vegetacao_nativa_sema_nome_da_p1": {
+              "show": false,
+              "alias": "de_area_vegetacao_nativa_sema_nome_da_p1"
+          },
+          "de_autorizacao_desmate_sema_data_da_a1": {
+              "show": false,
+              "alias": "de_autorizacao_desmate_sema_data_da_a1"
+          },
+          "de_autorizacao_desmate_sema_data_do_v1": {
+              "show": false,
+              "alias": "de_autorizacao_desmate_sema_data_do_v1"
+          },
+          "de_autorizacao_desmate_sema_empreendi1": {
+              "show": false,
+              "alias": "de_autorizacao_desmate_sema_empreendi1"
+          },
+          "de_autorizacao_desmate_sema_modelo": {
+              "show": false,
+              "alias": "de_autorizacao_desmate_sema_modelo"
+          },
+          "de_autorizacao_desmate_sema_numero_do1": {
+              "show": false,
+              "alias": "de_autorizacao_desmate_sema_numero_do1"
+          },
+          "de_autorizacao_desmate_sema_numero_do2": {
+              "show": false,
+              "alias": "de_autorizacao_desmate_sema_numero_do2"
+          },
+          "de_autorizacao_desmate_sema_numero_do3": {
+              "show": false,
+              "alias": "de_autorizacao_desmate_sema_numero_do3"
+          },
+          "de_autorizacao_queima_sema_data_apro1": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_data_apro1"
+          },
+          "de_autorizacao_queima_sema_data_venc1": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_data_venc1"
+          },
+          "de_autorizacao_queima_sema_municipio": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_municipio"
+          },
+          "de_autorizacao_queima_sema_proprieta1": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_proprieta1"
+          },
+          "de_autorizacao_queima_sema_protocolo1": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_protocolo1"
+          },
+          "de_autorizacao_queima_sema_razao_soc1": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_razao_soc1"
+          },
+          "de_autorizacao_queima_sema_responsav1": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_responsav1"
+          },
+          "de_autorizacao_queima_sema_situacao": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_situacao"
+          },
+          "de_autorizacao_queima_sema_tipo": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_tipo"
+          },
+          "de_autorizacao_queima_sema_titulo_nu1": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_titulo_nu1"
+          },
+          "de_car_validado_sema_area_ha_": {
+              "show": false,
+              "alias": "de_car_validado_sema_area_ha_"
+          },
+          "de_car_validado_sema_cpfcnpj": {
+              "show": false,
+              "alias": "de_car_validado_sema_cpfcnpj"
+          },
+          "de_car_validado_sema_municipio1": {
+              "show": false,
+              "alias": "de_car_validado_sema_municipio1"
+          },
+          "de_car_validado_sema_nome_da_p1": {
+              "show": false,
+              "alias": "de_car_validado_sema_nome_da_p1"
+          },
+          "de_car_validado_sema_nomepropri": {
+              "show": false,
+              "alias": "de_car_validado_sema_nomepropri"
+          },
+          "de_car_validado_sema_numero_do1": {
+              "show": false,
+              "alias": "de_car_validado_sema_numero_do1"
+          },
+          "de_car_validado_sema_numero_do2": {
+              "show": false,
+              "alias": "de_car_validado_sema_numero_do2"
+          },
+          "de_car_validado_sema_situacao_1": {
+              "show": false,
+              "alias": "de_car_validado_sema_situacao_1"
+          },
+          "de_terra_indigena_sema_ano_popul1": {
+              "show": false,
+              "alias": "de_terra_indigena_sema_ano_popul1"
+          },
+          "de_terra_indigena_sema_data_inst": {
+              "show": false,
+              "alias": "de_terra_indigena_sema_data_inst"
+          },
+          "de_terra_indigena_sema_etnia": {
+              "show": false,
+              "alias": "de_terra_indigena_sema_etnia"
+          },
+          "de_terra_indigena_sema_inst_lega1": {
+              "show": false,
+              "alias": "de_terra_indigena_sema_inst_lega1"
+          },
+          "de_terra_indigena_sema_nome": {
+              "show": false,
+              "alias": "de_terra_indigena_sema_nome"
+          },
+          "de_terra_indigena_sema_nome_ti_a1": {
+              "show": false,
+              "alias": "de_terra_indigena_sema_nome_ti_a1"
+          },
+          "de_terra_indigena_sema_populacao": {
+              "show": false,
+              "alias": "de_terra_indigena_sema_populacao"
+          },
+          "de_terra_indigena_sema_sit_jurid1": {
+              "show": false,
+              "alias": "de_terra_indigena_sema_sit_jurid1"
+          },
+          "de_unidade_cons_sema_area_calc1": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_area_calc1"
+          },
+          "de_unidade_cons_sema_area_ofic1": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_area_ofic1"
+          },
+          "de_unidade_cons_sema_ato_legal": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_ato_legal"
+          },
+          "de_unidade_cons_sema_categoria": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_categoria"
+          },
+          "de_unidade_cons_sema_codigo_uc": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_codigo_uc"
+          },
+          "de_unidade_cons_sema_data_cada1": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_data_cada1"
+          },
+          "de_unidade_cons_sema_grupo": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_grupo"
+          },
+          "de_unidade_cons_sema_jurisdica1": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_jurisdica1"
+          },
+          "de_unidade_cons_sema_nome": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_nome"
+          },
+          "de_unidade_cons_sema_operador": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_operador"
+          },
+          "de_unidade_cons_sema_origem": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_origem"
+          },
+          "de_unidade_cons_sema_plano_man1": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_plano_man1"
+          },
+          "de_unidade_cons_sema_versao": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_versao"
+          },
+          "dsfnv": {
+              "show": false,
+              "alias": "dsfnv"
+          },
+          "execution_date": {
+              "show": false,
+              "alias": "execution_date"
+          },
+          "fid": {
+              "show": false,
+              "alias": "fid"
+          },
+          "fid_new": {
+              "show": false,
+              "alias": "fid_new"
+          },
+          "geom": {
+              "show": false,
+              "alias": "geom"
+          },
+          "gid": {
+              "show": false,
+              "alias": "gid"
+          },
+          "intersect_id": {
+              "show": false,
+              "alias": "intersect_id"
+          },
+          "intersection_geom": {
+              "show": false,
+              "alias": "intersection_geom"
+          },
+          "julday": {
+              "show": false,
+              "alias": "julday"
+          },
+          "linkcolumn": {
+              "show": false,
+              "alias": "linkcolumn"
+          },
+          "mainclass": {
+              "show": false,
+              "alias": "mainclass"
+          },
+          "monitored_id": {
+              "show": false,
+              "alias": "monitored_id"
+          },
+          "pathrow": {
+              "show": false,
+              "alias": "pathrow"
+          },
+          "pid_a_carprodes": {
+              "show": false,
+              "alias": "pid_a_carprodes"
+          },
+          "pid_a_carprodes_app": {
+              "show": false,
+              "alias": "pid_a_carprodes_app"
+          },
+          "pid_a_carprodes_desemb": {
+              "show": false,
+              "alias": "pid_a_carprodes_desemb"
+          },
+          "pid_a_carprodes_desmate": {
+              "show": false,
+              "alias": "pid_a_carprodes_desmate"
+          },
+          "pid_a_carprodes_emb": {
+              "show": false,
+              "alias": "pid_a_carprodes_emb"
+          },
+          "pid_a_carprodes_queima": {
+              "show": false,
+              "alias": "pid_a_carprodes_queima"
+          },
+          "pid_a_carprodes_reserva": {
+              "show": false,
+              "alias": "pid_a_carprodes_reserva"
+          },
+          "pid_a_carprodes_ti": {
+              "show": false,
+              "alias": "pid_a_carprodes_ti"
+          },
+          "pid_a_carprodes_uc": {
+              "show": false,
+              "alias": "pid_a_carprodes_uc"
+          },
+          "pid_a_carprodes_usoant": {
+              "show": false,
+              "alias": "pid_a_carprodes_usoant"
+          },
+          "pid_a_carprodes_usocon": {
+              "show": false,
+              "alias": "pid_a_carprodes_usocon"
+          },
+          "pid_a_carprodes_veg": {
+              "show": false,
+              "alias": "pid_a_carprodes_veg"
+          },
+          "scene_id": {
+              "show": false,
+              "alias": "scene_id"
+          },
+          "table_name": {
+              "show": false,
+              "alias": "table_name"
+          },
+          "uf": {
+              "show": false,
+              "alias": "uf"
+          },
+          "view_date": {
+              "show": false,
+              "alias": "view_date"
+          }
+        },
+        "FOCOS": {
+          "a_carfocos_74_dd_focos_inpe_bioma": {
+            "show": false,
+            "alias": "a_carfocos_74_dd_focos_inpe_bioma"
+          },
+          "a_carfocos_74_dd_focos_inpe_id_2": {
+              "show": false,
+              "alias": "a_carfocos_74_dd_focos_inpe_id_2"
+          },
+          "a_carfocos_74_dd_focos_inpe_municipio": {
+              "show": false,
+              "alias": "a_carfocos_74_dd_focos_inpe_municipio"
+          },
+          "a_carfocos_74_dd_focos_inpe_satelite": {
+              "show": false,
+              "alias": "a_carfocos_74_dd_focos_inpe_satelite"
+          },
+          "a_carfocos_74_de_car_validado_sema_area_ha_": {
+              "show": false,
+              "alias": "a_carfocos_74_de_car_validado_sema_area_ha_"
+          },
+          "a_carfocos_74_de_car_validado_sema_cpfcnpj": {
+              "show": false,
+              "alias": "a_carfocos_74_de_car_validado_sema_cpfcnpj"
+          },
+          "a_carfocos_74_de_car_validado_sema_municipio1": {
+              "show": false,
+              "alias": "a_carfocos_74_de_car_validado_sema_municipio1"
+          },
+          "a_carfocos_74_de_car_validado_sema_nome_da_p1": {
+              "show": false,
+              "alias": "a_carfocos_74_de_car_validado_sema_nome_da_p1"
+          },
+          "a_carfocos_74_de_car_validado_sema_nomepropri": {
+              "show": false,
+              "alias": "a_carfocos_74_de_car_validado_sema_nomepropri"
+          },
+          "a_carfocos_74_de_car_validado_sema_numero_do1": {
+              "show": false,
+              "alias": "a_carfocos_74_de_car_validado_sema_numero_do1"
+          },
+          "a_carfocos_74_de_car_validado_sema_numero_do2": {
+              "show": false,
+              "alias": "a_carfocos_74_de_car_validado_sema_numero_do2"
+          },
+          "a_carfocos_74_de_car_validado_sema_situacao_1": {
+              "show": false,
+              "alias": "a_carfocos_74_de_car_validado_sema_situacao_1"
+          },
+          "a_carfocos_74_id": {
+              "show": false,
+              "alias": "a_carfocos_74_id"
+          },
+          "a_carfocos_app_75_id": {
+              "show": false,
+              "alias": "a_carfocos_app_75_id"
+          },
+          "a_carfocos_desemb_83_id": {
+              "show": false,
+              "alias": "a_carfocos_desemb_83_id"
+          },
+          "a_carfocos_desmate_84_id": {
+              "show": false,
+              "alias": "a_carfocos_desmate_84_id"
+          },
+          "a_carfocos_emb_82_id": {
+              "show": false,
+              "alias": "a_carfocos_emb_82_id"
+          },
+          "a_carfocos_queima_85_id": {
+              "show": false,
+              "alias": "a_carfocos_queima_85_id"
+          },
+          "a_carfocos_reserva_77_id": {
+              "show": false,
+              "alias": "a_carfocos_reserva_77_id"
+          },
+          "a_carfocos_ti_80_id": {
+              "show": false,
+              "alias": "a_carfocos_ti_80_id"
+          },
+          "a_carfocos_uc_81_id": {
+              "show": false,
+              "alias": "a_carfocos_uc_81_id"
+          },
+          "a_carfocos_usoant_76_id": {
+              "show": false,
+              "alias": "a_carfocos_usoant_76_id"
+          },
+          "a_carfocos_usocon_79_id": {
+              "show": false,
+              "alias": "a_carfocos_usocon_79_id"
+          },
+          "a_carfocos_veg_78_id": {
+              "show": false,
+              "alias": "a_carfocos_veg_78_id"
+          },
+          "affected_rows": {
+              "show": false,
+              "alias": "affected_rows"
+          },
+          "bioma": {
+              "show": false,
+              "alias": "bioma"
+          },
+          "bioma_id": {
+              "show": false,
+              "alias": "bioma_id"
+          },
+          "calculated_area_ha": {
+              "show": false,
+              "alias": "calculated_area_ha"
+          },
+          "data_hora_gmt": {
+              "show": false,
+              "alias": "data_hora_gmt"
+          },
+          "dd_focos_inpe_bioma": {
+              "show": false,
+              "alias": "dd_focos_inpe_bioma"
+          },
+          "dd_focos_inpe_id_2": {
+              "show": false,
+              "alias": "dd_focos_inpe_id_2"
+          },
+          "dd_focos_inpe_municipio": {
+              "show": false,
+              "alias": "dd_focos_inpe_municipio"
+          },
+          "dd_focos_inpe_satelite": {
+              "show": false,
+              "alias": "dd_focos_inpe_satelite"
+          },
+          "de_area_app_sema_nome_da_p1": {
+              "show": false,
+              "alias": "de_area_app_sema_nome_da_p1"
+          },
+          "de_area_desembargadas_sema_a_infraca1": {
+              "show": false,
+              "alias": "de_area_desembargadas_sema_a_infraca1"
+          },
+          "de_area_desembargadas_sema_ano": {
+              "show": false,
+              "alias": "de_area_desembargadas_sema_ano"
+          },
+          "de_area_desembargadas_sema_area_1": {
+              "show": false,
+              "alias": "de_area_desembargadas_sema_area_1"
+          },
+          "de_area_desembargadas_sema_cpf": {
+              "show": false,
+              "alias": "de_area_desembargadas_sema_cpf"
+          },
+          "de_area_desembargadas_sema_dano": {
+              "show": false,
+              "alias": "de_area_desembargadas_sema_dano"
+          },
+          "de_area_desembargadas_sema_nome": {
+              "show": false,
+              "alias": "de_area_desembargadas_sema_nome"
+          },
+          "de_area_desembargadas_sema_proprieda1": {
+              "show": false,
+              "alias": "de_area_desembargadas_sema_proprieda1"
+          },
+          "de_area_desembargadas_sema_t_embargo": {
+              "show": false,
+              "alias": "de_area_desembargadas_sema_t_embargo"
+          },
+          "de_area_embargadas_sema_a_infrac": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_a_infrac"
+          },
+          "de_area_embargadas_sema_ano": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_ano"
+          },
+          "de_area_embargadas_sema_ano_desma1": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_ano_desma1"
+          },
+          "de_area_embargadas_sema_cpf": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_cpf"
+          },
+          "de_area_embargadas_sema_dano": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_dano"
+          },
+          "de_area_embargadas_sema_fonte": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_fonte"
+          },
+          "de_area_embargadas_sema_mes": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_mes"
+          },
+          "de_area_embargadas_sema_nome": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_nome"
+          },
+          "de_area_embargadas_sema_proprieda1": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_proprieda1"
+          },
+          "de_area_embargadas_sema_situacao": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_situacao"
+          },
+          "de_area_embargadas_sema_t_embargo": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_t_embargo"
+          },
+          "de_area_reserva_legal_nativa_sema_nome_da_p1": {
+              "show": false,
+              "alias": "de_area_reserva_legal_nativa_sema_nome_da_p1"
+          },
+          "de_area_uso_antropizado_solo_sema_nome_da_p1": {
+              "show": false,
+              "alias": "de_area_uso_antropizado_solo_sema_nome_da_p1"
+          },
+          "de_area_uso_consolidado_sema_nome_da_p1": {
+              "show": false,
+              "alias": "de_area_uso_consolidado_sema_nome_da_p1"
+          },
+          "de_autorizacao_desmate_sema_data_da_a1": {
+              "show": false,
+              "alias": "de_autorizacao_desmate_sema_data_da_a1"
+          },
+          "de_autorizacao_desmate_sema_data_do_v1": {
+              "show": false,
+              "alias": "de_autorizacao_desmate_sema_data_do_v1"
+          },
+          "de_autorizacao_desmate_sema_empreendi1": {
+              "show": false,
+              "alias": "de_autorizacao_desmate_sema_empreendi1"
+          },
+          "de_autorizacao_desmate_sema_modelo": {
+              "show": false,
+              "alias": "de_autorizacao_desmate_sema_modelo"
+          },
+          "de_autorizacao_desmate_sema_numero_do1": {
+              "show": false,
+              "alias": "de_autorizacao_desmate_sema_numero_do1"
+          },
+          "de_autorizacao_desmate_sema_numero_do2": {
+              "show": false,
+              "alias": "de_autorizacao_desmate_sema_numero_do2"
+          },
+          "de_autorizacao_desmate_sema_numero_do3": {
+              "show": false,
+              "alias": "de_autorizacao_desmate_sema_numero_do3"
+          },
+          "de_autorizacao_queima_sema_data_apro1": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_data_apro1"
+          },
+          "de_autorizacao_queima_sema_data_venc1": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_data_venc1"
+          },
+          "de_autorizacao_queima_sema_municipio": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_municipio"
+          },
+          "de_autorizacao_queima_sema_proprieta1": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_proprieta1"
+          },
+          "de_autorizacao_queima_sema_protocolo1": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_protocolo1"
+          },
+          "de_autorizacao_queima_sema_razao_soc1": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_razao_soc1"
+          },
+          "de_autorizacao_queima_sema_responsav1": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_responsav1"
+          },
+          "de_autorizacao_queima_sema_situacao": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_situacao"
+          },
+          "de_autorizacao_queima_sema_tipo": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_tipo"
+          },
+          "de_autorizacao_queima_sema_titulo_nu1": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_titulo_nu1"
+          },
+          "de_car_validado_sema_area_ha_": {
+              "show": false,
+              "alias": "de_car_validado_sema_area_ha_"
+          },
+          "de_car_validado_sema_cpfcnpj": {
+              "show": false,
+              "alias": "de_car_validado_sema_cpfcnpj"
+          },
+          "de_car_validado_sema_municipio1": {
+              "show": false,
+              "alias": "de_car_validado_sema_municipio1"
+          },
+          "de_car_validado_sema_nome_da_p1": {
+              "show": false,
+              "alias": "de_car_validado_sema_nome_da_p1"
+          },
+          "de_car_validado_sema_nomepropri": {
+              "show": false,
+              "alias": "de_car_validado_sema_nomepropri"
+          },
+          "de_car_validado_sema_numero_do1": {
+              "show": false,
+              "alias": "de_car_validado_sema_numero_do1"
+          },
+          "de_car_validado_sema_numero_do2": {
+              "show": false,
+              "alias": "de_car_validado_sema_numero_do2"
+          },
+          "de_car_validado_sema_situacao_1": {
+              "show": false,
+              "alias": "de_car_validado_sema_situacao_1"
+          },
+          "de_terra_indigena_sema_ano_popul1": {
+              "show": false,
+              "alias": "de_terra_indigena_sema_ano_popul1"
+          },
+          "de_terra_indigena_sema_area_ha": {
+              "show": false,
+              "alias": "de_terra_indigena_sema_area_ha"
+          },
+          "de_terra_indigena_sema_data_inst": {
+              "show": false,
+              "alias": "de_terra_indigena_sema_data_inst"
+          },
+          "de_terra_indigena_sema_etnia": {
+              "show": false,
+              "alias": "de_terra_indigena_sema_etnia"
+          },
+          "de_terra_indigena_sema_inst_lega1": {
+              "show": false,
+              "alias": "de_terra_indigena_sema_inst_lega1"
+          },
+          "de_terra_indigena_sema_municipio": {
+              "show": false,
+              "alias": "de_terra_indigena_sema_municipio"
+          },
+          "de_terra_indigena_sema_nome": {
+              "show": false,
+              "alias": "de_terra_indigena_sema_nome"
+          },
+          "de_terra_indigena_sema_nome_ti_a1": {
+              "show": false,
+              "alias": "de_terra_indigena_sema_nome_ti_a1"
+          },
+          "de_terra_indigena_sema_populacao": {
+              "show": false,
+              "alias": "de_terra_indigena_sema_populacao"
+          },
+          "de_terra_indigena_sema_sit_jurid1": {
+              "show": false,
+              "alias": "de_terra_indigena_sema_sit_jurid1"
+          },
+          "de_unidade_cons_sema_area_calc1": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_area_calc1"
+          },
+          "de_unidade_cons_sema_area_ofic1": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_area_ofic1"
+          },
+          "de_unidade_cons_sema_ato_legal": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_ato_legal"
+          },
+          "de_unidade_cons_sema_categoria": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_categoria"
+          },
+          "de_unidade_cons_sema_codigo_uc": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_codigo_uc"
+          },
+          "de_unidade_cons_sema_data_cada1": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_data_cada1"
+          },
+          "de_unidade_cons_sema_grupo": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_grupo"
+          },
+          "de_unidade_cons_sema_jurisdica1": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_jurisdica1"
+          },
+          "de_unidade_cons_sema_nome": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_nome"
+          },
+          "de_unidade_cons_sema_operador": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_operador"
+          },
+          "de_unidade_cons_sema_origem": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_origem"
+          },
+          "de_unidade_cons_sema_plano_man1": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_plano_man1"
+          },
+          "de_unidade_cons_sema_versao": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_versao"
+          },
+          "estado": {
+              "show": false,
+              "alias": "estado"
+          },
+          "execution_date": {
+              "show": false,
+              "alias": "execution_date"
+          },
+          "foco_id": {
+              "show": false,
+              "alias": "foco_id"
+          },
+          "geometria": {
+              "show": false,
+              "alias": "geometria"
+          },
+          "id_0": {
+              "show": false,
+              "alias": "id_0"
+          },
+          "id_1": {
+              "show": false,
+              "alias": "id_1"
+          },
+          "id_2": {
+              "show": false,
+              "alias": "id_2"
+          },
+          "intersect_id": {
+              "show": false,
+              "alias": "intersect_id"
+          },
+          "intersection_geom": {
+              "show": false,
+              "alias": "intersection_geom"
+          },
+          "latitude": {
+              "show": false,
+              "alias": "latitude"
+          },
+          "longitude": {
+              "show": false,
+              "alias": "longitude"
+          },
+          "monitored_id": {
+              "show": false,
+              "alias": "monitored_id"
+          },
+          "municipio": {
+              "show": false,
+              "alias": "municipio"
+          },
+          "pais": {
+              "show": false,
+              "alias": "pais"
+          },
+          "path_row": {
+              "show": false,
+              "alias": "path_row"
+          },
+          "pid_a_carfocos": {
+              "show": false,
+              "alias": "pid_a_carfocos"
+          },
+          "pid_a_carfocos_app": {
+              "show": false,
+              "alias": "pid_a_carfocos_app"
+          },
+          "pid_a_carfocos_desemb": {
+              "show": false,
+              "alias": "pid_a_carfocos_desemb"
+          },
+          "pid_a_carfocos_desmate": {
+              "show": false,
+              "alias": "pid_a_carfocos_desmate"
+          },
+          "pid_a_carfocos_emb": {
+              "show": false,
+              "alias": "pid_a_carfocos_emb"
+          },
+          "pid_a_carfocos_queima": {
+              "show": false,
+              "alias": "pid_a_carfocos_queima"
+          },
+          "pid_a_carfocos_reserva": {
+              "show": false,
+              "alias": "pid_a_carfocos_reserva"
+          },
+          "pid_a_carfocos_ti": {
+              "show": false,
+              "alias": "pid_a_carfocos_ti"
+          },
+          "pid_a_carfocos_uc": {
+              "show": false,
+              "alias": "pid_a_carfocos_uc"
+          },
+          "pid_a_carfocos_usoant": {
+              "show": false,
+              "alias": "pid_a_carfocos_usoant"
+          },
+          "pid_a_carfocos_usocon": {
+              "show": false,
+              "alias": "pid_a_carfocos_usocon"
+          },
+          "pid_a_carfocos_veg": {
+              "show": false,
+              "alias": "pid_a_carfocos_veg"
+          },
+          "pid_dd_focos_inpe": {
+              "show": false,
+              "alias": "pid_dd_focos_inpe"
+          },
+          "pid_focos_mt": {
+              "show": false,
+              "alias": "pid_focos_mt"
+          },
+          "satelite": {
+              "show": false,
+              "alias": "satelite"
+          },
+          "table_name": {
+              "show": false,
+              "alias": "table_name"
+          }
+        },
+        "AREA_QUEIMADA": {
+          "a_caraq_86_dd_area_queimada_inpe_data_anter": {
+            "show": false,
+            "alias": "a_caraq_86_dd_area_queimada_inpe_data_anter"
+          },
+          "a_caraq_86_dd_area_queimada_inpe_data_pas": {
+              "show": false,
+              "alias": "a_caraq_86_dd_area_queimada_inpe_data_pas"
+          },
+          "a_caraq_86_dd_area_queimada_inpe_ha": {
+              "show": false,
+              "alias": "a_caraq_86_dd_area_queimada_inpe_ha"
+          },
+          "a_caraq_86_dd_area_queimada_inpe_id_cena_an": {
+              "show": false,
+              "alias": "a_caraq_86_dd_area_queimada_inpe_id_cena_an"
+          },
+          "a_caraq_86_dd_area_queimada_inpe_km2": {
+              "show": false,
+              "alias": "a_caraq_86_dd_area_queimada_inpe_km2"
+          },
+          "a_caraq_86_dd_area_queimada_inpe_nome_arq": {
+              "show": false,
+              "alias": "a_caraq_86_dd_area_queimada_inpe_nome_arq"
+          },
+          "a_caraq_86_dd_area_queimada_inpe_orb_pto": {
+              "show": false,
+              "alias": "a_caraq_86_dd_area_queimada_inpe_orb_pto"
+          },
+          "a_caraq_86_de_car_validado_sema_area_ha_": {
+              "show": false,
+              "alias": "a_caraq_86_de_car_validado_sema_area_ha_"
+          },
+          "a_caraq_86_de_car_validado_sema_cpfcnpj": {
+              "show": false,
+              "alias": "a_caraq_86_de_car_validado_sema_cpfcnpj"
+          },
+          "a_caraq_86_de_car_validado_sema_municipio1": {
+              "show": false,
+              "alias": "a_caraq_86_de_car_validado_sema_municipio1"
+          },
+          "a_caraq_86_de_car_validado_sema_nome_da_p1": {
+              "show": false,
+              "alias": "a_caraq_86_de_car_validado_sema_nome_da_p1"
+          },
+          "a_caraq_86_de_car_validado_sema_nomepropri": {
+              "show": false,
+              "alias": "a_caraq_86_de_car_validado_sema_nomepropri"
+          },
+          "a_caraq_86_de_car_validado_sema_numero_do1": {
+              "show": false,
+              "alias": "a_caraq_86_de_car_validado_sema_numero_do1"
+          },
+          "a_caraq_86_de_car_validado_sema_numero_do2": {
+              "show": false,
+              "alias": "a_caraq_86_de_car_validado_sema_numero_do2"
+          },
+          "a_caraq_86_de_car_validado_sema_situacao_1": {
+              "show": false,
+              "alias": "a_caraq_86_de_car_validado_sema_situacao_1"
+          },
+          "a_caraq_86_id": {
+              "show": false,
+              "alias": "a_caraq_86_id"
+          },
+          "a_caraq_app_87_id": {
+              "show": false,
+              "alias": "a_caraq_app_87_id"
+          },
+          "a_caraq_desemb_95_id": {
+              "show": false,
+              "alias": "a_caraq_desemb_95_id"
+          },
+          "a_caraq_desmate_96_id": {
+              "show": false,
+              "alias": "a_caraq_desmate_96_id"
+          },
+          "a_caraq_emb_94_id": {
+              "show": false,
+              "alias": "a_caraq_emb_94_id"
+          },
+          "a_caraq_queima_97_id": {
+              "show": false,
+              "alias": "a_caraq_queima_97_id"
+          },
+          "a_caraq_reserva_89_id": {
+              "show": false,
+              "alias": "a_caraq_reserva_89_id"
+          },
+          "a_caraq_ti_92_id": {
+              "show": false,
+              "alias": "a_caraq_ti_92_id"
+          },
+          "a_caraq_uc_93_id": {
+              "show": false,
+              "alias": "a_caraq_uc_93_id"
+          },
+          "a_caraq_usoant_88_id": {
+              "show": false,
+              "alias": "a_caraq_usoant_88_id"
+          },
+          "a_caraq_usocon_91_id": {
+              "show": false,
+              "alias": "a_caraq_usocon_91_id"
+          },
+          "a_caraq_veg_90_id": {
+              "show": false,
+              "alias": "a_caraq_veg_90_id"
+          },
+          "affected_rows": {
+              "show": false,
+              "alias": "affected_rows"
+          },
+          "calculated_area_ha": {
+              "show": false,
+              "alias": "calculated_area_ha"
+          },
+          "dd_area_queimada_inpe_data_anter": {
+              "show": false,
+              "alias": "dd_area_queimada_inpe_data_anter"
+          },
+          "dd_area_queimada_inpe_data_pas": {
+              "show": false,
+              "alias": "dd_area_queimada_inpe_data_pas"
+          },
+          "dd_area_queimada_inpe_ha": {
+              "show": false,
+              "alias": "dd_area_queimada_inpe_ha"
+          },
+          "dd_area_queimada_inpe_id_cena_an": {
+              "show": false,
+              "alias": "dd_area_queimada_inpe_id_cena_an"
+          },
+          "dd_area_queimada_inpe_km2": {
+              "show": false,
+              "alias": "dd_area_queimada_inpe_km2"
+          },
+          "dd_area_queimada_inpe_nome_arq": {
+              "show": false,
+              "alias": "dd_area_queimada_inpe_nome_arq"
+          },
+          "dd_area_queimada_inpe_orb_pto": {
+              "show": false,
+              "alias": "dd_area_queimada_inpe_orb_pto"
+          },
+          "de_area_app_sema_nome_da_p1": {
+              "show": false,
+              "alias": "de_area_app_sema_nome_da_p1"
+          },
+          "de_area_desembargadas_sema_a_infraca1": {
+              "show": false,
+              "alias": "de_area_desembargadas_sema_a_infraca1"
+          },
+          "de_area_desembargadas_sema_ano": {
+              "show": false,
+              "alias": "de_area_desembargadas_sema_ano"
+          },
+          "de_area_desembargadas_sema_cpf": {
+              "show": false,
+              "alias": "de_area_desembargadas_sema_cpf"
+          },
+          "de_area_desembargadas_sema_dano": {
+              "show": false,
+              "alias": "de_area_desembargadas_sema_dano"
+          },
+          "de_area_desembargadas_sema_nome": {
+              "show": false,
+              "alias": "de_area_desembargadas_sema_nome"
+          },
+          "de_area_desembargadas_sema_proprieda1": {
+              "show": false,
+              "alias": "de_area_desembargadas_sema_proprieda1"
+          },
+          "de_area_desembargadas_sema_t_embargo": {
+              "show": false,
+              "alias": "de_area_desembargadas_sema_t_embargo"
+          },
+          "de_area_embargadas_sema_a_infrac": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_a_infrac"
+          },
+          "de_area_embargadas_sema_ano": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_ano"
+          },
+          "de_area_embargadas_sema_ano_desma1": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_ano_desma1"
+          },
+          "de_area_embargadas_sema_cpf": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_cpf"
+          },
+          "de_area_embargadas_sema_dano": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_dano"
+          },
+          "de_area_embargadas_sema_fonte": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_fonte"
+          },
+          "de_area_embargadas_sema_mes": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_mes"
+          },
+          "de_area_embargadas_sema_nome": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_nome"
+          },
+          "de_area_embargadas_sema_proprieda1": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_proprieda1"
+          },
+          "de_area_embargadas_sema_situacao": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_situacao"
+          },
+          "de_area_embargadas_sema_t_embargo": {
+              "show": false,
+              "alias": "de_area_embargadas_sema_t_embargo"
+          },
+          "de_area_reserva_legal_nativa_sema_nome_da_p1": {
+              "show": false,
+              "alias": "de_area_reserva_legal_nativa_sema_nome_da_p1"
+          },
+          "de_area_reserva_legal_nativa_sema_tipologia": {
+              "show": false,
+              "alias": "de_area_reserva_legal_nativa_sema_tipologia"
+          },
+          "de_area_uso_antropizado_solo_sema_nome_da_p1": {
+              "show": false,
+              "alias": "de_area_uso_antropizado_solo_sema_nome_da_p1"
+          },
+          "de_area_uso_consolidado_sema_nome_da_p1": {
+              "show": false,
+              "alias": "de_area_uso_consolidado_sema_nome_da_p1"
+          },
+          "de_area_vegetacao_nativa_sema_nome_da_p1": {
+              "show": false,
+              "alias": "de_area_vegetacao_nativa_sema_nome_da_p1"
+          },
+          "de_autorizacao_desmate_sema_data_da_a1": {
+              "show": false,
+              "alias": "de_autorizacao_desmate_sema_data_da_a1"
+          },
+          "de_autorizacao_desmate_sema_data_do_v1": {
+              "show": false,
+              "alias": "de_autorizacao_desmate_sema_data_do_v1"
+          },
+          "de_autorizacao_desmate_sema_empreendi1": {
+              "show": false,
+              "alias": "de_autorizacao_desmate_sema_empreendi1"
+          },
+          "de_autorizacao_desmate_sema_modelo": {
+              "show": false,
+              "alias": "de_autorizacao_desmate_sema_modelo"
+          },
+          "de_autorizacao_desmate_sema_numero_do1": {
+              "show": false,
+              "alias": "de_autorizacao_desmate_sema_numero_do1"
+          },
+          "de_autorizacao_desmate_sema_numero_do2": {
+              "show": false,
+              "alias": "de_autorizacao_desmate_sema_numero_do2"
+          },
+          "de_autorizacao_desmate_sema_numero_do3": {
+              "show": false,
+              "alias": "de_autorizacao_desmate_sema_numero_do3"
+          },
+          "de_autorizacao_queima_sema_data_apro1": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_data_apro1"
+          },
+          "de_autorizacao_queima_sema_data_venc1": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_data_venc1"
+          },
+          "de_autorizacao_queima_sema_municipio": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_municipio"
+          },
+          "de_autorizacao_queima_sema_proprieta1": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_proprieta1"
+          },
+          "de_autorizacao_queima_sema_protocolo1": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_protocolo1"
+          },
+          "de_autorizacao_queima_sema_razao_soc1": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_razao_soc1"
+          },
+          "de_autorizacao_queima_sema_responsav1": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_responsav1"
+          },
+          "de_autorizacao_queima_sema_situacao": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_situacao"
+          },
+          "de_autorizacao_queima_sema_tipo": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_tipo"
+          },
+          "de_autorizacao_queima_sema_titulo_nu1": {
+              "show": false,
+              "alias": "de_autorizacao_queima_sema_titulo_nu1"
+          },
+          "de_car_validado_sema_area_ha_": {
+              "show": false,
+              "alias": "de_car_validado_sema_area_ha_"
+          },
+          "de_car_validado_sema_cpfcnpj": {
+              "show": false,
+              "alias": "de_car_validado_sema_cpfcnpj"
+          },
+          "de_car_validado_sema_municipio1": {
+              "show": false,
+              "alias": "de_car_validado_sema_municipio1"
+          },
+          "de_car_validado_sema_nome_da_p1": {
+              "show": false,
+              "alias": "de_car_validado_sema_nome_da_p1"
+          },
+          "de_car_validado_sema_nomepropri": {
+              "show": false,
+              "alias": "de_car_validado_sema_nomepropri"
+          },
+          "de_car_validado_sema_numero_do1": {
+              "show": false,
+              "alias": "de_car_validado_sema_numero_do1"
+          },
+          "de_car_validado_sema_numero_do2": {
+              "show": false,
+              "alias": "de_car_validado_sema_numero_do2"
+          },
+          "de_car_validado_sema_situacao_1": {
+              "show": false,
+              "alias": "de_car_validado_sema_situacao_1"
+          },
+          "de_terra_indigena_sema_ano_popul1": {
+              "show": false,
+              "alias": "de_terra_indigena_sema_ano_popul1"
+          },
+          "de_terra_indigena_sema_area_ha": {
+              "show": false,
+              "alias": "de_terra_indigena_sema_area_ha"
+          },
+          "de_terra_indigena_sema_data_inst": {
+              "show": false,
+              "alias": "de_terra_indigena_sema_data_inst"
+          },
+          "de_terra_indigena_sema_etnia": {
+              "show": false,
+              "alias": "de_terra_indigena_sema_etnia"
+          },
+          "de_terra_indigena_sema_inst_lega1": {
+              "show": false,
+              "alias": "de_terra_indigena_sema_inst_lega1"
+          },
+          "de_terra_indigena_sema_nome": {
+              "show": false,
+              "alias": "de_terra_indigena_sema_nome"
+          },
+          "de_terra_indigena_sema_nome_ti_a1": {
+              "show": false,
+              "alias": "de_terra_indigena_sema_nome_ti_a1"
+          },
+          "de_terra_indigena_sema_populacao": {
+              "show": false,
+              "alias": "de_terra_indigena_sema_populacao"
+          },
+          "de_terra_indigena_sema_sit_jurid1": {
+              "show": false,
+              "alias": "de_terra_indigena_sema_sit_jurid1"
+          },
+          "de_unidade_cons_sema_area_calc1": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_area_calc1"
+          },
+          "de_unidade_cons_sema_area_ofic1": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_area_ofic1"
+          },
+          "de_unidade_cons_sema_ato_legal": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_ato_legal"
+          },
+          "de_unidade_cons_sema_categoria": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_categoria"
+          },
+          "de_unidade_cons_sema_codigo_uc": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_codigo_uc"
+          },
+          "de_unidade_cons_sema_data_cada1": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_data_cada1"
+          },
+          "de_unidade_cons_sema_grupo": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_grupo"
+          },
+          "de_unidade_cons_sema_jurisdica1": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_jurisdica1"
+          },
+          "de_unidade_cons_sema_nome": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_nome"
+          },
+          "de_unidade_cons_sema_operador": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_operador"
+          },
+          "de_unidade_cons_sema_origem": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_origem"
+          },
+          "de_unidade_cons_sema_plano_man1": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_plano_man1"
+          },
+          "de_unidade_cons_sema_versao": {
+              "show": false,
+              "alias": "de_unidade_cons_sema_versao"
+          },
+          "execution_date": {
+              "show": false,
+              "alias": "execution_date"
+          },
+          "intersect_id": {
+              "show": false,
+              "alias": "intersect_id"
+          },
+          "intersection_geom": {
+              "show": false,
+              "alias": "intersection_geom"
+          },
+          "monitored_id": {
+              "show": false,
+              "alias": "monitored_id"
+          },
+          "pid_a_caraq": {
+              "show": false,
+              "alias": "pid_a_caraq"
+          },
+          "pid_a_caraq_app": {
+              "show": false,
+              "alias": "pid_a_caraq_app"
+          },
+          "pid_a_caraq_desmate": {
+              "show": false,
+              "alias": "pid_a_caraq_desmate"
+          },
+          "pid_a_caraq_emb": {
+              "show": false,
+              "alias": "pid_a_caraq_emb"
+          },
+          "pid_a_caraq_queima": {
+              "show": false,
+              "alias": "pid_a_caraq_queima"
+          },
+          "pid_a_caraq_reserva": {
+              "show": false,
+              "alias": "pid_a_caraq_reserva"
+          },
+          "pid_a_caraq_ti": {
+              "show": false,
+              "alias": "pid_a_caraq_ti"
+          },
+          "pid_a_caraq_uc": {
+              "show": false,
+              "alias": "pid_a_caraq_uc"
+          },
+          "pid_a_caraq_usoant": {
+              "show": false,
+              "alias": "pid_a_caraq_usoant"
+          },
+          "pid_a_caraq_usocon": {
+              "show": false,
+              "alias": "pid_a_caraq_usocon"
+          },
+          "pid_a_caraq_veg": {
+              "show": false,
+              "alias": "pid_a_caraq_veg"
+          },
+          "table_name": {
+              "show": false,
+              "alias": "table_name"
+          }
+        },
+        "STATIC": {
+
+        },
+        "DYNAMIC": {
+
+        }
+      }
+    ],
     "sidebarLayers": [
       {
         "cod": "DETER",
