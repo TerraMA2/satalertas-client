@@ -511,164 +511,10 @@
             }
           },
           {
-            "cod": "TI_CAR_X_DETER",
-            "codgroup": "DETER",
-            "label": "TI X CAR_DETER",
-            "shortLabel": "Terra Indigena",
-            "value": "80",
-            "dateColumn": "execution_date",
-            "areaColumn": "calculated_area_ha",
-            "geomColumn": "intersection_geom",
-            "carRegisterColumn": "a_cardeter_49_de_car_validado_sema_numero_do1",
-            "classNameColumn": "dd_deter_inpe_classname",
-            "type": "analysis",
-            "isPrivate": false,
-            "isPrimary": false,
-            "isChild": false,
-            "filter": {
-              "default": {
-                "view": "terrama2_80:view80"
-              },
-              "biome": {
-                "view": "mpmt_alertas:ti_car_deter_biome_sql",
-                "field": "gid",
-                "value": "gid"
-              },
-              "region": {
-                "view": "mpmt_alertas:ti_car_deter_city_sql",
-                "field": "comarca",
-                "value": "name"
-              },
-              "mesoregion": {
-                "view": "mpmt_alertas:ti_car_deter_city_sql",
-                "field": "nm_meso",
-                "value": "name"
-              },
-              "microregion": {
-                "view": "mpmt_alertas:ti_car_deter_city_sql",
-                "field": "nm_micro",
-                "value": "name"
-              },
-              "city": {
-                "view": "mpmt_alertas:ti_car_deter_city_sql",
-                "field": "gid",
-                "value": "gid"
-              },
-              "uc": {
-                "view": "mpmt_alertas:ti_car_deter_uc_sql",
-                "field": "gid",
-                "value": "gid"
-              },
-              "ti": {
-                "view": "mpmt_alertas:ti_car_deter_ti_sql",
-                "field": "gid",
-                "value": "gid"
-              },
-              "car": {
-                "view": "terrama2_80:view80",
-                "field": "a_cardeter_49_de_car_validado_sema_area_ha_"
-              },
-              "projus": {
-                "view": "mpmt_alertas:ti_car_deter_projus_sql",
-                "field": "gid",
-                "value": "gid"
-              }
-            },
-            "layerData": {
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
-              "layers": "terrama2_80:view80",
-              "transparent": true,
-              "format": "image/png",
-              "version": "1.1.0",
-              "time": "P1Y/PRESENT"
-            },
-            "legend": {
-              "title": "TI x CAR_DETER",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_80:view80"
-            }
-          },
-          {
-            "cod": "DESMATE_CAR_X_DETER",
-            "codgroup": "DETER",
-            "label": "CAR_DETER x DESMATE",
-            "shortLabel": "Desmate",
-            "value": "84",
-            "dateColumn": "execution_date",
-            "areaColumn": "calculated_area_ha",
-            "geomColumn": "intersection_geom",
-            "carRegisterColumn": "a_cardeter_49_de_car_validado_sema_numero_do1",
-            "classNameColumn": "dd_deter_inpe_classname",
-            "type": "analysis",
-            "isPrivate": false,
-            "isPrimary": false,
-            "isChild": false,
-            "filter": {
-              "default": {
-                "view": "terrama2_84:view84"
-              },
-              "biome": {
-                "view": "mpmt_alertas:desmate_car_deter_biome_sql",
-                "field": "gid",
-                "value": "gid"
-              },
-              "region": {
-                "view": "mpmt_alertas:desmate_car_deter_city_sql",
-                "field": "comarca",
-                "value": "name"
-              },
-              "mesoregion": {
-                "view": "mpmt_alertas:desmate_car_deter_city_sql",
-                "field": "nm_meso",
-                "value": "name"
-              },
-              "microregion": {
-                "view": "mpmt_alertas:desmate_car_deter_city_sql",
-                "field": "nm_micro",
-                "value": "name"
-              },
-              "city": {
-                "view": "mpmt_alertas:desmate_car_deter_city_sql",
-                "field": "gid",
-                "value": "gid"
-              },
-              "uc": {
-                "view": "mpmt_alertas:desmate_car_deter_uc_sql",
-                "field": "gid",
-                "value": "gid"
-              },
-              "ti": {
-                "view": "mpmt_alertas:desmate_car_deter_ti_sql",
-                "field": "gid",
-                "value": "gid"
-              },
-              "car": {
-                "view": "terrama2_84:view84",
-                "field": "a_cardeter_49_de_car_validado_sema_area_ha_"
-              },
-              "projus": {
-                "view": "mpmt_alertas:desmate_car_deter_projus_sql",
-                "field": "gid",
-                "value": "gid"
-              }
-            },
-            "layerData": {
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
-              "layers": "terrama2_84:view84",
-              "transparent": true,
-              "format": "image/png",
-              "version": "1.1.0",
-              "time": "P1Y/PRESENT"
-            },
-            "legend": {
-              "title": "DESMATE x CAR_DETER",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_84:view84"
-            }
-          },
-          {
             "cod": "EMB_CAR_X_DETER",
             "codgroup": "DETER",
             "label": "CAR_DETER x EMB",
-            "shortLabel": "Área Embargada",
+            "shortLabel": "Áreas Embargadas",
             "value": "82",
             "dateColumn": "execution_date",
             "areaColumn": "calculated_area_ha",
@@ -816,6 +662,160 @@
             "legend": {
               "title": "DESEMB x CAR_DETER",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_83:view83"
+            }
+          },
+          {
+            "cod": "DESMATE_CAR_X_DETER",
+            "codgroup": "DETER",
+            "label": "CAR_DETER x DESMATE",
+            "shortLabel": "Aut. Desmate",
+            "value": "84",
+            "dateColumn": "execution_date",
+            "areaColumn": "calculated_area_ha",
+            "geomColumn": "intersection_geom",
+            "carRegisterColumn": "a_cardeter_49_de_car_validado_sema_numero_do1",
+            "classNameColumn": "dd_deter_inpe_classname",
+            "type": "analysis",
+            "isPrivate": false,
+            "isPrimary": false,
+            "isChild": false,
+            "filter": {
+              "default": {
+                "view": "terrama2_84:view84"
+              },
+              "biome": {
+                "view": "mpmt_alertas:desmate_car_deter_biome_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "region": {
+                "view": "mpmt_alertas:desmate_car_deter_city_sql",
+                "field": "comarca",
+                "value": "name"
+              },
+              "mesoregion": {
+                "view": "mpmt_alertas:desmate_car_deter_city_sql",
+                "field": "nm_meso",
+                "value": "name"
+              },
+              "microregion": {
+                "view": "mpmt_alertas:desmate_car_deter_city_sql",
+                "field": "nm_micro",
+                "value": "name"
+              },
+              "city": {
+                "view": "mpmt_alertas:desmate_car_deter_city_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "uc": {
+                "view": "mpmt_alertas:desmate_car_deter_uc_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "ti": {
+                "view": "mpmt_alertas:desmate_car_deter_ti_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "car": {
+                "view": "terrama2_84:view84",
+                "field": "a_cardeter_49_de_car_validado_sema_area_ha_"
+              },
+              "projus": {
+                "view": "mpmt_alertas:desmate_car_deter_projus_sql",
+                "field": "gid",
+                "value": "gid"
+              }
+            },
+            "layerData": {
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
+              "layers": "terrama2_84:view84",
+              "transparent": true,
+              "format": "image/png",
+              "version": "1.1.0",
+              "time": "P1Y/PRESENT"
+            },
+            "legend": {
+              "title": "DESMATE x CAR_DETER",
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_84:view84"
+            }
+          },
+          {
+            "cod": "TI_CAR_X_DETER",
+            "codgroup": "DETER",
+            "label": "TI X CAR_DETER",
+            "shortLabel": "Terra Indigena",
+            "value": "80",
+            "dateColumn": "execution_date",
+            "areaColumn": "calculated_area_ha",
+            "geomColumn": "intersection_geom",
+            "carRegisterColumn": "a_cardeter_49_de_car_validado_sema_numero_do1",
+            "classNameColumn": "dd_deter_inpe_classname",
+            "type": "analysis",
+            "isPrivate": false,
+            "isPrimary": false,
+            "isChild": false,
+            "filter": {
+              "default": {
+                "view": "terrama2_80:view80"
+              },
+              "biome": {
+                "view": "mpmt_alertas:ti_car_deter_biome_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "region": {
+                "view": "mpmt_alertas:ti_car_deter_city_sql",
+                "field": "comarca",
+                "value": "name"
+              },
+              "mesoregion": {
+                "view": "mpmt_alertas:ti_car_deter_city_sql",
+                "field": "nm_meso",
+                "value": "name"
+              },
+              "microregion": {
+                "view": "mpmt_alertas:ti_car_deter_city_sql",
+                "field": "nm_micro",
+                "value": "name"
+              },
+              "city": {
+                "view": "mpmt_alertas:ti_car_deter_city_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "uc": {
+                "view": "mpmt_alertas:ti_car_deter_uc_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "ti": {
+                "view": "mpmt_alertas:ti_car_deter_ti_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "car": {
+                "view": "terrama2_80:view80",
+                "field": "a_cardeter_49_de_car_validado_sema_area_ha_"
+              },
+              "projus": {
+                "view": "mpmt_alertas:ti_car_deter_projus_sql",
+                "field": "gid",
+                "value": "gid"
+              }
+            },
+            "layerData": {
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
+              "layers": "terrama2_80:view80",
+              "transparent": true,
+              "format": "image/png",
+              "version": "1.1.0",
+              "time": "P1Y/PRESENT"
+            },
+            "legend": {
+              "title": "TI x CAR_DETER",
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_80:view80"
             }
           }
         ]
@@ -1285,6 +1285,234 @@
               "title": "UsoCon x CAR_PRODES",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_91:view91"
             }
+          },
+          {
+              "cod": "EMB_CAR_X_PRODES",
+              "codgroup": "PRODES",
+              "label": "EMB x CAR_PRODES",
+              "shortLabel": "Áreas Embargadas",
+              "value": "94",
+              "dateColumn": "execution_date",
+              "areaColumn": "calculated_area_ha",
+              "geomColumn": "intersection_geom",
+              "carRegisterColumn": "a_carprodes_62_de_car_validado_sema_numero_do1",
+              "classNameColumn": "a_carprodes_62_dd_prodes_inpe_mainclass",
+              "type": "analysis",
+              "isPrivate": false,
+              "isPrimary": false,
+              "isChild": false,
+              "filter": {
+                  "default": {
+                      "view": "terrama2_94:view94"
+                  },
+                  "biome": {
+                      "view": "mpmt_alertas:emb_car_prodes_biome_sql",
+                      "field": "gid",
+                      "value": "gid"
+                  },
+                  "region": {
+                      "view": "mpmt_alertas:emb_car_prodes_city_sql",
+                      "field": "comarca",
+                      "value": "name"
+                  },
+                  "mesoregion": {
+                      "view": "mpmt_alertas:emb_car_prodes_city_sql",
+                      "field": "nm_meso",
+                      "value": "name"
+                  },
+                  "microregion": {
+                      "view": "mpmt_alertas:emb_car_prodes_city_sql",
+                      "field": "nm_micro",
+                      "value": "name"
+                  },
+                  "city": {
+                      "view": "mpmt_alertas:emb_car_prodes_city_sql",
+                      "field": "gid",
+                      "value": "gid"
+                  },
+                  "uc": {
+                      "view": "mpmt_alertas:emb_car_prodes_emb_sql",
+                      "field": "gid",
+                      "value": "gid"
+                  },
+                  "ti": {
+                      "view": "mpmt_alertas:emb_car_prodes_ti_sql",
+                      "field": "gid",
+                      "value": "gid"
+                  },
+                  "car": {
+                      "field": "a_carprodes_62_de_car_validado_sema_area_ha_"
+                  },
+                  "projus": {
+                      "view": "mpmt_alertas:emb_car_prodes_projus_sql",
+                      "field": "gid",
+                      "value": "gid"
+                  }
+              },
+              "layerData": {
+                  "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
+                  "layers": "terrama2_94:view94",
+                  "transparent": true,
+                  "format": "image/png",
+                  "version": "1.1.0",
+                  "time": "P1Y/PRESENT"
+              },
+              "legend": {
+                  "title": "UC x CAR_PRODES",
+                  "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_94:view94"
+              }
+          },
+          {
+            "cod": "DESEMB_CAR_X_PRODES",
+            "codgroup": "PRODES",
+            "label": "DESEMB x CAR_PRODES",
+            "shortLabel": "Área Desembargada",
+            "value": "95",
+            "dateColumn": "execution_date",
+            "areaColumn": "calculated_area_ha",
+            "geomColumn": "intersection_geom",
+            "carRegisterColumn": "a_carprodes_62_de_car_validado_sema_numero_do1",
+            "classNameColumn": "a_carprodes_62_dd_prodes_inpe_mainclass",
+            "type": "analysis",
+            "isPrivate": false,
+            "isPrimary": false,
+            "isChild": false,
+            "filter": {
+              "default": {
+                "view": "terrama2_95:view95"
+              },
+              "biome": {
+                "view": "mpmt_alertas:desemb_car_prodes_biome_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "region": {
+                "view": "mpmt_alertas:desemb_car_prodes_city_sql",
+                "field": "comarca",
+                "value": "name"
+              },
+              "mesoregion": {
+                "view": "mpmt_alertas:desemb_car_prodes_city_sql",
+                "field": "nm_meso",
+                "value": "name"
+              },
+              "microregion": {
+                "view": "mpmt_alertas:desemb_car_prodes_city_sql",
+                "field": "nm_micro",
+                "value": "name"
+              },
+              "city": {
+                "view": "mpmt_alertas:desemb_car_prodes_city_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "uc": {
+                "view": "mpmt_alertas:desemb_car_prodes_emb_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "ti": {
+                "view": "mpmt_alertas:desemb_car_prodes_ti_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "car": {
+                "field": "a_carprodes_62_de_car_validado_sema_area_ha_"
+              },
+              "projus": {
+                "view": "mpmt_alertas:desemb_car_prodes_projus_sql",
+                "field": "gid",
+                "value": "gid"
+              }
+            },
+            "layerData": {
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
+              "layers": "terrama2_95:view95",
+              "transparent": true,
+              "format": "image/png",
+              "version": "1.1.0",
+              "time": "P1Y/PRESENT"
+            },
+            "legend": {
+              "title": "UC x CAR_PRODES",
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_95:view95"
+            }
+          },
+          {
+              "cod": "DESMATE_CAR_X_PRODES",
+              "codgroup": "PRODES",
+              "label": "DESMATE x CAR_PRODES",
+              "shortLabel": "Aut. Desmate",
+              "value": "96",
+              "dateColumn": "execution_date",
+              "areaColumn": "calculated_area_ha",
+              "geomColumn": "intersection_geom",
+              "carRegisterColumn": "a_carprodes_62_de_car_validado_sema_numero_do1",
+              "classNameColumn": "a_carprodes_62_dd_prodes_inpe_mainclass",
+              "type": "analysis",
+              "isPrivate": false,
+              "isPrimary": false,
+              "isChild": false,
+              "filter": {
+                  "default": {
+                      "view": "terrama2_96:view96"
+                  },
+                  "biome": {
+                      "view": "mpmt_alertas:desmate_car_prodes_biome_sql",
+                      "field": "gid",
+                      "value": "gid"
+                  },
+                  "region": {
+                      "view": "mpmt_alertas:desmate_car_prodes_city_sql",
+                      "field": "comarca",
+                      "value": "name"
+                  },
+                  "mesoregion": {
+                      "view": "mpmt_alertas:desmate_car_prodes_city_sql",
+                      "field": "nm_meso",
+                      "value": "name"
+                  },
+                  "microregion": {
+                      "view": "mpmt_alertas:desmate_car_prodes_city_sql",
+                      "field": "nm_micro",
+                      "value": "name"
+                  },
+                  "city": {
+                      "view": "mpmt_alertas:desmate_car_prodes_city_sql",
+                      "field": "gid",
+                      "value": "gid"
+                  },
+                  "uc": {
+                      "view": "mpmt_alertas:desmate_car_prodes_desmate_sql",
+                      "field": "gid",
+                      "value": "gid"
+                  },
+                  "ti": {
+                      "view": "mpmt_alertas:desmate_car_prodes_ti_sql",
+                      "field": "gid",
+                      "value": "gid"
+                  },
+                  "car": {
+                      "field": "a_carprodes_62_de_car_validado_sema_area_ha_"
+                  },
+                  "projus": {
+                      "view": "mpmt_alertas:desmate_car_prodes_projus_sql",
+                      "field": "gid",
+                      "value": "gid"
+                  }
+              },
+              "layerData": {
+                  "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
+                  "layers": "terrama2_96:view96",
+                  "transparent": true,
+                  "format": "image/png",
+                  "version": "1.1.0",
+                  "time": "P1Y/PRESENT"
+              },
+              "legend": {
+                  "title": "UC x CAR_PRODES",
+                  "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_96:view96"
+              }
           },
           {
             "cod": "TI_CAR_X_PRODES",
@@ -1908,6 +2136,234 @@
             }
           },
           {
+            "cod": "DESEMB_CAR_X_FOCOS",
+            "codgroup": "FOCOS",
+            "label": "DESEMB x CAR_FOCOS",
+            "shortLabel": "Área Desembargada",
+            "value": "107",
+            "dateColumn": "execution_date",
+            "areaColumn": "calculated_area_ha",
+            "geomColumn": "intersection_geom",
+            "carRegisterColumn": "a_carfocos_74_de_car_validado_sema_numero_do1",
+            "classNameColumn": null,
+            "type": "analysis",
+            "isPrivate": false,
+            "isPrimary": false,
+            "isChild": false,
+            "filter": {
+              "default": {
+                "view": "terrama2_107:view107"
+              },
+              "biome": {
+                "view": "terrama2_107:view107",
+                "field": "a_carfocos_74_dd_focos_inpe_bioma",
+                "value": "name"
+              },
+              "region": {
+                "view": "mpmt_alertas:emb_car_focos_city_sql",
+                "field": "comarca",
+                "value": "name"
+              },
+              "mesoregion": {
+                "view": "mpmt_alertas:emb_car_focos_city_sql",
+                "field": "nm_meso",
+                "value": "name"
+              },
+              "microregion": {
+                "view": "mpmt_alertas:emb_car_focos_city_sql",
+                "field": "nm_micro",
+                "value": "name"
+              },
+              "city": {
+                "view": "terrama2_107:view107",
+                "field": "dd_focos_inpe_id_2",
+                "value": "geocode"
+              },
+              "desmate": {
+                "view": "mpmt_alertas:emb_car_focos_emb_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "ti": {
+                "view": "mpmt_alertas:emb_car_focos_ti_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "car": {
+                "field": "a_carfocos_74_de_car_validado_sema_area_ha_"
+              },
+              "projus": {
+                "view": "mpmt_alertas:emb_car_focos_projus_sql",
+                "field": "gid",
+                "value": "gid"
+              }
+            },
+            "layerData": {
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
+              "layers": "terrama2_107:view107",
+              "transparent": true,
+              "format": "image/png",
+              "version": "1.1.0",
+              "time": "P1Y/PRESENT"
+            },
+            "legend": {
+              "title": "desmate x CAR_FOCOS",
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_107:view107"
+            }
+          },
+          {
+            "cod": "EMB_CAR_X_FOCOS",
+            "codgroup": "FOCOS",
+            "label": "EMB x CAR_FOCOS",
+            "shortLabel": "Áreas Embargadas",
+            "value": "106",
+            "dateColumn": "execution_date",
+            "areaColumn": "calculated_area_ha",
+            "geomColumn": "intersection_geom",
+            "carRegisterColumn": "a_carfocos_74_de_car_validado_sema_numero_do1",
+            "classNameColumn": null,
+            "type": "analysis",
+            "isPrivate": false,
+            "isPrimary": false,
+            "isChild": false,
+            "filter": {
+              "default": {
+                "view": "terrama2_106:view106"
+              },
+              "biome": {
+                "view": "terrama2_106:view106",
+                "field": "a_carfocos_74_dd_focos_inpe_bioma",
+                "value": "name"
+              },
+              "region": {
+                "view": "mpmt_alertas:emb_car_focos_city_sql",
+                "field": "comarca",
+                "value": "name"
+              },
+              "mesoregion": {
+                "view": "mpmt_alertas:emb_car_focos_city_sql",
+                "field": "nm_meso",
+                "value": "name"
+              },
+              "microregion": {
+                "view": "mpmt_alertas:emb_car_focos_city_sql",
+                "field": "nm_micro",
+                "value": "name"
+              },
+              "city": {
+                "view": "terrama2_106:view106",
+                "field": "dd_focos_inpe_id_2",
+                "value": "geocode"
+              },
+              "desmate": {
+                "view": "mpmt_alertas:emb_car_focos_emb_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "ti": {
+                "view": "mpmt_alertas:emb_car_focos_ti_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "car": {
+                "field": "a_carfocos_74_de_car_validado_sema_area_ha_"
+              },
+              "projus": {
+                "view": "mpmt_alertas:emb_car_focos_projus_sql",
+                "field": "gid",
+                "value": "gid"
+              }
+            },
+            "layerData": {
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
+              "layers": "terrama2_106:view106",
+              "transparent": true,
+              "format": "image/png",
+              "version": "1.1.0",
+              "time": "P1Y/PRESENT"
+            },
+            "legend": {
+              "title": "desmate x CAR_FOCOS",
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_106:view106"
+            }
+          },
+          {
+            "cod": "DESMATE_CAR_X_FOCOS",
+            "codgroup": "FOCOS",
+            "label": "DESMATE x CAR_FOCOS",
+            "shortLabel": "Aut. Desmate",
+            "value": "108",
+            "dateColumn": "execution_date",
+            "areaColumn": "calculated_area_ha",
+            "geomColumn": "intersection_geom",
+            "carRegisterColumn": "a_carfocos_74_de_car_validado_sema_numero_do1",
+            "classNameColumn": null,
+            "type": "analysis",
+            "isPrivate": false,
+            "isPrimary": false,
+            "isChild": false,
+            "filter": {
+              "default": {
+                "view": "terrama2_108:view108"
+              },
+              "biome": {
+                "view": "terrama2_108:view108",
+                "field": "a_carfocos_74_dd_focos_inpe_bioma",
+                "value": "name"
+              },
+              "region": {
+                "view": "mpmt_alertas:desmate_car_focos_city_sql",
+                "field": "comarca",
+                "value": "name"
+              },
+              "mesoregion": {
+                "view": "mpmt_alertas:desmate_car_focos_city_sql",
+                "field": "nm_meso",
+                "value": "name"
+              },
+              "microregion": {
+                "view": "mpmt_alertas:desmate_car_focos_city_sql",
+                "field": "nm_micro",
+                "value": "name"
+              },
+              "city": {
+                "view": "terrama2_108:view108",
+                "field": "dd_focos_inpe_id_2",
+                "value": "geocode"
+              },
+              "desmate": {
+                "view": "mpmt_alertas:desmate_car_focos_desmate_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "ti": {
+                "view": "mpmt_alertas:desmate_car_focos_ti_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "car": {
+                "field": "a_carfocos_74_de_car_validado_sema_area_ha_"
+              },
+              "projus": {
+                "view": "mpmt_alertas:desmate_car_focos_projus_sql",
+                "field": "gid",
+                "value": "gid"
+              }
+            },
+            "layerData": {
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
+              "layers": "terrama2_108:view108",
+              "transparent": true,
+              "format": "image/png",
+              "version": "1.1.0",
+              "time": "P1Y/PRESENT"
+            },
+            "legend": {
+              "title": "desmate x CAR_FOCOS",
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_108:view108"
+            }
+          },
+          {
             "cod": "TI_CAR_X_FOCOS",
             "codgroup": "FOCOS",
             "label": "TI x CAR_FOCOS",
@@ -2458,7 +2914,7 @@
           {
             "cod": "USOCON_AREA_QUEIMADA",
             "codgroup": "AREA_QUEIMADA",
-            "label": "UsoConx Área Queimada",
+            "label": "UsoCon x Área Queimada",
             "shortLabel": "Uso consolidado",
             "value": "69",
             "dateColumn": "execution_date",
@@ -2530,6 +2986,314 @@
             "legend": {
               "title": "UsoConx Área Queimada",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_69:view69"
+            }
+          },
+          {
+            "cod": "EMB_AREA_QUEIMADA",
+            "codgroup": "EMB_QUEIMADA",
+            "label": "EMB X AREA_QUEIMADA",
+            "shortLabel": "Áreas Embargadas",
+            "value": "118",
+            "dateColumn": "execution_date",
+            "areaColumn": "calculated_area_ha",
+            "geomColumn": "intersection_geom",
+            "carRegisterColumn": "a_caraq_86_de_car_validado_sema_numero_do1",
+            "classNameColumn": "dd_aq_inpe_classname",
+            "type": "analysis",
+            "isPrivate": false,
+            "isPrimary": false,
+            "isChild": false,
+            "filter": {
+              "default": {
+                "view": "terrama2_118:view118"
+              },
+              "biome": {
+                "view": "mpmt_alertas:ti_car_aq_biome_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "region": {
+                "view": "mpmt_alertas:ti_car_aq_city_sql",
+                "field": "comarca",
+                "value": "name"
+              },
+              "mesoregion": {
+                "view": "mpmt_alertas:ti_car_aq_city_sql",
+                "field": "nm_meso",
+                "value": "name"
+              },
+              "microregion": {
+                "view": "mpmt_alertas:ti_car_aq_city_sql",
+                "field": "nm_micro",
+                "value": "name"
+              },
+              "city": {
+                "view": "mpmt_alertas:ti_car_aq_city_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "uc": {
+                "view": "mpmt_alertas:ti_car_aq_uc_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "ti": {
+                "view": "mpmt_alertas:ti_car_aq_ti_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "car": {
+                "view": "terrama2_118:view118",
+                "field": "a_caraq_86_de_car_validado_sema_area_ha_"
+              },
+              "projus": {
+                "view": "mpmt_alertas:ti_car_aq_projus_sql",
+                "field": "gid",
+                "value": "gid"
+              }
+            },
+            "layerData": {
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
+              "layers": "terrama2_118:view118",
+              "transparent": true,
+              "format": "image/png",
+              "version": "1.1.0",
+              "time": "P1Y/PRESENT"
+            },
+            "legend": {
+              "title": "TIx Área Queimada",
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_118:view118"
+            }
+          },
+          {
+            "cod": "DESEMB_AREA_QUEIMADA",
+            "codgroup": "DESEMB_QUEIMADA",
+            "label": "DESEMB X AREA_QUEIMADA",
+            "shortLabel": "Áreas Desembargadas",
+            "value": "119",
+            "dateColumn": "execution_date",
+            "areaColumn": "calculated_area_ha",
+            "geomColumn": "intersection_geom",
+            "carRegisterColumn": "a_caraq_86_de_car_validado_sema_numero_do1",
+            "classNameColumn": "dd_aq_inpe_classname",
+            "type": "analysis",
+            "isPrivate": false,
+            "isPrimary": false,
+            "isChild": false,
+            "filter": {
+              "default": {
+                "view": "terrama2_119:view119"
+              },
+              "biome": {
+                "view": "mpmt_alertas:desemb_car_aq_biome_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "region": {
+                "view": "mpmt_alertas:desemb_car_aq_city_sql",
+                "field": "comarca",
+                "value": "name"
+              },
+              "mesoregion": {
+                "view": "mpmt_alertas:desemb_car_aq_city_sql",
+                "field": "nm_meso",
+                "value": "name"
+              },
+              "microregion": {
+                "view": "mpmt_alertas:desemb_car_aq_city_sql",
+                "field": "nm_micro",
+                "value": "name"
+              },
+              "city": {
+                "view": "mpmt_alertas:desemb_car_aq_city_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "uc": {
+                "view": "mpmt_alertas:desemb_car_aq_uc_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "ti": {
+                "view": "mpmt_alertas:desemb_car_aq_ti_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "car": {
+                "view": "terrama2_119:view119",
+                "field": "a_caraq_86_de_car_validado_sema_area_ha_"
+              },
+              "projus": {
+                "view": "mpmt_alertas:desemb_car_aq_projus_sql",
+                "field": "gid",
+                "value": "gid"
+              }
+            },
+            "layerData": {
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
+              "layers": "terrama2_119:view119",
+              "transparent": true,
+              "format": "image/png",
+              "version": "1.1.0",
+              "time": "P1Y/PRESENT"
+            },
+            "legend": {
+              "title": "TIx Área Queimada",
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_119:view119"
+            }
+          },
+          {
+            "cod": "DESMATE_AREA_QUEIMADA",
+            "codgroup": "AREA_QUEIMADA",
+            "label": "DESMATE X AREA_QUEIMADA",
+            "shortLabel": "Aut. Desmate",
+            "value": "120",
+            "dateColumn": "execution_date",
+            "areaColumn": "calculated_area_ha",
+            "geomColumn": "intersection_geom",
+            "carRegisterColumn": "a_caraq_86_de_car_validado_sema_numero_do1",
+            "classNameColumn": "dd_aq_inpe_classname",
+            "type": "analysis",
+            "isPrivate": false,
+            "isPrimary": false,
+            "isChild": false,
+            "filter": {
+              "default": {
+                "view": "terrama2_120:view120"
+              },
+              "biome": {
+                "view": "mpmt_alertas:ti_car_aq_biome_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "region": {
+                "view": "mpmt_alertas:ti_car_aq_city_sql",
+                "field": "comarca",
+                "value": "name"
+              },
+              "mesoregion": {
+                "view": "mpmt_alertas:ti_car_aq_city_sql",
+                "field": "nm_meso",
+                "value": "name"
+              },
+              "microregion": {
+                "view": "mpmt_alertas:ti_car_aq_city_sql",
+                "field": "nm_micro",
+                "value": "name"
+              },
+              "city": {
+                "view": "mpmt_alertas:ti_car_aq_city_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "uc": {
+                "view": "mpmt_alertas:ti_car_aq_uc_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "ti": {
+                "view": "mpmt_alertas:ti_car_aq_ti_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "car": {
+                "view": "terrama2_120:view120",
+                "field": "a_caraq_86_de_car_validado_sema_area_ha_"
+              },
+              "projus": {
+                "view": "mpmt_alertas:ti_car_aq_projus_sql",
+                "field": "gid",
+                "value": "gid"
+              }
+            },
+            "layerData": {
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
+              "layers": "terrama2_120:view120",
+              "transparent": true,
+              "format": "image/png",
+              "version": "1.1.0",
+              "time": "P1Y/PRESENT"
+            },
+            "legend": {
+              "title": "TIx Área Queimada",
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_120:view120"
+            }
+          },
+          {
+            "cod": "QUEIMA_AREA_QUEIMADA",
+            "codgroup": "QUEIMA_QUEIMADA",
+            "label": "QUEIMA X AREA_QUEIMADA",
+            "shortLabel": "Aut. Queimada",
+            "value": "121",
+            "dateColumn": "execution_date",
+            "areaColumn": "calculated_area_ha",
+            "geomColumn": "intersection_geom",
+            "carRegisterColumn": "a_caraq_86_de_car_validado_sema_numero_do1",
+            "classNameColumn": "dd_aq_inpe_classname",
+            "type": "analysis",
+            "isPrivate": false,
+            "isPrimary": false,
+            "isChild": false,
+            "filter": {
+              "default": {
+                "view": "tterrama2_121:view121"
+              },
+              "biome": {
+                "view": "mpmt_alertas:ti_car_aq_biome_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "region": {
+                "view": "mpmt_alertas:ti_car_aq_city_sql",
+                "field": "comarca",
+                "value": "name"
+              },
+              "mesoregion": {
+                "view": "mpmt_alertas:ti_car_aq_city_sql",
+                "field": "nm_meso",
+                "value": "name"
+              },
+              "microregion": {
+                "view": "mpmt_alertas:ti_car_aq_city_sql",
+                "field": "nm_micro",
+                "value": "name"
+              },
+              "city": {
+                "view": "mpmt_alertas:ti_car_aq_city_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "uc": {
+                "view": "mpmt_alertas:ti_car_aq_uc_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "ti": {
+                "view": "mpmt_alertas:ti_car_aq_ti_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "car": {
+                "view": "tterrama2_121:view121",
+                "field": "a_caraq_86_de_car_validado_sema_area_ha_"
+              },
+              "projus": {
+                "view": "mpmt_alertas:ti_car_aq_projus_sql",
+                "field": "gid",
+                "value": "gid"
+              }
+            },
+            "layerData": {
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
+              "layers": "tterrama2_121:view121",
+              "transparent": true,
+              "format": "image/png",
+              "version": "1.1.0",
+              "time": "P1Y/PRESENT"
+            },
+            "legend": {
+              "title": "TIx Área Queimada",
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=tterrama2_121:view121"
             }
           },
           {
@@ -2607,6 +3371,83 @@
             "legend": {
               "title": "TIx Área Queimada",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_70:view70"
+            }
+          },
+          {
+            "cod": "UC_AREA_QUEIMADA",
+            "codgroup": "UC_QUEIMADA",
+            "label": "UC X AREA_QUEIMADA",
+            "shortLabel": "Unidade de Conservação",
+            "value": "117",
+            "dateColumn": "execution_date",
+            "areaColumn": "calculated_area_ha",
+            "geomColumn": "intersection_geom",
+            "carRegisterColumn": "a_caraq_86_de_car_validado_sema_numero_do1",
+            "classNameColumn": "dd_aq_inpe_classname",
+            "type": "analysis",
+            "isPrivate": false,
+            "isPrimary": false,
+            "isChild": false,
+            "filter": {
+              "default": {
+                "view": "terrama2_117:view117"
+              },
+              "biome": {
+                "view": "mpmt_alertas:uc_car_aq_biome_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "region": {
+                "view": "mpmt_alertas:uc_car_aq_city_sql",
+                "field": "comarca",
+                "value": "name"
+              },
+              "mesoregion": {
+                "view": "mpmt_alertas:uc_car_aq_city_sql",
+                "field": "nm_meso",
+                "value": "name"
+              },
+              "microregion": {
+                "view": "mpmt_alertas:uc_car_aq_city_sql",
+                "field": "nm_micro",
+                "value": "name"
+              },
+              "city": {
+                "view": "mpmt_alertas:uc_car_aq_city_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "uc": {
+                "view": "mpmt_alertas:uc_car_aq_uc_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "ti": {
+                "view": "mpmt_alertas:uc_car_aq_ti_sql",
+                "field": "gid",
+                "value": "gid"
+              },
+              "car": {
+                "view": "terrama2_117:view117",
+                "field": "a_caraq_86_de_car_validado_sema_area_ha_"
+              },
+              "projus": {
+                "view": "mpmt_alertas:uc_car_aq_projus_sql",
+                "field": "gid",
+                "value": "gid"
+              }
+            },
+            "layerData": {
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
+              "layers": "terrama2_117:view117",
+              "transparent": true,
+              "format": "image/png",
+              "version": "1.1.0",
+              "time": "P1Y/PRESENT"
+            },
+            "legend": {
+              "title": "TIx Área Queimada",
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_117:view117"
             }
           }
         ]
@@ -2817,8 +3658,8 @@
             }
           },
           {
-            "label": "Área Pantaneira",
-            "shortLabel": "Área Pantaneira",
+            "label": "Áreas Pantaneiras",
+            "shortLabel": "Áreas Pantaneiras",
             "value": "12",
             "dateColumn": null,
             "areaColumn": null,
