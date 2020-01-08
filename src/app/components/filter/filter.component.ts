@@ -1,5 +1,4 @@
 import {Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
-import { ConfigService } from 'src/app/services/config.service';
 import { NgForm } from '@angular/forms';
 import {FilterService} from '../../services/filter.service';
 import {FilterTheme} from '../../models/filter-theme.model';
