@@ -28,7 +28,7 @@
     "leaflet-search": "^2.9.8",
     "leaflet.fullscreen": "^1.6.0",
     "leaflet.markercluster": "^1.4.1",
-    "ngx-print": "^1.2.0-beta.3",
+    "ngx-print": "^1.2.0-beta.1",
     "pdfmake": "^0.1.62",
     "primeflex": "^1.0.0",
     "primeicons": "^2.0.0",

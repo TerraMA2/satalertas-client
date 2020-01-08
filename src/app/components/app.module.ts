@@ -30,7 +30,6 @@ import { ToastModule } from 'primeng/toast';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { NgxPrintModule } from 'ngx-print';
 import { ToolbarModule } from 'primeng/toolbar';
-import { PDFExportModule } from '@progress/kendo-angular-pdf-export';
 
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
@@ -145,7 +144,6 @@ registerLocaleData(localePt, 'pt');
     RadioButtonModule,
     NgxPrintModule,
     ToolbarModule,
-    PDFExportModule
   ],
   providers: [
     TreeDragDropService,
