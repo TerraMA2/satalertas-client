@@ -805,9 +805,12 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       popupContent += `<h2>Layer não encontrado.</h2>`;
     }
 
+    const infoColumns = this.configService.getSidebarConfig('infoColumns');
+
     let popupTable = '';
     for (const selectedLayer of this.selectedLayers) {
-      const infoColumns = selectedLayer.infoColumns;
+      const codGroup = selectedLayer.codgroup;
+      const layerInfoColumn = infoColumns[codGroup];
       const layer = this.getLayer(selectedLayer.layerData);
       const layerName = selectedLayer.label;
 
@@ -825,7 +828,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       await this.hTTPService.get(url, params).toPromise().then((layerInfo: LayerInfo) => {
         const features = layerInfo.features;
         if (features && features.length > 0) {
-          popupTable += this.getFeatureInfoPopup(layerName, features, infoColumns);
+          popupTable += this.getFeatureInfoPopup(layerName, features, layerInfoColumn);
         }
       });
     }
@@ -903,17 +906,17 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     let popupContent = '';
     let popupContentBody = '';
     Object.keys(data).forEach(key => {
-      // const column = infoColumns[key];
-      // const show = column.show;
-      // const alias = column.alias;
-      // if (show) {
+      const column = infoColumns ? infoColumns[key] : '';
+      const show = column ? column.show : false;
+      const alias = column ? column.alias : key;
+      if (show) {
         popupContentBody += `
             <tr>
-              <td>${key}</td>
+              <td>${alias}</td>
               <td>${data[key]}</td>
             </tr>
         `;
-      // }
+      }
     });
 
     popupContent += `

@@ -15,6 +15,8 @@ import { SidebarService } from 'src/app/services/sidebar.service';
 
 import { MapService } from 'src/app/services/map.service';
 
+import { environment } from 'src/environments/environment';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -90,7 +92,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   setDefaultDate() {
     const currentDate = new Date();
-    const firstDate = new Date('01/01/' + currentDate.getFullYear());
+    let firstDate = new Date('01/01/' + currentDate.getFullYear());
+    if (!environment.production) {
+      firstDate = new Date('01/01/2001');
+    } else {
+      firstDate = new Date('01/01/' + currentDate.getFullYear());
+    }
     const currentDateInput = JSON.parse(localStorage.getItem('dateFilter'));
 
     if (JSON.parse(localStorage.getItem('dataFilter')) !== null) {
