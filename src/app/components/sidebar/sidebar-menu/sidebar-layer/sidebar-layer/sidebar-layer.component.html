@@ -21,7 +21,9 @@
 
         <p-inputSwitch *ngIf="displayControls"
                     [style]="{'margin-left': '8px'}"
-                    [(ngModel)]="parentSwitchChecked"
+                    [(ngModel)]="layer.isDisabled?null:parentSwitchChecked"
+                    [disabled]="layer.isDisabled"
+                    readOnly="layer.isDisabled"
                     (onChange)="onChildSwitchChanged($event)">
         </p-inputSwitch>
 
