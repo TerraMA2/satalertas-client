@@ -5240,17 +5240,17 @@
                 "value": "name"
               },
               "region": {
-                "view": "mpmt_alertas:emb_car_focos_city_sql",
+                "view": "mpmt_alertas:desemb_car_focos_city_sql",
                 "field": "comarca",
                 "value": "name"
               },
               "mesoregion": {
-                "view": "mpmt_alertas:emb_car_focos_city_sql",
+                "view": "mpmt_alertas:desemb_car_focos_city_sql",
                 "field": "nm_meso",
                 "value": "name"
               },
               "microregion": {
-                "view": "mpmt_alertas:emb_car_focos_city_sql",
+                "view": "mpmt_alertas:desemb_car_focos_city_sql",
                 "field": "nm_micro",
                 "value": "name"
               },
@@ -5260,7 +5260,7 @@
                 "value": "geocode"
               },
               "desmate": {
-                "view": "mpmt_alertas:emb_car_focos_emb_sql",
+                "view": "mpmt_alertas:desemb_car_focos_emb_sql",
                 "field": "gid",
                 "value": "gid"
               },
@@ -5287,7 +5287,7 @@
               "time": "P1Y/PRESENT"
             },
             "legend": {
-              "title": "desmate x CAR_FOCOS",
+              "title": "DESEMB x CAR_FOCOS",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_107:view107"
             }
           },
@@ -5363,7 +5363,7 @@
               "time": "P1Y/PRESENT"
             },
             "legend": {
-              "title": "desmate x CAR_FOCOS",
+              "title": "EMB x CAR_FOCOS",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_106:view106"
             }
           },
@@ -5702,37 +5702,37 @@
                 "view": "terrama2_110:view110"
               },
               "biome": {
-                "view": "mpmt_alertas:app_car_aq_biome_sql",
+                "view": "mpmt_alertas:car_aq_biome_sql",
                 "field": "gid",
                 "value": "gid"
               },
               "region": {
-                "view": "mpmt_alertas:app_car_aq_city_sql",
+                "view": "mpmt_alertas:car_aq_city_sql",
                 "field": "comarca",
                 "value": "name"
               },
               "mesoregion": {
-                "view": "mpmt_alertas:app_car_aq_city_sql",
+                "view": "mpmt_alertas:car_aq_city_sql",
                 "field": "nm_meso",
                 "value": "name"
               },
               "microregion": {
-                "view": "mpmt_alertas:app_car_aq_city_sql",
+                "view": "mpmt_alertas:car_aq_city_sql",
                 "field": "nm_micro",
                 "value": "name"
               },
               "city": {
-                "view": "mpmt_alertas:app_car_aq_city_sql",
+                "view": "mpmt_alertas:car_aq_city_sql",
                 "field": "gid",
                 "value": "gid"
               },
               "uc": {
-                "view": "mpmt_alertas:app_car_aq_uc_sql",
+                "view": "mpmt_alertas:car_aq_uc_sql",
                 "field": "gid",
                 "value": "gid"
               },
               "ti": {
-                "view": "mpmt_alertas:app_car_aq_ti_sql",
+                "view": "mpmt_alertas:car_aq_ti_sql",
                 "field": "gid",
                 "value": "gid"
               },
@@ -5741,7 +5741,7 @@
                 "field": "a_caraq_86_de_car_validado_sema_area_ha_"
               },
               "projus": {
-                "view": "mpmt_alertas:app_car_aq_projus_sql",
+                "view": "mpmt_alertas:car_aq_projus_sql",
                 "field": "gid",
                 "value": "gid"
               }
@@ -6164,37 +6164,37 @@
                 "view": "terrama2_118:view118"
               },
               "biome": {
-                "view": "mpmt_alertas:ti_car_aq_biome_sql",
+                "view": "mpmt_alertas:emb_car_aq_biome_sql",
                 "field": "gid",
                 "value": "gid"
               },
               "region": {
-                "view": "mpmt_alertas:ti_car_aq_city_sql",
+                "view": "mpmt_alertas:emb_car_aq_city_sql",
                 "field": "comarca",
                 "value": "name"
               },
               "mesoregion": {
-                "view": "mpmt_alertas:ti_car_aq_city_sql",
+                "view": "mpmt_alertas:emb_car_aq_city_sql",
                 "field": "nm_meso",
                 "value": "name"
               },
               "microregion": {
-                "view": "mpmt_alertas:ti_car_aq_city_sql",
+                "view": "mpmt_alertas:emb_car_aq_city_sql",
                 "field": "nm_micro",
                 "value": "name"
               },
               "city": {
-                "view": "mpmt_alertas:ti_car_aq_city_sql",
+                "view": "mpmt_alertas:emb_car_aq_city_sql",
                 "field": "gid",
                 "value": "gid"
               },
               "uc": {
-                "view": "mpmt_alertas:ti_car_aq_uc_sql",
+                "view": "mpmt_alertas:emb_car_aq_uc_sql",
                 "field": "gid",
                 "value": "gid"
               },
               "ti": {
-                "view": "mpmt_alertas:ti_car_aq_ti_sql",
+                "view": "mpmt_alertas:emb_car_aq_ti_sql",
                 "field": "gid",
                 "value": "gid"
               },
@@ -6203,7 +6203,7 @@
                 "field": "a_caraq_86_de_car_validado_sema_area_ha_"
               },
               "projus": {
-                "view": "mpmt_alertas:ti_car_aq_projus_sql",
+                "view": "mpmt_alertas:emb_car_aq_projus_sql",
                 "field": "gid",
                 "value": "gid"
               }
@@ -6318,37 +6318,37 @@
                 "view": "terrama2_120:view120"
               },
               "biome": {
-                "view": "mpmt_alertas:ti_car_aq_biome_sql",
+                "view": "mpmt_alertas:desmate_car_aq_biome_sql",
                 "field": "gid",
                 "value": "gid"
               },
               "region": {
-                "view": "mpmt_alertas:ti_car_aq_city_sql",
+                "view": "mpmt_alertas:desmate_car_aq_city_sql",
                 "field": "comarca",
                 "value": "name"
               },
               "mesoregion": {
-                "view": "mpmt_alertas:ti_car_aq_city_sql",
+                "view": "mpmt_alertas:desmate_car_aq_city_sql",
                 "field": "nm_meso",
                 "value": "name"
               },
               "microregion": {
-                "view": "mpmt_alertas:ti_car_aq_city_sql",
+                "view": "mpmt_alertas:desmate_car_aq_city_sql",
                 "field": "nm_micro",
                 "value": "name"
               },
               "city": {
-                "view": "mpmt_alertas:ti_car_aq_city_sql",
+                "view": "mpmt_alertas:desmate_car_aq_city_sql",
                 "field": "gid",
                 "value": "gid"
               },
               "uc": {
-                "view": "mpmt_alertas:ti_car_aq_uc_sql",
+                "view": "mpmt_alertas:desmate_car_aq_uc_sql",
                 "field": "gid",
                 "value": "gid"
               },
               "ti": {
-                "view": "mpmt_alertas:ti_car_aq_ti_sql",
+                "view": "mpmt_alertas:desmate_car_aq_ti_sql",
                 "field": "gid",
                 "value": "gid"
               },
@@ -6357,7 +6357,7 @@
                 "field": "a_caraq_86_de_car_validado_sema_area_ha_"
               },
               "projus": {
-                "view": "mpmt_alertas:ti_car_aq_projus_sql",
+                "view": "mpmt_alertas:desmate_car_aq_projus_sql",
                 "field": "gid",
                 "value": "gid"
               }
@@ -6371,7 +6371,7 @@
               "time": "P1Y/PRESENT"
             },
             "legend": {
-              "title": "TIx Área Queimada",
+              "title": "DESMATE x Área Queimada",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_120:view120"
             }
           },
@@ -6392,64 +6392,64 @@
             "isChild": false,
             "filter": {
               "default": {
-                "view": "tterrama2_121:view121"
+                "view": "terrama2_121:view121"
               },
               "biome": {
-                "view": "mpmt_alertas:ti_car_aq_biome_sql",
+                "view": "mpmt_alertas:queima_car_aq_biome_sql",
                 "field": "gid",
                 "value": "gid"
               },
               "region": {
-                "view": "mpmt_alertas:ti_car_aq_city_sql",
+                "view": "mpmt_alertas:queima_car_aq_city_sql",
                 "field": "comarca",
                 "value": "name"
               },
               "mesoregion": {
-                "view": "mpmt_alertas:ti_car_aq_city_sql",
+                "view": "mpmt_alertas:queima_car_aq_city_sql",
                 "field": "nm_meso",
                 "value": "name"
               },
               "microregion": {
-                "view": "mpmt_alertas:ti_car_aq_city_sql",
+                "view": "mpmt_alertas:queima_car_aq_city_sql",
                 "field": "nm_micro",
                 "value": "name"
               },
               "city": {
-                "view": "mpmt_alertas:ti_car_aq_city_sql",
+                "view": "mpmt_alertas:queima_car_aq_city_sql",
                 "field": "gid",
                 "value": "gid"
               },
               "uc": {
-                "view": "mpmt_alertas:ti_car_aq_uc_sql",
+                "view": "mpmt_alertas:queima_car_aq_uc_sql",
                 "field": "gid",
                 "value": "gid"
               },
               "ti": {
-                "view": "mpmt_alertas:ti_car_aq_ti_sql",
+                "view": "mpmt_alertas:queima_car_aq_ti_sql",
                 "field": "gid",
                 "value": "gid"
               },
               "car": {
-                "view": "tterrama2_121:view121",
+                "view": "terrama2_121:view121",
                 "field": "a_caraq_86_de_car_validado_sema_area_ha_"
               },
               "projus": {
-                "view": "mpmt_alertas:ti_car_aq_projus_sql",
+                "view": "mpmt_alertas:queima_car_aq_projus_sql",
                 "field": "gid",
                 "value": "gid"
               }
             },
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
-              "layers": "tterrama2_121:view121",
+              "layers": "terrama2_121:view121",
               "transparent": true,
               "format": "image/png",
               "version": "1.1.0",
               "time": "P1Y/PRESENT"
             },
             "legend": {
-              "title": "TIx Área Queimada",
-              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=tterrama2_121:view121"
+              "title": "QUEIMA x Área Queimada",
+              "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_121:view121"
             }
           },
           {
@@ -6525,7 +6525,7 @@
               "time": "P1Y/PRESENT"
             },
             "legend": {
-              "title": "TIx Área Queimada",
+              "title": "TI x Área Queimada",
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER=terrama2_116:view116"
             }
           },
