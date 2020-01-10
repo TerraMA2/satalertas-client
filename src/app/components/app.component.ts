@@ -6,6 +6,8 @@ import { ConfigService } from '../services/config.service';
 
 import { AuthService } from '../services/auth.service';
 
+import { environment } from 'src/environments/environment';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -28,9 +30,11 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.authService.autoLogin();
 
-    localStorage.removeItem('dateFilter');
-    localStorage.removeItem('mapState');
-    localStorage.removeItem('filterList');
+    if (environment.production) {
+      localStorage.removeItem('dateFilter');
+      localStorage.removeItem('mapState');
+      localStorage.removeItem('filterList');
+    }
 
     this.appConfig = this.configService.getAppConfig();
     this.titleService.setTitle(`${this.appConfig.mainApplication} | ${this.appConfig.headerTitle}`);

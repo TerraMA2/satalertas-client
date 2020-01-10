@@ -76,30 +76,34 @@ export class SidebarComponent implements OnInit {
       const children = sidebarLayer.children;
       if (children) {
         sidebarLayer.children.forEach(sidebarLayerChild => {
-          const layer = new Layer(
-            sidebarLayerChild.cod,
-            sidebarLayerChild.codgroup,
-            sidebarLayerChild.label,
-            sidebarLayerChild.shortLabel,
-            sidebarLayerChild.value,
-            sidebarLayerChild.dateColumn,
-            sidebarLayerChild.geomColumn,
-            sidebarLayerChild.areaColumn,
-            sidebarLayerChild.carRegisterColumn,
-            sidebarLayerChild.classNameColumn,
-            sidebarLayerChild.type,
-            sidebarLayerChild.isPrivate,
-            sidebarLayerChild.isPrimary,
-            sidebarLayerChild.isChild,
-            sidebarLayerChild.filter,
-            sidebarLayerChild.layerData,
-            sidebarLayerChild.legend,
-            sidebarLayerChild.popupTitle,
-            sidebarLayerChild.infoColumns,
-            sidebarLayerChild.tools,
-            sidebarLayerChild.markerSelected
-          );
-          layerChildren.push(layer);
+          let layer;
+          if (!sidebarLayerChild.isHidden) {
+            layer = new Layer(
+              sidebarLayerChild.cod,
+              sidebarLayerChild.codgroup,
+              sidebarLayerChild.label,
+              sidebarLayerChild.shortLabel,
+              sidebarLayerChild.value,
+              sidebarLayerChild.dateColumn,
+              sidebarLayerChild.geomColumn,
+              sidebarLayerChild.areaColumn,
+              sidebarLayerChild.carRegisterColumn,
+              sidebarLayerChild.classNameColumn,
+              sidebarLayerChild.type,
+              sidebarLayerChild.isPrivate,
+              sidebarLayerChild.isPrimary,
+              sidebarLayerChild.isChild,
+              sidebarLayerChild.filter,
+              sidebarLayerChild.layerData,
+              sidebarLayerChild.legend,
+              sidebarLayerChild.popupTitle,
+              sidebarLayerChild.infoColumns,
+              sidebarLayerChild.isHidden,
+              sidebarLayerChild.tools,
+              sidebarLayerChild.markerSelected
+            );
+            layerChildren.push(layer);
+          }
         });
       }
       const layerGroup = new LayerGroup(
