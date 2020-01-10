@@ -3467,37 +3467,37 @@
                 "view": "terrama2_83:view83"
               },
               "biome": {
-                "view": "mpmt_alertas:desmate_car_deter_biome_sql",
+                "view": "mpmt_alertas:desemb_car_deter_biome_sql",
                 "field": "gid",
                 "value": "gid"
               },
               "region": {
-                "view": "mpmt_alertas:desmate_car_deter_city_sql",
+                "view": "mpmt_alertas:desemb_car_deter_city_sql",
                 "field": "comarca",
                 "value": "name"
               },
               "mesoregion": {
-                "view": "mpmt_alertas:desmate_car_deter_city_sql",
+                "view": "mpmt_alertas:desemb_car_deter_city_sql",
                 "field": "nm_meso",
                 "value": "name"
               },
               "microregion": {
-                "view": "mpmt_alertas:desmate_car_deter_city_sql",
+                "view": "mpmt_alertas:desemb_car_deter_city_sql",
                 "field": "nm_micro",
                 "value": "name"
               },
               "city": {
-                "view": "mpmt_alertas:desmate_car_deter_city_sql",
+                "view": "mpmt_alertas:desemb_car_deter_city_sql",
                 "field": "gid",
                 "value": "gid"
               },
               "uc": {
-                "view": "mpmt_alertas:desmate_car_deter_uc_sql",
+                "view": "mpmt_alertas:desemb_car_deter_uc_sql",
                 "field": "gid",
                 "value": "gid"
               },
               "ti": {
-                "view": "mpmt_alertas:desmate_car_deter_ti_sql",
+                "view": "mpmt_alertas:desemb_car_deter_ti_sql",
                 "field": "gid",
                 "value": "gid"
               },
@@ -3506,7 +3506,7 @@
                 "field": "a_cardeter_49_de_car_validado_sema_area_ha_"
               },
               "projus": {
-                "view": "mpmt_alertas:ti_car_deter_projus_sql",
+                "view": "mpmt_alertas:desemb_car_deter_projus_sql",
                 "field": "gid",
                 "value": "gid"
               }
@@ -7231,7 +7231,7 @@
           {
             "codgroup": "DYNAMIC",
             "label": "Areas Queimadas",
-            "shortLabel": "AREAS_QUEIMADAS",
+            "shortLabel": "Areas Queimadas",
             "value": "25",
             "dateColumn": null,
             "areaColumn": null,
