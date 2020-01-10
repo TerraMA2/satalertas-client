@@ -2990,6 +2990,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": true,
+            "isHidden": false,
             "filter": {
               "default": {
                 "view": "terrama2_74:view74"
@@ -3067,6 +3068,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": true,
+            "isHidden": false,
             "filter": {
               "default": {
                 "view": "terrama2_75:view75"
@@ -3144,6 +3146,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": true,
+            "isHidden": false,
             "filter": {
               "default": {
                 "view": "terrama2_76:view76"
@@ -3221,6 +3224,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": true,
+            "isHidden": false,
             "filter": {
               "default": {
                 "view": "terrama2_77:view77"
@@ -3298,6 +3302,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": true,
+            "isHidden": false,
             "filter": {
               "default": {
                 "view": "terrama2_79:view79"
@@ -3760,6 +3765,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": false,
+            "isHidden": true,
             "filter": {
               "default": {
                 "view": "terrama2_81:view81"
@@ -3847,6 +3853,7 @@
             "isPrivate": false,
             "isPrimary": true,
             "isChild": false,
+            "isHidden": false,
             "filter": {
               "default": {
                 "view": "terrama2_86:view86"
@@ -3925,6 +3932,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": true,
+            "isHidden": false,
             "filter": {
               "default": {
                 "view": "terrama2_87:view87"
@@ -4001,6 +4009,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": true,
+            "isHidden": false,
             "filter": {
               "default": {
                 "view": "terrama2_88:view88"
@@ -4077,6 +4086,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": true,
+            "isHidden": false,
             "filter": {
               "default": {
                 "view": "terrama2_89:view89"
@@ -4153,6 +4163,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": true,
+            "isHidden": false,
             "filter": {
               "default": {
                 "view": "terrama2_90:view90"
@@ -4229,6 +4240,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": true,
+            "isHidden": false,
             "filter": {
               "default": {
                 "view": "terrama2_91:view91"
@@ -4305,6 +4317,7 @@
               "isPrivate": false,
               "isPrimary": false,
               "isChild": false,
+              "isHidden": false,
               "filter": {
                   "default": {
                       "view": "terrama2_94:view94"
@@ -4381,6 +4394,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": false,
+            "isHidden": false,
             "filter": {
               "default": {
                 "view": "terrama2_95:view95"
@@ -4457,6 +4471,7 @@
               "isPrivate": false,
               "isPrimary": false,
               "isChild": false,
+            "isHidden": false,
               "filter": {
                   "default": {
                       "view": "terrama2_96:view96"
@@ -4533,6 +4548,7 @@
               "isPrivate": false,
               "isPrimary": false,
               "isChild": false,
+              "isHidden": false,
               "filter": {
                   "default": {
                       "view": "terrama2_97:view97"
@@ -4609,6 +4625,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": false,
+            "isHidden": false,
             "filter": {
               "default": {
                 "view": "terrama2_92:view92"
@@ -4685,6 +4702,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": false,
+            "isHidden": false,
             "filter": {
               "default": {
                 "view": "terrama2_93:view93"
@@ -4771,6 +4789,7 @@
             "isPrivate": false,
             "isPrimary": true,
             "isChild": false,
+            "isHidden": false,
             "filter": {
               "default": {
                 "view": "terrama2_103:view103"
@@ -4848,6 +4867,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": true,
+            "isHidden": false,
             "filter": {
               "default": {
                 "view": "terrama2_98:view98"
@@ -4924,6 +4944,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": true,
+            "isHidden": false,
             "filter": {
               "default": {
                 "view": "terrama2_99:view99"
@@ -5001,6 +5022,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": true,
+            "isHidden": false,
             "filter": {
               "default": {
                 "view": "terrama2_100:view100"
@@ -5078,6 +5100,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": true,
+            "isHidden": false,
             "filter": {
               "default": {
                 "view": "terrama2_101:view101"
@@ -5154,6 +5177,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": true,
+            "isHidden": false,
             "filter": {
               "default": {
                 "view": "terrama2_102:view102"
@@ -5230,6 +5254,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": false,
+            "isHidden": false,
             "filter": {
               "default": {
                 "view": "terrama2_107:view107"
@@ -5306,6 +5331,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": false,
+            "isHidden": false,
             "filter": {
               "default": {
                 "view": "terrama2_106:view106"
@@ -5382,6 +5408,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": false,
+            "isHidden": false,
             "filter": {
               "default": {
                 "view": "terrama2_108:view108"
@@ -5458,6 +5485,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": false,
+            "isHidden": false,
             "filter": {
               "default": {
                 "view": "terrama2_109:view109"
@@ -5534,6 +5562,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": false,
+            "isHidden": false,
             "filter": {
               "default": {
                 "view": "terrama2_104:view104"
@@ -5611,6 +5640,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": false,
+            "isHidden": false,
             "filter": {
               "default": {
                 "view": "terrama2_105:view105"
@@ -5697,6 +5727,7 @@
             "isPrivate": false,
             "isPrimary": true,
             "isChild": false,
+            "isHidden": false,
             "filter": {
               "default": {
                 "view": "terrama2_110:view110"
@@ -5774,6 +5805,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": true,
+            "isHidden": false,
             "filter": {
               "default": {
                 "view": "terrama2_111:view111"
@@ -5851,6 +5883,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": true,
+            "isHidden": false,
             "filter": {
               "default": {
                 "view": "terrama2_112:view112"
@@ -5928,6 +5961,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": true,
+            "isHidden": false,
             "filter": {
               "default": {
                 "view": "terrama2_113:view113"
@@ -6005,6 +6039,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": true,
+            "isHidden": false,
             "filter": {
               "default": {
                 "view": "terrama2_68:view68"
@@ -6082,6 +6117,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": true,
+            "isHidden": false,
             "filter": {
               "default": {
                 "view": "terrama2_69:view69"
@@ -6159,6 +6195,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": false,
+            "isHidden": false,
             "filter": {
               "default": {
                 "view": "terrama2_118:view118"
@@ -6236,6 +6273,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": false,
+            "isHidden": true,
             "filter": {
               "default": {
                 "view": "terrama2_119:view119"
@@ -6313,6 +6351,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": false,
+            "isHidden": false,
             "filter": {
               "default": {
                 "view": "terrama2_120:view120"
@@ -6390,6 +6429,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": false,
+            "isHidden": false,
             "filter": {
               "default": {
                 "view": "tterrama2_121:view121"
@@ -6467,6 +6507,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": false,
+            "isHidden": false,
             "filter": {
               "default": {
                 "view": "terrama2_116:view116"
@@ -6544,6 +6585,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": false,
+            "isHidden": false,
             "filter": {
               "default": {
                 "view": "terrama2_117:view117"
@@ -6629,6 +6671,7 @@
             "isPrivate": false,
             "isPrimary": true,
             "isChild": false,
+            "isHidden": false,
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
               "layers": "terrama2_6:view6",
@@ -6655,6 +6698,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": true,
+            "isHidden": false,
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
               "layers": "terrama2_7:view7",
@@ -6681,6 +6725,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": true,
+            "isHidden": false,
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
               "layers": "terrama2_10:view10",
@@ -6707,6 +6752,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": true,
+            "isHidden": false,
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
               "layers": "terrama2_22:view22",
@@ -6733,6 +6779,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": true,
+            "isHidden": false,
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
               "layers": "terrama2_21:view21",
@@ -6759,6 +6806,7 @@
             "isPrivate": false,
             "isPrimary": false,
             "isChild": true,
+            "isHidden": false,
             "layerData": {
               "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms",
               "layers": "terrama2_9:view9",
