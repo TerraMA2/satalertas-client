@@ -1,6 +1,6 @@
 <div class="sidebar-layer-content"
     *ngIf="displayChild"
-    [ngClass]="{'sidebar-layer-margin': layer.isChild === true}">
+    [ngClass]="{'sidebar-layer-margin': layer.isChild === true, 'sidebar-layer-disabled': layer.isDisabled === true}">
     <div class="sidebar-layer-label"
         (click)="onChildClicked()">
 

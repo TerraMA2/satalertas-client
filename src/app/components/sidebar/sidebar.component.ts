@@ -99,6 +99,7 @@ export class SidebarComponent implements OnInit {
               sidebarLayerChild.popupTitle,
               sidebarLayerChild.infoColumns,
               sidebarLayerChild.isHidden,
+              sidebarLayerChild.isDisabled,
               sidebarLayerChild.tools,
               sidebarLayerChild.markerSelected
             );

@@ -28,6 +28,7 @@ export class Layer {
     public popupTitle: string,
     public infoColumns: object[],
     public isHidden?: boolean,
+    public isDisabled?: boolean,
     public tools?: Tool[],
     public markerSelected?: boolean
   ) {}
