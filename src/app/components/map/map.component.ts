@@ -216,7 +216,11 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         popup = popupTitle;
       }
 
-      const popupContent = this.getPopupContent(markerData, overlayName);
+      const selectedPrimaryLayer = this.selectedPrimaryLayer;
+
+      const infoColumns = this.configService.getSidebarConfig('infoColumns')[selectedPrimaryLayer.codgroup];
+
+      const popupContent = this.getPopupContent(markerData, overlayName, infoColumns);
       const marker = this.createMarker(popup, popupContent, [markerData.lat, markerData.long], overlayName, link);
 
       if (marker) {
@@ -319,7 +323,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         this.clearMarkerInfo();
       }
 
-      const popupContent = this.getPopupContent(data, markerLabel);
+      const infoColumns = this.configService.getSidebarConfig('infoColumns')['STATIC'];
+
+      const popupContent = this.getPopupContent(data, markerLabel, infoColumns);
       this.markerInfo = this.createMarker(carRegister, popupContent, latLong, markerLabel, link);
 
       this.markerClusterGroup.addLayer(this.markerInfo);
@@ -381,9 +387,11 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       this.clearReportTable();
       const layers = itemSelected.children;
       layers.forEach((layer: Layer) => {
-        const layerExists = this.selectedLayers.find(selectedLayer => selectedLayer.value === layer.value);
-        if (!layerExists) {
-          this.addLayer(layer, true);
+        if (!layer.isDisabled && !layer.isHidden) {
+          const layerExists = this.selectedLayers.find(selectedLayer => selectedLayer.value === layer.value);
+          if (!layerExists) {
+            this.addLayer(layer, true);
+          }
         }
       });
     });
@@ -906,9 +914,22 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     let popupContent = '';
     let popupContentBody = '';
     Object.keys(data).forEach(key => {
-      const column = infoColumns ? infoColumns[key] : '';
-      const show = column ? column.show : false;
-      const alias = column ? column.alias : key;
+      if (key === 'lat' || key === 'long') {
+        return;
+      }
+      const column = infoColumns[key];
+      let show = true;
+      let alias;
+      if (column) {
+        alias = column.alias;
+        if (column.show === true) {
+          show = true;
+        } else {
+          show = false;
+        }
+      } else {
+        alias = key;
+      }
       if (show) {
         popupContentBody += `
             <tr>
@@ -1020,10 +1041,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         (layer.type === LayerType.ANALYSIS),
         layer.isPrimary
     ));
-
-    const date = JSON.parse(localStorage.getItem('dateFilter'));
-
-    const filter = localStorage.getItem('filterList');
 
     const params = this.filterService.getParams({ view });
 

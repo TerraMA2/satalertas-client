@@ -154,7 +154,7 @@ export class TableComponent implements OnInit {
       this.columns = [];
 
       this.totalRecords = data.pop();
-      
+
       if (!this.tableReportActive) {
         const infoColumns = this.configService.getSidebarConfig('infoColumns')[this.selectedLayer.codgroup];
         const changedData = [];
@@ -172,12 +172,7 @@ export class TableComponent implements OnInit {
           Object.entries(dataValue).forEach(e => {
             const key = e[0];
             if (key !== 'lat' && key !== 'long') {
-              console.log("infocolumn: " + infoColumns[key]);
-              console.log("");
               const value = e[1];
-              console.log("key: " + key);
-              console.log("");
-              console.log("value: " + value);
               changedRow[infoColumns[key].alias] = value;
             }
           });
