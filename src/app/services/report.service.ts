@@ -168,7 +168,7 @@ export class ReportService {
     const burnedAreas = [];
     burnedAreasData.forEach(burnedAreaData => {
       const burnedArea = burnedAreaData.burnedareas;
-      const year = burnedAreaData.year;
+      const year = burnedAreaData.date;
       burnedAreasYears.push(year);
       burnedAreas.push(burnedArea);
     });

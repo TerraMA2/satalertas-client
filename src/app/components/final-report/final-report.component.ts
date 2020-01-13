@@ -29,6 +29,8 @@ export class FinalReportComponent implements OnInit {
   private image64mpmt4;
 
   private imageHeader;
+  private imageHeader1;
+  private imageHeader2;
 
   private pages;
   private media;
@@ -70,7 +72,7 @@ export class FinalReportComponent implements OnInit {
       { field: 'affectedArea', header: 'Área atingida' },
       { field: 'recentDeforestation', header: 'Desmatamento recente (DETER – ha ano-1)' },
       { field: 'pastDeforestation', header: 'Desmatamento pretérito (PRODES – ha ano-1)' },
-      { field: 'burnlights', header: 'Focos de Queimadas (Num.de focos)' },
+      { field: 'burnlights', header: 'Focos de Queimadas (Num. de focos)' },
       { field: 'burnAreas', header: 'Áreas Queimadas (ha ano-1)' }
     ];
 
@@ -143,7 +145,12 @@ export class FinalReportComponent implements OnInit {
 
       this.tableData = propertyDeforestation;
 
-      this.hTTPService.getBlob(`http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_5:view5,terrama2_20:view20&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=250&height=250&cql_filter=id_munic>0;municipio='${this.property.city}';numero_do1='${this.property.register}'&srs=EPSG:4326&format=image/png`)
+      const gsImage = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_5:view5,terrama2_6:view6&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=250&height=250&cql_filter=id_munic>0;municipio='${this.property.city}';numero_do1='${this.property.register}'&srs=EPSG:4326&format=image/png`;
+      const gsImage1 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:view6&styles=&bbox=${this.property.bbox}&width=400&height=400&time=${this.property.prodesYear[0]['date']}/P1Y&cql_filter=numero_do1='${this.property.register}'&srs=EPSG:4326&format=image/png`;
+      const gsImage2 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:view6,terrama2_73:view73&styles=&bbox=${this.property.bbox}&width=404&height=431&time=${this.property.prodesYear[0]['date']}/${this.currentYear}&cql_filter=numero_do1='${this.property.register}';de_car_validado_sema_numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`;
+      const gsImage3 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:view6,terrama2_73:view73&styles=&bbox=${this.property.bbox}&width=400&height=400&time=${this.property.prodesYear[0]['date']}/P1Y&cql_filter=numero_do1='${this.property.register}';de_car_validado_sema_numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`;
+      const gsImage4 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:view6,terrama2_73:view73&styles=&bbox=${this.property.bbox}&width=400&height=400&time=2019/P1Y&cql_filter=numero_do1='${this.property.register}';de_car_validado_sema_numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`;
+      this.hTTPService.getBlob(gsImage)
                     .subscribe((response) => {
                       return new Promise((resolve, reject) => {
                         const fileReader  = new FileReader();
@@ -154,7 +161,7 @@ export class FinalReportComponent implements OnInit {
                       });
                     }
       );
-      this.hTTPService.getBlob(`http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_20:view20&styles=&bbox=${this.property.bbox}&width=400&height=400&time=${this.prodesStartYear}/P1Y&cql_filter=numero_do1='${this.property.register}'&srs=EPSG:4326&format=image/png`)
+      this.hTTPService.getBlob(gsImage1)
                     .subscribe((response) => {
                       return new Promise((resolve, reject) => {
                         const fileReader  = new FileReader();
@@ -165,7 +172,7 @@ export class FinalReportComponent implements OnInit {
                       });
                     }
       );
-      this.hTTPService.getBlob(`http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_20:view20,terrama2_73:view73&styles=&bbox=${this.property.bbox}&width=404&height=431&time=${this.property.prodesYear}/${this.currentYear}&cql_filter=numero_do1='${this.property.register}';de_car_validado_sema_numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`)
+      this.hTTPService.getBlob(gsImage2)
                     .subscribe((response) => {
                       return new Promise((resolve, reject) => {
                         const fileReader  = new FileReader();
@@ -176,7 +183,7 @@ export class FinalReportComponent implements OnInit {
                       });
                     }
       );
-      this.hTTPService.getBlob(`http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_20:view20,terrama2_73:view73&styles=&bbox=${this.property.bbox}&width=400&height=400&time=${this.property.prodesYear}/P1Y&cql_filter=numero_do1='${this.property.register}';de_car_validado_sema_numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`)
+      this.hTTPService.getBlob(gsImage3)
                     .subscribe((response) => {
                       return new Promise((resolve, reject) => {
                         const fileReader  = new FileReader();
@@ -187,7 +194,7 @@ export class FinalReportComponent implements OnInit {
                       });
                     }
       );
-      this.hTTPService.getBlob(`http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_20:view20,terrama2_73:view73&styles=&bbox=${this.property.bbox}&width=400&height=400&time=2019/P1Y&cql_filter=numero_do1='${this.property.register}';de_car_validado_sema_numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`)
+      this.hTTPService.getBlob(gsImage4)
                     .subscribe((response) => {
                       return new Promise((resolve, reject) => {
                         const fileReader  = new FileReader();
@@ -199,6 +206,8 @@ export class FinalReportComponent implements OnInit {
                     }
       );
       this.imageHeader = this.getBaseImage('assets/img/logos/logo-mpmt2.png');
+      this.imageHeader1 = this.getBaseImage('assets/img/logos/logo-report-procuradoria-small.png');
+      this.imageHeader2 = this.getBaseImage('assets/img/logos/logo-report-inpe.png');
 
     });
   }
@@ -245,6 +254,20 @@ export class FinalReportComponent implements OnInit {
         width: 180,
         height: 50,
         alignment: 'left',
+        margin: [30, 25, 0, 30]
+      },
+      {
+        image: this.imageHeader1,
+        width: 100,
+        height: 100,
+        alignment: 'right',
+        margin: [30, 25, 0, 30]
+      },
+      {
+        image: this.imageHeader2,
+        width: 100,
+        height: 100,
+        alignment: 'right',
         margin: [30, 25, 0, 30]
       },
       {
@@ -1034,11 +1057,6 @@ export class FinalReportComponent implements OnInit {
           style: 'body'
         },
         {
-          image: `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_20:view20&styles=&bbox=${this.property.bbox}&width=404&height=431&time=${this.dateFilter}&cql_filter=numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`,
-          width: 450,
-          alignment: 'center'
-        },
-        {
           text: (
             'áreas desmatadas que foram identificadas com o ' +
             'cruzamento dos dados descritos no histórico desse relatório (quadro 1):'
@@ -1081,7 +1099,7 @@ export class FinalReportComponent implements OnInit {
                   style: 'tableHeader'
                 },
                 {
-                  text: 'Focos de Queimadas (Num.de focos)',
+                  text: 'Focos de Queimadas (Num. de focos)',
                   style: 'tableHeader'
                 },
                 {
