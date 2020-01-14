@@ -819,7 +819,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
       if (selectedLayer.type === LayerType.ANALYSIS || selectedLayer.type === LayerType.DYNAMIC) {
         url = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wfs`;
-        params = this.getWFSFeatureInfoParams(layer);
+        params = this.getWFSFeatureInfoParams(layer, event);
       } else {
       url = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms`;
       params = this.getWMSFeatureInfoParams(layer, event);
@@ -876,7 +876,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     return params;
   }
 
-  getWFSFeatureInfoParams(layer: L.TileLayer.WMS) {
+  getWFSFeatureInfoParams(layer: L.TileLayer.WMS, event) {
     const params = {
       request: 'GetFeature',
       service: 'WFS',
@@ -884,8 +884,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       version: '2.0',
       outputFormat: 'application/json',
       typeNames: layer.wmsParams.layers,
-      count: 1
+      count: 1,
+      cql_filter: `INTERSECTS(intersection_geom, POINT(${event.latlng.lat} ${event.latlng.lng}))`
     };
+
     return params;
   }
 
