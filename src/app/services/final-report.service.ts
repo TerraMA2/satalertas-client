@@ -870,7 +870,7 @@ export class FinalReportService {
                   style: 'tableHeader'
                 },
                 {
-                  text: 'Focos de Queimadas (Num.de focos)',
+                  text: 'Focos de Queimadas (Num. de focos)',
                   style: 'tableHeader'
                 },
                 {
