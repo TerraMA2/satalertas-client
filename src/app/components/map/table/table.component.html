@@ -133,7 +133,7 @@
                 {{col.header}}
                 <p-sortIcon [field]="col.field"></p-sortIcon>
             </th>
-            <th pResizableColumn style="width: 8em"></th>
+            <th pResizableColumn></th>
         </tr>
     </ng-template>
 
@@ -160,13 +160,27 @@
             <td *ngFor="let col of columns" class="ui-resizable-column">
                 {{rowData[col.field]}}
             </td>
-            <td style="width: 8em">
+            <td>
                 <a *ngIf="tableReportActive"
-                    routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                    pButton
-                    icon="fas fa-file-alt"
-                    pTooltip="Gerar laudo"
-                    tooltipPosition="top">
+                   routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
+                   pButton
+                   icon="fas fa-file-alt"
+                   pTooltip="Visualisar laudo Deter"
+                   tooltipPosition="top">
+                </a>
+                <a *ngIf="tableReportActive"
+                   routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
+                   pButton
+                   icon="fas fa-file-alt"
+                   pTooltip="Visualisar laudo Prodes"
+                   tooltipPosition="top">
+                </a>
+                <a *ngIf="tableReportActive"
+                   routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
+                   pButton
+                   icon="fas fa-file-alt"
+                   pTooltip="Visualisar laudo Queimada"
+                   tooltipPosition="top">
                 </a>
                 &nbsp;
                 <button pButton

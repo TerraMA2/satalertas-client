@@ -133,21 +133,21 @@ export class TableComponent implements OnInit {
     const params = {view, limit, offset, countTotal};
 
     if (sortField) {
-      params.sortField = sortField;
+      params['sortField'] = sortField;
     }
     if (sortOrder) {
-      params.sortOrder = sortOrder;
+      params['sortOrder'] = sortOrder;
     }
 
     if (this.selectedFilter) {
-      params.count = this.selectedFilter.count;
-      params.sum = this.selectedFilter.sum;
-      params.isDynamic = this.selectedFilter.isDynamic;
-      params.tableAlias = this.selectedFilter.tableAlias;
-      params.sumAlias = this.selectedFilter.sumAlias;
-      params.countAlias = this.selectedFilter.countAlias;
-      params.sumField = this.selectedFilter.sumField;
-      params.sortField = this.selectedFilter.sortField;
+      params['count'] = this.selectedFilter.count;
+      params['sum'] = this.selectedFilter.sum;
+      params['isDynamic'] = this.selectedFilter.isDynamic;
+      params['tableAlias'] = this.selectedFilter.tableAlias;
+      params['sumAlias'] = this.selectedFilter.sumAlias;
+      params['countAlias'] = this.selectedFilter.countAlias;
+      params['sumField'] = this.selectedFilter.sumField;
+      params['sortField'] = this.selectedFilter.sortField;
     }
 
     this.hTTPService
@@ -160,32 +160,16 @@ export class TableComponent implements OnInit {
       this.selectedColumns = [];
       this.columns = [];
 
-      this.totalRecords = data.pop();
-
       if (!this.tableReportActive) {
-        const infoColumns = this.configService.getSidebarConfig('infoColumns')[this.selectedLayer.codgroup];
-        const changedData = [];
+        const infoColumns = this.selectedLayer.infoColumns;
         Object.keys(data[0]).forEach(key => {
-          const column = infoColumns ? infoColumns[key] : '';
-          const show = column ? column.show : false;
-          const alias = column ? column.alias : key;
-          if (show === true) {
-            this.columns.push({field: alias, header: alias});
-          }
+          // const column = infoColumns[key];
+          // const show = column.show;
+          // const alias = column.alias;
+          // if (show) {
+            this.columns.push({field: key, header: key});
+          // }
         });
-        Object.keys(data).forEach(dataKey => {
-          const dataValue = data[dataKey];
-          let changedRow = [];
-          Object.entries(dataValue).forEach(e => {
-            const key = e[0];
-            if (key !== 'lat' && key !== 'long') {
-              const value = e[1];
-              changedRow[infoColumns[key].alias] = value;
-            }
-          });
-          changedData.push(changedRow);
-        });
-        data = changedData;
       } else {
         Object.keys(data[0]).forEach(key => {
           if (key !== 'lat' && key !== 'long' && key !== 'geom' && key !== 'intersection_geom') {
@@ -196,6 +180,7 @@ export class TableComponent implements OnInit {
 
       this.selectedColumns = this.columns;
 
+      this.totalRecords = data.pop();
       this.tableData = data;
 
       this.rowsPerPage = this.rowsPerPage.filter((row) => row.value !== this.totalRecords);
@@ -291,8 +276,9 @@ export class TableComponent implements OnInit {
 
   base64toBlob(content, contentType) {
     contentType = contentType || '';
+
     const sliceSize = 512;
-    // method which converts base64 to binary
+
     const byteCharacters = window.atob(content);
 
     const byteArrays = [];
@@ -307,14 +293,8 @@ export class TableComponent implements OnInit {
     }
     const blob = new Blob(byteArrays, {
       type: contentType
-    }); // statement which creates the blob
+    });
+
     return blob;
-  }
-
-  getReportName(report) {
-    const date = `report.createdAt | date:'dd/mm/yyyy   HH:mm:ss'`;
-    const name = report.name;
-
-    return `${date} \/n ${name}`;
   }
 }
