@@ -18,6 +18,10 @@ import { View } from '../../../models/view.model';
 
 import { LayerType } from 'src/app/enum/layer-type.enum';
 
+import { ReportService } from '../../../services/report.service';
+
+import { Response } from '../../../models/response.model';
+
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -56,6 +60,8 @@ export class TableComponent implements OnInit {
   selectedFilterValue: string;
   selectedFilterSortField: string;
 
+  reports = [];
+
   private tableConfig;
 
   constructor(
@@ -64,6 +70,7 @@ export class TableComponent implements OnInit {
     private tableService: TableService,
     private filterService: FilterService,
     private mapService: MapService,
+    private reportService: ReportService
   ) { }
 
   ngOnInit() {
@@ -126,21 +133,21 @@ export class TableComponent implements OnInit {
     const params = {view, limit, offset, countTotal};
 
     if (sortField) {
-      params['sortField'] = sortField;
+      params.sortField = sortField;
     }
     if (sortOrder) {
-      params['sortOrder'] = sortOrder;
+      params.sortOrder = sortOrder;
     }
 
     if (this.selectedFilter) {
-      params['count'] = this.selectedFilter.count;
-      params['sum'] = this.selectedFilter.sum;
-      params['isDynamic'] = this.selectedFilter.isDynamic;
-      params['tableAlias'] = this.selectedFilter.tableAlias;
-      params['sumAlias'] = this.selectedFilter.sumAlias;
-      params['countAlias'] = this.selectedFilter.countAlias;
-      params['sumField'] = this.selectedFilter.sumField;
-      params['sortField'] = this.selectedFilter.sortField;
+      params.count = this.selectedFilter.count;
+      params.sum = this.selectedFilter.sum;
+      params.isDynamic = this.selectedFilter.isDynamic;
+      params.tableAlias = this.selectedFilter.tableAlias;
+      params.sumAlias = this.selectedFilter.sumAlias;
+      params.countAlias = this.selectedFilter.countAlias;
+      params.sumField = this.selectedFilter.sumField;
+      params.sortField = this.selectedFilter.sortField;
     }
 
     this.hTTPService
@@ -210,7 +217,12 @@ export class TableComponent implements OnInit {
     this.loadTableData(this.selectedLayer, this.selectedRowsPerPage, 0);
   }
 
-  onRowExpand(event) {
+  async onRowExpand(event) {
+
+    const reportResp = await this.reportService.getReportsByCARCod(event.data.registro_federal).then( (response: Response) => response );
+
+    this.reports = (reportResp.status === 200) ? reportResp.data : [];
+
     const carRegister = event.data.registro_estadual;
   }
 
@@ -253,4 +265,41 @@ export class TableComponent implements OnInit {
     }
   }
 
+  getReport(report) {
+    this.reportService.getReportById(report.id).then( (response: Response) => {
+      const reportResp = (response.status === 200) ? response.data : {};
+
+      window.open(window.URL.createObjectURL(this.base64toBlob(reportResp.base64, 'application/pdf')));
+    });
+
+  }
+
+  base64toBlob(content, contentType) {
+    contentType = contentType || '';
+    const sliceSize = 512;
+    // method which converts base64 to binary
+    const byteCharacters = window.atob(content);
+
+    const byteArrays = [];
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      const slice = byteCharacters.slice(offset, offset + sliceSize);
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
+    }
+    const blob = new Blob(byteArrays, {
+      type: contentType
+    }); // statement which creates the blob
+    return blob;
+  }
+
+  getReportName(report) {
+    const date = `report.createdAt | date:'dd/mm/yyyy   HH:mm:ss'`;
+    const name = report.name;
+
+    return `${date} \/n ${name}`;
+  }
 }

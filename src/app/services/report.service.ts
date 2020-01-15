@@ -6,14 +6,38 @@ import { Subject } from 'rxjs';
 
 import { Vision } from '../models/vision.model';
 
+import {HttpClient} from '@angular/common/http';
+
+import {environment} from '../../environments/environment';
+
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class ReportService {
 
+  URL_REPORT_SERVER = environment.reportServerUrl + '/report';
+
   property = new Subject<Property>();
 
-  constructor( ) {}
+  constructor(
+    private http: HttpClient
+  ) { }
+
+  async getReportsByCARCod(carCode) {
+    const url = this.URL_REPORT_SERVER + '/getReportsByCARCod';
+    const parameters = { carCode };
+
+    return await this.http.get(url, { params: parameters }).toPromise();
+  }
+
+  async getReportById(id) {
+    const url = this.URL_REPORT_SERVER;
+    const parameters = { id };
+
+    return await this.http.get(url, { params: parameters }).toPromise();
+  }
 
   getVisions(propertyData: Property, visionsData, key: string = null): Vision[] {
     let visions: Vision[] = [];
