@@ -10,6 +10,12 @@ import { SidebarService } from 'src/app/services/sidebar.service';
 
 import { Property } from 'src/app/models/property.model';
 
+import {MapService} from '../../services/map.service';
+
+import {ReportService} from '../../services/report.service';
+
+import { Response } from 'src/app/models/response.model';
+
 declare let pdfMake: any ;
 
 @Component({
@@ -48,6 +54,9 @@ export class FinalReportComponent implements OnInit {
 
   tableColumns;
 
+  type: string;
+  year: string;
+
   tableData;
 
   bbox: string;
@@ -56,14 +65,20 @@ export class FinalReportComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private hTTPService: HTTPService,
     private configService: ConfigService,
-    private sidebarService: SidebarService
+    private sidebarService: SidebarService,
+    private reportService: ReportService
   ) {}
 
   async ngOnInit() {
     this.pages = 10;
     this.media = 3;
 
-    this.activatedRoute.params.subscribe(params => this.carRegister = params.carRegister);
+    this.activatedRoute.params.subscribe(params => {
+      this.carRegister = params.carRegister;
+      this.type = params.type;
+    });
+
+    this.year = new Date().getFullYear().toString();
     this.reportConfig = this.configService.getReportConfig();
 
     this.sidebarService.sidebarLayerShowHide.next(false);
@@ -293,13 +308,48 @@ export class FinalReportComponent implements OnInit {
   }
 
   generatePdf(action = 'open') {
-    const documentDefinition = this.getDocumentDefinition();
-    switch (action) {
-      case 'open': pdfMake.createPdf(documentDefinition).open(); break;
-      case 'print': pdfMake.createPdf(documentDefinition).print(); break;
-      case 'download': pdfMake.createPdf(documentDefinition).download(); break;
-      default: pdfMake.createPdf(documentDefinition).open(); break;
+    const report = this.getDocumentDefinition();
+
+    this.reportService.generatePdf(report).then( (response: Response) => {
+      const reportResp = (response.status === 200) ? response.data : {};
+      if (response.status === 200) {
+        window.open(window.URL.createObjectURL(this.base64toBlob(reportResp.base64, 'application/pdf')));
+      } else {
+        alert(`${response.status} - ${response.message}`);
+      }
+    });
+  /*
+      switch (action) {
+        case 'open': pdfMake.createPdf(documentDefinition).open(); break;
+        case 'print': pdfMake.createPdf(documentDefinition).print(); break;
+        case 'download': pdfMake.createPdf(documentDefinition).download(); break;
+        default: pdfMake.createPdf(documentDefinition).open(); break;
+      }
+  */
+  }
+
+  base64toBlob(content, contentType) {
+    contentType = contentType || '';
+
+    const sliceSize = 512;
+
+    const byteCharacters = window.atob(content);
+
+    const byteArrays = [];
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      const slice = byteCharacters.slice(offset, offset + sliceSize);
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
     }
+    const blob = new Blob(byteArrays, {
+      type: contentType
+    });
+
+    return blob;
   }
 
   getDocumentDefinition() {
@@ -374,7 +424,7 @@ export class FinalReportComponent implements OnInit {
           style: 'title'
         },
         {
-          text: 'RELATÓRIO Nº 00000/2019',
+          text: 'RELATÓRIO Nº 00001/2019',
           style: 'title',
           margin: [30, 0, 30, 20]
         },

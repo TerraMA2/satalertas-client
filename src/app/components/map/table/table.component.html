@@ -85,22 +85,6 @@
                         tooltipPosition="top">
                     </button>
 
-                    <!-- &nbsp;&nbsp;
-
-                    <button
-                        *ngIf="tableReportActive"
-                        pButton
-                        type="button"
-                        icon="fas fa-file-alt"
-                        iconPos="left"
-                        label="Gerar laudo"
-                        (click)="onGenerateReportClick($event)"
-                        pTooltip="Gerar laudo a partir dos imóveis selecionados"
-                        tooltipPosition="top">
-                    </button> -->
-
-                    &nbsp;&nbsp;
-
                     <button
                         *ngIf="tableReportActive"
                         pButton
@@ -162,24 +146,26 @@
             </td>
             <td>
                 <a *ngIf="tableReportActive"
-                   routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
+                   routerLink="/finalReport/deter/{{rowData['registro_estadual'].replace('/', '\\')}}"
                    pButton
                    icon="fas fa-file-alt"
-                   pTooltip="Visualisar laudo Deter"
+                   pTooltip="Visualisar relatório Deter"
                    tooltipPosition="top">
                 </a>
                 <a *ngIf="tableReportActive"
-                   routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
+                   style="margin-left: 10px;"
+                   routerLink="/finalReport/prodes/{{rowData['registro_estadual'].replace('/', '\\')}}"
                    pButton
                    icon="fas fa-file-alt"
-                   pTooltip="Visualisar laudo Prodes"
+                   pTooltip="Visualisar relatório Prodes"
                    tooltipPosition="top">
                 </a>
                 <a *ngIf="tableReportActive"
-                   routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
+                   style="margin-left: 10px;"
+                   routerLink="/finalReport/queimada/{{rowData['registro_estadual'].replace('/', '\\')}}"
                    pButton
                    icon="fas fa-file-alt"
-                   pTooltip="Visualisar laudo Queimada"
+                   pTooltip="Visualisar relatório Queimada"
                    tooltipPosition="top">
                 </a>
                 &nbsp;
@@ -196,19 +182,20 @@
         <tr>
             <td [attr.colspan]="columns.length + 4">
                 <div class="p-grid" *ngIf="reports.length > 0" >
-                    <div  class="p-col" style="text-align: center;" *ngFor="let report of reports">
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            [label]="report.createdAt | date:'dd/mm/yyyy   HH:mm:ss'"
-                            pTooltip="Baixar laudo"
+                    <div  class="p-col p-grid" style="text-align: center; display: block;" *ngFor="let report of reports">
+                        <div pButton
+                            class="report-history-item p-col p-grid"
+                            pTooltip="Baixar relatório"
+                            [label]="report.name"
                             tooltipPosition="top"
+                            style="text-align: center; display: block;"
                             (click)="getReport(report)">
-                        </a>
+                            <div class="p-col">{{report.createdAt | date:'dd/mm/yyyy   HH:mm:ss'}}</div>
+                        </div>
                     </div>
                 </div>
                 <div class="p-grid" *ngIf="reports.length === 0"  style="text-align: center;">
-                    <h4 class="p-col" style="text-align: center;">Não possui laudos gerados!</h4>
+                    <h4 class="p-col" style="text-align: center;">Não possui relatórios gerados!</h4>
                 </div>
             </td>
         </tr>

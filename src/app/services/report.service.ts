@@ -25,6 +25,20 @@ export class ReportService {
     private http: HttpClient
   ) { }
 
+  async generatePdf(report) {
+    const url = this.URL_REPORT_SERVER + '/generatePdf';
+    const parameters = { report };
+
+    return await this.http.post(url, { params: parameters }).toPromise();
+  }
+
+  async newNumber(type) {
+    const url = this.URL_REPORT_SERVER + '/newNumber';
+    const parameters = { type };
+
+    return await this.http.get(url, { params: parameters }).toPromise();
+  }
+
   async getReportsByCARCod(carCode) {
     const url = this.URL_REPORT_SERVER + '/getReportsByCARCod';
     const parameters = { carCode };
