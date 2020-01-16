@@ -11,8 +11,8 @@
                     </p-header>
                     <img src="{{burningSpotlight.image}}" class="map img-fluid" />
                     <p-footer *ngIf="burningSpotlight.description" class="card text-center card-footer">
-                        {{ burningSpotlight.description.text }}
-                        {{ burningSpotlight.description.value }} foco(s)
+                        {{ burningSpotlight.description['text'] }}
+                        {{ burningSpotlight.description['value'] }} foco(s)
                     </p-footer>
                 </p-card>
             </div>

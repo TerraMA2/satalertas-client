@@ -722,7 +722,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   setTableControlEvent() {
     L.DomEvent.on(L.DomUtil.get('tableBtn'), 'dblclick', L.DomEvent.stopPropagation);
-    document.querySelector('#tableBtn').addEventListener('click', () => this.displayTable = !this.displayTable);
+    document.querySelector('#tableBtn').addEventListener('click', () => {
+      this.displayTable = true;
+      this.clearReportTable();
+    });
   }
 
   setReportTableControl() {
@@ -730,8 +733,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       onAdd: () => {
         const div = L.DomUtil.create('div');
         div.innerHTML = `
-          <div id="reportTableBtn" class="leaflet-control-layers leaflet-custom-icon" title="Gerar laudo">
-            <a><i class='fas fa-file-alt'></i> Gerar laudo</a>
+          <div id="reportTableBtn" class="leaflet-control-layers leaflet-custom-icon" title="Laudos">
+            <a><i class='fas fa-file-alt'></i> Laudos</a>
           </div>`;
         return div;
       }
@@ -745,10 +748,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   setReportTableControlEvent() {
     L.DomEvent.on(L.DomUtil.get('reportTableBtn'), 'dblclick', L.DomEvent.stopPropagation);
     document.querySelector('#reportTableBtn').addEventListener('click', () => {
-      if (!this.displayTable) {
-        this.displayTable = true;
-      }
-      this.tableReportActive = !this.tableReportActive;
+      this.tableService.clearTable.next();
+      this.displayTable = true;
+      this.tableReportActive = true;
       this.tableService.loadReportTableData.next();
       this.sidebarService.sidebarReload.next();
     });
@@ -796,6 +798,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         document.querySelector('#map').classList.add('cursor-help');
         this.map.on('click', (event: L.LeafletMouseEvent) => this.getFeatureInfo(event));
       } else {
+        this.markerInfo.remove();
         this.displayInfo = false;
         document.querySelector('#infoBtn').classList.remove('leaflet-custom-icon-selected');
         document.querySelector('#map').classList.remove('cursor-help');
