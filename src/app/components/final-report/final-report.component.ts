@@ -352,11 +352,7 @@ export class FinalReportComponent implements OnInit {
           style: 'title'
         },
         {
-<<<<<<< HEAD
-          text: 'RELATÓRIO Nº 00001/2019',
-=======
           text: 'RELATÓRIO TÉCNICO DE DESMATAMENTO Nº 000001/2019',
->>>>>>> ed87e8fc9af609f10236a0f553aad6e8eb103ab4
           style: 'title',
           margin: [30, 0, 30, 20]
         },
@@ -768,11 +764,11 @@ export class FinalReportComponent implements OnInit {
           margin: [30, 0, 30, 5],
           style: 'body'
         },
-        {
-          image: this.chart1,
-          fit: [200, 200],
-          alignment: 'center'
-        },
+        // {
+        //   image: this.chart1,
+        //   fit: [200, 200],
+        //   alignment: 'center'
+        // },
         {
           text: [
             {
@@ -793,11 +789,11 @@ export class FinalReportComponent implements OnInit {
           fontSize: 10,
           style: 'body'
         },
-        {
-          image: this.chart2,
-          fit: [200, 200],
-          alignment: 'center'
-        },
+        // {
+        //   image: this.chart2,
+        //   fit: [200, 200],
+        //   alignment: 'center'
+        // },
         {
           text: [
             {
@@ -819,11 +815,11 @@ export class FinalReportComponent implements OnInit {
           fontSize: 10,
           style: 'body'
         },
-        {
-          image: this.chart3,
-          fit: [200, 200],
-          alignment: 'center'
-        },
+        // {
+        //   image: this.chart3,
+        //   fit: [200, 200],
+        //   alignment: 'center'
+        // },
         {
           text: [
             {
