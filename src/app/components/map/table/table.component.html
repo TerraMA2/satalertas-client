@@ -149,17 +149,17 @@
                    style="width: 32px; height: 32px;"
                    routerLink="/finalReport/deter/{{rowData['registro_estadual'].replace('/', '\\')}}"
                    pButton
-                   icon="fas fa-file-alt"
                    pTooltip="Visualisar relatório Deter"
                    tooltipPosition="top">
+                    <img src="../../../../assets/img/ico/deter.ico" style="margin: 2px; width: 25px; height: 25px;"/>
                 </a>
                 <a *ngIf="tableReportActive"
                    style="margin-left: 10px; width: 32px; height: 32px;"
                    routerLink="/finalReport/prodes/{{rowData['registro_estadual'].replace('/', '\\')}}"
                    pButton
-                   icon="fas fa-file-alt"
                    pTooltip="Visualisar relatório Prodes"
                    tooltipPosition="top">
+                    <img src="../../../../assets/img/ico/prodes.ico" style="margin: 2px; width: 25px; height: 25px;"/>
                 </a>
                 <a *ngIf="tableReportActive"
                    style="margin-left: 10px; width: 32px; height: 32px;"
@@ -190,7 +190,7 @@
                             pTooltip="Baixar relatório"
                             [label]="report.name"
                             tooltipPosition="top"
-                            style="text-align: center; display: block;"
+                            style="text-align: center; display: block; width: 227px; height: 84px;"
                             (click)="getReport(report)">
                             <div class="p-col">{{report.createdAt | date:'dd/mm/yyyy   HH:mm:ss'}}</div>
                         </div>
