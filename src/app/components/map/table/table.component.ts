@@ -60,6 +60,10 @@ export class TableComponent implements OnInit {
   selectedFilterValue: string;
   selectedFilterSortField: string;
 
+  showBurn = false;
+  showDeter = false;
+  showProdes = false;
+
   reports = [];
 
   private tableConfig;
@@ -92,6 +96,9 @@ export class TableComponent implements OnInit {
     });
 
     this.tableService.loadReportTableData.subscribe(() => {
+      this.showBurn = true;
+      this.showProdes = true;
+      this.showDeter = true;
       this.loading = true;
       this.filters = this.configService.getMapConfig('table').reportLayers;
       const selectedOption = this.filters[0];
@@ -101,6 +108,7 @@ export class TableComponent implements OnInit {
       this.selectedLayerValue = selectedOption.value;
       this.selectedFilterSortField = selectedOption.sortField;
       this.loadTableData(selectedOption, this.selectedRowsPerPage, 0, this.selectedFilterSortField, 1);
+
     });
 
     this.tableService.clearTable.subscribe(() => this.clearTable());
@@ -130,6 +138,17 @@ export class TableComponent implements OnInit {
         (layer.isPrimary || this.tableReportActive)
       ));
 
+    this.showDeter =
+      ( (layer.codgroup === 'DETER') ||
+        (layer.codgroup === 'CAR'));
+
+    this.showProdes =
+      ( (layer.codgroup === 'PRODES') ||
+        (layer.codgroup === 'CAR'));
+    this.showBurn =
+      ( (layer.codgroup === 'AREA_QUEIMADA') ||
+        (layer.codgroup === 'FOCOS') ||
+        (layer.codgroup === 'CAR'));
     const params = {view, limit, offset, countTotal};
 
     if (sortField) {
@@ -228,6 +247,7 @@ export class TableComponent implements OnInit {
 
   onFilterChange(filter) {
     this.loading = true;
+
     const selectedOption = filter.selectedOption;
     this.selectedLayer = selectedOption;
     this.selectedFilter = selectedOption;

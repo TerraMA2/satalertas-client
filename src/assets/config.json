@@ -7630,6 +7630,7 @@
       ],
       "reportLayers": [
         {
+          "codgroup": "CAR",
           "label": "CAR",
           "value": "6",
           "type": "report",
