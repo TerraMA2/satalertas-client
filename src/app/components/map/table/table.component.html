@@ -145,7 +145,7 @@
                 {{rowData[col.field]}}
             </td>
             <td style="display: flex;">
-                <a *ngIf="tableReportActive"
+                <a *ngIf="tableReportActive && showDeter"
                    style="width: 32px; height: 32px;"
                    routerLink="/finalReport/deter/{{rowData['registro_estadual'].replace('/', '\\')}}"
                    pButton
@@ -153,7 +153,7 @@
                    tooltipPosition="top">
                     <img src="../../../../assets/img/ico/deter.ico" style="margin: 2px; width: 25px; height: 25px;"/>
                 </a>
-                <a *ngIf="tableReportActive"
+                <a *ngIf="tableReportActive && showProdes"
                    style="margin-left: 10px; width: 32px; height: 32px;"
                    routerLink="/finalReport/prodes/{{rowData['registro_estadual'].replace('/', '\\')}}"
                    pButton
@@ -161,7 +161,7 @@
                    tooltipPosition="top">
                     <img src="../../../../assets/img/ico/prodes.ico" style="margin: 2px; width: 25px; height: 25px;"/>
                 </a>
-                <a *ngIf="tableReportActive"
+                <a *ngIf="tableReportActive && showBurn"
                    style="margin-left: 10px; width: 32px; height: 32px;"
                    routerLink="/finalReport/queimada/{{rowData['registro_estadual'].replace('/', '\\')}}"
                    pButton
