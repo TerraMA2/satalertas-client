@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  terramaUrl: 'http://localhost:36000'
+  terramaUrl: 'http://localhost:36000',
+  reportServerUrl: 'http://localhost:3200'
 };
 
 /*

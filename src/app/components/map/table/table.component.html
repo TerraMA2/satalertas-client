@@ -85,22 +85,6 @@
                         tooltipPosition="top">
                     </button>
 
-                    <!-- &nbsp;&nbsp;
-
-                    <button
-                        *ngIf="tableReportActive"
-                        pButton
-                        type="button"
-                        icon="fas fa-file-alt"
-                        iconPos="left"
-                        label="Gerar relatório"
-                        (click)="onGenerateReportClick($event)"
-                        pTooltip="Gerar relatório a partir dos imóveis selecionados"
-                        tooltipPosition="top">
-                    </button> -->
-
-                    &nbsp;&nbsp;
-
                     <button
                         *ngIf="tableReportActive"
                         pButton
@@ -122,7 +106,8 @@
 
     <ng-template pTemplate="header" let-columns>
         <tr>
-            <th *ngIf="tableReportActive" style="width: 2.5em"></th>
+            <th *ngIf="tableReportActive"
+                style="width: 2.5em" ></th>
             <th style="width: 2.5em"></th>
             <th *ngIf="tableReportActive"
                 style="width: 3em">
@@ -132,7 +117,7 @@
                 {{col.header}}
                 <p-sortIcon [field]="col.field"></p-sortIcon>
             </th>
-            <th pResizableColumn style="width: 8em"></th>
+            <th pResizableColumn></th>
         </tr>
     </ng-template>
 
@@ -145,7 +130,7 @@
             [pReorderableRow]="index">
             <td *ngIf="tableReportActive"
                 style="width: 2.5em">
-                <a [pRowToggler]="rowData">
+                <a [pRowToggler]="rowData" >
                     <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
                 </a>
             </td>
@@ -159,16 +144,34 @@
             <td *ngFor="let col of columns" class="ui-resizable-column">
                 {{rowData[col.field]}}
             </td>
-            <td style="width: 8em">
+            <td style="display: flex;">
                 <a *ngIf="tableReportActive"
-                    routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                    pButton
-                    icon="fas fa-file-alt"
-                    pTooltip="Gerar laudo"
-                    tooltipPosition="top">
+                   style="width: 32px; height: 32px;"
+                   routerLink="/finalReport/deter/{{rowData['registro_estadual'].replace('/', '\\')}}"
+                   pButton
+                   icon="fas fa-file-alt"
+                   pTooltip="Visualisar relatório Deter"
+                   tooltipPosition="top">
+                </a>
+                <a *ngIf="tableReportActive"
+                   style="margin-left: 10px; width: 32px; height: 32px;"
+                   routerLink="/finalReport/prodes/{{rowData['registro_estadual'].replace('/', '\\')}}"
+                   pButton
+                   icon="fas fa-file-alt"
+                   pTooltip="Visualisar relatório Prodes"
+                   tooltipPosition="top">
+                </a>
+                <a *ngIf="tableReportActive"
+                   style="margin-left: 10px; width: 32px; height: 32px;"
+                   routerLink="/finalReport/queimada/{{rowData['registro_estadual'].replace('/', '\\')}}"
+                   pButton
+                   pTooltip="Visualisar relatório Queimada"
+                   tooltipPosition="top">
+                    <img src="../../../../assets/img/ico/queima.ico" style="margin: 2px; width: 25px; height: 25px;"/>
                 </a>
                 &nbsp;
                 <button pButton
+                        style="margin-left: 5px; width: 32px; height: 32px;"
                         icon="fas fa-map-marker-alt"
                         (click)="onShowMapClicked(rowData)"
                         pTooltip="Visualizar no mapa">
@@ -180,585 +183,21 @@
     <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
         <tr>
             <td [attr.colspan]="columns.length + 4">
-                <div class="p-grid">
-                    <div class="p-col">
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
-                        <a pButton
-                            class="report-history-item"
-                            icon="fas fa-file-alt"
-                            routerLink="/finalReport/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                            label="00/00/0000 00:00:00"
-                            pTooltip="Ver laudo"
-                            tooltipPosition="top">
-                        </a>
+                <div class="p-grid" *ngIf="reports.length > 0" >
+                    <div  class="p-col p-grid" style="text-align: center; display: block;" *ngFor="let report of reports">
+                        <div pButton
+                            class="report-history-item p-col p-grid"
+                            pTooltip="Baixar relatório"
+                            [label]="report.name"
+                            tooltipPosition="top"
+                            style="text-align: center; display: block;"
+                            (click)="getReport(report)">
+                            <div class="p-col">{{report.createdAt | date:'dd/mm/yyyy   HH:mm:ss'}}</div>
+                        </div>
                     </div>
+                </div>
+                <div class="p-grid" *ngIf="reports.length === 0"  style="text-align: center;">
+                    <h4 class="p-col" style="text-align: center;">Não possui relatórios gerados!</h4>
                 </div>
             </td>
         </tr>

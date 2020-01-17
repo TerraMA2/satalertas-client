@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'map', component: MapComponent, data: { reuseRoute: true } },
   { path: 'report', component: ReportComponent },
   { path: 'report/:carRegister', component: ReportComponent },
-  { path: 'finalReport/:carRegister', component: FinalReportComponent }
+  { path: 'finalReport/:type/:carRegister', component: FinalReportComponent }
 ];
 
 @NgModule({
