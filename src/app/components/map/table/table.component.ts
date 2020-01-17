@@ -18,6 +18,10 @@ import { View } from '../../../models/view.model';
 
 import { LayerType } from 'src/app/enum/layer-type.enum';
 
+import { ReportService } from '../../../services/report.service';
+
+import { Response } from '../../../models/response.model';
+
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -56,6 +60,8 @@ export class TableComponent implements OnInit {
   selectedFilterValue: string;
   selectedFilterSortField: string;
 
+  reports = [];
+
   private tableConfig;
 
   constructor(
@@ -64,6 +70,7 @@ export class TableComponent implements OnInit {
     private tableService: TableService,
     private filterService: FilterService,
     private mapService: MapService,
+    private reportService: ReportService
   ) { }
 
   ngOnInit() {
@@ -153,32 +160,16 @@ export class TableComponent implements OnInit {
       this.selectedColumns = [];
       this.columns = [];
 
-      this.totalRecords = data.pop();
-
       if (!this.tableReportActive) {
-        const infoColumns = this.configService.getSidebarConfig('infoColumns')[this.selectedLayer.codgroup];
-        const changedData = [];
+        const infoColumns = this.selectedLayer.infoColumns;
         Object.keys(data[0]).forEach(key => {
-          const column = infoColumns ? infoColumns[key] : '';
-          const show = column ? column.show : false;
-          const alias = column ? column.alias : key;
-          if (show === true) {
-            this.columns.push({field: alias, header: alias});
-          }
+          // const column = infoColumns[key];
+          // const show = column.show;
+          // const alias = column.alias;
+          // if (show) {
+            this.columns.push({field: key, header: key});
+          // }
         });
-        Object.keys(data).forEach(dataKey => {
-          const dataValue = data[dataKey];
-          let changedRow = [];
-          Object.entries(dataValue).forEach(e => {
-            const key = e[0];
-            if (key !== 'lat' && key !== 'long') {
-              const value = e[1];
-              changedRow[infoColumns[key].alias] = value;
-            }
-          });
-          changedData.push(changedRow);
-        });
-        data = changedData;
       } else {
         Object.keys(data[0]).forEach(key => {
           if (key !== 'lat' && key !== 'long' && key !== 'geom' && key !== 'intersection_geom') {
@@ -189,6 +180,7 @@ export class TableComponent implements OnInit {
 
       this.selectedColumns = this.columns;
 
+      this.totalRecords = data.pop();
       this.tableData = data;
 
       this.rowsPerPage = this.rowsPerPage.filter((row) => row.value !== this.totalRecords);
@@ -225,7 +217,12 @@ export class TableComponent implements OnInit {
     this.loadTableData(this.selectedLayer, this.selectedRowsPerPage, 0);
   }
 
-  onRowExpand(event) {
+  async onRowExpand(event) {
+
+    const reportResp = await this.reportService.getReportsByCARCod(event.data.registro_estadual.replace('/', '_')).then( (response: Response) => response );
+
+    this.reports = (reportResp.status === 200) ? reportResp.data : [];
+
     const carRegister = event.data.registro_estadual;
   }
 
@@ -268,4 +265,36 @@ export class TableComponent implements OnInit {
     }
   }
 
+  getReport(report) {
+    this.reportService.getReportById(report.id).then( (response: Response) => {
+      const reportResp = (response.status === 200) ? response.data : {};
+
+      window.open(window.URL.createObjectURL(this.base64toBlob(reportResp.base64, 'application/pdf')));
+    });
+
+  }
+
+  base64toBlob(content, contentType) {
+    contentType = contentType || '';
+
+    const sliceSize = 512;
+
+    const byteCharacters = window.atob(content);
+
+    const byteArrays = [];
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      const slice = byteCharacters.slice(offset, offset + sliceSize);
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
+    }
+    const blob = new Blob(byteArrays, {
+      type: contentType
+    });
+
+    return blob;
+  }
 }
