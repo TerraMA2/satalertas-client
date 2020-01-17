@@ -1,7 +1,7 @@
 {
   "app": {
     "mainApplication": "TerraMA²",
-    "headerLogo": "./assets/img/logos/terrama2_logo.png",
+    "headerLogo": "./assets/img/logos/terrama2-small.png",
     "headerTitle": "Satélites Alertas: Sistema Integrado de Informações Geográficas de Degradação Ambiental",
     "hasLogin": true,
     "headerLogoLink": "http://www.terrama2.dpi.inpe.br/mpmt/monitor/",
@@ -17,7 +17,7 @@
     "expiresIn": "86400"
   },
   "sidebar": {
-    "logoPath": "./assets/img/logos/logo-mpmt.png",
+    "logoPath": "./assets/img/logos/mpmt-large.png",
     "logoLink": "https://mpmt.mp.br/",
     "sidebarItems": [
       {
