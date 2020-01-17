@@ -219,7 +219,7 @@ export class TableComponent implements OnInit {
 
   async onRowExpand(event) {
 
-    const reportResp = await this.reportService.getReportsByCARCod(event.data.registro_federal).then( (response: Response) => response );
+    const reportResp = await this.reportService.getReportsByCARCod(event.data.registro_estadual.replace('/', '_')).then( (response: Response) => response );
 
     this.reports = (reportResp.status === 200) ? reportResp.data : [];
 

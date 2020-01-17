@@ -25,9 +25,9 @@ export class ReportService {
     private http: HttpClient
   ) { }
 
-  async generatePdf(report) {
+  async generatePdf(docDefinition, type, carCode) {
     const url = this.URL_REPORT_SERVER + '/generatePdf';
-    const parameters = { report };
+    const parameters = { docDefinition, type, carCode };
 
     return await this.http.post(url, { params: parameters }).toPromise();
   }

@@ -15,6 +15,7 @@ import {MapService} from '../../services/map.service';
 import {ReportService} from '../../services/report.service';
 
 import { Response } from 'src/app/models/response.model';
+import {createAwait} from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
 
 declare let pdfMake: any ;
 
@@ -236,12 +237,17 @@ export class FinalReportComponent implements OnInit {
   }
 
   generatePdf(action = 'open') {
-    const report = this.getDocumentDefinition();
+    const docDefinition = this.getDocumentDefinition();
+    // const pdf = pdfMake.createPdf(docDefinition);
 
-    this.reportService.generatePdf(report).then( (response: Response) => {
+    this.reportService.generatePdf(docDefinition, this.type, this.carRegister).then( (response: Response) => {
       const reportResp = (response.status === 200) ? response.data : {};
       if (response.status === 200) {
-        window.open(window.URL.createObjectURL(this.base64toBlob(reportResp.base64, 'application/pdf')));
+        this.reportService.getReportById(reportResp.id).then( (resp: Response) => {
+          const res = (resp.status === 200) ? resp.data : {};
+
+          window.open(window.URL.createObjectURL(this.base64toBlob(res.base64, 'application/pdf')));
+        });
       } else {
         alert(`${response.status} - ${response.message}`);
       }

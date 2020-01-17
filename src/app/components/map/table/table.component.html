@@ -144,8 +144,9 @@
             <td *ngFor="let col of columns" class="ui-resizable-column">
                 {{rowData[col.field]}}
             </td>
-            <td>
+            <td style="display: flex;">
                 <a *ngIf="tableReportActive"
+                   style="width: 32px; height: 32px;"
                    routerLink="/finalReport/deter/{{rowData['registro_estadual'].replace('/', '\\')}}"
                    pButton
                    icon="fas fa-file-alt"
@@ -153,7 +154,7 @@
                    tooltipPosition="top">
                 </a>
                 <a *ngIf="tableReportActive"
-                   style="margin-left: 10px;"
+                   style="margin-left: 10px; width: 32px; height: 32px;"
                    routerLink="/finalReport/prodes/{{rowData['registro_estadual'].replace('/', '\\')}}"
                    pButton
                    icon="fas fa-file-alt"
@@ -161,15 +162,16 @@
                    tooltipPosition="top">
                 </a>
                 <a *ngIf="tableReportActive"
-                   style="margin-left: 10px;"
+                   style="margin-left: 10px; width: 32px; height: 32px;"
                    routerLink="/finalReport/queimada/{{rowData['registro_estadual'].replace('/', '\\')}}"
                    pButton
-                   icon="fas fa-file-alt"
                    pTooltip="Visualisar relatório Queimada"
                    tooltipPosition="top">
+                    <img src="../../../../assets/img/ico/queima.ico" style="margin: 2px; width: 25px; height: 25px;"/>
                 </a>
                 &nbsp;
                 <button pButton
+                        style="margin-left: 5px; width: 32px; height: 32px;"
                         icon="fas fa-map-marker-alt"
                         (click)="onShowMapClicked(rowData)"
                         pTooltip="Visualizar no mapa">
