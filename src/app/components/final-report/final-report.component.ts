@@ -69,6 +69,8 @@ export class FinalReportComponent implements OnInit {
 
   tableData;
 
+  docDefinition: any;
+
   bbox: string;
 
   constructor(
@@ -176,6 +178,8 @@ export class FinalReportComponent implements OnInit {
       this.partnerImage6 = this.getBaseImage('assets/img/logos/terrama2-large.png');
       this.partnerImage7 = this.getBaseImage('assets/img/logos/mt.png');
       this.partnerImage8 = this.getBaseImage('assets/img/logos/sema.png');
+
+      this.docDefinition = this.getDocumentDefinition();
     });
   }
 
@@ -249,17 +253,16 @@ export class FinalReportComponent implements OnInit {
   }
 
   generatePdf(action = 'open') {
-    const docDefinition = this.getDocumentDefinition();
-    // const pdf = pdfMake.createPdf(docDefinition);
 
-    this.reportService.generatePdf(docDefinition, this.type, this.carRegister).then( (response: Response) => {
+    this.reportService.generatePdf(this.docDefinition, this.type, this.carRegister).then( (response: Response) => {
       const reportResp = (response.status === 200) ? response.data : {};
       if (response.status === 200) {
-        this.reportService.getReportById(reportResp.id).then( (resp: Response) => {
-          const res = (resp.status === 200) ? resp.data : {};
-
-          window.open(window.URL.createObjectURL(this.base64toBlob(res.base64, 'application/pdf')));
-        });
+        setTimeout( () => {
+          this.reportService.getReportById(reportResp.id).then( (resp: Response) => {
+            const res = (resp.status === 200) ? resp.data : {};
+            window.open(window.URL.createObjectURL(this.base64toBlob(res.base64, 'application/pdf')));
+          });
+        }, 1000);
       } else {
         alert(`${response.status} - ${response.message}`);
       }
@@ -299,7 +302,7 @@ export class FinalReportComponent implements OnInit {
   }
 
   getDocumentDefinition() {
-    return {
+    const docDefinition = {
       info: {
         title: 'relatorio'
       },
@@ -1432,5 +1435,7 @@ export class FinalReportComponent implements OnInit {
         }
       }
     };
+
+    return docDefinition;
   }
 }

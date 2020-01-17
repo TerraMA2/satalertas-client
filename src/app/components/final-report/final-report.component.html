@@ -11,12 +11,14 @@
                 icon="fas fa-download"
                 type="button"
                 (click)="generatePdf('open')"
-                label="Gerar relatório">
+                label="Gerar relatório"
+                [disabled]="!docDefinition">
         </button>
     </div>
 </p-toolbar>
 <p-scrollPanel [style]="{width: '100%', height: 'calc(100vh - 100px)'}">
-    <div class="background-color-gray">
+
+<!--    <div class="background-color-gray">
         <br>
         <div class="container">
             <div id="printSection">
@@ -218,9 +220,9 @@
                         </div>
                         <figcaption class="text-center">Figura 3. dinâmica de desmatamento (comparativo imagens {{prodesStartYear}} e {{currentYear}})</figcaption>
                     </div>
-                    <!-- <small>[ ADAMI, M. et al. A confiabilidade do PRODES: estimativa da acurácia do mapeamento do desmatamento no estado de Mato Grosso. Anais do XVIII Simpósio Brasileiro de Sensoriamento Remoto – SBSR, 2017.]</small>
+                    &lt;!&ndash; <small>[ ADAMI, M. et al. A confiabilidade do PRODES: estimativa da acurácia do mapeamento do desmatamento no estado de Mato Grosso. Anais do XVIII Simpósio Brasileiro de Sensoriamento Remoto – SBSR, 2017.]</small>
                     <small>[ Disponível em XXXXX, acessado em 21.10.2019.]</small>
-                    <small>[ SOUZA, A. et al. Metodologia utilizada nos Projetos PRODES e DETER. Instituto Nacional de Pesquisas Espaciais – INPE, 2019. Disponível em: http://www.obt.inpe.br/OBT/assuntos/programas/amazonia/prodes/pdfs/Metodologia_Prodes_Deter_revisada.pdf. Acessado em 13.10.2019. ].</small> -->
+                    <small>[ SOUZA, A. et al. Metodologia utilizada nos Projetos PRODES e DETER. Instituto Nacional de Pesquisas Espaciais – INPE, 2019. Disponível em: http://www.obt.inpe.br/OBT/assuntos/programas/amazonia/prodes/pdfs/Metodologia_Prodes_Deter_revisada.pdf. Acessado em 13.10.2019. ].</small> &ndash;&gt;
                 </div>
                 <div class="p-grid p-nogutter">
                     <div class="p-col-12">
@@ -279,5 +281,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
 </p-scrollPanel>
