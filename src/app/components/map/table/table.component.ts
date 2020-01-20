@@ -159,17 +159,32 @@ export class TableComponent implements OnInit {
     if (data) {
       this.selectedColumns = [];
       this.columns = [];
+      this.totalRecords = data.pop();
 
       if (!this.tableReportActive) {
-        const infoColumns = this.selectedLayer.infoColumns;
+        const infoColumns = this.configService.getSidebarConfig('infoColumns')[this.selectedLayer.codgroup];
+        const changedData = [];
         Object.keys(data[0]).forEach(key => {
-          // const column = infoColumns[key];
-          // const show = column.show;
-          // const alias = column.alias;
-          // if (show) {
-            this.columns.push({field: key, header: key});
-          // }
+          const column = infoColumns ? infoColumns[key] : '';
+          const show = column ? column.show : false;
+          const alias = column ? column.alias : key;
+          if (show === true) {
+            this.columns.push({field: alias, header: alias});
+          }
         });
+        Object.keys(data).forEach(dataKey => {
+          const dataValue = data[dataKey];
+          let changedRow = [];
+          Object.entries(dataValue).forEach(e => {
+            const key = e[0];
+            if (key !== 'lat' && key !== 'long') {
+              const value = e[1];
+              changedRow[infoColumns[key].alias] = value;
+            }
+          });
+          changedData.push(changedRow);
+        });
+        data = changedData;
       } else {
         Object.keys(data[0]).forEach(key => {
           if (key !== 'lat' && key !== 'long' && key !== 'geom' && key !== 'intersection_geom') {
@@ -180,7 +195,6 @@ export class TableComponent implements OnInit {
 
       this.selectedColumns = this.columns;
 
-      this.totalRecords = data.pop();
       this.tableData = data;
 
       this.rowsPerPage = this.rowsPerPage.filter((row) => row.value !== this.totalRecords);

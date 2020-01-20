@@ -249,7 +249,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     const marker = L.marker(latLong, {title: popupTitle});
     marker.bindPopup(popupContent, {maxWidth: 500, maxHeight: 500});
     if (link) {
-      this.linkPopupService.register(marker, link, 'Relatório');
+      this.linkPopupService.register(marker, link, 'Síntese');
       marker.on('popupopen', () =>
                 this.selectedMarker = new SelectedMarker(overlayName, popupTitle, popupContent, latLong, link));
     }
