@@ -18,8 +18,20 @@
     &nbsp;
     <button pButton
             icon="fas fa-file-alt"
-            label="Visualizar laudo"
-            (click)="onViewReportClicked()">
+            label="Relatório DETER"
+            (click)="onViewReportClicked('deter')">
+    </button>
+    &nbsp;
+    <button pButton
+            icon="fas fa-file-alt"
+            label="Relatório PRODES"
+            (click)="onViewReportClicked('prodes')">
+    </button>
+    &nbsp;
+    <button pButton
+            icon="fas fa-file-alt"
+            label="Relatório FOCOS"
+            (click)="onViewReportClicked('focos')">
     </button>
   </div>
 </p-toolbar>

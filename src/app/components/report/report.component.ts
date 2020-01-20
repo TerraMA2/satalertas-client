@@ -122,10 +122,6 @@ export class ReportComponent implements OnInit {
 
       this.burnedAreas = this.reportService.getVisions(propertyData, this.reportConfig.burnedAreas, 'burnedAreas');
 
-      // this.burnedAreasChartData = this.reportService.getVisions(propertyData, this.reportConfig.burnedAreas);
-
-      // this.landsatHistories = this.reportService.getVisions(propertyData, this.reportConfig.landsatHistories);
-
       this.burningSpotlights = this.reportService.getVisions(propertyData, this.reportConfig.burningSpotlights, 'spotlightsYear');
 
       this.burningSpotlightsChartData = this.reportService.getBurningSpotlightsChart(propertyData.burningSpotlights);
@@ -136,7 +132,7 @@ export class ReportComponent implements OnInit {
     });
   }
 
-  onViewReportClicked() {
-    this.router.navigateByUrl(`/finalReport/${this.carRegister.replace('/', '\\')}`);
+  onViewReportClicked(reportType) {
+    this.router.navigateByUrl(`/finalReport/${reportType}/${this.carRegister.replace('/', '\\')}`);
   }
 }

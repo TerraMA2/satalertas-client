@@ -773,50 +773,50 @@ export class FinalReportComponent implements OnInit {
         //   fit: [200, 200],
         //   alignment: 'center'
         // },
-        {
-          text: [
-            {
-              text: 'Figura 2. ',
-              bold: true
-            },
-            {
-              text: (
-                'Floresta Ombrófila Densa - Em função do clima predominantemente úmido, essa cobertura vegetal apresenta pouca variação ' +
-                'nos valores dos índices de vegetação ao longo do ano. Além disso, esta cobertura apresenta valores elevados dos índices ' +
-                'de vegetação durante o ano, em função da grande biomassa vegetal presente.'
-              ),
-              bold: false
-            }
-          ],
-          margin: [30, 0, 30, 0],
-          fontSize: 10,
-          style: 'body'
-        },
+        // {
+        //   text: [
+        //     {
+        //       text: 'Figura 2. ',
+        //       bold: true
+        //     },
+        //     {
+        //       text: (
+        //         'Floresta Ombrófila Densa - Em função do clima predominantemente úmido, essa cobertura vegetal apresenta pouca variação ' +
+        //         'nos valores dos índices de vegetação ao longo do ano. Além disso, esta cobertura apresenta valores elevados dos índices ' +
+        //         'de vegetação durante o ano, em função da grande biomassa vegetal presente.'
+        //       ),
+        //       bold: false
+        //     }
+        //   ],
+        //   margin: [30, 0, 30, 0],
+        //   fontSize: 10,
+        //   style: 'body'
+        // },
         // {
         //   image: this.chart2,
         //   fit: [200, 200],
         //   alignment: 'center'
         // },
-        {
-          text: [
-            {
-              text: 'Figura 3. ',
-              bold: true
-            },
-            {
-              text: (
-                'Cerrado - Em função do clima sazonal, com verões chuvosos e invernos mais secos, essa cobertura vegetal apresenta '  +
-                'oscilações significativas nos valores dos índices de vegetação ao longo do ano e, geralmente, apresenta valores intermediários ' +
-                'no período chuvoso. Durante o inverno, com a queda das precipitações e a redução da biomassa vegetal ativa, os índices de vegetação ' +
-                'declinam significativamente, retomando seu vigor apenas com a volta do período de chuvas.'
-              ),
-              bold: false
-            }
-          ],
-          margin: [30, 0, 30, 0],
-          fontSize: 10,
-          style: 'body'
-        },
+        // {
+        //   text: [
+        //     {
+        //       text: 'Figura 3. ',
+        //       bold: true
+        //     },
+        //     {
+        //       text: (
+        //         'Cerrado - Em função do clima sazonal, com verões chuvosos e invernos mais secos, essa cobertura vegetal apresenta '  +
+        //         'oscilações significativas nos valores dos índices de vegetação ao longo do ano e, geralmente, apresenta valores intermediários ' +
+        //         'no período chuvoso. Durante o inverno, com a queda das precipitações e a redução da biomassa vegetal ativa, os índices de vegetação ' +
+        //         'declinam significativamente, retomando seu vigor apenas com a volta do período de chuvas.'
+        //       ),
+        //       bold: false
+        //     }
+        //   ],
+        //   margin: [30, 0, 30, 0],
+        //   fontSize: 10,
+        //   style: 'body'
+        // },
         // {
         //   image: this.chart3,
         //   fit: [200, 200],
