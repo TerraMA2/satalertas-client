@@ -144,9 +144,9 @@
             <td *ngFor="let col of columns" class="ui-resizable-column">
                 {{rowData[col.field]}}
             </td>
-            <td style="display: flex;">
+            <td >
                 <a *ngIf="tableReportActive && showDeter"
-                   style="width: 32px; height: 32px;"
+                   style="vertical-align:middle; width: 32px; height: 32px;"
                    routerLink="/finalReport/deter/{{rowData['registro_estadual'].replace('/', '\\')}}"
                    pButton
                    pTooltip="Visualisar relatório Deter"
@@ -154,7 +154,7 @@
                     <img src="../../../../assets/img/ico/deter.ico" style="margin: 2px; width: 25px; height: 25px;"/>
                 </a>
                 <a *ngIf="tableReportActive && showProdes"
-                   style="margin-left: 10px; width: 32px; height: 32px;"
+                   style="vertical-align:middle; margin-left: 10px; width: 32px; height: 32px;"
                    routerLink="/finalReport/prodes/{{rowData['registro_estadual'].replace('/', '\\')}}"
                    pButton
                    pTooltip="Visualisar relatório Prodes"
@@ -162,7 +162,7 @@
                     <img src="../../../../assets/img/ico/prodes.ico" style="margin: 2px; width: 25px; height: 25px;"/>
                 </a>
                 <a *ngIf="tableReportActive && showBurn"
-                   style="margin-left: 10px; width: 32px; height: 32px;"
+                   style="vertical-align:middle; margin-left: 10px; width: 32px; height: 32px;"
                    routerLink="/finalReport/queimada/{{rowData['registro_estadual'].replace('/', '\\')}}"
                    pButton
                    pTooltip="Visualisar relatório Queimada"
@@ -170,12 +170,13 @@
                     <img src="../../../../assets/img/ico/queima.ico" style="margin: 2px; width: 25px; height: 25px;"/>
                 </a>
                 &nbsp;
-                <button pButton
-                        style="margin-left: 5px; width: 32px; height: 32px;"
-                        icon="fas fa-map-marker-alt"
+                <a pButton
+                        style="vertical-align:middle; margin-left: 0px; width: 32px; height: 32px;"
                         (click)="onShowMapClicked(rowData)"
                         pTooltip="Visualizar no mapa">
-                </button>
+                    <i class="fa fa-map-marker-alt" style="margin: 8px 3px; width: 25px; height: 25px;"></i>
+<!--                    <img src="../../../../assets/img/ico/queima.ico" style="margin: 2px; width: 25px; height: 25px;"/>-->
+                </a>
             </td>
         </tr>
     </ng-template>

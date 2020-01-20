@@ -26,20 +26,6 @@
     color: green;
 }
 
-.background-color-gray {
-    background-color: #eee;
-}
-
-.container {
-    background: #fff;
-    border-radius: 10px;
-    padding: 1.5rem;
-    margin-right: auto;
-    margin-left: auto;
-    margin-top: 20px;
-    max-width: 90%;
-}
-
 .word-wrap {
     overflow-wrap: break-word;
     word-break: break-all;
@@ -58,4 +44,32 @@ h2 {
 
 .nowrap {
     flex-wrap: nowrap;
+}
+
+.pdfViewer .page {
+    direction: ltr;
+    width: 100%;
+    height: 100%;
+    margin: 1px auto -8px;
+    position: relative;
+    overflow: visible;
+    border: 9px solid transparent;
+    background-clip: content-box;
+    border-image: unset !important;
+    background-color: #fff;
+}
+
+.toolbar {
+    display: none;
+    position: relative;
+    left: 0;
+    right: 0;
+    z-index: 7;
+    cursor: default;
+}
+.loadingInProgress.body {
+    height: 100%;
+    width: 100%;
+    background-color: #404040;
+    background-image: none;
 }

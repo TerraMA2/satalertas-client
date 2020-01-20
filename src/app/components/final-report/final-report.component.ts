@@ -10,12 +10,9 @@ import { SidebarService } from 'src/app/services/sidebar.service';
 
 import { Property } from 'src/app/models/property.model';
 
-import {MapService} from '../../services/map.service';
-
 import {ReportService} from '../../services/report.service';
 
 import { Response } from 'src/app/models/response.model';
-import {createAwait} from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
 
 declare let pdfMake: any ;
 
@@ -68,6 +65,23 @@ export class FinalReportComponent implements OnInit {
   year: string;
 
   tableData;
+
+  docDefinition: any;
+  docBase64;
+  pdfData = atob(
+    'JVBERi0xLjcKCjEgMCBvYmogICUgZW50cnkgcG9pbnQKPDwKICAvVHlwZSAvQ2F0YWxvZwog' +
+    'IC9QYWdlcyAyIDAgUgo+PgplbmRvYmoKCjIgMCBvYmoKPDwKICAvVHlwZSAvUGFnZXMKICAv' +
+    'TWVkaWFCb3ggWyAwIDAgMjAwIDIwMCBdCiAgL0NvdW50IDEKICAvS2lkcyBbIDMgMCBSIF0K' +
+    'Pj4KZW5kb2JqCgozIDAgb2JqCjw8CiAgL1R5cGUgL1BhZ2UKICAvUGFyZW50IDIgMCBSCiAg' +
+    'L1Jlc291cmNlcyA8PAogICAgL0ZvbnQgPDwKICAgICAgL0YxIDQgMCBSIAogICAgPj4KICA+' +
+    'PgogIC9Db250ZW50cyA1IDAgUgo+PgplbmRvYmoKCjQgMCBvYmoKPDwKICAvVHlwZSAvRm9u' +
+    'dAogIC9TdWJ0eXBlIC9UeXBlMQogIC9CYXNlRm9udCAvVGltZXMtUm9tYW4KPj4KZW5kb2Jq' +
+    'Cgo1IDAgb2JqICAlIHBhZ2UgY29udGVudAo8PAogIC9MZW5ndGggNDQKPj4Kc3RyZWFtCkJU' +
+    'CjcwIDUwIFRECi9GMSAxMiBUZgooSGVsbG8sIHdvcmxkISkgVGoKRVQKZW5kc3RyZWFtCmVu' +
+    'ZG9iagoKeHJlZgowIDYKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDEwIDAwMDAwIG4g' +
+    'CjAwMDAwMDAwNzkgMDAwMDAgbiAKMDAwMDAwMDE3MyAwMDAwMCBuIAowMDAwMDAwMzAxIDAw' +
+    'MDAwIG4gCjAwMDAwMDAzODAgMDAwMDAgbiAKdHJhaWxlcgo8PAogIC9TaXplIDYKICAvUm9v' +
+    'dCAxIDAgUgo+PgpzdGFydHhyZWYKNDkyCiUlRU9G');
 
   bbox: string;
 
@@ -176,6 +190,15 @@ export class FinalReportComponent implements OnInit {
       this.partnerImage6 = this.getBaseImage('assets/img/logos/terrama2-large.png');
       this.partnerImage7 = this.getBaseImage('assets/img/logos/mt.png');
       this.partnerImage8 = this.getBaseImage('assets/img/logos/sema.png');
+
+      this.docDefinition = this.getDocumentDefinition();
+      setTimeout( () => {
+        const pdfDocGenerator = pdfMake.createPdf(this.docDefinition);
+        pdfDocGenerator.getBase64((data) => {
+          this.docBase64 = data
+          console.log(this.docBase64);
+        });
+      }, 5000);
     });
   }
 
@@ -249,17 +272,16 @@ export class FinalReportComponent implements OnInit {
   }
 
   generatePdf(action = 'open') {
-    const docDefinition = this.getDocumentDefinition();
-    // const pdf = pdfMake.createPdf(docDefinition);
 
-    this.reportService.generatePdf(docDefinition, this.type, this.carRegister).then( (response: Response) => {
+    this.reportService.generatePdf(this.docDefinition, this.type, this.carRegister).then( (response: Response) => {
       const reportResp = (response.status === 200) ? response.data : {};
       if (response.status === 200) {
-        this.reportService.getReportById(reportResp.id).then( (resp: Response) => {
-          const res = (resp.status === 200) ? resp.data : {};
-
-          window.open(window.URL.createObjectURL(this.base64toBlob(res.base64, 'application/pdf')));
-        });
+        setTimeout( () => {
+          this.reportService.getReportById(reportResp.id).then( (resp: Response) => {
+            const res = (resp.status === 200) ? resp.data : {};
+            window.open(window.URL.createObjectURL(this.base64toBlob(res.base64, 'application/pdf')));
+          });
+        }, 1000);
       } else {
         alert(`${response.status} - ${response.message}`);
       }
@@ -299,7 +321,7 @@ export class FinalReportComponent implements OnInit {
   }
 
   getDocumentDefinition() {
-    return {
+    const docDefinition = {
       info: {
         title: 'relatorio'
       },
@@ -357,7 +379,7 @@ export class FinalReportComponent implements OnInit {
           style: 'title'
         },
         {
-          text: 'RELATÓRIO TÉCNICO DE DESMATAMENTO Nº 000001/2019',
+          text: `RELATÓRIO TÉCNICO DE DESMATAMENTO Nº XXXXX/${this.year}`,
           style: 'title',
           margin: [30, 0, 30, 20]
         },
@@ -1432,5 +1454,7 @@ export class FinalReportComponent implements OnInit {
         }
       }
     };
+
+    return docDefinition;
   }
 }
