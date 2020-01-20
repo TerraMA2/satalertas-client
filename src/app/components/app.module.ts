@@ -30,6 +30,9 @@ import { ToastModule } from 'primeng/toast';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { NgxPrintModule } from 'ngx-print';
 import { ToolbarModule } from 'primeng/toolbar';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
@@ -144,6 +147,9 @@ registerLocaleData(localePt, 'pt');
     RadioButtonModule,
     NgxPrintModule,
     ToolbarModule,
+    NgxExtendedPdfViewerModule,
+    PdfViewerModule,
+    ProgressSpinnerModule
   ],
   providers: [
     TreeDragDropService,
