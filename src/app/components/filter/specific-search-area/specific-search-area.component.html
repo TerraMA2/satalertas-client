@@ -19,6 +19,15 @@
                                 inputId="CAR"
                                 (ngModelChange)="onChange($event)">
                         </p-radioButton>
+
+                        <p-radioButton
+                                name="CAR"
+                                value="CAR"
+                                label="CAR Federal"
+                                [(ngModel)]="specificSearchFilter.CarCPF"
+                                inputId="CAR_FEDERAL"
+                                (ngModelChange)="onChange($event)">
+                        </p-radioButton>
                         &nbsp;&nbsp;
                         <p-radioButton
                                 name="CPF"
