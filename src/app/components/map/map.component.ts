@@ -248,7 +248,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     const marker = L.marker(latLong, {title: popupTitle});
     marker.bindPopup(popupContent, {maxWidth: 500, maxHeight: 500});
     if (link) {
-      this.linkPopupService.register(marker, link, 'Relatório');
+      this.linkPopupService.register(marker, link, 'Síntese');
       marker.on('popupopen', () =>
                 this.selectedMarker = new SelectedMarker(overlayName, popupTitle, popupContent, latLong, link));
     }
@@ -746,8 +746,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       onAdd: () => {
         const div = L.DomUtil.create('div');
         div.innerHTML = `
-          <div id="reportTableBtn" class="leaflet-control-layers leaflet-custom-icon" title="Laudos">
-            <a><i class='fas fa-file-alt'></i> Laudos</a>
+          <div id="reportTableBtn" class="leaflet-control-layers leaflet-custom-icon" title="Relatórios">
+            <a><i class='fas fa-file-alt'></i> Relatórios</a>
           </div>`;
         return div;
       }

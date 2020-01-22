@@ -16,6 +16,9 @@ export class Property {
     public anthropizedUse: string,
     public nativeVegetation: string,
     public owner: string,
+    public foundProdes: boolean,
+    public foundDeter: boolean,
+    public foundBurnlight: boolean,
     public cpf?: string,
     public county?: string,
     public prodesArea?: number,
@@ -25,7 +28,7 @@ export class Property {
     public prodesYear?: string[],
     public deterYear?: string[],
     public spotlightsYear?: [],
-    public burnedAreasYear?: []
+    public burnedAreasYear?: [],
     // public prodesInfo?: []
   ) {}
 }

@@ -107,11 +107,6 @@ img {
   page-break-inside: avoid;
 }
 
-/*
-section {
-  page-break-inside: avoid;
-} */
-
 .form-margin {
   margin: 5px 0;
 }
