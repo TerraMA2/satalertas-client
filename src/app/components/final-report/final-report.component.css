@@ -67,6 +67,8 @@ h2 {
     z-index: 7;
     cursor: default;
 }
+
+
 .loadingInProgress.body {
     height: 100%;
     width: 100%;

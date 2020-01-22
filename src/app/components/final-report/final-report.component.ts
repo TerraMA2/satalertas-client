@@ -15,21 +15,26 @@ import {ReportService} from '../../services/report.service';
 import { Response } from 'src/app/models/response.model';
 
 import pdfMake from 'pdfmake/build/pdfmake';
+
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
+import {FinalReportService} from '../../services/final-report.service';
+
+// @ts-ignore
 @Component({
   selector: 'app-final-report',
   templateUrl: './final-report.component.html',
   styleUrls: ['./final-report.component.css'],
   encapsulation: ViewEncapsulation.None
 })
+
 export class FinalReportComponent implements OnInit {
 
   private reportConfig;
 
-  private headerImage1;
-  private headerImage2;
+  private headerImage1 = [];
+  private headerImage2 = [];
 
   private geoserverImage1;
   private geoserverImage2;
@@ -41,14 +46,14 @@ export class FinalReportComponent implements OnInit {
   private chartImage2;
   private chartImage3;
 
-  private partnerImage1;
-  private partnerImage2;
-  private partnerImage3;
-  private partnerImage4;
-  private partnerImage5;
-  private partnerImage6;
-  private partnerImage7;
-  private partnerImage8;
+  private partnerImage1 = [];
+  private partnerImage2 = [];
+  private partnerImage3 = [];
+  private partnerImage4 = [];
+  private partnerImage5 = [];
+  private partnerImage6 = [];
+  private partnerImage7 = [];
+  private partnerImage8 = [];
 
   property;
 
@@ -70,6 +75,7 @@ export class FinalReportComponent implements OnInit {
 
   docDefinition: any;
   docBase64;
+  generatingReport = false;
 
   bbox: string;
 
@@ -79,6 +85,7 @@ export class FinalReportComponent implements OnInit {
     private configService: ConfigService,
     private sidebarService: SidebarService,
     private reportService: ReportService,
+    private finalReportService: FinalReportService,
     private router: Router
   ) {}
 
@@ -112,7 +119,8 @@ export class FinalReportComponent implements OnInit {
     await this.getReportData();
   }
 
-  getReportData() {
+  async getReportData() {
+
     const date = JSON.parse(localStorage.getItem('dateFilter'));
     this.dateFilter = `${date[0]}/${date[1]}`;
     const startDate = new Date(date[0]).toLocaleDateString('pt-BR');
@@ -129,8 +137,9 @@ export class FinalReportComponent implements OnInit {
     const viewId = propertyConfig.viewId;
     this.carRegister = this.carRegister.replace('\\', '/');
     const carRegister = this.carRegister;
-    this.hTTPService.get(url, {viewId, carRegister, date, filter})
-                    .subscribe((reportData: Property) => {
+
+    await this.finalReportService.getCarData(viewId, carRegister, date, filter).then((reportData: Property) => {
+
       this.prodesStartYear = reportData.prodesYear && reportData.prodesYear.length > 0 ? reportData.prodesYear[0]['date'] : '2007';
 
       const bboxArray = reportData.bbox.split(',');
@@ -163,73 +172,108 @@ export class FinalReportComponent implements OnInit {
       ];
 
       this.tableData = propertyDeforestation;
+    });
 
-      const gsImage = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_5:view5,terrama2_6:view6&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=250&height=250&cql_filter=id_munic>0;municipio='${this.property.city}';numero_do1='${this.property.register}'&srs=EPSG:4326&format=image/png`;
-      const gsImage1 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:view6&styles=&bbox=${this.property.bbox}&width=400&height=400&time=${this.prodesStartYear}/P1Y&cql_filter=numero_do1='${this.property.register}'&srs=EPSG:4326&format=image/png`;
-      const gsImage2 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:view6,terrama2_73:view73&styles=&bbox=${this.property.bbox}&width=404&height=431&time=${this.prodesStartYear}/${this.currentYear}&cql_filter=numero_do1='${this.property.register}';de_car_validado_sema_numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`;
-      const gsImage3 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:MosaicSpot2008_car_validado&styles=&bbox=${this.property.bbox}&width=400&height=400&time=${this.prodesStartYear}/P1Y&cql_filter=numero_do1='${this.property.register}'&srs=EPSG:4326&format=image/png`;
-      const gsImage4 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:view6,terrama2_73:view73&styles=&bbox=${this.property.bbox}&width=400&height=400&time=${this.currentYear}/P1Y&cql_filter=numero_do1='${this.property.register}';de_car_validado_sema_numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`;
+    const gsImage = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_5:view5,terrama2_6:view6&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=250&height=250&cql_filter=id_munic>0;municipio='${this.property.city}';numero_do1='${this.property.register}'&srs=EPSG:4326&format=image/png`;
+    const gsImage1 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:view6&styles=&bbox=${this.property.bbox}&width=400&height=400&time=${this.property.prodesYear[0]['date']}/P1Y&cql_filter=numero_do1='${this.property.register}'&srs=EPSG:4326&format=image/png`;
+    const gsImage2 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:view6,terrama2_73:view73&styles=&bbox=${this.property.bbox}&width=404&height=431&time=${this.property.prodesYear[0]['date']}/${this.currentYear}&cql_filter=numero_do1='${this.property.register}';de_car_validado_sema_numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`;
+    const gsImage3 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:MosaicSpot2008_car_validado&styles=&bbox=${this.property.bbox}&width=400&height=400&time=${this.prodesStartYear}/P1Y&cql_filter=numero_do1='${this.property.register}'&srs=EPSG:4326&format=image/png`;
+    const gsImage4 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:view6,terrama2_73:view73&styles=&bbox=${this.property.bbox}&width=400&height=400&time=${this.currentYear}/P1Y&cql_filter=numero_do1='${this.property.register}';de_car_validado_sema_numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`;
 
-      this.geoserverImage1 = this.getBaseImageUrl(gsImage);
-      this.geoserverImage2 = this.getBaseImageUrl(gsImage1);
-      this.geoserverImage3 = this.getBaseImageUrl(gsImage2);
-      this.geoserverImage4 = this.getBaseImageUrl(gsImage3);
-      this.geoserverImage5 = this.getBaseImageUrl(gsImage4);
+    this.geoserverImage1 = await this.getBaseImageUrl(gsImage);
+    this.geoserverImage2 = await this.getBaseImageUrl(gsImage1);
+    this.geoserverImage3 = await this.getBaseImageUrl(gsImage2);
+    this.geoserverImage4 = await this.getBaseImageUrl(gsImage3);
+    this.geoserverImage5 = await this.getBaseImageUrl(gsImage4);
 
-      this.headerImage1 = this.getBaseImage('assets/img/logos/mpmt-small.png');
-      this.headerImage2 = this.getBaseImage('assets/img/logos/inpe.png');
+    this.toDataUrl('assets/img/logos/mpmt-small.png', headerImage1 => {
+      this.headerImage1.push(headerImage1);
+      this.toDataUrl('assets/img/logos/inpe.png', headerImage2 => {
+        this.headerImage2.push(headerImage2);
+        this.toDataUrl('assets/img/logos/mpmt-small.png', partnerImage1 => {
+          this.partnerImage1.push(partnerImage1);
+          this.toDataUrl('assets/img/logos/pjedaou-large.png', partnerImage2 => {
+            this.partnerImage2.push(partnerImage2);
+            this.toDataUrl('assets/img/logos/caex.png', partnerImage3 => {
+              this.partnerImage3.push(partnerImage3);
+              this.toDataUrl('assets/img/logos/inpe.png', partnerImage4 => {
+                this.partnerImage4.push(partnerImage4);
+                this.toDataUrl('assets/img/logos/dpi.png', partnerImage5 => {
+                  this.partnerImage5.push(partnerImage5);
+                  this.toDataUrl('assets/img/logos/terrama2-large.png', partnerImage6 => {
+                    this.partnerImage6.push(partnerImage6);
+                    this.toDataUrl('assets/img/logos/mt.png', partnerImage7 => {
+                      this.partnerImage7.push(partnerImage7);
+                      this.toDataUrl('assets/img/logos/sema.png', partnerImage8 => {
+                        this.partnerImage8.push(partnerImage8);
 
-      this.partnerImage1 = this.getBaseImage('assets/img/logos/mpmt-small.png');
-      this.partnerImage2 = this.getBaseImage('assets/img/logos/pjedaou-large.png');
-      this.partnerImage3 = this.getBaseImage('assets/img/logos/caex.png');
-      this.partnerImage4 = this.getBaseImage('assets/img/logos/inpe.png');
-      this.partnerImage5 = this.getBaseImage('assets/img/logos/dpi.png');
-      this.partnerImage6 = this.getBaseImage('assets/img/logos/terrama2-large.png');
-      this.partnerImage7 = this.getBaseImage('assets/img/logos/mt.png');
-      this.partnerImage8 = this.getBaseImage('assets/img/logos/sema.png');
+                        this.getDocumentDefinition();
 
-      this.docDefinition = this.getDocumentDefinition();
-      setTimeout( () => {
-        const pdfDocGenerator = pdfMake.createPdf(this.docDefinition);
-        pdfDocGenerator.getBase64((data) => {
-          this.docBase64 = data;
+                        this.getPdfBase64(this.docDefinition);
+                      });
+                    });
+                  });
+                });
+              });
+            });
+          });
         });
-      }, 5000);
+      });
+    });
+  }
+
+  getPdfBase64(docDefinition) {
+    const pdfDocGenerator = pdfMake.createPdf(docDefinition);
+
+    pdfDocGenerator.getBase64((data) => {
+      this.docBase64 = data;
     });
   }
 
   async getBase64ImageFromUrl(imageUrl) {
     const res = await fetch(imageUrl);
     const blob = await res.blob();
-    return new Promise((resolve, reject) => {
+    const result = await new Promise((resolve, reject) => {
       const reader  = new FileReader();
       reader.addEventListener('load', () => resolve(reader.result), false);
       reader.onerror = () => reject(this);
       reader.readAsDataURL(blob);
     });
+    return result;
   }
 
-  getBaseImageUrl(url: string) {
-    const baseImage = [];
-    this.getBase64ImageFromUrl(url).then(result => baseImage.push(result)).catch(err => console.error(err));
+  async getBaseImageUrl(url: string) {
+    const baseImage = await this.getBase64ImageFromUrl(url).then(result => {
+      const baseImageAux = [];
+      baseImageAux.push(result);
+      return baseImageAux;
+    }).catch(err => console.error(err));
     return baseImage;
   }
 
   toDataUrl(file, callback) {
-    const xhr = new XMLHttpRequest();
-    xhr.responseType = 'blob';
-    xhr.onload = () => {
+    const xMLHttpRequest = new XMLHttpRequest();
+
+    xMLHttpRequest.responseType = 'blob';
+
+    xMLHttpRequest.onload = () => {
       const reader = new FileReader();
       reader.onloadend = () => callback(reader.result);
-      reader.readAsDataURL(xhr.response);
+      reader.readAsDataURL(xMLHttpRequest.response);
     };
-    xhr.open('GET', file);
-    xhr.send();
+
+    xMLHttpRequest.open('GET', file, true);
+    xMLHttpRequest.send();
   }
 
   getBaseImage(fileLocation: string) {
+
     const baseImage = [];
-    this.toDataUrl(fileLocation, base64Image => baseImage.push(base64Image));
+
+    this.toDataUrl(fileLocation, base64Image => {
+       baseImage.push(base64Image);
+    });
+
     return baseImage;
   }
 
@@ -268,6 +312,7 @@ export class FinalReportComponent implements OnInit {
   }
 
   generatePdf(action = 'open') {
+    this.generatingReport = true;
 
     this.reportService.generatePdf(this.docDefinition, this.type, this.carRegister).then( (response: Response) => {
       const reportResp = (response.status === 200) ? response.data : {};
@@ -275,10 +320,12 @@ export class FinalReportComponent implements OnInit {
         setTimeout( () => {
           this.reportService.getReportById(reportResp.id).then( (resp: Response) => {
             const res = (resp.status === 200) ? resp.data : {};
+            this.generatingReport = false;
             window.open(window.URL.createObjectURL(this.base64toBlob(res.base64, 'application/pdf')));
           });
-        }, 1000);
+        }, 2000);
       } else {
+        this.generatingReport = false;
         alert(`${response.status} - ${response.message}`);
       }
     });
@@ -314,20 +361,19 @@ export class FinalReportComponent implements OnInit {
     this.reportService.changeReportType.next();
   }
 
-  getDocumentDefinition() {
-    let docDefinition = {};
+  async getDocumentDefinition() {
     if (this.type === 'prodes') {
-      docDefinition = this.getPRODESDocumentDefinition();
+      await this.getPRODESDocumentDefinition();
     } else if (this.type === 'deter') {
-      docDefinition = this.getDETERDocumentDefinition();
+      await this.getDETERDocumentDefinition();
     } else if (this.type === 'queimada') {
-      docDefinition = this.getQUEIMADAocumentDefinition();
+      await this.getQUEIMADAocumentDefinition();
     }
-
-    return docDefinition;
   }
 
   getPRODESDocumentDefinition() {
+    const headerDocument = this.getHeaderDocument();
+
     const docDefinition = {
       info: {
         title: 'Relatório PRODES'
@@ -351,7 +397,7 @@ export class FinalReportComponent implements OnInit {
       },
       content: [
         {
-          columns: this.getHeaderDocument()
+          columns: headerDocument
         },
         {
           text: [
@@ -476,7 +522,7 @@ export class FinalReportComponent implements OnInit {
           pageBreak: 'after'
         },
         {
-          columns: this.getHeaderDocument()
+          columns: headerDocument
         },
         {
           text: '2.1 Dados utilizados',
@@ -656,7 +702,7 @@ export class FinalReportComponent implements OnInit {
           pageBreak: 'after'
         },
         {
-          columns: this.getHeaderDocument()
+          columns: headerDocument
         },
         {
           columns: [
@@ -757,7 +803,7 @@ export class FinalReportComponent implements OnInit {
           pageBreak: 'after'
         },
         {
-          columns: this.getHeaderDocument()
+          columns: headerDocument
         },
         {
           text: 'Por fim, foi gerado um relatório com o histórico de imagens de ',
@@ -892,7 +938,7 @@ export class FinalReportComponent implements OnInit {
           pageBreak: 'after'
         },
         {
-          columns: this.getHeaderDocument()
+          columns: headerDocument
         },
         {
           text: (
@@ -1023,7 +1069,7 @@ export class FinalReportComponent implements OnInit {
           pageBreak: 'after'
         },
         {
-          columns: this.getHeaderDocument()
+          columns: headerDocument
         },
         {
           columns: [
@@ -1113,7 +1159,7 @@ export class FinalReportComponent implements OnInit {
           pageBreak: 'after'
         },
         {
-          columns: this.getHeaderDocument()
+          columns: headerDocument
         },
         {
           image: this.geoserverImage3,
@@ -1217,7 +1263,7 @@ export class FinalReportComponent implements OnInit {
           pageBreak: 'after'
         },
         {
-          columns: this.getHeaderDocument()
+          columns: headerDocument
         },
         {
           text: [
@@ -1347,7 +1393,7 @@ export class FinalReportComponent implements OnInit {
           pageBreak: 'after'
         },
         {
-          columns: this.getHeaderDocument()
+          columns: headerDocument
         },
         {
           text: '6 VALIDAÇÃO',
@@ -1462,7 +1508,7 @@ export class FinalReportComponent implements OnInit {
       }
     };
 
-    return docDefinition;
+    this.docDefinition = docDefinition;
   }
 
   getDETERDocumentDefinition() {
@@ -2202,7 +2248,7 @@ export class FinalReportComponent implements OnInit {
       }
     };
 
-    return docDefinition;
+    this.docDefinition = docDefinition;
   }
 
   getQUEIMADAocumentDefinition() {
@@ -2942,6 +2988,6 @@ export class FinalReportComponent implements OnInit {
       }
     };
 
-    return docDefinition;
+    this.docDefinition = docDefinition;
   }
 }
