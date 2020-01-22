@@ -14,6 +14,27 @@
                 label="Gerar relatório"
                 [disabled]="!docBase64">
         </button>
+        &nbsp;
+        <button *ngIf="type !== 'deter'"
+                pButton
+                icon="fas fa-file-alt"
+                label="Relatório DETER"
+                (click)="onViewReportClicked('deter')">
+        </button>
+        &nbsp;
+        <button *ngIf="type !== 'prodes'"
+                pButton
+                icon="fas fa-file-alt"
+                label="Relatório PRODES"
+                (click)="onViewReportClicked('prodes')">
+        </button>
+        &nbsp;
+        <button *ngIf="type !== 'queimada'"
+                pButton
+                icon="fas fa-file-alt"
+                label="Relatório FOCOS"
+                (click)="onViewReportClicked('queimada')">
+        </button>
     </div>
 </p-toolbar>
 <div *ngIf="!!docBase64">

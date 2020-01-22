@@ -21,6 +21,8 @@ export class ReportService {
 
   property = new Subject<Property>();
 
+  changeReportType = new Subject();
+
   constructor(
     private http: HttpClient
   ) { }
