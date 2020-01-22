@@ -7,12 +7,13 @@
         </button>
     </div>
     <div class="ui-toolbar-group-right">
+
         <button pButton
-                icon="fas fa-download"
                 type="button"
+                icon="fas fa-download"
+                label="GerarRelatório"
                 (click)="generatePdf('open')"
-                label="Gerar relatório"
-                [disabled]="!docBase64">
+                [disabled]="!docBase64 || generatingReport">
         </button>
     </div>
 </p-toolbar>
