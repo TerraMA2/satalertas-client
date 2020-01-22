@@ -145,38 +145,42 @@
                 {{rowData[col.field]}}
             </td>
             <td >
-                <a *ngIf="tableReportActive && showDeter"
-                   style="vertical-align:middle; width: 32px; height: 32px;"
-                   routerLink="/finalReport/deter/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                   pButton
-                   pTooltip="Visualisar relatório Deter"
-                   tooltipPosition="top">
-                    <img src="../../../../assets/img/ico/deter.ico" style="margin: 2px; width: 25px; height: 25px;"/>
-                </a>
-                <a *ngIf="tableReportActive && showProdes"
+                <button *ngIf="tableReportActive && showDeter"
+                        style="vertical-align:middle; width: 32px; height: 32px;"
+                        class="btn"
+                        routerLink="/finalReport/deter/{{rowData['registro_estadual'].replace('/', '\\')}}"
+                        pButton
+                        pTooltip="Visualisar relatório Deter"
+                        tooltipPosition="top">
+                    <img src="../../../../assets/img/ico/deter32x32.png" style="margin: 2px; width: 25px; height: 25px;"/>
+                </button>
+                <button *ngIf="tableReportActive && showProdes"
                    style="vertical-align:middle; margin-left: 10px; width: 32px; height: 32px;"
                    routerLink="/finalReport/prodes/{{rowData['registro_estadual'].replace('/', '\\')}}"
                    pButton
+                   class="btn"
                    pTooltip="Visualisar relatório Prodes"
                    tooltipPosition="top">
-                    <img src="../../../../assets/img/ico/prodes.ico" style="margin: 2px; width: 25px; height: 25px;"/>
-                </a>
-                <a *ngIf="tableReportActive && showBurn"
+                    <img src="../../../../assets/img/ico/prodes32x32.png" style="margin: 2px; width: 25px; height: 25px;"/>
+                </button>
+                <button *ngIf="tableReportActive && showBurn"
                    style="vertical-align:middle; margin-left: 10px; width: 32px; height: 32px;"
                    routerLink="/finalReport/queimada/{{rowData['registro_estadual'].replace('/', '\\')}}"
                    pButton
+                   class="btn"
                    pTooltip="Visualisar relatório Queimada"
                    tooltipPosition="top">
                     <img src="../../../../assets/img/ico/queima.ico" style="margin: 2px; width: 25px; height: 25px;"/>
-                </a>
+                </button>
                 &nbsp;
-                <a pButton
+                <button pButton
+                        class="btn"
                         style="vertical-align:middle; margin-left: 0px; width: 32px; height: 32px;"
                         (click)="onShowMapClicked(rowData)"
                         pTooltip="Visualizar no mapa">
-                    <i class="fa fa-map-marker-alt" style="margin: 8px 3px; width: 25px; height: 25px;"></i>
+                    <i class="fa fa-map-marker-alt" style="color: red; margin: 8px 3px; width: 25px; height: 25px;"></i>
 <!--                    <img src="../../../../assets/img/ico/queima.ico" style="margin: 2px; width: 25px; height: 25px;"/>-->
-                </a>
+                </button>
             </td>
         </tr>
     </ng-template>

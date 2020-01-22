@@ -1,4 +1,3 @@
-
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 
 import * as L from 'leaflet';
