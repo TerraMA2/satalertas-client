@@ -1,13 +1,28 @@
 import { Injectable } from '@angular/core';
 
 import { Property } from '../models/property.model';
+import {HttpClient} from '@angular/common/http';
+
+import {environment} from '../../environments/environment';
+import {PrivateDeclarationsAnalyzer} from '@angular/compiler-cli/ngcc/src/analysis/private_declarations_analyzer';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FinalReportService {
+  URL_TERRAMA2_SERVER = environment.terramaUrl;
 
-  constructor( ) {}
+  constructor(
+    private http: HttpClient
+  ) { }
+
+  async getCarData(viewId, carRegister, date, filter) {
+    const url = `${this.URL_TERRAMA2_SERVER}/api/report/getCarData`;
+
+    const parameters = {viewId, carRegister, date, filter };
+
+    return await this.http.get(url, { params: parameters }).toPromise();
+  }
 
   getHeader() {
     return [
