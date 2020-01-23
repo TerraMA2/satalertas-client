@@ -266,17 +266,6 @@ export class FinalReportComponent implements OnInit {
     xMLHttpRequest.send();
   }
 
-  getBaseImage(fileLocation: string) {
-
-    const baseImage = [];
-
-    this.toDataUrl(fileLocation, base64Image => {
-       baseImage.push(base64Image);
-    });
-
-    return baseImage;
-  }
-
   getHeaderDocument() {
     return [
       {

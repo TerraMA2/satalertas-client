@@ -677,8 +677,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.map.setView(latlng, zoom);
   }
 
-  // Map controls
-
   setLayerControl() {
     this.layerControl = L.control.layers(
       {}, {},
