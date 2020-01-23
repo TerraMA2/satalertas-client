@@ -7,14 +7,6 @@
         </button>
     </div>
     <div class="ui-toolbar-group-right">
-        <button pButton
-                icon="fas fa-download"
-                type="button"
-                (click)="generatePdf('open')"
-                label="Gerar relatório"
-                [disabled]="!docBase64">
-        </button>
-        &nbsp;
         <button *ngIf="type !== 'deter'"
                 pButton
                 icon="fas fa-file-alt"
@@ -34,6 +26,14 @@
                 icon="fas fa-file-alt"
                 label="Relatório FOCOS"
                 (click)="onViewReportClicked('queimada')">
+        </button>
+        &nbsp;
+        <button pButton
+                icon="fas fa-download"
+                type="button"
+                (click)="generatePdf('open')"
+                label="Gerar relatório"
+                [disabled]="!docBase64">
         </button>
     </div>
 </p-toolbar>
