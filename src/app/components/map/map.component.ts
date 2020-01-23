@@ -455,9 +455,23 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     layer.layerData.layers = layer.filter.default.view;
 
+    const tableOwer = {
+      DETER() { return `a_cardeter_49`; },
+      PRODES() { return `a_carprodes_62`; },
+      FOCOS() { return `a_carfocos_74`; },
+      AREA_QUEIMADA() { return `a_caraq_86`; },
+    };
+
     const specificSearch = {
-      car(value) { return ` de_car_validado_sema_numero_do1 = '${value}' `; },
-      cpf(value) { return ``; }
+      car(value) {
+        return (layer.isPrimary) ? ` de_car_validado_sema_numero_do1 = '${value}' ` : ` ${tableOwer[layer.codgroup]()}_de_car_validado_sema_numero_do1 = '${value}' `;
+      },
+      car_federal(value) {
+        return (layer.isPrimary) ? ` de_car_validado_sema_numero_do2 = '${value}' ` : ` ${tableOwer[layer.codgroup]()}_de_car_validado_sema_numero_do2 = '${value}' `;
+      },
+      cpf(value) {
+        return (layer.isPrimary) ? ` de_car_validado_sema_cpfcnpj = '${value}' ` : ` ${tableOwer[layer.codgroup]()}_de_car_validado_sema_cpfcnpj = '${value}' `;
+      }
     };
 
     layer.layerData.cql_filter = specificSearch[filter.specificSearch.CarCPF.toLowerCase()](filter.specificSearch.inputValue);
@@ -662,8 +676,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   panMap(latlng, zoom) {
     this.map.setView(latlng, zoom);
   }
-
-  // Map controls
 
   setLayerControl() {
     this.layerControl = L.control.layers(
