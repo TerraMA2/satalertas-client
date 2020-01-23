@@ -2,12 +2,10 @@
   "name": "terrama2-report",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
     "start": "ng serve",
     "build": "ng build --prod --base-href /mpmt/alerta/ --deploy-url /mpmt/alerta/",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "dev": "ng serve",
+    "prod": " ng serve --prod"
   },
   "private": true,
   "dependencies": {
