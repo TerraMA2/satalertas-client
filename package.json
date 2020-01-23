@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "start": "ng serve",
+    "build": "ng build --prod --base-href /mpmt/alerta/ --deploy-url /mpmt/alerta/",
     "dev": "ng serve",
-    "prod": " ng serve --prod",
-    "build": "ng build"
+    "prod": " ng serve --prod"
   },
   "private": true,
   "dependencies": {

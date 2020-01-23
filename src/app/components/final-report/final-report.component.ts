@@ -42,6 +42,8 @@ export class FinalReportComponent implements OnInit {
   private geoserverImage4;
   private geoserverImage5;
 
+  private geoserverLegend;
+
   private chartImage1;
   private chartImage2;
   private chartImage3;
@@ -64,6 +66,7 @@ export class FinalReportComponent implements OnInit {
   formattedFilterDate: string;
 
   currentYear: number;
+  currentDate: string;
   prodesStartYear: string;
 
   tableColumns;
@@ -130,6 +133,10 @@ export class FinalReportComponent implements OnInit {
 
     this.currentYear = new Date().getFullYear();
 
+    const today = new Date();
+
+    this.currentDate = today.getDate() + '/' + today.getMonth() + 1 + '/' + today.getFullYear();
+
     const filter = localStorage.getItem('filterList');
 
     const propertyConfig = this.reportConfig.propertyData;
@@ -175,16 +182,20 @@ export class FinalReportComponent implements OnInit {
     });
 
     const gsImage = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_5:view5,terrama2_6:view6&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=250&height=250&cql_filter=id_munic>0;municipio='${this.property.city}';numero_do1='${this.property.register}'&srs=EPSG:4326&format=image/png`;
-    const gsImage1 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:view6&styles=&bbox=${this.property.bbox}&width=400&height=400&time=${this.property.prodesYear[0]['date']}/P1Y&cql_filter=numero_do1='${this.property.register}'&srs=EPSG:4326&format=image/png`;
-    const gsImage2 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:view6,terrama2_73:view73&styles=&bbox=${this.property.bbox}&width=404&height=431&time=${this.property.prodesYear[0]['date']}/${this.currentYear}&cql_filter=numero_do1='${this.property.register}';de_car_validado_sema_numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`;
+    const gsImage1 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:view6&styles=&bbox=${this.property.bbox}&width=400&height=400&time=${this.prodesStartYear}/P1Y&cql_filter=numero_do1='${this.property.register}'&srs=EPSG:4326&format=image/png`;
+    const gsImage2 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:view6,terrama2_86:view86&styles=terrama2_6:view6_style,terrama2_8:view8_style&bbox=${this.property.bbox}&width=404&height=431&time=${this.prodesStartYear}/${this.currentYear}&cql_filter=numero_do1='${this.property.register}';de_car_validado_sema_numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`;
     const gsImage3 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:MosaicSpot2008_car_validado&styles=&bbox=${this.property.bbox}&width=400&height=400&time=${this.prodesStartYear}/P1Y&cql_filter=numero_do1='${this.property.register}'&srs=EPSG:4326&format=image/png`;
-    const gsImage4 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:view6,terrama2_73:view73&styles=&bbox=${this.property.bbox}&width=400&height=400&time=${this.currentYear}/P1Y&cql_filter=numero_do1='${this.property.register}';de_car_validado_sema_numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`;
+    const gsImage4 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:view6,terrama2_86:view86&styles=&bbox=${this.property.bbox}&width=400&height=400&time=${this.currentYear}/P1Y&cql_filter=numero_do1='${this.property.register}';de_car_validado_sema_numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`;
+
+    const gsLegend = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on;layout:vertical&LAYER=terrama2_8:view8`;
 
     this.geoserverImage1 = await this.getBaseImageUrl(gsImage);
     this.geoserverImage2 = await this.getBaseImageUrl(gsImage1);
     this.geoserverImage3 = await this.getBaseImageUrl(gsImage2);
     this.geoserverImage4 = await this.getBaseImageUrl(gsImage3);
     this.geoserverImage5 = await this.getBaseImageUrl(gsImage4);
+
+    this.geoserverLegend = await this.getBaseImageUrl(gsLegend);
 
     this.toDataUrl('assets/img/logos/mpmt-small.png', headerImage1 => {
       this.headerImage1.push(headerImage1);
@@ -1151,9 +1162,20 @@ export class FinalReportComponent implements OnInit {
           columns: headerDocument
         },
         {
-          image: this.geoserverImage3,
-          fit: [200, 200],
-          alignment: 'center'
+          columns: [
+            {
+              image: this.geoserverLegend,
+              fit: [200, 200],
+              margin: [0, 10],
+              alignment: 'center'
+            },
+            {
+              image: this.geoserverImage3,
+              fit: [200, 200],
+              margin: [0, 10],
+              alignment: 'center'
+            }
+          ]
         },
         {
           text: [
@@ -1390,8 +1412,8 @@ export class FinalReportComponent implements OnInit {
           style: 'listItem'
         },
         {
-          text: 'Este relatório técnico foi validado em data por: ',
-          margin: [30, 0, 30, 15],
+          text: `Este relatório técnico foi validado em ${this.currentDate} por: `,
+          margin: [30, 0, 30, 100],
           alignment: 'center',
           style: 'body'
         },
@@ -2130,8 +2152,8 @@ export class FinalReportComponent implements OnInit {
           style: 'listItem'
         },
         {
-          text: 'Este relatório técnico foi validado em data por: ',
-          margin: [30, 0, 30, 15],
+          text: `Este relatório técnico foi validado em ${this.currentDate} por: `,
+          margin: [30, 0, 30, 100],
           alignment: 'center',
           style: 'body'
         },
@@ -2299,7 +2321,7 @@ export class FinalReportComponent implements OnInit {
           style: 'title'
         },
         {
-          text: `RELATÓRIO TÉCNICO SOBRE ALERTA DE DESMATAMENTO Nº XXXXX/${this.year}`,
+          text: `RELATÓRIO TÉCNICO SOBRE CICATRIZ DE QUEIMADA Nº XXXXX/${this.year}`,
           style: 'title',
           margin: [30, 0, 30, 20]
         },
@@ -2310,13 +2332,13 @@ export class FinalReportComponent implements OnInit {
         {
           text: [
             {
-              text: 'Trata-se de relatório técnico sobre desmatamentos ilegais identificados ',
+              text: 'Trata-se de relatório técnico sobre cicatriz de queimada identificada ',
               alignment: 'right',
             },
             {
               text: (
                 ' com o uso de Sistema de Informações Geográficas no imóvel rural ' + this.property.name +
-                ' (Figura 1), localizado no município de ' + this.property.city +
+                ' (Figura 1), localizada no município de ' + this.property.city +
                 '-MT, pertencente a ' + this.property.owner + ', conforme informações declaradas no ' +
                 ' Sistema Mato-grossense de Cadastro Ambiental Rural (SIMCAR), protocolo CAR-MT ' + this.property.register
               ),
@@ -2405,7 +2427,7 @@ export class FinalReportComponent implements OnInit {
             },
             {
               text: (
-                'Dados das áreas desmatadas no Estado de Mato Grosso mapeadas pelo Sistema de Detecção de Desmatamento em Tempo Real (DETER) ' +
+                'Dados das áreas queimadas no Estado de Mato Grosso mapeadas pelo Programa Queimadas (ocorrência de fogo e cicatrizes das áreas queimadas) ' +
                 '(alertas de desmatamento em tempo quase real) desenvolvido pelo INPE;'
               ),
               margin: [20, 0, 30, 5],
@@ -2524,7 +2546,7 @@ export class FinalReportComponent implements OnInit {
             },
             {
               text: (
-                'Mapa de vegetação do Projeto RadamBrasil;'
+                'Imagens dos Satélites Landsat, SPOT, Planet, Sentinel-2, CBERS-4 e de outras fontes que estiverem disponíveis;'
               ),
               margin: [20, 0, 30, 5],
               width: 'auto',
@@ -2536,22 +2558,6 @@ export class FinalReportComponent implements OnInit {
           columns: [
             {
               text: 'h) ',
-              margin: [50, 0, 0, 5],
-              width: 'auto',
-              style: 'body'
-            },
-            {
-              text: 'Imagens dos Satélites Landsat, SPOT, Planet, Sentinel-2, CBERS-4 e de outras fontes disponíveis;',
-              margin: [20, 0, 30, 5],
-              width: 'auto',
-              style: 'body'
-            }
-          ]
-        },
-        {
-          columns: [
-            {
-              text: 'i) ',
               margin: [50, 0, 0, 5],
               width: 'auto',
               style: 'body'
@@ -2587,30 +2593,30 @@ export class FinalReportComponent implements OnInit {
             'análise e emissão de alertas sobre extremos ambientais¹. Assim, utilizando esta base tecnológica inovadora, ' +
             'no domínio de softwares abertos, as tarefas executadas pela plataforma foram definidas para coletar, ' +
             'analisar (intersecção de geometrias dos mapas), visualizar e consultar dados sobre danos ambientais causados ' +
-            'por desmatamentos recentes. Para isso, dados dinâmicos e estáticos foram processados para produzirem as informações ' +
+            'por queimadas. Para isso, dados dinâmicos e estáticos foram processados para produzirem as informações ' +
             'que foram sistematizadas neste relatório.'
           ),
           margin: [30, 0, 30, 5],
           style: 'body'
         },
         {
-          text: 'Os dados de desmatamentos (polígonos) do Sistema DETER foram cruzados ',
+          text: 'Os dados do Programa Queimadas (pontos e polígonos ',
           alignment: 'right',
           margin: [30, 0, 30, 0],
           style: 'body'
         },
         {
           text: (
-            'com informações geoespaciais de fontes oficiais para identificação e quantificação ' +
-            'dos danos ambientais causados por desmatamentos supostamente ilegais, bem como para ' +
-            'identificação dos responsáveis pelo imóvel rural atingido, para fins de responsabilização civil, administrativa ' +
-            'e, eventualmente, criminal pelos danos causados.'
+            'representando a área nominal do píxel de fogo, bem como os polígonos das cicatrizes das áreas queimadas), foram' +
+            'cruzados com informações geoespaciais de fontes oficiais para identificação e quantificação dos danos ambientais' +
+            'causados pelas queimadas, bem como para identificação dos responsáveis pelo imóvel rural atingido, para fins de' +
+            'responsabilização civil e, eventualmente, criminal pelos danos causados.'
           ),
           margin: [30, 0, 30, 5],
           style: 'body'
         },
         {
-          text: 'As informações sobre o imóvel rural onde incidiu o desmatamento e',
+          text: 'As informações sobre o imóvel rural onde incidiu a queimada e',
           alignment: 'right',
           margin: [30, 0, 30, 0],
           style: 'body'
@@ -2870,8 +2876,8 @@ export class FinalReportComponent implements OnInit {
           style: 'listItem'
         },
         {
-          text: 'Este relatório técnico foi validado em data por: ',
-          margin: [30, 0, 30, 15],
+          text: `Este relatório técnico foi validado em ${this.currentDate} por: `,
+          margin: [30, 0, 30, 100],
           alignment: 'center',
           style: 'body'
         },
