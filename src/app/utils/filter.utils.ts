@@ -14,6 +14,8 @@ export class FilterUtils {
       layer.layerData.cql_filter =
         FilterUtils.setCqlFilter(
           value[layer.filter[filter.themeSelected.type].value], layer.filter[filter.themeSelected.type].field, cqlFilter);
+    } else {
+      delete layer.layerData.cql_filter;
     }
 
     layer.layerData.layers = layer.filter[filter.themeSelected.type].view;
