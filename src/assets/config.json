@@ -3771,7 +3771,6 @@
             "isPrimary": false,
             "isChild": false,
             "isHidden": false,
-            "isDisabled": false,
             "isDisabled": true,
             "filter": {
               "default": {
@@ -4331,7 +4330,7 @@
               "isPrimary": false,
               "isChild": false,
               "isHidden": false,
-            "isDisabled": false,
+              "isDisabled": false,
               "filter": {
                   "default": {
                       "view": "terrama2_94:view94"
@@ -4486,8 +4485,8 @@
               "isPrivate": false,
               "isPrimary": false,
               "isChild": false,
-            "isHidden": false,
-            "isDisabled": false,
+              "isHidden": false,
+              "isDisabled": false,
               "filter": {
                   "default": {
                       "view": "terrama2_96:view96"
@@ -4565,7 +4564,7 @@
               "isPrimary": false,
               "isChild": false,
               "isHidden": false,
-            "isDisabled": false,
+              "isDisabled": false,
               "filter": {
                   "default": {
                       "view": "terrama2_97:view97"
@@ -6313,7 +6312,6 @@
             "isChild": false,
             "isHidden": false,
             "isDisabled": false,
-            "isDisabled": true,
             "filter": {
               "default": {
                 "view": "terrama2_119:view119"
