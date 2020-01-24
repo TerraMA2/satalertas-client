@@ -19,7 +19,7 @@ import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
-import {FinalReportService} from '../../services/final-report.service';
+import { FinalReportService } from '../../services/final-report.service';
 
 // @ts-ignore
 @Component({
@@ -140,7 +140,7 @@ export class FinalReportComponent implements OnInit {
     const filter = localStorage.getItem('filterList');
 
     const propertyConfig = this.reportConfig.propertyData;
-    const url = propertyConfig.url;
+
     const viewId = propertyConfig.viewId;
     this.carRegister = this.carRegister.replace('\\', '/');
     const carRegister = this.carRegister;
