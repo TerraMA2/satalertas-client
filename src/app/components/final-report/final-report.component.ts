@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-
+import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef, AfterViewInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { HTTPService } from 'src/app/services/http.service';
@@ -16,12 +15,15 @@ import { Response } from 'src/app/models/response.model';
 
 import pdfMake from 'pdfmake/build/pdfmake';
 
+import Chart from 'chart.js';
+
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 import { FinalReportService } from '../../services/final-report.service';
+import {Canvas} from 'leaflet';
 
-// @ts-ignore
+
 @Component({
   selector: 'app-final-report',
   templateUrl: './final-report.component.html',
@@ -29,9 +31,14 @@ import { FinalReportService } from '../../services/final-report.service';
   encapsulation: ViewEncapsulation.None
 })
 
-export class FinalReportComponent implements OnInit {
+export class FinalReportComponent implements OnInit, AfterViewInit {
+
+  @ViewChild('myChart', {static: false}) myChart: Chart;
+  @ViewChild('imagem2', {static: false}) imagem2: Chart;
+  @ViewChild('chartImg', {static: false}) chartImg: Chart;
 
   private reportConfig;
+
 
   private headerImage1 = [];
   private headerImage2 = [];
@@ -89,7 +96,7 @@ export class FinalReportComponent implements OnInit {
     private sidebarService: SidebarService,
     private reportService: ReportService,
     private finalReportService: FinalReportService,
-    private router: Router
+    private router: Router,
   ) {}
 
   async ngOnInit() {
@@ -120,6 +127,90 @@ export class FinalReportComponent implements OnInit {
     ];
 
     await this.getReportData();
+  }
+
+  ngAfterViewInit() {
+    const canvas: any = document.getElementById('myChart');
+    const ctx: any = canvas.getContext('2d');
+
+    const options = {
+      type: 'line',
+      data: {
+        labels: ['Novo', 'Dois', 'Tres'],
+        datasets: [{
+          label: '# of Votes',
+          data: [1, 2, 3],
+          backgroundColor: [
+            'rgba(255,255,255, 0)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: false,
+        display: true
+      }
+    };
+
+
+    const newCanvas: any = document.getElementById('imagem2');
+    const newCtx: any = newCanvas.getContext('2d');
+
+    const newOptions = {
+      type: 'line',
+      data: {
+        labels: ['2016', '2016', '2016', '2016', '2016', '2016', '2016', '2016', '2016', '2016', '2016'],
+        datasets: [{
+          label: 'NDVI',
+          data: [100, 212, 333, 125, 20, 400, 212, 333, 125, 20, 400],
+          backgroundColor: [
+            'rgba(255,255,255, 0)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: false,
+        display: true
+      }
+    };
+
+    const chartImgCanvas: any = document.getElementById('chartImg');
+    const ctxChartImg: any = chartImgCanvas.getContext('2d');
+
+    const optionsChartImg = {
+      type: 'line',
+      data: {
+        labels: ['New', 'In Progress', 'On Hold', 'On Hold', 'On Hold', 'dddd'],
+        datasets: [{
+          label: '# of Votes',
+          data: [100, 212, 333, 125, 20, 400],
+          backgroundColor: [
+            'rgba(255, 255, 255, 0)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: false,
+        display: true
+      }
+    };
+
+
+    this.imagem2 = new Chart(newCtx, newOptions);
+    this.myChart = new Chart(ctx, options);
+    this.chartImg = new Chart(ctxChartImg, optionsChartImg);
+  }
+
+  setImageToBase64() {
+    return {image1: this.myChart.toBase64Image(), image2: this.imagem2.toBase64Image(), image3: this.chartImg.toBase64Image()};
   }
 
   async getReportData() {
@@ -218,8 +309,13 @@ export class FinalReportComponent implements OnInit {
                       this.toDataUrl('assets/img/logos/sema.png', partnerImage8 => {
                         this.partnerImage8.push(partnerImage8);
 
-                        this.getDocumentDefinition();
+                        const images = this.setImageToBase64();
 
+                        this.chartImage1 = images.image1;
+                        this.chartImage2 = images.image2;
+                        this.chartImage3 = images.image3;
+
+                        this.getDocumentDefinition();
                         this.getPdfBase64(this.docDefinition);
                       });
                     });
@@ -843,60 +939,60 @@ export class FinalReportComponent implements OnInit {
           margin: [30, 0, 30, 5],
           style: 'body'
         },
-        // {
-        //   image: this.chart1,
-        //   fit: [200, 200],
-        //   alignment: 'center'
-        // },
-        // {
-        //   text: [
-        //     {
-        //       text: 'Figura 2. ',
-        //       bold: true
-        //     },
-        //     {
-        //       text: (
-        //         'Floresta Ombrófila Densa - Em função do clima predominantemente úmido, essa cobertura vegetal apresenta pouca variação ' +
-        //         'nos valores dos índices de vegetação ao longo do ano. Além disso, esta cobertura apresenta valores elevados dos índices ' +
-        //         'de vegetação durante o ano, em função da grande biomassa vegetal presente.'
-        //       ),
-        //       bold: false
-        //     }
-        //   ],
-        //   margin: [30, 0, 30, 0],
-        //   fontSize: 10,
-        //   style: 'body'
-        // },
-        // {
-        //   image: this.chart2,
-        //   fit: [200, 200],
-        //   alignment: 'center'
-        // },
-        // {
-        //   text: [
-        //     {
-        //       text: 'Figura 3. ',
-        //       bold: true
-        //     },
-        //     {
-        //       text: (
-        //         'Cerrado - Em função do clima sazonal, com verões chuvosos e invernos mais secos, essa cobertura vegetal apresenta '  +
-        //         'oscilações significativas nos valores dos índices de vegetação ao longo do ano e, geralmente, apresenta valores intermediários ' +
-        //         'no período chuvoso. Durante o inverno, com a queda das precipitações e a redução da biomassa vegetal ativa, os índices de vegetação ' +
-        //         'declinam significativamente, retomando seu vigor apenas com a volta do período de chuvas.'
-        //       ),
-        //       bold: false
-        //     }
-        //   ],
-        //   margin: [30, 0, 30, 0],
-        //   fontSize: 10,
-        //   style: 'body'
-        // },
-        // {
-        //   image: this.chart3,
-        //   fit: [200, 200],
-        //   alignment: 'center'
-        // },
+        {
+          image: this.chartImage1,
+          fit: [200, 200],
+          alignment: 'center'
+        },
+        {
+          text: [
+            {
+              text: 'Figura 2. ',
+              bold: true
+            },
+            {
+              text: (
+                'Floresta Ombrófila Densa - Em função do clima predominantemente úmido, essa cobertura vegetal apresenta pouca variação ' +
+                'nos valores dos índices de vegetação ao longo do ano. Além disso, esta cobertura apresenta valores elevados dos índices ' +
+                'de vegetação durante o ano, em função da grande biomassa vegetal presente.'
+              ),
+              bold: false
+            }
+          ],
+          margin: [30, 0, 30, 0],
+          fontSize: 10,
+          style: 'body'
+        },
+        {
+          image: this.chartImage2,
+          fit: [200, 200],
+          alignment: 'center'
+        },
+        {
+          text: [
+            {
+              text: 'Figura 3. ',
+              bold: true
+            },
+            {
+              text: (
+                'Cerrado - Em função do clima sazonal, com verões chuvosos e invernos mais secos, essa cobertura vegetal apresenta '  +
+                'oscilações significativas nos valores dos índices de vegetação ao longo do ano e, geralmente, apresenta valores intermediários ' +
+                'no período chuvoso. Durante o inverno, com a queda das precipitações e a redução da biomassa vegetal ativa, os índices de vegetação ' +
+                'declinam significativamente, retomando seu vigor apenas com a volta do período de chuvas.'
+              ),
+              bold: false
+            }
+          ],
+          margin: [30, 0, 30, 0],
+          fontSize: 10,
+          style: 'body'
+        },
+        {
+          image: this.chartImage3,
+          fit: [200, 200],
+          alignment: 'center'
+        },
         {
           text: [
             {
