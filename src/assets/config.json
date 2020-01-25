@@ -58,7 +58,7 @@
         },
         "a_cardeter_49_de_car_validado_sema_area_ha_": {
             "show": true,
-            "alias": "Área (ha)"
+            "alias": "Área do imóvel (ha)"
         },
         "a_cardeter_49_de_car_validado_sema_cpfcnpj": {
             "show": true,
@@ -154,7 +154,7 @@
         },
         "calculated_area_ha": {
             "show": true,
-            "alias": "Área (ha)"
+            "alias": "Área da interseção (ha)"
         },
         "classname": {
             "show": true,
@@ -374,7 +374,7 @@
         },
         "de_car_validado_sema_area_ha_": {
             "show": true,
-            "alias": "Área (ha)"
+            "alias": "Área do imóvel (ha)"
         },
         "de_car_validado_sema_cpfcnpj": {
             "show": true,
@@ -594,9 +594,13 @@
             "show": true,
             "alias": "Classe"
         },
+        "dd_prodes_inpe_ano": {
+          "show": false,
+          "alias": "Ano"
+        },
         "a_carprodes_62_de_car_validado_sema_area_ha_": {
             "show": true,
-            "alias": "Área (ha)"
+            "alias": "Área do imóvel (ha)"
         },
         "a_carprodes_62_de_car_validado_sema_cpfcnpj": {
             "show": true,
@@ -683,8 +687,8 @@
             "alias": "Área (m²)"
         },
         "calculated_area_ha": {
-            "show": false,
-            "alias": "calculated_area_ha"
+            "show": true,
+            "alias": "Área da interseção (ha)"
         },
         "class_n_01": {
             "show": false,
@@ -868,7 +872,7 @@
         },
         "de_car_validado_sema_area_ha_": {
             "show": true,
-            "alias": "Área (ha)"
+            "alias": "Área do imóvel (ha)"
         },
         "de_car_validado_sema_cpfcnpj": {
             "show": true,
@@ -1114,7 +1118,7 @@
         },
         "a_carfocos_74_de_car_validado_sema_area_ha_": {
             "show": true,
-            "alias": "Área (ha)"
+            "alias": "Área do imóvel (ha)"
         },
         "a_carfocos_74_de_car_validado_sema_cpfcnpj": {
             "show": true,
@@ -1202,7 +1206,7 @@
         },
         "calculated_area_ha": {
             "show": true,
-            "alias": "Área (ha)"
+            "alias": "Área da interseção (ha)"
         },
         "data_hora_gmt": {
             "show": true,
@@ -1386,7 +1390,7 @@
         },
         "de_car_validado_sema_area_ha_": {
             "show": true,
-            "alias": "Área (ha)"
+            "alias": "Área do imóvel (ha)"
         },
         "de_car_validado_sema_cpfcnpj": {
             "show": true,
@@ -1660,7 +1664,7 @@
         },
         "a_caraq_86_de_car_validado_sema_area_ha_": {
             "show": true,
-            "alias": "Área (ha)"
+            "alias": "Área do imóvel (ha)"
         },
         "a_caraq_86_de_car_validado_sema_cpfcnpj": {
             "show": true,
@@ -1740,7 +1744,7 @@
         },
         "calculated_area_ha": {
             "show": true,
-            "alias": "Área (ha)"
+            "alias": "Área da interseção (ha)"
         },
         "dd_area_queimada_inpe_data_anter": {
             "show": false,
@@ -1936,7 +1940,7 @@
         },
         "de_car_validado_sema_area_ha_": {
             "show": true,
-            "alias": "Área (ha)"
+            "alias": "Área do imóvel (ha)"
         },
         "de_car_validado_sema_cpfcnpj": {
             "show": true,
