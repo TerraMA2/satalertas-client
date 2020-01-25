@@ -5,7 +5,7 @@
     "start": "ng serve",
     "build": "ng build --prod --base-href /mpmt/alerta/ --deploy-url /mpmt/alerta/",
     "dev": "ng serve",
-    "prod": " ng serve --prod"
+    "prod": "ng serve --prod"
   },
   "private": true,
   "dependencies": {
