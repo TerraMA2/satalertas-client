@@ -126,6 +126,17 @@ export class DashboardComponent implements OnInit {
     this.filterService.getDetailsAnalysisTotals(alertSelected.alertsgraphics).then( (alertsGraphics: AlertGraphic[]) => {
       this.alertGraphics = alertsGraphics;
 
+      this.alertGraphics.forEach(graphic => {
+        graphic.graphics[0].data.datasets[0].label =  graphic.codGroup === 'FOCOS' ? 'Quantidade de alertas de focos por CAR' : 'Área (ha) de alertas por CAR';
+        graphic.graphics[1].data.datasets[0].label =  graphic.codGroup === 'FOCOS' ? 'Quantidade de alertas de focos por Bioma' : 'Área (ha) de alertas por classe';
+
+        graphic.graphics[0].data.datasets[0].backgroundColor =  '#591111';
+        graphic.graphics[1].data.datasets[0].backgroundColor =  '#591111';
+
+        graphic.graphics[0].data.datasets[0].hoverBackgroundColor =  '#874847';
+        graphic.graphics[1].data.datasets[0].hoverBackgroundColor =  '#874847';
+      });
+
       alertSelected.activearea = true;
       alertSelected.immobileactive = false;
 
@@ -143,6 +154,17 @@ export class DashboardComponent implements OnInit {
     this.filterService.getDetailsAnalysisTotals(alertSelected.alertsgraphics).then( (alertsGraphics: AlertGraphic[]) => {
       this.alertGraphics = alertsGraphics;
 
+
+      this.alertGraphics.forEach(graphic => {
+        graphic.graphics[0].data.datasets[0].label =  graphic.codGroup === 'FOCOS' ? 'Quantidade de alertas de focos por CAR' : 'Quantidade de alertas por CAR';
+        graphic.graphics[1].data.datasets[0].label =  graphic.codGroup === 'FOCOS' ? 'Quantidade de alertas de focos por Bioma' : 'Quantidade de alertas por classe';
+
+        graphic.graphics[0].data.datasets[0].backgroundColor =  '#591111';
+        graphic.graphics[1].data.datasets[0].backgroundColor =  '#591111';
+
+        graphic.graphics[0].data.datasets[0].hoverBackgroundColor =  '#874847';
+        graphic.graphics[1].data.datasets[0].hoverBackgroundColor =  '#874847';
+      });
       alertSelected.immobileactive = true;
       alertSelected.activearea = false;
 
