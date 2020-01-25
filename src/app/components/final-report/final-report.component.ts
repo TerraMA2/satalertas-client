@@ -939,17 +939,17 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           margin: [30, 0, 30, 5],
           style: 'body'
         },
-        {
-          image: this.chartImage1,
-          fit: [200, 200],
-          alignment: 'center'
-        },
+        // {
+        //   image: this.chartImage1,
+        //   fit: [200, 200],
+        //   alignment: 'center'
+        // },
         {
           text: [
-            {
-              text: 'Figura 2. ',
-              bold: true
-            },
+            // {
+            //   text: 'Figura 2. ',
+            //   bold: true
+            // },
             {
               text: (
                 'Floresta Ombrófila Densa - Em função do clima predominantemente úmido, essa cobertura vegetal apresenta pouca variação ' +
@@ -963,11 +963,11 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           fontSize: 10,
           style: 'body'
         },
-        {
-          image: this.chartImage2,
-          fit: [200, 200],
-          alignment: 'center'
-        },
+        // {
+        //   image: this.chartImage2,
+        //   fit: [200, 200],
+        //   alignment: 'center'
+        // },
         {
           text: [
             {
@@ -988,11 +988,11 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           fontSize: 10,
           style: 'body'
         },
-        {
-          image: this.chartImage3,
-          fit: [200, 200],
-          alignment: 'center'
-        },
+        // {
+        //   image: this.chartImage3,
+        //   fit: [200, 200],
+        //   alignment: 'center'
+        // },
         {
           text: [
             {
