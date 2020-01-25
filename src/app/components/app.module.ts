@@ -33,6 +33,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import { ChartsModule } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
@@ -149,7 +150,8 @@ registerLocaleData(localePt, 'pt');
     ToolbarModule,
     NgxExtendedPdfViewerModule,
     PdfViewerModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    ChartsModule,
   ],
   providers: [
     TreeDragDropService,
