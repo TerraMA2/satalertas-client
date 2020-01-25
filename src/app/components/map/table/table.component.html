@@ -16,13 +16,14 @@
         [lazy]="true"
         [totalRecords]="totalRecords"
         [loading]="loading"
-        [exportFilename]="selectedLayerLabel"
+        exportFilename="Satélite_Alertas_CAR"
         [rowTrackBy]="trackByFunction"
-        [selectionMode]="tableReportActive?'multiple':null"
         responsive="true"
         rowExpandMode="single"
         (onLazyLoad)="onLazyLoad($event)"
-        (onRowExpand)="onRowExpand($event)">
+        (onRowExpand)="onRowExpand($event)"
+        (onRowSelect)="onRowSelect()"
+        (onRowUnselect)="onRowUnselect()">
 
     <ng-template pTemplate="caption">
         <div class="p-grid p-nogutter">
@@ -80,10 +81,13 @@
                         icon="fas fa-file-csv"
                         iconPos="left"
                         label="Exportar"
-                        (click)="attributesTable.exportCSV({selectionOnly:selectedProperties?true:false})"
+                        [disabled]="isExportDisabled"
+                        (click)="attributesTable.exportCSV({selectionOnly:true})"
                         pTooltip="Exportar selecionados como CSV"
                         tooltipPosition="top">
                     </button>
+
+                    &nbsp;&nbsp;
 
                     <button
                         *ngIf="tableReportActive"
@@ -155,21 +159,21 @@
                     <img src="assets/img/ico/deter32x32.png" style="margin: 2px; width: 25px; height: 25px;"/>
                 </button>
                 <button *ngIf="tableReportActive && showProdes"
-                   style="vertical-align:middle; margin-left: 10px; width: 32px; height: 32px;"
-                   routerLink="/finalReport/prodes/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                   pButton
-                   class="btn"
-                   pTooltip="Visualisar relatório Prodes"
-                   tooltipPosition="top">
+                        style="vertical-align:middle; margin-left: 10px; width: 32px; height: 32px;"
+                        routerLink="/finalReport/prodes/{{rowData['registro_estadual'].replace('/', '\\')}}"
+                        pButton
+                        class="btn"
+                        pTooltip="Visualisar relatório Prodes"
+                        tooltipPosition="top">
                     <img src="assets/img/ico/prodes32x32.png" style="margin: 2px; width: 25px; height: 25px;"/>
                 </button>
                 <button *ngIf="tableReportActive && showBurn"
-                   style="vertical-align:middle; margin-left: 10px; width: 32px; height: 32px;"
-                   routerLink="/finalReport/queimada/{{rowData['registro_estadual'].replace('/', '\\')}}"
-                   pButton
-                   class="btn"
-                   pTooltip="Visualisar relatório Queimada"
-                   tooltipPosition="top">
+                        style="vertical-align:middle; margin-left: 10px; width: 32px; height: 32px;"
+                        routerLink="/finalReport/queimada/{{rowData['registro_estadual'].replace('/', '\\')}}"
+                        pButton
+                        class="btn"
+                        pTooltip="Visualisar relatório Queimada"
+                        tooltipPosition="top">
                     <img src="assets/img/ico/queima.ico" style="margin: 2px; width: 25px; height: 25px;"/>
                 </button>
                 &nbsp;
