@@ -26,6 +26,8 @@
     "leaflet-search": "^2.9.8",
     "leaflet.fullscreen": "^1.6.0",
     "leaflet.markercluster": "^1.4.1",
+    "ng-chartjs": "^0.1.2",
+    "ng2-charts": "^2.3.0",
     "ng2-pdf-viewer": "^6.0.2",
     "ngx-extended-pdf-viewer": "^2.0.0-alpha.0",
     "ngx-print": "^1.2.0-beta.1",
