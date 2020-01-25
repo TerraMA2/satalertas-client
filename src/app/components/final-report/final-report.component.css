@@ -75,3 +75,13 @@ h2 {
     background-color: #404040;
     background-image: none;
 }
+
+.btn-icon {
+    background-color: #ffffff !important;
+}
+.btn-icon:hover {
+    background-color: #CBC5C7 !important;
+}
+.btn-icon:active {
+    background-color: #591111 !important;
+}
