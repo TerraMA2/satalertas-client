@@ -59,10 +59,13 @@ export class TableComponent implements OnInit {
   selectedFilter;
   selectedFilterValue: string;
   selectedFilterSortField: string;
+  selectedFilterLabel: string;
 
   showBurn = false;
   showDeter = false;
   showProdes = false;
+
+  isExportDisabled = true;
 
   reports = [];
 
@@ -172,6 +175,7 @@ export class TableComponent implements OnInit {
     this.hTTPService
       .get(url, this.filterService.getParams(params))
       .subscribe(data => this.setData(data));
+    this.selectedProperties = [];
   }
 
   setData(data) {
@@ -267,6 +271,7 @@ export class TableComponent implements OnInit {
     const selectedOption = filter.selectedOption;
     this.selectedLayer = selectedOption;
     this.selectedFilter = selectedOption;
+    this.selectedFilterLabel = selectedOption.label;
     this.loadTableData(selectedOption, this.selectedRowsPerPage, 0, selectedOption.sortField, 1);
   }
 
@@ -308,6 +313,16 @@ export class TableComponent implements OnInit {
       window.open(window.URL.createObjectURL(this.base64toBlob(reportResp.base64, 'application/pdf')));
     });
 
+  }
+
+  onRowSelect() {
+    this.isExportDisabled = false;
+  }
+
+  onRowUnselect() {
+    if (this.selectedProperties.length === 0) {
+      this.isExportDisabled = true;
+    }
   }
 
   base64toBlob(content, contentType) {

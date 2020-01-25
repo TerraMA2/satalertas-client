@@ -5,6 +5,12 @@
                 routerLink="/map"
                 icon="fas fa-arrow-left">
         </button>
+        &nbsp;&nbsp;
+        <button pButton
+                label="Voltar a síntese"
+                [routerLink]="['/report', {carRegister: carRegister}]"
+                icon="fas fa-arrow-left">
+        </button>
     </div>
     <div class="ui-toolbar-group-right">
         <button *ngIf="type !== 'deter'"

@@ -368,13 +368,13 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.sidebarService.sidebarLayerSelect.subscribe((itemSelected: Layer) => {
       this.clearMarkerInfo();
-      this.clearReportTable();
+      // this.clearReportTable();
       this.addLayer(itemSelected, true);
     });
 
     this.sidebarService.sidebarLayerDeselect.subscribe((itemDeselected: Layer) => {
       this.clearMarkerInfo();
-      this.clearReportTable();
+      // this.clearReportTable();
       if (this.selectedPrimaryLayer && this.selectedPrimaryLayer.value === itemDeselected.value) {
         this.markerClusterGroup.clearLayers();
       }
@@ -383,7 +383,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.sidebarService.sidebarLayerGroupSelect.subscribe((itemSelected: LayerGroup) => {
       this.clearMarkerInfo();
-      this.clearReportTable();
+      // this.clearReportTable();
       const layers = itemSelected.children;
       layers.forEach((layer: Layer) => {
         if (!layer.isDisabled && !layer.isHidden) {
@@ -397,7 +397,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.sidebarService.sidebarLayerGroupDeselect.subscribe((itemDeselected: LayerGroup) => {
       this.clearMarkerInfo();
-      this.clearReportTable();
+      // this.clearReportTable();
       const layers = itemDeselected.children;
       layers.forEach((layer: Layer) => {
         this.removeLayer(layer, true);
@@ -408,7 +408,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.sidebarService.sidebarItemRadioSelect.subscribe((layer: Layer) => {
       this.selectedPrimaryLayer = layer;
       this.clearMarkerInfo();
-      this.clearReportTable();
+      // this.clearReportTable();
       layer.markerSelected = true;
       this.updateMarkers(layer);
     });
@@ -419,7 +419,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       }
       layer.markerSelected = false;
       this.clearMarkerInfo();
-      this.clearReportTable();
+      // this.clearReportTable();
       if (this.selectedMarker && this.selectedMarker.overlayName === layer.label) {
         this.markerClusterGroup.clearLayers();
       }
@@ -763,7 +763,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       this.displayTable = true;
       this.tableReportActive = true;
       this.tableService.loadReportTableData.next();
-      this.sidebarService.sidebarReload.next();
+      // this.sidebarService.sidebarReload.next();
     });
   }
 
