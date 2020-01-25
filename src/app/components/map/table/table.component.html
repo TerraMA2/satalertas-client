@@ -121,7 +121,7 @@
                 {{col.header}}
                 <p-sortIcon [field]="col.field"></p-sortIcon>
             </th>
-            <th pResizableColumn></th>
+            <th *ngIf="tableReportActive" pResizableColumn></th>
         </tr>
     </ng-template>
 
@@ -148,7 +148,7 @@
             <td *ngFor="let col of columns" class="ui-resizable-column">
                 {{rowData[col.field]}}
             </td>
-            <td >
+            <td *ngIf="tableReportActive">
                 <button *ngIf="tableReportActive && showDeter"
                         style="vertical-align:middle; width: 32px; height: 32px;"
                         class="btn"
@@ -178,6 +178,7 @@
                 </button>
                 &nbsp;
                 <button pButton
+                        *ngIf="tableReportActive"
                         class="btn"
                         style="vertical-align:middle; margin-left: 0px; width: 32px; height: 32px;"
                         (click)="onShowMapClicked(rowData)"

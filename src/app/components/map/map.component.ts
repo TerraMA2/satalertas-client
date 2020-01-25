@@ -343,9 +343,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   setOverlayEvents() {
     this.mapService.showMarker.subscribe(markerData => {
       if (this.tableSelectedLayer) {
-        this.clearLayers();
-        this.tableSelectedLayer = null;
-        this.markerClusterGroup.clearLayers();
+        // this.clearLayers();
+        // this.tableSelectedLayer = null;
+        // this.markerClusterGroup.clearLayers();
       }
 
       this.tableHeight = '10vh';
@@ -1068,10 +1068,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.tableReportActive) {
       this.tableService.clearTable.next();
       this.tableReportActive = false;
-      this.markerClusterGroup.clearLayers();
-      this.clearLayers();
+      // this.markerClusterGroup.clearLayers();
+      // this.clearLayers();
       this.tableSelectedLayer = null;
-      this.selectedLayers = [];
+      // this.selectedLayers = [];
     }
   }
 
