@@ -105,10 +105,10 @@ export class TableComponent implements OnInit {
       this.loading = true;
       this.filters = this.configService.getMapConfig('table').reportLayers;
       const selectedOption = this.filters[0];
-      this.selectedLayer = selectedOption;
+      // this.selectedLayer = selectedOption;
       this.selectedFilter = selectedOption;
       this.selectedFilterValue = selectedOption.value;
-      this.selectedLayerValue = selectedOption.value;
+      // this.selectedLayerValue = selectedOption.value;
       this.selectedFilterSortField = selectedOption.sortField;
       this.loadTableData(selectedOption, this.selectedRowsPerPage, 0, this.selectedFilterSortField, 1);
 
@@ -291,9 +291,9 @@ export class TableComponent implements OnInit {
 
   clearTable() {
     this.tableData = undefined;
-    this.selectedLayer = undefined;
+    // this.selectedLayer = undefined;
     this.selectedFilterValue = undefined;
-    this.selectedLayerLabel = '';
+    // this.selectedLayerLabel = '';
     this.selectedLayerValue = 0;
     this.selectedColumns = undefined;
     this.selectedRowsPerPage = this.defaultRowsPerPage;

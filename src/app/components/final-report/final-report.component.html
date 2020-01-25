@@ -1,47 +1,54 @@
 <p-toolbar>
-    <div class="ui-toolbar-group-left">
-        <button pButton
-                label="Voltar ao mapa"
-                routerLink="/map"
-                icon="fas fa-arrow-left">
-        </button>
+        <div class="ui-toolbar-group-left">
+                <button pButton
+                        label="Voltar ao mapa"
+                        routerLink="/map"
+                        icon="fas fa-arrow-left">
+                </button>
+                &nbsp;&nbsp;
+                <button pButton
+                        label="Voltar a síntese"
+                        routerLink="/report/{{carRegister}}"
+                        icon="fas fa-arrow-left">
+                </button>
+        </div>
         &nbsp;&nbsp;
-        <button pButton
-                label="Voltar a síntese"
-                [routerLink]="['/report', {carRegister: carRegister}]"
-                icon="fas fa-arrow-left">
-        </button>
-    </div>
-    <div class="ui-toolbar-group-right">
-        <button *ngIf="type !== 'deter'"
+        <button
+                style="vertical-align:middle; width: 32px; height: 32px;"
+                class="btn btn-icon"
+                (click)="onViewReportClicked('deter')"
                 pButton
-                icon="fas fa-file-alt"
-                label="Relatório DETER"
-                (click)="onViewReportClicked('deter')">
+                pTooltip="Visualisar relatório Deter"
+                tooltipPosition="top">
+                        <img src="assets/img/ico/deter32x32.png" style="margin: 2px; width: 25px; height: 25px;"/>
         </button>
-        &nbsp;
-        <button *ngIf="type !== 'prodes'"
+        <button 
+                style="vertical-align:middle; margin-left: 10px; width: 32px; height: 32px;"
+                (click)="onViewReportClicked('prodes')"
                 pButton
-                icon="fas fa-file-alt"
-                label="Relatório PRODES"
-                (click)="onViewReportClicked('prodes')">
+                class="btn btn-icon"
+                pTooltip="Visualisar relatório Prodes"
+                tooltipPosition="top">
+                        <img src="assets/img/ico/prodes32x32.png" style="margin: 2px; width: 25px; height: 25px;"/>
         </button>
-        &nbsp;
-        <button *ngIf="type !== 'queimada'"
+        <button
+                style="vertical-align:middle; margin-left: 10px; width: 32px; height: 32px;"
+                (click)="onViewReportClicked('queimada')"
                 pButton
-                icon="fas fa-file-alt"
-                label="Relatório FOCOS"
-                (click)="onViewReportClicked('queimada')">
+                class="btn btn-icon"
+                pTooltip="Visualisar relatório Queimada"
+                tooltipPosition="top">
+                        <img src="assets/img/ico/queima.ico" style="margin: 2px; width: 25px; height: 25px;"/>
         </button>
-        &nbsp;
-        <button pButton
-                type="button"
-                icon="fas fa-download"
-                label="GerarRelatório"
-                (click)="generatePdf('open')"
-                [disabled]="!docBase64 || generatingReport">
-        </button>
-    </div>
+        <div class="ui-toolbar-group-right">
+                <button pButton
+                        type="button"
+                        icon="fas fa-download"
+                        label="GerarRelatório"
+                        (click)="generatePdf('open')"
+                        [disabled]="!docBase64 || generatingReport">
+                </button>
+        </div>
 </p-toolbar>
 
 <canvas id="myChart" width="400" height="300" style="display: none"></canvas>
@@ -49,19 +56,19 @@
 <canvas id="chartImg" width="600" height="400" style="display: none"></canvas>
 
 <div *ngIf="!!docBase64">
-    <ngx-extended-pdf-viewer
-            [base64Src]="docBase64"
-            backgroundColor="#ffffff"
-            [height]="'90vh'"
-            [useBrowserLocale]="true"
-            [handTool]="false"
-            [showHandToolButton]="true"
-            [showSidebarButton]="false"
-            [showFindButton]="false"
-            [showSecondaryToolbarButton]="false">
-    </ngx-extended-pdf-viewer>
+        <ngx-extended-pdf-viewer
+                [base64Src]="docBase64"
+                backgroundColor="#ffffff"
+                [height]="'90vh'"
+                [useBrowserLocale]="true"
+                [handTool]="false"
+                [showHandToolButton]="true"
+                [showSidebarButton]="false"
+                [showFindButton]="false"
+                [showSecondaryToolbarButton]="false">
+        </ngx-extended-pdf-viewer>
 </div>
 
 <div *ngIf="!docBase64" style="text-align: center; vertical-align: middle; margin-top: 35vh;">
-    <p-progressSpinner> </p-progressSpinner>
+        <p-progressSpinner> </p-progressSpinner>
 </div>

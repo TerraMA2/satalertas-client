@@ -7903,7 +7903,7 @@
           "text": "",
           "value": "{legalReserve}"
         },
-        "carRegisterColumn": "numero_do1;a_cardeter_49_de_car_validado_sema_numero_do1",
+        "carRegisterColumn": "numero_do1;a_carprodes_62_de_car_validado_sema_numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_6:view6,terrama2_89:view89",
@@ -7924,7 +7924,7 @@
           "text": "",
           "value": "{app}"
         },
-        "carRegisterColumn": "numero_do1;a_cardeter_49_de_car_validado_sema_numero_do1",
+        "carRegisterColumn": "numero_do1;a_carprodes_62_de_car_validado_sema_numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_6:view6,terrama2_87:view87",
@@ -7966,7 +7966,7 @@
           "text": "",
           "value": "{anthropizedUse}"
         },
-        "carRegisterColumn": "numero_do1;a_cardeter_49_de_car_validado_sema_numero_do1",
+        "carRegisterColumn": "numero_do1;a_carprodes_62_de_car_validado_sema_numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_6:view6,terrama2_88:view88",
@@ -7987,7 +7987,7 @@
           "text": "",
           "value": "{nativeVegetation}"
         },
-        "carRegisterColumn": "numero_do1;a_cardeter_49_de_car_validado_sema_numero_do1",
+        "carRegisterColumn": "numero_do1;a_carprodes_62_de_car_validado_sema_numero_do1",
         "layerData": {
           "url": "http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap",
           "layers": "terrama2_6:view6,terrama2_90:view90",

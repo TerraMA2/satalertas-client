@@ -895,13 +895,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           style: 'body'
         },
         {
-          text: '',
-          pageBreak: 'after'
-        },
-        {
-          columns: headerDocument
-        },
-        {
           text: 'Por fim, foi gerado um relatório com o histórico de imagens de ',
           alignment: 'right',
           margin: [30, 0, 30, 0],
@@ -916,6 +909,13 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           ),
           margin: [30, 0, 30, 5],
           style: 'body'
+        },
+        {
+          text: '',
+          pageBreak: 'after'
+        },
+        {
+          columns: headerDocument
         },
         {
           text: 'De acordo com o Sistema de Análise Temporal da Vegetação ',
@@ -968,6 +968,13 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         //   fit: [200, 200],
         //   alignment: 'center'
         // },
+        {
+          text: '',
+          pageBreak: 'after'
+        },
+        {
+          columns: headerDocument
+        },
         {
           text: [
             {
@@ -1030,13 +1037,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           style: 'body'
         },
         {
-          text: '',
-          pageBreak: 'after'
-        },
-        {
-          columns: headerDocument
-        },
-        {
           text: (
             'Demais Biomas (PAMZ+)' +
             'desenvolvido pela Coordenação-geral de Observação da Terra (CGOBT) e Centro Regional da Amazônia (CRA) do INPE. ' +
@@ -1061,6 +1061,13 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           ),
           margin: [30, 0, 30, 5],
           style: 'body'
+        },
+        {
+          text: '',
+          pageBreak: 'after'
+        },
+        {
+          columns: headerDocument
         },
         {
           text: 'O PRODES utiliza imagens de satélite geradas pela série Landsat da ',
