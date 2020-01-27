@@ -7,6 +7,34 @@
       </button>
   </div>
   <div class="ui-toolbar-group-right">
+    <button
+            style="vertical-align:middle; width: 32px; height: 32px;"
+            class="btn btn-icon"
+            (click)="onViewReportClicked('deter')"
+            pButton
+            pTooltip="Visualisar relatório Deter"
+            tooltipPosition="top">
+                    <img src="assets/img/ico/deter32x32.png" style="margin: 2px; width: 25px; height: 25px;"/>
+    </button>
+    <button 
+            style="vertical-align:middle; margin-left: 10px; width: 32px; height: 32px;"
+            (click)="onViewReportClicked('prodes')"
+            pButton
+            class="btn btn-icon"
+            pTooltip="Visualisar relatório Prodes"
+            tooltipPosition="top">
+                    <img src="assets/img/ico/prodes32x32.png" style="margin: 2px; width: 25px; height: 25px;"/>
+    </button>
+    <button
+            style="vertical-align:middle; margin-left: 10px; width: 32px; height: 32px;"
+            (click)="onViewReportClicked('queimada')"
+            pButton
+            class="btn btn-icon"
+            pTooltip="Visualisar relatório Queimada"
+            tooltipPosition="top">
+                    <img src="assets/img/ico/queima.ico" style="margin: 2px; width: 25px; height: 25px;"/>
+    </button>
+    &nbsp;
     <button pButton
             ngxPrint
             icon="fas fa-print"
@@ -14,24 +42,6 @@
             printTitle="Relatório ambiental CAR - {{carRegister}}"
             [useExistingCss]="true"
             printSectionId="print-section">
-    </button>
-    &nbsp;
-    <button pButton
-            icon="fas fa-file-alt"
-            label="Relatório DETER"
-            (click)="onViewReportClicked('deter')">
-    </button>
-    &nbsp;
-    <button pButton
-            icon="fas fa-file-alt"
-            label="Relatório PRODES"
-            (click)="onViewReportClicked('prodes')">
-    </button>
-    &nbsp;
-    <button pButton
-            icon="fas fa-file-alt"
-            label="Relatório FOCOS"
-            (click)="onViewReportClicked('focos')">
     </button>
   </div>
 </p-toolbar>

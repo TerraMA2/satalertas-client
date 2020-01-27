@@ -219,7 +219,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     const startDate = new Date(date[0]).toLocaleDateString('pt-BR');
     const endDate = new Date(date[1]).toLocaleDateString('pt-BR');
 
-    this.formattedFilterDate = `${startDate} - ${endDate}`;
+    this.formattedFilterDate = `${startDate} A ${endDate}`;
 
     this.currentYear = new Date().getFullYear();
 
@@ -273,7 +273,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
     const gsImage = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_5:view5,terrama2_6:view6&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=250&height=250&cql_filter=id_munic>0;municipio='${this.property.city}';numero_do1='${this.property.register}'&srs=EPSG:4326&format=image/png`;
     const gsImage1 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:view6&styles=&bbox=${this.property.bbox}&width=400&height=400&time=${this.prodesStartYear}/P1Y&cql_filter=numero_do1='${this.property.register}'&srs=EPSG:4326&format=image/png`;
-    const gsImage2 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:view6,terrama2_86:view86&styles=terrama2_6:view6_style,terrama2_86:view86_style&bbox=${this.property.bbox}&width=404&height=431&time=${this.prodesStartYear}/${this.currentYear}&cql_filter=numero_do1='${this.property.register}';de_car_validado_sema_numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`;
+    const gsImage2 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:view6,terrama2_86:view86&styles=terrama2_6:view6_style,terrama2_8:view8_style&bbox=${this.property.bbox}&width=404&height=431&time=${this.prodesStartYear}/${this.currentYear}&cql_filter=numero_do1='${this.property.register}';de_car_validado_sema_numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`;
     const gsImage3 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:MosaicSpot2008_car_validado&styles=&bbox=${this.property.bbox}&width=400&height=400&time=${this.prodesStartYear}/P1Y&cql_filter=numero_do1='${this.property.register}'&srs=EPSG:4326&format=image/png`;
     const gsImage4 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:view6,terrama2_86:view86&styles=&bbox=${this.property.bbox}&width=400&height=400&time=${this.currentYear}/P1Y&cql_filter=numero_do1='${this.property.register}';de_car_validado_sema_numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`;
 
@@ -532,6 +532,17 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         },
         {
           text: `RELATÓRIO TÉCNICO DE DESMATAMENTO Nº XXXXX/${this.year}`,
+          style: 'title',
+          margin: [30, 0, 30, 20]
+        },
+        {
+          text: `DATA DE EMISSÃO: ${this.currentDate}`,
+          alignment: 'left',
+          style: 'title'
+        },
+        {
+          text: `PERÍODO DE ANÁLISE: ${this.formattedFilterDate}`,
+          alignment: 'left',
           style: 'title',
           margin: [30, 0, 30, 20]
         },
@@ -943,9 +954,11 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           style: 'body'
         },
         {
-          image: this.chartImage1,
-          fit: [200, 200],
-          alignment: 'center'
+          text: (''),
+          margin: [30, 0, 30, 250]
+          // image: this.chartImage1,
+          // fit: [200, 200],
+          // alignment: 'center'
         },
         {
           text: [
@@ -967,9 +980,11 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           style: 'body'
         },
         {
-          image: this.chartImage2,
-          fit: [200, 200],
-          alignment: 'center'
+          text: (''),
+          margin: [30, 0, 30, 250]
+          // image: this.chartImage2,
+          // fit: [200, 200],
+          // alignment: 'center'
         },
         {
           text: '',
@@ -999,9 +1014,11 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           style: 'body'
         },
         {
-          image: this.chartImage3,
-          fit: [200, 200],
-          alignment: 'center'
+          text: (''),
+          margin: [30, 0, 30, 250]
+          // image: this.chartImage3,
+          // fit: [200, 200],
+          // alignment: 'center'
         },
         {
           text: [
@@ -1253,8 +1270,9 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         {
           text: (
             this.property.prodesArea + ' hectares no imóvel rural denominado ' + this.property.name +
-            ' (período de 1988 a ' + this.currentYear + '), conforme dinâmica de desmatamento explicitada ' +
-            'na Figura 2 e no Anexo 2 (relatório do histórico de imagens de satélite e desmatamentos e queimadas ' +
+            ' no período de ' + this.formattedFilterDate + ', conforme desmatamento explicitado ' +
+            'no Quadro 1 (quantificação e descrição das áreas desmatadas que foram identificadas com o cruzamento dos dados descritos no histórico desse relatório) ' +
+            'e no Anexo 2 (relatório do histórico de imagens de satélite e desmatamentos e queimadas ' +
             'no imóvel rural). O proprietário/posseiro do imóvel rural foi identificado com base nos dados do SIMCAR / INCRA.'
           ),
           margin: [30, 0, 30, 15],
@@ -1286,35 +1304,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         {
           text: [
             {
-              text: 'Figura 2. ',
-              bold: true
-            },
-            {
-              text: 'Dinâmica de desmatamento - ' + this.prodesStartYear + '/' + this.currentYear,
-              bold: false
-            }
-          ],
-          margin: [30, 0, 30, 0],
-          alignment: 'center',
-          fontSize: 10,
-          style: 'body'
-        },
-        {
-          text: 'No Quadro 1 abaixo, consta a quantificação e descrição das áreas ',
-          alignment: 'right',
-          margin: [30, 0, 30, 0],
-          style: 'body'
-        },
-        {
-          text: (
-            ' desmatadas e queimadas que foram identificadas com o cruzamento dos dados descritos no histórico desse relatório.'
-          ),
-          margin: [30, 0, 30, 15],
-          style: 'body'
-        },
-        {
-          text: [
-            {
               text: 'Quadro 1 ',
               alignment: 'right',
               margin: [30, 0, 30, 0],
@@ -1330,7 +1319,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           fontSize: 10
         },
         {
-          text: ' denominado ' + this.property.name + '.',
+          text: ' denominado ' + this.property.name + ' a  partir da análise do PRODES, no período ' + this.formattedFilterDate + '.',
           margin: [30, 0, 30, 15],
           style: 'body'
         },
@@ -1359,6 +1348,27 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
             ]
           },
           fontSize: 12
+        },
+        {
+          text: 'A Figura 5 apresenta a dinâmica de desmatamento em todos os anos do PRODES disponível da base do INPE.',
+          margin: [30, 0, 30, 15],
+          style: 'body'
+        },
+        {
+          text: [
+            {
+              text: 'Figura 5. ',
+              bold: true
+            },
+            {
+              text: 'Dinâmica de desmatamento - ' + this.prodesStartYear + '/' + this.currentYear,
+              bold: false
+            }
+          ],
+          margin: [30, 0, 30, 0],
+          alignment: 'center',
+          fontSize: 10,
+          style: 'body'
         },
         {
           text: 'Anota-se que os dados acima indicados indicam extreme de dúvidas, com grau ',

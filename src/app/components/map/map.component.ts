@@ -142,7 +142,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   getLocalStorageData() {
     if (localStorage.getItem('mapState')) {
       const mapState: MapState = JSON.parse(localStorage.getItem('mapState'));
-      // const reportTableOpened = mapState.reportTableOpened;
       const previousSelectedLayers: Layer[] = mapState.selectedLayers;
       const previousLatLong = mapState.mapLatLong;
       const previousZoom = mapState.mapZoom;
@@ -167,7 +166,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
           this.markerClusterGroup.addLayer(marker);
           this.markerClusterGroup.addTo(this.map);
           marker.fire('click');
-          // this.tableReportActive = reportTableOpened;
         }
       }
       this.panMap(previousLatLong, previousZoom);
@@ -292,7 +290,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
         const layerData = {
                             url: 'http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms',
-                            layers: 'terrama2_20:view20',
+                            layers: 'terrama2_6:view6',
                             transparent: true,
                             format: 'image/png',
                             version: '1.1.0',
@@ -346,9 +344,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.mapService.showMarker.subscribe(markerData => {
       if (this.tableSelectedLayer) {
-        // this.clearLayers();
-        // this.tableSelectedLayer = null;
-        // this.markerClusterGroup.clearLayers();
       }
 
       this.tableHeight = '10vh';
@@ -371,13 +366,11 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.sidebarService.sidebarLayerSelect.subscribe((itemSelected: Layer) => {
       this.clearMarkerInfo();
-      // this.clearReportTable();
       this.addLayer(itemSelected, true);
     });
 
     this.sidebarService.sidebarLayerDeselect.subscribe((itemDeselected: Layer) => {
       this.clearMarkerInfo();
-      // this.clearReportTable();
       if (this.selectedPrimaryLayer && this.selectedPrimaryLayer.value === itemDeselected.value) {
         this.markerClusterGroup.clearLayers();
       }
@@ -386,7 +379,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.sidebarService.sidebarLayerGroupSelect.subscribe((itemSelected: LayerGroup) => {
       this.clearMarkerInfo();
-      // this.clearReportTable();
       const layers = itemSelected.children;
       layers.forEach((layer: Layer) => {
         if (!layer.isDisabled && !layer.isHidden) {
@@ -400,7 +392,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.sidebarService.sidebarLayerGroupDeselect.subscribe((itemDeselected: LayerGroup) => {
       this.clearMarkerInfo();
-      // this.clearReportTable();
       const layers = itemDeselected.children;
       layers.forEach((layer: Layer) => {
         this.removeLayer(layer, true);
@@ -411,7 +402,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.sidebarService.sidebarItemRadioSelect.subscribe((layer: Layer) => {
       this.selectedPrimaryLayer = layer;
       this.clearMarkerInfo();
-      // this.clearReportTable();
       layer.markerSelected = true;
       this.updateMarkers(layer);
     });
@@ -422,7 +412,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       }
       layer.markerSelected = false;
       this.clearMarkerInfo();
-      // this.clearReportTable();
       if (this.selectedMarker && this.selectedMarker.overlayName === layer.label) {
         this.markerClusterGroup.clearLayers();
       }
@@ -766,7 +755,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       this.displayTable = true;
       this.tableReportActive = true;
       this.tableService.loadReportTableData.next();
-      // this.sidebarService.sidebarReload.next();
     });
   }
 
@@ -846,8 +834,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         url = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wfs`;
         params = this.getWFSFeatureInfoParams(layer, event);
       } else {
-      url = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms`;
-      params = this.getWMSFeatureInfoParams(layer, event);
+        url = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms`;
+        params = this.getWMSFeatureInfoParams(layer, event);
       }
 
       await this.hTTPService.get(url, params).toPromise().then((layerInfo: LayerInfo) => {
@@ -1071,10 +1059,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.tableReportActive) {
       this.tableService.clearTable.next();
       this.tableReportActive = false;
-      // this.markerClusterGroup.clearLayers();
-      // this.clearLayers();
       this.tableSelectedLayer = null;
-      // this.selectedLayers = [];
     }
   }
 
@@ -1099,14 +1084,5 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       this.tableHeight = '30vh';
       this.tableFullscreen = false;
     }
-  }
-
-
-  openAbout() {
-    this.displayAbout = true;
-  }
-
-  closeAbout(displayAbout: boolean) {
-    this.displayAbout = displayAbout;
   }
 }
