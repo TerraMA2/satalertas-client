@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { SidebarService } from 'src/app/services/sidebar.service';
+
 @Component({
   selector: 'app-sidebar-footer',
   templateUrl: './sidebar-footer.component.html',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarFooterComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private sidebarService: SidebarService
+  ) { }
 
   ngOnInit() {
+  }
+
+  openAbout() {
+    this.sidebarService.sidebarAbout.next();
   }
 
 }

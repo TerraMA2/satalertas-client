@@ -29,6 +29,8 @@ export class SidebarService {
 
   sidebarLayerShowHide = new Subject<boolean>();
 
+  sidebarAbout = new Subject<boolean>();
+
   constructor() { }
 
 }

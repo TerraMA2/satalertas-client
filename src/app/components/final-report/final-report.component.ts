@@ -21,7 +21,6 @@ import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 import { FinalReportService } from '../../services/final-report.service';
-import {Canvas} from 'leaflet';
 
 
 @Component({
@@ -130,83 +129,83 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    const canvas: any = document.getElementById('myChart');
-    const ctx: any = canvas.getContext('2d');
+    // const canvas: any = document.getElementById('myChart');
+    // const ctx: any = canvas.getContext('2d');
 
-    const options = {
-      type: 'line',
-      data: {
-        labels: ['Novo', 'Dois', 'Tres'],
-        datasets: [{
-          label: '# of Votes',
-          data: [1, 2, 3],
-          backgroundColor: [
-            'rgba(255,255,255, 0)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: false,
-        display: true
-      }
-    };
-
-
-    const newCanvas: any = document.getElementById('imagem2');
-    const newCtx: any = newCanvas.getContext('2d');
-
-    const newOptions = {
-      type: 'line',
-      data: {
-        labels: ['2016', '2016', '2016', '2016', '2016', '2016', '2016', '2016', '2016', '2016', '2016'],
-        datasets: [{
-          label: 'NDVI',
-          data: [100, 212, 333, 125, 20, 400, 212, 333, 125, 20, 400],
-          backgroundColor: [
-            'rgba(255,255,255, 0)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: false,
-        display: true
-      }
-    };
-
-    const chartImgCanvas: any = document.getElementById('chartImg');
-    const ctxChartImg: any = chartImgCanvas.getContext('2d');
-
-    const optionsChartImg = {
-      type: 'line',
-      data: {
-        labels: ['New', 'In Progress', 'On Hold', 'On Hold', 'On Hold', 'dddd'],
-        datasets: [{
-          label: '# of Votes',
-          data: [100, 212, 333, 125, 20, 400],
-          backgroundColor: [
-            'rgba(255, 255, 255, 0)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: false,
-        display: true
-      }
-    };
+    // const options = {
+    //   type: 'line',
+    //   data: {
+    //     labels: ['Novo', 'Dois', 'Tres'],
+    //     datasets: [{
+    //       label: '# of Votes',
+    //       data: [1, 2, 3],
+    //       backgroundColor: [
+    //         'rgba(255,255,255, 0)',
+    //         'rgba(54, 162, 235, 1)',
+    //         'rgba(255, 206, 86, 1)'
+    //       ],
+    //       borderWidth: 1
+    //     }]
+    //   },
+    //   options: {
+    //     responsive: false,
+    //     display: true
+    //   }
+    // };
 
 
-    this.imagem2 = new Chart(newCtx, newOptions);
-    this.myChart = new Chart(ctx, options);
-    this.chartImg = new Chart(ctxChartImg, optionsChartImg);
+    // const newCanvas: any = document.getElementById('imagem2');
+    // const newCtx: any = newCanvas.getContext('2d');
+
+    // const newOptions = {
+    //   type: 'line',
+    //   data: {
+    //     labels: ['2016', '2016', '2016', '2016', '2016', '2016', '2016', '2016', '2016', '2016', '2016'],
+    //     datasets: [{
+    //       label: 'NDVI',
+    //       data: [100, 212, 333, 125, 20, 400, 212, 333, 125, 20, 400],
+    //       backgroundColor: [
+    //         'rgba(255,255,255, 0)',
+    //         'rgba(54, 162, 235, 1)',
+    //         'rgba(255, 206, 86, 1)'
+    //       ],
+    //       borderWidth: 1
+    //     }]
+    //   },
+    //   options: {
+    //     responsive: false,
+    //     display: true
+    //   }
+    // };
+
+    // const chartImgCanvas: any = document.getElementById('chartImg');
+    // const ctxChartImg: any = chartImgCanvas.getContext('2d');
+
+    // const optionsChartImg = {
+    //   type: 'line',
+    //   data: {
+    //     labels: ['New', 'In Progress', 'On Hold', 'On Hold', 'On Hold', 'dddd'],
+    //     datasets: [{
+    //       label: '# of Votes',
+    //       data: [100, 212, 333, 125, 20, 400],
+    //       backgroundColor: [
+    //         'rgba(255, 255, 255, 0)',
+    //         'rgba(54, 162, 235, 1)',
+    //         'rgba(255, 206, 86, 1)'
+    //       ],
+    //       borderWidth: 1
+    //     }]
+    //   },
+    //   options: {
+    //     responsive: false,
+    //     display: true
+    //   }
+    // };
+
+
+    // this.imagem2 = new Chart(newCtx, newOptions);
+    // this.myChart = new Chart(ctx, options);
+    // this.chartImg = new Chart(ctxChartImg, optionsChartImg);
   }
 
   setImageToBase64() {
@@ -309,11 +308,11 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                       this.toDataUrl('assets/img/logos/sema.png', partnerImage8 => {
                         this.partnerImage8.push(partnerImage8);
 
-                        const images = this.setImageToBase64();
+                        // const images = this.setImageToBase64();
 
-                        this.chartImage1 = images.image1;
-                        this.chartImage2 = images.image2;
-                        this.chartImage3 = images.image3;
+                        // this.chartImage1 = images.image1;
+                        // this.chartImage2 = images.image2;
+                        // this.chartImage3 = images.image3;
 
                         this.getDocumentDefinition();
                         this.getPdfBase64(this.docDefinition);
@@ -452,9 +451,13 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
   }
 
   onViewReportClicked(reportType) {
-    this.router.navigateByUrl(`/finalReport/${reportType}/${this.carRegister.replace('/', '\\')}`);
-    this.docBase64 = null;
-    this.reportService.changeReportType.next();
+    if (reportType) {
+      this.router.navigateByUrl(`/finalReport/${reportType}/${this.carRegister.replace('/', '\\')}`);
+      this.docBase64 = null;
+      this.reportService.changeReportType.next();
+    } else {
+      this.router.navigateByUrl(`/report/${this.carRegister.replace('/', '\\')}`);
+    }
   }
 
   async getDocumentDefinition() {

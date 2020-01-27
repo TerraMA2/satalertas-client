@@ -69,6 +69,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   displayTable = false;
   displayLegend = false;
+  displayAbout = false;
   displayInfo = false;
   displayVisibleLayers = false;
 
@@ -341,6 +342,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setOverlayEvents() {
+    this.sidebarService.sidebarAbout.subscribe(() => this.displayAbout = !this.displayAbout);
+
     this.mapService.showMarker.subscribe(markerData => {
       if (this.tableSelectedLayer) {
         // this.clearLayers();
@@ -1096,5 +1099,14 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       this.tableHeight = '30vh';
       this.tableFullscreen = false;
     }
+  }
+
+
+  openAbout() {
+    this.displayAbout = true;
+  }
+
+  closeAbout(displayAbout: boolean) {
+    this.displayAbout = displayAbout;
   }
 }
