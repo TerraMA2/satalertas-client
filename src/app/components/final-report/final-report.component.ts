@@ -274,7 +274,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
     const gsImage = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_5:view5,terrama2_6:view6&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=250&height=250&cql_filter=id_munic>0;municipio='${this.property.city}';numero_do1='${this.property.register}'&srs=EPSG:4326&format=image/png`;
     const gsImage1 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:view6&styles=&bbox=${this.property.bbox}&width=400&height=400&time=${this.prodesStartYear}/P1Y&cql_filter=numero_do1='${this.property.register}'&srs=EPSG:4326&format=image/png`;
-    const gsImage2 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:view6,terrama2_86:view86&styles=terrama2_6:view6_style,terrama2_8:view8_style&bbox=${this.property.bbox}&width=404&height=431&time=${this.prodesStartYear}/${this.currentYear}&cql_filter=numero_do1='${this.property.register}';de_car_validado_sema_numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`;
+    const gsImage2 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:view6,terrama2_86:view86&styles=terrama2_6:view6_style,terrama2_86:view86_style&bbox=${this.property.bbox}&width=404&height=431&time=${this.prodesStartYear}/${this.currentYear}&cql_filter=numero_do1='${this.property.register}';de_car_validado_sema_numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`;
     const gsImage3 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:MosaicSpot2008_car_validado&styles=&bbox=${this.property.bbox}&width=400&height=400&time=${this.prodesStartYear}/P1Y&cql_filter=numero_do1='${this.property.register}'&srs=EPSG:4326&format=image/png`;
     const gsImage4 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:view6,terrama2_86:view86&styles=&bbox=${this.property.bbox}&width=400&height=400&time=${this.currentYear}/P1Y&cql_filter=numero_do1='${this.property.register}';de_car_validado_sema_numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`;
 
@@ -939,17 +939,17 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           margin: [30, 0, 30, 5],
           style: 'body'
         },
-        // {
-        //   image: this.chartImage1,
-        //   fit: [200, 200],
-        //   alignment: 'center'
-        // },
+        {
+          image: this.chartImage1,
+          fit: [200, 200],
+          alignment: 'center'
+        },
         {
           text: [
-            // {
-            //   text: 'Figura 2. ',
-            //   bold: true
-            // },
+            {
+              text: 'Figura 2. ',
+              bold: true
+            },
             {
               text: (
                 'Floresta Ombrófila Densa - Em função do clima predominantemente úmido, essa cobertura vegetal apresenta pouca variação ' +
@@ -963,11 +963,11 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           fontSize: 10,
           style: 'body'
         },
-        // {
-        //   image: this.chartImage2,
-        //   fit: [200, 200],
-        //   alignment: 'center'
-        // },
+        {
+          image: this.chartImage2,
+          fit: [200, 200],
+          alignment: 'center'
+        },
         {
           text: '',
           pageBreak: 'after'
@@ -995,11 +995,11 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           fontSize: 10,
           style: 'body'
         },
-        // {
-        //   image: this.chartImage3,
-        //   fit: [200, 200],
-        //   alignment: 'center'
-        // },
+        {
+          image: this.chartImage3,
+          fit: [200, 200],
+          alignment: 'center'
+        },
         {
           text: [
             {
