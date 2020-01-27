@@ -1,4 +1,6 @@
-import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+import { SidebarService } from 'src/app/services/sidebar.service';
 
 @Component({
   selector: 'app-about',
@@ -9,15 +11,15 @@ export class AboutComponent implements OnInit {
 
   @Input() displayAbout;
 
-  @Output() closeAboutClicked = new EventEmitter<boolean>();
-
-  constructor() { }
+  constructor(
+    private sidebarService: SidebarService
+  ) { }
 
   ngOnInit() {
   }
 
   closeAbout() {
-    this.closeAboutClicked.emit(false);
+    this.sidebarService.sidebarAbout.next();
   }
 
 }

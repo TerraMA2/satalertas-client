@@ -140,14 +140,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.mapService.clearMap.next();
   }
 
-  openAbout() {
-    this.displayAbout = true;
-  }
-
-  closeAbout(displayAbout: boolean) {
-    this.displayAbout = displayAbout;
-  }
-
   ngOnDestroy() {
     this.userSub.unsubscribe();
   }

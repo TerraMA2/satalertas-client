@@ -1,15 +1,25 @@
-<div class="p-grid p-nogutter">
+<p-dialog
+        header="Sobre"
+        [positionLeft]="600"
+        [positionTop]="60"
+        resizable="false"
+        [(visible)]="displayAbout"
+        [contentStyle]="{'width': '50vw','max-height':'50vh'}">
 
-    <div class="p-col-12 p-col-nogutter">
+    <div class="p-grid p-nogutter">
 
-        <h2>Sobre</h2>
-
-        <hr>
+        <div class="p-col-12 p-col-nogutter">
+<!--     
+            <h2>Sobre</h2>
+    
+            <hr>
+            
+            <br> -->
+    
+            <button pButton type="button" label="Fechar" class="ui-button-rounded ui-button-secondary width-100" (click)="closeAbout()"></button>
+    
+        </div>
         
-        <br>
-
-        <button pButton type="button" label="Fechar" class="ui-button-rounded ui-button-secondary width-100" (click)="closeAbout()"></button>
-
     </div>
 
-</div>
+</p-dialog>
