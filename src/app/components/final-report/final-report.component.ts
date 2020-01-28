@@ -267,15 +267,15 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
       this.property = reportData;
 
-      const app = reportData.app;
-      const legalReserve = reportData.legalReserve;
-      const conservationUnit = reportData.conservationUnit;
-      const indigenousLand = reportData.indigenousLand;
-      const consolidatedUse = reportData['consolidatedUse'];
+      const app = reportData.prodesApp;
+      const legalReserve = reportData.prodesLegalReserve;
+      const conservationUnit = reportData.prodesConservationUnit;
+      const indigenousLand = reportData.prodesIndigenousLand;
+      const consolidatedUse = reportData.prodesConsolidatedUse;
       // const exploration = reportData['exploration'];
-      const deforestation = reportData['deforestation'];
-      const embargoedArea = reportData['embargoedArea'];
-      const landArea = reportData['landArea'];
+      const deforestation = reportData.prodesDeforestation;
+      const embargoedArea = reportData.prodesEmbargoedArea;
+      const landArea = reportData.prodesLandArea;
 
       const totalRecentDeforestation = app['recentDeforestation'] +
                                       legalReserve['recentDeforestation'] +
