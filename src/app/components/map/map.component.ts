@@ -340,7 +340,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setOverlayEvents() {
-    this.sidebarService.sidebarAbout.subscribe(() => this.displayAbout = !this.displayAbout);
+    this.sidebarService.sidebarAbout.subscribe(show => this.displayAbout = show);
 
     this.mapService.showMarker.subscribe(markerData => {
       if (this.tableSelectedLayer) {

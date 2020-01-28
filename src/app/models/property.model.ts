@@ -15,13 +15,6 @@ export class Property {
     public consolidatedArea: string,
     public anthropizedUse: string,
     public nativeVegetation: string,
-    // public indigenousLandAll: string,
-    // public conservationUnitAll: string,
-    // public legalReserveAll: string,
-    // public appAll: string,
-    // public consolidatedAreaAll: string,
-    // public anthropizedUseAll: string,
-    // public nativeVegetationAll: string,
     public owner: string,
     public foundProdes: boolean,
     public foundDeter: boolean,
@@ -29,13 +22,13 @@ export class Property {
     public cpf?: string,
     public county?: string,
     public prodesArea?: number,
+    public prodesTotalArea?: number,
     public burningSpotlights?: [],
     public burnedAreas?: [],
     public deter?: [],
-    public prodesYear?: string[],
-    public deterYear?: string[],
+    public prodesYear?: object[],
+    public deterYear?: object[],
     public spotlightsYear?: [],
-    public burnedAreasYear?: [],
-    // public prodesInfo?: []
+    public burnedAreasYear?: []
   ) {}
 }

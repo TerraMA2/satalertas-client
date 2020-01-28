@@ -77,10 +77,14 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
   tableColumns;
 
+  prodesHistoryTableColumns;
+
   type: string;
   year: string;
 
   tableData;
+
+  prodesTableData;
 
   docDefinition: any;
   docBase64;
@@ -123,6 +127,11 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
       { field: 'pastDeforestation', header: 'Desmatamento pretérito (PRODES – ha ano-1)' },
       { field: 'burnlights', header: 'Focos de Queimadas (Num. de focos)' },
       { field: 'burnAreas', header: 'Áreas Queimadas (ha ano-1)' }
+    ];
+
+    this.prodesHistoryTableColumns = [
+      { field: 'date', header: 'Ano' },
+      { field: 'area', header: 'ha' }
     ];
 
     await this.getReportData();
@@ -237,7 +246,9 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
     await this.finalReportService.getCarData(viewId, carRegister, date, filter).then((reportData: Property) => {
 
-      this.prodesStartYear = reportData.prodesYear && reportData.prodesYear.length > 0 ? reportData.prodesYear[0]['date'] : '2007';
+      const prodesYear = reportData.prodesYear;
+
+      this.prodesStartYear = prodesYear && prodesYear.length > 0 ? prodesYear[0]['date'] : '2007';
 
       const bboxArray = reportData.bbox.split(',');
       this.bbox = bboxArray[0].split(' ').join(',') + ',' + bboxArray[1].split(' ').join(',');
@@ -256,6 +267,39 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
       const embargoedArea = reportData['embargoedArea'];
       const landArea = reportData['landArea'];
 
+      const totalRecentDeforestation = app['recentDeforestation'] +
+                                      legalReserve['recentDeforestation'] +
+                                      conservationUnit['recentDeforestation'] +
+                                      indigenousLand['recentDeforestation'] +
+                                      consolidatedUse['recentDeforestation'] +
+                                      deforestation['recentDeforestation'] +
+                                      embargoedArea['recentDeforestation'] +
+                                      landArea['recentDeforestation'];
+
+      const totalPastDeforestation = app['pastDeforestation'] +
+                                    legalReserve['pastDeforestation'] +
+                                    conservationUnit['pastDeforestation'] +
+                                    indigenousLand['pastDeforestation'] +
+                                    consolidatedUse['pastDeforestation'] +
+                                    deforestation['pastDeforestation'] +
+                                    embargoedArea['pastDeforestation'] +
+                                    landArea['pastDeforestation'];
+      const totalBurnlights = app['burnlights'] +
+                              legalReserve['burnlights'] +
+                              conservationUnit['burnlights'] +
+                              indigenousLand['burnlights'] +
+                              consolidatedUse['burnlights'] +
+                              deforestation['burnlights'] +
+                              embargoedArea['burnlights'] +
+                              landArea['burnlights'];
+      const totalBurnAreas = app['burnAreas'] +
+                            legalReserve['burnAreas'] +
+                            conservationUnit['burnAreas'] +
+                            indigenousLand['burnAreas'] +
+                            consolidatedUse['burnAreas'] +
+                            deforestation['burnAreas'] +
+                            embargoedArea['burnAreas'] +
+                            landArea['burnAreas'];
       const propertyDeforestation = [
         app,
         legalReserve,
@@ -265,10 +309,21 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         // exploration,
         deforestation,
         embargoedArea,
-        landArea
+        landArea,
+        {
+          'affectedArea': 'Total',
+          'recentDeforestation': totalRecentDeforestation,
+          'pastDeforestation': totalPastDeforestation,
+          'burnlights': totalBurnlights,
+          'burnAreas': totalBurnAreas
+        }
       ];
 
       this.tableData = propertyDeforestation;
+
+      prodesYear.push({date: 'Total', area: this.property.prodesTotalArea});
+
+      this.prodesTableData = prodesYear;
     });
 
     const gsImage = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_5:view5,terrama2_6:view6&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=250&height=250&cql_filter=id_munic>0;municipio='${this.property.city}';numero_do1='${this.property.register}'&srs=EPSG:4326&format=image/png`;
@@ -1188,13 +1243,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           ]
         },
         {
-          text: '',
-          pageBreak: 'after'
-        },
-        {
-          columns: headerDocument
-        },
-        {
           columns: [
             {
               text: '4) ',
@@ -1240,6 +1288,13 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           ]
         },
         {
+          text: '',
+          pageBreak: 'after'
+        },
+        {
+          columns: headerDocument
+        },
+        {
           text: 'Os dados do INPE constituem fonte de acentuada importância para a ',
           alignment: 'right',
           margin: [30, 0, 30, 0],
@@ -1277,29 +1332,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           ),
           margin: [30, 0, 30, 15],
           style: 'body'
-        },
-        {
-          text: '',
-          pageBreak: 'after'
-        },
-        {
-          columns: headerDocument
-        },
-        {
-          columns: [
-            {
-              image: this.geoserverLegend,
-              fit: [200, 200],
-              margin: [0, 10],
-              alignment: 'center'
-            },
-            {
-              image: this.geoserverImage3,
-              fit: [200, 200],
-              margin: [0, 10],
-              alignment: 'center'
-            }
-          ]
         },
         {
           text: [
@@ -1350,9 +1382,32 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           fontSize: 12
         },
         {
+          text: '',
+          pageBreak: 'after'
+        },
+        {
+          columns: headerDocument
+        },
+        {
           text: 'A Figura 5 apresenta a dinâmica de desmatamento em todos os anos do PRODES disponível da base do INPE.',
           margin: [30, 0, 30, 15],
           style: 'body'
+        },
+        {
+          columns: [
+            {
+              image: this.geoserverLegend,
+              fit: [200, 200],
+              margin: [0, 10],
+              alignment: 'center'
+            },
+            {
+              image: this.geoserverImage3,
+              fit: [200, 200],
+              margin: [0, 10],
+              alignment: 'center'
+            }
+          ]
         },
         {
           text: [
@@ -1371,6 +1426,32 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           style: 'body'
         },
         {
+          style: 'tableStyle',
+          table: {
+            widths: [ '*', '*' ],
+            headerRows: 1,
+            body: [
+              [
+                {
+                  text: 'Ano',
+                  style: 'tableHeader'
+                },
+                {
+                  text: 'Área (ha)',
+                  style: 'tableHeader'
+                }
+              ],
+              ...this.prodesTableData.map(rel => {
+                return [
+                        rel.date,
+                        rel.area
+                ];
+              })
+            ]
+          },
+          fontSize: 12
+        },
+        {
           text: 'Anota-se que os dados acima indicados indicam extreme de dúvidas, com grau ',
           alignment: 'right',
           margin: [30, 0, 30, 0],
@@ -1384,13 +1465,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           ),
           margin: [30, 0, 30, 15],
           style: 'body'
-        },
-        {
-          text: '',
-          pageBreak: 'after'
-        },
-        {
-          columns: headerDocument
         },
         {
           text: [
@@ -1415,6 +1489,13 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
             },
           ],
           margin: [30, 0, 30, 0]
+        },
+        {
+          text: '',
+          pageBreak: 'after'
+        },
+        {
+          columns: headerDocument
         },
         {
           columns: [
@@ -1516,13 +1597,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           margin: [30, 0, 30, 0],
         },
         {
-          text: '',
-          pageBreak: 'after'
-        },
-        {
-          columns: headerDocument
-        },
-        {
           text: '6 VALIDAÇÃO',
           margin: [30, 20, 30, 0],
           style: 'listItem'
@@ -1532,6 +1606,13 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           margin: [30, 0, 30, 100],
           alignment: 'center',
           style: 'body'
+        },
+        {
+          text: '',
+          pageBreak: 'after'
+        },
+        {
+          columns: headerDocument
         },
         {
           text: 'Relatório técnico produzido em parceria com: ',

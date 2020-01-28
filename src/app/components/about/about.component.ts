@@ -18,8 +18,12 @@ export class AboutComponent implements OnInit {
   ngOnInit() {
   }
 
+  onHide() {
+    this.sidebarService.sidebarAbout.next(false);
+  }
+
   closeAbout() {
-    this.sidebarService.sidebarAbout.next();
+    this.sidebarService.sidebarAbout.next(false);
   }
 
 }
