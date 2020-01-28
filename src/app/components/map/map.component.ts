@@ -40,6 +40,8 @@ import {View} from '../../models/view.model';
 
 import {FilterUtils} from '../../utils/filter.utils';
 
+import { AuthService } from 'src/app/services/auth.service';
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -67,6 +69,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   tableSelectedLayer: L.TileLayer.WMS;
 
+  reportTable;
+
   displayTable = false;
   displayLegend = false;
   displayAbout = false;
@@ -88,13 +92,15 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     private tableService: TableService,
     private mapService: MapService,
     private filterService: FilterService,
-    private linkPopupService: LinkPopupService
+    private linkPopupService: LinkPopupService,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
     this.mapConfig = this.configService.getMapConfig();
 
     this.sidebarService.sidebarLayerShowHide.next(true);
+
   }
 
   ngOnDestroy() {
@@ -107,6 +113,13 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.setBaseLayers();
     this.setOverlayEvents();
     this.getLocalStorageData();
+    this.authService.user.subscribe(user => {
+      if (user) {
+        this.mapService.reportTableButton.next(true);
+      } else {
+        this.mapService.reportTableButton.next(false);
+      }
+    });
   }
 
   setMap() {
@@ -732,20 +745,27 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setReportTableControl() {
-    const ReportTable = L.Control.extend({
-      onAdd: () => {
-        const div = L.DomUtil.create('div');
-        div.innerHTML = `
-          <div id="reportTableBtn" class="leaflet-control-layers leaflet-custom-icon" title="Relatórios">
-            <a><i class='fas fa-file-alt'></i> Relatórios</a>
-          </div>`;
-        return div;
+    this.mapService.reportTableButton.subscribe(isAuthenticated => {
+      if (isAuthenticated) {
+        if (!this.reportTable) {
+          const ReportTable = L.Control.extend({
+            onAdd: () => {
+              const div = L.DomUtil.create('div');
+              div.innerHTML = `
+                <div id="reportTableBtn" class="leaflet-control-layers leaflet-custom-icon" title="Relatórios">
+                  <a><i class='fas fa-file-alt'></i> Relatórios</a>
+                </div>`;
+              return div;
+            }
+          });
+          this.reportTable = new ReportTable({ position: 'topright' });
+          this.reportTable.addTo(this.map);
+          this.setReportTableControlEvent();
+        }
+      } else {
+        this.removeReportButton();
       }
     });
-
-    new ReportTable({ position: 'topright' }).addTo(this.map);
-
-    this.setReportTableControlEvent();
   }
 
   setReportTableControlEvent() {
@@ -756,6 +776,15 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       this.tableReportActive = true;
       this.tableService.loadReportTableData.next();
     });
+  }
+
+  removeReportButton() {
+    this.displayTable = false;
+    this.clearReportTable();
+    if (this.reportTable) {
+      this.map.removeControl(this.reportTable);
+    }
+    this.reportTable = null;
   }
 
   setSearchControl() {

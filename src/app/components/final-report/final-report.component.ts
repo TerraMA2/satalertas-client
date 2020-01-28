@@ -21,6 +21,8 @@ import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 import { FinalReportService } from '../../services/final-report.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { MessageService } from 'primeng/api';
 
 
 @Component({
@@ -50,9 +52,9 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
   private geoserverLegend;
 
-  private chartImage1;
-  private chartImage2;
-  private chartImage3;
+  private chartImage1 = [];
+  private chartImage2 = [];
+  private chartImage3 = [];
 
   private partnerImage1 = [];
   private partnerImage2 = [];
@@ -99,10 +101,18 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     private sidebarService: SidebarService,
     private reportService: ReportService,
     private finalReportService: FinalReportService,
-    private router: Router,
+    private authService: AuthService,
+    private messageService: MessageService,
+    private router: Router
   ) {}
 
   async ngOnInit() {
+    this.authService.user.subscribe(user => {
+      if (!user) {
+        this.router.navigateByUrl('/map');
+        this.messageService.add({severity: 'error', summary: 'Atenção!', detail: 'Usuário não autenticado.'});
+      }
+    });
     this.activatedRoute.params.subscribe(params => {
       this.carRegister = params.carRegister;
       this.type = params.type;
@@ -311,11 +321,11 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         embargoedArea,
         landArea,
         {
-          'affectedArea': 'Total',
-          'recentDeforestation': totalRecentDeforestation,
-          'pastDeforestation': totalPastDeforestation,
-          'burnlights': totalBurnlights,
-          'burnAreas': totalBurnAreas
+          affectedArea: 'Total',
+          recentDeforestation: totalRecentDeforestation,
+          pastDeforestation: totalPastDeforestation,
+          burnlights: totalBurnlights,
+          burnAreas: totalBurnAreas
         }
       ];
 
@@ -362,15 +372,23 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                       this.partnerImage7.push(partnerImage7);
                       this.toDataUrl('assets/img/logos/sema.png', partnerImage8 => {
                         this.partnerImage8.push(partnerImage8);
+                        this.toDataUrl('assets/img/report-chart-1.png', chartImage1 => {
+                          this.chartImage1.push(chartImage1);
+                          this.toDataUrl('assets/img/report-chart-2.png', chartImage2 => {
+                            this.chartImage2.push(chartImage2);
+                            this.toDataUrl('assets/img/report-chart-3.png', chartImage3 => {
+                              this.chartImage3.push(chartImage3);
+                                // const images = this.setImageToBase64();
 
-                        // const images = this.setImageToBase64();
+                                // this.chartImage1 = images.image1;
+                                // this.chartImage2 = images.image2;
+                                // this.chartImage3 = images.image3;
 
-                        // this.chartImage1 = images.image1;
-                        // this.chartImage2 = images.image2;
-                        // this.chartImage3 = images.image3;
-
-                        this.getDocumentDefinition();
-                        this.getPdfBase64(this.docDefinition);
+                                this.getDocumentDefinition();
+                                this.getPdfBase64(this.docDefinition);
+                            });
+                          });
+                        });
                       });
                     });
                   });
@@ -863,13 +881,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           ]
         },
         {
-          text: '',
-          pageBreak: 'after'
-        },
-        {
-          columns: headerDocument
-        },
-        {
           columns: [
             {
               text: 'j) ',
@@ -884,6 +895,13 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
               style: 'body'
             }
           ]
+        },
+        {
+          text: '',
+          pageBreak: 'after'
+        },
+        {
+          columns: headerDocument
         },
         {
           text: '2.2 Método utilizado',
@@ -1009,11 +1027,12 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           style: 'body'
         },
         {
-          text: (''),
-          margin: [30, 0, 30, 250]
-          // image: this.chartImage1,
-          // fit: [200, 200],
-          // alignment: 'center'
+          // text: (''),
+          // margin: [30, 0, 30, 250]
+          image: this.chartImage1[0],
+          fit: [250, 250],
+          margin: [10, 10],
+          alignment: 'center'
         },
         {
           text: [
@@ -1035,11 +1054,11 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           style: 'body'
         },
         {
-          text: (''),
-          margin: [30, 0, 30, 250]
-          // image: this.chartImage2,
-          // fit: [200, 200],
-          // alignment: 'center'
+          // text: (''),
+          // margin: [30, 0, 30, 250]
+          image: this.chartImage2[0],
+          fit: [250, 250],
+          alignment: 'center'
         },
         {
           text: '',
@@ -1069,11 +1088,12 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           style: 'body'
         },
         {
-          text: (''),
-          margin: [30, 0, 30, 250]
-          // image: this.chartImage3,
-          // fit: [200, 200],
-          // alignment: 'center'
+          // text: (''),
+          // margin: [30, 0, 30, 250]
+          image: this.chartImage3[0],
+          fit: [250, 250],
+          margin: [10, 10],
+          alignment: 'center'
         },
         {
           text: [
@@ -1337,21 +1357,21 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           text: [
             {
               text: 'Quadro 1 ',
-              alignment: 'right',
               margin: [30, 0, 30, 0],
-              bold: true
+              bold: true,
+              alignment: 'right'
             },
             {
-              text: `- Classes e quantitativos de áreas desmatadas e queimadas no imóvel rural`,
-              alignment: 'right',
+              text: `- Classes e quantitativos de áreas desmatadas e queimadas no imóvel`,
               margin: [30, 0, 30, 0],
-              bold: false
+              bold: false,
+              alignment: 'right'
             }
           ],
           fontSize: 10
         },
         {
-          text: ' denominado ' + this.property.name + ' a  partir da análise do PRODES, no período ' + this.formattedFilterDate + '.',
+          text: ' rural denominado ' + this.property.name + ' a  partir da análise do PRODES, no período ' + this.formattedFilterDate + '.',
           margin: [30, 0, 30, 15],
           style: 'body'
         },
@@ -2258,21 +2278,21 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           text: [
             {
               text: 'Quadro 1 ',
-              alignment: 'right',
               margin: [30, 0, 30, 0],
-              bold: true
+              bold: true,
             },
             {
-              text: `- Classes e quantitativos de áreas desmatadas e queimadas no imóvel rural`,
-              alignment: 'right',
+              text: `- Classes e quantitativos de áreas desmatadas e queimadas no imóvel`,
               margin: [30, 0, 30, 0],
               bold: false
             }
           ],
+          alignment: 'right',
+          style: 'body',
           fontSize: 10
         },
         {
-          text: ' denominado ' + this.property.name + '.',
+          text: ' rural denominado ' + this.property.name + '.',
           margin: [30, 0, 30, 15],
           style: 'body'
         },
@@ -2982,17 +3002,17 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           text: [
             {
               text: 'Quadro 1 ',
-              alignment: 'right',
               margin: [30, 0, 30, 0],
               bold: true
             },
             {
               text: `- Classes e quantitativos de áreas desmatadas e queimadas no imóvel rural`,
-              alignment: 'right',
               margin: [30, 0, 30, 0],
               bold: false
             }
           ],
+          alignment: 'right',
+          style: 'body',
           fontSize: 10
         },
         {

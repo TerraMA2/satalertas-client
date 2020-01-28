@@ -14,6 +14,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 import { SidebarService } from './sidebar.service';
 
+import { environment } from 'src/environments/environment';
+import { MapService } from './map.service';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -27,7 +30,8 @@ export class AuthService {
   constructor(
     private hTTPService: HTTPService,
     private configService: ConfigService,
-    private sidebarService: SidebarService
+    private sidebarService: SidebarService,
+    private mapService: MapService
   ) {
     this.authConfig = this.configService.getAuthConfig();
   }
@@ -36,9 +40,7 @@ export class AuthService {
     return this.hTTPService.post(this.authConfig.url, params)
     .pipe(
       catchError(this.handleError),
-      tap(resData => {
-        this.handleAuthentication(resData['user']);
-      })
+      tap(resData => this.handleAuthentication(resData['user']))
     );
   }
 
@@ -68,6 +70,7 @@ export class AuthService {
 
     if (loadedUser.token) {
       this.user.next(loadedUser);
+      this.mapService.reportTableButton.next(true);
       const expirationDuration =
         new Date(userData.tokenExpirationDate).getTime() -
         new Date().getTime();
@@ -77,6 +80,7 @@ export class AuthService {
 
   logout() {
     this.user.next(null);
+    this.mapService.reportTableButton.next(false);
     localStorage.removeItem('userData');
     if (this.tokenExpirationTimer) {
       clearTimeout(this.tokenExpirationTimer);
@@ -94,7 +98,10 @@ export class AuthService {
     if (!loggedUser) {
       return false;
     }
-    const expiresIn = this.authConfig.expiresIn;
+    let expiresIn = this.authConfig.expiresIn;
+    if (!environment.production) {
+      expiresIn = 31536000;
+    }
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
     const user = new User(
       loggedUser.id,
@@ -105,6 +112,7 @@ export class AuthService {
       loggedUser.token,
       expirationDate);
     this.user.next(user);
+    this.mapService.reportTableButton.next(true);
     this.autoLogout(expiresIn * 1000);
     localStorage.setItem('userData', JSON.stringify(user));
   }
