@@ -17,7 +17,7 @@ export class SidebarFooterComponent implements OnInit {
   }
 
   openAbout() {
-    this.sidebarService.sidebarAbout.next();
+    this.sidebarService.sidebarAbout.next(true);
   }
 
 }

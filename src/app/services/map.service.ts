@@ -17,5 +17,7 @@ export class MapService {
 
   showMarker = new Subject();
 
+  reportTableButton = new Subject<boolean>();
+
   constructor() { }
 }

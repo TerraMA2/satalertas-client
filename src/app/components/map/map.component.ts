@@ -40,6 +40,8 @@ import {View} from '../../models/view.model';
 
 import {FilterUtils} from '../../utils/filter.utils';
 
+import { AuthService } from 'src/app/services/auth.service';
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -67,6 +69,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   tableSelectedLayer: L.TileLayer.WMS;
 
+  reportTable;
+
   displayTable = false;
   displayLegend = false;
   displayAbout = false;
@@ -88,13 +92,15 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     private tableService: TableService,
     private mapService: MapService,
     private filterService: FilterService,
-    private linkPopupService: LinkPopupService
+    private linkPopupService: LinkPopupService,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
     this.mapConfig = this.configService.getMapConfig();
 
     this.sidebarService.sidebarLayerShowHide.next(true);
+
   }
 
   ngOnDestroy() {
@@ -107,6 +113,13 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.setBaseLayers();
     this.setOverlayEvents();
     this.getLocalStorageData();
+    this.authService.user.subscribe(user => {
+      if (user) {
+        this.mapService.reportTableButton.next(true);
+      } else {
+        this.mapService.reportTableButton.next(false);
+      }
+    });
   }
 
   setMap() {
@@ -142,7 +155,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   getLocalStorageData() {
     if (localStorage.getItem('mapState')) {
       const mapState: MapState = JSON.parse(localStorage.getItem('mapState'));
-      // const reportTableOpened = mapState.reportTableOpened;
       const previousSelectedLayers: Layer[] = mapState.selectedLayers;
       const previousLatLong = mapState.mapLatLong;
       const previousZoom = mapState.mapZoom;
@@ -167,7 +179,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
           this.markerClusterGroup.addLayer(marker);
           this.markerClusterGroup.addTo(this.map);
           marker.fire('click');
-          // this.tableReportActive = reportTableOpened;
         }
       }
       this.panMap(previousLatLong, previousZoom);
@@ -292,7 +303,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
         const layerData = {
                             url: 'http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms',
-                            layers: 'terrama2_20:view20',
+                            layers: 'terrama2_6:view6',
                             transparent: true,
                             format: 'image/png',
                             version: '1.1.0',
@@ -342,13 +353,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setOverlayEvents() {
-    this.sidebarService.sidebarAbout.subscribe(() => this.displayAbout = !this.displayAbout);
+    this.sidebarService.sidebarAbout.subscribe(show => this.displayAbout = show);
 
     this.mapService.showMarker.subscribe(markerData => {
       if (this.tableSelectedLayer) {
-        // this.clearLayers();
-        // this.tableSelectedLayer = null;
-        // this.markerClusterGroup.clearLayers();
       }
 
       this.tableHeight = '10vh';
@@ -371,13 +379,11 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.sidebarService.sidebarLayerSelect.subscribe((itemSelected: Layer) => {
       this.clearMarkerInfo();
-      // this.clearReportTable();
       this.addLayer(itemSelected, true);
     });
 
     this.sidebarService.sidebarLayerDeselect.subscribe((itemDeselected: Layer) => {
       this.clearMarkerInfo();
-      // this.clearReportTable();
       if (this.selectedPrimaryLayer && this.selectedPrimaryLayer.value === itemDeselected.value) {
         this.markerClusterGroup.clearLayers();
       }
@@ -386,7 +392,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.sidebarService.sidebarLayerGroupSelect.subscribe((itemSelected: LayerGroup) => {
       this.clearMarkerInfo();
-      // this.clearReportTable();
       const layers = itemSelected.children;
       layers.forEach((layer: Layer) => {
         if (!layer.isDisabled && !layer.isHidden) {
@@ -400,7 +405,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.sidebarService.sidebarLayerGroupDeselect.subscribe((itemDeselected: LayerGroup) => {
       this.clearMarkerInfo();
-      // this.clearReportTable();
       const layers = itemDeselected.children;
       layers.forEach((layer: Layer) => {
         this.removeLayer(layer, true);
@@ -411,7 +415,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.sidebarService.sidebarItemRadioSelect.subscribe((layer: Layer) => {
       this.selectedPrimaryLayer = layer;
       this.clearMarkerInfo();
-      // this.clearReportTable();
       layer.markerSelected = true;
       this.updateMarkers(layer);
     });
@@ -422,7 +425,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       }
       layer.markerSelected = false;
       this.clearMarkerInfo();
-      // this.clearReportTable();
       if (this.selectedMarker && this.selectedMarker.overlayName === layer.label) {
         this.markerClusterGroup.clearLayers();
       }
@@ -743,20 +745,27 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setReportTableControl() {
-    const ReportTable = L.Control.extend({
-      onAdd: () => {
-        const div = L.DomUtil.create('div');
-        div.innerHTML = `
-          <div id="reportTableBtn" class="leaflet-control-layers leaflet-custom-icon" title="Relatórios">
-            <a><i class='fas fa-file-alt'></i> Relatórios</a>
-          </div>`;
-        return div;
+    this.mapService.reportTableButton.subscribe(isAuthenticated => {
+      if (isAuthenticated) {
+        if (!this.reportTable) {
+          const ReportTable = L.Control.extend({
+            onAdd: () => {
+              const div = L.DomUtil.create('div');
+              div.innerHTML = `
+                <div id="reportTableBtn" class="leaflet-control-layers leaflet-custom-icon" title="Relatórios">
+                  <a><i class='fas fa-file-alt'></i> Relatórios</a>
+                </div>`;
+              return div;
+            }
+          });
+          this.reportTable = new ReportTable({ position: 'topright' });
+          this.reportTable.addTo(this.map);
+          this.setReportTableControlEvent();
+        }
+      } else {
+        this.removeReportButton();
       }
     });
-
-    new ReportTable({ position: 'topright' }).addTo(this.map);
-
-    this.setReportTableControlEvent();
   }
 
   setReportTableControlEvent() {
@@ -766,8 +775,16 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       this.displayTable = true;
       this.tableReportActive = true;
       this.tableService.loadReportTableData.next();
-      // this.sidebarService.sidebarReload.next();
     });
+  }
+
+  removeReportButton() {
+    this.displayTable = false;
+    this.clearReportTable();
+    if (this.reportTable) {
+      this.map.removeControl(this.reportTable);
+    }
+    this.reportTable = null;
   }
 
   setSearchControl() {
@@ -846,8 +863,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         url = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wfs`;
         params = this.getWFSFeatureInfoParams(layer, event);
       } else {
-      url = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms`;
-      params = this.getWMSFeatureInfoParams(layer, event);
+        url = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms`;
+        params = this.getWMSFeatureInfoParams(layer, event);
       }
 
       await this.hTTPService.get(url, params).toPromise().then((layerInfo: LayerInfo) => {
@@ -1071,10 +1088,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.tableReportActive) {
       this.tableService.clearTable.next();
       this.tableReportActive = false;
-      // this.markerClusterGroup.clearLayers();
-      // this.clearLayers();
       this.tableSelectedLayer = null;
-      // this.selectedLayers = [];
     }
   }
 
@@ -1099,14 +1113,5 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       this.tableHeight = '30vh';
       this.tableFullscreen = false;
     }
-  }
-
-
-  openAbout() {
-    this.displayAbout = true;
-  }
-
-  closeAbout(displayAbout: boolean) {
-    this.displayAbout = displayAbout;
   }
 }

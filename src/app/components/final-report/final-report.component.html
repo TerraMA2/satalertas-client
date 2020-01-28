@@ -7,9 +7,9 @@
                 </button>
                 &nbsp;&nbsp;
                 <button pButton
-                        label="Voltar a síntese"
+                        label="Síntese"
                         (click)="onViewReportClicked()"
-                        icon="fas fa-arrow-left">
+                        icon="fas fa-file-alt">
                 </button>
         </div>
         &nbsp;&nbsp;
@@ -44,7 +44,7 @@
                 <button pButton
                         type="button"
                         icon="fas fa-download"
-                        label="GerarRelatório"
+                        label="Gerar Relatório"
                         (click)="generatePdf('open')"
                         [disabled]="!docBase64 || generatingReport">
                 </button>

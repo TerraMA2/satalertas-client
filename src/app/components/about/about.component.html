@@ -4,22 +4,101 @@
         [positionTop]="60"
         resizable="false"
         [(visible)]="displayAbout"
-        [contentStyle]="{'width': '50vw','max-height':'50vh'}">
+        (onHide)="onHide()"
+        [contentStyle]="{'width': '50vw','max-height':'75vh'}">
+        <div class="about-padding">
+            <div class="p-col-12">
+                <h2 class="text-center">SatAlertas: Sistema Integrado de Monitoramento de Degradação Ambiental</h2>
+            </div>
+            <div class="p-col-12 text-right">
+                <p>Versão: 1.0</p>
+                <p>Data: 02/Março/2020<p>
+                <p>Copyright© 2020</p>
+            </div>
+            <div class="p-grid">
+                <p>O <strong>SatAlertas</strong> é uma aplicação destinada ao monitoramento de degradação ambiental que foi desenvolvido sobre a plataforma TerraMA2 do INPE, com objetivo específico de monitorar, analisar e gerenciar alertas resultantes do cruzamento dos dados do PRODES, DETER e Queimadas do INPE com CAR e outras bases.</p>
+                <p>Sistema produzido em parceria com:</p>
+            </div>
+            <br>
+            <div class="p-grid text-center">
+                <div class="p-col">
+                    <a href="https://mpmt.mp.br/" target="_blank">
+                        <img height="60" width="180" src="assets/img/logos/mpmt-small.png">
+                    </a>
+                </div>
+                <div class="p-col">
+                    <a href="https://pjedaou.mpmt.mp.br/" target="_blank">
+                        <img height="80" width="140" src="assets/img/logos/pjedaou-large.png">
+                    </a>
+                </div>
+                <div class="p-col">
+                    <a href="#" target="_blank"></a>
+                    <img height="60" width="80" src="assets/img/logos/caex.png">
+                </div>
+            </div>
+            <br>
+            <div class="p-grid text-center">
+                <div class="p-col">
+                    <a href="http://www.inpe.br/" target="_blank">
+                        <img height="100" width="130" src="assets/img/logos/inpe.png">
+                    </a>
+                </div>
+                <div class="p-col">
+                    <a href="http://www.dpi.inpe.br/DPI/" target="_blank">
+                        <img height="80" width="100" src="assets/img/logos/dpi.png">
+                    </a>
+                </div>
+            </div>
+            <br>
+            <div class="p-grid text-center">
+                <div class="p-col">
+                    <a href="http://www.mt.gov.br/" target="_blank">
+                        <img height="60" width="200" src="assets/img/logos/mt.png">
+                    </a>
+                </div>
+                <div class="p-col">
+                    <a href="http://www.sema.mt.gov.br/" target="_blank">
+                        <img height="100" width="100" src="assets/img/logos/sema.png">
+                    </a>
+                </div>
+            </div>
 
-    <div class="p-grid p-nogutter">
+            <h2>Base tecnológica:</h2>
 
-        <div class="p-col-12 p-col-nogutter">
-<!--     
-            <h2>Sobre</h2>
-    
-            <hr>
-            
-            <br> -->
-    
+            <div class="p-grid text-center">
+                <div class="p-col">
+                    <a href="http://www.terrama2.dpi.inpe.br" target="_blank">
+                        <img height="120" width="200" src="assets/img/logos/terrama2-large.png">
+                    </a>
+                </div>
+            </div>
+
+            <h2>Base de Dados Ambientais:</h2>
+
+            <div class="p-grid text-center">
+                <div class="p-col">
+                    <a href="http://www.obt.inpe.br/OBT/assuntos/programas/amazonia/deter" target="_blank">
+                        <img height="100" width="120" src="assets/img/logos/deter.png">
+                    </a>
+                </div>
+                <div class="p-col">
+                    <a href="http://www.obt.inpe.br/OBT/assuntos/programas/amazonia/prodes" target="_blank">
+                        <img height="100" width="150" src="assets/img/logos/prodes.png">
+                    </a>
+                </div>
+                <div class="p-col">
+                    <a href="http://queimadas.dgi.inpe.br/queimadas/portal" target="_blank">
+                        <img height="100" width="120" src="assets/img/logos/queimadas.png">
+                    </a>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="p-col-12 text-right">
+                <p>Versão da TerraMA²: 4.1.0</p>
+                <p>Versão da TerraLib: 5.3.3</p>
+            </div>
+            <br>
             <button pButton type="button" label="Fechar" class="ui-button-rounded ui-button-secondary width-100" (click)="closeAbout()"></button>
-    
         </div>
-        
-    </div>
-
 </p-dialog>

@@ -21,6 +21,8 @@ import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 import { FinalReportService } from '../../services/final-report.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { MessageService } from 'primeng/api';
 
 
 @Component({
@@ -50,9 +52,9 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
   private geoserverLegend;
 
-  private chartImage1;
-  private chartImage2;
-  private chartImage3;
+  private chartImage1 = [];
+  private chartImage2 = [];
+  private chartImage3 = [];
 
   private partnerImage1 = [];
   private partnerImage2 = [];
@@ -77,10 +79,14 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
   tableColumns;
 
+  prodesHistoryTableColumns;
+
   type: string;
   year: string;
 
   tableData;
+
+  prodesTableData;
 
   docDefinition: any;
   docBase64;
@@ -95,10 +101,18 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     private sidebarService: SidebarService,
     private reportService: ReportService,
     private finalReportService: FinalReportService,
-    private router: Router,
+    private authService: AuthService,
+    private messageService: MessageService,
+    private router: Router
   ) {}
 
   async ngOnInit() {
+    this.authService.user.subscribe(user => {
+      if (!user) {
+        this.router.navigateByUrl('/map');
+        this.messageService.add({severity: 'error', summary: 'Atenção!', detail: 'Usuário não autenticado.'});
+      }
+    });
     this.activatedRoute.params.subscribe(params => {
       this.carRegister = params.carRegister;
       this.type = params.type;
@@ -123,6 +137,11 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
       { field: 'pastDeforestation', header: 'Desmatamento pretérito (PRODES – ha ano-1)' },
       { field: 'burnlights', header: 'Focos de Queimadas (Num. de focos)' },
       { field: 'burnAreas', header: 'Áreas Queimadas (ha ano-1)' }
+    ];
+
+    this.prodesHistoryTableColumns = [
+      { field: 'date', header: 'Ano' },
+      { field: 'area', header: 'ha' }
     ];
 
     await this.getReportData();
@@ -219,7 +238,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     const startDate = new Date(date[0]).toLocaleDateString('pt-BR');
     const endDate = new Date(date[1]).toLocaleDateString('pt-BR');
 
-    this.formattedFilterDate = `${startDate} - ${endDate}`;
+    this.formattedFilterDate = `${startDate} A ${endDate}`;
 
     this.currentYear = new Date().getFullYear();
 
@@ -237,7 +256,9 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
     await this.finalReportService.getCarData(viewId, carRegister, date, filter).then((reportData: Property) => {
 
-      this.prodesStartYear = reportData.prodesYear && reportData.prodesYear.length > 0 ? reportData.prodesYear[0]['date'] : '2007';
+      const prodesYear = reportData.prodesYear;
+
+      this.prodesStartYear = prodesYear && prodesYear.length > 0 ? prodesYear[0]['date'] : '2007';
 
       const bboxArray = reportData.bbox.split(',');
       this.bbox = bboxArray[0].split(' ').join(',') + ',' + bboxArray[1].split(' ').join(',');
@@ -246,16 +267,49 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
       this.property = reportData;
 
-      const app = reportData.app;
-      const legalReserve = reportData.legalReserve;
-      const conservationUnit = reportData.conservationUnit;
-      const indigenousLand = reportData.indigenousLand;
-      const consolidatedUse = reportData['consolidatedUse'];
+      const app = reportData.prodesApp;
+      const legalReserve = reportData.prodesLegalReserve;
+      const conservationUnit = reportData.prodesConservationUnit;
+      const indigenousLand = reportData.prodesIndigenousLand;
+      const consolidatedUse = reportData.prodesConsolidatedUse;
       // const exploration = reportData['exploration'];
-      const deforestation = reportData['deforestation'];
-      const embargoedArea = reportData['embargoedArea'];
-      const landArea = reportData['landArea'];
+      const deforestation = reportData.prodesDeforestation;
+      const embargoedArea = reportData.prodesEmbargoedArea;
+      const landArea = reportData.prodesLandArea;
 
+      const totalRecentDeforestation = app['recentDeforestation'] +
+                                      legalReserve['recentDeforestation'] +
+                                      conservationUnit['recentDeforestation'] +
+                                      indigenousLand['recentDeforestation'] +
+                                      consolidatedUse['recentDeforestation'] +
+                                      deforestation['recentDeforestation'] +
+                                      embargoedArea['recentDeforestation'] +
+                                      landArea['recentDeforestation'];
+
+      const totalPastDeforestation = app['pastDeforestation'] +
+                                    legalReserve['pastDeforestation'] +
+                                    conservationUnit['pastDeforestation'] +
+                                    indigenousLand['pastDeforestation'] +
+                                    consolidatedUse['pastDeforestation'] +
+                                    deforestation['pastDeforestation'] +
+                                    embargoedArea['pastDeforestation'] +
+                                    landArea['pastDeforestation'];
+      const totalBurnlights = app['burnlights'] +
+                              legalReserve['burnlights'] +
+                              conservationUnit['burnlights'] +
+                              indigenousLand['burnlights'] +
+                              consolidatedUse['burnlights'] +
+                              deforestation['burnlights'] +
+                              embargoedArea['burnlights'] +
+                              landArea['burnlights'];
+      const totalBurnAreas = app['burnAreas'] +
+                            legalReserve['burnAreas'] +
+                            conservationUnit['burnAreas'] +
+                            indigenousLand['burnAreas'] +
+                            consolidatedUse['burnAreas'] +
+                            deforestation['burnAreas'] +
+                            embargoedArea['burnAreas'] +
+                            landArea['burnAreas'];
       const propertyDeforestation = [
         app,
         legalReserve,
@@ -265,15 +319,26 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         // exploration,
         deforestation,
         embargoedArea,
-        landArea
+        landArea,
+        {
+          affectedArea: 'Total',
+          recentDeforestation: totalRecentDeforestation,
+          pastDeforestation: totalPastDeforestation,
+          burnlights: totalBurnlights,
+          burnAreas: totalBurnAreas
+        }
       ];
 
       this.tableData = propertyDeforestation;
+
+      prodesYear.push({date: 'Total', area: this.property.prodesTotalArea});
+
+      this.prodesTableData = prodesYear;
     });
 
     const gsImage = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_5:view5,terrama2_6:view6&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=250&height=250&cql_filter=id_munic>0;municipio='${this.property.city}';numero_do1='${this.property.register}'&srs=EPSG:4326&format=image/png`;
     const gsImage1 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:view6&styles=&bbox=${this.property.bbox}&width=400&height=400&time=${this.prodesStartYear}/P1Y&cql_filter=numero_do1='${this.property.register}'&srs=EPSG:4326&format=image/png`;
-    const gsImage2 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:view6,terrama2_86:view86&styles=terrama2_6:view6_style,terrama2_86:view86_style&bbox=${this.property.bbox}&width=404&height=431&time=${this.prodesStartYear}/${this.currentYear}&cql_filter=numero_do1='${this.property.register}';de_car_validado_sema_numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`;
+    const gsImage2 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:view6,terrama2_86:view86&styles=terrama2_6:view6_style,terrama2_8:view8_style&bbox=${this.property.bbox}&width=404&height=431&time=${this.prodesStartYear}/${this.currentYear}&cql_filter=numero_do1='${this.property.register}';de_car_validado_sema_numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`;
     const gsImage3 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:MosaicSpot2008_car_validado&styles=&bbox=${this.property.bbox}&width=400&height=400&time=${this.prodesStartYear}/P1Y&cql_filter=numero_do1='${this.property.register}'&srs=EPSG:4326&format=image/png`;
     const gsImage4 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:view6,terrama2_86:view86&styles=&bbox=${this.property.bbox}&width=400&height=400&time=${this.currentYear}/P1Y&cql_filter=numero_do1='${this.property.register}';de_car_validado_sema_numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`;
 
@@ -307,15 +372,23 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                       this.partnerImage7.push(partnerImage7);
                       this.toDataUrl('assets/img/logos/sema.png', partnerImage8 => {
                         this.partnerImage8.push(partnerImage8);
+                        this.toDataUrl('assets/img/report-chart-1.png', chartImage1 => {
+                          this.chartImage1.push(chartImage1);
+                          this.toDataUrl('assets/img/report-chart-2.png', chartImage2 => {
+                            this.chartImage2.push(chartImage2);
+                            this.toDataUrl('assets/img/report-chart-3.png', chartImage3 => {
+                              this.chartImage3.push(chartImage3);
+                                // const images = this.setImageToBase64();
 
-                        // const images = this.setImageToBase64();
+                                // this.chartImage1 = images.image1;
+                                // this.chartImage2 = images.image2;
+                                // this.chartImage3 = images.image3;
 
-                        // this.chartImage1 = images.image1;
-                        // this.chartImage2 = images.image2;
-                        // this.chartImage3 = images.image3;
-
-                        this.getDocumentDefinition();
-                        this.getPdfBase64(this.docDefinition);
+                                this.getDocumentDefinition();
+                                this.getPdfBase64(this.docDefinition);
+                            });
+                          });
+                        });
                       });
                     });
                   });
@@ -532,6 +605,17 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         },
         {
           text: `RELATÓRIO TÉCNICO DE DESMATAMENTO Nº XXXXX/${this.year}`,
+          style: 'title',
+          margin: [30, 0, 30, 20]
+        },
+        {
+          text: `DATA DE EMISSÃO: ${this.currentDate}`,
+          alignment: 'left',
+          style: 'title'
+        },
+        {
+          text: `PERÍODO DE ANÁLISE: ${this.formattedFilterDate}`,
+          alignment: 'left',
           style: 'title',
           margin: [30, 0, 30, 20]
         },
@@ -797,13 +881,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           ]
         },
         {
-          text: '',
-          pageBreak: 'after'
-        },
-        {
-          columns: headerDocument
-        },
-        {
           columns: [
             {
               text: 'j) ',
@@ -818,6 +895,13 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
               style: 'body'
             }
           ]
+        },
+        {
+          text: '',
+          pageBreak: 'after'
+        },
+        {
+          columns: headerDocument
         },
         {
           text: '2.2 Método utilizado',
@@ -943,8 +1027,11 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           style: 'body'
         },
         {
-          image: this.chartImage1,
-          fit: [200, 200],
+          // text: (''),
+          // margin: [30, 0, 30, 250]
+          image: this.chartImage1[0],
+          fit: [250, 250],
+          margin: [10, 10],
           alignment: 'center'
         },
         {
@@ -967,8 +1054,10 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           style: 'body'
         },
         {
-          image: this.chartImage2,
-          fit: [200, 200],
+          // text: (''),
+          // margin: [30, 0, 30, 250]
+          image: this.chartImage2[0],
+          fit: [250, 250],
           alignment: 'center'
         },
         {
@@ -999,8 +1088,11 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           style: 'body'
         },
         {
-          image: this.chartImage3,
-          fit: [200, 200],
+          // text: (''),
+          // margin: [30, 0, 30, 250]
+          image: this.chartImage3[0],
+          fit: [250, 250],
+          margin: [10, 10],
           alignment: 'center'
         },
         {
@@ -1171,13 +1263,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           ]
         },
         {
-          text: '',
-          pageBreak: 'after'
-        },
-        {
-          columns: headerDocument
-        },
-        {
           columns: [
             {
               text: '4) ',
@@ -1223,6 +1308,13 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           ]
         },
         {
+          text: '',
+          pageBreak: 'after'
+        },
+        {
+          columns: headerDocument
+        },
+        {
           text: 'Os dados do INPE constituem fonte de acentuada importância para a ',
           alignment: 'right',
           margin: [30, 0, 30, 0],
@@ -1253,61 +1345,10 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         {
           text: (
             this.property.prodesArea + ' hectares no imóvel rural denominado ' + this.property.name +
-            ' (período de 1988 a ' + this.currentYear + '), conforme dinâmica de desmatamento explicitada ' +
-            'na Figura 2 e no Anexo 2 (relatório do histórico de imagens de satélite e desmatamentos e queimadas ' +
+            ' no período de ' + this.formattedFilterDate + ', conforme desmatamento explicitado ' +
+            'no Quadro 1 (quantificação e descrição das áreas desmatadas que foram identificadas com o cruzamento dos dados descritos no histórico desse relatório) ' +
+            'e no Anexo 2 (relatório do histórico de imagens de satélite e desmatamentos e queimadas ' +
             'no imóvel rural). O proprietário/posseiro do imóvel rural foi identificado com base nos dados do SIMCAR / INCRA.'
-          ),
-          margin: [30, 0, 30, 15],
-          style: 'body'
-        },
-        {
-          text: '',
-          pageBreak: 'after'
-        },
-        {
-          columns: headerDocument
-        },
-        {
-          columns: [
-            {
-              image: this.geoserverLegend,
-              fit: [200, 200],
-              margin: [0, 10],
-              alignment: 'center'
-            },
-            {
-              image: this.geoserverImage3,
-              fit: [200, 200],
-              margin: [0, 10],
-              alignment: 'center'
-            }
-          ]
-        },
-        {
-          text: [
-            {
-              text: 'Figura 2. ',
-              bold: true
-            },
-            {
-              text: 'Dinâmica de desmatamento - ' + this.prodesStartYear + '/' + this.currentYear,
-              bold: false
-            }
-          ],
-          margin: [30, 0, 30, 0],
-          alignment: 'center',
-          fontSize: 10,
-          style: 'body'
-        },
-        {
-          text: 'No Quadro 1 abaixo, consta a quantificação e descrição das áreas ',
-          alignment: 'right',
-          margin: [30, 0, 30, 0],
-          style: 'body'
-        },
-        {
-          text: (
-            ' desmatadas e queimadas que foram identificadas com o cruzamento dos dados descritos no histórico desse relatório.'
           ),
           margin: [30, 0, 30, 15],
           style: 'body'
@@ -1316,21 +1357,21 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           text: [
             {
               text: 'Quadro 1 ',
-              alignment: 'right',
               margin: [30, 0, 30, 0],
-              bold: true
+              bold: true,
+              alignment: 'right'
             },
             {
-              text: `- Classes e quantitativos de áreas desmatadas e queimadas no imóvel rural`,
-              alignment: 'right',
+              text: `- Classes e quantitativos de áreas desmatadas e queimadas no imóvel`,
               margin: [30, 0, 30, 0],
-              bold: false
+              bold: false,
+              alignment: 'right'
             }
           ],
           fontSize: 10
         },
         {
-          text: ' denominado ' + this.property.name + '.',
+          text: ' rural denominado ' + this.property.name + ' a  partir da análise do PRODES, no período ' + this.formattedFilterDate + '.',
           margin: [30, 0, 30, 15],
           style: 'body'
         },
@@ -1361,6 +1402,76 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           fontSize: 12
         },
         {
+          text: '',
+          pageBreak: 'after'
+        },
+        {
+          columns: headerDocument
+        },
+        {
+          text: 'A Figura 5 apresenta a dinâmica de desmatamento em todos os anos do PRODES disponível da base do INPE.',
+          margin: [30, 0, 30, 15],
+          style: 'body'
+        },
+        {
+          columns: [
+            {
+              image: this.geoserverLegend,
+              fit: [200, 200],
+              margin: [0, 10],
+              alignment: 'center'
+            },
+            {
+              image: this.geoserverImage3,
+              fit: [200, 200],
+              margin: [0, 10],
+              alignment: 'center'
+            }
+          ]
+        },
+        {
+          text: [
+            {
+              text: 'Figura 5. ',
+              bold: true
+            },
+            {
+              text: 'Dinâmica de desmatamento - ' + this.prodesStartYear + '/' + this.currentYear,
+              bold: false
+            }
+          ],
+          margin: [30, 0, 30, 0],
+          alignment: 'center',
+          fontSize: 10,
+          style: 'body'
+        },
+        {
+          style: 'tableStyle',
+          table: {
+            widths: [ '*', '*' ],
+            headerRows: 1,
+            body: [
+              [
+                {
+                  text: 'Ano',
+                  style: 'tableHeader'
+                },
+                {
+                  text: 'Área (ha)',
+                  style: 'tableHeader'
+                }
+              ],
+              ...this.prodesTableData.map(rel => {
+                return [
+                        rel.date,
+                        rel.area
+                ];
+              })
+            ]
+          },
+          fontSize: 12
+        },
+        {
           text: 'Anota-se que os dados acima indicados indicam extreme de dúvidas, com grau ',
           alignment: 'right',
           margin: [30, 0, 30, 0],
@@ -1374,13 +1485,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           ),
           margin: [30, 0, 30, 15],
           style: 'body'
-        },
-        {
-          text: '',
-          pageBreak: 'after'
-        },
-        {
-          columns: headerDocument
         },
         {
           text: [
@@ -1405,6 +1509,13 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
             },
           ],
           margin: [30, 0, 30, 0]
+        },
+        {
+          text: '',
+          pageBreak: 'after'
+        },
+        {
+          columns: headerDocument
         },
         {
           columns: [
@@ -1506,13 +1617,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           margin: [30, 0, 30, 0],
         },
         {
-          text: '',
-          pageBreak: 'after'
-        },
-        {
-          columns: headerDocument
-        },
-        {
           text: '6 VALIDAÇÃO',
           margin: [30, 20, 30, 0],
           style: 'listItem'
@@ -1522,6 +1626,13 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           margin: [30, 0, 30, 100],
           alignment: 'center',
           style: 'body'
+        },
+        {
+          text: '',
+          pageBreak: 'after'
+        },
+        {
+          columns: headerDocument
         },
         {
           text: 'Relatório técnico produzido em parceria com: ',
@@ -2167,21 +2278,21 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           text: [
             {
               text: 'Quadro 1 ',
-              alignment: 'right',
               margin: [30, 0, 30, 0],
-              bold: true
+              bold: true,
             },
             {
-              text: `- Classes e quantitativos de áreas desmatadas e queimadas no imóvel rural`,
-              alignment: 'right',
+              text: `- Classes e quantitativos de áreas desmatadas e queimadas no imóvel`,
               margin: [30, 0, 30, 0],
               bold: false
             }
           ],
+          alignment: 'right',
+          style: 'body',
           fontSize: 10
         },
         {
-          text: ' denominado ' + this.property.name + '.',
+          text: ' rural denominado ' + this.property.name + '.',
           margin: [30, 0, 30, 15],
           style: 'body'
         },
@@ -2891,17 +3002,17 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           text: [
             {
               text: 'Quadro 1 ',
-              alignment: 'right',
               margin: [30, 0, 30, 0],
               bold: true
             },
             {
               text: `- Classes e quantitativos de áreas desmatadas e queimadas no imóvel rural`,
-              alignment: 'right',
               margin: [30, 0, 30, 0],
               bold: false
             }
           ],
+          alignment: 'right',
+          style: 'body',
           fontSize: 10
         },
         {
