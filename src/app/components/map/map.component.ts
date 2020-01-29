@@ -715,7 +715,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setLegendControlEvent() {
-    L.DomEvent.on(L.DomUtil.get('legendBtn'), 'dblclick', L.DomEvent.stopPropagation);
+    L.DomEvent.on(L.DomUtil.get('legendBtn'), 'click dblclick', L.DomEvent.stopPropagation);
     document.querySelector('#legendBtn').addEventListener('click', () => this.displayLegend = !this.displayLegend);
   }
 
@@ -737,7 +737,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setTableControlEvent() {
-    L.DomEvent.on(L.DomUtil.get('tableBtn'), 'dblclick', L.DomEvent.stopPropagation);
+    L.DomEvent.on(L.DomUtil.get('tableBtn'), 'click dblclick', L.DomEvent.stopPropagation);
     document.querySelector('#tableBtn').addEventListener('click', () => {
       this.displayTable = true;
       this.clearReportTable();
@@ -769,7 +769,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setReportTableControlEvent() {
-    L.DomEvent.on(L.DomUtil.get('reportTableBtn'), 'dblclick', L.DomEvent.stopPropagation);
+    L.DomEvent.on(L.DomUtil.get('reportTableBtn'), 'click dblclick', L.DomEvent.stopPropagation);
     document.querySelector('#reportTableBtn').addEventListener('click', () => {
       this.tableService.clearTable.next();
       this.displayTable = true;
@@ -1009,7 +1009,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   setRestoreMapControlEvent() {
     const initialLatLong = this.mapConfig.initialLatLong;
     const initialZoom = this.mapConfig.initialZoom;
-    L.DomEvent.on(L.DomUtil.get('restoreMapBtn'), 'dblclick', L.DomEvent.stopPropagation);
+    L.DomEvent.on(L.DomUtil.get('restoreMapBtn'), 'click dblclick', L.DomEvent.stopPropagation);
     document.querySelector('#restoreMapBtn')
             .addEventListener('click', () => this.panMap(initialLatLong, initialZoom));
   }

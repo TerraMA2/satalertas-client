@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef, AfterViewInit} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, ViewEncapsulation, ViewChild, AfterViewInit} from '@angular/core';
 
-import { HTTPService } from 'src/app/services/http.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ConfigService } from 'src/app/services/config.service';
 
@@ -21,7 +20,9 @@ import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 import { FinalReportService } from '../../services/final-report.service';
+
 import { AuthService } from 'src/app/services/auth.service';
+
 import { MessageService } from 'primeng/api';
 
 
@@ -96,7 +97,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private hTTPService: HTTPService,
     private configService: ConfigService,
     private sidebarService: SidebarService,
     private reportService: ReportService,
@@ -384,8 +384,8 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                                 // this.chartImage2 = images.image2;
                                 // this.chartImage3 = images.image3;
 
-                                this.getDocumentDefinition();
-                                this.getPdfBase64(this.docDefinition);
+                              this.getDocumentDefinition();
+                              this.getPdfBase64(this.docDefinition);
                             });
                           });
                         });
@@ -447,13 +447,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
   getHeaderDocument() {
     return [
-      {
-        image: this.headerImage1,
-        width: 180,
-        height: 50,
-        alignment: 'left',
-        margin: [30, 25, 0, 30]
-      },
+      this.getImageObject(this.headerImage1, [180, 50], [30, 25, 0, 20], 'left'),
       {
         text: [
           {
@@ -467,16 +461,27 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         ],
         fontSize: 8,
         alignment: 'left',
-        margin: [30, 30, 0, 5]
+        margin: [0, 30, 0, 5],
       },
-      {
-        image: this.headerImage2,
-        width: 60,
-        height: 50,
-        alignment: 'right',
-        margin: [0, 15, 10, 20]
-      }
+      this.getImageObject(this.headerImage2, [60, 50], [0, 25, 40, 20], 'right'),
     ];
+  }
+
+  getLine() {
+    return {
+      canvas: [
+        {
+          type: 'line',
+          x1: 30,
+          y1: 0,
+          x2: 500,
+          y2: 0,
+          lineWidth: 1,
+          lineColor: '#9f3a3a'
+        }
+      ],
+      margin: [0, 10, 0, 20]
+    };
   }
 
   generatePdf(action = 'open') {
@@ -543,6 +548,23 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     }
   }
 
+  getImageObject(image, fit, margin, alignment) {
+    if (image && image[0] && !image[0].includes('vnd.ogc.sld+xml')) {
+      return {
+        image,
+        fit,
+        margin,
+        alignment
+      };
+    } else {
+      return {
+        text: 'Imagem não encontrada.',
+        alignment: 'center',
+        margin: [30, 100, 30, 0]
+      };
+    }
+  }
+
   getPRODESDocumentDefinition() {
     const headerDocument = this.getHeaderDocument();
 
@@ -571,6 +593,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         {
           columns: headerDocument
         },
+        // this.getLine(),
         {
           text: [
             {
@@ -652,18 +675,8 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         },
         {
           columns: [
-            {
-              image: this.geoserverImage1,
-              fit: [200, 200],
-              margin: [0, 10],
-              alignment: 'center'
-            },
-            {
-              image: this.geoserverImage2,
-              fit: [200, 200],
-              margin: [0, 10],
-              alignment: 'center'
-            }
+            this.getImageObject(this.geoserverImage1, [200, 200], [0, 10], 'center'),
+            this.getImageObject(this.geoserverImage2, [200, 200], [0, 10], 'center')
           ]
         },
         {
@@ -707,6 +720,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         {
           columns: headerDocument
         },
+        // this.getLine(),
         {
           text: '2.1 Dados utilizados',
           style: 'listItem'
@@ -903,6 +917,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         {
           columns: headerDocument
         },
+        // this.getLine(),
         {
           text: '2.2 Método utilizado',
           style: 'listItem'
@@ -1004,6 +1019,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         {
           columns: headerDocument
         },
+        // this.getLine(),
         {
           text: 'De acordo com o Sistema de Análise Temporal da Vegetação ',
           alignment: 'right',
@@ -1026,14 +1042,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           margin: [30, 0, 30, 5],
           style: 'body'
         },
-        {
-          // text: (''),
-          // margin: [30, 0, 30, 250]
-          image: this.chartImage1[0],
-          fit: [250, 250],
-          margin: [10, 10],
-          alignment: 'center'
-        },
+        this.getImageObject(this.chartImage1, [250, 250], [10, 10], 'center'),
         {
           text: [
             {
@@ -1053,13 +1062,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           fontSize: 10,
           style: 'body'
         },
-        {
-          // text: (''),
-          // margin: [30, 0, 30, 250]
-          image: this.chartImage2[0],
-          fit: [250, 250],
-          alignment: 'center'
-        },
+        this.getImageObject(this.chartImage2, [250, 250], [0, 0], 'center'),
         {
           text: '',
           pageBreak: 'after'
@@ -1067,6 +1070,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         {
           columns: headerDocument
         },
+        // this.getLine(),
         {
           text: [
             {
@@ -1087,14 +1091,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           fontSize: 10,
           style: 'body'
         },
-        {
-          // text: (''),
-          // margin: [30, 0, 30, 250]
-          image: this.chartImage3[0],
-          fit: [250, 250],
-          margin: [10, 10],
-          alignment: 'center'
-        },
+        this.getImageObject(this.chartImage1, [250, 250], [10, 10], 'center'),
         {
           text: [
             {
@@ -1164,6 +1161,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         {
           columns: headerDocument
         },
+        // this.getLine(),
         {
           text: 'O PRODES utiliza imagens de satélite geradas pela série Landsat da ',
           alignment: 'right',
@@ -1314,6 +1312,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         {
           columns: headerDocument
         },
+        // this.getLine(),
         {
           text: 'Os dados do INPE constituem fonte de acentuada importância para a ',
           alignment: 'right',
@@ -1357,18 +1356,17 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           text: [
             {
               text: 'Quadro 1 ',
-              margin: [30, 0, 30, 0],
-              bold: true,
-              alignment: 'right'
+              bold: true
             },
             {
               text: `- Classes e quantitativos de áreas desmatadas e queimadas no imóvel`,
-              margin: [30, 0, 30, 0],
-              bold: false,
-              alignment: 'right'
+              bold: false
             }
           ],
-          fontSize: 10
+          margin: [30, 0, 30, 0],
+          alignment: 'right',
+          fontSize: 10,
+          style: 'body'
         },
         {
           text: ' rural denominado ' + this.property.name + ' a  partir da análise do PRODES, no período ' + this.formattedFilterDate + '.',
@@ -1408,6 +1406,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         {
           columns: headerDocument
         },
+        // this.getLine(),
         {
           text: 'A Figura 5 apresenta a dinâmica de desmatamento em todos os anos do PRODES disponível da base do INPE.',
           margin: [30, 0, 30, 15],
@@ -1415,18 +1414,8 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         },
         {
           columns: [
-            {
-              image: this.geoserverLegend,
-              fit: [200, 200],
-              margin: [0, 10],
-              alignment: 'center'
-            },
-            {
-              image: this.geoserverImage3,
-              fit: [200, 200],
-              margin: [0, 10],
-              alignment: 'center'
-            }
+            this.getImageObject(this.geoserverLegend, [200, 200], [0, 10], 'center'),
+            this.getImageObject(this.geoserverImage3, [200, 200], [0, 10], 'center')
           ]
         },
         {
@@ -1517,18 +1506,11 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         {
           columns: headerDocument
         },
+        // this.getLine(),
         {
           columns: [
-            {
-              image: this.geoserverImage4,
-              fit: [200, 200],
-              alignment: 'center'
-            },
-            {
-              image: this.geoserverImage5,
-              fit: [200, 200],
-              alignment: 'center'
-            }
+            this.getImageObject(this.geoserverImage4, [200, 200], [], 'center'),
+            this.getImageObject(this.geoserverImage5, [200, 200], [], 'center')
           ]
         },
         {
@@ -1634,69 +1616,30 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         {
           columns: headerDocument
         },
+        // this.getLine(),
         {
           text: 'Relatório técnico produzido em parceria com: ',
-          margin: [30, 0, 30, 15],
+          margin: [30, 20, 30, 15],
           style: 'body'
         },
         {
           columns: [
-            {
-              image: this.partnerImage1,
-              fit: [180, 50],
-              alignment: 'left',
-              margin: [30, 0, 0, 0]
-            },
-            {
-              image: this.partnerImage2,
-              fit: [100, 50],
-              alignment: 'center',
-              margin: [0, 0, 0, 0]
-            },
-            {
-              image: this.partnerImage3,
-              fit: [80, 50],
-              alignment: 'right',
-              margin: [0, 0, 40, 0]
-            }
+            this.getImageObject(this.partnerImage1, [180, 50], [30, 0, 0, 0], 'left'),
+            this.getImageObject(this.partnerImage2, [100, 50], [30, 0, 0, 0], 'center'),
+            this.getImageObject(this.partnerImage3, [80, 50], [30, 0, 0, 0], 'right')
           ]
         },
         {
           columns: [
-            {
-              image: this.partnerImage4,
-              fit: [130, 60],
-              alignment: 'left',
-              margin: [80, 30, 0, 0]
-            },
-            {
-              image: this.partnerImage5,
-              fit: [100, 60],
-              alignment: 'center',
-              margin: [95, 30, 0, 0]
-            },
-            {
-              image: this.partnerImage6,
-              fit: [100, 60],
-              alignment: 'right',
-              margin: [0, 30, 30, 0]
-            }
+            this.getImageObject(this.partnerImage4, [130, 60], [80, 30, 0, 0], 'left'),
+            this.getImageObject(this.partnerImage5, [100, 60], [95, 30, 0, 0], 'center'),
+            this.getImageObject(this.partnerImage6, [100, 60], [0, 30, 30, 0], 'right')
           ],
         },
         {
           columns: [
-            {
-              image: this.partnerImage7,
-              fit: [100, 60],
-              alignment: 'left',
-              margin: [80, 30, 0, 0]
-            },
-            {
-              image: this.partnerImage8,
-              fit: [100, 60],
-              alignment: 'left',
-              margin: [10, 25, 25, 0]
-            }
+            this.getImageObject(this.partnerImage7, [100, 60], [80, 30, 0, 0], 'left'),
+            this.getImageObject(this.partnerImage8, [100, 60], [10, 25, 25, 0], 'left')
           ]
         }
       ],
