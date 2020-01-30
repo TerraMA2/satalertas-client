@@ -7,8 +7,10 @@ export class LayerGroup {
     public parent: boolean,
     public isPrivate: boolean,
     public icon?: string,
-    public viewGraph?: boolean,
+    // tslint:disable-next-line:variable-name
+    public view_graph?: boolean,
     public activeArea?: boolean,
-    public children?: Layer[]
+    public children?: Layer[],
+    public tableOwner?: string
   ) {}
 }

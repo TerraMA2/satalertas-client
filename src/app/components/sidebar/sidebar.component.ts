@@ -69,7 +69,7 @@ export class SidebarComponent implements OnInit {
 
   setSidebarLayers() {
     this.sidebarLayers = this.sidebarConfig.sidebarLayers;
-    this.configService.getSidebarConfigDynamic().then((layers: Response) => {
+    this.configService.getSidebarConfigurationDynamically().then((layers: Response) => {
       this.sidebarLayers = layers.data;
       this.sidebarLayerGroups = [];
       this.sidebarLayers.forEach(sidebarLayer => {
@@ -114,7 +114,7 @@ export class SidebarComponent implements OnInit {
           sidebarLayer.parent,
           sidebarLayer.isPrivate,
           sidebarLayer.icon,
-          sidebarLayer.viewGraph,
+          sidebarLayer.view_graph,
           sidebarLayer.activeArea,
           layerChildren
         );

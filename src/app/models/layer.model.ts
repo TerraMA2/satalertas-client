@@ -30,6 +30,8 @@ export class Layer {
     public isHidden?: boolean,
     public isDisabled?: boolean,
     public tools?: Tool[],
-    public markerSelected?: boolean
+    public markerSelected?: boolean,
+    public tableOwner?: string,
+    public tableName?: string
   ) {}
 }

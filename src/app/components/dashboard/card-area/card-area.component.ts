@@ -55,10 +55,10 @@ export class CardAreaComponent implements OnInit {
   }
 
   isFocus(codgroup) {
-    return codgroup === 'FOCOS';
+    return codgroup === 'BURNED';
   }
 
   isBurnedArea(codgroup) {
-    return codgroup === 'AREA_QUEIMADA';
+    return codgroup === 'BURNED_AREA';
   }
 }

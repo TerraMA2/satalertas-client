@@ -149,8 +149,8 @@ export class TableComponent implements OnInit {
       ( (layer.codgroup === 'PRODES') ||
         (layer.codgroup === 'CAR'));
     this.showBurn =
-      ( (layer.codgroup === 'AREA_QUEIMADA') ||
-        (layer.codgroup === 'FOCOS') ||
+      ( (layer.codgroup === 'BURNED_AREA') ||
+        (layer.codgroup === 'BURNED') ||
         (layer.codgroup === 'CAR'));
     const params = {view, limit, offset, countTotal};
 

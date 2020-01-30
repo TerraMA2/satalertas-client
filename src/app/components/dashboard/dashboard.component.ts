@@ -17,6 +17,7 @@ import {ParamAlert} from '../../models/param-alert.model';
 import { SidebarService } from 'src/app/services/sidebar.service';
 
 import { LayerType } from 'src/app/enum/layer-type.enum';
+import {Response} from '../../models/response.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -37,12 +38,14 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.sidebarLayers = this.configService.getSidebarConfig('sidebarLayers');
+    this.configService.getSidebarConfigurationDynamically().then((sidebarLayers: Response) => {
+      this.sidebarLayers = sidebarLayers.data;
 
-    this.sidebarService.sidebarLayerShowHide.next(false);
+      this.sidebarService.sidebarLayerShowHide.next(false);
 
-    this.setOverlayEvents();
-    this.getGraphicLayers();
+      this.setOverlayEvents();
+      this.getGraphicLayers();
+    });
   }
 
   setOverlayEvents() {
@@ -56,7 +59,7 @@ export class DashboardComponent implements OnInit {
     const listAlerts: Alert[] = [];
 
     this.sidebarLayers.forEach((group: LayerGroup) => {
-      if (group.viewGraph) {
+      if (group.view_graph) {
         listAlerts.push(this.getidviewAlert(group));
       }
     });
@@ -106,12 +109,15 @@ export class DashboardComponent implements OnInit {
       false,
       [],
       true,
-      true);
+      true,
+      group.tableOwner);
 
     group.children.forEach( (view: Layer) => {
       if (view.isPrimary && view.type === LayerType.ANALYSIS) {
         alert.cod = view.cod;
         alert.idview = view.value;
+        alert.tableOwner = view.tableOwner;
+        alert.tableName = view.tableName;
       }
     });
 
@@ -127,8 +133,8 @@ export class DashboardComponent implements OnInit {
       this.alertGraphics = alertsGraphics;
 
       this.alertGraphics.forEach(graphic => {
-        graphic.graphics[0].data.datasets[0].label =  graphic.codGroup === 'FOCOS' ? 'Quantidade de alertas de focos por CAR' : 'Área (ha) de alertas por CAR';
-        graphic.graphics[1].data.datasets[0].label =  graphic.codGroup === 'FOCOS' ? 'Quantidade de alertas de focos por Bioma' : 'Área (ha) de alertas por classe';
+        graphic.graphics[0].data.datasets[0].label =  graphic.codGroup === 'BURNED' ? 'Quantidade de alertas de focos por CAR' : 'Área (ha) de alertas por CAR';
+        graphic.graphics[1].data.datasets[0].label =  graphic.codGroup === 'BURNED' ? 'Quantidade de alertas de focos por Bioma' : 'Área (ha) de alertas por classe';
 
         graphic.graphics[0].data.datasets[0].backgroundColor =  '#591111';
         graphic.graphics[1].data.datasets[0].backgroundColor =  '#591111';
@@ -156,8 +162,8 @@ export class DashboardComponent implements OnInit {
 
 
       this.alertGraphics.forEach(graphic => {
-        graphic.graphics[0].data.datasets[0].label =  graphic.codGroup === 'FOCOS' ? 'Quantidade de alertas de focos por CAR' : 'Quantidade de alertas por CAR';
-        graphic.graphics[1].data.datasets[0].label =  graphic.codGroup === 'FOCOS' ? 'Quantidade de alertas de focos por Bioma' : 'Quantidade de alertas por classe';
+        graphic.graphics[0].data.datasets[0].label =  graphic.codGroup === 'BURNED' ? 'Quantidade de alertas de focos por CAR' : 'Quantidade de alertas por CAR';
+        graphic.graphics[1].data.datasets[0].label =  graphic.codGroup === 'BURNED' ? 'Quantidade de alertas de focos por Bioma' : 'Quantidade de alertas por classe';
 
         graphic.graphics[0].data.datasets[0].backgroundColor =  '#591111';
         graphic.graphics[1].data.datasets[0].backgroundColor =  '#591111';
@@ -220,7 +226,10 @@ export class DashboardComponent implements OnInit {
         layer.label,
         true,
         layer.isPrimary,
-        layer.type === LayerType.ANALYSIS));
+        layer.type === LayerType.ANALYSIS,
+        layer.tableOwner,
+        layer.tableName)
+      );
     });
 
     return listAlert;

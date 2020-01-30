@@ -63,9 +63,9 @@ export class ConfigService {
     return reportConfig;
   }
 
-  async getSidebarConfigDynamic() {
+  async getSidebarConfigurationDynamically() {
     const parameters = { };
-    const url = `${URL_REPORT_SERVER}/view/getByAnalysiName`;
+    const url = `${URL_REPORT_SERVER}/view/getSidebarConfigDynamic`;
 
     return await this.http.get(url, { params: parameters }).toPromise();
   }

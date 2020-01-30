@@ -128,10 +128,6 @@
             "show": false,
             "alias": "a_cardeter_usoant_51_id"
         },
-        "a_cardeter_usocon_54_id": {
-            "show": false,
-            "alias": "a_cardeter_usocon_54_id"
-        },
         "a_cardeter_usocon_55_id": {
             "show": false,
             "alias": "a_cardeter_usocon_55_id"
@@ -2897,7 +2893,7 @@
         "cod": "DETER",
         "label": "Análise DETER",
         "parent": true,
-        "viewGraph": true,
+        "view_graph": true,
         "activearea": true,
         "isPrivate": true,
         "children": [
@@ -3844,7 +3840,7 @@
         "cod": "PRODES",
         "label": "Análise PRODES",
         "parent": true,
-        "viewGraph": true,
+        "view_graph": true,
         "activearea": false,
         "isPrivate": true,
         "children": [
@@ -4792,7 +4788,7 @@
         "cod": "FOCOS",
         "label": "Análise FOCOS",
         "parent": true,
-        "viewGraph": true,
+        "view_graph": true,
         "activearea": false,
         "isPrivate": true,
         "children": [
@@ -5742,7 +5738,7 @@
         "cod": "AREA_QUEIMADA",
         "label": "Análise área queimada",
         "parent": true,
-        "viewGraph": true,
+        "view_graph": true,
         "activearea": false,
         "isPrivate": true,
         "children": [
@@ -6699,7 +6695,7 @@
       {
         "label": "Dados estáticos",
         "parent": true,
-        "viewGraph": false,
+        "view_graph": false,
         "activearea": false,
         "isPrivate": false,
         "children" : [
@@ -7226,7 +7222,7 @@
       {
         "label": "Dados dinâmicos",
         "parent": true,
-        "viewGraph": false,
+        "view_graph": false,
         "activearea": false,
         "isPrivate": false,
         "children" : [
