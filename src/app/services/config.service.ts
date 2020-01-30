@@ -1,13 +1,20 @@
 import { Injectable } from '@angular/core';
 
 import ConfigJson from '../../assets/config.json';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../environments/environment';
+
+const URL_REPORT_SERVER = environment.reportServerUrl;
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConfigService {
 
-  constructor() {}
+
+  constructor(
+    private http: HttpClient
+  ) {}
 
   getConfig(name) {
     if (name) {
@@ -56,4 +63,10 @@ export class ConfigService {
     return reportConfig;
   }
 
+  async getSidebarConfigDynamic() {
+    const parameters = { };
+    const url = `${URL_REPORT_SERVER}/view/getByAnalysiName`;
+
+    return await this.http.get(url, { params: parameters }).toPromise();
+  }
 }
