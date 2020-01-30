@@ -133,10 +133,10 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
     this.tableColumns = [
       { field: 'affectedArea', header: 'Área atingida' },
-      { field: 'recentDeforestation', header: 'Desmatamento recente (DETER – ha ano-1)' },
-      { field: 'pastDeforestation', header: 'Desmatamento pretérito (PRODES – ha ano-1)' },
+      { field: 'recentDeforestation', header: 'Desmatamento recente (em ha)' },
+      { field: 'pastDeforestation', header: 'Desmatamento pretérito (em ha)' },
       { field: 'burnlights', header: 'Focos de Queimadas (Num. de focos)' },
-      { field: 'burnAreas', header: 'Áreas Queimadas (ha ano-1)' }
+      { field: 'burnAreas', header: 'Áreas Queimadas (em ha)' }
     ];
 
     this.prodesHistoryTableColumns = [
@@ -269,57 +269,99 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
       const app = reportData.prodesApp;
       const legalReserve = reportData.prodesLegalReserve;
+      const restrictedUse = reportData.prodesRestrictedUse;
       const conservationUnit = reportData.prodesConservationUnit;
       const indigenousLand = reportData.prodesIndigenousLand;
       const consolidatedUse = reportData.prodesConsolidatedUse;
-      // const exploration = reportData['exploration'];
+      const exploration = reportData.prodesExploration;
       const deforestation = reportData.prodesDeforestation;
       const embargoedArea = reportData.prodesEmbargoedArea;
       const landArea = reportData.prodesLandArea;
+      const burnAuthorization = reportData.prodesBurnAuthorization;
+      const radamClasses = reportData.prodesRadam;
+
+      let radamProdes = 0;
+      let radamText = '';
+      for (const radam of radamClasses) {
+        const area = radam['area'];
+        const cls = radam['class'];
+        if (cls !== null) {
+          radamText += `
+              ${cls}: ${area}
+          `;
+          radamProdes += area;
+        }
+      }
+
 
       const totalRecentDeforestation = app['recentDeforestation'] +
                                       legalReserve['recentDeforestation'] +
                                       conservationUnit['recentDeforestation'] +
                                       indigenousLand['recentDeforestation'] +
                                       consolidatedUse['recentDeforestation'] +
+                                      exploration['recentDeforestation'] +
                                       deforestation['recentDeforestation'] +
                                       embargoedArea['recentDeforestation'] +
-                                      landArea['recentDeforestation'];
+                                      restrictedUse['recentDeforestation'] +
+                                      landArea['recentDeforestation'] +
+                                      burnAuthorization['recentDeforestation'];
 
       const totalPastDeforestation = app['pastDeforestation'] +
                                     legalReserve['pastDeforestation'] +
                                     conservationUnit['pastDeforestation'] +
                                     indigenousLand['pastDeforestation'] +
                                     consolidatedUse['pastDeforestation'] +
+                                    exploration['pastDeforestation'] +
                                     deforestation['pastDeforestation'] +
                                     embargoedArea['pastDeforestation'] +
-                                    landArea['pastDeforestation'];
+                                    restrictedUse['pastDeforestation'] +
+                                    landArea['pastDeforestation'] +
+                                    burnAuthorization['pastDeforestation'] +
+                                    radamProdes;
+
       const totalBurnlights = app['burnlights'] +
                               legalReserve['burnlights'] +
                               conservationUnit['burnlights'] +
                               indigenousLand['burnlights'] +
                               consolidatedUse['burnlights'] +
+                              exploration['burnlights'] +
                               deforestation['burnlights'] +
                               embargoedArea['burnlights'] +
-                              landArea['burnlights'];
+                              restrictedUse['burnlights'] +
+                              landArea['burnlights'] +
+                              burnAuthorization['burnlights'];
+
       const totalBurnAreas = app['burnAreas'] +
                             legalReserve['burnAreas'] +
                             conservationUnit['burnAreas'] +
                             indigenousLand['burnAreas'] +
                             consolidatedUse['burnAreas'] +
+                            exploration['burnAreas'] +
                             deforestation['burnAreas'] +
                             embargoedArea['burnAreas'] +
-                            landArea['burnAreas'];
+                            restrictedUse['burnAreas'] +
+                            landArea['burnAreas'] +
+                            burnAuthorization['burnAreas'];
+
       const propertyDeforestation = [
         app,
         legalReserve,
         conservationUnit,
         indigenousLand,
         consolidatedUse,
-        // exploration,
+        exploration,
         deforestation,
         embargoedArea,
+        restrictedUse,
         landArea,
+        burnAuthorization,
+        {
+          affectedArea: 'Vegetação RADAM BR',
+          recentDeforestation: 0,
+          pastDeforestation: radamText,
+          burnlights: 0,
+          burnAreas: 0
+        },
         {
           affectedArea: 'Total',
           recentDeforestation: totalRecentDeforestation,
@@ -1353,6 +1395,13 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           style: 'body'
         },
         {
+          text: '',
+          pageBreak: 'after'
+        },
+        {
+          columns: headerDocument
+        },
+        {
           text: [
             {
               text: 'Quadro 1 ',
@@ -1385,7 +1434,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                   style: 'tableHeader'
                 },
                 {
-                  text: 'Desmatamento pretérito\n(PRODES - ha ano-1)',
+                  text: 'Desmatamento pretérito\n(em ha)',
                   style: 'tableHeader'
                 }
               ],
@@ -1398,13 +1447,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
             ]
           },
           fontSize: 12
-        },
-        {
-          text: '',
-          pageBreak: 'after'
-        },
-        {
-          columns: headerDocument
         },
         // this.getLine(),
         {
@@ -1499,13 +1541,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           ],
           margin: [30, 0, 30, 0]
         },
-        {
-          text: '',
-          pageBreak: 'after'
-        },
-        {
-          columns: headerDocument
-        },
         // this.getLine(),
         {
           columns: [
@@ -1542,6 +1577,13 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           text: 'Técnico, conforme descrito no Quadro 01 (vide item 3. Análise Técnica).',
           margin: [30, 0, 30, 15],
           style: 'body'
+        },
+        {
+          text: '',
+          pageBreak: 'after'
+        },
+        {
+          columns: headerDocument
         },
         {
           text: '5 ANEXOS',
@@ -1609,13 +1651,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           alignment: 'center',
           style: 'body'
         },
-        {
-          text: '',
-          pageBreak: 'after'
-        },
-        {
-          columns: headerDocument
-        },
         // this.getLine(),
         {
           text: 'Relatório técnico produzido em parceria com: ',
@@ -1626,7 +1661,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           columns: [
             this.getImageObject(this.partnerImage1, [180, 50], [30, 0, 0, 0], 'left'),
             this.getImageObject(this.partnerImage2, [100, 50], [30, 0, 0, 0], 'center'),
-            this.getImageObject(this.partnerImage3, [80, 50], [30, 0, 0, 0], 'right')
+            this.getImageObject(this.partnerImage3, [80, 50], [30, 0, 25, 0], 'right')
           ]
         },
         {
