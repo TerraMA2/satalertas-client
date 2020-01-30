@@ -325,6 +325,15 @@ export class TableComponent implements OnInit {
     }
   }
 
+  onHeaderCheckboxToggle(event) {
+    const checked = event.checked;
+    if (checked && this.isExportDisabled) {
+      this.isExportDisabled = false;
+    } else if (!checked) {
+      this.isExportDisabled = true;
+    }
+  }
+
   base64toBlob(content, contentType) {
     contentType = contentType || '';
 
