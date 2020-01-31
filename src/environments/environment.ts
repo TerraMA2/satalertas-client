@@ -5,7 +5,6 @@
 export const environment = {
   production: false,
   terramaUrl: 'http://localhost:36000',
-  // reportServerUrl: 'http://www.terrama2.dpi.inpe.br/mpmt/alertaServer'
   reportServerUrl: 'http://localhost:3200'
 };
 
