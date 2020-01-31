@@ -7,6 +7,8 @@ export class ParamAlert {
     public label: string,
     public activearea?: boolean,
     public isPrimary?: boolean,
-    public isAnalysis?: boolean
+    public isAnalysis?: boolean,
+    public tableOwner?: string,
+    public tableName?: string
   ) {}
 }

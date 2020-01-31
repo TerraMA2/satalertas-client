@@ -13,6 +13,8 @@ export class Alert {
     public immobileactive?: boolean,
     public alertsgraphics?: ParamAlert[],
     public isAnalysis?: boolean,
-    public isPrimary?: boolean
+    public isPrimary?: boolean,
+    public tableOwner?: string,
+    public tableName?: string
   ) {}
 }

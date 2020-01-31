@@ -522,11 +522,11 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
           cqlFilter += ` calculated_area_ha ${values.columnValue} `;
         }
 
-        if ((analyze.type && analyze.type === 'burned') && (layer.codgroup === 'FOCOS')) {
+        if ((analyze.type && analyze.type === 'burned') && (layer.codgroup === 'BURNED')) {
           layer.layerData.viewparams = `min:${values.min};max:${values.max}`;
         }
 
-        if ((analyze.type && analyze.type === 'burned_area') && (layer.codgroup === 'AREA_QUEIMADA')) {
+        if ((analyze.type && analyze.type === 'burned_area') && (layer.codgroup === 'BURNED_AREA')) {
           cqlFilter += cqlFilter ? ' and ' : '';
           cqlFilter += ` calculated_area_ha ${values.columnValue} `;
         }

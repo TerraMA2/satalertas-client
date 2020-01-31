@@ -13,6 +13,7 @@ import { MapService } from 'src/app/services/map.service';
 import { SidebarItem } from 'src/app/models/sidebar-item.model';
 
 import { HTTPService } from 'src/app/services/http.service';
+import {Response} from '../../models/response.model';
 
 @Component({
   selector: 'app-sidebar',
@@ -68,58 +69,58 @@ export class SidebarComponent implements OnInit {
 
   setSidebarLayers() {
     this.sidebarLayers = this.sidebarConfig.sidebarLayers;
-    // this.hTTPService.get('http://localhost:3200/view/get').subscribe((layers: LayerGroup[]) => {
-      // this.sidebarLayers = layers;
-    this.sidebarLayerGroups = [];
-    this.sidebarLayers.forEach(sidebarLayer => {
-      const layerChildren: Layer[] = [];
-      const children = sidebarLayer.children;
-      if (children) {
-        sidebarLayer.children.forEach(sidebarLayerChild => {
-          let layer;
-          if (!sidebarLayerChild.isHidden) {
-            layer = new Layer(
-              sidebarLayerChild.cod,
-              sidebarLayerChild.codgroup,
-              sidebarLayerChild.label,
-              sidebarLayerChild.shortLabel,
-              sidebarLayerChild.value,
-              sidebarLayerChild.dateColumn,
-              sidebarLayerChild.geomColumn,
-              sidebarLayerChild.areaColumn,
-              sidebarLayerChild.carRegisterColumn,
-              sidebarLayerChild.classNameColumn,
-              sidebarLayerChild.type,
-              sidebarLayerChild.isPrivate,
-              sidebarLayerChild.isPrimary,
-              sidebarLayerChild.isChild,
-              sidebarLayerChild.filter,
-              sidebarLayerChild.layerData,
-              sidebarLayerChild.legend,
-              sidebarLayerChild.popupTitle,
-              sidebarLayerChild.infoColumns,
-              sidebarLayerChild.isHidden,
-              sidebarLayerChild.isDisabled,
-              sidebarLayerChild.tools,
-              sidebarLayerChild.markerSelected
-            );
-            layerChildren.push(layer);
-          }
-        });
-      }
-      const layerGroup = new LayerGroup(
-        sidebarLayer.cod,
-        sidebarLayer.label,
-        sidebarLayer.parent,
-        sidebarLayer.isPrivate,
-        sidebarLayer.icon,
-        sidebarLayer.viewGraph,
-        sidebarLayer.activeArea,
-        layerChildren
-      );
-      this.sidebarLayerGroups.push(layerGroup);
+    this.configService.getSidebarConfigurationDynamically().then((layers: Response) => {
+      this.sidebarLayers = layers.data;
+      this.sidebarLayerGroups = [];
+      this.sidebarLayers.forEach(sidebarLayer => {
+        const layerChildren: Layer[] = [];
+        const children = sidebarLayer.children;
+        if (children) {
+          sidebarLayer.children.forEach(sidebarLayerChild => {
+            let layer;
+            if (!sidebarLayerChild.isHidden) {
+              layer = new Layer(
+                sidebarLayerChild.cod,
+                sidebarLayerChild.codgroup,
+                sidebarLayerChild.label,
+                sidebarLayerChild.shortLabel,
+                sidebarLayerChild.value,
+                sidebarLayerChild.dateColumn,
+                sidebarLayerChild.geomColumn,
+                sidebarLayerChild.areaColumn,
+                sidebarLayerChild.carRegisterColumn,
+                sidebarLayerChild.classNameColumn,
+                sidebarLayerChild.type,
+                sidebarLayerChild.isPrivate,
+                sidebarLayerChild.isPrimary,
+                sidebarLayerChild.isChild,
+                sidebarLayerChild.filter,
+                sidebarLayerChild.layerData,
+                sidebarLayerChild.legend,
+                sidebarLayerChild.popupTitle,
+                sidebarLayerChild.infoColumns,
+                sidebarLayerChild.isHidden,
+                sidebarLayerChild.isDisabled,
+                sidebarLayerChild.tools,
+                sidebarLayerChild.markerSelected
+              );
+              layerChildren.push(layer);
+            }
+          });
+        }
+        const layerGroup = new LayerGroup(
+          sidebarLayer.cod,
+          sidebarLayer.label,
+          sidebarLayer.parent,
+          sidebarLayer.isPrivate,
+          sidebarLayer.icon,
+          sidebarLayer.view_graph,
+          sidebarLayer.activeArea,
+          layerChildren
+        );
+        this.sidebarLayerGroups.push(layerGroup);
+      });
     });
-    // });
   }
 
   getSidebarItem(sidebarItem) {
