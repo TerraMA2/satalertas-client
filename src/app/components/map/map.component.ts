@@ -1075,7 +1075,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         layer.cod,
         layer.codgroup,
         (layer.type === LayerType.ANALYSIS),
-        layer.isPrimary
+        layer.isPrimary,
+        layer.tableOwner,
+        layer.tableName
     ));
 
     const params = this.filterService.getParams({ view });

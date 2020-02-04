@@ -5,6 +5,8 @@ export class View {
     public cod: string,
     public codgroup: string,
     public isAnalysis: boolean,
-    public isPrimary: boolean
+    public isPrimary: boolean,
+    public tableOwner?: string,
+    public tableName?: string
   ) {}
 }
