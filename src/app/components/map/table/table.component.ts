@@ -138,7 +138,9 @@ export class TableComponent implements OnInit {
         layer.cod,
         layer.codgroup,
         (layer.type === LayerType.ANALYSIS || this.tableReportActive),
-        (layer.isPrimary || this.tableReportActive)
+        (layer.isPrimary || this.tableReportActive),
+        layer.tableOwner,
+        layer.tableName
       ));
 
     this.showDeter =

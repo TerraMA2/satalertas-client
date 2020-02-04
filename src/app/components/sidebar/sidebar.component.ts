@@ -102,7 +102,9 @@ export class SidebarComponent implements OnInit {
                 sidebarLayerChild.isHidden,
                 sidebarLayerChild.isDisabled,
                 sidebarLayerChild.tools,
-                sidebarLayerChild.markerSelected
+                sidebarLayerChild.markerSelected,
+                sidebarLayerChild.tableOwner,
+                sidebarLayerChild.tableName
               );
               layerChildren.push(layer);
             }
@@ -116,7 +118,8 @@ export class SidebarComponent implements OnInit {
           sidebarLayer.icon,
           sidebarLayer.view_graph,
           sidebarLayer.activeArea,
-          layerChildren
+          layerChildren,
+          sidebarLayer.tableOwner
         );
         this.sidebarLayerGroups.push(layerGroup);
       });
