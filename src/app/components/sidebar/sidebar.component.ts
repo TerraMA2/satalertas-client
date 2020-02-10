@@ -68,7 +68,6 @@ export class SidebarComponent implements OnInit {
   }
 
   setSidebarLayers() {
-    this.sidebarLayers = this.sidebarConfig.sidebarLayers;
     this.configService.getSidebarConfigurationDynamically().then((layers: Response) => {
       this.sidebarLayers = layers.data;
       this.sidebarLayerGroups = [];

@@ -55,12 +55,25 @@ export class ConfigService {
     return mapConfig;
   }
 
-  getReportConfig(name = '') {
-    const reportConfig = this.getConfig('report');
-    if (name) {
-      return reportConfig[name];
-    }
-    return reportConfig;
+  async getReportConfig() {
+    const parameters = { };
+    const url = `${URL_REPORT_SERVER}/config/getSynthesisConfig`;
+
+    return await this.http.get(url, { params: parameters }).toPromise();
+  }
+
+  async getInfoColumns(codGroup?) {
+    const parameters = { codGroup };
+    const url = `${URL_REPORT_SERVER}/config/getInfoColumns`;
+
+    return await this.http.get(url, { params: parameters }).toPromise();
+  }
+
+  async getReportLayers() {
+    const parameters = { };
+    const url = `${URL_REPORT_SERVER}/view/getReportLayers`;
+
+    return await this.http.get(url, { params: parameters }).toPromise();
   }
 
   async getSidebarConfigurationDynamically() {

@@ -41,6 +41,7 @@ import {View} from '../../models/view.model';
 import {FilterUtils} from '../../utils/filter.utils';
 
 import { AuthService } from 'src/app/services/auth.service';
+import {Response} from '../../models/response.model';
 
 @Component({
   selector: 'app-map',
@@ -213,10 +214,14 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  setMarkers(data, popupTitle, overlayName) {
+  async setMarkers(data, popupTitle, overlayName) {
     this.clearMarkerInfo();
+
     this.layerControl.removeLayer(this.markerClusterGroup);
-    data.forEach(markerData => {
+
+    const infoColumns = await this.configService.getInfoColumns(this.selectedPrimaryLayer.codgroup).then( (response: Response) => response.data );
+
+    data.forEach( markerData => {
       let popup = '';
       let link = null;
       if (popupTitle && markerData[popupTitle]) {
@@ -227,10 +232,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         popup = popupTitle;
       }
 
-      const selectedPrimaryLayer = this.selectedPrimaryLayer;
-
-      const infoColumns = this.configService.getSidebarConfig('infoColumns')[selectedPrimaryLayer.codgroup];
-
       const popupContent = this.getPopupContent(markerData, overlayName, infoColumns);
       const marker = this.createMarker(popup, popupContent, [markerData.lat, markerData.long], overlayName, link);
 
@@ -238,6 +239,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         this.markerClusterGroup.addLayer(marker);
       }
     });
+
     this.searchControl.setLayer(this.markerClusterGroup);
     this.searchControl.options.layer = this.markerClusterGroup;
 
@@ -278,7 +280,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.selectedLayers = [];
   }
 
-  setTableMarker(markerData) {
+  async setTableMarker(markerData) {
     let propertyData = markerData.data;
     if (!Array.isArray(propertyData)) {
       propertyData = [propertyData];
@@ -288,7 +290,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     let latLong = null;
 
-    propertyData.forEach(data => {
+    for (const data of propertyData) {
       latLong = [data.lat, data.long];
 
       let link = null;
@@ -334,7 +336,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         this.clearMarkerInfo();
       }
 
-      const infoColumns = this.configService.getSidebarConfig('infoColumns')['STATIC'];
+      const infoColumns = await this.configService.getInfoColumns().then((response: Response) => response.data['STATIC']);
 
       const popupContent = this.getPopupContent(data, markerLabel, infoColumns);
       this.markerInfo = this.createMarker(carRegister, popupContent, latLong, markerLabel, link);
@@ -342,7 +344,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       this.markerClusterGroup.addLayer(this.markerInfo);
 
       this.selectedMarker = new SelectedMarker(markerLabel, carRegister, popupContent, latLong, link);
-    });
+    }
+
     this.markerClusterGroup.addTo(this.map);
     if (propertyCount === 1) {
       this.panMap(latLong, 13);
@@ -847,7 +850,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       popupContent += `<h2>Layer não encontrado.</h2>`;
     }
 
-    const infoColumns = this.configService.getSidebarConfig('infoColumns');
+    const infoColumns = await this.configService.getInfoColumns().then((response: Response) => response.data);
+;
 
     let popupTable = '';
     for (const selectedLayer of this.selectedLayers) {
