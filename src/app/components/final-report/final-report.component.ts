@@ -24,6 +24,7 @@ import { FinalReportService } from '../../services/final-report.service';
 import { AuthService } from 'src/app/services/auth.service';
 
 import { MessageService } from 'primeng/api';
+import { HTTPService } from 'src/app/services/http.service';
 
 
 @Component({
@@ -56,6 +57,8 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
   private chartImage1 = [];
   private chartImage2 = [];
   private chartImage3 = [];
+
+  private ndviChart = [];
 
   private partnerImage1 = [];
   private partnerImage2 = [];
@@ -103,6 +106,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     private finalReportService: FinalReportService,
     private authService: AuthService,
     private messageService: MessageService,
+    private hTTPService: HTTPService,
     private router: Router
   ) {}
 
@@ -148,31 +152,36 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    // const canvas: any = document.getElementById('myChart');
-    // const ctx: any = canvas.getContext('2d');
-
-    // const options = {
-    //   type: 'line',
-    //   data: {
-    //     labels: ['Novo', 'Dois', 'Tres'],
-    //     datasets: [{
-    //       label: '# of Votes',
-    //       data: [1, 2, 3],
-    //       backgroundColor: [
-    //         'rgba(255,255,255, 0)',
-    //         'rgba(54, 162, 235, 1)',
-    //         'rgba(255, 206, 86, 1)'
-    //       ],
-    //       borderWidth: 1
-    //     }]
-    //   },
-    //   options: {
-    //     responsive: false,
-    //     display: true
-    //   }
-    // };
-
-
+    const canvas: any = document.getElementById('myChart');
+    const ctx: any = canvas.getContext('2d');
+    let options = {};
+    this.hTTPService.get('https://www.satveg.cnptia.embrapa.br/satvegws/ws/perfil/ZW46IXzr4pRzJlX/ndvi/ponto/-52.7941/-14.5463/terra/0')
+                    .subscribe(data => {
+                      options = {
+                        type: 'line',
+                        data: {
+                          labels: data['listaDatas'],
+                          datasets: [{
+                            label: '',
+                            data: data['listaSerie'],
+                            backgroundColor: [
+                              'rgba(255,255,255, 0)',
+                              'rgba(54, 162, 235, 1)',
+                              'rgba(255, 206, 86, 1)'
+                            ],
+                            borderWidth: 2,
+                            pointRadius: 1
+                          }]
+                        },
+                        options: {
+                          responsive: false,
+                          legend: {
+                            display: false
+                          }
+                        }
+                      };
+                      this.myChart = new Chart(ctx, options);
+                    });
     // const newCanvas: any = document.getElementById('imagem2');
     // const newCtx: any = newCanvas.getContext('2d');
 
@@ -420,9 +429,13 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                             this.chartImage2.push(chartImage2);
                             this.toDataUrl('assets/img/report-chart-3.png', chartImage3 => {
                               this.chartImage3.push(chartImage3);
-                                // const images = this.setImageToBase64();
+                              // const images = this.setImageToBase64();
 
-                                // this.chartImage1 = images.image1;
+                              if (this.myChart) {
+                                this.ndviChart.push(this.myChart.toBase64Image());
+                              }
+
+                              // this.chartImage1 = images.image1;
                                 // this.chartImage2 = images.image2;
                                 // this.chartImage3 = images.image3;
 
@@ -719,6 +732,11 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           columns: [
             this.getImageObject(this.geoserverImage1, [200, 200], [0, 10], 'center'),
             this.getImageObject(this.geoserverImage2, [200, 200], [0, 10], 'center')
+          ]
+        },
+        {
+          columns: [
+            this.getImageObject(this.ndviChart, [500, 500], [0, 10], 'center')
           ]
         },
         {
