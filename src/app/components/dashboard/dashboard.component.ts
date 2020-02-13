@@ -110,7 +110,8 @@ export class DashboardComponent implements OnInit {
       [],
       true,
       true,
-      group.tableOwner);
+      group.tableOwner,
+      group.tableName);
 
     group.children.forEach( (view: Layer) => {
       if (view.isPrimary && view.type === LayerType.ANALYSIS) {

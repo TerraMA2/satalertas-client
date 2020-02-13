@@ -68,7 +68,6 @@ export class SidebarComponent implements OnInit {
   }
 
   setSidebarLayers() {
-    this.sidebarLayers = this.sidebarConfig.sidebarLayers;
     this.configService.getSidebarConfigurationDynamically().then((layers: Response) => {
       this.sidebarLayers = layers.data;
       this.sidebarLayerGroups = [];
@@ -102,7 +101,9 @@ export class SidebarComponent implements OnInit {
                 sidebarLayerChild.isHidden,
                 sidebarLayerChild.isDisabled,
                 sidebarLayerChild.tools,
-                sidebarLayerChild.markerSelected
+                sidebarLayerChild.markerSelected,
+                sidebarLayerChild.tableOwner,
+                sidebarLayerChild.tableName
               );
               layerChildren.push(layer);
             }
@@ -116,7 +117,8 @@ export class SidebarComponent implements OnInit {
           sidebarLayer.icon,
           sidebarLayer.view_graph,
           sidebarLayer.activeArea,
-          layerChildren
+          layerChildren,
+          sidebarLayer.tableOwner
         );
         this.sidebarLayerGroups.push(layerGroup);
       });

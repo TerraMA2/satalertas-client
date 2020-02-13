@@ -11,6 +11,7 @@ export class LayerGroup {
     public view_graph?: boolean,
     public activeArea?: boolean,
     public children?: Layer[],
-    public tableOwner?: string
+    public tableOwner?: string,
+    public tableName?: string
   ) {}
 }

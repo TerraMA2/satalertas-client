@@ -17,6 +17,7 @@ import { ReportService } from 'src/app/services/report.service';
 import { FilterService } from 'src/app/services/filter.service';
 
 import { SidebarService } from 'src/app/services/sidebar.service';
+import {Response} from '../../models/response.model';
 
 @Component({
   selector: 'app-report',
@@ -73,14 +74,16 @@ export class ReportComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.filterService.filterReport.subscribe(() => {
       if (this.router.url.startsWith('/report')) {
         this.getPropertyData();
       }
     });
     this.activatedRoute.params.subscribe(params => this.carRegister = params.carRegister);
-    this.reportConfig = this.configService.getReportConfig();
+
+    this.reportConfig = await this.configService.getReportConfig().then((response: Response) => response.data);
+
     this.visionLegends = this.reportConfig.visionslegends;
 
     this.sidebarService.sidebarLayerShowHide.next(false);

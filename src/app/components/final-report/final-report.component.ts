@@ -131,7 +131,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     });
 
     this.year = new Date().getFullYear().toString();
-    this.reportConfig = this.configService.getReportConfig();
+    this.reportConfig = await this.configService.getReportConfig().then((response: Response) => response.data);
 
     this.sidebarService.sidebarLayerShowHide.next(false);
 

@@ -16,8 +16,6 @@ import { MapService } from 'src/app/services/map.service';
 
 import { View } from '../../../models/view.model';
 
-import { LayerType } from 'src/app/enum/layer-type.enum';
-
 import { ReportService } from '../../../services/report.service';
 
 import { Response } from '../../../models/response.model';
@@ -55,7 +53,8 @@ export class TableComponent implements OnInit {
   defaultRowsPerPage = 10;
   selectedRowsPerPage: number = this.defaultRowsPerPage;
 
-  filters: any[];
+  // tslint:disable-next-line:ban-types
+  filters: Object | any[];
   selectedFilter;
   selectedFilterValue: string;
   selectedFilterSortField: string;
@@ -80,7 +79,7 @@ export class TableComponent implements OnInit {
     private reportService: ReportService
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.tableConfig = this.configService.getMapConfig('table');
 
     this.rowsPerPage = this.tableConfig.rowsPerPage;
@@ -98,12 +97,13 @@ export class TableComponent implements OnInit {
       }
     });
 
+    this.filters = await this.configService.getReportLayers().then((reportLayer: Response) => reportLayer.data);
+
     this.tableService.loadReportTableData.subscribe(() => {
       this.showBurn = true;
       this.showProdes = true;
       this.showDeter = true;
       this.loading = true;
-      this.filters = this.configService.getMapConfig('table').reportLayers;
       const selectedOption = this.filters[0];
       // this.selectedLayer = selectedOption;
       this.selectedFilter = selectedOption;
@@ -119,11 +119,11 @@ export class TableComponent implements OnInit {
     this.filterService.filterTable.subscribe(() => this.tableService.loadTableData.next(this.selectedLayer));
   }
 
-  loadTableData(layer,
-                limit: number,
-                offset: number,
-                sortField?: string,
-                sortOrder?: number
+  async loadTableData(layer,
+                      limit: number,
+                      offset: number,
+                      sortField?: string,
+                      sortOrder?: number
   ) {
     if (!layer) {
       return;
@@ -136,49 +136,52 @@ export class TableComponent implements OnInit {
       new View(
         layer.value,
         layer.cod,
-        layer.codgroup,
-        (layer.type === LayerType.ANALYSIS || this.tableReportActive),
-        (layer.isPrimary || this.tableReportActive)
-      ));
+        layer.cod_group ? layer.cod_group : layer.codgroup ,
+        layer.is_dynamic ? layer.is_dynamic : layer.type === 'analysis',
+        layer.isPrimary === undefined ? true : layer.isPrimary,
+        layer.table_owner ? layer.table_owner : layer.tableOwner,
+        layer.table_name ? layer.table_name : layer.tableName
+      )
+    );
 
     this.showDeter =
-      ( (layer.codgroup === 'DETER') ||
-        (layer.codgroup === 'CAR'));
+      ( (layer.cod_group === 'DETER') ||
+        (layer.cod_group === 'CAR'));
 
     this.showProdes =
-      ( (layer.codgroup === 'PRODES') ||
-        (layer.codgroup === 'CAR'));
+      ( (layer.cod_group === 'PRODES') ||
+        (layer.cod_group === 'CAR'));
     this.showBurn =
-      ( (layer.codgroup === 'BURNED_AREA') ||
-        (layer.codgroup === 'BURNED') ||
-        (layer.codgroup === 'CAR'));
+      ( (layer.cod_group === 'BURNED_AREA') ||
+        (layer.cod_group === 'BURNED') ||
+        (layer.cod_group === 'CAR'));
     const params = {view, limit, offset, countTotal};
 
     if (sortField) {
       params['sortField'] = sortField;
     }
     if (sortOrder) {
-      params['sortOrder'] = sortOrder;
+      params['sortOrder'] =  sortOrder;
     }
 
     if (this.selectedFilter) {
       params['count'] = this.selectedFilter.count;
       params['sum'] = this.selectedFilter.sum;
-      params['isDynamic'] = this.selectedFilter.isDynamic;
-      params['tableAlias'] = this.selectedFilter.tableAlias;
-      params['sumAlias'] = this.selectedFilter.sumAlias;
-      params['countAlias'] = this.selectedFilter.countAlias;
-      params['sumField'] = this.selectedFilter.sumField;
-      params['sortField'] = this.selectedFilter.sortField;
+      params['isDynamic'] = this.selectedFilter.is_dynamic;
+      params['tableAlias'] = this.selectedFilter.table_alias;
+      params['sumAlias'] = this.selectedFilter.sum_alias;
+      params['countAlias'] = this.selectedFilter.count_alias;
+      params['sumField'] = this.selectedFilter.sum_field;
+      params['sortField'] = this.selectedFilter.sort_field;
     }
 
-    this.hTTPService
+    await this.hTTPService
       .get(url, this.filterService.getParams(params))
-      .subscribe(data => this.setData(data));
+      .subscribe(async data => await this.setData(data, layer.cod_group ? layer.cod_group : layer.codgroup));
     this.selectedProperties = [];
   }
 
-  setData(data) {
+  async setData(data, group) {
     if (data) {
       this.selectedColumns = [];
       this.columns = [];
@@ -186,10 +189,10 @@ export class TableComponent implements OnInit {
 
       if (data[0]) {
         if (!this.tableReportActive) {
-          const infoColumns = this.configService.getSidebarConfig('infoColumns')[this.selectedLayer.codgroup];
+          const infoColumns = await this.configService.getInfoColumns().then((response: Response) => response.data);
           const changedData = [];
           Object.keys(data[0]).forEach(key => {
-            const column = infoColumns ? infoColumns[key] : '';
+            const column = infoColumns && infoColumns[group] ? infoColumns[group][key] : '';
             const show = column ? column.show : false;
             const alias = column ? column.alias : key;
             if (show === true) {
@@ -198,12 +201,12 @@ export class TableComponent implements OnInit {
           });
           Object.keys(data).forEach(dataKey => {
             const dataValue = data[dataKey];
-            let changedRow = [];
+            const changedRow = [];
             Object.entries(dataValue).forEach(e => {
               const key = e[0];
               if (key !== 'lat' && key !== 'long') {
                 const value = e[1];
-                changedRow[infoColumns[key].alias] = value;
+                changedRow[infoColumns[group][key].alias] = value;
               }
             });
             changedData.push(changedRow);
@@ -272,7 +275,7 @@ export class TableComponent implements OnInit {
     this.selectedLayer = selectedOption;
     this.selectedFilter = selectedOption;
     this.selectedFilterLabel = selectedOption.label;
-    this.loadTableData(selectedOption, this.selectedRowsPerPage, 0, selectedOption.sortField, 1);
+    this.loadTableData(selectedOption, this.selectedRowsPerPage, 0, selectedOption.sort_field, 1);
   }
 
   trackByFunction(index, item) {

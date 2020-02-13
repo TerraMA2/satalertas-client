@@ -26,7 +26,7 @@
     <app-sidebar-layer class="sidebar-layer-body p-dir-col p-align-stretch"
                             *ngFor="let layer of sidebarLayers"
                             [layer]="layer"
-                            [displayChild]="layer.isPrivate && !isAuthenticated ? false : true"
+                            [displayChild]="layer.is_private && !isAuthenticated ? false : true"
                             [parentSwitchChecked]="switchChecked"
                             [isLayerGroupOpened]="isLayerGroupOpened"
     >
