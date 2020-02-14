@@ -6,7 +6,9 @@ import { ConfigService } from 'src/app/services/config.service';
 
 import { SidebarService } from 'src/app/services/sidebar.service';
 
-import {ReportService} from '../../services/report.service';
+import { ReportService } from '../../services/report.service';
+
+import { SatVegService } from '../../services/sat-veg.service';
 
 import { Response } from 'src/app/models/response.model';
 
@@ -98,7 +100,8 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     private authService: AuthService,
     private messageService: MessageService,
     private hTTPService: HTTPService,
-    private router: Router
+    private router: Router,
+    private satVegService: SatVegService
   ) {}
 
   async ngOnInit() {
@@ -117,7 +120,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
       this.activatedRoute.params.subscribe(params => {
         this.carRegister = params.carRegister;
         this.type = params.type;
-        this.getReportData();
+        this.ngAfterViewInit();
       });
     });
 
@@ -138,41 +141,47 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
       { field: 'date', header: 'Ano' },
       { field: 'area', header: 'ha' }
     ];
-
-    await this.getReportData();
   }
 
-  ngAfterViewInit() {
+  async ngAfterViewInit() {
     const canvas: any = document.getElementById('myChart');
     const ctx: any = canvas.getContext('2d');
-    let options = {};
-    this.hTTPService.get('https://www.satveg.cnptia.embrapa.br/satvegws/ws/perfil/ZW46IXzr4pRzJlX/ndvi/ponto/-52.7941/-14.5463/terra/0')
-                    .subscribe(data => {
-                      options = {
-                        type: 'line',
-                        data: {
-                          labels: data['listaDatas'],
-                          datasets: [{
-                            label: '',
-                            data: data['listaSerie'],
-                            backgroundColor: [
-                              'rgba(255,255,255, 0)',
-                              'rgba(54, 162, 235, 1)',
-                              'rgba(255, 206, 86, 1)'
-                            ],
-                            borderWidth: 2,
-                            pointRadius: 1
-                          }]
-                        },
-                        options: {
-                          responsive: false,
-                          legend: {
-                            display: false
-                          }
-                        }
-                      };
-                      this.myChart = new Chart(ctx, options);
-                    });
+    const options = await this.satVegService.get({long: -55.927406283714994, lat: -11.636221885927357}, 'ndvi', 3, 'wav', '', 'aqua').then(async (resp: Response) => {
+      return {
+        type: 'line',
+        data: {
+          labels: resp.data['listaDatas'],
+          lineColor: 'rgb(10,5,109)',
+          datasets: [{
+            label: '',
+            data: resp.data['listaSerie'],
+            backgroundColor: 'rgba(17,17,177,0)',
+            borderColor: 'rgba(5,177,0,1)',
+            showLine: true,
+            borderWidth: 2,
+            pointRadius: 0
+          }]
+        },
+        options: {
+          responsive: false,
+          legend: {
+            display: false
+          }
+        }
+      };
+    });
+
+    this.myChart = new Chart(ctx, options);
+
+    // await setTimeout( async () => {
+    //   const arrayNdviChart = this.myChart && this.myChart.toBase64Image() ? [this.myChart.toBase64Image()] : null;
+    //   this.ndviChart = this.getImageObject(arrayNdviChart, [500, 500], [0, 10], 'center');
+    //
+    //   await this.getDocumentDefinition();
+    //   this.getPdfBase64(this.docDefinition);
+    // }, 8000);
+
+    await this.getReportData();
     // const newCanvas: any = document.getElementById('imagem2');
     // const newCtx: any = newCanvas.getContext('2d');
 
@@ -281,24 +290,21 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                       this.toDataUrl('assets/img/logos/sema.png', async partnerImage8 => {
                         this.partnerImage8 = this.getImageObject([partnerImage8], [100, 60], [10, 25, 25, 0], 'left')
                         this.toDataUrl('assets/img/report-chart-1.png', async chartImage1 => {
-                          this.chartImage1 = this.getImageObject([chartImage1], [250, 250], [10, 10], 'center')
+                          this.chartImage1 = this.getImageObject([chartImage1], [250, 250], [3, 3], 'center')
                           this.toDataUrl('assets/img/report-chart-2.png', async chartImage2 => {
-                            this.chartImage2 = this.getImageObject([chartImage2], [250, 250], [0, 0], 'center')
+                            this.chartImage2 = this.getImageObject([chartImage2], [250, 250], [3, 3], 'center')
                             this.toDataUrl('assets/img/report-chart-3.png', async chartImage3 => {
-                              this.chartImage3 = this.getImageObject([chartImage3], [250, 250], [10, 10], 'center')
-                              // const images = this.setImageToBase64();
-                              //
-                              // this.chartImage1 = images.image1;
-                              // this.chartImage2 = images.image2;
-                              // this.chartImage3 = images.image3;
+                              this.chartImage3 = this.getImageObject([chartImage3], [250, 250], [3, 3], 'center')
 
+                              // const arrayNdviChart = this.myChart && this.myChart.toBase64Image() ? [this.myChart.toBase64Image()] : null;
+                              // this.ndviChart = this.getImageObject(arrayNdviChart, [500, 500], [0, 10], 'center');
 
-                              if (this.myChart) {
-                                this.ndviChart = this.getImageObject([this.myChart.toBase64Image()], [500, 500], [0, 10], 'center');
-                              }
-
-                              await this.getDocumentDefinition();
-                              this.getPdfBase64(this.docDefinition);
+                              setTimeout( async () => {
+                                const arrayNdviChart = this.myChart && this.myChart.toBase64Image() ? [this.myChart.toBase64Image()] : null;
+                                this.ndviChart = this.getImageObject(arrayNdviChart, [500, 500], [0, 10], 'center');
+                                await this.getDocumentDefinition();
+                                this.getPdfBase64(this.docDefinition);
+                              }, 1000);
                             });
                           });
                         });
@@ -590,11 +596,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           columns: [
             this.geoserverImage1,
             this.geoserverImage2
-          ]
-        },
-        {
-          columns: [
-            this.ndviChart
           ]
         },
         {
@@ -957,7 +958,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
             'ocorrência de desmatamento. Mais informações sobre os padrões de perfis gráficos dos índices de vegetação, incluindo ' +
             'os padrões de culturas agrícolas, podem ser consultadas no sítio eletrônico do SATVeg¹.'
           ),
-          margin: [30, 0, 30, 5],
+          margin: [30, 0, 30, 0],
           style: 'body'
         },
         this.chartImage1,
@@ -1009,7 +1010,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           fontSize: 10,
           style: 'body'
         },
-        this.chartImage1,
+        this.chartImage3,
         {
           text: [
             {
@@ -1439,6 +1440,23 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           fontSize: 10
         },
         {
+          text: 'Os gráficos a seguir representam os NDVI das áreas de alertas do PRODES no imóvel.',
+          margin: [30, 20, 30, 15],
+          style: 'body'
+        },
+        {
+          columns: [
+            this.ndviChart
+          ]
+        },
+        {
+          text: '',
+          pageBreak: 'after'
+        },
+        {
+          columns: headerDocument
+        },
+        {
           text: '4 CONCLUSÃO',
           margin: [30, 20, 30, 0],
           style: 'listItem'
@@ -1453,13 +1471,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           text: 'Técnico, conforme descrito no Quadro 01 (vide item 3. Análise Técnica).',
           margin: [30, 0, 30, 15],
           style: 'body'
-        },
-        {
-          text: '',
-          pageBreak: 'after'
-        },
-        {
-          columns: headerDocument
         },
         {
           text: '5 ANEXOS',

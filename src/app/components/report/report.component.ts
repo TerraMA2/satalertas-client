@@ -100,8 +100,6 @@ export class ReportComponent implements OnInit {
 
     this.formattedFilterDate = `${startDate} - ${endDate}`;
 
-    const propertyConfig = this.reportConfig.propertyData;
-    const url = propertyConfig.url;
     this.carRegister = this.carRegister.replace('\\', '/');
     const carRegister = this.carRegister;
 
