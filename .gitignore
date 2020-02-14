@@ -10,3 +10,5 @@ dist
 logs
 .vscode/
 .history/
+environment.prod.ts
+environment.ts
