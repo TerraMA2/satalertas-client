@@ -11,15 +11,16 @@ import {PrivateDeclarationsAnalyzer} from '@angular/compiler-cli/ngcc/src/analys
 })
 export class FinalReportService {
   URL_TERRAMA2_SERVER = environment.terramaUrl;
+  URL_REPORT_SERVER = environment.reportServerUrl;
 
   constructor(
     private http: HttpClient
   ) { }
 
-  async getCarData(viewId, carRegister, date, filter) {
-    const url = `${this.URL_TERRAMA2_SERVER}/api/report/getCarData`;
+  async getReportCarData(carRegister, date, filter) {
+    const url = `${this.URL_REPORT_SERVER}/report/getReportCarData`;
 
-    const parameters = {viewId, carRegister, date, filter };
+    const parameters = {carRegister, date, filter };
 
     return await this.http.get(url, { params: parameters }).toPromise();
   }

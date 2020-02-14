@@ -6,8 +6,6 @@ import { ConfigService } from 'src/app/services/config.service';
 
 import { SidebarService } from 'src/app/services/sidebar.service';
 
-import { Property } from 'src/app/models/property.model';
-
 import {ReportService} from '../../services/report.service';
 
 import { Response } from 'src/app/models/response.model';
@@ -25,6 +23,8 @@ import { AuthService } from 'src/app/services/auth.service';
 
 import { MessageService } from 'primeng/api';
 
+import {Image} from '../../models/image.model';
+
 
 @Component({
   selector: 'app-final-report',
@@ -41,32 +41,31 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
   private reportConfig;
 
+  private headerImage1: Image = new Image([''], [200, 200], [0, 0], 'center');
+  private headerImage2: Image = new Image([''], [200, 200], [0, 0], 'center');
 
-  private headerImage1 = [];
-  private headerImage2 = [];
+  private geoserverImage1: Image = new Image([''], [200, 200], [0, 0], 'center');
+  private geoserverImage2: Image = new Image([''], [200, 200], [0, 0], 'center');
+  private geoserverImage3: Image = new Image([''], [200, 200], [0, 0], 'center');
+  private geoserverImage4: Image = new Image([''], [200, 200], [0, 0], 'center');
+  private geoserverImage5: Image = new Image([''], [200, 200], [0, 0], 'center');
 
-  private geoserverImage1;
-  private geoserverImage2;
-  private geoserverImage3;
-  private geoserverImage4;
-  private geoserverImage5;
+  private geoserverLegend: Image = new Image([''], [200, 200], [0, 0], 'center');
 
-  private geoserverLegend;
+  private chartImage1: Image = new Image([''], [200, 200], [0, 0], 'center');
+  private chartImage2: Image = new Image([''], [200, 200], [0, 0], 'center');
+  private chartImage3: Image = new Image([''], [200, 200], [0, 0], 'center');
 
-  private chartImage1 = [];
-  private chartImage2 = [];
-  private chartImage3 = [];
+  private partnerImage1: Image = new Image([''], [200, 200], [0, 0], 'center');
+  private partnerImage2: Image = new Image([''], [200, 200], [0, 0], 'center');
+  private partnerImage3: Image = new Image([''], [200, 200], [0, 0], 'center');
+  private partnerImage4: Image = new Image([''], [200, 200], [0, 0], 'center');
+  private partnerImage5: Image = new Image([''], [200, 200], [0, 0], 'center');
+  private partnerImage6: Image = new Image([''], [200, 200], [0, 0], 'center');
+  private partnerImage7: Image = new Image([''], [200, 200], [0, 0], 'center');
+  private partnerImage8: Image = new Image([''], [200, 200], [0, 0], 'center');
 
-  private partnerImage1 = [];
-  private partnerImage2 = [];
-  private partnerImage3 = [];
-  private partnerImage4 = [];
-  private partnerImage5 = [];
-  private partnerImage6 = [];
-  private partnerImage7 = [];
-  private partnerImage8 = [];
-
-  property;
+  reportData;
 
   carRegister: string;
 
@@ -76,7 +75,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
   currentYear: number;
   currentDate: string;
-  prodesStartYear: string;
 
   tableColumns;
 
@@ -85,15 +83,9 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
   type: string;
   year: string;
 
-  tableData;
-
-  prodesTableData;
-
   docDefinition: any;
   docBase64;
   generatingReport = false;
-
-  bbox: string;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -147,7 +139,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     await this.getReportData();
   }
 
-  ngAfterViewInit() {
+  async ngAfterViewInit() {
     // const canvas: any = document.getElementById('myChart');
     // const ctx: any = canvas.getContext('2d');
 
@@ -248,185 +240,51 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
     const filter = localStorage.getItem('filterList');
 
-    const propertyConfig = this.reportConfig.propertyData;
-
-    const viewId = propertyConfig.viewId;
     this.carRegister = this.carRegister.replace('\\', '/');
     const carRegister = this.carRegister;
 
-    await this.finalReportService.getCarData(viewId, carRegister, date, filter).then((reportData: Property) => {
+    this.reportData = await this.finalReportService.getReportCarData(carRegister, date, filter).then( (response: Response) => response.data );
 
-      const prodesYear = reportData.prodesYear;
+    this.geoserverImage1 = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage), [200, 200], [0, 10], 'center');
+    this.geoserverImage2 = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage1), [200, 200], [0, 10], 'center');
+    this.geoserverImage3 = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage2), [200, 200], [0, 10], 'center');
+    this.geoserverImage4 = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage3), [200, 200], [], 'center');
+    this.geoserverImage5 = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage4), [200, 200], [], 'center');
+    this.geoserverLegend = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsLegend), [200, 200], [0, 10], 'center');
 
-      this.prodesStartYear = prodesYear && prodesYear.length > 0 ? prodesYear[0]['date'] : '2007';
+    this.toDataUrl('assets/img/logos/mpmt-small.png', async headerImage1 => {
+      this.headerImage1 = this.getImageObject([headerImage1], [180, 50], [30, 25, 0, 20], 'left')
+      this.toDataUrl('assets/img/logos/inpe.png', async headerImage2 => {
+        this.headerImage2 = this.getImageObject([headerImage2], [60, 50], [0, 25, 40, 20], 'right')
+        this.toDataUrl('assets/img/logos/mpmt-small.png', async partnerImage1 => {
+          this.partnerImage1 = this.getImageObject([partnerImage1], [180, 50], [30, 0, 0, 0], 'left')
+          this.toDataUrl('assets/img/logos/pjedaou-large.png', async partnerImage2 => {
+            this.partnerImage2 = this.getImageObject([partnerImage2], [100, 50], [30, 0, 0, 0], 'center')
+            this.toDataUrl('assets/img/logos/caex.png', async partnerImage3 => {
+              this.partnerImage3 = this.getImageObject([partnerImage3], [80, 50], [30, 0, 25, 0], 'right')
+              this.toDataUrl('assets/img/logos/inpe.png', async partnerImage4 => {
+                this.partnerImage4 = this.getImageObject([partnerImage4], [130, 60], [80, 30, 0, 0], 'left')
+                this.toDataUrl('assets/img/logos/dpi.png', async partnerImage5 => {
+                  this.partnerImage5 = this.getImageObject([partnerImage5], [100, 60], [95, 30, 0, 0], 'center')
+                  this.toDataUrl('assets/img/logos/terrama2-large.png', async partnerImage6 => {
+                    this.partnerImage6 = this.getImageObject([partnerImage6], [100, 60], [0, 30, 30, 0], 'right')
+                    this.toDataUrl('assets/img/logos/mt.png', async partnerImage7 => {
+                      this.partnerImage7 = this.getImageObject([partnerImage7], [100, 60], [80, 30, 0, 0], 'left')
+                      this.toDataUrl('assets/img/logos/sema.png', async partnerImage8 => {
+                        this.partnerImage8 = this.getImageObject([partnerImage8], [100, 60], [10, 25, 25, 0], 'left')
+                        this.toDataUrl('assets/img/report-chart-1.png', async chartImage1 => {
+                          this.chartImage1 = this.getImageObject([chartImage1], [250, 250], [10, 10], 'center')
+                          this.toDataUrl('assets/img/report-chart-2.png', async chartImage2 => {
+                            this.chartImage2 = this.getImageObject([chartImage2], [250, 250], [0, 0], 'center')
+                            this.toDataUrl('assets/img/report-chart-3.png', async chartImage3 => {
+                              this.chartImage3 = this.getImageObject([chartImage3], [250, 250], [10, 10], 'center')
+                              // const images = this.setImageToBase64();
+                              //
+                              // this.chartImage1 = images.image1;
+                              // this.chartImage2 = images.image2;
+                              // this.chartImage3 = images.image3;
 
-      const bboxArray = reportData.bbox.split(',');
-      this.bbox = bboxArray[0].split(' ').join(',') + ',' + bboxArray[1].split(' ').join(',');
-
-      reportData.bbox = this.bbox;
-
-      this.property = reportData;
-
-      const app = reportData.prodesApp;
-      const legalReserve = reportData.prodesLegalReserve;
-      const restrictedUse = reportData.prodesRestrictedUse;
-      const conservationUnit = reportData.prodesConservationUnit;
-      const indigenousLand = reportData.prodesIndigenousLand;
-      const consolidatedUse = reportData.prodesConsolidatedUse;
-      const exploration = reportData.prodesExploration;
-      const deforestation = reportData.prodesDeforestation;
-      const embargoedArea = reportData.prodesEmbargoedArea;
-      const landArea = reportData.prodesLandArea;
-      const burnAuthorization = reportData.prodesBurnAuthorization;
-      const radamClasses = reportData.prodesRadam;
-
-      let radamProdes = 0;
-      let radamText = '';
-      for (const radam of radamClasses) {
-        const area = radam['area'];
-        const cls = radam['class'];
-        if (cls !== null) {
-          radamText += `
-              ${cls}: ${area}
-          `;
-          radamProdes += area;
-        }
-      }
-
-
-      const totalRecentDeforestation = app['recentDeforestation'] +
-                                      legalReserve['recentDeforestation'] +
-                                      conservationUnit['recentDeforestation'] +
-                                      indigenousLand['recentDeforestation'] +
-                                      consolidatedUse['recentDeforestation'] +
-                                      exploration['recentDeforestation'] +
-                                      deforestation['recentDeforestation'] +
-                                      embargoedArea['recentDeforestation'] +
-                                      restrictedUse['recentDeforestation'] +
-                                      landArea['recentDeforestation'] +
-                                      burnAuthorization['recentDeforestation'];
-
-      const totalPastDeforestation = app['pastDeforestation'] +
-                                    legalReserve['pastDeforestation'] +
-                                    conservationUnit['pastDeforestation'] +
-                                    indigenousLand['pastDeforestation'] +
-                                    consolidatedUse['pastDeforestation'] +
-                                    exploration['pastDeforestation'] +
-                                    deforestation['pastDeforestation'] +
-                                    embargoedArea['pastDeforestation'] +
-                                    restrictedUse['pastDeforestation'] +
-                                    landArea['pastDeforestation'] +
-                                    burnAuthorization['pastDeforestation'] +
-                                    radamProdes;
-
-      const totalBurnlights = app['burnlights'] +
-                              legalReserve['burnlights'] +
-                              conservationUnit['burnlights'] +
-                              indigenousLand['burnlights'] +
-                              consolidatedUse['burnlights'] +
-                              exploration['burnlights'] +
-                              deforestation['burnlights'] +
-                              embargoedArea['burnlights'] +
-                              restrictedUse['burnlights'] +
-                              landArea['burnlights'] +
-                              burnAuthorization['burnlights'];
-
-      const totalBurnAreas = app['burnAreas'] +
-                            legalReserve['burnAreas'] +
-                            conservationUnit['burnAreas'] +
-                            indigenousLand['burnAreas'] +
-                            consolidatedUse['burnAreas'] +
-                            exploration['burnAreas'] +
-                            deforestation['burnAreas'] +
-                            embargoedArea['burnAreas'] +
-                            restrictedUse['burnAreas'] +
-                            landArea['burnAreas'] +
-                            burnAuthorization['burnAreas'];
-
-      const propertyDeforestation = [
-        app,
-        legalReserve,
-        conservationUnit,
-        indigenousLand,
-        consolidatedUse,
-        exploration,
-        deforestation,
-        embargoedArea,
-        restrictedUse,
-        landArea,
-        burnAuthorization,
-        {
-          affectedArea: 'Vegetação RADAM BR',
-          recentDeforestation: 0,
-          pastDeforestation: radamText,
-          burnlights: 0,
-          burnAreas: 0
-        },
-        {
-          affectedArea: 'Total',
-          recentDeforestation: totalRecentDeforestation,
-          pastDeforestation: totalPastDeforestation,
-          burnlights: totalBurnlights,
-          burnAreas: totalBurnAreas
-        }
-      ];
-
-      this.tableData = propertyDeforestation;
-
-      prodesYear.push({date: 'Total', area: this.property.prodesTotalArea});
-
-      this.prodesTableData = prodesYear;
-    });
-
-    const gsImage = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_5:view5,terrama2_5:view5,terrama2_6:view6&styles=&bbox=-61.6904258728027,-18.0950622558594,-50.1677627563477,-7.29556512832642&width=250&height=250&cql_filter=id_munic>0;municipio='${this.property.city}';numero_do1='${this.property.register}'&srs=EPSG:4326&format=image/png`;
-    const gsImage1 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:view6&styles=&bbox=${this.property.bbox}&width=400&height=400&time=${this.prodesStartYear}/P1Y&cql_filter=numero_do1='${this.property.register}'&srs=EPSG:4326&format=image/png`;
-    const gsImage2 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:view6,terrama2_86:view86&styles=terrama2_6:view6_style,terrama2_8:view8_style&bbox=${this.property.bbox}&width=404&height=431&time=${this.prodesStartYear}/${this.currentYear}&cql_filter=numero_do1='${this.property.register}';de_car_validado_sema_numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`;
-    const gsImage3 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:MosaicSpot2008_car_validado&styles=&bbox=${this.property.bbox}&width=400&height=400&time=${this.prodesStartYear}/P1Y&cql_filter=numero_do1='${this.property.register}'&srs=EPSG:4326&format=image/png`;
-    const gsImage4 = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=terrama2_6:view6,terrama2_86:view86&styles=&bbox=${this.property.bbox}&width=400&height=400&time=${this.currentYear}/P1Y&cql_filter=numero_do1='${this.property.register}';de_car_validado_sema_numero_do1='${this.property.register}'&srs=EPSG:4674&format=image/png`;
-
-    const gsLegend = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on;layout:vertical&LAYER=terrama2_8:view8`;
-
-    this.geoserverImage1 = await this.getBaseImageUrl(gsImage);
-    this.geoserverImage2 = await this.getBaseImageUrl(gsImage1);
-    this.geoserverImage3 = await this.getBaseImageUrl(gsImage2);
-    this.geoserverImage4 = await this.getBaseImageUrl(gsImage3);
-    this.geoserverImage5 = await this.getBaseImageUrl(gsImage4);
-
-    this.geoserverLegend = await this.getBaseImageUrl(gsLegend);
-
-    this.toDataUrl('assets/img/logos/mpmt-small.png', headerImage1 => {
-      this.headerImage1.push(headerImage1);
-      this.toDataUrl('assets/img/logos/inpe.png', headerImage2 => {
-        this.headerImage2.push(headerImage2);
-        this.toDataUrl('assets/img/logos/mpmt-small.png', partnerImage1 => {
-          this.partnerImage1.push(partnerImage1);
-          this.toDataUrl('assets/img/logos/pjedaou-large.png', partnerImage2 => {
-            this.partnerImage2.push(partnerImage2);
-            this.toDataUrl('assets/img/logos/caex.png', partnerImage3 => {
-              this.partnerImage3.push(partnerImage3);
-              this.toDataUrl('assets/img/logos/inpe.png', partnerImage4 => {
-                this.partnerImage4.push(partnerImage4);
-                this.toDataUrl('assets/img/logos/dpi.png', partnerImage5 => {
-                  this.partnerImage5.push(partnerImage5);
-                  this.toDataUrl('assets/img/logos/terrama2-large.png', partnerImage6 => {
-                    this.partnerImage6.push(partnerImage6);
-                    this.toDataUrl('assets/img/logos/mt.png', partnerImage7 => {
-                      this.partnerImage7.push(partnerImage7);
-                      this.toDataUrl('assets/img/logos/sema.png', partnerImage8 => {
-                        this.partnerImage8.push(partnerImage8);
-                        this.toDataUrl('assets/img/report-chart-1.png', chartImage1 => {
-                          this.chartImage1.push(chartImage1);
-                          this.toDataUrl('assets/img/report-chart-2.png', chartImage2 => {
-                            this.chartImage2.push(chartImage2);
-                            this.toDataUrl('assets/img/report-chart-3.png', chartImage3 => {
-                              this.chartImage3.push(chartImage3);
-                                // const images = this.setImageToBase64();
-
-                                // this.chartImage1 = images.image1;
-                                // this.chartImage2 = images.image2;
-                                // this.chartImage3 = images.image3;
-
-                              this.getDocumentDefinition();
+                              await this.getDocumentDefinition();
                               this.getPdfBase64(this.docDefinition);
                             });
                           });
@@ -489,7 +347,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
   getHeaderDocument() {
     return [
-      this.getImageObject(this.headerImage1, [180, 50], [30, 25, 0, 20], 'left'),
+      this.headerImage1,
       {
         text: [
           {
@@ -505,7 +363,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         alignment: 'left',
         margin: [0, 30, 0, 5],
       },
-      this.getImageObject(this.headerImage2, [60, 50], [0, 25, 40, 20], 'right'),
+      this.headerImage2,
     ];
   }
 
@@ -592,12 +450,12 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
   getImageObject(image, fit, margin, alignment) {
     if (image && image[0] && !image[0].includes('vnd.ogc.sld+xml')) {
-      return {
+      return new Image(
         image,
         fit,
         margin,
         alignment
-      };
+      );
     } else {
       return {
         text: 'Imagem não encontrada.',
@@ -607,8 +465,8 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     }
   }
 
-  getPRODESDocumentDefinition() {
-    const headerDocument = this.getHeaderDocument();
+  async getPRODESDocumentDefinition() {
+    const headerDocument = await this.getHeaderDocument();
 
     const docDefinition = {
       info: {
@@ -643,7 +501,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
               bold: true
             },
             {
-              text: ` ${this.property.city}-MT`,
+              text: ` ${this.reportData.property.city}-MT`,
               bold: false
             }
           ],
@@ -656,7 +514,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
               bold: true
             },
             {
-              text: ` ${this.property.county}`,
+              text: ` ${this.reportData.property.county}`,
               bold: false
             }
           ],
@@ -696,10 +554,10 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
             },
             {
               text: (
-                ' com o uso de Sistema de Informações Geográficas no imóvel rural ' + this.property.name +
-                ' (Figura 1), localizado no município de ' + this.property.city +
-                '-MT, pertencente a ' + this.property.owner + ', conforme informações declaradas no ' +
-                ' Sistema Mato-grossense de Cadastro Ambiental Rural (SIMCAR), protocolo CAR-MT ' + this.property.register
+                ' com o uso de Sistema de Informações Geográficas no imóvel rural ' + this.reportData.property.name +
+                ' (Figura 1), localizado no município de ' + this.reportData.property.city +
+                '-MT, pertencente a ' + this.reportData.property.owner + ', conforme informações declaradas no ' +
+                ' Sistema Mato-grossense de Cadastro Ambiental Rural (SIMCAR), protocolo CAR-MT ' + this.reportData.property.register
               ),
             },
             {
@@ -717,8 +575,8 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         },
         {
           columns: [
-            this.getImageObject(this.geoserverImage1, [200, 200], [0, 10], 'center'),
-            this.getImageObject(this.geoserverImage2, [200, 200], [0, 10], 'center')
+            this.geoserverImage1,
+            this.geoserverImage2
           ]
         },
         {
@@ -1084,7 +942,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           margin: [30, 0, 30, 5],
           style: 'body'
         },
-        this.getImageObject(this.chartImage1, [250, 250], [10, 10], 'center'),
+        this.chartImage1,
         {
           text: [
             {
@@ -1104,7 +962,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           fontSize: 10,
           style: 'body'
         },
-        this.getImageObject(this.chartImage2, [250, 250], [0, 0], 'center'),
+        this.chartImage2,
         {
           text: '',
           pageBreak: 'after'
@@ -1133,7 +991,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           fontSize: 10,
           style: 'body'
         },
-        this.getImageObject(this.chartImage1, [250, 250], [10, 10], 'center'),
+        this.chartImage1,
         {
           text: [
             {
@@ -1385,7 +1243,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         },
         {
           text: (
-            this.property.prodesArea + ' hectares no imóvel rural denominado ' + this.property.name +
+            this.reportData.property.prodesArea + ' hectares no imóvel rural denominado ' + this.reportData.property.name +
             ' no período de ' + this.formattedFilterDate + ', conforme desmatamento explicitado ' +
             'no Quadro 1 (quantificação e descrição das áreas desmatadas que foram identificadas com o cruzamento dos dados descritos no histórico desse relatório) ' +
             'e no Anexo 2 (relatório do histórico de imagens de satélite e desmatamentos e queimadas ' +
@@ -1418,7 +1276,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           style: 'body'
         },
         {
-          text: ' rural denominado ' + this.property.name + ' a  partir da análise do PRODES, no período ' + this.formattedFilterDate + '.',
+          text: ' rural denominado ' + this.reportData.property.name + ' a  partir da análise do PRODES, no período ' + this.formattedFilterDate + '.',
           margin: [30, 0, 30, 15],
           style: 'body'
         },
@@ -1438,7 +1296,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                   style: 'tableHeader'
                 }
               ],
-              ...this.tableData.map(rel => {
+              ...this.reportData.tableData.map(rel => {
                 return [
                         rel.affectedArea,
                         rel.pastDeforestation
@@ -1456,8 +1314,8 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         },
         {
           columns: [
-            this.getImageObject(this.geoserverLegend, [200, 200], [0, 10], 'center'),
-            this.getImageObject(this.geoserverImage3, [200, 200], [0, 10], 'center')
+            this.geoserverLegend,
+            this.geoserverImage3
           ]
         },
         {
@@ -1467,7 +1325,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
               bold: true
             },
             {
-              text: 'Dinâmica de desmatamento - ' + this.prodesStartYear + '/' + this.currentYear,
+              text: 'Dinâmica de desmatamento - ' + this.reportData.prodesStartYear + '/' + this.currentYear,
               bold: false
             }
           ],
@@ -1492,7 +1350,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                   style: 'tableHeader'
                 }
               ],
-              ...this.prodesTableData.map(rel => {
+              ...this.reportData.prodesTableData.map(rel => {
                 return [
                         rel.date,
                         rel.area
@@ -1532,7 +1390,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
             {
               text: (
                 ' é possível visualizar, com imagens de alta resolução (Spot-2,5m e Planet-3m) como estava a cobertura ' +
-                'do imóvel em ' + this.prodesStartYear + ' e como se encontra atualmente (' + this.currentYear + '), indicando ' +
+                'do imóvel em ' + this.reportData.prodesStartYear + ' e como se encontra atualmente (' + this.currentYear + '), indicando ' +
                 'a ocorrência de desmatamento ilegal no imóvel rural.'
               ),
               margin: [30, 0, 30, 15],
@@ -1544,8 +1402,8 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         // this.getLine(),
         {
           columns: [
-            this.getImageObject(this.geoserverImage4, [200, 200], [], 'center'),
-            this.getImageObject(this.geoserverImage5, [200, 200], [], 'center')
+            this.geoserverImage4,
+            this.geoserverImage5
           ]
         },
         {
@@ -1555,7 +1413,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
               bold: true
             },
             {
-              text: 'Comparativo de imagens de satélite do ano ' + this.prodesStartYear + ' e ' + this.currentYear,
+              text: 'Comparativo de imagens de satélite do ano ' + this.reportData.prodesStartYear + ' e ' + this.currentYear,
               bold: false
             }
           ],
@@ -1568,7 +1426,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           style: 'listItem'
         },
         {
-          text: `${this.property.foundProdes ? 'Houve' : 'Não houve'} desmatamento ilegal no imóvel rural objeto deste Relatório `,
+          text: `${this.reportData.property.foundProdes ? 'Houve' : 'Não houve'} desmatamento ilegal no imóvel rural objeto deste Relatório `,
           alignment: 'right',
           margin: [30, 0, 30, 0],
           style: 'body'
@@ -1597,7 +1455,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
               bold: true
             },
             {
-              text: ' – Informações sobre o CAR-MT ' + this.property.register + ';',
+              text: ' – Informações sobre o CAR-MT ' + this.reportData.property.register + ';',
               style: 'body'
             }
           ],
@@ -1615,7 +1473,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
               style: 'body'
             },
             {
-              text: 'rural CAR-MT ' + this.property.register + ';',
+              text: 'rural CAR-MT ' + this.reportData.property.register + ';',
               style: 'body'
             }
           ],
@@ -1659,22 +1517,22 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         },
         {
           columns: [
-            this.getImageObject(this.partnerImage1, [180, 50], [30, 0, 0, 0], 'left'),
-            this.getImageObject(this.partnerImage2, [100, 50], [30, 0, 0, 0], 'center'),
-            this.getImageObject(this.partnerImage3, [80, 50], [30, 0, 25, 0], 'right')
+            this.partnerImage1,
+            this.partnerImage2,
+            this.partnerImage3
           ]
         },
         {
           columns: [
-            this.getImageObject(this.partnerImage4, [130, 60], [80, 30, 0, 0], 'left'),
-            this.getImageObject(this.partnerImage5, [100, 60], [95, 30, 0, 0], 'center'),
-            this.getImageObject(this.partnerImage6, [100, 60], [0, 30, 30, 0], 'right')
+            this.partnerImage4,
+            this.partnerImage5,
+            this.partnerImage6
           ],
         },
         {
           columns: [
-            this.getImageObject(this.partnerImage7, [100, 60], [80, 30, 0, 0], 'left'),
-            this.getImageObject(this.partnerImage8, [100, 60], [10, 25, 25, 0], 'left')
+            this.partnerImage7,
+            this.partnerImage8
           ]
         }
       ],
@@ -1717,7 +1575,9 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     this.docDefinition = docDefinition;
   }
 
-  getDETERDocumentDefinition() {
+  async getDETERDocumentDefinition() {
+    const headerDocument = await this.getHeaderDocument();
+
     const docDefinition = {
       info: {
         title: 'Relatório DETER'
@@ -1741,7 +1601,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
       },
       content: [
         {
-          columns: this.getHeaderDocument()
+          columns: headerDocument
         },
         {
           text: [
@@ -1750,7 +1610,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
               bold: true
             },
             {
-              text: ` ${this.property.city}-MT`,
+              text: ` ${this.reportData.property.city}-MT`,
               bold: false
             }
           ],
@@ -1763,7 +1623,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
               bold: true
             },
             {
-              text: ` ${this.property.county}`,
+              text: ` ${this.reportData.property.county}`,
               bold: false
             }
           ],
@@ -1792,10 +1652,10 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
             },
             {
               text: (
-                ' com o uso de Sistema de Informações Geográficas no imóvel rural ' + this.property.name +
-                ' (Figura 1), localizado no município de ' + this.property.city +
-                '-MT, pertencente a ' + this.property.owner + ', conforme informações declaradas no ' +
-                ' Sistema Mato-grossense de Cadastro Ambiental Rural (SIMCAR), protocolo CAR-MT ' + this.property.register
+                ' com o uso de Sistema de Informações Geográficas no imóvel rural ' + this.reportData.property.name +
+                ' (Figura 1), localizado no município de ' + this.reportData.property.city +
+                '-MT, pertencente a ' + this.reportData.property.owner + ', conforme informações declaradas no ' +
+                ' Sistema Mato-grossense de Cadastro Ambiental Rural (SIMCAR), protocolo CAR-MT ' + this.reportData.property.register
               ),
             },
             {
@@ -1813,18 +1673,8 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         },
         {
           columns: [
-            {
-              image: this.geoserverImage1,
-              fit: [200, 200],
-              margin: [0, 10],
-              alignment: 'center'
-            },
-            {
-              image: this.geoserverImage2,
-              fit: [200, 200],
-              margin: [0, 10],
-              alignment: 'center'
-            }
+            this.geoserverImage1,
+            this.geoserverImage2
           ]
         },
         {
@@ -1866,7 +1716,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           pageBreak: 'after'
         },
         {
-          columns: this.getHeaderDocument()
+          columns: headerDocument
         },
         {
           text: '2.1 Dados utilizados',
@@ -2046,7 +1896,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           pageBreak: 'after'
         },
         {
-          columns: this.getHeaderDocument()
+          columns: headerDocument
         },
         {
           text: '2.2 Método utilizado',
@@ -2157,7 +2007,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           pageBreak: 'after'
         },
         {
-          columns: this.getHeaderDocument()
+          columns: headerDocument
         },
         {
           text: 'O objetivo do DETER é identificar as alterações da vegetação natural ',
@@ -2250,7 +2100,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           pageBreak: 'after'
         },
         {
-          columns: this.getHeaderDocument()
+          columns: headerDocument
         },
         {
           text: [
@@ -2270,7 +2120,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           fontSize: 10
         },
         {
-          text: ' rural denominado ' + this.property.name + '.',
+          text: ' rural denominado ' + this.reportData.property.name + '.',
           margin: [30, 0, 30, 15],
           style: 'body'
         },
@@ -2290,7 +2140,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                   style: 'tableHeader'
                 }
               ],
-              ...this.tableData.map(rel => {
+              ...this.reportData.tableData.map(rel => {
                 return [
                         rel.affectedArea,
                         rel.recentDeforestation
@@ -2306,7 +2156,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           style: 'listItem'
         },
         {
-          text: `${this.property.foundDeter ? 'Houve' : 'Não houve'} desmatamento ilegal no imóvel rural objeto deste Relatório `,
+          text: `${this.reportData.property.foundDeter ? 'Houve' : 'Não houve'} desmatamento ilegal no imóvel rural objeto deste Relatório `,
           alignment: 'right',
           margin: [30, 0, 30, 0],
           style: 'body'
@@ -2328,7 +2178,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
               bold: true
             },
             {
-              text: ' – Informações sobre o CAR-MT ' + this.property.register + ';',
+              text: ' – Informações sobre o CAR-MT ' + this.reportData.property.register + ';',
               style: 'body'
             }
           ],
@@ -2339,7 +2189,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           pageBreak: 'after'
         },
         {
-          columns: this.getHeaderDocument()
+          columns: headerDocument
         },
         {
           text: '6 VALIDAÇÃO',
@@ -2359,62 +2209,22 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         },
         {
           columns: [
-            {
-              image: this.partnerImage1,
-              fit: [180, 50],
-              alignment: 'left',
-              margin: [30, 0, 0, 0]
-            },
-            {
-              image: this.partnerImage2,
-              fit: [100, 50],
-              alignment: 'center',
-              margin: [0, 0, 0, 0]
-            },
-            {
-              image: this.partnerImage3,
-              fit: [80, 50],
-              alignment: 'right',
-              margin: [0, 0, 40, 0]
-            }
+            this.partnerImage1,
+            this.partnerImage2,
+            this.partnerImage3
           ]
         },
         {
           columns: [
-            {
-              image: this.partnerImage4,
-              fit: [130, 60],
-              alignment: 'left',
-              margin: [80, 30, 0, 0]
-            },
-            {
-              image: this.partnerImage5,
-              fit: [100, 60],
-              alignment: 'center',
-              margin: [95, 30, 0, 0]
-            },
-            {
-              image: this.partnerImage6,
-              fit: [100, 60],
-              alignment: 'right',
-              margin: [0, 30, 30, 0]
-            }
+            this.partnerImage4,
+            this.partnerImage5,
+            this.partnerImage6
           ],
         },
         {
           columns: [
-            {
-              image: this.partnerImage7,
-              fit: [100, 60],
-              alignment: 'left',
-              margin: [80, 30, 0, 0]
-            },
-            {
-              image: this.partnerImage8,
-              fit: [100, 60],
-              alignment: 'left',
-              margin: [10, 25, 25, 0]
-            }
+            this.partnerImage7,
+            this.partnerImage8
           ]
         }
       ],
@@ -2457,7 +2267,9 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     this.docDefinition = docDefinition;
   }
 
-  getQUEIMADAocumentDefinition() {
+  async getQUEIMADAocumentDefinition() {
+    const headerDocument = await this.getHeaderDocument();
+
     const docDefinition = {
       info: {
         title: 'Relatório QUEIMADA'
@@ -2481,7 +2293,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
       },
       content: [
         {
-          columns: this.getHeaderDocument()
+          columns: headerDocument
         },
         {
           text: [
@@ -2490,7 +2302,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
               bold: true
             },
             {
-              text: ` ${this.property.city}-MT`,
+              text: ` ${this.reportData.property.city}-MT`,
               bold: false
             }
           ],
@@ -2503,7 +2315,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
               bold: true
             },
             {
-              text: ` ${this.property.county}`,
+              text: ` ${this.reportData.property.county}`,
               bold: false
             }
           ],
@@ -2532,10 +2344,10 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
             },
             {
               text: (
-                ' com o uso de Sistema de Informações Geográficas no imóvel rural ' + this.property.name +
-                ' (Figura 1), localizada no município de ' + this.property.city +
-                '-MT, pertencente a ' + this.property.owner + ', conforme informações declaradas no ' +
-                ' Sistema Mato-grossense de Cadastro Ambiental Rural (SIMCAR), protocolo CAR-MT ' + this.property.register
+                ' com o uso de Sistema de Informações Geográficas no imóvel rural ' + this.reportData.property.name +
+                ' (Figura 1), localizada no município de ' + this.reportData.property.city +
+                '-MT, pertencente a ' + this.reportData.property.owner + ', conforme informações declaradas no ' +
+                ' Sistema Mato-grossense de Cadastro Ambiental Rural (SIMCAR), protocolo CAR-MT ' + this.reportData.property.register
               ),
             },
             {
@@ -2553,18 +2365,8 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         },
         {
           columns: [
-            {
-              image: this.geoserverImage1,
-              fit: [200, 200],
-              margin: [0, 10],
-              alignment: 'center'
-            },
-            {
-              image: this.geoserverImage2,
-              fit: [200, 200],
-              margin: [0, 10],
-              alignment: 'center'
-            }
+            this.geoserverImage1,
+            this.geoserverImage2
           ]
         },
         {
@@ -2606,7 +2408,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           pageBreak: 'after'
         },
         {
-          columns: this.getHeaderDocument()
+          columns: headerDocument
         },
         {
           text: '2.1 Dados utilizados',
@@ -2770,7 +2572,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           pageBreak: 'after'
         },
         {
-          columns: this.getHeaderDocument()
+          columns: headerDocument
         },
         {
           text: '2.2 Método utilizado',
@@ -2881,7 +2683,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           pageBreak: 'after'
         },
         {
-          columns: this.getHeaderDocument()
+          columns: headerDocument
         },
         {
           text: 'O objetivo do DETER é identificar as alterações da vegetação natural ',
@@ -2974,7 +2776,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           pageBreak: 'after'
         },
         {
-          columns: this.getHeaderDocument()
+          columns: headerDocument
         },
         {
           text: [
@@ -2994,7 +2796,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           fontSize: 10
         },
         {
-          text: ' denominado ' + this.property.name + '.',
+          text: ' denominado ' + this.reportData.property.name + '.',
           margin: [30, 0, 30, 15],
           style: 'body'
         },
@@ -3014,7 +2816,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                   style: 'tableHeader'
                 }
               ],
-              ...this.tableData.map(rel => {
+              ...this.reportData.tableData.map(rel => {
                 return [
                         rel.affectedArea,
                         rel.recentDeforestation
@@ -3030,7 +2832,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           style: 'listItem'
         },
         {
-          text: `${this.property.foundDeter ? 'Houve' : 'Não houve'} desmatamento ilegal no imóvel rural objeto deste Relatório `,
+          text: `${this.reportData.property.foundDeter ? 'Houve' : 'Não houve'} desmatamento ilegal no imóvel rural objeto deste Relatório `,
           alignment: 'right',
           margin: [30, 0, 30, 0],
           style: 'body'
@@ -3052,7 +2854,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
               bold: true
             },
             {
-              text: ' – Informações sobre o CAR-MT ' + this.property.register + ';',
+              text: ' – Informações sobre o CAR-MT ' + this.reportData.property.register + ';',
               style: 'body'
             }
           ],
@@ -3063,7 +2865,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           pageBreak: 'after'
         },
         {
-          columns: this.getHeaderDocument()
+          columns: headerDocument
         },
         {
           text: '6 VALIDAÇÃO',
@@ -3083,62 +2885,22 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         },
         {
           columns: [
-            {
-              image: this.partnerImage1,
-              fit: [180, 50],
-              alignment: 'left',
-              margin: [30, 0, 0, 0]
-            },
-            {
-              image: this.partnerImage2,
-              fit: [100, 50],
-              alignment: 'center',
-              margin: [0, 0, 0, 0]
-            },
-            {
-              image: this.partnerImage3,
-              fit: [80, 50],
-              alignment: 'right',
-              margin: [0, 0, 40, 0]
-            }
+            this.partnerImage1,
+            this.partnerImage2,
+            this.partnerImage3
           ]
         },
         {
           columns: [
-            {
-              image: this.partnerImage4,
-              fit: [130, 60],
-              alignment: 'left',
-              margin: [80, 30, 0, 0]
-            },
-            {
-              image: this.partnerImage5,
-              fit: [100, 60],
-              alignment: 'center',
-              margin: [95, 30, 0, 0]
-            },
-            {
-              image: this.partnerImage6,
-              fit: [100, 60],
-              alignment: 'right',
-              margin: [0, 30, 30, 0]
-            }
+            this.partnerImage4,
+            this.partnerImage5,
+            this.partnerImage6
           ],
         },
         {
           columns: [
-            {
-              image: this.partnerImage7,
-              fit: [100, 60],
-              alignment: 'left',
-              margin: [80, 30, 0, 0]
-            },
-            {
-              image: this.partnerImage8,
-              fit: [100, 60],
-              alignment: 'left',
-              margin: [10, 25, 25, 0]
-            }
+            this.partnerImage7,
+            this.partnerImage8
           ]
         }
       ],
