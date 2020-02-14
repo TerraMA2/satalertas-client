@@ -59,7 +59,7 @@ export class DashboardComponent implements OnInit {
     const listAlerts: Alert[] = [];
 
     this.sidebarLayers.forEach((group: LayerGroup) => {
-      if (group.view_graph) {
+      if (group && group.view_graph) {
         listAlerts.push(this.getidviewAlert(group));
       }
     });
@@ -96,22 +96,21 @@ export class DashboardComponent implements OnInit {
   }
 
   getidviewAlert(group: LayerGroup) {
-
     const alert = new Alert(
-      0,
-      '',
-      group.cod,
-      group.label,
-      0,
-      0,
-      group.cod === 'DETER',
-      group.cod === 'DETER',
-      false,
-      [],
-      true,
-      true,
-      group.tableOwner,
-      group.tableName);
+        0,
+        '',
+        group.cod,
+        group.label,
+        0,
+        0,
+        group.cod === 'DETER',
+        group.cod === 'DETER',
+        false,
+        [],
+        true,
+        true,
+        group.tableOwner,
+        group.tableName);
 
     group.children.forEach( (view: Layer) => {
       if (view.isPrimary && view.type === LayerType.ANALYSIS) {
@@ -121,7 +120,6 @@ export class DashboardComponent implements OnInit {
         alert.tableName = view.tableName;
       }
     });
-
     return alert;
   }
 
