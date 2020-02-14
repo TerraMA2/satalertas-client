@@ -71,57 +71,62 @@ export class SidebarComponent implements OnInit {
     this.configService.getSidebarConfigurationDynamically().then((layers: Response) => {
       this.sidebarLayers = layers.data;
       this.sidebarLayerGroups = [];
-      this.sidebarLayers.forEach(sidebarLayer => {
-        const layerChildren: Layer[] = [];
-        const children = sidebarLayer.children;
-        if (children) {
-          sidebarLayer.children.forEach(sidebarLayerChild => {
-            let layer;
-            if (!sidebarLayerChild.isHidden) {
-              layer = new Layer(
-                sidebarLayerChild.cod,
-                sidebarLayerChild.codgroup,
-                sidebarLayerChild.label,
-                sidebarLayerChild.shortLabel,
-                sidebarLayerChild.value,
-                sidebarLayerChild.dateColumn,
-                sidebarLayerChild.geomColumn,
-                sidebarLayerChild.areaColumn,
-                sidebarLayerChild.carRegisterColumn,
-                sidebarLayerChild.classNameColumn,
-                sidebarLayerChild.type,
-                sidebarLayerChild.isPrivate,
-                sidebarLayerChild.isPrimary,
-                sidebarLayerChild.isChild,
-                sidebarLayerChild.filter,
-                sidebarLayerChild.layerData,
-                sidebarLayerChild.legend,
-                sidebarLayerChild.popupTitle,
-                sidebarLayerChild.infoColumns,
-                sidebarLayerChild.isHidden,
-                sidebarLayerChild.isDisabled,
-                sidebarLayerChild.tools,
-                sidebarLayerChild.markerSelected,
-                sidebarLayerChild.tableOwner,
-                sidebarLayerChild.tableName
-              );
-              layerChildren.push(layer);
-            }
-          });
-        }
-        const layerGroup = new LayerGroup(
-          sidebarLayer.cod,
-          sidebarLayer.label,
-          sidebarLayer.parent,
-          sidebarLayer.isPrivate,
-          sidebarLayer.icon,
-          sidebarLayer.view_graph,
-          sidebarLayer.activeArea,
-          layerChildren,
-          sidebarLayer.tableOwner
-        );
-        this.sidebarLayerGroups.push(layerGroup);
-      });
+      if (this.sidebarLayers) {
+        this.sidebarLayers.forEach(sidebarLayer => {
+          const layerChildren: Layer[] = [];
+          let children = null;
+          if (sidebarLayer) {
+            children = sidebarLayer.children;
+          }
+          if (children) {
+            sidebarLayer.children.forEach(sidebarLayerChild => {
+              let layer;
+              if (!sidebarLayerChild.isHidden) {
+                layer = new Layer(
+                  sidebarLayerChild.cod,
+                  sidebarLayerChild.codgroup,
+                  sidebarLayerChild.label,
+                  sidebarLayerChild.shortLabel,
+                  sidebarLayerChild.value,
+                  sidebarLayerChild.dateColumn,
+                  sidebarLayerChild.geomColumn,
+                  sidebarLayerChild.areaColumn,
+                  sidebarLayerChild.carRegisterColumn,
+                  sidebarLayerChild.classNameColumn,
+                  sidebarLayerChild.type,
+                  sidebarLayerChild.isPrivate,
+                  sidebarLayerChild.isPrimary,
+                  sidebarLayerChild.isChild,
+                  sidebarLayerChild.filter,
+                  sidebarLayerChild.layerData,
+                  sidebarLayerChild.legend,
+                  sidebarLayerChild.popupTitle,
+                  sidebarLayerChild.infoColumns,
+                  sidebarLayerChild.isHidden,
+                  sidebarLayerChild.isDisabled,
+                  sidebarLayerChild.tools,
+                  sidebarLayerChild.markerSelected,
+                  sidebarLayerChild.tableOwner,
+                  sidebarLayerChild.tableName
+                );
+                layerChildren.push(layer);
+              }
+            });
+          }
+          const layerGroup = new LayerGroup(
+            sidebarLayer.cod,
+            sidebarLayer.label,
+            sidebarLayer.parent,
+            sidebarLayer.isPrivate,
+            sidebarLayer.icon,
+            sidebarLayer.view_graph,
+            sidebarLayer.activeArea,
+            layerChildren,
+            sidebarLayer.tableOwner
+          );
+          this.sidebarLayerGroups.push(layerGroup);
+        });
+      }
     });
   }
 
