@@ -1332,6 +1332,13 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           style: 'body'
         },
         {
+          text: '',
+          pageBreak: 'after'
+        },
+        {
+          columns: headerDocument
+        },
+        {
           columns: [
             this.geoserverLegend,
             this.geoserverImage3
