@@ -27,6 +27,14 @@ export class ReportService {
     private http: HttpClient
   ) { }
 
+  async getSynthesisCarData(carRegister, date, filter) {
+    const url = `${this.URL_REPORT_SERVER}/getSynthesisCarData`;
+
+    const parameters = {carRegister, date, filter };
+
+    return await this.http.get(url, { params: parameters }).toPromise();
+  }
+
   async generatePdf(docDefinition, type, carCode) {
     const url = this.URL_REPORT_SERVER + '/generatePdf';
     const parameters = { docDefinition, type, carCode };

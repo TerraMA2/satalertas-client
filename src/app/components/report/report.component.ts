@@ -88,10 +88,10 @@ export class ReportComponent implements OnInit {
 
     this.sidebarService.sidebarLayerShowHide.next(false);
 
-    this.getPropertyData();
+    await this.getPropertyData();
   }
 
-  getPropertyData() {
+  async getPropertyData() {
     const date = JSON.parse(localStorage.getItem('dateFilter'));
     const startDate = new Date(date[0]).toLocaleDateString('pt-BR');
     const endDate = new Date(date[1]).toLocaleDateString('pt-BR');
@@ -100,13 +100,12 @@ export class ReportComponent implements OnInit {
 
     this.formattedFilterDate = `${startDate} - ${endDate}`;
 
-    const propertyConfig = this.reportConfig.propertyData;
-    const url = propertyConfig.url;
-    const viewId = propertyConfig.viewId;
     this.carRegister = this.carRegister.replace('\\', '/');
     const carRegister = this.carRegister;
-    this.hTTPService.get(url, {viewId, carRegister, date, filter})
-                    .subscribe((propertyData: Property) => {
+
+    await this.reportService.getSynthesisCarData(carRegister, date, filter).then((response: Response) => {
+      const propertyData = response.data;
+
       const burnedAreas = propertyData.burnedAreas;
 
       const area = propertyData.area;

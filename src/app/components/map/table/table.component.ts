@@ -206,7 +206,11 @@ export class TableComponent implements OnInit {
               const key = e[0];
               if (key !== 'lat' && key !== 'long') {
                 const value = e[1];
-                changedRow[infoColumns[group][key].alias] = value;
+                if (infoColumns[group][key] && infoColumns[group][key].alias && infoColumns[group][key].alias !== undefined) {
+                  changedRow[infoColumns[group][key].alias] = value;
+                } else {
+                  changedRow[key] = value;
+                }
               }
             });
             changedData.push(changedRow);
