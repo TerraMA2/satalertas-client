@@ -310,9 +310,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     });
   }
 
-  async getImageGeoserver(reportData) {
-  }
-
   getPdfBase64(docDefinition) {
     const pdfDocGenerator = pdfMake.createPdf(docDefinition);
 
