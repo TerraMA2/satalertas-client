@@ -27,6 +27,14 @@ export class ReportService {
     private http: HttpClient
   ) { }
 
+  async getPointsAlerts(carRegister, date, filter, type) {
+    const url = `${this.URL_REPORT_SERVER}/getPointsAlerts`;
+
+    const parameters = {carRegister, date, filter, type };
+
+    return await this.http.get(url, { params: parameters }).toPromise();
+  }
+
   async getSynthesisCarData(carRegister, date, filter) {
     const url = `${this.URL_REPORT_SERVER}/getSynthesisCarData`;
 
