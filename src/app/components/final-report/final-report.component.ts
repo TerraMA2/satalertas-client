@@ -42,8 +42,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
   @ViewChild('imagem2', {static: false}) imagem2: Chart;
   @ViewChild('chartImg', {static: false}) chartImg: Chart;
 
-  private reportConfig;
-
   private headerImage1: Image = new Image([''], [200, 200], [0, 0], 'center');
   private headerImage2: Image = new Image([''], [200, 200], [0, 0], 'center');
 
@@ -125,22 +123,21 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     });
 
     this.year = new Date().getFullYear().toString();
-    this.reportConfig = await this.configService.getReportConfig().then((response: Response) => response.data);
 
     this.sidebarService.sidebarLayerShowHide.next(false);
-
-    this.tableColumns = [
-      { field: 'affectedArea', header: 'Área atingida' },
-      { field: 'recentDeforestation', header: 'Desmatamento recente (em ha)' },
-      { field: 'pastDeforestation', header: 'Desmatamento pretérito (em ha)' },
-      { field: 'burnlights', header: 'Focos de Queimadas (Num. de focos)' },
-      { field: 'burnAreas', header: 'Áreas Queimadas (em ha)' }
-    ];
-
-    this.prodesHistoryTableColumns = [
-      { field: 'date', header: 'Ano' },
-      { field: 'area', header: 'ha' }
-    ];
+    //
+    // this.tableColumns = [
+    //   { field: 'affectedArea', header: 'Área atingida' },
+    //   { field: 'recentDeforestation', header: 'Desmatamento recente (em ha)' },
+    //   { field: 'pastDeforestation', header: 'Desmatamento pretérito (em ha)' },
+    //   { field: 'burnlights', header: 'Focos de Queimadas (Num. de focos)' },
+    //   { field: 'burnAreas', header: 'Áreas Queimadas (em ha)' }
+    // ];
+    //
+    // this.prodesHistoryTableColumns = [
+    //   { field: 'date', header: 'Ano' },
+    //   { field: 'area', header: 'ha' }
+    // ];
   }
 
   async ngAfterViewInit() {
@@ -172,14 +169,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     });
 
     this.myChart = new Chart(ctx, options);
-
-    // await setTimeout( async () => {
-    //   const arrayNdviChart = this.myChart && this.myChart.toBase64Image() ? [this.myChart.toBase64Image()] : null;
-    //   this.ndviChart = this.getImageObject(arrayNdviChart, [500, 500], [0, 10], 'center');
-    //
-    //   await this.getDocumentDefinition();
-    //   this.getPdfBase64(this.docDefinition);
-    // }, 8000);
 
     await this.getReportData();
     // const newCanvas: any = document.getElementById('imagem2');
@@ -260,7 +249,8 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     this.carRegister = this.carRegister.replace('\\', '/');
     const carRegister = this.carRegister;
 
-    this.reportData = await this.finalReportService.getReportCarData(carRegister, date, filter).then( (response: Response) => response.data );
+    this.reportData = await this.finalReportService.getReportCarData(carRegister, date, filter, this.type).then( (response: Response) => response.data );
+
 
     this.geoserverImage1 = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage), [200, 200], [0, 10], 'center');
     this.geoserverImage2 = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage1), [200, 200], [0, 10], 'center');
@@ -318,6 +308,9 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         });
       });
     });
+  }
+
+  async getImageGeoserver(reportData) {
   }
 
   getPdfBase64(docDefinition) {
