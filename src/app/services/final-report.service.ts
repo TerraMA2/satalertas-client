@@ -17,10 +17,10 @@ export class FinalReportService {
     private http: HttpClient
   ) { }
 
-  async getReportCarData(carRegister, date, filter) {
+  async getReportCarData(carRegister, date, filter, type) {
     const url = `${this.URL_REPORT_SERVER}/report/getReportCarData`;
 
-    const parameters = {carRegister, date, filter };
+    const parameters = {carRegister, date, filter, type};
 
     return await this.http.get(url, { params: parameters }).toPromise();
   }
