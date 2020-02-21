@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild, AfterViewInit} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation, ViewChild, AfterViewInit, OnChanges, SimpleChanges, NgModule} from '@angular/core';
 
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -27,6 +27,8 @@ import { MessageService } from 'primeng/api';
 import { HTTPService } from 'src/app/services/http.service';
 
 import {Image} from '../../models/image.model';
+import {Observable} from 'rxjs';
+import {Watch} from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
 
 
 @Component({
@@ -38,12 +40,39 @@ import {Image} from '../../models/image.model';
 
 export class FinalReportComponent implements OnInit, AfterViewInit {
 
-  @ViewChild('myChart', {static: false}) myChart: Chart;
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private configService: ConfigService,
+    private sidebarService: SidebarService,
+    private reportService: ReportService,
+    private finalReportService: FinalReportService,
+    private authService: AuthService,
+    private messageService: MessageService,
+    private hTTPService: HTTPService,
+    private router: Router,
+    private satVegService: SatVegService
+  ) {  }
+
   @ViewChild('imagem2', {static: false}) imagem2: Chart;
   @ViewChild('chartImg', {static: false}) chartImg: Chart;
+  @ViewChild('myChart0', {static: false}) myChart0: Chart;
+  @ViewChild('myChart1', {static: false}) myChart1: Chart;
+  @ViewChild('myChart2', {static: false}) myChart2: Chart;
+  @ViewChild('myChart3', {static: false}) myChart3: Chart;
+  @ViewChild('myChart4', {static: false}) myChart4: Chart;
+  @ViewChild('myChart5', {static: false}) myChart5: Chart;
+  @ViewChild('myChart6', {static: false}) myChart6: Chart;
+  @ViewChild('myChart7', {static: false}) myChart7: Chart;
+  @ViewChild('myChart8', {static: false}) myChart8: Chart;
+  @ViewChild('myChart9', {static: false}) myChart9: Chart;
+  @ViewChild('myChart10', {static: false}) myChart10: Chart;
+  @ViewChild('myChart11', {static: false}) myChart11: Chart;
+  @ViewChild('myChart12', {static: false}) myChart12: Chart;
+  @ViewChild('myChart13', {static: false}) myChart13: Chart;
 
-  private headerImage1: Image = new Image([''], [200, 200], [0, 0], 'center');
-  private headerImage2: Image = new Image([''], [200, 200], [0, 0], 'center');
+
+  private headerImage1: Image;
+  private headerImage2: Image;
 
   private geoserverImage1: Image = new Image([''], [200, 200], [0, 0], 'center');
   private geoserverImage2: Image = new Image([''], [200, 200], [0, 0], 'center');
@@ -68,20 +97,21 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
   private partnerImage8: Image = new Image([''], [200, 200], [0, 0], 'center');
 
   reportData;
-
   carRegister: string;
 
+  chartImages = [];
   dateFilter: string;
 
   formattedFilterDate: string;
 
   currentYear: number;
   currentDate: string;
-
+  filter;
+  date;
   tableColumns;
 
   prodesHistoryTableColumns;
-
+  points: any[];
   type: string;
   year: string;
 
@@ -89,18 +119,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
   docBase64;
   generatingReport = false;
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private configService: ConfigService,
-    private sidebarService: SidebarService,
-    private reportService: ReportService,
-    private finalReportService: FinalReportService,
-    private authService: AuthService,
-    private messageService: MessageService,
-    private hTTPService: HTTPService,
-    private router: Router,
-    private satVegService: SatVegService
-  ) {}
+  ndviContext: any[] = [];
 
   async ngOnInit() {
     this.authService.user.subscribe(user => {
@@ -122,119 +141,80 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
       });
     });
 
-    this.year = new Date().getFullYear().toString();
-
     this.sidebarService.sidebarLayerShowHide.next(false);
-    //
-    // this.tableColumns = [
-    //   { field: 'affectedArea', header: 'Área atingida' },
-    //   { field: 'recentDeforestation', header: 'Desmatamento recente (em ha)' },
-    //   { field: 'pastDeforestation', header: 'Desmatamento pretérito (em ha)' },
-    //   { field: 'burnlights', header: 'Focos de Queimadas (Num. de focos)' },
-    //   { field: 'burnAreas', header: 'Áreas Queimadas (em ha)' }
-    // ];
-    //
-    // this.prodesHistoryTableColumns = [
-    //   { field: 'date', header: 'Ano' },
-    //   { field: 'area', header: 'ha' }
-    // ];
+
   }
 
   async ngAfterViewInit() {
-    const canvas: any = document.getElementById('myChart');
-    const ctx: any = canvas.getContext('2d');
-    const options = await this.satVegService.get({long: -55.927406283714994, lat: -11.636221885927357}, 'ndvi', 3, 'wav', '', 'aqua').then(async (resp: Response) => {
-      return {
-        type: 'line',
-        data: {
-          labels: resp.data['listaDatas'],
-          lineColor: 'rgb(10,5,109)',
-          datasets: [{
-            label: '',
-            data: resp.data['listaSerie'],
-            backgroundColor: 'rgba(17,17,177,0)',
-            borderColor: 'rgba(5,177,0,1)',
-            showLine: true,
-            borderWidth: 2,
-            pointRadius: 0
-          }]
-        },
-        options: {
-          responsive: false,
-          legend: {
-            display: false
-          }
-        }
-      };
-    });
+    this.filter = localStorage.getItem('filterList');
+    this.date = JSON.parse(localStorage.getItem('dateFilter'));
+    this.points = await this.reportService.getPointsAlerts(this.carRegister.replace('\\', '/'), this.date, this.filter, this.type).then( async (response: Response) => await response.data);
 
-    this.myChart = new Chart(ctx, options);
-
-    await this.getReportData();
-    // const newCanvas: any = document.getElementById('imagem2');
-    // const newCtx: any = newCanvas.getContext('2d');
-
-    // const newOptions = {
-    //   type: 'line',
-    //   data: {
-    //     labels: ['2016', '2016', '2016', '2016', '2016', '2016', '2016', '2016', '2016', '2016', '2016'],
-    //     datasets: [{
-    //       label: 'NDVI',
-    //       data: [100, 212, 333, 125, 20, 400, 212, 333, 125, 20, 400],
-    //       backgroundColor: [
-    //         'rgba(255,255,255, 0)',
-    //         'rgba(54, 162, 235, 1)',
-    //         'rgba(255, 206, 86, 1)'
-    //       ],
-    //       borderWidth: 1
-    //     }]
-    //   },
-    //   options: {
-    //     responsive: false,
-    //     display: true
-    //   }
-    // };
-
-    // const chartImgCanvas: any = document.getElementById('chartImg');
-    // const ctxChartImg: any = chartImgCanvas.getContext('2d');
-
-    // const optionsChartImg = {
-    //   type: 'line',
-    //   data: {
-    //     labels: ['New', 'In Progress', 'On Hold', 'On Hold', 'On Hold', 'dddd'],
-    //     datasets: [{
-    //       label: '# of Votes',
-    //       data: [100, 212, 333, 125, 20, 400],
-    //       backgroundColor: [
-    //         'rgba(255, 255, 255, 0)',
-    //         'rgba(54, 162, 235, 1)',
-    //         'rgba(255, 206, 86, 1)'
-    //       ],
-    //       borderWidth: 1
-    //     }]
-    //   },
-    //   options: {
-    //     responsive: false,
-    //     display: true
-    //   }
-    // };
-
-
-    // this.imagem2 = new Chart(newCtx, newOptions);
-    // this.myChart = new Chart(ctx, options);
-    // this.chartImg = new Chart(ctxChartImg, optionsChartImg);
+    this.year = new Date().getFullYear().toString();
+    this.setChartNdvi();
   }
 
   setImageToBase64() {
-    return {image1: this.myChart.toBase64Image(), image2: this.imagem2.toBase64Image(), image3: this.chartImg.toBase64Image()};
+    return {image1: this.myChart0.toBase64Image(), image2: this.imagem2.toBase64Image(), image3: this.chartImg.toBase64Image()};
+  }
+
+  async setChartNdvi() {
+    let count = 0;
+    for (const point of this.points) {
+      const canvas: any = document.createElement('canvas');
+      canvas.id = `myChart${count}`;
+      canvas.setAttribute('width', 600);
+      canvas.setAttribute('height', 200);
+
+      document.body.appendChild(canvas);
+
+      const ctx: any = canvas.getContext('2d');
+      const options = await this.satVegService.get({long: point.long, lat: point.lat}, 'ndvi', 3, 'wav', '', 'aqua').then(async (resp: Response) => {
+        return {
+          type: 'line',
+          data: {
+            labels: resp.data['listaDatas'],
+            lineColor: 'rgb(10,5,109)',
+            datasets: [{
+              label: '',
+              data: resp.data['listaSerie'],
+              backgroundColor: 'rgba(17,17,177,0)',
+              borderColor: 'rgba(5,177,0,1)',
+              showLine: true,
+              borderWidth: 2,
+              pointRadius: 0
+            }]
+          },
+          options: {
+            responsive: false,
+            legend: {
+              display: false
+            }
+          }
+        };
+      });
+
+      const myChart = new Chart(ctx, options);
+      const ndviChart = this.getImageObject( myChart && myChart.toBase64Image() ? [myChart.toBase64Image()] : null, [500, 500], [0, 10], 'center');
+      const geoserverImage = this.getImageObject(await this.getBaseImageUrl(point.url), [200, 200], [0, 10], 'center');
+      // this.getImageObject( null, [500, 500], [0, 10], 'center'); //
+      const chartImage = {
+        geoserverImageNdvi: geoserverImage,
+        myChart: ndviChart
+      };
+
+      this.chartImages.push(chartImage);
+      ++count;
+    }
+
+    await this.getReportData();
   }
 
   async getReportData() {
 
-    const date = JSON.parse(localStorage.getItem('dateFilter'));
-    this.dateFilter = `${date[0]}/${date[1]}`;
-    const startDate = new Date(date[0]).toLocaleDateString('pt-BR');
-    const endDate = new Date(date[1]).toLocaleDateString('pt-BR');
+    this.dateFilter = `${this.date[0]}/${this.date[1]}`;
+    const startDate = new Date(this.date[0]).toLocaleDateString('pt-BR');
+    const endDate = new Date(this.date[1]).toLocaleDateString('pt-BR');
 
     this.formattedFilterDate = `${startDate} A ${endDate}`;
 
@@ -244,12 +224,11 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
     this.currentDate = today.getDate() + '/' + today.getMonth() + 1 + '/' + today.getFullYear();
 
-    const filter = localStorage.getItem('filterList');
 
     this.carRegister = this.carRegister.replace('\\', '/');
     const carRegister = this.carRegister;
 
-    this.reportData = await this.finalReportService.getReportCarData(carRegister, date, filter, this.type).then( (response: Response) => response.data );
+    this.reportData = await this.finalReportService.getReportCarData(carRegister, this.date, this.filter, this.type).then( (response: Response) => response.data );
 
 
     this.geoserverImage1 = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage), [200, 200], [0, 10], 'center');
@@ -260,41 +239,35 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     this.geoserverLegend = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsLegend), [200, 200], [0, 10], 'center');
 
     this.toDataUrl('assets/img/logos/mpmt-small.png', async headerImage1 => {
-      this.headerImage1 = this.getImageObject([headerImage1], [180, 50], [30, 25, 0, 20], 'left')
+      this.headerImage1 = this.getImageObject([headerImage1], [180, 50], [30, 25, 0, 20], 'left');
       this.toDataUrl('assets/img/logos/inpe.png', async headerImage2 => {
-        this.headerImage2 = this.getImageObject([headerImage2], [60, 50], [0, 25, 40, 20], 'right')
+        this.headerImage2 = this.getImageObject([headerImage2], [60, 50], [0, 25, 40, 20], 'right');
         this.toDataUrl('assets/img/logos/mpmt-small.png', async partnerImage1 => {
-          this.partnerImage1 = this.getImageObject([partnerImage1], [180, 50], [30, 0, 0, 0], 'left')
+          this.partnerImage1 = this.getImageObject([partnerImage1], [180, 50], [30, 0, 0, 0], 'left');
           this.toDataUrl('assets/img/logos/pjedaou-large.png', async partnerImage2 => {
-            this.partnerImage2 = this.getImageObject([partnerImage2], [100, 50], [30, 0, 0, 0], 'center')
+            this.partnerImage2 = this.getImageObject([partnerImage2], [100, 50], [30, 0, 0, 0], 'center');
             this.toDataUrl('assets/img/logos/caex.png', async partnerImage3 => {
-              this.partnerImage3 = this.getImageObject([partnerImage3], [80, 50], [30, 0, 25, 0], 'right')
+              this.partnerImage3 = this.getImageObject([partnerImage3], [80, 50], [30, 0, 25, 0], 'right');
               this.toDataUrl('assets/img/logos/inpe.png', async partnerImage4 => {
-                this.partnerImage4 = this.getImageObject([partnerImage4], [130, 60], [80, 30, 0, 0], 'left')
+                this.partnerImage4 = this.getImageObject([partnerImage4], [130, 60], [80, 30, 0, 0], 'left');
                 this.toDataUrl('assets/img/logos/dpi.png', async partnerImage5 => {
-                  this.partnerImage5 = this.getImageObject([partnerImage5], [100, 60], [95, 30, 0, 0], 'center')
+                  this.partnerImage5 = this.getImageObject([partnerImage5], [100, 60], [95, 30, 0, 0], 'center');
                   this.toDataUrl('assets/img/logos/terrama2-large.png', async partnerImage6 => {
-                    this.partnerImage6 = this.getImageObject([partnerImage6], [100, 60], [0, 30, 30, 0], 'right')
+                    this.partnerImage6 = this.getImageObject([partnerImage6], [100, 60], [0, 30, 30, 0], 'right');
                     this.toDataUrl('assets/img/logos/mt.png', async partnerImage7 => {
-                      this.partnerImage7 = this.getImageObject([partnerImage7], [100, 60], [80, 30, 0, 0], 'left')
+                      this.partnerImage7 = this.getImageObject([partnerImage7], [100, 60], [80, 30, 0, 0], 'left');
                       this.toDataUrl('assets/img/logos/sema.png', async partnerImage8 => {
-                        this.partnerImage8 = this.getImageObject([partnerImage8], [100, 60], [10, 25, 25, 0], 'left')
+                        this.partnerImage8 = this.getImageObject([partnerImage8], [100, 60], [10, 25, 25, 0], 'left');
                         this.toDataUrl('assets/img/report-chart-1.png', async chartImage1 => {
-                          this.chartImage1 = this.getImageObject([chartImage1], [250, 250], [3, 3], 'center')
+                          this.chartImage1 = this.getImageObject([chartImage1], [250, 250], [3, 3], 'center');
                           this.toDataUrl('assets/img/report-chart-2.png', async chartImage2 => {
-                            this.chartImage2 = this.getImageObject([chartImage2], [250, 250], [3, 3], 'center')
+                            this.chartImage2 = this.getImageObject([chartImage2], [250, 250], [3, 3], 'center');
                             this.toDataUrl('assets/img/report-chart-3.png', async chartImage3 => {
-                              this.chartImage3 = this.getImageObject([chartImage3], [250, 250], [3, 3], 'center')
-
-                              // const arrayNdviChart = this.myChart && this.myChart.toBase64Image() ? [this.myChart.toBase64Image()] : null;
-                              // this.ndviChart = this.getImageObject(arrayNdviChart, [500, 500], [0, 10], 'center');
+                              this.chartImage3 = this.getImageObject([chartImage3], [250, 250], [3, 3], 'center');
 
                               setTimeout( async () => {
-                                const arrayNdviChart = this.myChart && this.myChart.toBase64Image() ? [this.myChart.toBase64Image()] : null;
-                                this.ndviChart = this.getImageObject(arrayNdviChart, [500, 500], [0, 10], 'center');
-                                await this.getDocumentDefinition();
-                                this.getPdfBase64(this.docDefinition);
-                              }, 1000);
+                                this.getPdfBase64(await this.setDocDefinitions());
+                              }, 2000);
                             });
                           });
                         });
@@ -308,6 +281,45 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         });
       });
     });
+  }
+
+  async setDocDefinitions() {
+    const docDefinition = await this.getDocumentDefinition();
+
+    if (this.type === 'prodes') {
+      for (let i = 0; i < this.chartImages.length; i += 2) {
+        this.ndviContext.push({text: '', pageBreak: 'after'});
+        this.ndviContext.push(await this.getHeaderDocument());
+        if (i === 0) {
+          this.ndviContext.push(
+            {
+              text: 'Os gráficos a seguir representam os NDVI das áreas de alertas do PRODES no imóvel.',
+              margin: [30, 20, 30, 15],
+              style: 'body'
+            });
+        }
+        this.ndviContext.push(this.chartImages[i].geoserverImageNdvi);
+        this.ndviContext.push(this.chartImages[i].myChart);
+        if ((i + 1) < this.chartImages.length) {
+          this.ndviContext.push(this.chartImages[i + 1].geoserverImageNdvi);
+          this.ndviContext.push(this.chartImages[i + 1].myChart);
+        }
+      }
+
+      const contentDocDef = [];
+      docDefinition.content.forEach((context, index) => {
+        contentDocDef.push(context);
+        if (index === 94) {
+          this.ndviContext.forEach(ndvi => {
+            contentDocDef.push(ndvi);
+          });
+        }
+      });
+
+      docDefinition.content = contentDocDef;
+    }
+
+    return docDefinition;
   }
 
   getPdfBase64(docDefinition) {
@@ -449,11 +461,11 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
   async getDocumentDefinition() {
     if (this.type === 'prodes') {
-      await this.getPRODESDocumentDefinition();
+      return await this.getPRODESDocumentDefinition();
     } else if (this.type === 'deter') {
-      await this.getDETERDocumentDefinition();
+      return await this.getDETERDocumentDefinition();
     } else if (this.type === 'queimada') {
-      await this.getQUEIMADAocumentDefinition();
+      return await this.getQUEIMADAocumentDefinition();
     }
   }
 
@@ -1437,16 +1449,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           fontSize: 10
         },
         {
-          text: 'Os gráficos a seguir representam os NDVI das áreas de alertas do PRODES no imóvel.',
-          margin: [30, 20, 30, 15],
-          style: 'body'
-        },
-        {
-          columns: [
-            this.ndviChart
-          ]
-        },
-        {
           text: '',
           pageBreak: 'after'
         },
@@ -1599,6 +1601,8 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     };
 
     this.docDefinition = docDefinition;
+
+    return docDefinition;
   }
 
   async getDETERDocumentDefinition() {
@@ -2291,6 +2295,8 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     };
 
     this.docDefinition = docDefinition;
+
+    return docDefinition;
   }
 
   async getQUEIMADAocumentDefinition() {
@@ -2967,5 +2973,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     };
 
     this.docDefinition = docDefinition;
+
+    return docDefinition;
   }
 }
