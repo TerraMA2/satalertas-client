@@ -111,7 +111,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
   tableColumns;
 
   prodesHistoryTableColumns;
-  points: any[];
+  points: any[] = [];
   type: string;
   year: string;
 
@@ -148,8 +148,9 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
   async ngAfterViewInit() {
     this.filter = localStorage.getItem('filterList');
     this.date = JSON.parse(localStorage.getItem('dateFilter'));
-    this.points = await this.reportService.getPointsAlerts(this.carRegister.replace('\\', '/'), this.date, this.filter, this.type).then( async (response: Response) => await response.data);
-
+    if (this.type === 'prodes') {
+      this.points = await this.reportService.getPointsAlerts(this.carRegister.replace('\\', '/'), this.date, this.filter, this.type).then(async (response: Response) => await response.data);
+    }
     this.year = new Date().getFullYear().toString();
     this.setChartNdvi();
   }
@@ -160,51 +161,68 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
   async setChartNdvi() {
     let count = 0;
-    for (const point of this.points) {
-      const canvas: any = document.createElement('canvas');
-      canvas.id = `myChart${count}`;
-      canvas.setAttribute('width', 600);
-      canvas.setAttribute('height', 200);
+    if (this.type === 'prodes') {
+      for (const point of this.points) {
+        const canvas: any = document.createElement('canvas');
+        canvas.id = `myChart${count}`;
+        canvas.setAttribute('width', 600);
+        canvas.setAttribute('height', 200);
+        canvas.setAttribute('style', 'display: none');
 
-      document.body.appendChild(canvas);
+        document.body.appendChild(canvas);
 
-      const ctx: any = canvas.getContext('2d');
-      const options = await this.satVegService.get({long: point.long, lat: point.lat}, 'ndvi', 3, 'wav', '', 'aqua').then(async (resp: Response) => {
-        return {
-          type: 'line',
-          data: {
-            labels: resp.data['listaDatas'],
-            lineColor: 'rgb(10,5,109)',
-            datasets: [{
-              label: '',
-              data: resp.data['listaSerie'],
-              backgroundColor: 'rgba(17,17,177,0)',
-              borderColor: 'rgba(5,177,0,1)',
-              showLine: true,
-              borderWidth: 2,
-              pointRadius: 0
-            }]
-          },
-          options: {
-            responsive: false,
-            legend: {
-              display: false
+        const ctx: any = canvas.getContext('2d');
+        const options = await this.satVegService.get({
+          long: point.long,
+          lat: point.lat
+        }, 'ndvi', 3, 'wav', '', 'aqua').then(async (resp: Response) => {
+          return {
+            type: 'line',
+            data: {
+              labels: resp.data['listaDatas'],
+              lineColor: 'rgb(10,5,109)',
+              datasets: [{
+                label: '',
+                data: resp.data['listaSerie'],
+                backgroundColor: 'rgba(17,17,177,0)',
+                borderColor: 'rgba(5,177,0,1)',
+                showLine: true,
+                borderWidth: 2,
+                pointRadius: 0
+              }]
+            },
+            options: {
+              responsive: false,
+              legend: {
+                display: false
+              }
             }
-          }
+          };
+        });
+
+        const myChart = new Chart(ctx, options);
+
+        myChart.update({
+          duration: 0,
+          lazy: false,
+          easing: 'easeOutBounce'
+        });
+
+        myChart.render();
+
+        myChart.stop();
+
+        const ndviChart = this.getImageObject(myChart && myChart.toBase64Image() ? [myChart.toBase64Image()] : null, [500, 500], [0, 10], 'center');
+        const geoserverImage = this.getImageObject(await this.getBaseImageUrl(point.url), [200, 200], [0, 10], 'center');
+
+        const chartImage = {
+          geoserverImageNdvi: geoserverImage,
+          myChart: ndviChart
         };
-      });
 
-      const myChart = new Chart(ctx, options);
-      const ndviChart = this.getImageObject( myChart && myChart.toBase64Image() ? [myChart.toBase64Image()] : null, [500, 500], [0, 10], 'center');
-      const geoserverImage = this.getImageObject(await this.getBaseImageUrl(point.url), [200, 200], [0, 10], 'center');
-      // this.getImageObject( null, [500, 500], [0, 10], 'center'); //
-      const chartImage = {
-        geoserverImageNdvi: geoserverImage,
-        myChart: ndviChart
-      };
-
-      this.chartImages.push(chartImage);
-      ++count;
+        this.chartImages.push(chartImage);
+        ++count;
+      }
     }
 
     await this.getReportData();
@@ -233,10 +251,13 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
     this.geoserverImage1 = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage), [200, 200], [0, 10], 'center');
     this.geoserverImage2 = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage1), [200, 200], [0, 10], 'center');
-    this.geoserverImage3 = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage2), [200, 200], [0, 10], 'center');
-    this.geoserverImage4 = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage3), [200, 200], [], 'center');
-    this.geoserverImage5 = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage4), [200, 200], [], 'center');
-    this.geoserverLegend = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsLegend), [200, 200], [0, 10], 'center');
+
+    if (this.type === 'prodes') {
+      this.geoserverImage3 = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage2), [200, 200], [0, 10], 'center');
+      this.geoserverImage4 = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage3), [200, 200], [], 'center');
+      this.geoserverImage5 = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage4), [200, 200], [], 'center');
+      this.geoserverLegend = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsLegend), [200, 200], [0, 10], 'center');
+    }
 
     this.toDataUrl('assets/img/logos/mpmt-small.png', async headerImage1 => {
       this.headerImage1 = this.getImageObject([headerImage1], [180, 50], [30, 25, 0, 20], 'left');
@@ -287,36 +308,44 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     const docDefinition = await this.getDocumentDefinition();
 
     if (this.type === 'prodes') {
-      for (let i = 0; i < this.chartImages.length; i += 2) {
+      for (let i = 0; i < this.chartImages.length; ++i) {
         this.ndviContext.push({text: '', pageBreak: 'after'});
-        this.ndviContext.push(await this.getHeaderDocument());
+        this.ndviContext.push(
+          { columns: await this.getHeaderDocument()});
         if (i === 0) {
           this.ndviContext.push(
-            {
-              text: 'Os gráficos a seguir representam os NDVI das áreas de alertas do PRODES no imóvel.',
-              margin: [30, 20, 30, 15],
-              style: 'body'
-            });
-        }
-        this.ndviContext.push(this.chartImages[i].geoserverImageNdvi);
-        this.ndviContext.push(this.chartImages[i].myChart);
-        if ((i + 1) < this.chartImages.length) {
-          this.ndviContext.push(this.chartImages[i + 1].geoserverImageNdvi);
-          this.ndviContext.push(this.chartImages[i + 1].myChart);
-        }
-      }
-
-      const contentDocDef = [];
-      docDefinition.content.forEach((context, index) => {
-        contentDocDef.push(context);
-        if (index === 94) {
-          this.ndviContext.forEach(ndvi => {
-            contentDocDef.push(ndvi);
+            { columns: [{
+                text: 'Os gráficos a seguir representam os NDVI das áreas de alertas do PRODES no imóvel.',
+                margin: [30, 20, 30, 15],
+                style: 'body'
+            }]
           });
         }
-      });
+        this.ndviContext.push({ columns: [this.chartImages[i].geoserverImageNdvi]});
+        this.ndviContext.push({ columns: [this.chartImages[i].myChart]});
 
-      docDefinition.content = contentDocDef;
+        // if ((i + 1) < this.chartImages.length) {
+        //   this.ndviContext.push(this.chartImages[i + 1].geoserverImageNdvi);
+        //   this.ndviContext.push(this.chartImages[i + 1].myChart);
+        // }
+      }
+
+      // const contentDocDef = [];
+      // docDefinition.content.forEach((context, index) => {
+      //   contentDocDef.push(context);
+      //   if (index === 94) {
+      //     this.ndviContext.forEach(ndvi => {
+      //       contentDocDef.push(ndvi);
+      //     });
+      //   }
+      // });
+      //
+      // docDefinition.content = contentDocDef;
+
+
+      this.ndviContext.forEach(ndvi => {
+        docDefinition.content.push(ndvi);
+      });
     }
 
     return docDefinition;
@@ -2844,14 +2873,19 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                   style: 'tableHeader'
                 },
                 {
-                  text: 'Desmatamento recente\n(DETER – nº de alertas)',
+                  text: 'Focos de Queimadas (Num. de focos)',
+                  style: 'tableHeader'
+                },
+                {
+                  text: 'Área Queimada (ha)',
                   style: 'tableHeader'
                 }
               ],
               ...this.reportData.tableData.map(rel => {
                 return [
                         rel.affectedArea,
-                        rel.recentDeforestation
+                        rel.burnlights,
+                        rel.burnAreas
                 ];
               })
             ]
