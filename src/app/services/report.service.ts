@@ -87,7 +87,7 @@ export class ReportService {
     const years = propertyData[key];
     if (!years || years.length === 0) {
       years.push({date: '2007'});
-      years.push({date: '2019'});
+      years.push({date: (new Date()).getFullYear()});
     }
 
     const title = visionData.title;

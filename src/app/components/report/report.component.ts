@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -17,7 +17,11 @@ import { ReportService } from 'src/app/services/report.service';
 import { FilterService } from 'src/app/services/filter.service';
 
 import { SidebarService } from 'src/app/services/sidebar.service';
+
 import {Response} from '../../models/response.model';
+
+import { SatVegService } from '../../services/sat-veg.service';
+import Chart from 'chart.js';
 
 @Component({
   selector: 'app-report',
@@ -27,6 +31,8 @@ import {Response} from '../../models/response.model';
 export class ReportComponent implements OnInit {
 
   private reportConfig;
+
+  points: any[] = [];
 
   carRegister: string;
 
@@ -64,6 +70,8 @@ export class ReportComponent implements OnInit {
 
   formattedFilterDate: string;
 
+  chartImages = [];
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private hTTPService: HTTPService,
@@ -71,7 +79,8 @@ export class ReportComponent implements OnInit {
     private reportService: ReportService,
     private filterService: FilterService,
     private sidebarService: SidebarService,
-    private router: Router
+    private router: Router,
+    private satVegService: SatVegService
   ) { }
 
   async ngOnInit() {
@@ -103,7 +112,7 @@ export class ReportComponent implements OnInit {
     this.carRegister = this.carRegister.replace('\\', '/');
     const carRegister = this.carRegister;
 
-    await this.reportService.getSynthesisCarData(carRegister, date, filter).then((response: Response) => {
+    await this.reportService.getSynthesisCarData(carRegister, date, filter).then(async (response: Response) => {
       const propertyData = response.data;
 
       const burnedAreas = propertyData.burnedAreas;
@@ -131,10 +140,84 @@ export class ReportComponent implements OnInit {
       this.burnedAreasChartData = this.reportService.getBurnedAreasChart(burnedAreas);
 
       this.burnedAreasPerPropertyChartDatas = this.reportService.getBurnedAreasPerPropertyChart(burnedAreas, area);
+
+      this.points = await this.reportService.getPointsAlerts(this.carRegister.replace('\\', '/'), date, filter, 'prodes').then(async (resp: Response) =>  await resp.data );
+      await this.setChartNdvi();
     });
   }
 
   onViewReportClicked(reportType) {
     this.router.navigateByUrl(`/finalReport/${reportType}/${this.carRegister.replace('/', '\\')}`);
+  }
+
+  async getBase64ImageFromUrl(imageUrl) {
+    const res = await fetch(imageUrl);
+    const blob = await res.blob();
+    const result = await new Promise((resolve, reject) => {
+      const reader  = new FileReader();
+      reader.addEventListener('load', () => resolve(reader.result), false);
+      reader.onerror = () => reject(this);
+      reader.readAsDataURL(blob);
+    });
+    return result;
+  }
+
+  async setChartNdvi() {
+    for (let index = 0 ; index < this.points.length; index++) {
+      const canvas: any = document.createElement('canvas');
+      canvas.id = `myChart${index}`;
+      canvas.setAttribute('width', 600);
+      canvas.setAttribute('height', 200);
+      canvas.setAttribute('style', 'display: none');
+
+      document.body.appendChild(canvas);
+
+      const ctx: any = canvas.getContext('2d');
+      const options = await this.satVegService.get({
+        long: this.points[index].long,
+        lat: this.points[index].lat
+      }, 'ndvi', 3, 'wav', '', 'aqua').then(async (resp: Response) => {
+        return {
+          type: 'line',
+          data: {
+            labels: resp.data['listaDatas'],
+            lineColor: 'rgb(10,5,109)',
+            datasets: [{
+              label: '',
+              data: resp.data['listaSerie'],
+              backgroundColor: 'rgba(17,17,177,0)',
+              borderColor: 'rgba(5,177,0,1)',
+              showLine: true,
+              borderWidth: 2,
+              pointRadius: 0
+            }]
+          },
+          options: {
+            responsive: false,
+            legend: {
+              display: false
+            }
+          }
+        };
+      });
+
+      const myChart = new Chart(ctx, options);
+
+      myChart.update({
+        duration: 0,
+        lazy: false,
+        easing: 'easeOutBounce'
+      });
+
+      myChart.render();
+
+      myChart.stop();
+
+      const chartImage = {
+        geoserverImageNdvi: await this.getBase64ImageFromUrl(this.points[index].url),
+        myChart: myChart.toBase64Image()
+      };
+      this.chartImages.push(chartImage);
+    }
   }
 }
