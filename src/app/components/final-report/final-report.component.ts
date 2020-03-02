@@ -24,12 +24,10 @@ import { FinalReportService } from '../../services/final-report.service';
 import { AuthService } from 'src/app/services/auth.service';
 
 import { MessageService } from 'primeng/api';
+
 import { HTTPService } from 'src/app/services/http.service';
 
 import {Image} from '../../models/image.model';
-import {Observable} from 'rxjs';
-import {Watch} from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
-
 
 @Component({
   selector: 'app-final-report',
@@ -160,8 +158,8 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
   }
 
   async setChartNdvi() {
-    let count = 0;
     if (this.type === 'prodes') {
+      let count = 0;
       for (const point of this.points) {
         const canvas: any = document.createElement('canvas');
         canvas.id = `myChart${count}`;
@@ -212,8 +210,8 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
         myChart.stop();
 
-        const ndviChart = this.getImageObject(myChart && myChart.toBase64Image() ? [myChart.toBase64Image()] : null, [500, 500], [0, 10], 'center');
-        const geoserverImage = this.getImageObject(await this.getBaseImageUrl(point.url), [200, 200], [0, 10], 'center');
+        const ndviChart = this.getImageObject(myChart && myChart.toBase64Image() ? [myChart.toBase64Image()] : null, [500, 500], [10, 0], 'center');
+        const geoserverImage = this.getImageObject(await this.getBaseImageUrl(point.url), [200, 200], [10, 70], 'center');
 
         const chartImage = {
           geoserverImageNdvi: geoserverImage,
