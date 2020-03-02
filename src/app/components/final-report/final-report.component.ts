@@ -308,41 +308,43 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     const docDefinition = await this.getDocumentDefinition();
 
     if (this.type === 'prodes') {
+      const startDate = new Date(this.date[0]).toLocaleDateString('pt-BR');
+      const endDate = new Date(this.date[1]).toLocaleDateString('pt-BR');
+
+
       for (let i = 0; i < this.chartImages.length; ++i) {
-        this.ndviContext.push({text: '', pageBreak: 'after'});
-        this.ndviContext.push(
-          { columns: await this.getHeaderDocument()});
         if (i === 0) {
+          this.ndviContext.push( { text: '', pageBreak: 'after' });
+
           this.ndviContext.push(
-            { columns: [{
-                text: 'Os gráficos a seguir representam os NDVI das áreas de alertas do PRODES no imóvel.',
+            {
+              stack: [
+                'Anexo 4',
+                {text: 'NDVI das áreas de desmatamento - Prodes', fontSize: 14},
+              ],
+              fontSize: 25,
+              bold: true,
+              alignment: 'center',
+              margin: [0, 380, 0, 80]
+            });
+
+          this.ndviContext.push({text: '', pageBreak: 'after'});
+          this.ndviContext.push( { columns: await this.getHeaderDocument()} );
+          this.ndviContext.push(
+            {
+              columns: [ {
+                text: `Os gráficos a seguir representam os NDVI das áreas de desmatamento do PRODES no imóvel no períoco de ${startDate} a ${endDate}.`,
                 margin: [30, 20, 30, 15],
                 style: 'body'
-            }]
-          });
+              }]
+            });
+        } else {
+          this.ndviContext.push({text: '', pageBreak: 'after'});
+          this.ndviContext.push({columns: await this.getHeaderDocument()});
         }
         this.ndviContext.push({ columns: [this.chartImages[i].geoserverImageNdvi]});
         this.ndviContext.push({ columns: [this.chartImages[i].myChart]});
-
-        // if ((i + 1) < this.chartImages.length) {
-        //   this.ndviContext.push(this.chartImages[i + 1].geoserverImageNdvi);
-        //   this.ndviContext.push(this.chartImages[i + 1].myChart);
-        // }
       }
-
-      // const contentDocDef = [];
-      // docDefinition.content.forEach((context, index) => {
-      //   contentDocDef.push(context);
-      //   if (index === 94) {
-      //     this.ndviContext.forEach(ndvi => {
-      //       contentDocDef.push(ndvi);
-      //     });
-      //   }
-      // });
-      //
-      // docDefinition.content = contentDocDef;
-
-
       this.ndviContext.forEach(ndvi => {
         docDefinition.content.push(ndvi);
       });
@@ -1549,7 +1551,22 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
               style: 'body'
             },
             {
-              text: 'proprietários/posseiros do imóvel rural.',
+              text: 'proprietários/posseiros do imóvel rural;',
+              style: 'body'
+            }
+          ],
+          margin: [30, 0, 30, 0],
+        },
+        {
+          text: [
+            {
+              text: 'Anexo 4.',
+              style: 'body',
+              bold: true
+            },
+            {
+              text: ' – NDVI das áreas de desmadamento do Prodes.',
+              alignment: 'right',
               style: 'body'
             }
           ],
@@ -3002,6 +3019,15 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           fontSize: 12,
           alignment: 'left',
           margin: [30, 0, 30, 10]
+        },
+        titleAttachment: {
+          fontSize: 25,
+          bold: true,
+          alignment: 'center',
+          margin: [0, 400, 0, 80]
+        },
+        subTitleAttachment: {
+          fontSize: 14
         }
       }
     };
