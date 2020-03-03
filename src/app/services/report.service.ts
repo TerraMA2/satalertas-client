@@ -10,8 +10,6 @@ import {HttpClient} from '@angular/common/http';
 
 import {environment} from '../../environments/environment';
 
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -246,6 +244,32 @@ export class ReportService {
       burnedAreasPerPropertyChartDatas.push(this.getChart(null, ['Área imóvel', 'Área queimada'], burnedArea));
     });
     return burnedAreasPerPropertyChartDatas;
+  }
+
+  getHistoryDeterChart(historyDeterData) {
+    const historyDeterYears = [];
+    const historyDeterAreas = [];
+    historyDeterData.forEach(historyDeter => {
+      const historyDeterArea = historyDeter.area;
+      const year = historyDeter.date;
+      historyDeterYears.push(year);
+      historyDeterAreas.push(historyDeterArea);
+    });
+
+    return this.getChart('DETER', historyDeterYears, historyDeterAreas);
+  }
+
+  getHistoryProdesChart(historyProdesData) {
+    const historyProdesYears = [];
+    const historyProdesAreas = [];
+    historyProdesData.forEach(historyProdes => {
+      const historyProdesArea = historyProdes.area;
+      const year = historyProdes.date;
+      historyProdesYears.push(year);
+      historyProdesAreas.push(historyProdesArea);
+    });
+
+    return this.getChart('PRODES', historyProdesYears, historyProdesAreas);
   }
 
   private getChart(legends: string|string[], labels: string|string[], data) {

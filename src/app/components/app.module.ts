@@ -75,6 +75,8 @@ import { AuthorizationAreaComponent } from './filter/authorization-area/authoriz
 import { SpecificSearchAreaComponent } from './filter/specific-search-area/specific-search-area.component';
 import { FooterFilterAreaComponent } from './filter/footer-filter-area/footer-filter-area.component';
 import { FinalReportComponent } from './final-report/final-report.component';
+import { HistoryDeterChartComponent } from './report/history-deter-chart/history-deter-chart.component';
+import { HistoryProdesChartComponent } from './report/history-prodes-chart/history-prodes-chart.component';
 registerLocaleData(localePt, 'pt');
 @NgModule({
   declarations: [
@@ -118,6 +120,8 @@ registerLocaleData(localePt, 'pt');
     FooterFilterAreaComponent,
     SidebarItemComponent,
     FinalReportComponent,
+    HistoryDeterChartComponent,
+    HistoryProdesChartComponent,
   ],
 
   imports: [
