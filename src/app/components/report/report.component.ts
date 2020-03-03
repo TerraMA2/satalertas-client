@@ -215,7 +215,8 @@ export class ReportComponent implements OnInit {
 
       const chartImage = {
         geoserverImageNdvi: await this.getBase64ImageFromUrl(this.points[index].url),
-        myChart: myChart.toBase64Image()
+        // myChart: myChart.toBase64Image()
+        myChart: options.data
       };
       this.chartImages.push(chartImage);
     }
