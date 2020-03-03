@@ -64,11 +64,11 @@ export class ThemeAreaComponent implements OnInit, AfterViewInit {
 
       this.loadComboRegion();
     } else if (option.value === 'mesoregion') {
-      this.optionSelectedByFilter = new FilterTheme(undefined, 'Mesoregião',  'mesoregion' );
+      this.optionSelectedByFilter = new FilterTheme(undefined, 'Mesorregião',  'mesoregion' );
 
       this.loadComboMesoregion();
     } else if (option.value  === 'microregion') {
-      this.optionSelectedByFilter = new FilterTheme(undefined, 'Microregião', 'microregion' );
+      this.optionSelectedByFilter = new FilterTheme(undefined, 'Microrregião', 'microregion' );
       this.optionsFilterLocalizations = [];
 
       this.loadComboMicroregion();
