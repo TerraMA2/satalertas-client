@@ -191,7 +191,7 @@ export class ReportComponent implements OnInit {
             labels: resp.data['listaDatas'],
             lineColor: 'rgb(10,5,109)',
             datasets: [{
-              label: '',
+              label: 'NDVI',
               data: resp.data['listaSerie'],
               backgroundColor: 'rgba(17,17,177,0)',
               borderColor: 'rgba(5,177,0,1)',
