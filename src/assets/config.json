@@ -48,7 +48,7 @@
     "controls": {
       "layers": {
         "position": "topleft",
-        "collapsed": true,
+        "collapsed": false,
         "autoZIndex": false,
         "hideSingleBase": false
       },
