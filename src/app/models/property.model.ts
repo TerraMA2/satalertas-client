@@ -43,6 +43,7 @@ export class Property {
     public prodesYear?: object[],
     public deterYear?: object[],
     public spotlightsYear?: [],
-    public burnedAreasYear?: []
+    public burnedAreasYear?: [],
+    public analysisPeriod?: any
   ) {}
 }
