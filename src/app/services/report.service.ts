@@ -85,20 +85,25 @@ export class ReportService {
     const visions: Vision[] = [];
     const visionData = visionsData[0];
     const years = propertyData[key];
-    if (!years || years.length === 0) {
-      years.push({date: '2007'});
-      years.push({date: (new Date()).getFullYear()});
-    }
+    // if (!years || years.length === 0) {
+    //   years.push({date: '2007'});
+    //   years.push({date: (new Date()).getFullYear()});
+    // }
 
     const title = visionData.title;
     const time = visionData.layerData.time;
     const description = visionData.description;
 
-    let startYear = (years[0]).date;
-    let endYear = (years[years.length - 1]).date;
-    if (!endYear || startYear === endYear) {
-      endYear = (new Date()).getFullYear();
-    }
+    const periodKey = propertyData.analysisPeriod[key] ? key :
+      key.includes('prodes') ? 'prodesYear' :
+      key.includes('deter') ? 'deterYear' :
+      key.includes('burnedArea') ? 'burnedAreaYear' :
+      key.includes('spotlights') ? 'spotlightsYear' : '';
+
+
+    let startYear = propertyData.analysisPeriod[periodKey].startYear;
+    const endYear = propertyData.analysisPeriod[periodKey].endYear;
+
     let count = 0;
     while (startYear <= endYear) {
       const visionDataCopy = JSON.parse(JSON.stringify(visionData));
