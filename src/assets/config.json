@@ -81,7 +81,6 @@
     },
     "baselayers": [
       {
-        "default": true,
         "name": "osm",
         "url": "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
         "layers": "",
@@ -92,6 +91,7 @@
         "attribution": "&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a>"
       },
       {
+        "default": true,
         "name": "sentinel",
         "url": "https://b.s2maps-tiles.eu/wms?",
         "layers": "s2cloudless-2018",
