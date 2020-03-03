@@ -11,6 +11,7 @@
             style="vertical-align:middle; width: 32px; height: 32px;"
             class="btn btn-icon"
             (click)="onViewReportClicked('deter')"
+            disabled
             pButton
             pTooltip="Visualisar relatório Deter"
             tooltipPosition="top">
@@ -29,12 +30,13 @@
             style="vertical-align:middle; margin-left: 10px; width: 32px; height: 32px;"
             (click)="onViewReportClicked('queimada')"
             pButton
+            disabled
             class="btn btn-icon"
             pTooltip="Visualisar relatório Queimada"
             tooltipPosition="top">
                     <img src="assets/img/ico/queima.ico" style="margin: 2px; width: 25px; height: 25px;"/>
     </button>
-    &nbsp;
+    <!-- &nbsp;
     <button pButton
             ngxPrint
             icon="fas fa-print"
@@ -42,7 +44,7 @@
             printTitle="Relatório ambiental CAR - {{carRegister}}"
             [useExistingCss]="true"
             printSectionId="print-section">
-    </button>
+    </button> -->
   </div>
 </p-toolbar>
 <p-scrollPanel [style]="{width: '100%', height: 'calc(100vh - 100px)'}">
