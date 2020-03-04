@@ -41,7 +41,10 @@ import {View} from '../../models/view.model';
 import {FilterUtils} from '../../utils/filter.utils';
 
 import { AuthService } from 'src/app/services/auth.service';
+
 import {Response} from '../../models/response.model';
+
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-map',
@@ -303,9 +306,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         markerLabel = 'CAR Validado';
         carRegister = data.registro_estadual;
 
+        // TODO: Set car layer dynamically
         const layerData = {
-                            url: 'http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms',
-                            layers: 'terrama2_6:view6',
+                            url: `${environment.geoserverUrl}/wms`,
+                            layers: 'terrama2_34:view34',
                             transparent: true,
                             format: 'image/png',
                             version: '1.1.0',
@@ -862,12 +866,11 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
       let params = null;
       let url = '';
-
       if (selectedLayer.type === LayerType.ANALYSIS || selectedLayer.type === LayerType.DYNAMIC) {
-        url = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wfs`;
-        params = this.getWFSFeatureInfoParams(layer, event);
+        url = `${environment.geoserverUrl}/wfs`;
+        params = this.getWFSFeatureInfoParams(layer, event, selectedLayer.type, selectedLayer.cod);
       } else {
-        url = `http://www.terrama2.dpi.inpe.br/mpmt/geoserver/wms`;
+        url = `${environment.geoserverUrl}/wms`;
         params = this.getWMSFeatureInfoParams(layer, event);
       }
 
@@ -922,7 +925,14 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     return params;
   }
 
-  getWFSFeatureInfoParams(layer: L.TileLayer.WMS, event) {
+  getWFSFeatureInfoParams(layer: L.TileLayer.WMS, event, layerType, layerCod) {
+    let geomColumn = 'intersection_geom';
+    if (layerType === LayerType.DYNAMIC) {
+      geomColumn = 'geom';
+      if (layerCod === 'FOCOS') {
+        geomColumn = 'geomatria';
+      }
+    }
     const params = {
       request: 'GetFeature',
       service: 'WFS',
@@ -931,7 +941,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       outputFormat: 'application/json',
       typeNames: layer.wmsParams.layers,
       count: 1,
-      cql_filter: `INTERSECTS(intersection_geom, POINT(${event.latlng.lat} ${event.latlng.lng}))`
+      cql_filter: `INTERSECTS(${geomColumn}, POINT(${event.latlng.lat} ${event.latlng.lng}))`
     };
 
     return params;
