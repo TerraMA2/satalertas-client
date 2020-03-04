@@ -23,10 +23,15 @@ export class HTTPService {
     }
 
     const terramaUrl = environment.terramaUrl;
+    const geoserverUrl = environment.geoserverUrl;
     const terramaUrlProd = 'http://www.terrama2.dpi.inpe.br/mpmt';
     const testUrl = 'http://localhost:3200';
 
-    if (!url.includes(terramaUrl) && !url.includes(terramaUrlProd) && !url.includes(testUrl) && !url.includes('https://www.satveg.cnptia.embrapa.br')) {
+    if (!url.includes(terramaUrl) &&
+        !url.includes(terramaUrlProd) &&
+        !url.includes(testUrl) &&
+        !url.includes(geoserverUrl) &&
+        !url.includes('https://www.satveg.cnptia.embrapa.br')) {
       url = terramaUrl + url;
     }
     return this.http.get(url, { params: parameters }).pipe(
