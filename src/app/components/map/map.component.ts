@@ -147,8 +147,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   setControls() {
     this.setLayerControl();
     this.setFullScreenControl();
-    this.setScaleControl();
+    this.setDrawControl();
     this.setLegendControl();
+    this.setCoordinatesControl();
+    this.setScaleControl();
     this.setTableControl();
     this.setReportTableControl();
     this.setSearchControl();
@@ -156,7 +158,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.setRestoreMapControl();
     // this.setVisibleLayersControl();
     this.setMarkersGroup();
-    this.setDrawControl();
   }
 
   getLocalStorageData() {
@@ -814,6 +815,31 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     searchOptions.marker = L.circleMarker([0, 0], this.mapConfig.controls.search.marker);
     this.searchControl = new Search(searchOptions);
     this.map.addControl(this.searchControl);
+  }
+
+  setCoordinatesControl() {
+    const Coordinates = L.Control.extend({
+      onAdd: map => {
+        const container = L.DomUtil.create('div');
+        // <input id="latInput" class="input-label" value="${e.latlng.lat.toFixed(4)}" />
+        map.addEventListener('mousemove', e => {
+          container.innerHTML = `
+          <div id="coordinates" class="leaflet-control-coordinates leaflet-control-layers leaflet-custom-icon">
+          <strong>Lat:</strong>
+          ${e.latlng.lat.toFixed(4)}
+          &nbsp;
+          <strong>Long:</strong>
+          ${e.latlng.lng.toFixed(4)}
+          </div>
+          `;
+        });
+        L.DomEvent.disableClickPropagation(container);
+        return container;
+      }
+    });
+    new Coordinates({
+      position: 'bottomleft',
+    }).addTo(this.map);
   }
 
   setDrawControl() {
