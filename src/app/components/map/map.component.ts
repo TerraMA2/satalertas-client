@@ -6,6 +6,8 @@ import 'leaflet.markercluster';
 
 import 'leaflet.fullscreen';
 
+import 'leaflet-draw';
+
 import * as Search from 'leaflet-search';
 
 import { HTTPService } from '../../services/http.service';
@@ -145,8 +147,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   setControls() {
     this.setLayerControl();
     this.setFullScreenControl();
-    this.setScaleControl();
+    this.setDrawControl();
     this.setLegendControl();
+    this.setCoordinatesControl();
+    this.setScaleControl();
     this.setTableControl();
     this.setReportTableControl();
     this.setSearchControl();
@@ -211,7 +215,11 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       const baseLayer = this.getLayer(baseLayerData);
       const baseLayerName = baseLayerData.name;
       this.layerControl.addBaseLayer(baseLayer, baseLayerName);
-      if (baseLayerData.default) {
+      if (environment.production) {
+        if (baseLayerData.default) {
+          baseLayer.addTo(this.map);
+        }
+      } else if (baseLayerName === 'osm') {
         baseLayer.addTo(this.map);
       }
     });
@@ -807,6 +815,55 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     searchOptions.marker = L.circleMarker([0, 0], this.mapConfig.controls.search.marker);
     this.searchControl = new Search(searchOptions);
     this.map.addControl(this.searchControl);
+  }
+
+  setCoordinatesControl() {
+    const Coordinates = L.Control.extend({
+      onAdd: map => {
+        const container = L.DomUtil.create('div');
+        // <input id="latInput" class="input-label" value="${e.latlng.lat.toFixed(4)}" />
+        map.addEventListener('mousemove', e => {
+          container.innerHTML = `
+          <div id="coordinates" class="leaflet-control-coordinates leaflet-control-layers leaflet-custom-icon">
+          <strong>Lat:</strong>
+          ${e.latlng.lat.toFixed(4)}
+          &nbsp;
+          <strong>Long:</strong>
+          ${e.latlng.lng.toFixed(4)}
+          </div>
+          `;
+        });
+        L.DomEvent.disableClickPropagation(container);
+        return container;
+      }
+    });
+    new Coordinates({
+      position: 'bottomleft',
+    }).addTo(this.map);
+  }
+
+  setDrawControl() {
+    const editableLayers = new L.FeatureGroup();
+    this.map.addLayer(editableLayers);
+
+    this.map.addLayer(editableLayers);
+    const drawControl = new L.Control.Draw({
+      edit: {
+          featureGroup: editableLayers
+      }
+    });
+    this.map.addControl(drawControl);
+
+    this.map.on(L.Draw.Event.CREATED, e => {
+      const type = e['layerType'];
+      const layer = e['layer'];
+      if (type === 'marker') {
+          layer.bindPopup('A popup!');
+      }
+      editableLayers.addLayer(layer);
+    });
+
+    this.map.addLayer(editableLayers);
   }
 
   setInfoControl() {
