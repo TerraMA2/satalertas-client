@@ -259,8 +259,8 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
       this.geoserverLegend = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsLegend), [200, 200], [0, 10], 'center');
     }
 
-    this.toDataUrl('assets/img/logos/mpmt-small.png', async headerImage1 => {
-      this.headerImage1 = this.getImageObject([headerImage1], [180, 50], [30, 25, 0, 20], 'left');
+    this.toDataUrl('assets/img/logos/logoHeaderMpmt.jpeg', async headerImage1 => {
+      this.headerImage1 = this.getImageObject([headerImage1], [320, 50], [30, 25, 0, 20], 'left');
       this.toDataUrl('assets/img/logos/inpe.png', async headerImage2 => {
         this.headerImage2 = this.getImageObject([headerImage2], [60, 50], [0, 25, 40, 20], 'right');
         this.toDataUrl('assets/img/logos/mpmt-small.png', async partnerImage1 => {
@@ -402,22 +402,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
   getHeaderDocument() {
     return [
       this.headerImage1,
-      {
-        text: [
-          {
-            text: 'Procuradoria Geral de Justiça\n',
-            bold: true
-          },
-          {
-            text: 'Centros de Apoio Operacional',
-            bold: false
-          }
-        ],
-        fontSize: 8,
-        alignment: 'left',
-        margin: [0, 30, 0, 5],
-      },
-      this.headerImage2,
+      this.headerImage2
     ];
   }
 
@@ -467,8 +452,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         this.generatingReport = false;
       }
     });
-
-
   }
 
   base64toBlob(content, contentType) {
@@ -540,15 +523,15 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         title: 'Relatório PRODES'
       },
       pageMargins: [ 30, 30, 30, 30 ],
-      footer(currentPage, pageCount) {
+      footer(pagenumber, pageCount) {
         return {
           table: {
             body: [
               [
                 {
-                  text: 'Página ' + currentPage.toString() + ' de ' + pageCount,
+                  text: 'Página ' + pagenumber + ' de ' + pageCount,
                   fontSize: 8,
-                  margin: [500, 0, 30, 0]
+                  margin: [483, 0, 30, 0]
                 }
               ],
             ]
@@ -560,7 +543,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         {
           columns: headerDocument
         },
-        // this.getLine(),
         {
           text: [
             {
