@@ -23,7 +23,7 @@ import { FinalReportService } from '../../services/final-report.service';
 
 import { AuthService } from 'src/app/services/auth.service';
 
-import { MessageService } from 'primeng/api';
+import {ConfirmationService, Message, MessageService} from 'primeng/api';
 
 import { HTTPService } from 'src/app/services/http.service';
 
@@ -33,7 +33,8 @@ import {Image} from '../../models/image.model';
   selector: 'app-final-report',
   templateUrl: './final-report.component.html',
   styleUrls: ['./final-report.component.css'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  providers: [ConfirmationService]
 })
 
 export class FinalReportComponent implements OnInit, AfterViewInit {
@@ -48,7 +49,8 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     private messageService: MessageService,
     private hTTPService: HTTPService,
     private router: Router,
-    private satVegService: SatVegService
+    private satVegService: SatVegService,
+    private confirmationService: ConfirmationService
   ) {  }
 
   @ViewChild('imagem2', {static: false}) imagem2: Chart;
@@ -67,7 +69,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
   @ViewChild('myChart11', {static: false}) myChart11: Chart;
   @ViewChild('myChart12', {static: false}) myChart12: Chart;
   @ViewChild('myChart13', {static: false}) myChart13: Chart;
-
 
   private headerImage1: Image;
   private headerImage2: Image;
@@ -91,8 +92,9 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
   private partnerImage4: Image = new Image([''], [200, 200], [0, 0], 'center');
   private partnerImage5: Image = new Image([''], [200, 200], [0, 0], 'center');
   private partnerImage6: Image = new Image([''], [200, 200], [0, 0], 'center');
-  private partnerImage7: Image = new Image([''], [200, 200], [0, 0], 'center');
+  private partnerImage7: Image = new Image([''], [200, 200], [0, 0], 'left');
   private partnerImage8: Image = new Image([''], [200, 200], [0, 0], 'center');
+  private partnerImage9: Image = new Image([''], [200, 200], [0, 0], 'right');
 
   reportData;
   carRegister: string;
@@ -257,8 +259,8 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
       this.geoserverLegend = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsLegend), [200, 200], [0, 10], 'center');
     }
 
-    this.toDataUrl('assets/img/logos/mpmt-small.png', async headerImage1 => {
-      this.headerImage1 = this.getImageObject([headerImage1], [180, 50], [30, 25, 0, 20], 'left');
+    this.toDataUrl('assets/img/logos/logoHeaderMpmt.jpeg', async headerImage1 => {
+      this.headerImage1 = this.getImageObject([headerImage1], [320, 50], [30, 25, 0, 20], 'left');
       this.toDataUrl('assets/img/logos/inpe.png', async headerImage2 => {
         this.headerImage2 = this.getImageObject([headerImage2], [60, 50], [0, 25, 40, 20], 'right');
         this.toDataUrl('assets/img/logos/mpmt-small.png', async partnerImage1 => {
@@ -276,17 +278,19 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                     this.toDataUrl('assets/img/logos/mt.png', async partnerImage7 => {
                       this.partnerImage7 = this.getImageObject([partnerImage7], [100, 60], [80, 30, 0, 0], 'left');
                       this.toDataUrl('assets/img/logos/sema.png', async partnerImage8 => {
-                        this.partnerImage8 = this.getImageObject([partnerImage8], [100, 60], [10, 25, 25, 0], 'left');
+                        this.partnerImage8 = this.getImageObject([partnerImage8], [100, 60], [130, 25, 0, 0], 'center');
                         this.toDataUrl('assets/img/report-chart-1.png', async chartImage1 => {
                           this.chartImage1 = this.getImageObject([chartImage1], [250, 250], [3, 3], 'center');
                           this.toDataUrl('assets/img/report-chart-2.png', async chartImage2 => {
                             this.chartImage2 = this.getImageObject([chartImage2], [250, 250], [3, 3], 'center');
                             this.toDataUrl('assets/img/report-chart-3.png', async chartImage3 => {
                               this.chartImage3 = this.getImageObject([chartImage3], [250, 250], [3, 3], 'center');
-
-                              setTimeout( async () => {
-                                this.getPdfBase64(await this.setDocDefinitions());
-                              }, 2000);
+                              this.toDataUrl('assets/img/logos/logo-patria-amada-brasil-horizontal.png', async partnerImage9 => {
+                                this.partnerImage9 = this.getImageObject([partnerImage9], [100, 60], [0, 30, 25, 0], 'right');
+                                setTimeout(async () => {
+                                  this.getPdfBase64(await this.setDocDefinitions());
+                                }, 2000);
+                              });
                             });
                           });
                         });
@@ -398,22 +402,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
   getHeaderDocument() {
     return [
       this.headerImage1,
-      {
-        text: [
-          {
-            text: 'Procuradoria Geral de Justiça\n',
-            bold: true
-          },
-          {
-            text: 'Centros de Apoio Operacional',
-            bold: false
-          }
-        ],
-        fontSize: 8,
-        alignment: 'left',
-        margin: [0, 30, 0, 5],
-      },
-      this.headerImage2,
+      this.headerImage2
     ];
   }
 
@@ -435,21 +424,32 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
   }
 
   generatePdf(action = 'open') {
-    this.generatingReport = true;
-
-    this.reportService.generatePdf(this.docDefinition, this.type, this.carRegister).then( (response: Response) => {
-      const reportResp = (response.status === 200) ? response.data : {};
-      if (response.status === 200) {
-        setTimeout( () => {
-          this.reportService.getReportById(reportResp.id).then( (resp: Response) => {
-            const res = (resp.status === 200) ? resp.data : {};
+    this.confirmationService.confirm({
+      message: 'Deseja gerar o relatório em PDF?',
+      header: 'Confirmação',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Sim',
+      rejectLabel: 'Não',
+      accept: () => {
+        this.generatingReport = true;
+        this.reportService.generatePdf(this.docDefinition, this.type, this.carRegister).then( (response: Response) => {
+          const reportResp = (response.status === 200) ? response.data : {};
+          if (response.status === 200) {
+            setTimeout( () => {
+              this.reportService.getReportById(reportResp.id).then( (resp: Response) => {
+                const res = (resp.status === 200) ? resp.data : {};
+                this.generatingReport = false;
+                window.open(window.URL.createObjectURL(this.base64toBlob(res.base64, 'application/pdf')));
+              });
+            }, 2000);
+          } else {
             this.generatingReport = false;
-            window.open(window.URL.createObjectURL(this.base64toBlob(res.base64, 'application/pdf')));
-          });
-        }, 2000);
-      } else {
+            alert(`${response.status} - ${response.message}`);
+          }
+        });
+      },
+      reject: () => {
         this.generatingReport = false;
-        alert(`${response.status} - ${response.message}`);
       }
     });
   }
@@ -523,15 +523,15 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         title: 'Relatório PRODES'
       },
       pageMargins: [ 30, 30, 30, 30 ],
-      footer(currentPage, pageCount) {
+      footer(pagenumber, pageCount) {
         return {
           table: {
             body: [
               [
                 {
-                  text: 'Página ' + currentPage.toString() + ' de ' + pageCount,
+                  text: 'Página ' + pagenumber + ' de ' + pageCount,
                   fontSize: 8,
-                  margin: [500, 0, 30, 0]
+                  margin: [483, 0, 30, 0]
                 }
               ],
             ]
@@ -543,7 +543,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         {
           columns: headerDocument
         },
-        // this.getLine(),
         {
           text: [
             {
@@ -1604,7 +1603,8 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         {
           columns: [
             this.partnerImage7,
-            this.partnerImage8
+            this.partnerImage8,
+            this.partnerImage9
           ]
         }
       ],
