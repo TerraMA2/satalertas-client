@@ -80,12 +80,16 @@
       },
       "draw": {
         "edit": {
-            "featureGroup": ""
+          "featureGroup": ""
         },
         "draw": {
           "circlemarker": false,
           "marker": false,
-          "rectangle": false
+          "rectangle": false,
+          "polygon": {
+            "showArea": true,
+            "showLength": true
+          }
         }
       }
     },
