@@ -167,20 +167,3 @@ img {
   border-radius: 50%;
   transition: 0.2s;
 }
-
-.leaflet-control-coordinates {
-  background-color: rgba(255,255,255,.8);
-  cursor: default;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px
-}
-
-.leaflet-control-coordinates .input-label {
-  border: none;
-  display: inline;
-  font-family: inherit;
-  font-size: inherit;
-  padding: none;
-  background-color: rgba(255,255,255,.8);
-}

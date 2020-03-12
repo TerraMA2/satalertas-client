@@ -194,7 +194,7 @@
 
     <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
         <tr>
-            <td [attr.colspan]="columns.length + 4">
+            <td [attr.colspan]="selectedColumns.length + 4">
                 <div class="p-grid" *ngIf="reports.length > 0" >
                     <div  class="p-col p-grid" style="text-align: center; display: block;" *ngFor="let report of reports">
                         <div pButton

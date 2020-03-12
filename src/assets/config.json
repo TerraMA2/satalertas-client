@@ -43,7 +43,7 @@
     "initialLatLong": [
       -14.5463, -52.7941
     ],
-    "initialZoom": 5,
+    "initialZoom": 6,
     "maxZoom": 18,
     "controls": {
       "layers": {
@@ -77,6 +77,16 @@
       },
       "scale": {
         "position": "bottomleft"
+      },
+      "draw": {
+        "edit": {
+            "featureGroup": ""
+        },
+        "draw": {
+          "circlemarker": false,
+          "marker": false,
+          "rectangle": false
+        }
       }
     },
     "baselayers": [

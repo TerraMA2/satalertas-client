@@ -2,12 +2,37 @@
   z-index: 1001;
 }
 
+:host ::ng-deep .leaflet-custom-icon {
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+  width: 26px;
+  height: 26px;
+  line-height: 26px;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  color: black;
+}
+
 :host ::ng-deep .leaflet-custom-icon-selected {
   background-color: #c0c0c0;
 }
 
-:host ::ng-deep .leaflet-custom-icon {
-  padding: 8px 10px 7px 8px;
+:host ::ng-deep .leaflet-report-table-icon {
+  padding: 4px 8px;
+  width: unset;
+  height: unset;
+}
+
+:host ::ng-deep .leaflet-latlong-icon {
+  padding: 4px 8px;
+  width: unset;
+  height: unset;
+}
+
+.leaflet-control {
+  box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+  border-radius: 4px;
 }
 
 :host ::ng-deep .leaflet-custom-icon a {
@@ -19,16 +44,6 @@
   background-color: #f4f4f4;
 }
 
-:host ::ng-deep .leaflet-legend {
-  font-size: 12px;
-  padding: 8px 9px 7px 8px;
-}
-
-:host ::ng-deep .leaflet-info {
-  font-size: 13px;
-  padding: 6px 13px 6px 12px;
-}
-
 :host ::ng-deep .sidebar.hide-sidebar > * {
   display: none;
 }
@@ -36,4 +51,10 @@
 :host ::ng-deep .popup-container {
   overflow: auto;
   text-align: center;
+}
+
+:host ::ng-deep .leaflet-control-coordinates {
+  background-color: rgba(255,255,255,.8);
+  cursor: default;
+  border-radius: 4px
 }
