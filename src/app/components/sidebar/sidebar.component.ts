@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { ConfigService } from '../../services/config.service';
 
@@ -12,8 +12,7 @@ import { MapService } from 'src/app/services/map.service';
 
 import { SidebarItem } from 'src/app/models/sidebar-item.model';
 
-import { HTTPService } from 'src/app/services/http.service';
-import {Response} from '../../models/response.model';
+import { Response } from '../../models/response.model';
 
 @Component({
   selector: 'app-sidebar',
@@ -36,7 +35,6 @@ export class SidebarComponent implements OnInit {
   constructor(
     private configService: ConfigService,
     private sidebarService: SidebarService,
-    private hTTPService: HTTPService,
     private mapService: MapService
   ) {}
 

@@ -1,8 +1,6 @@
-import {Component, OnInit, ViewEncapsulation, ViewChild, AfterViewInit, OnChanges, SimpleChanges, NgModule} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, AfterViewInit } from '@angular/core';
 
 import { ActivatedRoute, Router } from '@angular/router';
-
-import { ConfigService } from 'src/app/services/config.service';
 
 import { SidebarService } from 'src/app/services/sidebar.service';
 
@@ -17,17 +15,16 @@ import pdfMake from 'pdfmake/build/pdfmake';
 import Chart from 'chart.js';
 
 import pdfFonts from 'pdfmake/build/vfs_fonts';
+
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 import { FinalReportService } from '../../services/final-report.service';
 
 import { AuthService } from 'src/app/services/auth.service';
 
-import {ConfirmationService, Message, MessageService} from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
-import { HTTPService } from 'src/app/services/http.service';
-
-import {Image} from '../../models/image.model';
+import { Image } from '../../models/image.model';
 
 @Component({
   selector: 'app-final-report',
@@ -41,13 +38,11 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private configService: ConfigService,
     private sidebarService: SidebarService,
     private reportService: ReportService,
     private finalReportService: FinalReportService,
     private authService: AuthService,
     private messageService: MessageService,
-    private hTTPService: HTTPService,
     private router: Router,
     private satVegService: SatVegService,
     private confirmationService: ConfirmationService
@@ -406,23 +401,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     ];
   }
 
-  getLine() {
-    return {
-      canvas: [
-        {
-          type: 'line',
-          x1: 30,
-          y1: 0,
-          x2: 500,
-          y2: 0,
-          lineWidth: 1,
-          lineColor: '#9f3a3a'
-        }
-      ],
-      margin: [0, 10, 0, 20]
-    };
-  }
-
   generatePdf(action = 'open') {
     this.confirmationService.confirm({
       message: 'Deseja gerar o relatório em PDF?',
@@ -669,7 +647,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         {
           columns: headerDocument
         },
-        // this.getLine(),
         {
           text: '2.1 Dados utilizados',
           style: 'listItem'
@@ -866,7 +843,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         {
           columns: headerDocument
         },
-        // this.getLine(),
         {
           text: '2.2 Método utilizado',
           style: 'listItem'
@@ -968,7 +944,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         {
           columns: headerDocument
         },
-        // this.getLine(),
         {
           text: 'De acordo com o Sistema de Análise Temporal da Vegetação ',
           alignment: 'right',
@@ -1019,7 +994,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         {
           columns: headerDocument
         },
-        // this.getLine(),
         {
           text: [
             {
@@ -1110,7 +1084,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         {
           columns: headerDocument
         },
-        // this.getLine(),
         {
           text: 'O PRODES utiliza imagens de satélite geradas pela série Landsat da ',
           alignment: 'right',
@@ -1261,7 +1234,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         {
           columns: headerDocument
         },
-        // this.getLine(),
         {
           text: 'Os dados do INPE constituem fonte de acentuada importância para a ',
           alignment: 'right',
@@ -1355,7 +1327,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           },
           fontSize: 12
         },
-        // this.getLine(),
         {
           text: 'A Figura 5 apresenta a dinâmica de desmatamento em todos os anos do PRODES disponível da base do INPE.',
           margin: [30, 0, 30, 15],
@@ -1455,7 +1426,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           ],
           margin: [30, 0, 30, 0]
         },
-        // this.getLine(),
         {
           columns: [
             this.geoserverImage4,
@@ -1580,7 +1550,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           alignment: 'center',
           style: 'body'
         },
-        // this.getLine(),
         {
           text: 'Relatório técnico produzido em parceria com: ',
           margin: [30, 20, 30, 15],
