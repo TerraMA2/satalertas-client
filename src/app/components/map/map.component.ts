@@ -146,6 +146,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   setControls() {
     this.setLayerControl();
+    this.setSearchControl();
     this.setFullScreenControl();
     this.setDrawControl();
     this.setLegendControl();
@@ -153,7 +154,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.setScaleControl();
     this.setTableControl();
     this.setReportTableControl();
-    this.setSearchControl();
     this.setInfoControl();
     this.setRestoreMapControl();
     // this.setVisibleLayersControl();
@@ -767,7 +767,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
             onAdd: () => {
               const div = L.DomUtil.create('div');
               div.innerHTML = `
-                <div id="reportTableBtn" class="leaflet-control-layers leaflet-custom-icon" title="Relatórios">
+                <div id="reportTableBtn" class="leaflet-control-layers leaflet-custom-icon leaflet-report-table-icon" title="Relatórios">
                   <a><i class='fas fa-file-alt'></i> Relatórios</a>
                 </div>`;
               return div;
@@ -821,10 +821,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     const Coordinates = L.Control.extend({
       onAdd: map => {
         const container = L.DomUtil.create('div');
-        // <input id="latInput" class="input-label" value="${e.latlng.lat.toFixed(4)}" />
         map.addEventListener('mousemove', e => {
           container.innerHTML = `
-          <div id="coordinates" class="leaflet-control-coordinates leaflet-control-layers leaflet-custom-icon">
+          <div id="coordinates" class="leaflet-control-coordinates leaflet-control-layers leaflet-latlong-icon">
           <strong>Lat:</strong>
           ${e.latlng.lat.toFixed(4)}
           &nbsp;
@@ -838,29 +837,23 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
     new Coordinates({
-      position: 'bottomleft',
+      position: 'bottomright'
     }).addTo(this.map);
   }
 
   setDrawControl() {
     const editableLayers = new L.FeatureGroup();
-    this.map.addLayer(editableLayers);
 
-    this.map.addLayer(editableLayers);
-    const drawControl = new L.Control.Draw({
-      edit: {
-          featureGroup: editableLayers
-      }
-    });
+    const drawOptions = this.mapConfig.controls.draw;
+    drawOptions.edit.featureGroup = editableLayers;
+    const drawControl = new L.Control.Draw(drawOptions);
     this.map.addControl(drawControl);
 
     this.map.on(L.Draw.Event.CREATED, e => {
-      const type = e['layerType'];
       const layer = e['layer'];
-      if (type === 'marker') {
-          layer.bindPopup('A popup!');
+      if (layer) {
+        editableLayers.addLayer(layer);
       }
-      editableLayers.addLayer(layer);
     });
 
     this.map.addLayer(editableLayers);
@@ -912,7 +905,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     const infoColumns = await this.configService.getInfoColumns().then((response: Response) => response.data);
-;
 
     let popupTable = '';
     for (const selectedLayer of this.selectedLayers) {
