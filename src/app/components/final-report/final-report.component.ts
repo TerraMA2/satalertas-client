@@ -596,11 +596,13 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           style: 'listItem'
         },
         {
+          text: 'Trata-se de relatório técnico sobre desmatamentos ilegais identificados ',
+          alignment: 'justify',
+          margin: [154, 0, 30, 0],
+          style: 'body'
+        },
+        {
           text: [
-            {
-              text: 'Trata-se de relatório técnico sobre desmatamentos ilegais identificados ',
-              alignment: 'right',
-            },
             {
               text: (
                 ' com o uso de Sistema de Informações Geográficas no imóvel rural ' + this.reportData.property.name +
@@ -619,6 +621,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
               )
             }
           ],
+          alignment: 'justify',
           margin: [30, 0, 30, 15],
           style: 'body'
         },
@@ -626,7 +629,8 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           columns: [
             this.geoserverImage1,
             this.geoserverImage2
-          ]
+          ],
+          margin: [30, 0, 30, 15]
         },
         {
           text: [
@@ -640,21 +644,22 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
             }
           ],
           alignment: 'center',
-          fontSize: 10
+          fontSize: 10,
+          margin: [30, 0, 30, 15]
         },
         {
           text: '2 HISTÓRICO',
           style: 'listItem'
         },
         {
-          text: 'As informações sobre os desmatamentos foram integradas no âmbito ',
+          text: 'As informações sobre os desmatamentos foram integradas no âmbito do',
           alignment: 'right',
           margin: [30, 0, 30, 0],
           style: 'body'
         },
         {
           text: (
-            'do Termo de Cooperação Técnica n. 30/2018 firmado entre Ministério Público do Estado de Mato Grosso ' +
+            'Termo de Cooperação Técnica n. 30/2018 firmado entre Ministério Público do Estado de Mato Grosso ' +
             'e Instituto Nacional de Pesquisas Espaciais (INPE), cujo objeto consiste na coleta automática, armazenamento ' +
             'e tratamento de dados geoespaciais para interseções entre produtos do PRODES, DETER e Programa Queimadas do ' +
             'INPE, com os dados de fontes estatais oficiais para quantificação e descrição das áreas afetadas por desmatamento ou queimada.'
