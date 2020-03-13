@@ -306,6 +306,7 @@ export class ReportService {
       '{bbox}',
       '{citybbox}',
       '{cityCqlFilter}',
+      '{mosaicCqlFilter}',
       '{filterDate}'
     ];
     const cqlFilter = visionData.layerData['cql_filter'];
@@ -321,6 +322,7 @@ export class ReportService {
       bbox,
       cityBBox,
       `municipio='${propertyData.city}';numero_do1='${propertyData.register}'`,
+      `fid>0`,
       `${date[0]}/${date[1]}`
     ];
     if (carRegisterColumn) {
