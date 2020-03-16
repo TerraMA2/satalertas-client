@@ -342,8 +342,12 @@ export class ReportService {
     const width = layerData.width;
     const height = layerData.height;
     const srs = layerData.srs;
+    const styles = layerData.styles;
 
-    url += `&layers=${layers}&styles=&bbox=${bbox}&width=${width}&height=${height}`;
+    url += `&layers=${layers}&bbox=${bbox}&width=${width}&height=${height}`;
+    if (styles) {
+      url += `&styles=${styles}`;
+    }
     if (layerData.time) {
       url += `&time=${layerData.time}`;
     }
