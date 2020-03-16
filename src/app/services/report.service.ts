@@ -9,6 +9,7 @@ import { Vision } from '../models/vision.model';
 import {HttpClient} from '@angular/common/http';
 
 import {environment} from '../../environments/environment';
+import {stringify} from 'querystring';
 
 @Injectable({
   providedIn: 'root'
@@ -41,9 +42,17 @@ export class ReportService {
     return await this.http.get(url, { params: parameters }).toPromise();
   }
 
-  async generatePdf(docDefinition, type, carCode) {
+  async createPdf(reportData) {
+    const url = this.URL_REPORT_SERVER + '/createPdf';
+    const parameters = { reportData };
+
+    return await this.http.post(url, { params: parameters }).toPromise();
+  }
+
+
+  async generatePdf(reportData) {
     const url = this.URL_REPORT_SERVER + '/generatePdf';
-    const parameters = { docDefinition, type, carCode };
+    const parameters = { reportData };
 
     return await this.http.post(url, { params: parameters }).toPromise();
   }
