@@ -223,27 +223,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     this.reportData['type'] = this.reportData['type'];
 
     this.docDefinition = await this.reportService.createPdf(this.reportData).then( async (response: Response) => {
-      // response.data.footer = function(pagenumber, pageCount) {
-      //   return {
-      //     table: {
-      //       body: [
-      //         [
-      //           {
-      //             text: 'Página ' + pagenumber + ' de ' + pageCount,
-      //             fontSize: 8,
-      //             margin: [483, 0, 30, 0]
-      //           }
-      //         ],
-      //       ]
-      //     },
-      //     layout: 'noBorders'
-      //   };
-      // };
-      // response.header = function(currentPage, pageCount, pageSize) {
-      //   return {
-      //     columns: headerDocument,
-      //   };
-      // }
       // tslint:disable-next-line:only-arrow-functions
       response.data.docDefinitions.footer = function(pagenumber, pageCount) {
         return {
@@ -261,15 +240,16 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           layout: 'noBorders'
         };
       }
+      // tslint:disable-next-line:only-arrow-functions
       response.data.docDefinitions.header = function(currentPage, pageCount, pageSize) {
         return {
           columns: response.data.headerDocument
         };
-      }
+      };
+
       this.getPdfBase64(response.data.docDefinitions);
     });
   }
-
 
   getPdfBase64(docDefinition) {
     const pdfDocGenerator = pdfMake.createPdf(docDefinition);
@@ -312,13 +292,32 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         this.reportService.generatePdf(this.reportData).then( (response: Response) => {
           const reportResp = (response.status === 200) ? response.data : {};
           if (response.status === 200) {
-            setTimeout( () => {
-              this.reportService.getReportById(reportResp.id).then( (resp: Response) => {
-                const res = (resp.status === 200) ? resp.data : {};
-                this.generatingReport = false;
-                window.open(window.URL.createObjectURL(this.base64toBlob(res.base64, 'application/pdf')));
-              });
-            }, 2000);
+            // tslint:disable-next-line:only-arrow-functions
+            reportResp.document.docDefinitions.footer = function(pagenumber, pageCount) {
+              return {
+                table: {
+                  body: [
+                    [
+                      {
+                        text: 'Página ' + pagenumber + ' de ' + pageCount,
+                        fontSize: 8,
+                        margin: [483, 0, 30, 0]
+                      }
+                    ],
+                  ]
+                },
+                layout: 'noBorders'
+              };
+            }
+            // tslint:disable-next-line:only-arrow-functions
+            reportResp.document.docDefinitions.header = function(currentPage, pageCount, pageSize) {
+              return {
+                columns: reportResp.document.headerDocument
+              };
+            };
+            pdfMake.createPdf(reportResp.document.docDefinitions).open();
+            pdfMake.createPdf(reportResp.document.docDefinitions).download();
+            this.generatingReport = false;
           } else {
             this.generatingReport = false;
             alert(`${response.status} - ${response.message}`);
