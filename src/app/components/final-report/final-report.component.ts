@@ -316,7 +316,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
               };
             };
             pdfMake.createPdf(reportResp.document.docDefinitions).open();
-            pdfMake.createPdf(reportResp.document.docDefinitions).download();
+            // pdfMake.createPdf(reportResp.document.docDefinitions).download();
             this.generatingReport = false;
           } else {
             this.generatingReport = false;
