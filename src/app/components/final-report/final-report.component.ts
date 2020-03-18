@@ -316,7 +316,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
               };
             };
 
-            pdfMake.createPdf(reportResp.document.docDefinitions).open();
             pdfMake.createPdf(reportResp.document.docDefinitions).download(reportResp.name);
             this.generatingReport = false;
           } else {
@@ -331,30 +330,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     });
   }
 
-  base64toBlob(content, contentType) {
-    contentType = contentType || '';
-
-    const sliceSize = 512;
-
-    const byteCharacters = window.atob(content);
-
-    const byteArrays = [];
-    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-      const slice = byteCharacters.slice(offset, offset + sliceSize);
-      const byteNumbers = new Array(slice.length);
-      for (let i = 0; i < slice.length; i++) {
-        byteNumbers[i] = slice.charCodeAt(i);
-      }
-      const byteArray = new Uint8Array(byteNumbers);
-      byteArrays.push(byteArray);
-    }
-    const blob = new Blob(byteArrays, {
-      type: contentType
-    });
-
-    return blob;
-  }
-
   onViewReportClicked(reportType) {
     if (reportType) {
       this.router.navigateByUrl(`/finalReport/${reportType}/${this.reportData.carRegister.replace('/', '\\')}`);
@@ -366,7 +341,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
   }
 
   getImageObject(image, fit, margin, alignment) {
-    if (image && image[0] && !image[0].includes('vnd.ogc.sld+xml')) {
+    if (image && image[0] && !image[0].includes('data:application/vnd.ogc.se_xml')) {
       return new Image(
         image,
         fit,
@@ -377,7 +352,10 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
       return {
         text: 'Imagem não encontrada.',
         alignment: 'center',
-        margin: [30, 100, 30, 0]
+        color: '#ff0000',
+        fontSize: 9,
+        italics: true,
+        margin: [30, 60, 30, 60]
       };
     }
   }
