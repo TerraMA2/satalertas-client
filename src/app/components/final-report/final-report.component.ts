@@ -308,15 +308,16 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                 },
                 layout: 'noBorders'
               };
-            }
+            };
             // tslint:disable-next-line:only-arrow-functions
             reportResp.document.docDefinitions.header = function(currentPage, pageCount, pageSize) {
               return {
                 columns: reportResp.document.headerDocument
               };
             };
+
             pdfMake.createPdf(reportResp.document.docDefinitions).open();
-            // pdfMake.createPdf(reportResp.document.docDefinitions).download();
+            pdfMake.createPdf(reportResp.document.docDefinitions).download(reportResp.name);
             this.generatingReport = false;
           } else {
             this.generatingReport = false;
