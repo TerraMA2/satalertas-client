@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SidebarItemComponent } from './sidebar-layer-group.component';
+import { SidebarLayerGroupComponent } from './sidebar-layer-group.component';
 
-describe('SidebarItemComponent', () => {
-  let component: SidebarItemComponent;
-  let fixture: ComponentFixture<SidebarItemComponent>;
+describe('SidebarLayerGroupComponent', () => {
+  let component: SidebarLayerGroupComponent;
+  let fixture: ComponentFixture<SidebarLayerGroupComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SidebarItemComponent ]
+      declarations: [ SidebarLayerGroupComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SidebarItemComponent);
+    fixture = TestBed.createComponent(SidebarLayerGroupComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

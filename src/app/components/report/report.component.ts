@@ -1,8 +1,6 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { ActivatedRoute, Router } from '@angular/router';
-
-import { HTTPService } from 'src/app/services/http.service';
 
 import { Property } from 'src/app/models/property.model';
 
@@ -18,9 +16,10 @@ import { FilterService } from 'src/app/services/filter.service';
 
 import { SidebarService } from 'src/app/services/sidebar.service';
 
-import {Response} from '../../models/response.model';
+import { Response } from '../../models/response.model';
 
 import { SatVegService } from '../../services/sat-veg.service';
+
 import Chart from 'chart.js';
 
 @Component({
@@ -78,7 +77,6 @@ export class ReportComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private hTTPService: HTTPService,
     private configService: ConfigService,
     private reportService: ReportService,
     private filterService: FilterService,

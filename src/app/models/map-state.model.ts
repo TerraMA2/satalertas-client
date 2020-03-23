@@ -8,6 +8,7 @@ export class MapState {
     public selectedMaker: SelectedMarker,
     public mapZoom: number,
     public mapLatLong: number[],
-    public reportTableOpened: boolean
+    public reportTableOpened: boolean,
+    public selectedBaseLayer: string
   ) {}
 }
