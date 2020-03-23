@@ -38,13 +38,13 @@ import { SelectedMarker } from 'src/app/models/selected-marker.model';
 
 import { TableService } from 'src/app/services/table.service';
 
-import {View} from '../../models/view.model';
+import { View } from '../../models/view.model';
 
-import {FilterUtils} from '../../utils/filter.utils';
+import { FilterUtils } from '../../utils/filter.utils';
 
 import { AuthService } from 'src/app/services/auth.service';
 
-import {Response} from '../../models/response.model';
+import { Response } from '../../models/response.model';
 
 import { environment } from 'src/environments/environment';
 
@@ -91,6 +91,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   tableFullscreen = false;
 
+  selectedBaseLayer: string;
+
   constructor(
     private hTTPService: HTTPService,
     private configService: ConfigService,
@@ -104,9 +106,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     this.mapConfig = this.configService.getMapConfig();
-
     this.sidebarService.sidebarLayerShowHide.next(true);
-
   }
 
   ngOnDestroy() {
@@ -116,9 +116,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     this.setMap();
     this.setControls();
+    this.getLocalStorageData();
     this.setBaseLayers();
     this.setOverlayEvents();
-    this.getLocalStorageData();
     this.authService.user.subscribe(user => {
       if (user) {
         this.mapService.reportTableButton.next(true);
@@ -163,6 +163,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   getLocalStorageData() {
     if (localStorage.getItem('mapState')) {
       const mapState: MapState = JSON.parse(localStorage.getItem('mapState'));
+      this.selectedBaseLayer = mapState.selectedBaseLayer;
       const previousSelectedLayers: Layer[] = mapState.selectedLayers;
       const previousLatLong = mapState.mapLatLong;
       const previousZoom = mapState.mapZoom;
@@ -204,7 +205,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
           this.map.getCenter().lat,
           this.map.getCenter().lng
         ],
-        this.tableReportActive
+        this.tableReportActive,
+        this.selectedBaseLayer
       );
       localStorage.setItem('mapState', JSON.stringify(mapState));
     }
@@ -215,14 +217,18 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       const baseLayer = this.getLayer(baseLayerData);
       const baseLayerName = baseLayerData.name;
       this.layerControl.addBaseLayer(baseLayer, baseLayerName);
-      if (environment.production) {
-        if (baseLayerData.default) {
+      // if (environment.production) {
+        if ((!this.selectedBaseLayer && baseLayerData.default) || (this.selectedBaseLayer === baseLayerName)) {
           baseLayer.addTo(this.map);
+          this.selectedBaseLayer = baseLayerName;
         }
-      } else if (baseLayerName === 'osm') {
-        baseLayer.addTo(this.map);
-      }
+      // } else if (baseLayerName === 'osm') {
+      //   baseLayer.addTo(this.map);
+      // }
     });
+    this.map.on('baselayerchange', layer => {
+      this.selectedBaseLayer = layer['name'];
+    })
   }
 
   async setMarkers(data, popupTitle, overlayName) {
