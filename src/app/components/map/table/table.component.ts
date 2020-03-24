@@ -364,4 +364,8 @@ export class TableComponent implements OnInit {
 
     return blob;
   }
+
+  getRegister(data) {
+    return data['registro_estadual'] ? data['registro_estadual'].replace('/', '\\') : data['registro_federal'];
+  }
 }
