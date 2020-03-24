@@ -93,13 +93,13 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
       }
     });
     this.activatedRoute.params.subscribe(params => {
-      this.carRegister = params.carRegister;
+      this.carRegister = params.carRegister.length < 14 ? params.carRegister.replace('\\', '/') : params.carRegister;
       this.type = params.type;
     });
 
     this.reportService.changeReportType.subscribe(() => {
       this.activatedRoute.params.subscribe(params => {
-        this.carRegister = params.carRegister;
+        this.carRegister = params.carRegister.length < 14 ? params.carRegister.replace('\\', '/') : params.carRegister;
         this.type = params.type;
         this.ngAfterViewInit();
       });
@@ -114,7 +114,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     this.date = JSON.parse(localStorage.getItem('dateFilter'));
 
     if (this.type === 'prodes') {
-      this.points = await this.reportService.getPointsAlerts(this.carRegister.replace('\\', '/'), this.date, this.filter, this.type).then(async (response: Response) => await response.data);
+      this.points = await this.reportService.getPointsAlerts(this.carRegister, this.date, this.filter, this.type).then(async (response: Response) => await response.data);
     }
     this.year = new Date().getFullYear().toString();
     await this.setChartNdvi();
@@ -199,10 +199,10 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
     const today = new Date();
 
-    this.reportData = await this.finalReportService.getReportCarData(this.carRegister.replace('\\', '/'), this.date, this.filter, this.type).then( (response: Response) => response.data );
+    this.reportData = await this.finalReportService.getReportCarData(this.carRegister, this.date, this.filter, this.type).then( (response: Response) => response.data );
     this.reportData['type'] = this.type;
     this.reportData['date'] = this.date;
-    this.reportData['carRegister'] =  this.carRegister.replace('\\', '/');
+    this.reportData['carRegister'] =  this.carRegister;
     this.reportData['formattedFilterDate'] = `${startDate} A ${endDate}`;
     this.reportData['currentYear'] = new Date().getFullYear();
     this.reportData['currentDate'] =  today.getDate() + '/' + today.getMonth() + 1 + '/' + today.getFullYear();
