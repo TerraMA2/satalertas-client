@@ -153,7 +153,7 @@
                 <button *ngIf="tableReportActive && showDeter"
                         style="vertical-align:middle; width: 32px; height: 32px;"
                         class="btn"
-                        routerLink="/finalReport/deter/{{rowData['registro_estadual'].replace('/', '\\')}}"
+                        routerLink="/finalReport/deter/{{getRegister(rowData)}}"
                         pButton
                         disabled
                         pTooltip="Visualisar relatório Deter"
@@ -162,7 +162,7 @@
                 </button>
                 <button *ngIf="tableReportActive && showProdes"
                         style="vertical-align:middle; margin-left: 10px; width: 32px; height: 32px;"
-                        routerLink="/finalReport/prodes/{{rowData['registro_estadual'].replace('/', '\\')}}"
+                        routerLink="/finalReport/prodes/{{getRegister(rowData)}}"
                         pButton
                         class="btn"
                         pTooltip="Visualisar relatório Prodes"
@@ -171,7 +171,7 @@
                 </button>
                 <button *ngIf="tableReportActive && showBurn"
                         style="vertical-align:middle; margin-left: 10px; width: 32px; height: 32px;"
-                        routerLink="/finalReport/queimada/{{rowData['registro_estadual'].replace('/', '\\')}}"
+                        routerLink="/finalReport/queimada/{{getRegister(rowData)}}"
                         pButton
                         disabled
                         class="btn"
