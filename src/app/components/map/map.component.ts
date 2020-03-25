@@ -237,8 +237,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       let link = null;
       if (popupTitle && markerData[popupTitle]) {
         popup = markerData[popupTitle];
-        popup = popup.replace('/', '\\');
-        link = `/report/${popup}`;
+        const register = popup.length < 14 ? popup.replace('/', '\\') : popup;
+        link = `/report/${register}`;
       } else {
         popup = popupTitle;
       }
@@ -312,7 +312,11 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
       if (this.tableReportActive) {
         markerLabel = 'CAR Validado';
-        carRegister = data.registro_estadual;
+        carRegister = data.registro_estadual ? data.registro_estadual : data.registro_federal;
+
+        const cqlFilter = data.registro_estadual ?
+            ` numero_do1 = '${data.registro_estadual}' ` :
+            ` numero_do2 = '${data.registro_federal}' `;
 
         // TODO: Set car layer dynamically
         const layerData = {
@@ -321,7 +325,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
                             transparent: true,
                             format: 'image/png',
                             version: '1.1.0',
-                            cql_filter: `numero_do1 = '${carRegister}'`
+                            cql_filter: cqlFilter
                           };
         const newLayer = this.getLayer(layerData);
 
@@ -340,8 +344,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       }
 
       if (carRegister) {
-        carRegister = carRegister.replace('/', '\\');
-        link = `/report/${carRegister}`;
+        const register = carRegister.length < 14 ? carRegister.replace('/', '\\') : carRegister;
+        link = `/report/${register}`;
       }
 
       if (propertyCount === 1) {
