@@ -111,10 +111,9 @@ export class ReportComponent implements OnInit {
 
     this.formattedFilterDate = `${startDate} - ${endDate}`;
 
-    this.carRegister = this.carRegister.replace('\\', '/');
-    const carRegister = this.carRegister;
+    this.carRegister = this.carRegister.length < 14 ? this.carRegister.replace('\\', '/') : this.carRegister;
 
-    await this.reportService.getSynthesisCarData(carRegister, date, filter).then(async (response: Response) => {
+    await this.reportService.getSynthesisCarData(this.carRegister, date, filter).then(async (response: Response) => {
       const propertyData = response.data;
 
       const burnedAreas = propertyData.burnedAreas;

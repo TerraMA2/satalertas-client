@@ -331,12 +331,13 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
   }
 
   onViewReportClicked(reportType) {
+    const register = this.reportData.carRegister.length < 14 ? this.reportData.carRegister.replace('/', '\\') : this.reportData.carRegister;
     if (reportType) {
-      this.router.navigateByUrl(`/finalReport/${reportType}/${this.reportData.carRegister.replace('/', '\\')}`);
+      this.router.navigateByUrl(`/finalReport/${reportType}/${register}`);
       this.docBase64 = null;
       this.reportService.changeReportType.next();
     } else {
-      this.router.navigateByUrl(`/report/${this.reportData.carRegister.replace('/', '\\')}`);
+      this.router.navigateByUrl(`/report/${register}`);
     }
   }
 
