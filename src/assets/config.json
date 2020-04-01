@@ -4,7 +4,7 @@
     "headerLogo": "./assets/img/logos/terrama2-small.png",
     "headerTitle": "SatAlertas: Sistema Integrado de Monitoramento de Degradação Ambiental",
     "hasLogin": true,
-    "headerLogoLink": "http://www.terrama2.dpi.inpe.br/mpmt/monitor/",
+    "headerLogoLink": "\"http://terrama.mpmt.mp.br/mpmt/monitor/",
     "layerUrls": {
       "static": "/api/report/getStaticData",
       "dynamic": "/api/report/getDynamicData",

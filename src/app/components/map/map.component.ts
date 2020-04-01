@@ -318,11 +318,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
       if (this.tableReportActive) {
         markerLabel = 'CAR Validado';
-        carRegister = data.registro_estadual ? data.registro_estadual : data.registro_federal;
+        carRegister = data.gid;
 
-        const cqlFilter = data.registro_estadual ?
-            ` numero_do1 = '${data.registro_estadual}' ` :
-            ` numero_do2 = '${data.registro_federal}' `;
+        const cqlFilter = ` gid = ${data.gid} `;
 
         // TODO: Set car layer dynamically
         const layerData = {
@@ -350,7 +348,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       }
 
       if (carRegister) {
-        const register = carRegister.length < 14 ? carRegister.replace('/', '\\') : carRegister;
+        const register = carRegister;
         link = `/report/${register}`;
       }
 

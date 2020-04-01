@@ -93,13 +93,13 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
       }
     });
     this.activatedRoute.params.subscribe(params => {
-      this.carRegister = params.carRegister.length < 14 ? params.carRegister.replace('\\', '/') : params.carRegister;
+      this.carRegister = params.carRegister;
       this.type = params.type;
     });
 
     this.reportService.changeReportType.subscribe(() => {
       this.activatedRoute.params.subscribe(params => {
-        this.carRegister = params.carRegister.length < 14 ? params.carRegister.replace('\\', '/') : params.carRegister;
+        this.carRegister = params.carRegister;
         this.type = params.type;
         this.ngAfterViewInit();
       });
@@ -331,7 +331,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
   }
 
   onViewReportClicked(reportType) {
-    const register = this.reportData.carRegister.length < 14 ? this.reportData.carRegister.replace('/', '\\') : this.reportData.carRegister;
+    const register = this.reportData.carRegister;
     if (reportType) {
       this.router.navigateByUrl(`/finalReport/${reportType}/${register}`);
       this.docBase64 = null;

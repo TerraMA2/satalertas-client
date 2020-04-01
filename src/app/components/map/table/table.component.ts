@@ -264,9 +264,7 @@ export class TableComponent implements OnInit {
   }
 
   async onRowExpand(event) {
-    const register = event.data.registro_estadual ?
-        event.data.registro_estadual.replace('/', '_') :
-        event.data.registro_federal;
+    const register = event.data.carGid;
     const reportResp = await this.reportService.getReportsByCARCod(register).then( (response: Response) => response );
 
     this.reports = (reportResp.status === 200) ? reportResp.data : [];
@@ -370,6 +368,6 @@ export class TableComponent implements OnInit {
   }
 
   getRegister(data) {
-    return data['registro_estadual'] ? data['registro_estadual'].replace('/', '\\') : data['registro_federal'];
+    return data['gid'];
   }
 }
