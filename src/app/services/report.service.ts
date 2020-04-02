@@ -333,16 +333,17 @@ export class ReportService {
         wildCards.push(propertyCqlFilterWildCard.substring(startBracket, (endBracket + 1)));
       });
     }
+    // aqui
     const replaceValues = [
       bbox,
       cityBBox,
-      `municipio='${propertyData.city}';numero_do1='${propertyData.register}'`,
+      `municipio='${propertyData.city}';rid='${propertyData.register}'`,
       `RED_BAND>0`,
       `${date[0]}/${date[1]}`
     ];
     if (carRegisterColumn) {
       const carRegisterColumnArr = carRegisterColumn.split(';');
-      carRegisterColumnArr.forEach(column => replaceValues.push(`${column}='${propertyData.register}'`));
+      carRegisterColumnArr.forEach(column => replaceValues.push(`${column}='${propertyData.gid}'`));
     }
     return this.replaceWildCards(text, wildCards, replaceValues);
   }

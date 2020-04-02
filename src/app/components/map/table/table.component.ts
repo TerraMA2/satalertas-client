@@ -105,7 +105,7 @@ export class TableComponent implements OnInit {
       this.showDeter = true;
       this.loading = true;
       const selectedOption = this.filters[0];
-      // this.selectedLayer = selectedOption;
+      this.selectedLayer = selectedOption;
       this.selectedFilter = selectedOption;
       this.selectedFilterValue = selectedOption.value;
       // this.selectedLayerValue = selectedOption.value;
@@ -218,7 +218,7 @@ export class TableComponent implements OnInit {
           data = changedData;
         } else {
           Object.keys(data[0]).forEach(key => {
-            if (key !== 'lat' && key !== 'long' && key !== 'geom' && key !== 'intersection_geom') {
+            if (key !== 'lat' && key !== 'long' && key !== 'geom' && key !== 'intersection_geom' && key !== 'has_pdf') {
               this.columns.push({field: key, header: key});
             }
           });
@@ -243,6 +243,7 @@ export class TableComponent implements OnInit {
   }
 
   onLazyLoad(event: LazyLoadEvent) {
+    this.loading = true;
     this.loadTableData(this.selectedLayer,
                       event.rows,
                       event.first,
@@ -264,7 +265,7 @@ export class TableComponent implements OnInit {
   }
 
   async onRowExpand(event) {
-    const register = event.data.carGid;
+    const register = event.data.gid;
     const reportResp = await this.reportService.getReportsByCARCod(register).then( (response: Response) => response );
 
     this.reports = (reportResp.status === 200) ? reportResp.data : [];

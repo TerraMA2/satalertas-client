@@ -44,6 +44,7 @@ export class Property {
     public deterYear?: object[],
     public spotlightsYear?: [],
     public burnedAreasYear?: [],
-    public analysisPeriod?: any
+    public analysisPeriod?: any,
+    public gid?: number
   ) {}
 }
