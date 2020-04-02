@@ -130,7 +130,7 @@ export class ReportComponent implements OnInit {
 
       this.historyDeterChartData = this.reportService.getHistoryDeterChart(propertyData.deterYear);
 
-      this.deforestationHistoryProdes = this.reportService.getVisions(propertyData, this.reportConfig.deforestationHistoryProdes, 'prodesYear');
+      this.deforestationHistoryProdes = this.reportService.getVisions(propertyData, this.reportConfig.deforestationHistoryProdes);
 
       this.historyProdesChartData = this.reportService.getHistoryProdesChart(propertyData.prodesYear);
 
