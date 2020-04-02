@@ -68,6 +68,14 @@ h2 {
     cursor: default;
 }
 
+.form {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 1000px;
+}
 
 .loadingInProgress.body {
     height: 100%;

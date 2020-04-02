@@ -54,7 +54,15 @@
 </p-toolbar>
 <canvas id="imagem2" width="600" height="400" style="display: none"></canvas>
 <canvas id="chartImg" width="600" height="400" style="display: none"></canvas>
-
+<div class="form">
+        <label for="sat">Sat: </label>
+        <input type="text"
+                pInputText
+                [name]="sat"
+                class="width-100"
+                placeholder="Sat">
+</div>
+        
 <div *ngIf="!!docBase64">
         <ngx-extended-pdf-viewer
                 [base64Src]="docBase64"
