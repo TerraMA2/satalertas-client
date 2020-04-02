@@ -113,11 +113,7 @@
         <tr>
             <th *ngIf="tableReportActive"
                 style="width: 2.5em" ></th>
-            <th style="width: 2.5em"></th>
-            <th *ngIf="tableReportActive"
-                style="width: 3em">
-                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-            </th>
+            <th style="width: 3.2em"></th>
             <th *ngFor="let col of columns" [pSortableColumn]="col.field" pReorderableColumn pResizableColumn>
                 {{col.header}}
                 <p-sortIcon [field]="col.field"></p-sortIcon>
@@ -139,13 +135,13 @@
                     <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
                 </a>
             </td>
-            <td style="width: 2.5em">
-                <i [ngClass]="rowData.has_pdf ? 'pi pi-file-pdf' : 'pi pi-file-o'"></i>
+            <td style="width: 3.2em">
+                <i style="font-size: 1.6em;" [ngClass]="rowData.hasPdf ? 'pi pi-file-pdf' : 'pi pi-file-o'"></i>
             </td>
-            <td *ngIf="tableReportActive"
+            <!-- <td *ngIf="tableReportActive"
                 style="width:3em">
                 <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
-            </td>
+            </td> -->
             <td *ngFor="let col of columns" class="ui-resizable-column">
                 {{rowData[col.field]}}
             </td>
@@ -194,7 +190,7 @@
 
     <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
         <tr>
-            <td [attr.colspan]="selectedColumns.length + 4">
+            <td [attr.colspan]="selectedColumns.length + 3">
                 <div class="p-grid" *ngIf="reports.length > 0" >
                     <div  class="p-col p-grid" style="text-align: center; display: block;" *ngFor="let report of reports">
                         <div pButton

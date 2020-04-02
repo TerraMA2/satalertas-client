@@ -83,7 +83,7 @@ export class ReportService {
     if (key) {
       visions = this.getDynamicVisions(propertyData, visionsData, key);
     } else {
-      visionsData.forEach((visionData: Vision) => visions.push(this.getVision(visionData, propertyData)));
+      visionsData.forEach((visionData: Vision, index) => visions.push(this.getVision(visionData, propertyData, index)));
     }
     return visions;
   }
@@ -152,7 +152,7 @@ export class ReportService {
     return visions;
   }
 
-  getVision(visionData: Vision, propertyData: Property): Vision {
+  getVision(visionData: Vision, propertyData: Property, index=null): Vision {
     const image = this.generateImageURL(propertyData, visionData);
 
     const filterDate = JSON.parse(localStorage.getItem('dateFilter'));
@@ -174,35 +174,41 @@ export class ReportService {
       ]
     );
     let descriptionValue;
-    let visionDescription;
-    if (visionData.description) {
-      descriptionValue = this.replaceWildCards(
-        visionData.description['value'],
-        [
-          '{indigenousLand}',
-          '{conservationUnit}',
-          '{legalReserve}',
-          '{app}',
-          '{consolidatedArea}',
-          '{anthropizedUse}',
-          '{nativeVegetation}',
-        ],
-        [
-          propertyData.indigenousLand['area'] ? propertyData.indigenousLand['area'] : 0,
-          propertyData.conservationUnit['area'] ? propertyData.conservationUnit['area'] : 0,
-          propertyData.legalReserve['area'] ? propertyData.legalReserve['area'] : 0,
-          propertyData.app['area'] ? propertyData.app['area'] : 0,
-          propertyData.consolidatedArea['area'] ? propertyData.consolidatedArea['area'] : 0,
-          propertyData.anthropizedUse['area'] ? propertyData.anthropizedUse['area'] : 0,
-          propertyData.nativeVegetation['area'] ? propertyData.nativeVegetation['area'] : 0
-        ]
-      );
-
+    let visionDescription = visionData.description;
+    if (visionDescription) {
+      if (typeof visionDescription !== 'object'){
+        descriptionValue = visionData.description;
+      } else {
+        descriptionValue = this.replaceWildCards(
+          visionData.description['value'],
+          [
+            '{indigenousLand}',
+            '{conservationUnit}',
+            '{legalReserve}',
+            '{app}',
+            '{consolidatedArea}',
+            '{anthropizedUse}',
+            '{nativeVegetation}',
+            '{prodesArea}'
+          ],
+          [
+            propertyData.indigenousLand['area'] ? propertyData.indigenousLand['area'] : 0,
+            propertyData.conservationUnit['area'] ? propertyData.conservationUnit['area'] : 0,
+            propertyData.legalReserve['area'] ? propertyData.legalReserve['area'] : 0,
+            propertyData.app['area'] ? propertyData.app['area'] : 0,
+            propertyData.consolidatedArea['area'] ? propertyData.consolidatedArea['area'] : 0,
+            propertyData.anthropizedUse['area'] ? propertyData.anthropizedUse['area'] : 0,
+            propertyData.nativeVegetation['area'] ? propertyData.nativeVegetation['area'] : 0,
+            propertyData['prodesYear'][index] ? propertyData['prodesYear'][index]['area'] : 0,
+          ]
+        );
+      }
       visionDescription = {
         text: visionData.description['text'],
         value: descriptionValue
       };
     }
+
 
     const vision = new Vision(
       title,
@@ -331,8 +337,8 @@ export class ReportService {
     const replaceValues = [
       bbox,
       cityBBox,
-      `municipio='${propertyData.city}';rid='${propertyData.gid}'`,
-      `fid>0`,
+      `municipio='${propertyData.city}';rid='${propertyData.register}'`,
+      `RED_BAND>0`,
       `${date[0]}/${date[1]}`
     ];
     if (carRegisterColumn) {
