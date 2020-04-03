@@ -54,14 +54,31 @@
 </p-toolbar>
 <canvas id="imagem2" width="600" height="400" style="display: none"></canvas>
 <canvas id="chartImg" width="600" height="400" style="display: none"></canvas>
+<br>
 <div class="form">
         <label>Sat: </label>
         <input type="text"
-                pInputText
-                class="width-100"
-                placeholder="Sat">
+               pInputText
+               class="width-100"
+               placeholder="Sat"
+               [(ngModel)]="inputSat"
+               [disabled]="!docBase64 || generatingReport">
 </div>
-        
+<br>
+<div class="form">
+        <label>Observações: </label>
+        <textarea
+                [rows]="5"
+                [cols]="30"
+                pInputTextarea
+                class="width-100"
+                autoResize="autoResize"
+                [(ngModel)]="textAreaComments"
+                [disabled]="!docBase64 || generatingReport">
+        </textarea>
+</div>
+<br>
+
 <div *ngIf="!!docBase64">
         <ngx-extended-pdf-viewer
                 [base64Src]="docBase64"

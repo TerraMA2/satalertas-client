@@ -33,6 +33,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ChartsModule } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
@@ -157,6 +158,7 @@ registerLocaleData(localePt, 'pt');
         NgxExtendedPdfViewerModule,
         PdfViewerModule,
         ProgressSpinnerModule,
+        InputTextareaModule,
         ChartsModule,
         ConfirmDialogModule,
         MessagesModule,

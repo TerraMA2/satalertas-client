@@ -85,7 +85,12 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
   docBase64;
   generatingReport = false;
 
+  inputSat: string;
+  textAreaComments: string;
   async ngOnInit() {
+    this.inputSat = '';
+    this.textAreaComments = '';
+
     this.authService.user.subscribe(user => {
       if (!user) {
         this.router.navigateByUrl('/map');
@@ -289,6 +294,8 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
       rejectLabel: 'Não',
       accept: () => {
         this.generatingReport = true;
+        this.reportData.property['sat'] = this.inputSat;
+        this.reportData.property['comments'] = this.textAreaComments;
         this.reportService.generatePdf(this.reportData).then( (response: Response) => {
           const reportResp = (response.status === 200) ? response.data : {};
           if (response.status === 200) {
