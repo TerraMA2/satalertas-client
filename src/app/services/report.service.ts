@@ -337,7 +337,7 @@ export class ReportService {
     const replaceValues = [
       bbox,
       cityBBox,
-      `municipio='${propertyData.city}';rid='${propertyData.register}'`,
+      `municipio='${propertyData.city}';rid='${propertyData.gid}'`,
       `RED_BAND>0`,
       `${date[0]}/${date[1]}`
     ];
