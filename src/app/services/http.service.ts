@@ -22,7 +22,7 @@ export class HTTPService {
       return;
     }
 
-    const terramaUrl = environment.terramaUrl;
+    const terramaUrl = environment.reportServerUrl;
     const geoserverUrl = environment.geoserverUrl;
     const terramaUrlProd = 'http://www.terrama2.dpi.inpe.br/mpmt';
     const testUrl = 'http://localhost:3200';
