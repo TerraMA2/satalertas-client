@@ -12,7 +12,7 @@ import {environment} from '../../environments/environment';
 })
 export class FilterService {
 
-  urlDashboard = environment.terramaUrl + '/api/dashboard';
+  urlDashboard = environment.reportServerUrl + '/dashboard';
 
   filterMap = new Subject();
   filterTable = new Subject();

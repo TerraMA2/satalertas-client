@@ -229,6 +229,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     this.reportData['type'] = this.reportData['type'];
 
     this.docDefinition = await this.reportService.createPdf(this.reportData).then( async (response: Response) => {
+
       // tslint:disable-next-line:only-arrow-functions
       response.data.docDefinitions.footer = function(pagenumber, pageCount) {
         return {
@@ -245,7 +246,8 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
           },
           layout: 'noBorders'
         };
-      }
+      };
+
       // tslint:disable-next-line:only-arrow-functions
       response.data.docDefinitions.header = function(currentPage, pageCount, pageSize) {
         return {
