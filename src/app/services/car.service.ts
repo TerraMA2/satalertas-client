@@ -7,7 +7,7 @@ import {HttpClient} from '@angular/common/http';
 })
 export class CarService {
 
-  urlCar = environment.terramaUrl + '/api/car';
+  urlCar = environment.reportServerUrl + '/car';
 
   constructor(
     private http: HttpClient
