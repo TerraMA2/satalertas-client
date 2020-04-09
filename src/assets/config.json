@@ -9,7 +9,7 @@
       "static": "/map/getStaticData",
       "dynamic": "/map/getDynamicData",
       "analysis": "/map/getAnalysisData",
-      "report": "/api/car/getAllSimplified"
+      "report": "/car/getAllSimplified"
     }
   },
   "auth": {
