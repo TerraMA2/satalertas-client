@@ -64,7 +64,7 @@ export class HTTPService {
     if (!url) {
       return;
     }
-    const terramaUrl = environment.reportServerUrl;
+    const terramaUrl = environment.terramaUrl;;
     if (!url.includes(terramaUrl)) {
       url = terramaUrl + url;
     }
