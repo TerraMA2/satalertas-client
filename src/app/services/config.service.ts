@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import ConfigJson from '../../assets/config.json';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-
+const URL_TERRAMA2_SERVER = environment.terramaUrl;
 const URL_REPORT_SERVER = environment.reportServerUrl;
 
 @Injectable({
