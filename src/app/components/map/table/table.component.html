@@ -97,6 +97,7 @@
                         icon="fas fa-map-marker-alt"
                         iconPos="left"
                         label="Visualizar no mapa"
+                        [disabled]="isExportDisabled"
                         (click)="onShowMapClicked()"
                         pTooltip="Visualizar selecionados no mapa"
                         tooltipPosition="top">
@@ -112,8 +113,11 @@
     <ng-template pTemplate="header" let-columns>
         <tr>
             <th *ngIf="tableReportActive"
-                style="width: 2.5em" ></th>
+                style="width: 2.5em"></th>
             <th style="width: 3.2em"></th>
+            <th *ngIf="tableReportActive" style="width: 3.2em">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
             <th *ngFor="let col of columns" [pSortableColumn]="col.field" pReorderableColumn pResizableColumn>
                 {{col.header}}
                 <p-sortIcon [field]="col.field"></p-sortIcon>
@@ -138,16 +142,16 @@
             <td style="width: 3.2em">
                 <i style="font-size: 1.6em;" [ngClass]="rowData.has_pdf ? 'pi pi-file-pdf' : 'pi pi-file-o'"></i>
             </td>
-            <!-- <td *ngIf="tableReportActive"
+            <td *ngIf="tableReportActive"
                 style="width:3em">
                 <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
-            </td> -->
+            </td>
             <td *ngFor="let col of columns" class="ui-resizable-column">
                 {{rowData[col.field]}}
             </td>
             <td *ngIf="tableReportActive">
                 <button *ngIf="tableReportActive && showDeter"
-                        style="vertical-align:middle; width: 32px; height: 32px;"
+                        style="vertical-align:middle; width: 30px; height: 30px;"
                         class="btn"
                         routerLink="/finalReport/deter/{{getRegister(rowData)}}"
                         pButton
@@ -157,7 +161,7 @@
                     <img src="assets/img/ico/deter32x32.png" style="margin: 2px; width: 25px; height: 25px;"/>
                 </button>
                 <button *ngIf="tableReportActive && showProdes"
-                        style="vertical-align:middle; margin-left: 10px; width: 32px; height: 32px;"
+                        style="vertical-align:middle; margin-left: 10px; width: 30px; height: 30px;"
                         routerLink="/finalReport/prodes/{{getRegister(rowData)}}"
                         pButton
                         class="btn"
@@ -166,7 +170,7 @@
                     <img src="assets/img/ico/prodes32x32.png" style="margin: 2px; width: 25px; height: 25px;"/>
                 </button>
                 <button *ngIf="tableReportActive && showBurn"
-                        style="vertical-align:middle; margin-left: 10px; width: 32px; height: 32px;"
+                        style="vertical-align:middle; margin-left: 10px; width: 30px; height: 30px;"
                         routerLink="/finalReport/queimada/{{getRegister(rowData)}}"
                         pButton
                         disabled
@@ -179,7 +183,7 @@
                 <button pButton
                         *ngIf="tableReportActive"
                         class="btn"
-                        style="vertical-align:middle; margin-left: 0px; width: 32px; height: 32px;"
+                        style="vertical-align:middle; margin-left: 0px; width: 30px; height: 30px;"
                         (click)="onShowMapClicked(rowData)"
                         pTooltip="Visualizar no mapa">
                     <i class="fa fa-map-marker-alt" style="color: #2C84CB; margin: 8px 3px; width: 25px; height: 25px;"></i>
