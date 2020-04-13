@@ -87,7 +87,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   sidebarTableHeight = '48vh';
 
-  tableHeight = '30vh';
+  tableHeight = '28vh';
 
   tableFullscreen = false;
 
@@ -1179,11 +1179,11 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       this.tableFullscreen = true;
     } else if (this.sidebarTableHeight === 'calc(100vh - 50px)') {
       this.sidebarTableHeight = '48vh';
-      this.tableHeight = '30vh';
+      this.tableHeight = '28vh';
       this.tableFullscreen = false;
     } else if (this.sidebarTableHeight === '28vh') {
       this.sidebarTableHeight = '48vh';
-      this.tableHeight = '30vh';
+      this.tableHeight = '28vh';
       this.tableFullscreen = false;
     }
   }
