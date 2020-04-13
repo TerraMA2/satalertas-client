@@ -7,7 +7,7 @@ import {HttpClient} from '@angular/common/http';
 })
 export class ProjusService {
 
-  urlRegion = environment.terramaUrl + '/api/projus';
+  urlRegion = environment.reportServerUrl + '/projus';
 
   constructor(
     private http: HttpClient
@@ -15,5 +15,9 @@ export class ProjusService {
 
   getAll() {
     return this.http.get(this.urlRegion + '/getAll').toPromise();
+  }
+
+  getAllSimplified() {
+    return this.http.get(this.urlRegion + '/getAllSimplified').toPromise();
   }
 }

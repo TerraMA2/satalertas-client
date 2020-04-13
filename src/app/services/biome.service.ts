@@ -7,7 +7,7 @@ import {environment} from '../../environments/environment';
 })
 export class BiomeService {
 
-  urlBiome = environment.terramaUrl + '/api/biome';
+  urlBiome = environment.reportServerUrl + '/biome';
 
   constructor(
     private http: HttpClient
@@ -15,5 +15,9 @@ export class BiomeService {
 
   getAll() {
     return this.http.get(this.urlBiome + '/getAll').toPromise();
+  }
+
+  getAllSimplified() {
+    return this.http.get(this.urlBiome + '/getAllSimplified').toPromise();
   }
 }

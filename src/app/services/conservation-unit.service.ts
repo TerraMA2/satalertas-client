@@ -8,7 +8,7 @@ import {HttpClient} from '@angular/common/http';
 export class ConservationUnitService  {
 
 
-  urlRegion = environment.terramaUrl + '/api/conservationUnit';
+  urlRegion = environment.reportServerUrl + '/conservationUnit';
 
   constructor(
     private http: HttpClient
@@ -16,5 +16,9 @@ export class ConservationUnitService  {
 
   getAll() {
     return this.http.get(this.urlRegion + '/getAll').toPromise();
+  }
+
+  getAllSimplified() {
+    return this.http.get(this.urlRegion + '/getAllSimplified').toPromise();
   }
 }

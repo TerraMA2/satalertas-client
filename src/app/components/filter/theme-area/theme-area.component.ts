@@ -100,21 +100,21 @@ export class ThemeAreaComponent implements OnInit, AfterViewInit {
     this.selectedOption = 'ALL';
   }
 
-  private loadComboCity() { this.cityService.getAll().then( result => this.optionsFilterLocalizations = result ); }
+  private loadComboCity() { this.cityService.getAllSimplified().then( result => this.optionsFilterLocalizations = result ); }
 
-  private loadComboBiome() { this.biomeService.getAll().then( result => this.optionsFilterLocalizations = result ); }
+  private loadComboBiome() { this.biomeService.getAllSimplified().then( result => this.optionsFilterLocalizations = result ); }
 
-  private loadComboRegion() { this.cityService.getAllRegions().then( result => this.optionsFilterLocalizations = result ); }
+  private loadComboRegion() { this.cityService.getAllSimplifiedRegions().then( result => this.optionsFilterLocalizations = result ); }
 
-  private loadComboMesoregion() { this.cityService.getAllMesoregions().then( result => this.optionsFilterLocalizations = result ); }
+  private loadComboMesoregion() { this.cityService.getAllSimplifiedMesoregions().then( result => this.optionsFilterLocalizations = result ); }
 
-  private loadComboMicroregion() { this.cityService.getAllMicroregions().then( result => this.optionsFilterLocalizations = result ); }
+  private loadComboMicroregion() { this.cityService.getAllSimplifiedMicroregions().then( result => this.optionsFilterLocalizations = result ); }
 
-  private loadComboUC() { this.conservationUnitService.getAll().then( result => this.optionsFilterLocalizations = this.addElementeAll(result) ); }
+  private loadComboUC() { this.conservationUnitService.getAllSimplified().then( result => this.optionsFilterLocalizations = this.addElementeAll(result) ); }
 
-  private loadComboTI() { this.indigenousLandService.getAll().then( result => this.optionsFilterLocalizations = this.addElementeAll(result) ); }
+  private loadComboTI() { this.indigenousLandService.getAllSimplified().then( result => this.optionsFilterLocalizations = this.addElementeAll(result) ); }
 
-  private loadComboProjus() { this.projusService.getAll().then( result => this.optionsFilterLocalizations = this.addElementeAll(result) ); }
+  private loadComboProjus() { this.projusService.getAllSimplified().then( result => this.optionsFilterLocalizations = this.addElementeAll(result) ); }
 
   private addElementeAll(options) {
     const result = [];

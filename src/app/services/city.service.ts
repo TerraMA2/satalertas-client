@@ -6,7 +6,7 @@ import {HttpClient} from '@angular/common/http';
   providedIn: 'root'
 })
 export class CityService {
-  urlCity = environment.terramaUrl + '/api/city';
+  urlCity = environment.reportServerUrl + '/city';
 
   constructor(
     private http: HttpClient
@@ -15,16 +15,19 @@ export class CityService {
   getAll() {
     return this.http.get(this.urlCity + '/getAll').toPromise();
   }
-
-  getAllRegions() {
-    return this.http.get(this.urlCity + '/getAllRegions').toPromise();
+  getAllSimplified() {
+    return this.http.get(this.urlCity + '/getAllSimplified').toPromise();
   }
 
-  getAllMesoregions() {
-    return this.http.get(this.urlCity + '/getAllMesoregions').toPromise();
+  getAllSimplifiedRegions() {
+    return this.http.get(this.urlCity + '/getAllRegionsSimplified').toPromise();
   }
 
-  getAllMicroregions() {
-    return this.http.get(this.urlCity + '/getAllMicroregions').toPromise();
+  getAllSimplifiedMesoregions() {
+    return this.http.get(this.urlCity + '/getAllMesoregionsSimplified').toPromise();
+  }
+
+  getAllSimplifiedMicroregions() {
+    return this.http.get(this.urlCity + '/getAllMicroregionsSimplified').toPromise();
   }
 }
