@@ -231,7 +231,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     })
   }
 
-  async setMarkers(data, popupTitle, overlayName) {
+  async setMarkers(data, popupTitle, overlayName, columnCarGid) {
     this.clearMarkerInfo();
 
     this.layerControl.removeLayer(this.markerClusterGroup);
@@ -239,15 +239,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     const infoColumns = await this.configService.getInfoColumns(this.selectedPrimaryLayer.codgroup).then( (response: Response) => response.data );
 
     data.forEach( markerData => {
-      let popup = '';
-      let link = null;
-      if (popupTitle && markerData[popupTitle]) {
-        popup = markerData[popupTitle];
-        const register = popup.length < 14 ? popup.replace('/', '\\') : popup;
-        link = `/report/${register}`;
-      } else {
-        popup = popupTitle;
-      }
+      const popup = markerData[popupTitle.estadual] ? markerData[popupTitle.estadual] : markerData[popupTitle.federal];
+      const link = `/report/${markerData[columnCarGid]}`;
 
       const popupContent = this.getPopupContent(markerData, overlayName, infoColumns);
       const marker = this.createMarker(popup, popupContent, [markerData.lat, markerData.long], overlayName, link);
@@ -1137,8 +1130,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.markerClusterGroup.clearLayers();
 
     const url = this.configService.getAppConfig('layerUrls')[layer.type];
-    const popupTitle = layer.carRegisterColumn;
-    const label = layer.label;
 
     const view = JSON.stringify(
       new View(
@@ -1153,8 +1144,13 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     const params = this.filterService.getParams({ view });
 
+    const columnCarGid = layer.type === LayerType.ANALYSIS ? 'de_car_validado_sema_gid' : 'gid'
+    const carRegisterColumn = {
+      federal: layer.type === LayerType.ANALYSIS ? 'de_car_validado_sema_numero_do2' : 'numero_do2',
+      estadual: layer.type === LayerType.ANALYSIS ? 'de_car_validado_sema_numero_do1' : 'numero_do1'
+    };
     this.hTTPService.get(url, params)
-                    .subscribe(data => this.setMarkers(data, popupTitle, label));
+                    .subscribe(data => this.setMarkers(data, carRegisterColumn, layer.label, columnCarGid));
   }
 
   clearReportTable() {
