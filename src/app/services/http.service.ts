@@ -45,11 +45,10 @@ export class HTTPService {
       return;
     }
 
-    const terramaUrl = environment.terramaUrl;
+    const terramaUrl = environment.reportServerUrl;
     const terramaUrlProd = 'http://www.terrama2.dpi.inpe.br/mpmt';
-    const testUrl = 'http://localhost:3200';
 
-    if (!url.includes(terramaUrl) && !url.includes(terramaUrlProd) && !url.includes(testUrl)) {
+    if (!url.includes(terramaUrl) && !url.includes(terramaUrlProd)) {
       url = terramaUrl + url;
     }
     return this.http.get(url, {
@@ -65,7 +64,7 @@ export class HTTPService {
     if (!url) {
       return;
     }
-    const terramaUrl = environment.terramaUrl;
+    const terramaUrl = environment.reportServerUrl;
     if (!url.includes(terramaUrl)) {
       url = terramaUrl + url;
     }

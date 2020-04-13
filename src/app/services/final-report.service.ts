@@ -10,7 +10,6 @@ import {PrivateDeclarationsAnalyzer} from '@angular/compiler-cli/ngcc/src/analys
   providedIn: 'root'
 })
 export class FinalReportService {
-  URL_TERRAMA2_SERVER = environment.terramaUrl;
   URL_REPORT_SERVER = environment.reportServerUrl;
 
   constructor(

@@ -7,7 +7,7 @@ import {HttpClient} from '@angular/common/http';
 })
 export class IndigenousLandService {
 
-  urlRegion = environment.terramaUrl + '/api/indigenousLand';
+  urlRegion = environment.reportServerUrl + '/indigenousLand';
 
   constructor(
     private http: HttpClient
@@ -15,5 +15,9 @@ export class IndigenousLandService {
 
   getAll() {
     return this.http.get(this.urlRegion + '/getAll').toPromise();
+  }
+
+  getAllSimplified() {
+    return this.http.get(this.urlRegion + '/getAllSimplified').toPromise();
   }
 }
