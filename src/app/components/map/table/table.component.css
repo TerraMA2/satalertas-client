@@ -7,7 +7,7 @@
   margin: 15px;
 }
 
-:host  /deep/ .btn {
+:host /deep/ .btn {
   background-color: #ffffff !important;
 }
 .btn:hover {
