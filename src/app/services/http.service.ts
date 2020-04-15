@@ -40,31 +40,11 @@ export class HTTPService {
     );
   }
 
-  getBlob(url, parameters = {}) {
-    if (!url) {
-      return;
-    }
-
-    const terramaUrl = environment.reportServerUrl;
-    const terramaUrlProd = 'http://www.terrama2.dpi.inpe.br/mpmt';
-
-    if (!url.includes(terramaUrl) && !url.includes(terramaUrlProd)) {
-      url = terramaUrl + url;
-    }
-    return this.http.get(url, {
-      params: parameters,
-      responseType: 'blob'
-    }).pipe(
-      retry(1),
-      catchError(this.handleError)
-    );
-  }
-
   post(url, parameters = {}) {
     if (!url) {
       return;
     }
-    const terramaUrl = environment.terramaUrl;;
+    const terramaUrl = environment.reportServerUrl;
     if (!url.includes(terramaUrl)) {
       url = terramaUrl + url;
     }
@@ -73,6 +53,22 @@ export class HTTPService {
     }).pipe(
       retry(0),
       catchError(this.handleError)
+    );
+  }
+
+  postTerrama(url, parameters = {}) {
+    if (!url) {
+      return;
+    }
+    const terramaUrl = environment.terramaUrl;
+    if (!url.includes(terramaUrl)) {
+      url = terramaUrl + url;
+    }
+    return this.http.post(url, {
+      params: parameters
+    }).pipe(
+        retry(0),
+        catchError(this.handleError)
     );
   }
 
