@@ -243,7 +243,6 @@ export class TableComponent implements OnInit {
   }
 
   onLazyLoad(event: LazyLoadEvent) {
-    this.loading = true;
     this.loadTableData(this.selectedLayer,
                       event.rows,
                       event.first,
