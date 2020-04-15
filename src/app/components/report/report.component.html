@@ -36,15 +36,6 @@
             tooltipPosition="top">
                     <img src="assets/img/ico/queima.ico" style="margin: 2px; width: 25px; height: 25px;"/>
     </button>
-    <!-- &nbsp;
-    <button pButton
-            ngxPrint
-            icon="fas fa-print"
-            label="Imprimir"
-            printTitle="Relatório ambiental CAR - {{carRegister}}"
-            [useExistingCss]="true"
-            printSectionId="print-section">
-    </button> -->
   </div>
 </p-toolbar>
 <p-scrollPanel [style]="{width: '100%', height: 'calc(100vh - 100px)'}">
@@ -73,10 +64,16 @@
         <br>
         <app-burned-areas [burnedAreas]="burnedAreas"></app-burned-areas>
         <br>
-        <app-burned-areas-chart [burnedAreasChartData]="burnedAreasChartData"
-                                [burnedAreasPerPropertyChartDatas]="burnedAreasPerPropertyChartDatas">
-        </app-burned-areas-chart>
-        <br>
+        <app-burned-areas-chart [burnedAreasChartData]="burnedAreasChartData" [burnedAreasPerPropertyChartDatas]="burnedAreasPerPropertyChartDatas"> </app-burned-areas-chart>
+        <br/>
+
+        <section *ngIf="chartImages && chartImages.length > 0">
+        <h2 class="text-center">
+          Áreas de desmatamento (PRODES) e gráfico NDVI (SATVeg - Embrapa)
+          <br/>
+          <small>{{ formattedFilterDate }}</small>
+        </h2>
+        <hr>
         <br>
         <div class="p-grid">
           <div class="p-col-12 p-md-12" *ngFor="let imag of chartImages; let i = index">
@@ -87,10 +84,8 @@
                   </div>
                 <br>
               <div class="p-grid p-align-center p-justify-center">
-<!--                 <p-toast [style]="{marginTop: '80px'}"></p-toast>-->
 
                 <p-chart class="width-100" type="line" [data]="imag.myChart" ></p-chart>
-<!--                    <img class="width-100" [src]="imag.myChart" />-->
                 </div>
                 <br>
                 <br>
@@ -100,6 +95,7 @@
           </div>
         </div>
         <hr>
+        </section>
       </div>
   </div>
 </p-scrollPanel>

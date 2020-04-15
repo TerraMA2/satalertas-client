@@ -333,7 +333,6 @@ export class ReportService {
         wildCards.push(propertyCqlFilterWildCard.substring(startBracket, (endBracket + 1)));
       });
     }
-    // aqui
     const replaceValues = [
       bbox,
       cityBBox,
