@@ -210,7 +210,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     this.reportData['carRegister'] =  this.carRegister;
     this.reportData['formattedFilterDate'] = `${startDate} A ${endDate}`;
     this.reportData['currentYear'] = new Date().getFullYear();
-    this.reportData['currentDate'] =  today.getDate() + '/' + today.getMonth() + 1 + '/' + today.getFullYear();
+    this.reportData['currentDate'] =  `${this.setFormatDay(today.getDate())} / ${this.setFormatMonth(today.getMonth())} / ${today.getFullYear()}`;
 
     if (!this.reportData['images']) { this.reportData['images'] = {}; }
 
@@ -257,6 +257,14 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
       this.getPdfBase64(response.data.docDefinitions);
     });
+  }
+
+  setFormatMonth(date){
+    return ('0' + (date + 1)).slice(-2)
+  }
+
+  setFormatDay(date){
+    return ('0' + (date)).slice(-2)
   }
 
   getPdfBase64(docDefinition) {
