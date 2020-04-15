@@ -210,7 +210,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     this.reportData['carRegister'] =  this.carRegister;
     this.reportData['formattedFilterDate'] = `${startDate} A ${endDate}`;
     this.reportData['currentYear'] = new Date().getFullYear();
-    this.reportData['currentDate'] =  `${this.setFormatDay(today.getDate())} / ${this.setFormatMonth(today.getMonth())} / ${today.getFullYear()}`;
+    this.reportData['currentDate'] =  `${this.setFormatDay(today.getDate())}/${this.setFormatMonth(today.getMonth())}/${today.getFullYear()}`;
 
     if (!this.reportData['images']) { this.reportData['images'] = {}; }
 
