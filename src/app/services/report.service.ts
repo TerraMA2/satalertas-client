@@ -311,15 +311,16 @@ export class ReportService {
     const carRegisterColumn = visionData.carRegisterColumn;
     const date = JSON.parse(localStorage.getItem('dateFilter'));
 
-    const bboxArray = propertyData.bbox.split(',');
-    const bbox = bboxArray[0].split(' ').join(',') + ',' + bboxArray[1].split(' ').join(',');
+    const bbox = propertyData.bbox;
 
-    const cityBBoxArray = propertyData.citybbox.split(',');
-    const cityBBox = cityBBoxArray[0].split(' ').join(',') + ',' + cityBBoxArray[1].split(' ').join(',');
+    const cityBBox = propertyData.citybbox;
+
+    const stateBBox = propertyData.statebbox;
 
     const wildCards = [
       '{bbox}',
       '{citybbox}',
+      '{statebbox}',
       '{cityCqlFilter}',
       '{mosaicCqlFilter}',
       '{filterDate}'
@@ -336,6 +337,7 @@ export class ReportService {
     const replaceValues = [
       bbox,
       cityBBox,
+      stateBBox,
       `municipio='${propertyData.city}';rid='${propertyData.gid}'`,
       `RED_BAND>0`,
       `${date[0]}/${date[1]}`
