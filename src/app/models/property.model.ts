@@ -45,6 +45,7 @@ export class Property {
     public spotlightsYear?: [],
     public burnedAreasYear?: [],
     public analysisPeriod?: any,
-    public gid?: number
+    public gid?: number,
+    public statebbox?: string
   ) {}
 }
