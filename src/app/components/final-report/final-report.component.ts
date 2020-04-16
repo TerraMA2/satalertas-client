@@ -138,35 +138,9 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         document.body.appendChild(canvas);
 
         const ctx: any = canvas.getContext('2d');
-        const options = await this.satVegService.get({
-          long: point.long,
-          lat: point.lat
-        }, 'ndvi', 3, 'wav', '', 'aqua').then(async (resp: Response) => {
-          return {
-            type: 'line',
-            data: {
-              labels: resp.data['listaDatas'],
-              lineColor: 'rgb(10,5,109)',
-              datasets: [{
-                label: '',
-                data: resp.data['listaSerie'],
-                backgroundColor: 'rgba(17,17,177,0)',
-                borderColor: 'rgba(5,177,0,1)',
-                showLine: true,
-                borderWidth: 2,
-                pointRadius: 0
-              }]
-            },
-            options: {
-              responsive: false,
-              legend: {
-                display: false
-              }
-            }
-          };
-        });
+        const options = point.options;
 
-        const myChart = new Chart(ctx, options);
+        const myChart = new Chart(ctx, point.options);
 
         myChart.update({
           duration: 0,

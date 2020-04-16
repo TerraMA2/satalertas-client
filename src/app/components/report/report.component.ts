@@ -176,35 +176,8 @@ export class ReportComponent implements OnInit {
       document.body.appendChild(canvas);
 
       const ctx: any = canvas.getContext('2d');
-      const options = await this.satVegService.get({
-        long: this.points[index].long,
-        lat: this.points[index].lat
-      }, 'ndvi', 3, 'wav', '', 'aqua').then(async (resp: Response) => {
-        return {
-          type: 'line',
-          data: {
-            labels: resp.data['listaDatas'],
-            lineColor: 'rgb(10,5,109)',
-            datasets: [{
-              label: 'NDVI',
-              data: resp.data['listaSerie'],
-              backgroundColor: 'rgba(17,17,177,0)',
-              borderColor: 'rgba(5,177,0,1)',
-              showLine: true,
-              borderWidth: 2,
-              pointRadius: 0
-            }]
-          },
-          options: {
-            responsive: false,
-            legend: {
-              display: false
-            }
-          }
-        };
-      });
 
-      const myChart = new Chart(ctx, options);
+      const myChart = new Chart(ctx, this.points[index].options);
 
       myChart.update({
         duration: 0,
@@ -219,7 +192,7 @@ export class ReportComponent implements OnInit {
       const chartImage = {
         geoserverImageNdvi: await this.getBase64ImageFromUrl(this.points[index].url),
         // myChart: myChart.toBase64Image()
-        myChart: options.data
+        myChart: this.points[index].options.data
       };
       this.chartImages.push(chartImage);
     }
