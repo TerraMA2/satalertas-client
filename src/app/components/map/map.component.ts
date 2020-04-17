@@ -491,7 +491,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         return (layer.isPrimary) ? ` de_car_validado_sema_numero_do2 = '${value}' ` : ` ${tableOwer[layer.codgroup]()}_de_car_validado_sema_numero_do2 = '${value}' `;
       },
       cpf(value) {
-        return (layer.isPrimary) ? ` de_car_validado_sema_cpfcnpj = '${value}' ` : ` ${tableOwer[layer.codgroup]()}_de_car_validado_sema_cpfcnpj = '${value}' `;
+        return (layer.isPrimary) ? ` de_car_validado_sema_cpfcnpj like '%${value}%' ` : ` ${tableOwer[layer.codgroup]()}_de_car_validado_sema_cpfcnpj = '%${value}%'`;
       }
     };
 
