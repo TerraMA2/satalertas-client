@@ -263,6 +263,11 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       });
     }
+
+    const bounds = this.markerClusterGroup.getBounds();
+    if (bounds) {
+      this.map.fitBounds(bounds);
+    }
   }
 
   createMarker(popupTitle, popupContent, latLong, overlayName, link = '') {
@@ -318,7 +323,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         // TODO: Set car layer dynamically
         const layerData = {
                             url: `${environment.geoserverUrl}/wms`,
-                            layers: 'terrama2_34:view34',
+                            layers: 'terrama2_119:view119',
                             transparent: true,
                             format: 'image/png',
                             version: '1.1.0',
