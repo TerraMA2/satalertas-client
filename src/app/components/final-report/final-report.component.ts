@@ -44,7 +44,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     private authService: AuthService,
     private messageService: MessageService,
     private router: Router,
-    private satVegService: SatVegService,
     private confirmationService: ConfirmationService
   ) {  }
 
@@ -193,12 +192,12 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
     if (this.reportData['type'] === 'prodes') {
       this.reportData.images['geoserverImage3'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage2), [200, 200], [0, 10], 'center');
-      this.reportData.images['geoserverImage4'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage3), [150, 150], [0, 10], 'left');
-      this.reportData.images['geoserverImage5'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage4), [150, 150], [0, 10], 'center');
-      this.reportData.images['geoserverImage6'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage5), [150, 150], [0, 10], 'right');
-      if (this.reportData.urlGsImage6) { // TODO: remover depois de atualizar a versão do geoserver no produção
-        this.reportData.images['geoserverImage7'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage6), [150, 150], [0, 10], 'right');
-      }
+      this.reportData.images['geoserverImage4'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage3), [200, 200], [0, 10], 'left');
+      this.reportData.images['geoserverImage5'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage4), [200, 200], [0, 10], 'right');
+      this.reportData.images['geoserverImage6'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage5), [200, 200], [0, 10], 'left');
+      // if (this.reportData.urlGsImage6) { // TODO: remover depois de atualizar a versão do geoserver no produção
+        this.reportData.images['geoserverImage7'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage6), [200, 200], [0, 10], 'right');
+      // }
       this.reportData.images['geoserverLegend'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsLegend), [200, 200], [0, 10], 'center');
     }
 
