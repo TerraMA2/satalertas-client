@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -82,12 +82,7 @@ export class ReportComponent implements OnInit {
     private filterService: FilterService,
     private sidebarService: SidebarService,
     private router: Router,
-    private satVegService: SatVegService
   ) { }
-
-  @HostListener('window:beforeunload') refresh() {
-    this.router.navigateByUrl(`/report/${this.carRegister.replace('/', '\\')}`);
-  }
 
   async ngOnInit() {
     this.filterService.filterReport.subscribe(() => {
@@ -150,8 +145,6 @@ export class ReportComponent implements OnInit {
 
       this.points = await this.reportService.getPointsAlerts(this.carRegister.replace('\\', '/'), date, filter, 'prodes').then(async (resp: Response) =>  await resp.data );
       await this.setChartNdvi();
-
-      this.refresh();
     });
   }
 
