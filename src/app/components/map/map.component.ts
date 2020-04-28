@@ -217,14 +217,14 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       const baseLayer = this.getLayer(baseLayerData);
       const baseLayerName = baseLayerData.name;
       this.layerControl.addBaseLayer(baseLayer, baseLayerName);
-      // if (environment.production) {
-      if ((!this.selectedBaseLayer && baseLayerData.default) || (this.selectedBaseLayer === baseLayerName)) {
+      if (environment.production) {
+        if ((!this.selectedBaseLayer && baseLayerData.default) || (this.selectedBaseLayer === baseLayerName)) {
+          baseLayer.addTo(this.map);
+          this.selectedBaseLayer = baseLayerName;
+        }
+      } else if (baseLayerName === 'osm') {
         baseLayer.addTo(this.map);
-        this.selectedBaseLayer = baseLayerName;
       }
-      // } else if (baseLayerName === 'osm') {
-      //   baseLayer.addTo(this.map);
-      // }
     });
     this.map.on('baselayerchange', layer => {
       this.selectedBaseLayer = layer['name'];
