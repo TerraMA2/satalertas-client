@@ -71,10 +71,10 @@ export class FilterComponent implements OnInit, AfterViewInit {
     this.displayFilter = false;
   }
 
-  onFilterClicked() {
+  onFilterClicked(zoomIn: boolean) {
     this.updateFilter();
 
-    this.filterService.filterMap.next();
+    this.filterService.filterMap.next(zoomIn);
     this.filterService.filterDashboard.next();
     this.filterService.filterTable.next();
     this.filterService.filterReport.next();
@@ -86,7 +86,7 @@ export class FilterComponent implements OnInit, AfterViewInit {
     this.cleanOthers();
     this.specificSearchAreaComponent.clearAll();
 
-    this.onFilterClicked();
+    this.onFilterClicked(false);
   }
 
   onUpdateFilterTheme(theme: FilterTheme) {

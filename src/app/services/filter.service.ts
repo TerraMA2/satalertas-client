@@ -14,7 +14,7 @@ export class FilterService {
 
   urlDashboard = environment.reportServerUrl + '/dashboard';
 
-  filterMap = new Subject();
+  filterMap = new Subject<boolean>();
   filterTable = new Subject();
   filterDashboard = new Subject();
 
