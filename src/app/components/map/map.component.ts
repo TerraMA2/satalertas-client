@@ -62,6 +62,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private mapConfig;
 
+  private zoomIn: boolean = false;
+
   private layerControl: L.Control.Layers;
   private searchControl;
 
@@ -265,7 +267,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     const bounds = this.markerClusterGroup.getBounds();
-    if (bounds) {
+    if (bounds && this.zoomIn) {
       this.map.fitBounds(bounds);
     }
   }
@@ -285,7 +287,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setMarkersGroup() {
-    this.markerClusterGroup = L.markerClusterGroup({chunkedLoading: true, spiderfyOnMaxZoom: true});
+    this.markerClusterGroup = L.markerClusterGroup({ chunkedLoading: true, spiderfyOnMaxZoom: true });
     this.map.addLayer(this.markerClusterGroup);
   }
 
@@ -393,7 +395,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.mapService.clearMap.subscribe(() => this.clearMap());
 
-    this.filterService.filterMap.subscribe(() => {
+    this.filterService.filterMap.subscribe((zoomIn: boolean) => {
+      this.zoomIn = zoomIn;
       this.clearLayers();
       this.updateLayers();
     });
@@ -435,6 +438,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.sidebarService.sidebarItemRadioSelect.subscribe((layer: Layer) => {
       this.selectedPrimaryLayer = layer;
+      this.zoomIn =  false;
       this.clearMarkerInfo();
       layer.markerSelected = true;
       this.updateMarkers(layer);
@@ -526,21 +530,21 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       const values = this.getValues(analyze);
 
       if (analyze.valueOption && analyze.valueOption.value) {
-        if ((analyze.type && analyze.type === 'deter') && (layer.codgroup === 'DETER')) {
+        if ((analyze.type && analyze.type === 'deter') && (layer.codgroup === 'DETER') && (layer.cod === 'CAR_X_DETER')) {
           cqlFilter += cqlFilter ? ' and ' : '';
           cqlFilter += ` calculated_area_ha ${values.columnValue} `;
         }
 
-        if ((analyze.type && analyze.type === 'deforestation') && (layer.codgroup === 'PRODES')) {
+        if ((analyze.type && analyze.type === 'deforestation') && (layer.codgroup === 'PRODES') && (layer.cod === 'CAR_X_PRODES')) {
           cqlFilter += cqlFilter ? ' and ' : '';
           cqlFilter += ` calculated_area_ha ${values.columnValue} `;
         }
 
-        if ((analyze.type && analyze.type === 'burned') && (layer.codgroup === 'BURNED')) {
+        if ((analyze.type && analyze.type === 'burned') && (layer.codgroup === 'BURNED') && (layer.cod === 'CAR_X_FOCOS')) {
           layer.layerData.viewparams = `min:${values.min};max:${values.max}`;
         }
 
-        if ((analyze.type && analyze.type === 'burned_area') && (layer.codgroup === 'BURNED_AREA')) {
+        if ((analyze.type && analyze.type === 'burned_area') && (layer.codgroup === 'BURNED_AREA') && (layer.cod === 'CAR_X_AREA_Q')) {
           cqlFilter += cqlFilter ? ' and ' : '';
           cqlFilter += ` calculated_area_ha ${values.columnValue} `;
         }
