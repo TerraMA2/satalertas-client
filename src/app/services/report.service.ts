@@ -220,8 +220,8 @@ export class ReportService {
     const burningSpotlightsYears = [];
     const burningSpotlights = [];
     burningSpotlightsData.forEach(burningSpotlightData => {
-      const focusCount = burningSpotlightData.focuscount;
-      const year = burningSpotlightData.year;
+      const focusCount = burningSpotlightData.spotlights;
+      const year = burningSpotlightData.date;
       burningSpotlightsYears.push(year);
       burningSpotlights.push(focusCount);
     });
