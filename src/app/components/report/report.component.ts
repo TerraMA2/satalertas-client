@@ -113,7 +113,7 @@ export class ReportComponent implements OnInit {
     await this.reportService.getSynthesisCarData(this.carRegister, date, filter).then(async (response: Response) => {
       const propertyData = response.data;
 
-      const burnedAreas = propertyData.burnedAreas;
+      const burnedAreas = propertyData.burnedAreasYear;
 
       const area = propertyData.area;
 
@@ -133,11 +133,11 @@ export class ReportComponent implements OnInit {
 
       this.historyProdesChartData = this.reportService.getHistoryProdesChart(propertyData.prodesYear);
 
-      this.burnedAreas = this.reportService.getVisions(propertyData, this.reportConfig.burnedAreas, 'burnedAreas');
+      this.burnedAreas = this.reportService.getVisions(propertyData, this.reportConfig.burnedAreasYear, 'burnedAreasYear');
 
       this.burningSpotlights = this.reportService.getVisions(propertyData, this.reportConfig.burningSpotlights, 'spotlightsYear');
 
-      this.burningSpotlightsChartData = this.reportService.getBurningSpotlightsChart(propertyData.burningSpotlights);
+      this.burningSpotlightsChartData = this.reportService.getBurningSpotlightsChart(propertyData.spotlightsYear);
 
       this.burnedAreasChartData = this.reportService.getBurnedAreasChart(burnedAreas);
 
