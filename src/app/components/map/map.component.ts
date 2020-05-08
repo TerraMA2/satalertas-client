@@ -47,6 +47,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Response } from '../../models/response.model';
 
 import { environment } from 'src/environments/environment';
+import {Util} from "../../utils/util";
 
 @Component({
   selector: 'app-map',
@@ -493,7 +494,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         return (layer.isPrimary) ? ` de_car_validado_sema_numero_do2 = '${value}' ` : ` ${layer.tableOwner}_de_car_validado_sema_numero_do2 = '${value}' `;
       },
       cpf(value) {
-        return (layer.isPrimary) ? ` de_car_validado_sema_cpfcnpj like '%${value}%' ` : ` ${layer.tableOwner}_de_car_validado_sema_cpfcnpj = '%${value}%'`;
+        const newValue = value ? value.replace(/\D/g, '') : '';
+        return (layer.isPrimary) ? ` de_car_validado_sema_cpfcnpj like '%${newValue}%' ` : ` ${layer.tableOwner}_de_car_validado_sema_cpfcnpj = '%${newValue}%'`;
       }
     };
 
@@ -1033,12 +1035,21 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         alias = key;
       }
       if (show) {
-        popupContentBody += `
+        if (alias === 'CPF/CNPJ') {
+          popupContentBody += `
             <tr>
-              <td>${alias}</td>
-              <td>${data[key]}</td>
-            </tr>
-        `;
+               <td>${alias}</td>
+               <td>${this.formatterCpfCnpj(data[key])}</td>
+               </tr>
+          `;
+        } else {
+          popupContentBody += `
+              <tr>
+                <td>${alias}</td>
+                <td>${data[key]}</td>
+              </tr>
+          `;
+        }
       }
     });
 
@@ -1053,6 +1064,25 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     `;
 
     return popupContent;
+  }
+
+  formatterCpfCnpj(cpfCnpj){
+    if (cpfCnpj) {
+      const listCpfCnpj = cpfCnpj.split(',');
+
+      cpfCnpj = '';
+      if (listCpfCnpj.length > 0) {
+        listCpfCnpj.forEach(value => {
+          if (!cpfCnpj) {
+            cpfCnpj = Util.cpfCnpjMask(value);
+          } else {
+            cpfCnpj += `, ${Util.cpfCnpjMask(value)}`
+          }
+        })
+      }
+    }
+
+    return cpfCnpj ? cpfCnpj : '';
   }
 
   setRestoreMapControl() {
