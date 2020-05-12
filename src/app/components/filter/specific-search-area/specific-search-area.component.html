@@ -37,13 +37,15 @@
                                 inputId="CPF"
                                 (ngModelChange)="onChange($event)">
                         </p-radioButton>
-                        <input type="text"
+                        <input  type="text"
+                                id="inputValue"
                                 pInputText
                                 [name]="'specificValueInput'"
                                 [(ngModel)]="specificSearchFilter.inputValue"
                                 class="width-100"
                                 placeholder="Digite o valor"
-                                (ngModelChange)="onChange($event)">
+                                maxlength="18"
+                               (ngModelChange)="onChangeInput($event)">
                 </div>
         </div>
 </div>
