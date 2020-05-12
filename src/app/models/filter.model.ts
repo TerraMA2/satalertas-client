@@ -1,4 +1,4 @@
-export class Filter {LayerFilterLayerFilter
+export class Filter {
   constructor(
     public codgroup: string,
     public area: string,

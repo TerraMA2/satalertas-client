@@ -233,12 +233,12 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     });
   }
 
-  setFormatMonth(date){
-    return ('0' + (date + 1)).slice(-2)
+  setFormatMonth(date) {
+    return ('0' + (date + 1)).slice(-2);
   }
 
-  setFormatDay(date){
-    return ('0' + (date)).slice(-2)
+  setFormatDay(date) {
+    return ('0' + (date)).slice(-2);
   }
 
   getPdfBase64(docDefinition) {

@@ -152,7 +152,7 @@ export class ReportService {
     return visions;
   }
 
-  getVision(visionData: Vision, propertyData: Property, index=null): Vision {
+  getVision(visionData: Vision, propertyData: Property, index = null): Vision {
     const image = this.generateImageURL(propertyData, visionData);
 
     const filterDate = JSON.parse(localStorage.getItem('dateFilter'));
@@ -176,7 +176,7 @@ export class ReportService {
     let descriptionValue;
     let visionDescription = visionData.description;
     if (visionDescription) {
-      if (typeof visionDescription !== 'object'){
+      if (typeof visionDescription !== 'object') {
         descriptionValue = visionData.description;
       } else {
         descriptionValue = this.replaceWildCards(

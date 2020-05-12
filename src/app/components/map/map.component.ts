@@ -62,7 +62,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private mapConfig;
 
-  private zoomIn: boolean = false;
+  private zoomIn = false;
 
   private layerControl: L.Control.Layers;
   private searchControl;
@@ -230,7 +230,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     });
     this.map.on('baselayerchange', layer => {
       this.selectedBaseLayer = layer['name'];
-    })
+    });
   }
 
   async setMarkers(data, popupTitle, overlayName, columnCarGid) {
@@ -1146,7 +1146,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     const params = this.filterService.getParams({ view });
 
-    const columnCarGid = layer.type === LayerType.ANALYSIS ? 'de_car_validado_sema_gid' : 'gid'
+    const columnCarGid = layer.type === LayerType.ANALYSIS ? 'de_car_validado_sema_gid' : 'gid';
     const carRegisterColumn = {
       federal: layer.type === LayerType.ANALYSIS ? 'de_car_validado_sema_numero_do2' : 'numero_do2',
       estadual: layer.type === LayerType.ANALYSIS ? 'de_car_validado_sema_numero_do1' : 'numero_do1'
