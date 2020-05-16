@@ -167,6 +167,97 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     await this.getReportData();
   }
 
+  async getContextDesflorestationHistory(deflorestationHistory, urlGsDeforestationHistory, urlGsDeforestationHistory1) {
+    const deflorestationHistoryContext = [];
+
+    if (deflorestationHistory && deflorestationHistory.length > 0) {
+      let images = [];
+      let titles = [];
+      let subTitles = [];
+
+      deflorestationHistoryContext.push({
+        text: '',
+        pageBreak: 'after'
+      });
+      deflorestationHistoryContext.push({
+        columns: [{
+          text: `O histórico do  desmatamento nos  últimos 12  anos pode  se visto  na`,
+          alignment: 'justify',
+          margin: [157, 0, 30, 0],
+          style: 'body'
+        }]
+      });
+      deflorestationHistoryContext.push({
+        text: `figura 7.`,
+        margin: [30, 0, 30, 5],
+        style: 'body'
+      });
+      let count = 1;
+      for (let i = 0; i < deflorestationHistory.length; ++i) {
+        count += 1;
+        const view = deflorestationHistory[i].date < 2013 ? 'LANDSAT_5_' :
+            deflorestationHistory[i].date < 2017 ? 'LANDSAT_8_' :
+                'SENTINEL_2_';
+        let url = deflorestationHistory[i].date === 2012 ? urlGsDeforestationHistory1 : urlGsDeforestationHistory.replace(new RegExp('#{image}#', ''), `${view}${deflorestationHistory[i].date}`);
+        url = url.replace(new RegExp('#{year}#', ''), deflorestationHistory[i].date);
+
+        const alignment = count === 1 ? 'left' : count === 2 ? 'center' : 'rigth';
+
+        images.push(this.getImageObject(await this.getBaseImageUrl(url), [117, 117], [5, 0], 'center'));
+        titles.push({
+          text: `${deflorestationHistory[i].date}`,
+          style: 'body',
+          alignment: 'center'
+        });
+        subTitles.push({
+          text: `${deflorestationHistory[i].area} ha`,
+          style: 'body',
+          alignment: 'center'
+        });
+
+        if (((i + 1) % 3) === 0) {
+          deflorestationHistoryContext.push(
+              {
+                columns: titles,
+                margin: [30, 0, 30, 0]
+              },
+              {
+                columns: images,
+                margin: [30, 0, 30, 0]
+              },
+              {
+                columns: subTitles,
+                margin: [30, 0, 30, 10]
+              }
+          );
+
+          images = [];
+          titles = [];
+          subTitles = [];
+        }
+      }
+
+      deflorestationHistoryContext.push(
+        {
+          text: [
+            {
+              text: 'Figura 7. ',
+              bold: true
+            },
+            {
+              text: ` Histórico de desmatamento do PRODES nos últimos 12 anos.`,
+              bold: false
+            }
+          ],
+          margin: [30, 0, 30, 0],
+          alignment: 'center',
+          fontSize: 9
+        });
+    }
+
+    return await deflorestationHistoryContext;
+  }
+
   async getReportData() {
 
     this.dateFilter = `${this.date[0]}/${this.date[1]}`;
@@ -194,7 +285,10 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     this.reportData.images['geoserverImage5'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage4), [200, 200], [0, 10], 'right');
     this.reportData.images['geoserverImage6'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage5), [200, 200], [0, 10], 'left');
     this.reportData.images['geoserverImage7'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage6), [200, 200], [0, 10], 'right');
+
     if (this.reportData['type'] === 'prodes') {
+      this.reportData.images['geoserverImage3'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage2), [200, 200], [0, 10], 'center');
+      this.reportData['desflorestationHistoryContext'] = await this.getContextDesflorestationHistory(this.reportData.property['deflorestationHistory'], this.reportData.urlGsDeforestationHistory, this.reportData.urlGsDeforestationHistory1);
       this.reportData.images['geoserverLegend'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsLegend), [200, 200], [0, 10], 'center');
     }
 
@@ -232,12 +326,12 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     });
   }
 
-  setFormatMonth(date){
-    return ('0' + (date + 1)).slice(-2)
+  setFormatMonth(date) {
+    return ('0' + (date + 1)).slice(-2);
   }
 
-  setFormatDay(date){
-    return ('0' + (date)).slice(-2)
+  setFormatDay(date) {
+    return ('0' + (date)).slice(-2);
   }
 
   getPdfBase64(docDefinition) {
