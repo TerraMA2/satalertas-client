@@ -86,6 +86,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
   inputSat: string;
   textAreaComments: string;
+  labelTextArea: string;
   async ngOnInit() {
     this.inputSat = '';
     this.textAreaComments = '';
@@ -98,6 +99,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     });
     this.activatedRoute.params.subscribe(params => {
       this.carRegister = params.carRegister;
+      this.labelTextArea = params.type === 'deter' ?  'Conclusão:' : 'Observações:';
       this.type = params.type;
     });
 
