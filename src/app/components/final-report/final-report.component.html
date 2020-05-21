@@ -54,6 +54,7 @@
 <canvas id="imagem2" width="600" height="400" style="display: none"></canvas>
 <canvas id="chartImg" width="600" height="400" style="display: none"></canvas>
 <div class="form">
+        <br>
         <label>Sat: </label>
         <input type="text"
                pInputText
@@ -63,7 +64,8 @@
                [disabled]="!docBase64 || generatingReport">
 </div>
 <div class="form">
-        <label>Observações: </label>
+        <br>
+        <label>{{labelTextArea}} </label>
         <textarea
                 [rows]="4"
                 [cols]="30"
@@ -71,7 +73,7 @@
                 class="width-100"
                 [(ngModel)]="textAreaComments"
                 [disabled]="!docBase64 || generatingReport">
-        </textarea>
+        </textarea> <br>
 </div>
 <div *ngIf="!!docBase64">
         <ngx-extended-pdf-viewer
