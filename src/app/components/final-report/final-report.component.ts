@@ -169,6 +169,85 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     await this.getReportData();
   }
 
+  async getContextDeflorestationAlerts(deflorestationAlerts) {
+    const deflorestationAlertsContext = [];
+
+    if (deflorestationAlerts && deflorestationAlerts.length > 0) {
+      let images = [];
+      let titleDate = [];
+      let subTitleArea = [];
+
+      // tslint:disable-next-line:prefer-for-of
+      for (let i = 0; i < deflorestationAlerts.length; ++i) {
+        images.push(this.getImageObject(await this.getBaseImageUrl(deflorestationAlerts[i].urlGsImageSpotBefore), [225, 225], [0, 0, 0, 0], 'left'));
+        images.push(this.getImageObject(await this.getBaseImageUrl(deflorestationAlerts[i].urlGsImagePlanetCurrent), [225, 225], [13, 0, 0, 0], 'rigth'));
+
+        titleDate.push({
+          text: `2008`,
+          style: 'body',
+          alignment: 'center'
+        });
+
+        titleDate.push({
+          text: `${deflorestationAlerts[i].date}`,
+          style: 'body',
+          alignment: 'center'
+        });
+        subTitleArea.push({
+          text: `${deflorestationAlerts[i].area} ha`,
+          style: 'body',
+          alignment: 'center'
+        });
+
+        deflorestationAlertsContext.push(
+            {
+              text: '',
+              pageBreak: 'after'
+            },
+            {
+              columns: titleDate,
+              margin: [30, 0, 30, 0]
+            },
+            {
+              columns: images,
+              margin: [30, 0, 30, 0]
+            },
+            {
+              columns: [
+                  this.getImageObject(await this.getBaseImageUrl(deflorestationAlerts[i].urlGsImagePlanetCurrentAndCar), [430, 430], [0, 0], 'center')
+              ],
+              margin: [30, 5, 30, 0]
+            },
+            {
+              columns: subTitleArea,
+              margin: [30, 5, 30, 5]
+            }
+        );
+
+        images = [];
+        titleDate = [];
+        subTitleArea = [];
+      }
+
+      deflorestationAlertsContext.push({
+        text: [
+          {
+            text: 'Figura 3. ',
+            bold: true
+          },
+          {
+            text: ` Comparativo de imagens de satélite anterior à 2008 e atual 2020.`,
+            bold: false
+          }
+        ],
+        margin: [30, 0, 30, 0],
+        alignment: 'center',
+        fontSize: 9
+      });
+    }
+    return await deflorestationAlertsContext;
+  }
+
   async getContextDesflorestationHistory(deflorestationHistory, urlGsDeforestationHistory, urlGsDeforestationHistory1) {
     const deflorestationHistoryContext = [];
 
@@ -292,6 +371,10 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
       this.reportData.images['geoserverImage3'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage2), [200, 200], [0, 10], 'center');
       this.reportData['desflorestationHistoryContext'] = await this.getContextDesflorestationHistory(this.reportData.property['deflorestationHistory'], this.reportData.urlGsDeforestationHistory, this.reportData.urlGsDeforestationHistory1);
       this.reportData.images['geoserverLegend'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsLegend), [200, 200], [0, 10], 'center');
+    }
+
+    if (this.reportData['type'] === 'deter') {
+      this.reportData['deflorestationAlertsContext'] = await this.getContextDeflorestationAlerts(this.reportData.property.deflorestationAlerts)
     }
 
     this.reportData['chartImages'] = this.chartImages;
