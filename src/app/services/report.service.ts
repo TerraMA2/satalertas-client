@@ -165,12 +165,14 @@ export class ReportService {
       [
         '{currentYear}',
         '{break}',
-        '{filterDate}'
+        '{filterDate}',
+        '{emptyLine}'
       ],
       [
         new Date().getFullYear().toString(),
         `<br />`,
-        `${startDate} - ${endDate}`
+        `${startDate} - ${endDate}`,
+        `<br />`
       ]
     );
     let descriptionValue;
@@ -183,6 +185,7 @@ export class ReportService {
           visionData.description['value'],
           [
             '{indigenousLand}',
+            '{conservationUnit}',
             '{legalReserve}',
             '{app}',
             '{anthropizedUse}',
