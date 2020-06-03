@@ -9,7 +9,7 @@
     <div class="p-grid p-nogutter">
         <p-accordion [multiple]="true" class="width-100">
           <p-accordionTab
-              *ngFor="let selectedLayer of selectedLayers;trackBy: trackByFunction"
+              *ngFor="let selectedLayer of selectedLayers; trackBy: trackById"
               selected="true"
               header="{{ selectedLayer.legend.title }}">
             <img src="{{ selectedLayer.legend.url }}" />

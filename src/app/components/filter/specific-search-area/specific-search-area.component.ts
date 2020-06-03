@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FilterSpecificSearch} from '../../../models/filter-specific-search.model';
-import {Util} from "../../../utils/util";
+import {Util} from '../../../utils/util';
 
 @Component({
   selector: 'app-specific-search-area',
@@ -24,8 +24,8 @@ export class SpecificSearchAreaComponent implements OnInit {
   }
 
   onChangeInput(event) {
-    if(this.specificSearchFilter.CarCPF === 'CPF') {
-      const eCpfCnpj = document.getElementById("inputValue");
+    if (this.specificSearchFilter.CarCPF === 'CPF') {
+      const eCpfCnpj = document.getElementById('inputValue');
       eCpfCnpj['value'] = Util.cpfCnpjMask(event);
       this.specificSearchFilter.inputValue = Util.cpfCnpjMask(event);
     }

@@ -17,7 +17,7 @@
     </p-radioButton>
 
     <div *ngIf="checkAnalyzesValid()" >
-        <div *ngFor="let analyze of alertType.analyzes">
+        <div *ngFor="let analyze of alertType.analyzes; trackBy: trackById">
             <h3 class="form-margin">{{analyze.label}}</h3>
             <div class="p-grid">
                 <div [ngClass]="{

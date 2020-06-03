@@ -17,7 +17,7 @@
         [totalRecords]="totalRecords"
         [loading]="loading"
         exportFilename="Satélite_Alertas_CAR"
-        [rowTrackBy]="trackByFunction"
+        [rowTrackBy]="trackById"
         responsive="true"
         rowExpandMode="single"
         (onLazyLoad)="onLazyLoad($event)"
@@ -118,7 +118,7 @@
             <th *ngIf="tableReportActive" style="width: 3.2em">
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
             </th>
-            <th *ngFor="let col of columns" [pSortableColumn]="col.field" pReorderableColumn pResizableColumn>
+            <th *ngFor="let col of columns; trackBy: trackById" [pSortableColumn]="col.field" pReorderableColumn pResizableColumn>
                 {{col.header}}
                 <p-sortIcon [field]="col.field"></p-sortIcon>
             </th>
@@ -146,7 +146,7 @@
                 style="width:3em">
                 <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
             </td>
-            <td *ngFor="let col of columns" class="ui-resizable-column">
+            <td *ngFor="let col of columns; trackBy: trackById" class="ui-resizable-column">
                 {{rowData[col.field]}}
             </td>
             <td *ngIf="tableReportActive">
@@ -195,7 +195,7 @@
         <tr>
             <td [attr.colspan]="selectedColumns.length + 4">
                 <div class="p-grid" *ngIf="reports.length > 0" >
-                    <div  class="p-col p-grid" style="text-align: center; display: block;" *ngFor="let report of reports">
+                    <div  class="p-col p-grid" style="text-align: center; display: block;" *ngFor="let report of reports; trackBy: trackById">
                         <div pButton
                             class="report-history-item p-col p-grid"
                             pTooltip="Baixar relatório"

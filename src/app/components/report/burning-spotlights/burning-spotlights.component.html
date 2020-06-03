@@ -2,7 +2,7 @@
     <h2 class="text-center">Focos de Queimadas</h2>
     <hr>
     <div class="p-grid">
-        <div *ngFor="let burningSpotlight of burningSpotlights"
+        <div *ngFor="let burningSpotlight of burningSpotlights; trackBy: trackById"
                 class="p-col-4 p-md-4">
             <div class="card text-center">
                 <p-card styleClass="ui-card-shadow">

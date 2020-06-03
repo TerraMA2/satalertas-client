@@ -299,8 +299,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
     this.docDefinition = await this.reportService.createPdf(this.reportData).then( async (response: Response) => {
 
-      // tslint:disable-next-line:only-arrow-functions
-      response.data.docDefinitions.footer = function(pagenumber, pageCount) {
+      response.data.docDefinitions.footer = (pagenumber, pageCount) => {
         return {
           table: {
             body: [
@@ -317,8 +316,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         };
       };
 
-      // tslint:disable-next-line:only-arrow-functions
-      response.data.docDefinitions.header = function(currentPage, pageCount, pageSize) {
+      response.data.docDefinitions.header = (currentPage, pageCount, pageSize) => {
         return {
           columns: response.data.headerDocument
         };
@@ -379,8 +377,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         this.reportService.generatePdf(this.reportData).then( (response: Response) => {
           const reportResp = (response.status === 200) ? response.data : {};
           if (response.status === 200) {
-            // tslint:disable-next-line:only-arrow-functions
-            reportResp.document.docDefinitions.footer = function(pagenumber, pageCount) {
+            reportResp.document.docDefinitions.footer = (pagenumber, pageCount) => {
               return {
                 table: {
                   body: [
@@ -396,8 +393,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                 layout: 'noBorders'
               };
             };
-            // tslint:disable-next-line:only-arrow-functions
-            reportResp.document.docDefinitions.header = function(currentPage, pageCount, pageSize) {
+            reportResp.document.docDefinitions.header = (currentPage, pageCount, pageSize) => {
               return {
                 columns: reportResp.document.headerDocument
               };

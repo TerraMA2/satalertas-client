@@ -1,6 +1,6 @@
 <section>
   <div class="p-grid">
-      <div *ngFor="let vision of visions"
+      <div *ngFor="let vision of visions; trackBy: trackById"
             class="p-col-4 p-md-4">
         <div class="card text-center ">
           <p-card styleClass="ui-card-shadow">

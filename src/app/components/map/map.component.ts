@@ -47,7 +47,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Response } from '../../models/response.model';
 
 import { environment } from 'src/environments/environment';
-import {Util} from "../../utils/util";
+
+import { Util } from '../../utils/util';
 
 @Component({
   selector: 'app-map',
@@ -63,7 +64,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private mapConfig;
 
-  private zoomIn: boolean = false;
+  private zoomIn = false;
 
   private layerControl: L.Control.Layers;
   private searchControl;
@@ -231,7 +232,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     });
     this.map.on('baselayerchange', layer => {
       this.selectedBaseLayer = layer['name'];
-    })
+    });
   }
 
   async setMarkers(data, popupTitle, overlayName, columnCarGid) {
@@ -377,12 +378,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setOverlayEvents() {
-    this.sidebarService.sidebarAbout.subscribe(show => this.displayAbout = show);
-
     this.mapService.showMarker.subscribe(markerData => {
-      if (this.tableSelectedLayer) {
-      }
-
       this.tableHeight = '10vh';
       this.sidebarTableHeight = '28vh';
 
@@ -395,7 +391,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.mapService.clearMap.subscribe(() => this.clearMap());
-
     this.filterService.filterMap.subscribe((zoomIn: boolean) => {
       this.zoomIn = zoomIn;
       this.clearLayers();
@@ -1066,7 +1061,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     return popupContent;
   }
 
-  formatterCpfCnpj(cpfCnpj){
+  formatterCpfCnpj(cpfCnpj) {
     if (cpfCnpj) {
       const listCpfCnpj = cpfCnpj.split(',');
 
@@ -1076,9 +1071,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
           if (!cpfCnpj) {
             cpfCnpj = Util.cpfCnpjMask(value);
           } else {
-            cpfCnpj += `, ${Util.cpfCnpjMask(value)}`
+            cpfCnpj += `, ${Util.cpfCnpjMask(value)}`;
           }
-        })
+        });
       }
     }
 
@@ -1176,7 +1171,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     const params = this.filterService.getParams({ view });
 
-    const columnCarGid = layer.type === LayerType.ANALYSIS ? 'de_car_validado_sema_gid' : 'gid'
+    const columnCarGid = layer.type === LayerType.ANALYSIS ? 'de_car_validado_sema_gid' : 'gid';
     const carRegisterColumn = {
       federal: layer.type === LayerType.ANALYSIS ? 'de_car_validado_sema_numero_do2' : 'numero_do2',
       estadual: layer.type === LayerType.ANALYSIS ? 'de_car_validado_sema_numero_do1' : 'numero_do1'

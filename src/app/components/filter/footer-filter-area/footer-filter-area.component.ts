@@ -7,11 +7,8 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 })
 export class FooterFilterAreaComponent implements OnInit {
 
-  // tslint:disable-next-line:no-output-on-prefix
   @Output() onClearFilterClicked: EventEmitter<Event> = new EventEmitter<Event>();
-  // tslint:disable-next-line:no-output-on-prefix
   @Output() onFilterClicked: EventEmitter<Event> = new EventEmitter<Event>();
-  // tslint:disable-next-line:no-output-on-prefix
   @Output() onCloseClicked: EventEmitter<Event> = new EventEmitter<Event>();
 
   constructor() { }

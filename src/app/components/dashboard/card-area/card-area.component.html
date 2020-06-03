@@ -4,7 +4,7 @@
             [styleClass]="'ui-card-active'"
             [style]="{borderRadius: '18px'}"
             class="box-card p-col-12 p-md-3"
-            *ngFor="let alert of alertsDisplayed">
+            *ngFor="let alert of alertsDisplayed; trackBy: trackById">
 
         <app-card-button
                         [alert]="alert"

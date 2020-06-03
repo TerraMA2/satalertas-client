@@ -18,7 +18,7 @@ export class LegendComponent implements OnInit {
   ngOnInit() {
   }
 
-  trackByFunction(index, item) {
-    return index;
+  trackById(index, item) {
+    return item.id;
   }
 }

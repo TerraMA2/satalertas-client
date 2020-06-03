@@ -53,4 +53,8 @@ export class SidebarLayerGroupComponent implements OnInit {
     this.isLayerGroupOpened = !this.isLayerGroupOpened;
   }
 
+  trackById(index, item) {
+    return item.id;
+  }
+
 }

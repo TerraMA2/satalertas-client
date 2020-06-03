@@ -17,7 +17,7 @@ export class SatVegService {
 
   async get(coordinates, type?, preFilter?, filter?, filterParam?, sat?) {
 
-    const url = `${URL}/`
+    const url = `${URL}/`;
 
     const parameters = {
       coordinates: JSON.stringify(coordinates),

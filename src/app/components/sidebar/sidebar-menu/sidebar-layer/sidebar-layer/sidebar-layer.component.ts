@@ -72,4 +72,8 @@ export class SidebarLayerComponent implements OnInit {
     this[name]();
   }
 
+  trackById(index, item) {
+    return item.id;
+  }
+
 }

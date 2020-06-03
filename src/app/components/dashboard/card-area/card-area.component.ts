@@ -1,7 +1,6 @@
 
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Alert} from '../../../models/alert.model';
-import {ControlValueAccessor} from '@angular/forms';
 
 @Component({
   selector: 'app-card-area',
@@ -12,10 +11,8 @@ export class CardAreaComponent implements OnInit {
 
   @Input() alertsDisplayed: Alert [] = [];
 
-  // tslint:disable-next-line:no-output-on-prefix
   @Output() onNubermImmobileClick: EventEmitter<Alert> = new EventEmitter<Alert>();
 
-  // tslint:disable-next-line:no-output-on-prefix
   @Output() onAreaClick: EventEmitter<Alert> = new EventEmitter<Alert>();
 
   constructor(
@@ -60,5 +57,9 @@ export class CardAreaComponent implements OnInit {
 
   isBurnedArea(codgroup) {
     return codgroup === 'BURNED_AREA';
+  }
+
+  trackById(index, item) {
+    return item.id;
   }
 }

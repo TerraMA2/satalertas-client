@@ -23,4 +23,8 @@ export class BurnedAreasChartComponent implements OnInit {
     };
   }
 
+  trackById(index, item) {
+    return item.id;
+  }
+
 }

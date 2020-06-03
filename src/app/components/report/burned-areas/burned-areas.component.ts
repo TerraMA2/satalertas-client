@@ -13,4 +13,8 @@ export class BurnedAreasComponent {
 
   constructor() { }
 
+  trackById(index, item) {
+    return item.id;
+  }
+
 }

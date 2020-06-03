@@ -37,7 +37,7 @@
                     'hide': !isToolsOpened || !isLayerGroupOpened
                     }">
 
-    <i *ngFor="let tool of layer.tools"
+    <i *ngFor="let tool of layer.tools; trackBy: trackById"
         class="{{tool.icon}}"
         (click)="onToolClicked(tool.name)"
         pTooltip="{{tool.title}}"

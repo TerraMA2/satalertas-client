@@ -6,7 +6,7 @@
     </h2>
     <hr>
     <div class="p-grid">
-        <div *ngFor="let detailedVision of detailedVisions"
+        <div *ngFor="let detailedVision of detailedVisions; trackBy: trackById"
                 class="p-col-4 p-md-4">
             <div class="card text-center ">
                 <p-card styleClass="ui-card-shadow">

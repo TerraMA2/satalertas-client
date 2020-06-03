@@ -13,4 +13,8 @@ export class DeforestationHistoryDeterComponent {
 
   constructor() { }
 
+  trackById(index, item) {
+    return item.id;
+  }
+
 }

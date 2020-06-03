@@ -40,4 +40,8 @@ export class SidebarMenuComponent implements OnInit {
     this.sidebarService.sidebarLayerShowHide.subscribe(showHide => this.isMapShowing = showHide);
   }
 
+  trackById(index, item) {
+    return item.id;
+  }
+
 }

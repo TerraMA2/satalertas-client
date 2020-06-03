@@ -53,8 +53,7 @@ export class TableComponent implements OnInit {
   defaultRowsPerPage = 10;
   selectedRowsPerPage: number = this.defaultRowsPerPage;
 
-  // tslint:disable-next-line:ban-types
-  filters: Object | any[];
+  filters: object | any[];
   selectedFilter;
   selectedFilterValue: string;
   selectedFilterSortField: string;
@@ -284,8 +283,8 @@ export class TableComponent implements OnInit {
     this.loadTableData(selectedOption, this.selectedRowsPerPage, 0, selectedOption.sort_field, 1);
   }
 
-  trackByFunction(index, item) {
-    return index;
+  trackById(index, item) {
+    return item.id;
   }
 
   onShowMapClicked(rowData = null) {

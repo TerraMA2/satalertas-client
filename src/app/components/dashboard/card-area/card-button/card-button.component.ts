@@ -20,10 +20,8 @@ export class CardButtonComponent implements OnInit {
 
   @Input() unitOfMeasurement: string;
 
-  // tslint:disable-next-line:no-output-on-prefix
   @Output() onNubermImmobileClick: EventEmitter<Alert> = new EventEmitter<Alert>();
 
-  // tslint:disable-next-line:no-output-on-prefix
   @Output() onAreaClick: EventEmitter<Alert> = new EventEmitter<Alert>();
 
   constructor() { }

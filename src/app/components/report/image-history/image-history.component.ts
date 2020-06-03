@@ -13,4 +13,8 @@ export class ImageHistoryComponent {
 
   constructor() { }
 
+  trackById(index, item) {
+    return item.id;
+  }
+
 }

@@ -21,4 +21,8 @@ export class ReportLegendComponent implements OnInit {
     this.configService.getReportConfig();
   }
 
+  trackById(index, item) {
+    return item.id;
+  }
+
 }
