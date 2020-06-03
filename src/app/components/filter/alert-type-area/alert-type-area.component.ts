@@ -68,4 +68,8 @@ export class AlertTypeAreaComponent implements OnInit, AfterViewInit {
     return analisys.valueOption && analisys.valueOption.value && analisys.valueOption.value === 6;
   }
 
+  trackById(index, item) {
+    return item.id;
+  }
+
 }

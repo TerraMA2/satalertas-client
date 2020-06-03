@@ -24,7 +24,7 @@
     [ngClass]="{show: isLayerGroupOpened, hide: !isLayerGroupOpened}">
 
     <app-sidebar-layer class="sidebar-layer-body p-dir-col p-align-stretch"
-                            *ngFor="let layer of sidebarLayers"
+                            *ngFor="let layer of sidebarLayers; trackBy: trackById"
                             [layer]="layer"
                             [displayChild]="true"
                             [parentSwitchChecked]="switchChecked"

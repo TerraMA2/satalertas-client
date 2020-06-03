@@ -12,4 +12,8 @@ export class BurningSpotlightsComponent {
   @Input() burningSpotlights: Vision[] = [];
 
   constructor() { }
+
+  trackById(index, item) {
+    return item.id;
+  }
 }

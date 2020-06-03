@@ -78,8 +78,10 @@ import { FooterFilterAreaComponent } from './filter/footer-filter-area/footer-fi
 import { FinalReportComponent } from './final-report/final-report.component';
 import { HistoryDeterChartComponent } from './report/history-deter-chart/history-deter-chart.component';
 import { HistoryProdesChartComponent } from './report/history-prodes-chart/history-prodes-chart.component';
-import {ConfirmDialogModule} from 'primeng/confirmdialog';
-import {MessagesModule} from 'primeng/messages';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { MessagesModule } from 'primeng/messages';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from 'src/environments/environment';
 registerLocaleData(localePt, 'pt');
 @NgModule({
   declarations: [
@@ -127,42 +129,43 @@ registerLocaleData(localePt, 'pt');
     HistoryProdesChartComponent,
   ],
 
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
-        CardModule,
-        ChartModule,
-        ScrollPanelModule,
-        TableModule,
-        DragDropModule,
-        SidebarModule,
-        MultiSelectModule,
-        InputTextModule,
-        FormsModule,
-        PasswordModule,
-        ButtonModule,
-        TooltipModule,
-        DropdownModule,
-        DialogModule,
-        CalendarModule,
-        AccordionModule,
-        KeyFilterModule,
-        InputSwitchModule,
-        CheckboxModule,
-        ToastModule,
-        RadioButtonModule,
-        NgxPrintModule,
-        ToolbarModule,
-        NgxExtendedPdfViewerModule,
-        PdfViewerModule,
-        ProgressSpinnerModule,
-        InputTextareaModule,
-        ChartsModule,
-        ConfirmDialogModule,
-        MessagesModule,
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    CardModule,
+    ChartModule,
+    ScrollPanelModule,
+    TableModule,
+    DragDropModule,
+    SidebarModule,
+    MultiSelectModule,
+    InputTextModule,
+    FormsModule,
+    PasswordModule,
+    ButtonModule,
+    TooltipModule,
+    DropdownModule,
+    DialogModule,
+    CalendarModule,
+    AccordionModule,
+    KeyFilterModule,
+    InputSwitchModule,
+    CheckboxModule,
+    ToastModule,
+    RadioButtonModule,
+    NgxPrintModule,
+    ToolbarModule,
+    NgxExtendedPdfViewerModule,
+    PdfViewerModule,
+    ProgressSpinnerModule,
+    InputTextareaModule,
+    ChartsModule,
+    ConfirmDialogModule,
+    MessagesModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+  ],
   providers: [
     TreeDragDropService,
     Title,

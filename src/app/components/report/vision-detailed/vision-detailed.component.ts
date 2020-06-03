@@ -17,4 +17,8 @@ export class VisionDetailedComponent {
 
   constructor() { }
 
+  trackById(index, item) {
+    return item.id;
+  }
+
 }

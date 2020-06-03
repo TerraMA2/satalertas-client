@@ -102,13 +102,13 @@ export class FilterComponent implements OnInit, AfterViewInit {
   }
 
   onUpdateSpacificSearch(spacificSearch: FilterSpecificSearch) {
-    const filterSpecific = { }
+    const filterSpecific = { };
     if (spacificSearch) {
       this.cleanOthers();
       const type = spacificSearch.CarCPF;
       let value = null;
       if (type === 'CPF') {
-        value =spacificSearch.inputValue ? spacificSearch.inputValue.replace(/\D/g, '') : null;
+        value = spacificSearch.inputValue ? spacificSearch.inputValue.replace(/\D/g, '') : null;
       } else {
         value = spacificSearch.inputValue;
       }

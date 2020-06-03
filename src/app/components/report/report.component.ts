@@ -18,8 +18,6 @@ import { SidebarService } from 'src/app/services/sidebar.service';
 
 import { Response } from '../../models/response.model';
 
-import { SatVegService } from '../../services/sat-veg.service';
-
 import Chart from 'chart.js';
 
 @Component({
@@ -195,5 +193,9 @@ export class ReportComponent implements OnInit {
       };
       this.chartImages.push(chartImage);
     }
+  }
+
+  trackById(index, item) {
+    return item.id;
   }
 }

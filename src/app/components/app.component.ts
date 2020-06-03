@@ -7,6 +7,7 @@ import { ConfigService } from '../services/config.service';
 import { AuthService } from '../services/auth.service';
 
 import { environment } from 'src/environments/environment';
+import { SidebarService } from '../services/sidebar.service';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,8 @@ export class AppComponent implements OnInit {
 
   private appConfig;
 
+  displayAbout = false;
+
   displaySidebar = true;
 
   isAuthenticated = false;
@@ -24,7 +27,8 @@ export class AppComponent implements OnInit {
   constructor(
     private configService: ConfigService,
     private titleService: Title,
-    private authService: AuthService
+    private authService: AuthService,
+    private sidebarService: SidebarService
   ) {}
 
   ngOnInit() {
@@ -38,6 +42,8 @@ export class AppComponent implements OnInit {
 
     this.appConfig = this.configService.getAppConfig();
     this.titleService.setTitle(`${this.appConfig.mainApplication} | ${this.appConfig.headerTitle}`);
+
+    this.sidebarService.sidebarAbout.subscribe(show => this.displayAbout = show);
   }
 
   showHideSidebar(displaySidebar: boolean) {

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Util } from "../../../utils/util";
+import { Util } from '../../../utils/util';
 import { Property } from 'src/app/models/property.model';
 
 @Component({
@@ -18,7 +18,7 @@ export class PropertyDataComponent implements OnInit {
 
   }
 
-  formatterCpfCnpj(cpfCnpj){
+  formatterCpfCnpj(cpfCnpj) {
     if (cpfCnpj) {
       const listCpfCnpj = cpfCnpj.split(',');
 
@@ -28,9 +28,9 @@ export class PropertyDataComponent implements OnInit {
           if (!cpfCnpj) {
             cpfCnpj = Util.cpfCnpjMask(value);
           } else {
-            cpfCnpj += `, ${Util.cpfCnpjMask(value)}`
+            cpfCnpj += `, ${Util.cpfCnpjMask(value)}`;
           }
-        })
+        });
       }
     }
 

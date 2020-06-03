@@ -14,4 +14,8 @@ export class GraphicsAreaComponent implements OnInit {
   ngOnInit() {
   }
 
+  trackById(index, item) {
+    return item.id;
+  }
+
 }

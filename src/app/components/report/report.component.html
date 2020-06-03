@@ -75,7 +75,7 @@
         <hr>
         <br>
         <div class="p-grid">
-          <div class="p-col-12 p-md-12" *ngFor="let imag of chartImages; let i = index">
+          <div class="p-col-12 p-md-12" *ngFor="let imag of chartImages; trackBy: trackById; let i = index">
             <div class="card text-center">
               <p-card class="ui-card-shadow">
                 <div class="p-grid p-align-center p-justify-center">

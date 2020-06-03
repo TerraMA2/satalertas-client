@@ -30,8 +30,8 @@ export class VisibleLayersComponent implements OnInit {
     }];
   }
 
-  trackByFunction(index, item) {
-    return index;
+  trackById(index, item) {
+    return item.id;
   }
 
   dragStart(event, item: Layer) {

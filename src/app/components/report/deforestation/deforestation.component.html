@@ -2,7 +2,7 @@
     <h2 class="text-center">Desmatamento</h2>
     <hr>
     <div class="p-grid">
-        <div *ngFor="let deforestation of deforestations"
+        <div *ngFor="let deforestation of deforestations; trackBy: trackById"
                 class="p-col-4 p-md-4">
             <div class="card text-center">
                 <p-card styleClass="ui-card-shadow">

@@ -18,4 +18,8 @@ export class VisionComponent {
   @Input() formattedFilterDate: string;
 
   constructor() { }
+
+  trackById(index, item) {
+    return item.id;
+  }
 }
