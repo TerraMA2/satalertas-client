@@ -184,17 +184,20 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
         titleDate.push({
           text: `2008`,
+          fontSize: 8,
           style: 'body',
           alignment: 'center'
         });
 
         titleDate.push({
           text: `${deflorestationAlerts[i].date}`,
+          fontSize: 8,
           style: 'body',
           alignment: 'center'
         });
         subTitleArea.push({
           text: `${deflorestationAlerts[i].area} ha`,
+          fontSize: 8,
           style: 'body',
           alignment: 'center'
         });
@@ -203,7 +206,20 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
             {
               text: '',
               pageBreak: 'after'
-            },
+            }
+        );
+
+        if (i === 0) {
+          deflorestationAlertsContext.push(
+            {
+              text: `Na  figura 3, a seguir, será  representado  o detalhamento  dos  alertas.`,
+              alignment: 'right',
+              margin: [30, 0, 30, 0],
+              style: 'body'
+            }
+          );
+        }
+        deflorestationAlertsContext.push(
             {
               columns: titleDate,
               margin: [30, 0, 30, 0]
