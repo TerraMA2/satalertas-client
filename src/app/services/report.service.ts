@@ -178,7 +178,7 @@ export class ReportService {
     let descriptionValue;
     let visionDescription = visionData.description;
     if (visionDescription) {
-      if (typeof visionDescription !== 'object'){
+      if (typeof visionDescription !== 'object') {
         descriptionValue = visionData.description;
       } else {
         descriptionValue = this.replaceWildCards(
@@ -193,12 +193,13 @@ export class ReportService {
             '{prodesArea}'
           ],
           [
-            propertyData.indigenousLand['area'] ? propertyData.indigenousLand['area'] : 0,
-            propertyData.legalReserve['area'] ? propertyData.legalReserve['area'] : 0,
-            propertyData.app['area'] ? propertyData.app['area'] : 0,
-            propertyData.anthropizedUse['area'] ? propertyData.anthropizedUse['area'] : 0,
-            propertyData.nativeVegetation['area'] ? propertyData.nativeVegetation['area'] : 0,
-            propertyData['prodesYear'][index] ? propertyData['prodesYear'][index]['area'] : 0,
+            propertyData.indigenousLand['area'] ? propertyData.indigenousLand['area'] : '0,0000',
+            propertyData.conservationUnit['area'] ? propertyData.conservationUnit['area'] : '0,0000',
+            propertyData.legalReserve['area'] ? propertyData.legalReserve['area'] : '0,0000',
+            propertyData.app['area'] ? propertyData.app['area'] : '0,0000',
+            propertyData.anthropizedUse['area'] ? propertyData.anthropizedUse['area'] : '0,0000',
+            propertyData.nativeVegetation['area'] ? propertyData.nativeVegetation['area'] : '0,0000',
+            propertyData['prodesYear'][index] ? propertyData['prodesYear'][index]['area'] : '0,0000',
           ]
         );
       }
