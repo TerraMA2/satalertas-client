@@ -164,12 +164,14 @@ export class ReportService {
       [
         '{currentYear}',
         '{break}',
-        '{filterDate}'
+        '{filterDate}',
+        '{emptyLine}'
       ],
       [
         new Date().getFullYear().toString(),
         `<br />`,
-        `${startDate} - ${endDate}`
+        `${startDate} - ${endDate}`,
+        `<br />`
       ]
     );
     let descriptionValue;
@@ -182,6 +184,7 @@ export class ReportService {
           visionData.description['value'],
           [
             '{indigenousLand}',
+            '{conservationUnit}',
             '{legalReserve}',
             '{app}',
             '{anthropizedUse}',
@@ -189,12 +192,13 @@ export class ReportService {
             '{prodesArea}'
           ],
           [
-            propertyData.indigenousLand['area'] ? propertyData.indigenousLand['area'] : 0,
-            propertyData.legalReserve['area'] ? propertyData.legalReserve['area'] : 0,
-            propertyData.app['area'] ? propertyData.app['area'] : 0,
-            propertyData.anthropizedUse['area'] ? propertyData.anthropizedUse['area'] : 0,
-            propertyData.nativeVegetation['area'] ? propertyData.nativeVegetation['area'] : 0,
-            propertyData['prodesYear'][index] ? propertyData['prodesYear'][index]['area'] : 0,
+            propertyData.indigenousLand['area'] ? propertyData.indigenousLand['area'] : '0,0000',
+            propertyData.conservationUnit['area'] ? propertyData.conservationUnit['area'] : '0,0000',
+            propertyData.legalReserve['area'] ? propertyData.legalReserve['area'] : '0,0000',
+            propertyData.app['area'] ? propertyData.app['area'] : '0,0000',
+            propertyData.anthropizedUse['area'] ? propertyData.anthropizedUse['area'] : '0,0000',
+            propertyData.nativeVegetation['area'] ? propertyData.nativeVegetation['area'] : '0,0000',
+            propertyData['prodesYear'][index] ? propertyData['prodesYear'][index]['area'] : '0,0000',
           ]
         );
       }
