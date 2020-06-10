@@ -183,18 +183,19 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         images.push(this.getImageObject(await this.getBaseImageUrl(deflorestationAlerts[i].urlGsImagePlanetCurrent), [225, 225], [13, 0, 0, 0], 'rigth'));
 
         titleDate.push({
-          text: `2008`,
+          text: `Alerta(${deflorestationAlerts[i].date}) - Imagem(${deflorestationAlerts[i].year - 1})`,
           fontSize: 8,
           style: 'body',
           alignment: 'center'
         });
 
         titleDate.push({
-          text: `${deflorestationAlerts[i].date}`,
+          text: `Alerta(${deflorestationAlerts[i].date}) - Imagem(${deflorestationAlerts[i].has_deter ? deflorestationAlerts[i].date : deflorestationAlerts[i].year})`,
           fontSize: 8,
           style: 'body',
           alignment: 'center'
         });
+
         subTitleArea.push({
           text: `${deflorestationAlerts[i].area} ha`,
           fontSize: 8,
@@ -295,6 +296,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         const view = deflorestationHistory[i].date < 2013 ? 'LANDSAT_5_' :
             deflorestationHistory[i].date < 2017 ? 'LANDSAT_8_' :
                 'SENTINEL_2_';
+
         let url = deflorestationHistory[i].date === 2012 ? urlGsDeforestationHistory1 : urlGsDeforestationHistory.replace(new RegExp('#{image}#', ''), `${view}${deflorestationHistory[i].date}`);
         url = url.replace(new RegExp('#{year}#', ''), deflorestationHistory[i].date);
 

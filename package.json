@@ -2,7 +2,7 @@
   "name": "terrama2-report",
   "version": "0.0.0",
   "scripts": {
-    "start": "ng serve",
+    "start": "ng serve --proxy-config proxy.conf.js",
     "build": "ng build --prod --base-href /mpmt/alerta/ --deploy-url /mpmt/alerta/",
     "dev": "ng serve",
     "prod": "ng serve --prod"

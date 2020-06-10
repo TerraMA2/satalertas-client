@@ -116,24 +116,24 @@ export class ReportService {
       const year = startYear;
 
       if (date && date.date === year) {
-        area = (Number(date.area));
-        spotlights = (Number(date.spotlights));
-        burnedAreas = (Number(date.burnedareas));
+        area = date.area;
+        spotlights = Number(date.spotlights);
+        burnedAreas = date.burnedareas;
         if (!area) {
-          area = 0;
+          area = 0.0000;
         }
 
         if (!spotlights) {
-          spotlights = 0;
+          spotlights = 0.0000;
         }
         if (!burnedAreas) {
-          burnedAreas = 0;
+          burnedAreas = 0.0000;
         }
         count++;
       } else {
-        area = 0;
-        spotlights = 0;
-        burnedAreas = 0;
+        area = 0.0000;
+        spotlights = 0.0000;
+        burnedAreas = 0.0000;
       }
       const replacedTitle = this.replaceWildCard(title, '{year}', year);
       const replacedDescriptionText = this.replaceWildCard(description.text, '{year}', year);
@@ -236,7 +236,7 @@ export class ReportService {
     const burnedAreasYears = [];
     const burnedAreas = [];
     burnedAreasData.forEach(burnedAreaData => {
-      const burnedArea = burnedAreaData.burnedareas;
+      const burnedArea = Number(burnedAreaData.area.replace('.', '').replace(',', '.'));;
       const year = burnedAreaData.date;
       burnedAreasYears.push(year);
       burnedAreas.push(burnedArea);
@@ -260,7 +260,7 @@ export class ReportService {
     const historyDeterYears = [];
     const historyDeterAreas = [];
     historyDeterData.forEach(historyDeter => {
-      const historyDeterArea = historyDeter.area;
+      const historyDeterArea = Number(historyDeter.area.replace('.', '').replace(',', '.'));
       const year = historyDeter.date;
       historyDeterYears.push(year);
       historyDeterAreas.push(historyDeterArea);
@@ -273,7 +273,7 @@ export class ReportService {
     const historyProdesYears = [];
     const historyProdesAreas = [];
     historyProdesData.forEach(historyProdes => {
-      const historyProdesArea = historyProdes.area;
+      const historyProdesArea = Number(historyProdes.area.replace('.', '').replace(',', '.'));
       const year = historyProdes.date;
       historyProdesYears.push(year);
       historyProdesAreas.push(historyProdesArea);
