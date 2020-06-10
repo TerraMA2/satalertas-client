@@ -44,6 +44,8 @@ export class Property {
     public conservationUnit?: [],
     public analysisPeriod?: any,
     public gid?: number,
-    public statebbox?: string
+    public statebbox?: string,
+    // tslint:disable-next-line:variable-name
+    public area_km?: number
   ) {}
 }
