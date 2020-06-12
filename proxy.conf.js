@@ -1,7 +1,7 @@
 const PROXY_CONFIG = [
   {
     context: ['/api'],
-    target: 'http://www.dpi.inpe.br/fipcerrado-geoserver/ows/',
+    target: 'http://www.dpi.inpe.br/fipcerrado-geoserver/ows',
     secure: false,
     pathRewrite: {'^/api': ''}
   }
