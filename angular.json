@@ -97,7 +97,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "terrama2-report:build"
+            "browserTarget": "terrama2-report:build",
+            "proxyConfig": "src/proxy.conf.json"
           },
           "configurations": {
             "production": {

@@ -179,8 +179,8 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
       // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < deflorestationAlerts.length; ++i) {
-        images.push(this.getImageObject(await this.getBaseImageUrl(deflorestationAlerts[i].urlGsImageSpotBefore), [225, 225], [0, 0, 0, 0], 'left'));
-        images.push(this.getImageObject(await this.getBaseImageUrl(deflorestationAlerts[i].urlGsImagePlanetCurrent), [225, 225], [13, 0, 0, 0], 'rigth'));
+        images.push(this.getImageObject(await this.getBaseImageUrl(deflorestationAlerts[i].urlGsImageBefore), [225, 225], [0, 0, 0, 0], 'left'));
+        images.push(this.getImageObject(await this.getBaseImageUrl(deflorestationAlerts[i].urlGsImageCurrent), [225, 225], [13, 0, 0, 0], 'rigth'));
 
         titleDate.push({
           text: `Alerta(${deflorestationAlerts[i].date}) - Imagem(${deflorestationAlerts[i].year - 1})`,
