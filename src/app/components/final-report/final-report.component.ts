@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild, AfterViewInit } from '@angular/core';
+import {Component, OnInit, ViewEncapsulation, ViewChild, AfterViewInit, Inject, LOCALE_ID} from '@angular/core';
 
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -26,6 +26,8 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 
 import { Image } from '../../models/image.model';
 
+import { formatNumber } from '@angular/common';
+
 @Component({
   selector: 'app-final-report',
   templateUrl: './final-report.component.html',
@@ -44,7 +46,8 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     private authService: AuthService,
     private messageService: MessageService,
     private router: Router,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    @Inject(LOCALE_ID) private locale: string
   ) {  }
 
   @ViewChild('imagem2', {static: false}) imagem2: Chart;
@@ -87,6 +90,28 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
   inputSat: string;
   textAreaComments: string;
   labelTextArea: string;
+
+  formatValueLocate = {
+    async prodes(reportData) {
+
+    },
+    async deter(reportData) {
+      reportData.property.area = formatNumber(reportData.property.area, 'pt-US', '1.0-4');
+      reportData.property.area_km = formatNumber(reportData.property.area_km, 'pt-US', '1.0-4');
+      reportData.property.areaPastDeforestation = formatNumber(reportData.property.areaPastDeforestation, 'pt-US', '1.0-4');
+      reportData.property.lat = formatNumber(reportData.property.lat, 'pt-US', '1.0-4');
+      reportData.property.long = formatNumber(reportData.property.long, 'pt-US', '1.0-4');
+
+      // tslint:disable-next-line:prefer-for-of
+      for (let i = 0; i < reportData.property.tableData.length; ++i) {
+        reportData.property.tableData[i].pastDeforestation = formatNumber(reportData.property.tableData[i].pastDeforestation, 'pt-US', '1.0-4');
+      }
+    },
+    async queimada(reportData) {
+
+    }
+  };
+
   async ngOnInit() {
     this.inputSat = '';
     this.textAreaComments = '';
@@ -176,11 +201,14 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
       let images = [];
       let titleDate = [];
       let subTitleArea = [];
+      let startingYear = new Date().getFullYear();
 
       // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < deflorestationAlerts.length; ++i) {
         images.push(this.getImageObject(await this.getBaseImageUrl(deflorestationAlerts[i].urlGsImageBefore), [225, 225], [0, 0, 0, 0], 'left'));
         images.push(this.getImageObject(await this.getBaseImageUrl(deflorestationAlerts[i].urlGsImageCurrent), [225, 225], [13, 0, 0, 0], 'rigth'));
+
+        startingYear = (deflorestationAlerts[i].year - 1) < startingYear ? (deflorestationAlerts[i].year - 1) : startingYear;
 
         titleDate.push({
           text: `Alerta(${deflorestationAlerts[i].date}) - Imagem(${deflorestationAlerts[i].year - 1})`,
@@ -197,18 +225,11 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         });
 
         subTitleArea.push({
-          text: `${deflorestationAlerts[i].area} ha`,
+          text: `${formatNumber(deflorestationAlerts[i].area, 'pt-US', '1.0-4')} ha`,
           fontSize: 8,
           style: 'body',
           alignment: 'center'
         });
-
-        deflorestationAlertsContext.push(
-            {
-              text: '',
-              pageBreak: 'after'
-            }
-        );
 
         if (i === 0) {
           deflorestationAlertsContext.push(
@@ -218,6 +239,13 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
               margin: [30, 0, 30, 0],
               style: 'body'
             }
+          );
+        } else {
+          deflorestationAlertsContext.push(
+              {
+                text: '',
+                pageBreak: 'after'
+              }
           );
         }
         deflorestationAlertsContext.push(
@@ -231,7 +259,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
             },
             {
               columns: [
-                  this.getImageObject(await this.getBaseImageUrl(deflorestationAlerts[i].urlGsImagePlanetCurrentAndCar), [430, 430], [0, 0], 'center')
+                  this.getImageObject(await this.getBaseImageUrl(deflorestationAlerts[i].urlGsImagePlanetCurrentAndCar), [420, 420], [0, 0], 'center')
               ],
               margin: [30, 5, 30, 0]
             },
@@ -253,7 +281,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
             bold: true
           },
           {
-            text: ` Comparativo de imagens de satélite anterior à 2008 e atual 2020.`,
+            text: ` Comparativo de imagens de satélite anterior à ${startingYear} e atual ${new Date().getFullYear()}.`,
             bold: false
           }
         ],
@@ -392,11 +420,13 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     }
 
     if (this.reportData['type'] === 'deter') {
-      this.reportData['deflorestationAlertsContext'] = await this.getContextDeflorestationAlerts(this.reportData.property.deflorestationAlerts)
+      this.reportData['deflorestationAlertsContext'] = await this.getContextDeflorestationAlerts(this.reportData.property.deflorestationAlerts);
     }
 
     this.reportData['chartImages'] = this.chartImages;
     this.reportData['type'] = this.reportData['type'];
+
+    await this.formatValueLocate[this.type](this.reportData);
 
     this.docDefinition = await this.reportService.createPdf(this.reportData).then( async (response: Response) => {
 
