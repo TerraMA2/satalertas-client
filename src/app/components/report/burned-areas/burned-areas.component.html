@@ -12,7 +12,7 @@
                     <img src="{{burnedArea.image}}" class="map img-fluid" />
                     <p-footer *ngIf="burnedArea.description" class="card-footer">
                         {{ burnedArea.description['text'] }}
-                        {{ burnedArea.description['value']}} ha
+                        {{ burnedArea.description['value'] | number:'1.0-4':'pt' }} ha
                     </p-footer>
                 </p-card>
             </div>

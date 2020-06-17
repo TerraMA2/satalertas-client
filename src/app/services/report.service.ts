@@ -192,13 +192,13 @@ export class ReportService {
             '{prodesArea}'
           ],
           [
-            propertyData.indigenousLand['area'] ? propertyData.indigenousLand['area'] : '0,0000',
-            propertyData.conservationUnit['area'] ? propertyData.conservationUnit['area'] : '0,0000',
-            propertyData.legalReserve['area'] ? propertyData.legalReserve['area'] : '0,0000',
-            propertyData.app['area'] ? propertyData.app['area'] : '0,0000',
-            propertyData.anthropizedUse['area'] ? propertyData.anthropizedUse['area'] : '0,0000',
-            propertyData.nativeVegetation['area'] ? propertyData.nativeVegetation['area'] : '0,0000',
-            propertyData['prodesYear'][index] ? propertyData['prodesYear'][index]['area'] : '0,0000',
+            propertyData.indigenousLand['area'] ? propertyData.indigenousLand['area'] : '0.0000',
+            propertyData.conservationUnit['area'] ? propertyData.conservationUnit['area'] : '0.0000',
+            propertyData.legalReserve['area'] ? propertyData.legalReserve['area'] : '0.0000',
+            propertyData.app['area'] ? propertyData.app['area'] : '0.0000',
+            propertyData.anthropizedUse['area'] ? propertyData.anthropizedUse['area'] : '0.0000',
+            propertyData.nativeVegetation['area'] ? propertyData.nativeVegetation['area'] : '0.0000',
+            propertyData['prodesYear'][index] ? propertyData['prodesYear'][index]['area'] : '0.0000',
           ]
         );
       }
@@ -236,7 +236,7 @@ export class ReportService {
     const burnedAreasYears = [];
     const burnedAreas = [];
     burnedAreasData.forEach(burnedAreaData => {
-      const burnedArea = Number(burnedAreaData.area.replace('.', '').replace(',', '.'));;
+      const burnedArea = Number(burnedAreaData.area);
       const year = burnedAreaData.date;
       burnedAreasYears.push(year);
       burnedAreas.push(burnedArea);
@@ -260,7 +260,7 @@ export class ReportService {
     const historyDeterYears = [];
     const historyDeterAreas = [];
     historyDeterData.forEach(historyDeter => {
-      const historyDeterArea = Number(historyDeter.area.replace('.', '').replace(',', '.'));
+      const historyDeterArea = Number(historyDeter.area);
       const year = historyDeter.date;
       historyDeterYears.push(year);
       historyDeterAreas.push(historyDeterArea);
@@ -273,7 +273,7 @@ export class ReportService {
     const historyProdesYears = [];
     const historyProdesAreas = [];
     historyProdesData.forEach(historyProdes => {
-      const historyProdesArea = Number(historyProdes.area.replace('.', '').replace(',', '.'));
+      const historyProdesArea = Number(historyProdes.area);
       const year = historyProdes.date;
       historyProdesYears.push(year);
       historyProdesAreas.push(historyProdesArea);
