@@ -35,11 +35,11 @@ export class FilterService {
 
     // @ts-ignore
     const filterNew = new FilterParam(
-      (filterParam.themeSelected ? filterParam.themeSelected : null),
-      (filterParam.alertType ? filterParam.alertType : null),
-      (filterParam.autorization ? filterParam.autorization : null),
-      (filterParam.specificSearch ? filterParam.specificSearch : null),
-      (filterParam.classSearch ? filterParam.classSearch : {
+      (filterParam && filterParam.themeSelected ? filterParam.themeSelected : { value: 'ALL' }),
+      (filterParam && filterParam.alertType ? filterParam.alertType : { radioValue: 'ALL', analyses: [] }),
+      (filterParam && filterParam.autorization ? filterParam.autorization : { name: 'Todos', value: 'ALL' }),
+      (filterParam && filterParam.specificSearch ? filterParam.specificSearch : { isChecked: false, carCPF: 'CAR' }),
+      (filterParam && filterParam.classSearch ? filterParam.classSearch : {
         radioValue: 'SELECTION',
         analyzes: [{
           label: 'Classes do Deter',
