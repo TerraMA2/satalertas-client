@@ -3,7 +3,7 @@ export class FilterAlertAnalyses {
     public label: string,
     public type: string,
     public valueOption: string,
-    public valueOptionBiggerThen: string,
-    public options: any[]
+    public options: any[],
+    public valueOptionBiggerThen?: string
   ) {}
 }
