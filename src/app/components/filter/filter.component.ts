@@ -55,6 +55,16 @@ export class FilterComponent implements OnInit, AfterViewInit {
 
   updateFilter() {
     localStorage.removeItem('filterList');
+    this.filterParam['classSearch'] = {
+      radioValue: 'SELECTION',
+      analyzes: [{
+        label: 'Classes do Deter',
+        type: 'deter',
+        valueOption: 'DESMATAMENTO_CR',
+        options: []
+      }]
+    };
+
     localStorage.setItem('filterList', JSON.stringify(this.filterParam));
   }
 

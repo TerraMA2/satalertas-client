@@ -514,44 +514,71 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     return FilterUtils.themeSelected( filter, layer, cqlFilter);
   }
 
+  setFilterClass(layer, filter, clean) {
+    if ((filter.specificSearch && filter.specificSearch.isChecked) || !filter.classSearch ||
+        !filter.classSearch.radioValue || (filter.classSearch.radioValue === 'ALL')) {
+
+      return layer;
+    }
+
+    let cqlFilter = clean || !layer.layerData.cql_filter ? '' : layer.layerData.cql_filter;
+
+    if (filter.classSearch.radioValue === 'SELECTION') {
+      if (layer.codgroup === 'DETER') {
+        const columnName = layer.isPrimary ? `dd_deter_inpe_classname` : `${layer.tableOwner}_dd_deter_inpe_classname`;
+        cqlFilter += cqlFilter ? ' and ' : '';
+        cqlFilter += ` ${columnName} like '%${filter.classSearch.analyzes[0].valueOption}%' `;
+      }
+    }
+
+    if (cqlFilter) {
+      layer.layerData.cql_filter = cqlFilter;
+    }
+
+    return layer;
+  }
+
   setAlertType(layer, filter, cleanCqlFilter) {
     if ((filter.specificSearch && filter.specificSearch.isChecked) || !filter.alertType ||
       !filter.alertType.radioValue || (filter.alertType.radioValue === 'ALL')) {
+
       return layer;
     }
 
     let cqlFilter = cleanCqlFilter || !layer.layerData.cql_filter ? '' : layer.layerData.cql_filter;
 
-    filter.alertType.analyzes.forEach(analyze => {
+    if (filter.alert.radioValue === 'OCCURRENCE-AREA') {
+      filter.alertType.analyzes.forEach(analyze => {
 
-      const values = this.getValues(analyze);
+        const values = this.getValues(analyze);
 
-      if (analyze.valueOption && analyze.valueOption.value) {
-        if ((analyze.type && analyze.type === 'deter') && (layer.codgroup === 'DETER') && (layer.cod === 'CAR_X_DETER')) {
-          cqlFilter += cqlFilter ? ' and ' : '';
-          cqlFilter += ` calculated_area_ha ${values.columnValue} `;
+        if (analyze.valueOption && analyze.valueOption.value) {
+          if ((analyze.type && analyze.type === 'deter') && (layer.codgroup === 'DETER') && (layer.cod === 'CAR_X_DETER')) {
+            cqlFilter += cqlFilter ? ' and ' : '';
+            cqlFilter += ` calculated_area_ha ${values.columnValue} `;
+          }
+
+          if ((analyze.type && analyze.type === 'deforestation') && (layer.codgroup === 'PRODES') && (layer.cod === 'CAR_X_PRODES')) {
+            cqlFilter += cqlFilter ? ' and ' : '';
+            cqlFilter += ` calculated_area_ha ${values.columnValue} `;
+          }
+
+          if ((analyze.type && analyze.type === 'burned') && (layer.codgroup === 'BURNED') && (layer.cod === 'CAR_X_FOCOS')) {
+            layer.layerData.viewparams = `min:${values.min};max:${values.max}`;
+          }
+
+          if ((analyze.type && analyze.type === 'burned_area') && (layer.codgroup === 'BURNED_AREA') && (layer.cod === 'CAR_X_AREA_Q')) {
+            cqlFilter += cqlFilter ? ' and ' : '';
+            cqlFilter += ` calculated_area_ha ${values.columnValue} `;
+          }
+
+          if ((analyze.type && analyze.type === 'car_area')) {
+            cqlFilter += cqlFilter ? ' and ' : '';
+            cqlFilter += ` ${layer.filter.car.field} ${values.columnValue} `;
+          }
         }
-
-        if ((analyze.type && analyze.type === 'deforestation') && (layer.codgroup === 'PRODES') && (layer.cod === 'CAR_X_PRODES')) {
-          cqlFilter += cqlFilter ? ' and ' : '';
-          cqlFilter += ` calculated_area_ha ${values.columnValue} `;
-        }
-
-        if ((analyze.type && analyze.type === 'burned') && (layer.codgroup === 'BURNED') && (layer.cod === 'CAR_X_FOCOS')) {
-          layer.layerData.viewparams = `min:${values.min};max:${values.max}`;
-        }
-
-        if ((analyze.type && analyze.type === 'burned_area') && (layer.codgroup === 'BURNED_AREA') && (layer.cod === 'CAR_X_AREA_Q')) {
-          cqlFilter += cqlFilter ? ' and ' : '';
-          cqlFilter += ` calculated_area_ha ${values.columnValue} `;
-        }
-
-        if ((analyze.type && analyze.type === 'car_area')) {
-          cqlFilter += cqlFilter ? ' and ' : '';
-          cqlFilter += ` ${layer.filter.car.field} ${values.columnValue} `;
-        }
-      }
-    });
+      });
+    }
 
     if (cqlFilter) {
       layer.layerData.cql_filter = cqlFilter;
@@ -609,7 +636,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     const filter = JSON.parse(localStorage.getItem('filterList'));
 
     if (  !filter || (filter.alertType.radioValue === 'ALL') && (filter.autorization.value === 'ALL') &&
-          !filter.specificSearch.isChecked && !filter.themeSelected.type) {
+          !filter.specificSearch.isChecked && !filter.themeSelected.type && filter.classSearch.radioValue === 'ALL') {
       if (layer.layerData.cql_filter) {
         delete layer.layerData.cql_filter;
       }
@@ -625,6 +652,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     layer = this.setThemeSelected(layer, filter, true);
     layer = this.setAlertType(layer, filter, false);
+    layer = this.setFilterClass(layer, filter, false);
 
     return layer;
   }

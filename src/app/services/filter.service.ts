@@ -6,6 +6,12 @@ import { Layer } from '../models/layer.model';
 import {Alert} from '../models/alert.model';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
+import {FilterTheme} from "../models/filter-theme.model";
+import {FilterAlertType} from "../models/filter-alert-type.model";
+import {FilterAuthorization} from "../models/filter-authorization.model";
+import {FilterSpecificSearch} from "../models/filter-specific-search.model";
+import {FilterClass} from "../models/filter-class.model";
+import {FilterParam} from "../models/filter-param.model";
 
 @Injectable({
   providedIn: 'root'
@@ -24,9 +30,27 @@ export class FilterService {
 
   getParams(value) {
     const date = JSON.parse(localStorage.getItem('dateFilter'));
-
     const specificParameters = JSON.stringify(value);
-    const filter = localStorage.getItem('filterList');
+    const filterParam = JSON.parse(localStorage.getItem('filterList'));
+
+    // @ts-ignore
+    const filterNew = new FilterParam(
+      (filterParam.themeSelected ? filterParam.themeSelected : null),
+      (filterParam.alertType ? filterParam.alertType : null),
+      (filterParam.autorization ? filterParam.autorization : null),
+      (filterParam.specificSearch ? filterParam.specificSearch : null),
+      (filterParam.classSearch ? filterParam.classSearch : {
+        radioValue: 'SELECTION',
+        analyzes: [{
+          label: 'Classes do Deter',
+          type: 'deter',
+          valueOption: 'DESMATAMENTO_CR',
+          options: []
+        }]
+      })
+    );
+
+    const filter = JSON.stringify(filterNew);
     return {specificParameters, date, filter};
   }
 
