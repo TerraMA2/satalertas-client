@@ -10,6 +10,8 @@ import { AlertTypeAreaComponent} from './alert-type-area/alert-type-area.compone
 import { SpecificSearchAreaComponent} from './specific-search-area/specific-search-area.component';
 import { FilterSpecificSearch} from '../../models/filter-specific-search.model';
 import { FilterAlertType} from '../../models/filter-alert-type.model';
+import {FilterClass} from "../../models/filter-class.model";
+import {ClassAreaComponent} from "./class-area/class-area.component";
 
 @Component({
   selector: 'app-filter',
@@ -24,6 +26,7 @@ export class FilterComponent implements OnInit, AfterViewInit {
   @ViewChild('alertTypeAreaComponent', {static: false}) alertTypeAreaComponent: AlertTypeAreaComponent;
   @ViewChild('authorizationAreaComponent', {static: false}) authorizationAreaComponent: AuthorizationAreaComponent;
   @ViewChild('specificSearchAreaComponent', {static: false}) specificSearchAreaComponent: SpecificSearchAreaComponent;
+  @ViewChild('classAreaComponent', {static: false}) classAreaComponent: ClassAreaComponent;
 
   authorizationDisable: boolean;
 
@@ -55,15 +58,6 @@ export class FilterComponent implements OnInit, AfterViewInit {
 
   updateFilter() {
     localStorage.removeItem('filterList');
-    this.filterParam['classSearch'] = {
-      radioValue: 'SELECTION',
-      analyzes: [{
-        label: 'Classes do Deter',
-        type: 'deter',
-        valueOption: 'DESMATAMENTO_CR',
-        options: []
-      }]
-    };
 
     localStorage.setItem('filterList', JSON.stringify(this.filterParam));
   }
@@ -107,6 +101,10 @@ export class FilterComponent implements OnInit, AfterViewInit {
     this.filterParam.alertType = alertType;
   }
 
+  onUpdateClassFilter(classSearch: FilterClass) {
+    this.filterParam.classSearch = classSearch;
+  }
+
   onUpdateAuthorization(authorization: FilterAuthorization) {
     this.filterParam.autorization = authorization;
   }
@@ -132,5 +130,6 @@ export class FilterComponent implements OnInit, AfterViewInit {
     this.themeAreaComponent.clearAll();
     this.authorizationAreaComponent.clearAll();
     this.alertTypeAreaComponent.clearAll();
+    this.classAreaComponent.clearAll();
   }
 }

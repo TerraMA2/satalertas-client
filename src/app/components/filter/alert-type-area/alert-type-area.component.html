@@ -20,10 +20,7 @@
         <div *ngFor="let analyze of alertType.analyzes; trackBy: trackById">
             <h3 class="form-margin">{{analyze.label}}</h3>
             <div class="p-grid">
-                <div [ngClass]="{
-                                    'p-col-6': isCustomSelected(analyze),
-                                    'p-col-12 form-padding': !isCustomSelected(analyze)
-                                }">
+                <div [ngClass]="{ 'p-col-6': isCustomSelected(analyze), 'p-col-12 form-padding': !isCustomSelected(analyze) }">
                     <p-dropdown
                             [options]="analyze.options"
                             [(ngModel)]="analyze.valueOption"

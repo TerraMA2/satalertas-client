@@ -1,0 +1,41 @@
+<div *ngIf="checkValid()">
+    <h3 class="form-margin">Classe</h3>
+    <p-radioButton name="CLASS_ALL"
+                   value="ALL"
+                   label="Todos"
+                   [(ngModel)]="filterClass.radioValue"
+                   inputId="preopt1"
+                   [disabled]="disable">
+    </p-radioButton>
+    &nbsp;&nbsp;
+    <p-radioButton name="SELECTION"
+                   value="SELECTION"
+                   label="Selecionada"
+                   [(ngModel)]="filterClass.radioValue"
+                   inputId="preopt2"
+                   [disabled]="disable">
+    </p-radioButton>
+
+    <div *ngIf="checkAnalyzesValid()" >
+        <div *ngFor="let analyze of filterClass.analyzes; trackBy: trackById">
+            <h3 class="form-margin">{{analyze.label}}</h3>
+            <div class="p-grid">
+                <div class="p-col-12 form-padding">
+                    <p-dropdown
+                            [options]="analyze.options"
+                            [(ngModel)]="analyze.valueOption"
+                            [autoDisplayFirst]="false"
+                            [name]="analyze.type+'_class'"
+                            optionLabel="name"
+                            [showClear]="true"
+                            [disabled]="false"
+                            (onChange)="onChange($event)"
+                            filter="true"
+                            styleClass="width-100"
+                            scrollHeight="10rem">
+                    </p-dropdown>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

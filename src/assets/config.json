@@ -18,7 +18,7 @@
   },
   "sidebar": {
     "logoPath": "./assets/img/logos/mpmt-large.png",
-    "logoLink": "https://mpmt.mp.br/",
+    "logoLink": "http://mpmt.mp.br/",
     "sidebarItems": [
       {
         "icon": "fas fa-chart-line",
@@ -202,6 +202,14 @@
           {
             "label": "Valor > que ...",
             "value": 6
+          }
+        ]
+      },
+      "classSearch": {
+        "analyzes": [
+          {
+            "label": "Classes DETER",
+            "value": "deter"
           }
         ]
       },
