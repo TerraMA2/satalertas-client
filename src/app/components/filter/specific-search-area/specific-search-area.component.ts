@@ -13,6 +13,7 @@ export class SpecificSearchAreaComponent implements OnInit {
 
   constructor() { }
 
+  maxlength = 18;
   specificSearchFilter: FilterSpecificSearch;
 
   ngOnInit() {
@@ -20,6 +21,10 @@ export class SpecificSearchAreaComponent implements OnInit {
   }
 
   onChange(event) {
+    console.log(event);
+    this.maxlength = this.specificSearchFilter.CarCPF === 'CPF' ? 18 : 100;
+
+    this.specificSearchFilter.inputValue = null;
     this.onchangeAuthorization.emit(this.specificSearchFilter);
   }
 

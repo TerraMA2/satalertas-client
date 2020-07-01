@@ -527,7 +527,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       if (layer.codgroup === 'DETER') {
         const columnName = layer.isPrimary ? `dd_deter_inpe_classname` : `${layer.tableOwner}_dd_deter_inpe_classname`;
         cqlFilter += cqlFilter ? ' and ' : '';
-        cqlFilter += ` ${columnName} like '%${filter.classSearch.analyzes[0].valueOption}%' `;
+        cqlFilter += ` ${columnName} like '%${filter.classSearch.analyzes[0].valueOption.name}%' `;
       }
     }
 

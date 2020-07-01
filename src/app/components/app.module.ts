@@ -82,6 +82,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MessagesModule } from 'primeng/messages';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from 'src/environments/environment';
+import { ClassAreaComponent } from './filter/class-area/class-area.component';
 registerLocaleData(localePt, 'pt');
 @NgModule({
   declarations: [
@@ -127,6 +128,7 @@ registerLocaleData(localePt, 'pt');
     FinalReportComponent,
     HistoryDeterChartComponent,
     HistoryProdesChartComponent,
+    ClassAreaComponent,
   ],
 
   imports: [

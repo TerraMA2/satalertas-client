@@ -28,7 +28,7 @@ export class AlertTypeAreaComponent implements OnInit, AfterViewInit {
     this.filter.analyzes.forEach( analyze => {
       const options = (analyze.value === 'burned') ? this.filter.optionsFocos : this.filter.options;
 
-      this.alertType.analyzes.push(new FilterAlertAnalyses(analyze.label, analyze.value, undefined, undefined, options));
+      this.alertType.analyzes.push(new FilterAlertAnalyses(analyze.label, analyze.value, undefined, options));
     });
   }
 
