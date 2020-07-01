@@ -38,10 +38,12 @@ export class FilterService {
       (filterParam && filterParam.themeSelected ? filterParam.themeSelected : { value: 'ALL' }),
       (filterParam && filterParam.alertType ? filterParam.alertType : { radioValue: 'ALL', analyses: [] }),
       (filterParam && filterParam.autorization ? filterParam.autorization : { name: 'Todos', value: 'ALL' }),
-      (filterParam && filterParam.specificSearch ? filterParam.specificSearch : { isChecked: false, carCPF: 'CAR' }),
+      (filterParam && filterParam.specificSearch ? filterParam.specificSearch : { isChecked: false, CarCPF: 'CAR' }),
       (filterParam && filterParam.classSearch ? filterParam.classSearch : { radioValue: 'ALL', analyses: [] })
     );
-
+    if (filterNew.specificSearch.isChecked && filterNew.specificSearch.CarCPF === 'CPF') {
+      filterNew.specificSearch.inputValue  =  filterNew.specificSearch.inputValue ?  filterNew.specificSearch.inputValue.replace(/\D/g, '') : null;
+    }
     const filter = JSON.stringify(filterNew);
     return {specificParameters, date, filter};
   }
