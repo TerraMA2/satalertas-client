@@ -44,7 +44,7 @@
                                 [(ngModel)]="specificSearchFilter.inputValue"
                                 class="width-100"
                                 placeholder="Digite o valor"
-                                maxlength="18"
+                                [maxlength]="maxlength"
                                (ngModelChange)="onChangeInput($event)">
                 </div>
         </div>

@@ -128,7 +128,7 @@ export class FilterComponent implements OnInit, AfterViewInit {
 
   cleanOthers() {
     this.themeAreaComponent.clearAll();
-    this.authorizationAreaComponent.clearAll();
+    // this.authorizationAreaComponent.clearAll();
     this.alertTypeAreaComponent.clearAll();
     this.classAreaComponent.clearAll();
   }

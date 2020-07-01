@@ -33,15 +33,6 @@ export class ClassAreaComponent implements OnInit, AfterViewInit {
 
       this.filterClass.analyzes.push(new FilterAlertAnalyses(analyze.label, analyze.value, undefined, options));
     }
-    // this.filterParam['classSearch'] = {
-    //   radioValue: 'SELECTION',
-    //   analyzes: [{
-    //     label: 'Classes do Deter',
-    //     type: 'deter',
-    //     valueOption: 'DESMATAMENTO_CR',
-    //     options: []
-    //   }]
-    // };
   }
 
   onChange(event) {

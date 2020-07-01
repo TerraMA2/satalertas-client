@@ -39,15 +39,7 @@ export class FilterService {
       (filterParam && filterParam.alertType ? filterParam.alertType : { radioValue: 'ALL', analyses: [] }),
       (filterParam && filterParam.autorization ? filterParam.autorization : { name: 'Todos', value: 'ALL' }),
       (filterParam && filterParam.specificSearch ? filterParam.specificSearch : { isChecked: false, carCPF: 'CAR' }),
-      (filterParam && filterParam.classSearch ? filterParam.classSearch : {
-        radioValue: 'SELECTION',
-        analyzes: [{
-          label: 'Classes do Deter',
-          type: 'deter',
-          valueOption: 'DESMATAMENTO_CR',
-          options: []
-        }]
-      })
+      (filterParam && filterParam.classSearch ? filterParam.classSearch : { radioValue: 'ALL', analyses: [] })
     );
 
     const filter = JSON.stringify(filterNew);

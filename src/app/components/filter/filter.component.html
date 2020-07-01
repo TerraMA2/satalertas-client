@@ -4,9 +4,11 @@
         [(visible)]="displayFilter"
         [style]="{width: '35%'}"
         (onHide)="onDialogHide()"
+        baseZIndex="1001"
+        autoZIndex="false"
         [transitionOptions]="'0ms'">
 
-    <body class="p-grid">
+    <div class="p-grid">
         <div class="p-col-12 form-padding">
                 <app-theme-area
                         #themeAreaComponent
@@ -16,20 +18,19 @@
         </div>
 
         <div class="p-col-12 form-padding">
-                <app-alert-type-area
-                        #alertTypeAreaComponent
-                        (onchangeAlertType)="onUpdateAlertType($event)"
-                        [disable]="filterParam.specificSearch.isChecked">
-                </app-alert-type-area>
+            <app-alert-type-area
+                    #alertTypeAreaComponent
+                    (onchangeAlertType)="onUpdateAlertType($event)"
+                    [disable]="filterParam.specificSearch.isChecked">
+            </app-alert-type-area>
         </div>
 
         <div class="p-col-12 form-padding">
-                <app-class-area
-                        #classAreaComponent
-                        (onChangeClassFilter)="onUpdateClassFilter($event)"
-                        [disable]="filterParam.specificSearch.isChecked">
-
-                </app-class-area>
+            <app-class-area
+                    #classAreaComponent
+                    (onChangeClassFilter)="onUpdateClassFilter($event)"
+                    [disable]="filterParam.specificSearch.isChecked">
+            </app-class-area>
         </div>
 
         <div *ngIf="false" class="p-col-12 form-padding">
@@ -40,14 +41,13 @@
                 </app-authorization-area>
         </div>
 
-        <div class="p-col-12 form-padding">
+        <div class="p-col-12 form-padding" style="margin-top: 1rem;">
                 <app-specific-search-area
                         #specificSearchAreaComponent
                         (onchangeAuthorization)="onUpdateSpacificSearch($event)">
                 </app-specific-search-area>
         </div>
-    </body>
-
+    </div>
 
     <p-footer class="p-col-12 form-padding">
             <app-footer-filter-area
