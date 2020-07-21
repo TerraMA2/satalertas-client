@@ -1,0 +1,16 @@
+<p-dialog
+        header="Exportação"
+        [positionLeft]="410"
+        [positionTop]="60"
+        resizable="false"
+        [(visible)]="displayExport">
+
+        <p-listbox [options]="formats"
+                   [(ngModel)]="selectedFormats"
+                   multiple="multiple"
+                   checkbox="checkbox">
+        </p-listbox>
+        <br>
+        <p-button label="Exportar" (click)="onExportClick()"></p-button>
+
+</p-dialog>

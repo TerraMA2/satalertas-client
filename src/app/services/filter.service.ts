@@ -6,12 +6,9 @@ import { Layer } from '../models/layer.model';
 import {Alert} from '../models/alert.model';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {FilterTheme} from "../models/filter-theme.model";
-import {FilterAlertType} from "../models/filter-alert-type.model";
-import {FilterAuthorization} from "../models/filter-authorization.model";
-import {FilterSpecificSearch} from "../models/filter-specific-search.model";
-import {FilterClass} from "../models/filter-class.model";
-import {FilterParam} from "../models/filter-param.model";
+import {FilterParam} from '../models/filter-param.model';
+import {View} from '../models/view.model';
+import {LayerType} from '../enum/layer-type.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +27,7 @@ export class FilterService {
 
   getParams(value) {
     const date = JSON.parse(localStorage.getItem('dateFilter'));
+
     const specificParameters = JSON.stringify(value);
     const filterParam = JSON.parse(localStorage.getItem('filterList'));
 

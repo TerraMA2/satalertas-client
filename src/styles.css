@@ -1,25 +1,4 @@
 @charset "UTF-8";
-/* @font-face {
-  font-family: "Open Sans";
-  font-style: normal;
-  font-weight: 300;
-  src: url("./fonts/open-sans-v15-latin-300.eot");
-  src: local("Open Sans Light"), local("OpenSans-Light"), url("./fonts/open-sans-v15-latin-300.eot?#iefix") format("embedded-opentype"), url("./fonts/open-sans-v15-latin-300.woff2") format("woff2"), url("./fonts/open-sans-v15-latin-300.woff") format("woff"), url("./fonts/open-sans-v15-latin-300.ttf") format("truetype"), url("./fonts/open-sans-v15-latin-300.svg#OpenSans") format("svg");
-}
-@font-face {
-  font-family: "Open Sans";
-  font-style: normal;
-  font-weight: 400;
-  src: url("./fonts/open-sans-v15-latin-regular.eot");
-  src: local("Open Sans Regular"), local("OpenSans-Regular"), url("./fonts/open-sans-v15-latin-regular.eot?#iefix") format("embedded-opentype"), url("./fonts/open-sans-v15-latin-regular.woff2") format("woff2"), url("./fonts/open-sans-v15-latin-regular.woff") format("woff"), url("./fonts/open-sans-v15-latin-regular.ttf") format("truetype"), url("./fonts/open-sans-v15-latin-regular.svg#OpenSans") format("svg");
-}
-@font-face {
-  font-family: "Open Sans";
-  font-style: normal;
-  font-weight: 700;
-  src: url("./fonts/open-sans-v15-latin-700.eot");
-  src: local("Open Sans Bold"), local("OpenSans-Bold"), url("./fonts/open-sans-v15-latin-700.eot?#iefix") format("embedded-opentype"), url("./fonts/open-sans-v15-latin-700.woff2") format("woff2"), url("./fonts/open-sans-v15-latin-700.woff") format("woff"), url("./fonts/open-sans-v15-latin-700.ttf") format("truetype"), url("./fonts/open-sans-v15-latin-700.svg#OpenSans") format("svg");
-} */
 * {
   box-sizing: border-box;
 }
@@ -3242,7 +3221,26 @@ body {
 }
 
 .border {
-  border: 1px solid #ccc;
+  border: 1px solid #cecece;
+}
+
+.border-left-right {
+  border-left: 2px solid rgba(89, 17, 17, 0.1);
+  border-right: 2px solid rgba(89, 17, 17, 0.1);
+}
+
+.border-top-bottom {
+  border-top: 2px solid rgba(89, 17, 17, 0.1);
+  border-bottom: 2px solid rgba(89, 17, 17, 0.1);
+}
+
+.border-top {
+  border-top: 2px solid rgba(89, 17, 17, 0.1);
+  margin: unset;
+}
+
+.border-bottom {
+  border-bottom: 2px solid rgba(89, 17, 17, 0.1);
 }
 
 .padding {

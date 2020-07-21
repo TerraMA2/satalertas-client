@@ -6,8 +6,6 @@ import { SidebarService } from 'src/app/services/sidebar.service';
 
 import { ReportService } from '../../services/report.service';
 
-import { SatVegService } from '../../services/sat-veg.service';
-
 import { Response } from 'src/app/models/response.model';
 
 import pdfMake from 'pdfmake/build/pdfmake';
@@ -22,11 +20,13 @@ import { FinalReportService } from '../../services/final-report.service';
 
 import { AuthService } from 'src/app/services/auth.service';
 
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng-lts/api';
 
 import { Image } from '../../models/image.model';
 
 import { formatNumber } from '@angular/common';
+
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-final-report',
@@ -91,6 +91,8 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
   textAreaComments: string;
   labelTextArea: string;
 
+  loggedUser: User = null;
+
   formatValueLocate = {
     async prodes(reportData) {
 
@@ -102,7 +104,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
       reportData.property.lat = formatNumber(reportData.property.lat, 'pt-US', '1.0-4');
       reportData.property.long = formatNumber(reportData.property.long, 'pt-US', '1.0-4');
 
-      // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < reportData.property.tableData.length; ++i) {
         reportData.property.tableData[i].pastDeforestation = formatNumber(reportData.property.tableData[i].pastDeforestation, 'pt-US', '1.0-4');
       }
@@ -117,6 +118,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     this.textAreaComments = '';
 
     this.authService.user.subscribe(user => {
+      this.loggedUser = user;
       if (!user) {
         this.router.navigateByUrl('/map');
         this.messageService.add({severity: 'error', summary: 'Atenção!', detail: 'Usuário não autenticado.'});

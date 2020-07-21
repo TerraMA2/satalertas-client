@@ -40,6 +40,29 @@ export class HTTPService {
     );
   }
 
+  getBlob(url, parameters = {}) {
+    if (!url) {
+      return;
+    }
+
+    const terramaUrl = environment.reportServerUrl;
+    const geoserverUrl = environment.geoserverUrl;
+    const terramaUrlProd = 'http://www.terrama2.dpi.inpe.br/mpmt';
+    const testUrl = 'http://localhost:3200';
+
+    if (!url.includes(terramaUrl) &&
+        !url.includes(terramaUrlProd) &&
+        !url.includes(testUrl) &&
+        !url.includes(geoserverUrl) &&
+        !url.includes('https://www.satveg.cnptia.embrapa.br')) {
+      url = terramaUrl + url;
+    }
+    return this.http.get(url, { params: parameters, responseType: 'blob' }).pipe(
+        retry(1),
+        catchError(this.handleError)
+    );
+  }
+
   post(url, parameters = {}) {
     if (!url) {
       return;

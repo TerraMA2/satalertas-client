@@ -85,6 +85,7 @@ export class SidebarComponent implements OnInit {
                   sidebarLayerChild.codgroup,
                   sidebarLayerChild.label,
                   sidebarLayerChild.shortLabel,
+                  sidebarLayerChild.description,
                   sidebarLayerChild.value,
                   sidebarLayerChild.dateColumn,
                   sidebarLayerChild.geomColumn,

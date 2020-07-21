@@ -96,7 +96,7 @@
     "baselayers": [
       {
         "name": "osm",
-        "url": "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        "url": "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
         "layers": "",
         "format": "",
         "version": "",
@@ -118,7 +118,7 @@
       },
       {
         "name": "gebco",
-        "url": "http://www.gebco.net/data_and_products/gebco_web_services/web_map_service/mapserv?request=getmap&service=wms",
+        "url": "https://www.gebco.net/data_and_products/gebco_web_services/web_map_service/mapserv?request=getmap&service=wms",
         "layers": "gebco_08_grid",
         "format": "image/jpeg",
         "version": "1.1.1",
@@ -351,6 +351,26 @@
         {
           "label": "1000",
           "value": 1000
+        }
+      ]
+    },
+    "export": {
+      "formats": [
+        {
+          "label": "CSV",
+          "value": "csv"
+        },
+        {
+          "label": "GeoJSON",
+          "value": "geojson"
+        },
+        {
+          "label": "KML",
+          "value": "kml"
+        },
+        {
+          "label": "Shapefile",
+          "value": "shapefile"
         }
       ]
     }

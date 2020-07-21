@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 
 import { AuthService } from 'src/app/services/auth.service';
 
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'primeng-lts/api';
 
 import { FilterService } from '../../services/filter.service';
 
@@ -43,7 +43,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   displaySidebar = true;
   displayLogin = false;
-  displayAbout = false;
 
   hasLogin = false;
 

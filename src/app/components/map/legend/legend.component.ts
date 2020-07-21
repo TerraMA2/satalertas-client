@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { Layer } from 'src/app/models/layer.model';
+import {MapService} from '../../../services/map.service';
 
 @Component({
   selector: 'app-legend',
@@ -13,9 +14,15 @@ export class LegendComponent implements OnInit {
 
   @Input() displayLegend = false;
 
-  constructor() { }
+  constructor(
+      private mapService: MapService
+  ) { }
 
   ngOnInit() {
+  }
+
+  onLegendHide() {
+    this.mapService.legendClose.next();
   }
 
   trackById(index, item) {

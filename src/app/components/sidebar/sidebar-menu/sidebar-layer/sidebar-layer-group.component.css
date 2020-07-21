@@ -84,5 +84,5 @@
     cursor: pointer;
     padding: 0 10px;
     background-color: #fff;
-    transition: background-color 500ms ease-in-out
+    transition: background-color 500ms ease-in-out;
 }

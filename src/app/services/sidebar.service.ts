@@ -15,6 +15,10 @@ export class SidebarService {
 
   sidebarLayerDeselect = new Subject<Layer>();
 
+  sidebarLayerSwitchSelect = new Subject<Layer>();
+
+  sidebarLayerSwitchDeselect = new Subject<Layer>();
+
   sidebarLayerGroupSelect = new Subject<LayerGroup>();
 
   sidebarLayerGroupDeselect = new Subject<LayerGroup>();
@@ -22,8 +26,6 @@ export class SidebarService {
   sidebarItemRadioSelect = new Subject<Layer>();
 
   sidebarItemRadioDeselect = new Subject<Layer>();
-
-  sidebarOpenClose = new Subject<boolean>();
 
   sidebarReload = new Subject<boolean>();
 
