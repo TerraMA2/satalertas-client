@@ -5,6 +5,9 @@ import {HTTPService} from '../../../services/http.service';
 import {MapService} from '../../../services/map.service';
 import {MessageService} from 'primeng-lts/api';
 import {environment} from 'src/environments/environment';
+import {FilterService} from '../../../services/filter.service';
+import {View} from '../../../models/view.model';
+import {LayerType} from '../../../enum/layer-type.enum';
 
 @Component({
   selector: 'app-layer-tools',
@@ -28,7 +31,8 @@ export class LayerToolsComponent implements OnInit {
       private configService: ConfigService,
       private mapService: MapService,
       private httpService: HTTPService,
-      private messageService: MessageService
+      private messageService: MessageService,
+      private filterService: FilterService
   ) { }
 
   ngOnInit() {
@@ -48,9 +52,22 @@ export class LayerToolsComponent implements OnInit {
       });
     }
     const selectedFormats = this.selectedFormats;
-    const tableName = this.layer.tableName;
+    const layer = this.layer;
+    const tableName = layer.tableName;
 
-    const url = `${environment.reportServerUrl}/export/get?fileFormats=${selectedFormats.toString()}&tableName=${tableName}`;
+    const view = new View(
+        layer.value,
+        layer.cod,
+        layer.codgroup,
+        (layer.type === LayerType.ANALYSIS),
+        layer.isPrimary,
+        layer.tableOwner,
+        layer.tableName
+    );
+
+    const { specificParameters, date, filter } = this.filterService.getParams(view);
+
+    const url = `${environment.reportServerUrl}/export/get?specificParameters=${specificParameters}&date=${date}&filter=${filter}&fileFormats=${selectedFormats.toString()}&tableName=${tableName}`;
     const linkTag = document.createElement('a');
     linkTag.setAttribute('href', url);
     linkTag.click();
