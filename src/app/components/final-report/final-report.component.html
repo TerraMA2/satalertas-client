@@ -46,6 +46,7 @@
                         type="button"
                         icon="fas fa-download"
                         label="Gerar Relatório"
+                        *ngIf="loggedUser.administrator"
                         (click)="generatePdf('open')"
                         [disabled]="!docBase64 || generatingReport">
                 </button>
@@ -53,7 +54,7 @@
 </p-toolbar>
 <canvas id="imagem2" width="600" height="400" style="display: none"></canvas>
 <canvas id="chartImg" width="600" height="400" style="display: none"></canvas>
-<div class="form">
+<div class="form" *ngIf="loggedUser.administrator">
         <br>
         <label>Sat: </label>
         <input type="text"
@@ -63,7 +64,7 @@
                [(ngModel)]="inputSat"
                [disabled]="!docBase64 || generatingReport">
 </div>
-<div class="form">
+<div class="form" *ngIf="loggedUser.administrator">
         <br>
         <label>{{labelTextArea}} </label>
         <textarea
@@ -79,7 +80,7 @@
         <ngx-extended-pdf-viewer
                 [base64Src]="docBase64"
                 backgroundColor="#ffffff"
-                [height]="'70vh'"
+                [height]="loggedUser.administrator ? 'calc(100vh - 310px)' : 'calc(100vh - 100px)'"
                 [useBrowserLocale]="true"
                 [handTool]="false"
                 [showHandToolButton]="true"

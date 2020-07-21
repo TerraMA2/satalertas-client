@@ -1,0 +1,32 @@
+<p-dialog
+        header="{{ layer?.shortLabel }}"
+        [positionLeft]="410"
+        [positionTop]="60"
+        [(visible)]="displayLayerTools"
+        [blockScroll]="true"
+        (onHide)="onLayerToolHide()">
+
+        <p-accordion [multiple]="true" [style]="{'min-width': '300px'}">
+            <p-accordionTab [selected]="toolSelected === 'description'"
+                            header="Descrição">
+                {{ layer?.description }}
+            </p-accordionTab>
+
+            <p-accordionTab [selected]="toolSelected === 'export'"
+                            header="Exportação">
+                <p-listbox [options]="formats"
+                           [(ngModel)]="selectedFormats"
+                           multiple="multiple"
+                           checkbox="checkbox">
+                </p-listbox>
+                <br>
+                <p-button label="Exportar" (click)="onExportClick()"></p-button>
+            </p-accordionTab>
+
+            <p-accordionTab [selected]="toolSelected === 'opacity'"
+                            header="Opacidade">
+                <p-slider [animate]="true" [(ngModel)]="opacity" (onChange)="onOpacityChange($event)"></p-slider>
+            </p-accordionTab>
+        </p-accordion>
+
+</p-dialog>

@@ -4,7 +4,7 @@ import {FilterTheme} from '../../../models/filter-theme.model';
 import {BiomeService} from '../../../services/biome.service';
 import {CityService} from '../../../services/city.service';
 import {ConservationUnitService} from '../../../services/conservation-unit.service';
-import {SelectItem} from 'primeng/api';
+import {SelectItem} from 'primeng-lts/api';
 import {IndigenousLandService} from '../../../services/indigenous-land.service';
 import {ProjusService} from '../../../services/projus.service';
 

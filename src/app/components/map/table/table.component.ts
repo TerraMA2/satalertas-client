@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { LazyLoadEvent } from 'primeng/api';
+import { LazyLoadEvent } from 'primeng-lts/api';
 
 import { HTTPService } from 'src/app/services/http.service';
 

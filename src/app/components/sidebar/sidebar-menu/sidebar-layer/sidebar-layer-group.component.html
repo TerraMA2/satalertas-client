@@ -20,7 +20,7 @@
 
     </div>
 </div>
-<div class="collapse"
+<div class="collapse border-left-right"
     [ngClass]="{show: isLayerGroupOpened, hide: !isLayerGroupOpened}">
 
     <app-sidebar-layer class="sidebar-layer-body p-dir-col p-align-stretch"
@@ -30,6 +30,9 @@
                             [parentSwitchChecked]="switchChecked"
                             [isLayerGroupOpened]="isLayerGroupOpened"
     >
+        <ng-template>
+            <br>
+        </ng-template>
     </app-sidebar-layer>
 
 </div>

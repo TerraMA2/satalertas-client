@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 
 import { Subject } from 'rxjs';
 
+import { Layer } from '../models/layer.model';
+
 @Injectable({
   providedIn: 'root'
 })
 export class MapService {
-
-  getFilteredData = new Subject();
 
   resetLayers = new Subject();
 
@@ -18,6 +18,12 @@ export class MapService {
   showMarker = new Subject();
 
   reportTableButton = new Subject<boolean>();
+
+  layerToolOpen = new Subject<object>();
+
+  layerToolClose = new Subject();
+
+  legendClose = new Subject();
 
   constructor() { }
 }

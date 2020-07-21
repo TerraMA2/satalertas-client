@@ -7,33 +7,33 @@ import { registerLocaleData } from '@angular/common';
 
 import localePt from '@angular/common/locales/pt';
 import { AppRoutingModule } from './app-routing.module';
-import { ScrollPanelModule } from 'primeng/scrollpanel';
-import { SidebarModule } from 'primeng/sidebar';
-import { CardModule } from 'primeng/card';
-import { ChartModule } from 'primeng/chart';
-import { TableModule } from 'primeng/table';
-import { DragDropModule } from 'primeng/dragdrop';
-import { ButtonModule } from 'primeng/button';
-import { TooltipModule } from 'primeng/tooltip';
-import { DropdownModule } from 'primeng/dropdown';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { PasswordModule } from 'primeng/password';
-import { InputTextModule } from 'primeng/inputtext';
-import { DialogModule } from 'primeng/dialog';
-import { CalendarModule } from 'primeng/calendar';
-import { AccordionModule } from 'primeng/accordion';
-import { KeyFilterModule } from 'primeng/keyfilter';
-import { TreeDragDropService, MessageService } from 'primeng/api';
-import { InputSwitchModule } from 'primeng/inputswitch';
-import { CheckboxModule } from 'primeng/checkbox';
-import { ToastModule } from 'primeng/toast';
-import { RadioButtonModule } from 'primeng/radiobutton';
+import { ScrollPanelModule } from 'primeng-lts/scrollpanel';
+import { SidebarModule } from 'primeng-lts/sidebar';
+import { CardModule } from 'primeng-lts/card';
+import { ChartModule } from 'primeng-lts/chart';
+import { TableModule } from 'primeng-lts/table';
+import { DragDropModule } from 'primeng-lts/dragdrop';
+import { ButtonModule } from 'primeng-lts/button';
+import { TooltipModule } from 'primeng-lts/tooltip';
+import { DropdownModule } from 'primeng-lts/dropdown';
+import { MultiSelectModule } from 'primeng-lts/multiselect';
+import { PasswordModule } from 'primeng-lts/password';
+import { InputTextModule } from 'primeng-lts/inputtext';
+import { DialogModule } from 'primeng-lts/dialog';
+import { CalendarModule } from 'primeng-lts/calendar';
+import { AccordionModule } from 'primeng-lts/accordion';
+import { KeyFilterModule } from 'primeng-lts/keyfilter';
+import { TreeDragDropService, MessageService } from 'primeng-lts/api';
+import { InputSwitchModule } from 'primeng-lts/inputswitch';
+import { CheckboxModule } from 'primeng-lts/checkbox';
+import { ToastModule } from 'primeng-lts/toast';
+import { RadioButtonModule } from 'primeng-lts/radiobutton';
 import { NgxPrintModule } from 'ngx-print';
-import { ToolbarModule } from 'primeng/toolbar';
+import { ToolbarModule } from 'primeng-lts/toolbar';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { InputTextareaModule } from 'primeng/inputtextarea';
+import { ProgressSpinnerModule } from 'primeng-lts/progressspinner';
+import { InputTextareaModule } from 'primeng-lts/inputtextarea';
 import { ChartsModule } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
@@ -78,11 +78,15 @@ import { FooterFilterAreaComponent } from './filter/footer-filter-area/footer-fi
 import { FinalReportComponent } from './final-report/final-report.component';
 import { HistoryDeterChartComponent } from './report/history-deter-chart/history-deter-chart.component';
 import { HistoryProdesChartComponent } from './report/history-prodes-chart/history-prodes-chart.component';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { MessagesModule } from 'primeng/messages';
+import { ConfirmDialogModule } from 'primeng-lts/confirmdialog';
+import { MessagesModule } from 'primeng-lts/messages';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from 'src/environments/environment';
 import { ClassAreaComponent } from './filter/class-area/class-area.component';
+import { ExportComponent } from './map/export/export.component';
+import { ListboxModule } from 'primeng-lts/listbox';
+import { LayerToolsComponent } from './map/layer-tools/layer-tools.component';
+import { SliderModule } from 'primeng-lts/primeng';
 registerLocaleData(localePt, 'pt');
 @NgModule({
   declarations: [
@@ -129,6 +133,8 @@ registerLocaleData(localePt, 'pt');
     HistoryDeterChartComponent,
     HistoryProdesChartComponent,
     ClassAreaComponent,
+    ExportComponent,
+    LayerToolsComponent,
   ],
 
   imports: [
@@ -166,7 +172,9 @@ registerLocaleData(localePt, 'pt');
     ChartsModule,
     ConfirmDialogModule,
     MessagesModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
+    ListboxModule,
+    SliderModule,
   ],
   providers: [
     TreeDragDropService,
