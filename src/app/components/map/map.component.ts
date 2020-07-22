@@ -498,6 +498,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
 
+    this.mapService.clearMarkers.subscribe(() => {
+      this.markerClusterGroup.clearLayers();
+    });
+
     this.mapService.resetLayers.subscribe(items => {
       const draggedItemFrom = items[0].item;
       const draggedItemFromIndex = items[0].index;

@@ -46,9 +46,11 @@ export class SidebarLayerComponent implements OnInit {
     this.sidebarService.sidebarLayerSwitchDeselect.subscribe((layers: Layer[]) => {
       this.changeState(layers, false);
     });
+
     this.sidebarService.sidebarLayerGroupRadioDeselect.subscribe((layerGroup: LayerGroup) => {
       layerGroup.children.forEach((layer: Layer) => {
         if (layer.value === this.layer.value && this.layer.isPrimary) {
+          this.mapService.clearMarkers.next();
           this.primaryRadio = null;
         }
       });

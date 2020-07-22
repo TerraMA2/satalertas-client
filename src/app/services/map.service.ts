@@ -31,5 +31,7 @@ export class MapService {
 
   layerSlider = new Subject<object>();
 
+  clearMarkers = new Subject();
+
   constructor() { }
 }
