@@ -25,5 +25,13 @@ export class MapService {
 
   legendClose = new Subject();
 
+  layerExtent = new Subject<Layer>();
+
+  layerOpactity = new Subject<object>();
+
+  layerSlider = new Subject<object>();
+
+  clearMarkers = new Subject();
+
   constructor() { }
 }

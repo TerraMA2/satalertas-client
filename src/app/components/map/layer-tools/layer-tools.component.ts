@@ -1,12 +1,21 @@
 import {Component, Input, OnInit} from '@angular/core';
+
 import {Layer} from '../../../models/layer.model';
+
 import {ConfigService} from '../../../services/config.service';
+
 import {HTTPService} from '../../../services/http.service';
+
 import {MapService} from '../../../services/map.service';
+
 import {MessageService} from 'primeng-lts/api';
+
 import {environment} from 'src/environments/environment';
+
 import {FilterService} from '../../../services/filter.service';
+
 import {View} from '../../../models/view.model';
+
 import {LayerType} from '../../../enum/layer-type.enum';
 
 @Component({
@@ -22,7 +31,7 @@ export class LayerToolsComponent implements OnInit {
 
   @Input() toolSelected: string;
 
-  opacity: number;
+  opacity = 100;
 
   formats: [];
   selectedFormats: [];
@@ -40,7 +49,15 @@ export class LayerToolsComponent implements OnInit {
   }
 
   onOpacityChange(event) {
+    const layer = this.layer;
+    const value = Number(event.value);
+    this.mapService.layerOpactity.next({layer, value});
+  }
 
+  onSliderChange(event) {
+    const layer = this.layer;
+    const value = Number(event.value);
+    this.mapService.layerSlider.next({layer, value});
   }
 
   onExportClick() {

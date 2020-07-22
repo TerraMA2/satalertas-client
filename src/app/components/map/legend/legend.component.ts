@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { Layer } from 'src/app/models/layer.model';
+
 import {MapService} from '../../../services/map.service';
 
 @Component({

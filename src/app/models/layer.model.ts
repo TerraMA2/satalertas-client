@@ -33,7 +33,8 @@ export class Layer {
         public tools?: Tool[],
         public markerSelected?: boolean,
         public tableOwner?: string,
-        public tableName?: string
+        public tableName?: string,
+        public leafletId?: number
     ) {
     }
 }

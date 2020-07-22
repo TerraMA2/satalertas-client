@@ -88,7 +88,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   displayTable = false;
   displayLegend = false;
   displayInfo = false;
-  displayVisibleLayers = false;
+  // displayVisibleLayers = false;
   displayLayerTools = false;
 
   tableReportActive = false;
@@ -297,6 +297,23 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.map.addLayer(this.markerClusterGroup);
   }
 
+  setOpacity(layer: Layer, value: number) {
+    this.map.eachLayer((tileLayer: L.TileLayer.WMS) => {
+      if (layer.leafletId === tileLayer['_leaflet_id']) {
+        value = value / 100;
+        tileLayer.setOpacity(value);
+      }
+    });
+  }
+
+  layerExtent(layer: Layer) {
+    this.map.eachLayer((tileLayer: L.Layer) => {
+      if (layer.leafletId === tileLayer['_leaflet_id']) {
+
+      }
+    });
+  }
+
   clearMap() {
     this.clearLayers();
     this.markerClusterGroup.clearLayers();
@@ -382,6 +399,14 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setOverlayEvents() {
+    this.mapService.layerOpactity.subscribe((layerObject) => {
+      this.setOpacity(layerObject['layer'], layerObject['value']);
+    });
+
+    this.mapService.layerExtent.subscribe(layer => {
+      this.layerExtent(layer);
+    });
+
     this.mapService.layerToolOpen.subscribe((toolClicked) => {
       this.displayLayerTools = true;
       this.layerTool = toolClicked['layer'];
@@ -433,7 +458,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.sidebarService.sidebarLayerGroupSelect.subscribe((itemSelected: LayerGroup) => {
       this.clearMarkerInfo();
       const layers = itemSelected.children;
-      this.sidebarService.sidebarLayerSwitchSelect.next();
+      this.sidebarService.sidebarLayerSwitchSelect.next(layers);
       layers.forEach((layer: Layer) => {
         if (!layer.isDisabled && !layer.isHidden) {
           const layerExists = this.selectedLayers.find(selectedLayer => selectedLayer.value === layer.value);
@@ -447,7 +472,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.sidebarService.sidebarLayerGroupDeselect.subscribe((itemDeselected: LayerGroup) => {
       this.clearMarkerInfo();
       const layers = itemDeselected.children;
-      this.sidebarService.sidebarLayerSwitchDeselect.next();
+      this.sidebarService.sidebarLayerSwitchDeselect.next(layers);
       layers.forEach((layer: Layer) => {
         this.removeLayer(layer, true);
         this.tableService.unloadTableData.next(layer);
@@ -471,6 +496,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       if (this.selectedMarker && this.selectedMarker.overlayName === layer.label) {
         this.markerClusterGroup.clearLayers();
       }
+    });
+
+    this.mapService.clearMarkers.subscribe(() => {
+      this.markerClusterGroup.clearLayers();
     });
 
     this.mapService.resetLayers.subscribe(items => {
@@ -676,6 +705,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       layerToAdd = this.getLayer(layer.layerData);
       layerToAdd.setZIndex(1000 + this.selectedLayers.length);
       layerToAdd.addTo(this.map);
+      layer.leafletId = layerToAdd._leaflet_id;
     }
     return layerToAdd;
   }
@@ -1126,30 +1156,30 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
             .addEventListener('click', () => this.panMap(initialLatLong, initialZoom));
   }
 
-  setVisibleLayersControl() {
-    const VisibleLayers = L.Control.extend({
-      onAdd: () => {
-        const div = L.DomUtil.create('div');
-        div.innerHTML = `
-          <div id="visibleLayersBtn" class="leaflet-control-layers leaflet-custom-icon" title="Layers visíveis">
-            <a><i class='fas fa-list'></i></a>
-          </div>`;
-        return div;
-      }
-    });
-
-    new VisibleLayers({ position: 'topleft' }).addTo(this.map);
-
-    this.setVisibleLayersControlEvent();
-  }
-
-  setVisibleLayersControlEvent() {
-    document.querySelector('#visibleLayersBtn')
-            .addEventListener('click', () => {
-              this.displayVisibleLayers = !this.displayVisibleLayers;
-              L.DomEvent.on(L.DomUtil.get('visibleLayersBtn'), 'dblclick', L.DomEvent.stopPropagation);
-    });
-  }
+  // setVisibleLayersControl() {
+  //   const VisibleLayers = L.Control.extend({
+  //     onAdd: () => {
+  //       const div = L.DomUtil.create('div');
+  //       div.innerHTML = `
+  //         <div id="visibleLayersBtn" class="leaflet-control-layers leaflet-custom-icon" title="Layers visíveis">
+  //           <a><i class='fas fa-list'></i></a>
+  //         </div>`;
+  //       return div;
+  //     }
+  //   });
+  //
+  //   new VisibleLayers({ position: 'topleft' }).addTo(this.map);
+  //
+  //   this.setVisibleLayersControlEvent();
+  // }
+  //
+  // setVisibleLayersControlEvent() {
+  //   document.querySelector('#visibleLayersBtn')
+  //           .addEventListener('click', () => {
+  //             this.displayVisibleLayers = !this.displayVisibleLayers;
+  //             L.DomEvent.on(L.DomUtil.get('visibleLayersBtn'), 'dblclick', L.DomEvent.stopPropagation);
+  //   });
+  // }
 
   // Events
   onShowTable() {

@@ -83,7 +83,6 @@ import { MessagesModule } from 'primeng-lts/messages';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from 'src/environments/environment';
 import { ClassAreaComponent } from './filter/class-area/class-area.component';
-import { ExportComponent } from './map/export/export.component';
 import { ListboxModule } from 'primeng-lts/listbox';
 import { LayerToolsComponent } from './map/layer-tools/layer-tools.component';
 import { SliderModule } from 'primeng-lts/primeng';
@@ -133,7 +132,6 @@ registerLocaleData(localePt, 'pt');
     HistoryDeterChartComponent,
     HistoryProdesChartComponent,
     ClassAreaComponent,
-    ExportComponent,
     LayerToolsComponent,
   ],
 
