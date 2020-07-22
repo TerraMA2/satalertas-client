@@ -1,11 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
-import { SidebarService } from 'src/app/services/sidebar.service';
+import {SidebarService} from 'src/app/services/sidebar.service';
 
-import { TableService } from 'src/app/services/table.service';
+import {TableService} from 'src/app/services/table.service';
 
-import { Layer } from 'src/app/models/layer.model';
+import {Layer} from 'src/app/models/layer.model';
+
 import {MapService} from '../../../../../services/map.service';
+import {LayerGroup} from '../../../../../models/layer-group.model';
 
 @Component({
   selector: 'app-sidebar-layer',
@@ -37,10 +39,30 @@ export class SidebarLayerComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.sidebarService.sidebarLayerSwitchSelect.subscribe(() => this.isSelected = true);
-    this.sidebarService.sidebarLayerSwitchDeselect.subscribe(() => this.isSelected = false);
+    this.sidebarService.sidebarLayerSwitchSelect.subscribe((layers: Layer[]) => {
+      this.changeState(layers, true);
+    });
+
+    this.sidebarService.sidebarLayerSwitchDeselect.subscribe((layers: Layer[]) => {
+      this.changeState(layers, false);
+    });
+    this.sidebarService.sidebarLayerGroupRadioDeselect.subscribe((layerGroup: LayerGroup) => {
+      layerGroup.children.forEach((layer: Layer) => {
+        if (layer.value === this.layer.value && this.layer.isPrimary) {
+          this.primaryRadio = null;
+        }
+      });
+    });
 
     this.isSelected = this.layer.isDisabled ? null : this.parentSwitchChecked;
+  }
+
+  private changeState(children: Layer[], selected) {
+    children.forEach((layer: Layer) => {
+      if (layer.value === this.layer.value) {
+        this.isSelected = selected;
+      }
+    });
   }
 
   onChildClicked() {
@@ -58,6 +80,7 @@ export class SidebarLayerComponent implements OnInit {
       this.deselectItem();
     }
   }
+
   selectItem() {
     this.tableService.unloadTableData.next();
     this.sidebarService.sidebarLayerSelect.next(this.layer);
@@ -68,16 +91,14 @@ export class SidebarLayerComponent implements OnInit {
     this.tableService.unloadTableData.next(this.layer);
     if (this.layer.isPrimary && this.primaryRadio) {
       this.sidebarService.sidebarItemRadioDeselect.next(this.layer);
-      this.primaryRadio = '';
+      this.primaryRadio = null;
     }
     this.isToolsOpened = false;
   }
 
   onChildRadioClicked() {
-    if (!this.parentSwitchChecked) {
-      this.selectItem();
-      this.parentSwitchChecked = true;
-    }
+    this.selectItem();
+    this.isSelected = true;
     this.sidebarService.sidebarItemRadioSelect.next(this.layer);
   }
 
@@ -100,9 +121,19 @@ export class SidebarLayerComponent implements OnInit {
     this.mapService.layerToolOpen.next({layer, toolName: 'opacity'});
   }
 
+  sliderTool() {
+    const layer = this.layer;
+    this.mapService.layerToolOpen.next({layer, toolName: 'slider'});
+  }
+
+  calendarTool() {
+    const layer = this.layer;
+    this.mapService.layerToolOpen.next({layer, toolName: 'calendar'});
+  }
+
   extentTool() {
     const layer = this.layer;
-    this.mapService.layerToolOpen.next({layer});
+    this.mapService.layerExtent.next(layer);
   }
 
   trackById(index, item) {

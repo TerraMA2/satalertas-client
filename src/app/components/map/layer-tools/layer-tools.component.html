@@ -27,6 +27,15 @@
                             header="Opacidade">
                 <p-slider [animate]="true" [(ngModel)]="opacity" (onChange)="onOpacityChange($event)"></p-slider>
             </p-accordionTab>
+
+            <p-accordionTab [selected]="toolSelected === 'slider'"
+                            header="Filtro por data">
+                <p-slider [animate]="true" [(ngModel)]="opacity" (onChange)="onSliderChange($event)"></p-slider>
+            </p-accordionTab>
+
+            <p-accordionTab [selected]="toolSelected === 'calendar'"
+                            header="Filtro por intervalo de data">
+            </p-accordionTab>
         </p-accordion>
 
 </p-dialog>

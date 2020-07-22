@@ -31,13 +31,7 @@ export class SidebarLayerGroupComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.authService.user.subscribe(user => {
-      if (user) {
-        this.isAuthenticated = true;
-      } else {
-        this.isAuthenticated = false;
-      }
-    });
+    this.authService.user.subscribe(user => this.isAuthenticated = !!user);
   }
 
   onSwitchChanged(event) {
@@ -45,6 +39,7 @@ export class SidebarLayerGroupComponent implements OnInit {
       this.sidebarService.sidebarLayerGroupSelect.next(this.sidebarLayerGroup);
     } else if (event.checked === false) {
       this.sidebarService.sidebarLayerGroupDeselect.next(this.sidebarLayerGroup);
+      this.sidebarService.sidebarLayerGroupRadioDeselect.next(this.sidebarLayerGroup);
     }
     this.switchChecked = !this.switchChecked;
   }
