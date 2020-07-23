@@ -10,8 +10,8 @@ import { AlertTypeAreaComponent} from './alert-type-area/alert-type-area.compone
 import { SpecificSearchAreaComponent} from './specific-search-area/specific-search-area.component';
 import { FilterSpecificSearch} from '../../models/filter-specific-search.model';
 import { FilterAlertType} from '../../models/filter-alert-type.model';
-import {FilterClass} from "../../models/filter-class.model";
-import {ClassAreaComponent} from "./class-area/class-area.component";
+import { FilterClass } from '../../models/filter-class.model';
+import { ClassAreaComponent } from './class-area/class-area.component';
 
 @Component({
   selector: 'app-filter',
