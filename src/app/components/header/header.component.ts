@@ -91,7 +91,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   setDefaultDate() {
     const currentDate = new Date();
-    let firstDate = new Date('01/01/' + currentDate.getFullYear());
+    let firstDate;
     if (!environment.production) {
       firstDate = new Date('01/01/2001');
     } else {

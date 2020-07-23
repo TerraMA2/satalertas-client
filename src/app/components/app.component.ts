@@ -22,8 +22,6 @@ export class AppComponent implements OnInit {
 
   displaySidebar = true;
 
-  isAuthenticated = false;
-
   constructor(
     private configService: ConfigService,
     private titleService: Title,
@@ -48,10 +46,6 @@ export class AppComponent implements OnInit {
 
   showHideSidebar(displaySidebar: boolean) {
     this.displaySidebar = displaySidebar;
-  }
-
-  public setTitle(newTitle: string) {
-    this.titleService.setTitle( newTitle );
   }
 
 }

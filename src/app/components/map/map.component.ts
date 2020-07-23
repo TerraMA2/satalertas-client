@@ -413,9 +413,12 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       this.toolSelected = toolClicked['toolName'];
     });
 
-    this.mapService.layerToolClose.subscribe(() => {
-      this.displayLayerTools = false;
-      this.layerTool = null;
+    this.mapService.layerToolClose.subscribe((layer: Layer) => {
+      if (this.layerTool && layer.value === this.layerTool.value) {
+        this.displayLayerTools = false;
+        this.layerTool = null;
+        this.toolSelected = null;
+      }
     });
 
     this.mapService.legendClose.subscribe(() => {

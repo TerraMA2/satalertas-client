@@ -96,6 +96,8 @@ export class SidebarLayerComponent implements OnInit {
       this.primaryRadio = null;
     }
     this.isToolsOpened = false;
+
+    this.mapService.layerToolClose.next(this.layer);
   }
 
   onChildRadioClicked() {

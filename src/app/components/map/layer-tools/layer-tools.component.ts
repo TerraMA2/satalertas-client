@@ -67,6 +67,7 @@ export class LayerToolsComponent implements OnInit {
         summary: 'Exportação',
         detail: 'Selecione ao menos 1 formato.'
       });
+      return;
     }
     const selectedFormats = this.selectedFormats;
     const layer = this.layer;
@@ -91,7 +92,7 @@ export class LayerToolsComponent implements OnInit {
   }
 
   onLayerToolHide() {
-    this.mapService.layerToolClose.next();
+    this.mapService.layerToolClose.next(this.layer);
   }
 
 }
