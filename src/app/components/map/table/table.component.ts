@@ -267,10 +267,6 @@ export class TableComponent implements OnInit {
     const reportResp = await this.reportService.getReportsByCARCod(register).then( (response: Response) => response );
 
     this.reports = (reportResp.status === 200) ? reportResp.data : [];
-
-    const carRegister = event.data.registro_estadual ?
-        event.data.registro_estadual :
-        event.data.registro_federal;
   }
 
   onFilterChange(filter) {
@@ -284,7 +280,7 @@ export class TableComponent implements OnInit {
   }
 
   trackById(index, item) {
-    return item.id;
+    return item.field;
   }
 
   onShowMapClicked(rowData = null) {
