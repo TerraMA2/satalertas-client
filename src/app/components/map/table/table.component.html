@@ -1,7 +1,7 @@
 <br />
 
 <p-table #attributesTable
-        dataKey="registro_estadual"
+        dataKey="gid"
         [(value)]="tableData"
         [(selection)]="selectedProperties"
         [paginator]="true"
@@ -130,8 +130,7 @@
                 let-columns="columns"
                 let-index="rowIndex"
                 let-expanded="expanded">
-        <tr [pSelectableRow]="rowData"
-            [pReorderableRow]="index">
+        <tr [pSelectableRow]="rowData">
             <td *ngIf="tableReportActive"
                 style="width: 2.5em">
                 <a [pRowToggler]="rowData" >
