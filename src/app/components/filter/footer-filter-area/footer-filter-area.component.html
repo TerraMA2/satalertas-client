@@ -3,7 +3,7 @@
                 <button pButton
                         type="submit"
                         label="Aplicar"
-                        class="ui-button-rounded"
+                        class="ui-button-rounded ui-button-raised"
                         (click)="onFilterClicked.emit($event)">
                 </button>
 
@@ -12,7 +12,7 @@
                         label="Remover Filtros"
                         class="ui-button-rounded ui-button-secondary
                                 ui-button ui-widget ui-state-default
-                                ui-corner-all ui-button-text-only"
+                                ui-corner-all ui-button-text-only ui-button-raised"
                         (click)="onClearFilterClicked.emit($event)">
                 </button>
         </div>
@@ -22,7 +22,7 @@
                         label="Fechar"
                         class="ui-button-rounded ui-button-secondary
                                 ui-button ui-widget ui-state-default
-                                ui-corner-all ui-button-text-only"
+                                ui-corner-all ui-button-text-only ui-button-raised"
                         (click)="onCloseClicked.emit($event)">
                 </button>
         </div>

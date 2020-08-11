@@ -5,7 +5,7 @@
             [modal]="false"
             [dismissible]="false"
             [showCloseIcon]="true"
-            [style]="{width:'inherit', left: 'unset', height: sidebarTableHeight, 'text-align': 'center' }"
+            [style]="{width:'inherit', left: 'unset', height: tablePanelHeight, 'text-align': 'center' }"
             (onShow)="onShowTable()"
             (onHide)="onHideTable()">
             <a class="ui-sidebar-close"
@@ -17,8 +17,8 @@
                     class="pi"></span>
             </a>
 
-  <app-table [(selectedLayers)]="selectedLayers"
-              [(tableReportActive)]="tableReportActive"
+  <app-table [selectedLayers]="selectedLayers"
+              [tableReportActive]="tableReportActive"
               [tableHeight]="tableHeight">
   </app-table>
 
@@ -28,11 +28,11 @@
                     [(displayVisibleLayers)]="displayVisibleLayers">
 </app-visible-layers> -->
 
-<app-legend [(selectedLayers)]="selectedLayers"
-            [(displayLegend)]="displayLegend">
+<app-legend [selectedLayers]="selectedLayers"
+            [displayLegend]="displayLegend">
 </app-legend>
 
-<app-layer-tools [(displayLayerTools)]="displayLayerTools"
+<app-layer-tools [displayLayerTools]="displayLayerTools"
                  [layer]="layerTool"
                  [toolSelected]="toolSelected">
 </app-layer-tools>
