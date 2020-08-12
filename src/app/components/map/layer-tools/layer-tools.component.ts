@@ -60,7 +60,7 @@ export class LayerToolsComponent implements OnInit {
     this.mapService.layerSlider.next({layer, value});
   }
 
-  onExportClick() {
+  async onExportClick() {
     if (!this.selectedFormats || this.selectedFormats.length === 0) {
       this.messageService.add({
         severity: 'error',
@@ -87,6 +87,8 @@ export class LayerToolsComponent implements OnInit {
 
     const url = `${environment.reportServerUrl}/export/get?specificParameters=${specificParameters}&date=${date}&filter=${filter}&fileFormats=${selectedFormats.toString()}&tableName=${tableName}`;
     const linkTag = document.createElement('a');
+    linkTag.setAttribute('id', 'exportLink');
+    linkTag.setAttribute('download', 'download');
     linkTag.setAttribute('href', url);
     linkTag.click();
   }

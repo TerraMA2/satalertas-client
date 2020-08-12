@@ -7,6 +7,7 @@ import {TableService} from 'src/app/services/table.service';
 import {Layer} from 'src/app/models/layer.model';
 
 import {MapService} from '../../../../../services/map.service';
+
 import {LayerGroup} from '../../../../../models/layer-group.model';
 
 @Component({

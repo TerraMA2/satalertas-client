@@ -19,6 +19,7 @@
     background-color: #591111 !important;
     color: white !important;
     opacity: 1 !important;
+    border: 1px solid #591111 !important;
 }
 
 .btn-alert-cars{
@@ -39,11 +40,12 @@
 
 .btn-alert-title{
     text-align: center;
-    font-weight: bold;
     font-size: 1.2rem;
+    line-height: 1.75;
 }
 
-.btn-alert-valeu{
+.btn-alert-value{
     text-align: center;
     font-size: 0.9rem;
+    line-height: 1.75;
 }

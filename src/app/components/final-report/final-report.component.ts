@@ -98,14 +98,14 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
     },
     async deter(reportData) {
-      reportData.property.area = formatNumber(reportData.property.area, 'pt-US', '1.0-4');
-      reportData.property.area_km = formatNumber(reportData.property.area_km, 'pt-US', '1.0-4');
-      reportData.property.areaPastDeforestation = formatNumber(reportData.property.areaPastDeforestation, 'pt-US', '1.0-4');
-      reportData.property.lat = formatNumber(reportData.property.lat, 'pt-US', '1.0-4');
-      reportData.property.long = formatNumber(reportData.property.long, 'pt-US', '1.0-4');
+      reportData.property.area = formatNumber(reportData.property.area, 'pt-BR', '1.0-4');
+      reportData.property.area_km = formatNumber(reportData.property.area_km, 'pt-BR', '1.0-4');
+      reportData.property.areaPastDeforestation = formatNumber(reportData.property.areaPastDeforestation, 'pt-BR', '1.0-4');
+      reportData.property.lat = formatNumber(reportData.property.lat, 'pt-BR', '1.0-4');
+      reportData.property.long = formatNumber(reportData.property.long, 'pt-BR', '1.0-4');
 
-      for (let i = 0; i < reportData.property.tableData.length; ++i) {
-        reportData.property.tableData[i].pastDeforestation = formatNumber(reportData.property.tableData[i].pastDeforestation, 'pt-US', '1.0-4');
+      for (const data of reportData.property.tableData) {
+        data.pastDeforestation = formatNumber(data.pastDeforestation, 'pt-BR', '1.0-4');
       }
     },
     async queimada(reportData) {
@@ -227,7 +227,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         });
 
         subTitleArea.push({
-          text: `${formatNumber(deflorestationAlerts[i].area, 'pt-US', '1.0-4')} ha`,
+          text: `${formatNumber(deflorestationAlerts[i].area, 'pt-BR', '1.0-4')} ha`,
           fontSize: 8,
           style: 'body',
           alignment: 'center'
@@ -292,7 +292,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         fontSize: 9
       });
     }
-    return await deflorestationAlertsContext;
+    return deflorestationAlertsContext;
   }
 
   async getContextDesflorestationHistory(deflorestationHistory, urlGsDeforestationHistory, urlGsDeforestationHistory1) {
@@ -384,7 +384,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         });
     }
 
-    return await deflorestationHistoryContext;
+    return deflorestationHistoryContext;
   }
 
   async getReportData() {
@@ -478,22 +478,20 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
   async getBase64ImageFromUrl(imageUrl) {
     const res = await fetch(imageUrl);
     const blob = await res.blob();
-    const result = await new Promise((resolve, reject) => {
+    return await new Promise((resolve, reject) => {
       const reader  = new FileReader();
       reader.addEventListener('load', () => resolve(reader.result), false);
       reader.onerror = () => reject(this);
       reader.readAsDataURL(blob);
     });
-    return result;
   }
 
   async getBaseImageUrl(url: string) {
-    const baseImage = await this.getBase64ImageFromUrl(url).then(result => {
+    return await this.getBase64ImageFromUrl(url).then(result => {
       const baseImageAux = [];
       baseImageAux.push(result);
       return baseImageAux;
     }).catch(err => console.error(err));
-    return baseImage;
   }
 
   async generatePdf(action = 'open') {

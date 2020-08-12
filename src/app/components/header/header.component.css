@@ -15,7 +15,7 @@
 }
 
 .header-filter{
-  margin: 10% 0% 10% 0%;
+  margin: 10% 0 10% 0;
   float: right;
 }
 
@@ -65,7 +65,7 @@
 }
 
 .button-filter {
-  margin: 15% 0% 15% 2%;
+  margin: 15% 0 15% 2%;
 }
 
 .background-color-white {

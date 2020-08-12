@@ -17,6 +17,7 @@ import {ParamAlert} from '../../models/param-alert.model';
 import { SidebarService } from 'src/app/services/sidebar.service';
 
 import { LayerType } from 'src/app/enum/layer-type.enum';
+
 import {Response} from '../../models/response.model';
 
 @Component({
@@ -30,6 +31,7 @@ export class DashboardComponent implements OnInit {
   alertsDisplayed: Alert [] = [];
   alertGraphics: any [] = [];
   sidebarLayers: LayerGroup[];
+  isLoading = false;
 
   constructor(
     private configService: ConfigService,
@@ -38,6 +40,7 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.isLoading = true;
     this.configService.getSidebarConfigurationDynamically().then((sidebarLayers: Response) => {
       this.sidebarLayers = sidebarLayers.data;
 
@@ -45,6 +48,7 @@ export class DashboardComponent implements OnInit {
 
       this.setOverlayEvents();
       this.getGraphicLayers();
+      this.isLoading = false;
     });
   }
 

@@ -94,13 +94,15 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   tableReportActive = false;
 
-  tablePanelHeight = '48vh';
+  tablePanelHeight;
 
-  tableHeight = '30vh';
+  tableHeight;
 
   tableFullscreen = false;
 
   selectedBaseLayer: string;
+
+  isLoading = false;
 
   constructor(
     private hTTPService: HTTPService,
@@ -115,8 +117,11 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     this.mapConfig = this.configService.getMapConfig();
-
     this.tableConfig = this.configService.getMapConfig('table');
+
+    const tableConfig = this.tableConfig;
+    this.tablePanelHeight = tableConfig.panelHeight;
+    this.tableHeight = tableConfig.height;
 
     this.sidebarService.sidebarLayerShowHide.next(true);
   }
@@ -375,8 +380,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       }
 
       if (carRegister) {
-        const register = carRegister;
-        link = `/report/${register}`;
+        link = `/report/${carRegister}`;
       }
 
       if (propertyCount === 1) {
@@ -712,6 +716,12 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       }
       layer = this.setFilter(layer);
       layerToAdd = this.getLayer(layer.layerData);
+      layerToAdd.on('loading', () => {
+        this.isLoading = true;
+      });
+      layerToAdd.on('load', () => {
+        this.isLoading = false;
+      });
       layerToAdd.setZIndex(1000 + this.selectedLayers.length);
       layerToAdd.addTo(this.map);
       layer.leafletId = layerToAdd._leaflet_id;
@@ -946,7 +956,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         document.querySelector('#map').classList.add('cursor-help');
         this.map.on('click', (event: L.LeafletMouseEvent) => this.getFeatureInfo(event));
       } else {
-        this.markerInfo.remove();
+        if (this.markerInfo) {
+          this.markerInfo.remove();
+        }
         this.displayInfo = false;
         document.querySelector('#infoBtn').classList.remove('leaflet-custom-icon-selected');
         document.querySelector('#map').classList.remove('cursor-help');
@@ -968,8 +980,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     let popupTable = '';
     for (const selectedLayer of this.selectedLayers) {
-      const codGroup = selectedLayer.codgroup;
-      const layerInfoColumn = infoColumns[codGroup];
+      const layerInfoColumn = infoColumns[selectedLayer.codgroup];
       const layer = this.getLayer(selectedLayer.layerData);
       const layerName = selectedLayer.label;
 
@@ -1014,7 +1025,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     const height = mapSize.y;
     const x = Math.round(layerPoint.x);
     const y = Math.round(layerPoint.y);
-    const params = {
+    return {
       request: 'GetFeatureInfo',
       service: 'WMS',
       srs: 'EPSG:4326',
@@ -1031,7 +1042,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       x,
       y
     };
-    return params;
   }
 
   getWFSFeatureInfoParams(layer: L.TileLayer.WMS, event, layerType, layerCod) {
@@ -1042,7 +1052,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         geomColumn = 'geomatria';
       }
     }
-    const params = {
+    return {
       request: 'GetFeature',
       service: 'WFS',
       srs: 'EPSG:4326',
@@ -1052,8 +1062,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       count: 1,
       cql_filter: `INTERSECTS(${geomColumn}, POINT(${event.latlng.lat} ${event.latlng.lng}))`
     };
-
-    return params;
   }
 
   getFeatureInfoPopup(layerName: string, features: LayerInfoFeature[], infoColumns = null) {
@@ -1081,11 +1089,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       let alias;
       if (column) {
         alias = column.alias;
-        if (column.show === true) {
-          show = true;
-        } else {
-          show = false;
-        }
+        show = column.show === true;
       } else {
         alias = key;
       }

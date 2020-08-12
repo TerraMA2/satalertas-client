@@ -1,7 +1,6 @@
 <br />
 
-<p-table #attributesTable
-        dataKey="gid"
+<p-table dataKey="gid"
         [value]="tableData"
         [(selection)]="selectedProperties"
         [paginator]="true"
@@ -46,7 +45,7 @@
                     <p-dropdown
                         [options]="rowsPerPage"
                         [(ngModel)]="selectedRowsPerPage"
-                        [style]="{minWidth: '100px'}"
+                        [style]="{minWidth: '500px'}"
                         (onChange)="onRowsPerPageChange($event)">
                     </p-dropdown>
 
@@ -166,63 +165,58 @@
             </td>
             <td *ngIf="tableReportActive">
                 <button *ngIf="tableReportActive && showDeter"
-                        style="vertical-align:middle; width: 30px; height: 30px;"
-                        class="btn"
+                        class="btn ui-button-raised view-report-icon"
                         routerLink="/finalReport/deter/{{getRegister(rowData)}}"
                         pButton
                         pTooltip="Visualisar relatório Deter"
                         tooltipPosition="top">
-                    <img src="assets/img/ico/deter32x32.png" style="margin: 2px; width: 25px; height: 25px;"/>
+                    <img src="assets/img/ico/deter32x32.png" />
                 </button>
                 <button *ngIf="tableReportActive && showProdes"
-                        style="vertical-align:middle; margin-left: 5px; width: 30px; height: 30px;"
                         routerLink="/finalReport/prodes/{{getRegister(rowData)}}"
                         pButton
-                        class="btn"
+                        class="btn ui-button-raised view-report-icon icon-margin"
                         pTooltip="Visualisar relatório Prodes"
                         tooltipPosition="top">
-                    <img src="assets/img/ico/prodes32x32.png" style="margin: 2px; width: 25px; height: 25px;"/>
+                    <img src="assets/img/ico/prodes32x32.png" />
                 </button>
                 <button *ngIf="tableReportActive && showBurn"
-                        style="vertical-align:middle; margin-left: 5px; width: 30px; height: 30px;"
                         routerLink="/finalReport/queimada/{{getRegister(rowData)}}"
                         pButton
                         disabled
-                        class="btn"
+                        class="btn ui-button-raised view-report-icon icon-margin"
                         pTooltip="Visualisar relatório Queimada"
                         tooltipPosition="top">
-                    <img src="assets/img/ico/queima.ico" style="margin: 2px; width: 25px; height: 25px;"/>
+                    <img src="assets/img/ico/queima.ico" />
                 </button>
                 <button pButton
                         *ngIf="tableReportActive"
-                        class="btn"
-                        style="vertical-align:middle; margin-left:5px; width: 30px; height: 30px;"
+                        class="btn ui-button-raised view-report-icon icon-margin"
                         (click)="onShowMapClicked(rowData)"
                         pTooltip="Visualizar no mapa">
-                    <i class="fa fa-map-marker-alt" style="color: #2C84CB; margin: 6px 3px; width: 25px; height: 25px;"></i>
+                    <i class="fa fa-map-marker-alt marker-icon"></i>
                 </button>
             </td>
         </tr>
     </ng-template>
 
-    <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
+    <ng-template pTemplate="rowexpansion">
         <tr>
             <td [attr.colspan]="selectedColumns.length + 4">
-                <div class="p-grid" *ngIf="reports.length > 0" >
-                    <div  class="p-col p-grid" style="text-align: center; display: block;" *ngFor="let report of reports; trackBy: trackById">
-                        <div pButton
-                            class="report-history-item p-col p-grid"
+                <div class="p-grid text-left" *ngIf="reports.length > 0">
+                    <div class="p-col" *ngFor="let report of reports; trackBy: trackById">
+                        <button pButton
+                            class="report-history-item ui-button-raised report-button"
                             pTooltip="Baixar relatório"
                             [label]="report.name"
                             tooltipPosition="top"
-                            style="text-align: center; display: block; width: 227px; height: 84px;"
                             (click)="getReport(report)">
-                            <div class="p-col">{{report.createdAt | date:'dd/MM/yyyy   HH:mm:ss'}}</div>
-                        </div>
+                            {{ report.createdAt | date:'dd/MM/yyyy HH:mm:ss' }}
+                        </button>
                     </div>
                 </div>
-                <div class="p-grid" *ngIf="reports.length === 0"  style="text-align: center;">
-                    <h4 class="p-col" style="text-align: center;">Não possui relatórios gerados!</h4>
+                <div class="p-grid text-center" *ngIf="reports.length === 0">
+                    <h4 class="p-col text-center">Não possui relatórios gerados!</h4>
                 </div>
             </td>
         </tr>

@@ -32,7 +32,7 @@ export class AlertTypeAreaComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onChange(event) {
+  onChange() {
     const result = this.alertType.radioValue !== 'ALL' ? this.alertType : undefined;
 
     this.onchangeAlertType.emit(result);
@@ -44,7 +44,7 @@ export class AlertTypeAreaComponent implements OnInit, AfterViewInit {
         analyze.valueOptionBiggerThen = undefined;
       }
     });
-    this.onChange(option);
+    this.onChange();
   }
 
   public clearAll() {

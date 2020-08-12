@@ -4,7 +4,7 @@
     "headerLogo": "./assets/img/logos/terrama2-small.png",
     "headerTitle": "SatAlertas: Sistema Integrado de Monitoramento de Degradação Ambiental",
     "hasLogin": true,
-    "headerLogoLink": "http://terrama.mpmt.mp.br/mpmt/monitor/",
+    "headerLogoLink": "http://www.terrama2.dpi.inpe.br",
     "layerUrls": {
       "static": "/map/getStaticData",
       "dynamic": "/map/getDynamicData",
@@ -18,7 +18,7 @@
   },
   "sidebar": {
     "logoPath": "./assets/img/logos/mpmt-large.png",
-    "logoLink": "http://mpmt.mp.br/",
+    "logoLink": "https://mpmt.mp.br/",
     "sidebarItems": [
       {
         "icon": "fas fa-chart-line",

@@ -4,6 +4,10 @@ import { SidebarItem } from 'src/app/models/sidebar-item.model';
 
 import { Router } from '@angular/router';
 
+import {HTTPService} from '../../../../services/http.service';
+
+import {SelectItem} from 'primeng-lts/api';
+
 @Component({
   selector: 'app-sidebar-item',
   templateUrl: './sidebar-item.component.html',
@@ -13,11 +17,36 @@ export class SidebarItemComponent implements OnInit {
 
   @Input() sidebarItem: SidebarItem;
 
+  selectedDropdownItem;
+
+  dropdownData: SelectItem[];
+
   constructor(
-    private router: Router
+    private router: Router,
+    private hTTPService: HTTPService
   ) { }
 
   ngOnInit() {
+    this.getDropdownData();
+  }
+
+  private getDropdownData() {
+    const dataUrl = this.sidebarItem.dataUrl;
+    if (dataUrl) {
+      this.dropdownData = [
+        {
+          label: 'project1',
+          value: 1
+        },
+        {
+          label: 'project2',
+          value: 2
+        }
+      ];
+      // this.hTTPService.get(dataUrl).subscribe((data: any) => {
+      //   this.dropdownData = data;
+      // });
+    }
   }
 
   onSidebarItemClicked() {
@@ -27,5 +56,4 @@ export class SidebarItemComponent implements OnInit {
       this[this.sidebarItem.method]();
     }
   }
-
 }

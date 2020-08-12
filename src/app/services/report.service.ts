@@ -209,14 +209,13 @@ export class ReportService {
     }
 
 
-    const vision = new Vision(
+    return new Vision(
       title,
       image,
       visionDescription,
       visionData.carRegisterColumn,
       visionData.layerData
     );
-    return vision;
   }
 
   getBurningSpotlightsChart(burningSpotlightsData) {

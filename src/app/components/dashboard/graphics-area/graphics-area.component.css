@@ -1,6 +1,6 @@
 
 /deep/ p-grid {
-    padding: 0px;
+    padding: 0;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
@@ -10,7 +10,7 @@
 }
 
 .box {
-    padding: 0px;
+    padding: 0;
     margin-left: 16px;
     margin-right: 19px;
 }

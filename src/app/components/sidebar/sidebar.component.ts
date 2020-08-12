@@ -134,6 +134,7 @@ export class SidebarComponent implements OnInit {
       sidebarItem.label,
       sidebarItem.link,
       sidebarItem.method,
+      sidebarItem.dataUrl,
       sidebarItem.value,
       sidebarItem.icon,
       sidebarItem.separator

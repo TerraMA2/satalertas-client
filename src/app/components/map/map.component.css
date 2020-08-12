@@ -2,6 +2,14 @@
   z-index: 1001;
 }
 
+.loading-map {
+  position: absolute;
+  bottom: 30px;
+  left:10px;
+  z-index: 5000;
+  font-size: 20px;
+}
+
 :host ::ng-deep .leaflet-custom-icon {
   background-color: #fff;
   border-bottom: 1px solid #ccc;

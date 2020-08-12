@@ -3,12 +3,14 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { Layer } from '../models/layer.model';
+
 import {Alert} from '../models/alert.model';
+
 import {HttpClient} from '@angular/common/http';
+
 import {environment} from '../../environments/environment';
+
 import {FilterParam} from '../models/filter-param.model';
-import {View} from '../models/view.model';
-import {LayerType} from '../enum/layer-type.enum';
 
 @Injectable({
   providedIn: 'root'

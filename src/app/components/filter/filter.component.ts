@@ -1,16 +1,29 @@
 import { Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
+
 import { NgForm } from '@angular/forms';
+
 import { FilterService} from '../../services/filter.service';
+
 import { FilterTheme} from '../../models/filter-theme.model';
+
 import { ThemeAreaComponent} from './theme-area/theme-area.component';
+
 import { FilterParam} from '../../models/filter-param.model';
+
 import { FilterAuthorization} from '../../models/filter-authorization.model';
+
 import { AuthorizationAreaComponent} from './authorization-area/authorization-area.component';
+
 import { AlertTypeAreaComponent} from './alert-type-area/alert-type-area.component';
+
 import { SpecificSearchAreaComponent} from './specific-search-area/specific-search-area.component';
+
 import { FilterSpecificSearch} from '../../models/filter-specific-search.model';
+
 import { FilterAlertType} from '../../models/filter-alert-type.model';
+
 import { FilterClass } from '../../models/filter-class.model';
+
 import { ClassAreaComponent } from './class-area/class-area.component';
 
 @Component({
@@ -18,7 +31,6 @@ import { ClassAreaComponent } from './class-area/class-area.component';
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.css']
 })
-
 export class FilterComponent implements OnInit, AfterViewInit {
 
   @ViewChild('filterForm', { static: false }) filterForm: NgForm;

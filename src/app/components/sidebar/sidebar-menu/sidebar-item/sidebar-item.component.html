@@ -7,14 +7,22 @@
             }">
 
     <i *ngIf="!sidebarItem.separator"
-        [class]="sidebarItem.icon"></i>
+       [class]="sidebarItem.icon">
+    </i>
 
     <div *ngIf="!sidebarItem.separator"
         class="sidebar-item-label">
 
-        <a class="sidebar-item-link">
+        <a *ngIf="!sidebarItem.dataUrl">
             {{ sidebarItem.label }}
         </a>
+
+        <p-dropdown *ngIf="sidebarItem.dataUrl"
+                    [options]="dropdownData"
+                    [(ngModel)]="selectedDropdownItem"
+                    [placeholder]="sidebarItem.label"
+                    [style]="{'width': '250px'}">
+        </p-dropdown>
 
     </div>
 </div>

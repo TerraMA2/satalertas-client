@@ -5,8 +5,8 @@
         [disabled]="alert.activearea"
         (click)="onAreaClick.emit(alert) ">
 
-    <p class="btn-alert-title">{{labelArea}}</p>
-    <p class="btn-alert-valeu">{{valueArea | number:'1.0-4':'pt'}} {{unitOfMeasurement}}</p>
+    <strong class="btn-alert-title">{{labelArea}}</strong>
+    <strong class="btn-alert-value">{{valueArea | number:'1.0-4':'pt'}} {{unitOfMeasurement}}</strong>
 </button>
 
 <button pButton
@@ -16,6 +16,6 @@
         [disabled]="alert.immobileactive"
         (click)="onNubermImmobileClick.emit(alert)">
 
-    <p class="btn-alert-title">{{labelNumCars}}</p>
-    <p class="btn-alert-valeu">{{valueNumCars}}</p>
+    <strong class="btn-alert-title">{{labelNumCars}}</strong>
+    <strong class="btn-alert-value">{{valueNumCars}}</strong>
 </button>

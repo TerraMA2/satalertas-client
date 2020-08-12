@@ -1,4 +1,3 @@
-
 import { Component, OnInit, EventEmitter, Output, OnDestroy, ViewChild } from '@angular/core';
 
 import { ConfigService } from '../../services/config.service';
@@ -16,6 +15,8 @@ import { SidebarService } from 'src/app/services/sidebar.service';
 import { MapService } from 'src/app/services/map.service';
 
 import { environment } from 'src/environments/environment';
+
+import {FilterDate} from '../../models/filter-date.model';
 
 @Component({
   selector: 'app-header',
@@ -38,7 +39,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private filterConfig;
   dateInput;
   maxDate = new Date();
-  dateField;
+  dateField: FilterDate;
   optionField;
 
   displaySidebar = true;
