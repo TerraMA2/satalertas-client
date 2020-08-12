@@ -20,12 +20,14 @@
                            checkbox="checkbox">
                 </p-listbox>
                 <br>
-                <p-button label="Exportar" (click)="onExportClick()"></p-button>
+                <p-button label="Exportar" (click)="onExportClick()" class="ui-button-raised"></p-button>
             </p-accordionTab>
 
             <p-accordionTab [selected]="toolSelected === 'opacity'"
                             header="Opacidade">
                 <p-slider [animate]="true" [(ngModel)]="opacity" (onChange)="onOpacityChange($event)"></p-slider>
+                <br />
+                <strong>{{ opacity }} %</strong>
             </p-accordionTab>
 
 <!--            <p-accordionTab [selected]="toolSelected === 'slider'"-->

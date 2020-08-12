@@ -67,6 +67,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   toolSelected: string;
 
   private mapConfig;
+  private tableConfig;
 
   private zoomIn = false;
 
@@ -93,9 +94,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   tableReportActive = false;
 
-  sidebarTableHeight = '48vh';
+  tablePanelHeight = '48vh';
 
-  tableHeight = '28vh';
+  tableHeight = '30vh';
 
   tableFullscreen = false;
 
@@ -114,6 +115,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     this.mapConfig = this.configService.getMapConfig();
+
+    this.tableConfig = this.configService.getMapConfig('table');
+
     this.sidebarService.sidebarLayerShowHide.next(true);
   }
 
@@ -426,8 +430,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.mapService.showMarker.subscribe(markerData => {
-      this.tableHeight = '10vh';
-      this.sidebarTableHeight = '28vh';
+      const heightSmall = this.tableConfig.heightSmall;
+      const panelHeightSmall = this.tableConfig.panelHeightSmall;
+      this.tableHeight = heightSmall;
+      this.tablePanelHeight = panelHeightSmall;
 
       this.setTableMarker(markerData);
     });
@@ -1250,17 +1256,24 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   expandShrinkTable() {
-    if (this.sidebarTableHeight === '48vh') {
-      this.sidebarTableHeight = 'calc(100vh - 50px)';
-      this.tableHeight = '78vh';
+    const panelHeightSmall = this.tableConfig.panelHeightSmall;
+
+    const height = this.tableConfig.height;
+    const panelHeight = this.tableConfig.panelHeight;
+
+    const heightBig = this.tableConfig.heightBig;
+    const panelHeightBig = this.tableConfig.panelHeightBig;
+    if (this.tablePanelHeight === panelHeight) {
+      this.tablePanelHeight = panelHeightBig;
+      this.tableHeight = heightBig;
       this.tableFullscreen = true;
-    } else if (this.sidebarTableHeight === 'calc(100vh - 50px)') {
-      this.sidebarTableHeight = '48vh';
-      this.tableHeight = '28vh';
+    } else if (this.tablePanelHeight === panelHeightBig) {
+      this.tablePanelHeight = panelHeight;
+      this.tableHeight = height;
       this.tableFullscreen = false;
-    } else if (this.sidebarTableHeight === '28vh') {
-      this.sidebarTableHeight = '48vh';
-      this.tableHeight = '28vh';
+    } else if (this.tablePanelHeight === panelHeightSmall) {
+      this.tablePanelHeight = panelHeight;
+      this.tableHeight = height;
       this.tableFullscreen = false;
     }
   }

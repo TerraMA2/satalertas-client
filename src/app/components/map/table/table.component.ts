@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { LazyLoadEvent } from 'primeng-lts/api';
+import {LazyLoadEvent, MessageService} from 'primeng-lts/api';
 
 import { HTTPService } from 'src/app/services/http.service';
 
@@ -37,7 +37,7 @@ export class TableComponent implements OnInit {
 
   @Input() tableReportActive = false;
 
-  @Input() tableHeight = '30vh';
+  @Input() tableHeight;
 
   selectedProperties;
 
@@ -69,17 +69,24 @@ export class TableComponent implements OnInit {
 
   private tableConfig;
 
+  formats;
+
+  selectedFormats: [];
+
   constructor(
     private hTTPService: HTTPService,
     private configService: ConfigService,
     private tableService: TableService,
     private filterService: FilterService,
     private mapService: MapService,
-    private reportService: ReportService
+    private reportService: ReportService,
+    private messageService: MessageService
   ) { }
 
   async ngOnInit() {
     this.tableConfig = this.configService.getMapConfig('table');
+
+    this.formats = this.configService.getMapConfig('export').formats;
 
     this.rowsPerPage = this.tableConfig.rowsPerPage;
 
@@ -110,7 +117,6 @@ export class TableComponent implements OnInit {
       // this.selectedLayerValue = selectedOption.value;
       this.selectedFilterSortField = selectedOption.sortField;
       this.loadTableData(selectedOption, this.selectedRowsPerPage, 0, this.selectedFilterSortField, 1);
-
     });
 
     this.tableService.clearTable.subscribe(() => this.clearTable());
@@ -127,6 +133,7 @@ export class TableComponent implements OnInit {
     if (!layer) {
       return;
     }
+    this.loading = true;
 
     const url = this.configService.getAppConfig('layerUrls')[layer.type];
     const countTotal = true;
@@ -177,7 +184,6 @@ export class TableComponent implements OnInit {
     await this.hTTPService
       .get(url, this.filterService.getParams(params))
       .subscribe(async data => await this.setData(data, layer.cod_group ? layer.cod_group : layer.codgroup));
-    this.selectedProperties = [];
   }
 
   async setData(data, group) {
@@ -251,14 +257,12 @@ export class TableComponent implements OnInit {
   }
 
   onSelectedLayerChange(layer) {
-    this.loading = true;
     this.selectedLayer = layer.selectedOption;
     this.selectedLayerLabel = this.selectedLayer.label;
     this.loadTableData(layer.selectedOption, this.selectedRowsPerPage, 0);
   }
 
   onRowsPerPageChange(event) {
-    this.loading = true;
     this.loadTableData(this.selectedLayer, this.selectedRowsPerPage, 0);
   }
 
@@ -270,8 +274,6 @@ export class TableComponent implements OnInit {
   }
 
   onFilterChange(filter) {
-    this.loading = true;
-
     const selectedOption = filter.selectedOption;
     this.selectedLayer = selectedOption;
     this.selectedFilter = selectedOption;
@@ -304,19 +306,45 @@ export class TableComponent implements OnInit {
     this.totalRecords = 0;
   }
 
-  onGenerateReportClick(rowData) {
-    if (!rowData) {
-      const selectedProperties = this.selectedProperties;
+  onExportClick() {
+    if (!this.selectedFormats || this.selectedFormats.length === 0) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Exportação',
+        detail: 'Selecione ao menos 1 formato.'
+      });
+      return;
     }
+    // const selectedFormats = this.selectedFormats;
+    // const layer = this.layer;
+    // const tableName = layer.tableName;
+    //
+    // const view = new View(
+    //     layer.value,
+    //     layer.cod,
+    //     layer.codgroup,
+    //     (layer.type === LayerType.ANALYSIS),
+    //     layer.isPrimary,
+    //     layer.tableOwner,
+    //     layer.tableName
+    // );
+    //
+    // const { specificParameters, date, filter } = this.filterService.getParams(view);
+    //
+    // const url = `${environment.reportServerUrl}/export/get?specificParameters=${specificParameters}&date=${date}&filter=${filter}&fileFormats=${selectedFormats.toString()}&tableName=${tableName}`;
+    // const linkTag = document.createElement('a');
+    // linkTag.setAttribute('href', url);
+    // linkTag.click();
   }
 
   getReport(report) {
+    this.loading = true;
     this.reportService.getReportById(report.id).then( (response: Response) => {
       const reportResp = (response.status === 200) ? response.data : {};
 
       window.open(window.URL.createObjectURL(this.base64toBlob(reportResp.base64, 'application/pdf')));
+      this.loading = false;
     });
-
   }
 
   onRowSelect() {

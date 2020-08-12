@@ -710,7 +710,7 @@ body .ui-slider .ui-slider-range {
   background-color: #591111;
 }
 body .ui-slider:not(.ui-state-disabled) .ui-slider-handle:hover {
-  background-color: 2px solid #666666;
+  background-color: #666666;
   border: 2px solid #591111;
 }
 body .ui-datepicker {
@@ -1432,9 +1432,6 @@ body .ui-tabview.ui-tabview-bottom .ui-tabview-nav {
 }
 body .ui-tabview.ui-tabview-bottom .ui-tabview-nav li {
   margin-right: 2px;
-}
-body .ui-tabview.ui-tabview-left .ui-tabview-nav {
-  margin-right: -px;
 }
 body .ui-tabview.ui-tabview-left .ui-tabview-nav li {
   margin-bottom: 2px;
@@ -3198,7 +3195,7 @@ body {
       "Noto Color Emoji";
   font-size: 1rem;
   font-weight: 400;
-  line-height: 1.5;
+  line-height: 1.2;
   color: #212529;
   text-align: left;
   background-color: #fff;
@@ -3218,6 +3215,18 @@ body {
 
 .text-center {
   text-align: center;
+}
+
+.float-right {
+  float: right;
+}
+
+.float-left {
+  float: left;
+}
+
+.color-black {
+  color: #000;
 }
 
 .border {

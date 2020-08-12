@@ -68,7 +68,7 @@ export class SidebarLayerComponent implements OnInit {
   }
 
   onChildClicked() {
-    if (!this.isToolsOpened) {
+    if (!this.isToolsOpened && !this.isSelected) {
       this.selectItem();
       this.isSelected = true;
     }
