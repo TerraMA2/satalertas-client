@@ -16,3 +16,18 @@
 .btn:active {
   background-color: #591111 !important;
 }
+
+.icon-margin {
+  margin-left: 5px !important;
+}
+
+.marker-icon {
+  color: #2C84CB;
+  margin: 6px 3px;
+}
+
+.report-button {
+  text-align: center;
+  width: 200px;
+  height: 70px;
+}

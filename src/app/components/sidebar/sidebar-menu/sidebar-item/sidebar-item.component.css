@@ -1,6 +1,7 @@
 .sidebar-item-body {
     display: flex;
     justify-content: flex-start;
+    align-items: center;
     cursor: pointer;
     padding: 5px 10px;
     background-color: #fff;
@@ -16,12 +17,23 @@
     color: #fff;
 }
 
-.sidebar-item-body a {
+.sidebar-item-body a,
+.sidebar-item-body p-dropdown .ui-dropdown-label {
     margin-left: 5px;
     color: #5f5f5f;
     font-weight: bold;
     text-decoration: none;
 }
+
+.sidebar-item-body p-dropdown {
+    margin-left: 5px;
+}
+
+.sidebar-item-body p-dropdown .ui-dropdown-label {
+    padding: 3px 5px;
+    font-size: 20px;
+}
+
 
 .sidebar-separator {
     background-color: #ccc;

@@ -153,13 +153,12 @@ export class ReportComponent implements OnInit {
   async getBase64ImageFromUrl(imageUrl) {
     const res = await fetch(imageUrl);
     const blob = await res.blob();
-    const result = await new Promise((resolve, reject) => {
+    return await new Promise((resolve, reject) => {
       const reader  = new FileReader();
       reader.addEventListener('load', () => resolve(reader.result), false);
       reader.onerror = () => reject(this);
       reader.readAsDataURL(blob);
     });
-    return result;
   }
 
   async setChartNdvi() {
@@ -188,7 +187,6 @@ export class ReportComponent implements OnInit {
 
       const chartImage = {
         geoserverImageNdvi: await this.getBase64ImageFromUrl(this.points[index].url),
-        // myChart: myChart.toBase64Image()
         myChart: this.points[index].options.data
       };
       this.chartImages.push(chartImage);

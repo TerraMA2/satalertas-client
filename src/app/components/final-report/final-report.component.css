@@ -93,3 +93,13 @@ h2 {
 .btn-icon:active {
     background-color: #591111 !important;
 }
+
+.icon-margin {
+    margin-left: 10px !important;
+}
+
+.final-report-loading {
+    text-align: center;
+    vertical-align: middle;
+    margin-top: 35vh;
+}

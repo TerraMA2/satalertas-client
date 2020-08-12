@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
 import { Property } from '../models/property.model';
+
 import {HttpClient} from '@angular/common/http';
 
 import {environment} from '../../environments/environment';
-import {PrivateDeclarationsAnalyzer} from '@angular/compiler-cli/ngcc/src/analysis/private_declarations_analyzer';
 
 @Injectable({
   providedIn: 'root'

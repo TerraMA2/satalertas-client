@@ -383,11 +383,9 @@ export class TableComponent implements OnInit {
       const byteArray = new Uint8Array(byteNumbers);
       byteArrays.push(byteArray);
     }
-    const blob = new Blob(byteArrays, {
+    return new Blob(byteArrays, {
       type: contentType
     });
-
-    return blob;
   }
 
   getRegister(data) {

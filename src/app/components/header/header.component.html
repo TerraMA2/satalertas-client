@@ -9,8 +9,7 @@
     <!-- <span class="app-title">&nbsp;&nbsp;{{mainApplication}}&nbsp;&nbsp;</span> -->
     <span class="header-title">{{headerTitle}}</span>
 
-    <button #filter
-            pButton
+    <button pButton
             type="button"
             icon="fas fa-filter"
             label="Filtrar"
@@ -40,14 +39,14 @@
                 <button pButton
                         type="button"
                         [label]="optionField.locale.today"
-                        class="date-button date-button-today"
+                        class="date-button date-button-today ui-button-raised"
                         (click)="onTodayClick()">
                 </button>
                 <button pButton
                         [style]="{float:'right'}"
                         type="button"
                         label="Filtrar"
-                        class="date-button button-right"
+                        class="date-button button-right ui-button-raised"
                         [disabled]="(dateInput && !dateInput[1] && dateInput[1] === null)"
                         (click)="onFilterClick()">
                 </button>

@@ -1,5 +1,5 @@
-
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+
 import {Alert} from '../../../models/alert.model';
 
 @Component({
@@ -43,7 +43,7 @@ export class CardAreaComponent implements OnInit {
     return 'Alertas:';
   }
 
-  getValeuArea(alert: Alert) {
+  getValueArea(alert: Alert) {
     return alert.value2;
   }
 

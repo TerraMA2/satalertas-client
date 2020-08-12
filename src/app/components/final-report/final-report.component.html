@@ -3,48 +3,44 @@
                 <button pButton
                         label="Voltar ao mapa"
                         routerLink="/map"
+                        class="ui-button-raised"
                         icon="fas fa-arrow-left">
                 </button>
                 &nbsp;&nbsp;
                 <button pButton
                         label="Síntese"
+                        class="ui-button-raised"
                         (click)="onViewReportClicked('')"
                         icon="fas fa-file-alt">
                 </button>
         </div>
         &nbsp;&nbsp;
-        <button
-                style="vertical-align:middle; width: 32px; height: 32px;"
-                class="btn btn-icon"
+        <button class="btn btn-icon ui-button-raised view-report-icon"
                 (click)="onViewReportClicked('deter')"
                 pButton
                 pTooltip="Visualisar relatório Deter"
                 tooltipPosition="top">
-                        <img src="assets/img/ico/deter32x32.png" style="margin: 2px; width: 25px; height: 25px;"/>
+                <img src="assets/img/ico/deter32x32.png" />
         </button>
-        <button 
-                style="vertical-align:middle; margin-left: 10px; width: 32px; height: 32px;"
-                (click)="onViewReportClicked('prodes')"
+        <button (click)="onViewReportClicked('prodes')"
                 pButton
-                class="btn btn-icon"
+                class="btn btn-icon ui-button-raised view-report-icon icon-margin"
                 pTooltip="Visualisar relatório Prodes"
                 tooltipPosition="top">
-                        <img src="assets/img/ico/prodes32x32.png" style="margin: 2px; width: 25px; height: 25px;"/>
+                <img src="assets/img/ico/prodes32x32.png" />
         </button>
-        <button
-                style="vertical-align:middle; margin-left: 10px; width: 32px; height: 32px;"
-                (click)="onViewReportClicked('queimada')"
+        <button (click)="onViewReportClicked('queimada')"
                 pButton
                 disabled
-                class="btn btn-icon"
+                class="btn btn-icon ui-button-raised view-report-icon icon-margin"
                 pTooltip="Visualisar relatório Queimada"
                 tooltipPosition="top">
-                        <img src="assets/img/ico/queima.ico" style="margin: 2px; width: 25px; height: 25px;"/>
+                <img src="assets/img/ico/queima.ico" />
         </button>
         <div class="ui-toolbar-group-right">
                 <button pButton
                         type="button"
-                        icon="fas fa-download"
+                        icon="fas fa-download ui-button-raised"
                         label="Gerar Relatório"
                         *ngIf="loggedUser.administrator"
                         (click)="generatePdf('open')"
@@ -90,7 +86,7 @@
         </ngx-extended-pdf-viewer>
 </div>
 
-<div *ngIf="!docBase64" style="text-align: center; vertical-align: middle; margin-top: 35vh;">
+<div *ngIf="!docBase64" class="final-report-loading">
         <p-progressSpinner> </p-progressSpinner>
 </div>
 <p-confirmDialog [style]="{width: '25vw'}" [baseZIndex]="10000"></p-confirmDialog>

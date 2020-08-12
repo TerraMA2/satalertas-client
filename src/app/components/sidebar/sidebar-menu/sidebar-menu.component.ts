@@ -29,13 +29,7 @@ export class SidebarMenuComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.authService.user.subscribe(user => {
-      if (user) {
-        this.isAuthenticated = true;
-      } else {
-        this.isAuthenticated = false;
-      }
-    });
+    this.authService.user.subscribe(user => this.isAuthenticated = !!user);
 
     this.sidebarService.sidebarLayerShowHide.subscribe(showHide => this.isMapShowing = showHide);
   }

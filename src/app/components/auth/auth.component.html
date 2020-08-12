@@ -1,56 +1,47 @@
 <div class="p-grid p-nogutter">
 
-  <div class="p-col-12 p-col-nogutter">
+    <div class="p-col-12 p-col-nogutter">
 
-    <ng-container *ngIf="isLoading; then loading; else login"></ng-container>
+        <div *ngIf="isLoading" class="loading-login">
+            <p-progressSpinner [style]="{width: '200px', height: '200px'}"></p-progressSpinner>
+        </div>
 
-    <ng-template #loading>
-      <div class="fa-10x">
-        <i class="fas fa-circle-notch fa-spin"></i>
-      </div>
-    </ng-template>
+        <div *ngIf="!isLoading">
+            <h2>Login</h2>
+            <hr>
+            <br>
+            <form #loginForm="ngForm" (ngSubmit)="onLoginClicked(loginForm)">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon"><i class="fas fa-user"></i></span>
+                    <input name="username" ngModel type="text" size="30" placeholder="Usuário" pInputText/>
+                </div>
 
-    <ng-template #login>
-        <h2>Login</h2>
+                <br>
 
-        <hr>
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon"><i class="fas fa-key"></i></span>
+                    <input name="password" ngModel type="password" size="30" placeholder="Senha" pInputText/>
+                </div>
 
-        <br>
+                <br/><br/>
 
-        <form #loginForm="ngForm" (ngSubmit)="onLoginClicked(loginForm)">
-          <div class="ui-inputgroup">
-              <span class="ui-inputgroup-addon"><i class="fas fa-user"></i></span>
-              <input name="username" ngModel type="text" size="30" placeholder="Usuário" pInputText />
-          </div>
+                <button pButton
+                        type="submit"
+                        label="Login"
+                        class="ui-button-rounded ui-button-raised width-100">
+                </button>
 
-          <br>
+                <br/><br/>
 
-          <div class="ui-inputgroup">
-              <span class="ui-inputgroup-addon"><i class="fas fa-key"></i></span>
-              <input name="password" ngModel type="password" size="30" placeholder="Senha" pInputText />
-          </div>
+                <button pButton
+                        type="button"
+                        label="Fechar"
+                        class="ui-button-rounded ui-button-secondary width-100 ui-button-raised"
+                        (click)="onCloseLoginClick()">
+                </button>
+            </form>
+        </div>
 
-          <!-- <a href="#">Esqueci minha senha</a> -->
-
-          <br /><br />
-
-          <button pButton
-                  type="submit"
-                  label="Login"
-                  class="ui-button-rounded ui-button-raised width-100">
-          </button>
-
-          <br /><br />
-
-          <button pButton
-                  type="button"
-                  label="Fechar"
-                  class="ui-button-rounded ui-button-secondary width-100"
-                  (click)="onCloseLoginClick()">
-          </button>
-        </form>
-    </ng-template>
-
-  </div>
+    </div>
 
 </div>

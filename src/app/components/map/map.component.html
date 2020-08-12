@@ -1,5 +1,8 @@
-<div id="map" class="map" [ngStyle]="{height: 'calc(100vh - 50px)'}"></div>
-
+<div id="map" class="map" [ngStyle]="{height: 'calc(100vh - 50px)'}">
+    <div *ngIf="isLoading" class="loading-map">
+        <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="6"> </p-progressSpinner>
+    </div>
+</div>
 <p-sidebar [(visible)]="displayTable"
             position="bottom"
             [modal]="false"
