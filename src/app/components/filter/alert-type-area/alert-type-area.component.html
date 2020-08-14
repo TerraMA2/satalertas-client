@@ -1,53 +1,53 @@
 <div *ngIf="checkAlertTypeValid()">
     <h3 class="form-margin">Tipo do alerta</h3>
-    <p-radioButton name="ALL"
-                    value="ALL"
-                    label="Todos"
-                    [(ngModel)]="alertType.radioValue"
-                    inputId="preopt1"
-                    [disabled]="disable">
+    <p-radioButton [(ngModel)]="alertType.radioValue"
+                   [disabled]="disable"
+                   inputId="preopt1"
+                   label="Todos"
+                   name="ALL"
+                   value="ALL">
     </p-radioButton>
     &nbsp;&nbsp;
-    <p-radioButton name="OCCURRENCE-AREA"
-                    value="OCCURRENCE-AREA"
-                    label="Áreas/Ocorrências"
-                    [(ngModel)]="alertType.radioValue"
-                    inputId="preopt2"
-                    [disabled]="disable">
+    <p-radioButton [(ngModel)]="alertType.radioValue"
+                   [disabled]="disable"
+                   inputId="preopt2"
+                   label="Áreas/Ocorrências"
+                   name="OCCURRENCE-AREA"
+                   value="OCCURRENCE-AREA">
     </p-radioButton>
 
-    <div *ngIf="checkAnalyzesValid()" >
+    <div *ngIf="checkAnalyzesValid()">
         <div *ngFor="let analyze of alertType.analyzes; trackBy: trackById">
             <h3 class="form-margin">{{analyze.label}}</h3>
             <div class="p-grid">
-                <div [ngClass]="{ 'p-col-6': isCustomSelected(analyze), 'p-col-12 form-padding': !isCustomSelected(analyze) }">
+                <div [ngClass]="{'p-col-6': isCustomSelected(analyze), 'p-col-12 form-padding': !isCustomSelected(analyze) }">
                     <p-dropdown
-                            [options]="analyze.options"
+                            (onChange)="onChangeAnalyzeOption($event)"
                             [(ngModel)]="analyze.valueOption"
                             [autoDisplayFirst]="false"
-                            [name]="analyze.type"
-                            optionLabel="label"
-                            [showClear]="true"
                             [disabled]="false"
-                            (onChange)="onChangeAnalyzeOption($event)"
+                            [name]="analyze.type"
+                            [options]="analyze.options"
+                            [showClear]="true"
                             filter="true"
-                            styleClass="width-100"
-                            scrollHeight="100px">
+                            optionLabel="label"
+                            scrollHeight="100px"
+                            styleClass="width-100">
                     </p-dropdown>
                 </div>
                 <div *ngIf="isCustomSelected(analyze)"
-                    [ngClass]="{
+                     [ngClass]="{
                                     'p-col-6': isCustomSelected(analyze),
                                     'p-col-12 form-padding': !isCustomSelected(analyze)
                                 }">
-                    <input *ngIf="isCustomSelected(analyze)"
-                            type="text"
-                            pInputText
-                            [name]="'specificValueInput'"
-                            [(ngModel)]="analyze.valueOptionBiggerThen"
-                            class="width-100"
-                            placeholder="Digite o valor"
-                            (ngModelChange)="onChange()">
+                    <input (ngModelChange)="onChange()"
+                           *ngIf="isCustomSelected(analyze)"
+                           [(ngModel)]="analyze.valueOptionBiggerThen"
+                           [name]="'specificValueInput'"
+                           class="width-100"
+                           pInputText
+                           placeholder="Digite o valor"
+                           type="text">
                 </div>
             </div>
         </div>

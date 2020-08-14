@@ -1,41 +1,42 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
-import { AuthService } from 'src/app/services/auth.service';
+import {AuthService} from 'src/app/services/auth.service';
 
-import { SidebarItem } from 'src/app/models/sidebar-item.model';
+import {SidebarItem} from 'src/app/models/sidebar-item.model';
 
-import { LayerGroup } from 'src/app/models/layer-group.model';
+import {LayerGroup} from 'src/app/models/layer-group.model';
 
-import { SidebarService } from 'src/app/services/sidebar.service';
+import {SidebarService} from 'src/app/services/sidebar.service';
 
 @Component({
-  selector: 'app-sidebar-menu',
-  templateUrl: './sidebar-menu.component.html',
-  styleUrls: ['./sidebar-menu.component.css']
+    selector: 'app-sidebar-menu',
+    templateUrl: './sidebar-menu.component.html',
+    styleUrls: ['./sidebar-menu.component.css']
 })
 export class SidebarMenuComponent implements OnInit {
 
-  @Input() sidebarItems: SidebarItem[];
+    @Input() sidebarItems: SidebarItem[];
 
-  @Input() sidebarLayerGroups: LayerGroup[];
+    @Input() sidebarLayerGroups: LayerGroup[];
 
-  isMapShowing = false;
+    isMapShowing = false;
 
-  isAuthenticated = false;
+    isAuthenticated = false;
 
-  constructor(
-    private authService: AuthService,
-    private sidebarService: SidebarService
-  ) { }
+    constructor(
+        private authService: AuthService,
+        private sidebarService: SidebarService
+    ) {
+    }
 
-  ngOnInit() {
-    this.authService.user.subscribe(user => this.isAuthenticated = !!user);
+    ngOnInit() {
+        this.authService.user.subscribe(user => this.isAuthenticated = !!user);
 
-    this.sidebarService.sidebarLayerShowHide.subscribe(showHide => this.isMapShowing = showHide);
-  }
+        this.sidebarService.sidebarLayerShowHide.subscribe(showHide => this.isMapShowing = showHide);
+    }
 
-  trackById(index, item) {
-    return item.id;
-  }
+    trackById(index, item) {
+        return item.id;
+    }
 
 }

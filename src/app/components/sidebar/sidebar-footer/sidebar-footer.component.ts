@@ -1,23 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
-import { SidebarService } from 'src/app/services/sidebar.service';
+import {SidebarService} from 'src/app/services/sidebar.service';
 
 @Component({
-  selector: 'app-sidebar-footer',
-  templateUrl: './sidebar-footer.component.html',
-  styleUrls: ['./sidebar-footer.component.css']
+    selector: 'app-sidebar-footer',
+    templateUrl: './sidebar-footer.component.html',
+    styleUrls: ['./sidebar-footer.component.css']
 })
 export class SidebarFooterComponent implements OnInit {
 
-  constructor(
-    private sidebarService: SidebarService
-  ) { }
+    constructor(
+        private sidebarService: SidebarService
+    ) {
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
-  openAbout() {
-    this.sidebarService.sidebarAbout.next(true);
-  }
+    openAbout() {
+        this.sidebarService.sidebarAbout.next(true);
+    }
 
 }

@@ -1,6 +1,6 @@
-<div  [style]="{width: '100%', height: 'calc(100vh - 50px)'}" >
+<div [style]="{width: '100%', height: 'calc(100vh - 50px)'}">
 
-    <div id="charts-panel" class="p-grid box">
+    <div class="p-grid box" id="charts-panel">
         <div class="box-title-panel p-col-12">
             <div class="p-md-12">
                 <span id="title-chart"></span>
@@ -9,18 +9,18 @@
     </div>
 
     <p-accordion [multiple]="true" class="p-col-12">
-        <p-accordionTab header="Gráfico {{alertGraphic.label}}"
+        <p-accordionTab *ngFor="let alertGraphic of alertGraphics; trackBy: trackById"
+                        [disabled]="alertGraphic.isEmpty"
                         [selected]="alertGraphic.active && !alertGraphic.isEmpty"
-                        *ngFor="let alertGraphic of alertGraphics; trackBy: trackById"
-                        [disabled]="alertGraphic.isEmpty">
+                        header="Gráfico {{alertGraphic.label}}">
 
             <div class="p-grid">
                 <p-card class="p-md-6">
-                    <p-chart type="bar" height="350px" [data]="alertGraphic.graphics[0].data"></p-chart>
+                    <p-chart [data]="alertGraphic.graphics[0].data" height="350px" type="bar"></p-chart>
                 </p-card>
 
                 <p-card class="p-md-6">
-                    <p-chart type="bar" height="350px" [data]="alertGraphic.graphics[1].data"></p-chart>
+                    <p-chart [data]="alertGraphic.graphics[1].data" height="350px" type="bar"></p-chart>
                 </p-card>
             </div>
         </p-accordionTab>

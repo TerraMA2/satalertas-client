@@ -5,31 +5,33 @@ import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class CityService {
-  urlCity = environment.reportServerUrl + '/city';
+    urlCity = environment.reportServerUrl + '/city';
 
-  constructor(
-    private http: HttpClient
-  ) {}
+    constructor(
+        private http: HttpClient
+    ) {
+    }
 
-  getAll() {
-    return this.http.get(this.urlCity + '/getAll').toPromise();
-  }
-  getAllSimplified() {
-    return this.http.get(this.urlCity + '/getAllSimplified').toPromise();
-  }
+    getAll() {
+        return this.http.get(this.urlCity + '/getAll').toPromise();
+    }
 
-  getAllSimplifiedRegions() {
-    return this.http.get(this.urlCity + '/getAllRegionsSimplified').toPromise();
-  }
+    getAllSimplified() {
+        return this.http.get(this.urlCity + '/getAllSimplified').toPromise();
+    }
 
-  getAllSimplifiedMesoregions() {
-    return this.http.get(this.urlCity + '/getAllMesoregionsSimplified').toPromise();
-  }
+    getAllSimplifiedRegions() {
+        return this.http.get(this.urlCity + '/getAllRegionsSimplified').toPromise();
+    }
 
-  getAllSimplifiedMicroregions() {
-    return this.http.get(this.urlCity + '/getAllMicroregionsSimplified').toPromise();
-  }
+    getAllSimplifiedMesoregions() {
+        return this.http.get(this.urlCity + '/getAllMesoregionsSimplified').toPromise();
+    }
+
+    getAllSimplifiedMicroregions() {
+        return this.http.get(this.urlCity + '/getAllMicroregionsSimplified').toPromise();
+    }
 }

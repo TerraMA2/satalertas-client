@@ -1,15 +1,15 @@
-<div class="sidebar-layer-group-body p-align-center"
-    [ngClass]="{ 'active': isLayerGroupOpened }">
+<div [ngClass]="{'active': isLayerGroupOpened }"
+     class="sidebar-layer-group-body p-align-center">
 
     <i [class]="sidebarLayerGroup.icon"></i>
 
-    <div class="sidebar-layer-group-label"
-        (click)="onLayerGroupClicked()">
+    <div (click)="onLayerGroupClicked()"
+         class="sidebar-layer-group-label">
 
-            <i class="fas sidebar-layer-group-arrow"
-                [ngClass]="{'fa-chevron-down': isLayerGroupOpened, 'fa-chevron-right': !isLayerGroupOpened}">
-            </i>
-            <a>{{ sidebarLayerGroup.label }}</a>
+        <i [ngClass]="{'fa-chevron-down': isLayerGroupOpened, 'fa-chevron-right': !isLayerGroupOpened}"
+           class="fas sidebar-layer-group-arrow">
+        </i>
+        <a>{{sidebarLayerGroup.label }}</a>
 
     </div>
 
@@ -20,15 +20,15 @@
 
     </div>
 </div>
-<div class="collapse border-left-right"
-    [ngClass]="{show: isLayerGroupOpened, hide: !isLayerGroupOpened}">
+<div [ngClass]="{show: isLayerGroupOpened, hide: !isLayerGroupOpened}"
+     class="collapse border-left-right">
 
-    <app-sidebar-layer class="sidebar-layer-body p-dir-col p-align-stretch"
-                            *ngFor="let layer of sidebarLayers; trackBy: trackById"
-                            [layer]="layer"
-                            [displayChild]="true"
-                            [parentSwitchChecked]="switchChecked"
-                            [isLayerGroupOpened]="isLayerGroupOpened">
+    <app-sidebar-layer *ngFor="let layer of sidebarLayers; trackBy: trackById"
+                       [displayChild]="true"
+                       [isLayerGroupOpened]="isLayerGroupOpened"
+                       [layer]="layer"
+                       [parentSwitchChecked]="switchChecked"
+                       class="sidebar-layer-body p-dir-col p-align-stretch">
     </app-sidebar-layer>
 
 </div>

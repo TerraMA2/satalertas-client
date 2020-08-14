@@ -1,20 +1,21 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input} from '@angular/core';
 
-import { Vision } from 'src/app/models/vision.model';
+import {Vision} from 'src/app/models/vision.model';
 
 @Component({
-  selector: 'app-burned-areas',
-  templateUrl: './burned-areas.component.html',
-  styleUrls: ['./burned-areas.component.css']
+    selector: 'app-burned-areas',
+    templateUrl: './burned-areas.component.html',
+    styleUrls: ['./burned-areas.component.css']
 })
 export class BurnedAreasComponent {
 
-  @Input() burnedAreas: Vision[] = [];
+    @Input() burnedAreas: Vision[] = [];
 
-  constructor() { }
+    constructor() {
+    }
 
-  trackById(index, item) {
-    return item.id;
-  }
+    trackById(index, item) {
+        return item.id;
+    }
 
 }

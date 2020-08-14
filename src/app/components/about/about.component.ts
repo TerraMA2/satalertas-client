@@ -1,29 +1,30 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
-import { SidebarService } from 'src/app/services/sidebar.service';
+import {SidebarService} from 'src/app/services/sidebar.service';
 
 @Component({
-  selector: 'app-about',
-  templateUrl: './about.component.html',
-  styleUrls: ['./about.component.css']
+    selector: 'app-about',
+    templateUrl: './about.component.html',
+    styleUrls: ['./about.component.css']
 })
 export class AboutComponent implements OnInit {
 
-  @Input() displayAbout;
+    @Input() displayAbout;
 
-  constructor(
-    private sidebarService: SidebarService
-  ) { }
+    constructor(
+        private sidebarService: SidebarService
+    ) {
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
-  onHide() {
-    this.sidebarService.sidebarAbout.next(false);
-  }
+    onHide() {
+        this.sidebarService.sidebarAbout.next(false);
+    }
 
-  closeAbout() {
-    this.sidebarService.sidebarAbout.next(false);
-  }
+    closeAbout() {
+        this.sidebarService.sidebarAbout.next(false);
+    }
 
 }

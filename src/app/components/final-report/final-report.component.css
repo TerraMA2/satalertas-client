@@ -42,10 +42,6 @@ h2 {
     margin: 15px 0;
 }
 
-.nowrap {
-    flex-wrap: nowrap;
-}
-
 .pdfViewer .page {
     direction: ltr;
     width: 100%;
@@ -87,9 +83,11 @@ h2 {
 .btn-icon {
     background-color: #ffffff !important;
 }
+
 .btn-icon:hover {
     background-color: #CBC5C7 !important;
 }
+
 .btn-icon:active {
     background-color: #591111 !important;
 }
@@ -102,4 +100,8 @@ h2 {
     text-align: center;
     vertical-align: middle;
     margin-top: 35vh;
+}
+
+body .ui-dialog .ui-dialog-content {
+    font-size: 18px;
 }

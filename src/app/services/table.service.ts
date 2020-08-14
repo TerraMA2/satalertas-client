@@ -1,21 +1,22 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
-import { Subject } from 'rxjs';
+import {Subject} from 'rxjs';
 
-import { Layer } from '../models/layer.model';
+import {Layer} from '../models/layer.model';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class TableService {
 
-  loadTableData = new Subject();
+    loadTableData = new Subject();
 
-  unloadTableData = new Subject<Layer>();
+    unloadTableData = new Subject<Layer>();
 
-  loadReportTableData = new Subject();
+    loadReportTableData = new Subject();
 
-  clearTable = new Subject();
+    clearTable = new Subject();
 
-  constructor() { }
+    constructor() {
+    }
 }

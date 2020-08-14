@@ -1,8 +1,8 @@
 <div *ngIf="isLoading" class="loading-dashboard">
-    <p-progressSpinner> </p-progressSpinner>
+    <p-progressSpinner strokeWidth="6"></p-progressSpinner>
 </div>
 <p-scrollPanel *ngIf="!isLoading" [style]="{width: '100%', height: 'calc(100vh - 50px)'}">
-    <div id="charts-panel" class="p-grid box">
+    <div class="p-grid box" id="charts-panel">
         <div class="box-title-panel p-col-12">
             <div class="p-md-2">
                 <span id="title-chart"></span>
@@ -11,10 +11,10 @@
     </div>
 
     <app-card-area
-            [alertsDisplayed]="alertsDisplayed"
+            (onAreaClick)="onAreaClick($event)"
             (onNubermImmobileClick)="onNubermImmobileClick($event)"
-            (onAreaClick)="onAreaClick($event)">
+            [alertsDisplayed]="alertsDisplayed">
     </app-card-area>
 
-    <app-graphics-area [alertGraphics]="alertGraphics" ></app-graphics-area>
+    <app-graphics-area [alertGraphics]="alertGraphics"></app-graphics-area>
 </p-scrollPanel>
