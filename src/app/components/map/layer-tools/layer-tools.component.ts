@@ -10,13 +10,14 @@ import {MapService} from '../../../services/map.service';
 
 import {MessageService} from 'primeng-lts/api';
 
-import {environment} from 'src/environments/environment';
-
 import {FilterService} from '../../../services/filter.service';
 
 import {View} from '../../../models/view.model';
 
 import {LayerType} from '../../../enum/layer-type.enum';
+
+import {ExportService} from '../../../services/export.service';
+import {Response} from '../../../models/response.model';
 
 @Component({
   selector: 'app-layer-tools',
@@ -41,7 +42,8 @@ export class LayerToolsComponent implements OnInit {
       private mapService: MapService,
       private httpService: HTTPService,
       private messageService: MessageService,
-      private filterService: FilterService
+      private filterService: FilterService,
+      private exportService: ExportService
   ) { }
 
   ngOnInit() {
@@ -83,14 +85,63 @@ export class LayerToolsComponent implements OnInit {
         layer.tableName
     );
 
-    const { specificParameters, date, filter } = this.filterService.getParams(view);
+    const params = this.filterService.getParams(view);
+    params['fileFormats'] = selectedFormats.toString();
+    params['tableName'] = layer.tableName;
 
-    const url = `${environment.reportServerUrl}/export/get?specificParameters=${specificParameters}&date=${date}&filter=${filter}&fileFormats=${selectedFormats.toString()}&tableName=${tableName}`;
-    const linkTag = document.createElement('a');
-    linkTag.setAttribute('id', 'exportLink');
-    linkTag.setAttribute('download', 'download');
-    linkTag.setAttribute('href', url);
-    linkTag.click();
+    await this.exportService.getExport(params).then((response: Response) => {
+      const exportResp = (response.status === 200) ? response.data : {};
+
+      let mimeType = '';
+      if (selectedFormats.length > 1) {
+        mimeType = 'application/zip';
+      } else {
+        // @ts-ignore
+        if (selectedFormats[0] === 'csv') {
+          mimeType = 'text/csv';
+          // @ts-ignore
+        } else if (selectedFormats[0] === 'kml') {
+          mimeType = 'application/vnd.google-earth.kml+xml';
+          // @ts-ignore
+        } else if (selectedFormats[0] === 'geojson') {
+          mimeType = 'application/vnd.google-earth.geo+json';
+          // @ts-ignore
+        } else if (selectedFormats[0] === 'shapefile') {
+          mimeType = 'application/zip';
+        }
+      }
+
+      window.open(window.URL.createObjectURL(this.base64toBlob(exportResp, mimeType)));
+    });
+
+    // const url = `${environment.reportServerUrl}/export/get?specificParameters=${specificParameters}&date=${date}&filter=${filter}&fileFormats=${selectedFormats.toString()}&tableName=${tableName}`;
+    // const linkTag = document.createElement('a');
+    // linkTag.setAttribute('id', 'exportLink');
+    // linkTag.setAttribute('download', 'download');
+    // linkTag.setAttribute('href', url);
+    // linkTag.click();
+  }
+
+  base64toBlob(content, contentType) {
+    contentType = contentType || '';
+
+    const sliceSize = 512;
+
+    const byteCharacters = window.atob(content);
+
+    const byteArrays = [];
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      const slice = byteCharacters.slice(offset, offset + sliceSize);
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
+    }
+    return new Blob(byteArrays, {
+      type: contentType
+    });
   }
 
   onLayerToolHide() {
