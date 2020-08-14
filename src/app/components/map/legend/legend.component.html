@@ -1,17 +1,19 @@
 <p-dialog
-        header="Legendas"
+        (onHide)="onLegendHide()"
+        [(visible)]="displayLegend"
         [positionLeft]="410"
         [positionTop]="60"
-        [(visible)]="displayLegend"
-        (onHide)="onLegendHide()">
+        header="Legendas"
+        autoZIndex="false"
+        baseZIndex="1001">
 
-        <p-accordion [multiple]="true" [style]="{'min-width': '250px'}">
-            <p-accordionTab
+    <p-accordion [multiple]="true" [style]="{'min-width': '250px'}">
+        <p-accordionTab
                 *ngFor="let selectedLayer of selectedLayers; trackBy: trackById"
-                selected="true"
-                header="{{ selectedLayer.legend.title }}">
-                <img src="{{ selectedLayer.legend.url }}" />
-            </p-accordionTab>
-        </p-accordion>
+                header="{{selectedLayer.legend.title }}"
+                selected="true">
+            <img src="{{selectedLayer.legend.url }}"/>
+        </p-accordionTab>
+    </p-accordion>
 
 </p-dialog>

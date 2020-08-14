@@ -1,29 +1,29 @@
-<div id="map" class="map" [ngStyle]="{height: 'calc(100vh - 50px)'}">
+<div [ngStyle]="{height: 'calc(100vh - 50px)'}" class="map" id="map">
     <div *ngIf="isLoading" class="loading-map">
-        <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="6"> </p-progressSpinner>
+        <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="6"></p-progressSpinner>
     </div>
 </div>
-<p-sidebar [(visible)]="displayTable"
-            position="bottom"
-            [modal]="false"
-            [dismissible]="false"
-            [showCloseIcon]="true"
-            [style]="{width:'inherit', left: 'unset', height: tablePanelHeight, 'text-align': 'center' }"
-            (onShow)="onShowTable()"
-            (onHide)="onHideTable()">
-            <a class="ui-sidebar-close"
-              (click)="expandShrinkTable()">
+<p-sidebar (onHide)="onHideTable()"
+           (onShow)="onShowTable()"
+           [(visible)]="displayTable"
+           [dismissible]="false"
+           [modal]="false"
+           [showCloseIcon]="true"
+           [style]="{width:'inherit', left: 'unset', height: tablePanelHeight, 'text-align': 'center' }"
+           position="bottom">
+    <a (click)="expandShrinkTable()"
+       class="ui-sidebar-close">
               <span [ngClass]="{
                                 'pi-window-minimize': tableFullscreen,
                                 'pi-window-maximize': !tableFullscreen
                               }"
                     class="pi"></span>
-            </a>
+    </a>
 
-  <app-table [selectedLayers]="selectedLayers"
-              [tableReportActive]="tableReportActive"
-              [tableHeight]="tableHeight">
-  </app-table>
+    <app-table [selectedLayers]="selectedLayers"
+               [tableHeight]="tableHeight"
+               [tableReportActive]="tableReportActive">
+    </app-table>
 
 </p-sidebar>
 
@@ -31,8 +31,8 @@
                     [(displayVisibleLayers)]="displayVisibleLayers">
 </app-visible-layers> -->
 
-<app-legend [selectedLayers]="selectedLayers"
-            [displayLegend]="displayLegend">
+<app-legend [displayLegend]="displayLegend"
+            [selectedLayers]="selectedLayers">
 </app-legend>
 
 <app-layer-tools [displayLayerTools]="displayLayerTools"

@@ -1,15 +1,15 @@
 <p-scrollPanel [style]="{width: '100%', height: 'calc(100vh - 137px)'}">
 
-    <app-sidebar-item class="sidebar-item"
-                    *ngFor="let sidebarItem of sidebarItems; trackBy: trackById"
-                    [sidebarItem]="sidebarItem">
+    <app-sidebar-item *ngFor="let sidebarItem of sidebarItems; trackBy: trackById"
+                      [sidebarItem]="sidebarItem"
+                      class="sidebar-item">
     </app-sidebar-item>
 
-    <app-sidebar-layer-group class="sidebar-item"
-                    *ngFor="let sidebarLayerGroup of sidebarLayerGroups; trackBy: trackById"
-                    [sidebarLayerGroup]="sidebarLayerGroup"
-                    [sidebarLayers]="sidebarLayerGroup.children"
-                    [ngClass]="{ 'hide-sidebar-item': !isMapShowing }">
+    <app-sidebar-layer-group *ngFor="let sidebarLayerGroup of sidebarLayerGroups; trackBy: trackById"
+                             [ngClass]="{'hide-sidebar-item': !isMapShowing }"
+                             [sidebarLayerGroup]="sidebarLayerGroup"
+                             [sidebarLayers]="sidebarLayerGroup.children"
+                             class="sidebar-item">
     </app-sidebar-layer-group>
 
     <br>

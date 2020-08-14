@@ -1,24 +1,25 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input} from '@angular/core';
 
-import { Vision } from 'src/app/models/vision.model';
+import {Vision} from 'src/app/models/vision.model';
 
 @Component({
-  selector: 'app-vision-detailed',
-  templateUrl: './vision-detailed.component.html',
-  styleUrls: ['./vision-detailed.component.css']
+    selector: 'app-vision-detailed',
+    templateUrl: './vision-detailed.component.html',
+    styleUrls: ['./vision-detailed.component.css']
 })
 export class VisionDetailedComponent {
 
-  @Input() detailedVisions: Vision[] = [];
+    @Input() detailedVisions: Vision[] = [];
 
-  @Input() formattedFilterDate: string;
+    @Input() formattedFilterDate: string;
 
-  date: string;
+    date: string;
 
-  constructor() { }
+    constructor() {
+    }
 
-  trackById(index, item) {
-    return item.id;
-  }
+    trackById(index, item) {
+        return item.id;
+    }
 
 }

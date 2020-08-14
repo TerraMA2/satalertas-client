@@ -1,37 +1,38 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
-import { Subject } from 'rxjs';
+import {Subject} from 'rxjs';
 
-import { Layer } from '../models/layer.model';
+import {Layer} from '../models/layer.model';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class MapService {
 
-  resetLayers = new Subject();
+    resetLayers = new Subject();
 
-  clearMap = new Subject();
+    clearMap = new Subject();
 
-  reportTable = new Subject();
+    reportTable = new Subject();
 
-  showMarker = new Subject();
+    showMarker = new Subject();
 
-  reportTableButton = new Subject<boolean>();
+    reportTableButton = new Subject<boolean>();
 
-  layerToolOpen = new Subject<object>();
+    layerToolOpen = new Subject<object>();
 
-  layerToolClose = new Subject();
+    layerToolClose = new Subject();
 
-  legendClose = new Subject();
+    legendClose = new Subject();
 
-  layerExtent = new Subject<Layer>();
+    layerExtent = new Subject<Layer>();
 
-  layerOpactity = new Subject<object>();
+    layerOpactity = new Subject<object>();
 
-  layerSlider = new Subject<object>();
+    layerSlider = new Subject<object>();
 
-  clearMarkers = new Subject();
+    clearMarkers = new Subject();
 
-  constructor() { }
+    constructor() {
+    }
 }

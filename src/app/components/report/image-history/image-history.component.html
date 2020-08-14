@@ -3,15 +3,15 @@
     <hr>
     <div class="p-grid">
         <div *ngFor="let landsatHistory of landsatHistories; trackBy: trackById"
-                class="p-col-4 p-md-4">
+             class="p-col-4 p-md-4">
             <div class="card text-center p-align-center p-justify-center">
                 <p-card styleClass="ui-card-shadow">
                     <p-header class="card-header">
-                        <span>{{ landsatHistory.title }}</span>
+                        <span>{{landsatHistory.title }}</span>
                     </p-header>
-                    <img src="{{landsatHistory.image}}" class="map img-fluid" />
+                    <img class="map img-fluid" src="{{landsatHistory.image}}"/>
                     <p-footer *ngIf="landsatHistory.description" class="card text-center card-footer">
-                        {{ landsatHistory.description }}
+                        {{landsatHistory.description }}
                     </p-footer>
                 </p-card>
             </div>

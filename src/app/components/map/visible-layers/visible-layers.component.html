@@ -1,19 +1,21 @@
 <p-dialog
-        header="Layers visíveis"
-        [positionLeft]="375"
-        [positionTop]="60"
-        resizable="false"
         [(visible)]="displayVisibleLayers"
-        [contentStyle]="{'width': '400px','max-height':'40vh'}">
+        [contentStyle]="{'width': '400px','max-height':'40vh'}"
+        [positionLeft]="410"
+        [positionTop]="60"
+        header="Layers visíveis"
+        resizable="false"
+        autoZIndex="false"
+        baseZIndex="1001">
 
-        <div class="visible-layers-item"
-            pDraggable="dd"
-            pDroppable="dd"
-            *ngFor="let selectedLayer of selectedLayers; trackBy: trackById"
-            (onDragStart)="dragStart($event, selectedLayer)"
-            (onDragEnd)="dragEnd($event)"
-            (onDrop)="drop($event)">
-            {{ selectedLayer.label }}
-        </div>
+    <div (onDragEnd)="dragEnd($event)"
+         (onDragStart)="dragStart($event, selectedLayer)"
+         (onDrop)="drop($event)"
+         *ngFor="let selectedLayer of selectedLayers; trackBy: trackById"
+         class="visible-layers-item"
+         pDraggable="dd"
+         pDroppable="dd">
+        {{selectedLayer.label }}
+    </div>
 
 </p-dialog>

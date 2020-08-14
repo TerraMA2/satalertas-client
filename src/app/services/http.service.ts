@@ -1,102 +1,103 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 
-import { throwError } from 'rxjs';
+import {throwError} from 'rxjs';
 
-import { catchError, retry } from 'rxjs/operators';
+import {catchError, retry} from 'rxjs/operators';
 
-import { environment  } from '../../environments/environment';
+import {environment} from '../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class HTTPService {
 
-  constructor(
-    private http: HttpClient
-  ) {}
-
-  get(url, parameters = {}) {
-    if (!url) {
-      return;
+    constructor(
+        private http: HttpClient
+    ) {
     }
 
-    const terramaUrl = environment.reportServerUrl;
-    const geoserverUrl = environment.geoserverUrl;
-    const terramaUrlProd = 'http://www.terrama2.dpi.inpe.br/mpmt';
-    const testUrl = 'http://localhost:3200';
+    get(url, parameters = {}) {
+        if (!url) {
+            return;
+        }
 
-    if (!url.includes(terramaUrl) &&
-        !url.includes(terramaUrlProd) &&
-        !url.includes(testUrl) &&
-        !url.includes(geoserverUrl) &&
-        !url.includes('https://www.satveg.cnptia.embrapa.br')) {
-      url = terramaUrl + url;
-    }
-    return this.http.get(url, { params: parameters }).pipe(
-      retry(1),
-      catchError(this.handleError)
-    );
-  }
+        const terramaUrl = environment.reportServerUrl;
+        const geoserverUrl = environment.geoserverUrl;
+        const terramaUrlProd = 'http://www.terrama2.dpi.inpe.br/mpmt';
+        const testUrl = 'http://localhost:3200';
 
-  getBlob(url, parameters = {}) {
-    if (!url) {
-      return;
+        if (!url.includes(terramaUrl) &&
+            !url.includes(terramaUrlProd) &&
+            !url.includes(testUrl) &&
+            !url.includes(geoserverUrl) &&
+            !url.includes('https://www.satveg.cnptia.embrapa.br')) {
+            url = terramaUrl + url;
+        }
+        return this.http.get(url, {params: parameters}).pipe(
+            retry(1),
+            catchError(this.handleError)
+        );
     }
 
-    const terramaUrl = environment.reportServerUrl;
-    const geoserverUrl = environment.geoserverUrl;
-    const terramaUrlProd = 'http://www.terrama2.dpi.inpe.br/mpmt';
-    const testUrl = 'http://localhost:3200';
+    getBlob(url, parameters = {}) {
+        if (!url) {
+            return;
+        }
 
-    if (!url.includes(terramaUrl) &&
-        !url.includes(terramaUrlProd) &&
-        !url.includes(testUrl) &&
-        !url.includes(geoserverUrl) &&
-        !url.includes('https://www.satveg.cnptia.embrapa.br')) {
-      url = terramaUrl + url;
-    }
-    return this.http.get(url, { params: parameters, responseType: 'blob' }).pipe(
-        retry(1),
-        catchError(this.handleError)
-    );
-  }
+        const terramaUrl = environment.reportServerUrl;
+        const geoserverUrl = environment.geoserverUrl;
+        const terramaUrlProd = 'http://www.terrama2.dpi.inpe.br/mpmt';
+        const testUrl = 'http://localhost:3200';
 
-  post(url, parameters = {}) {
-    if (!url) {
-      return;
+        if (!url.includes(terramaUrl) &&
+            !url.includes(terramaUrlProd) &&
+            !url.includes(testUrl) &&
+            !url.includes(geoserverUrl) &&
+            !url.includes('https://www.satveg.cnptia.embrapa.br')) {
+            url = terramaUrl + url;
+        }
+        return this.http.get(url, {params: parameters, responseType: 'blob'}).pipe(
+            retry(1),
+            catchError(this.handleError)
+        );
     }
-    const terramaUrl = environment.reportServerUrl;
-    if (!url.includes(terramaUrl)) {
-      url = terramaUrl + url;
-    }
-    return this.http.post(url, {
-      params: parameters
-    }).pipe(
-      retry(0),
-      catchError(this.handleError)
-    );
-  }
 
-  postTerrama(url, parameters = {}) {
-    if (!url) {
-      return;
+    post(url, parameters = {}) {
+        if (!url) {
+            return;
+        }
+        const terramaUrl = environment.reportServerUrl;
+        if (!url.includes(terramaUrl)) {
+            url = terramaUrl + url;
+        }
+        return this.http.post(url, {
+            params: parameters
+        }).pipe(
+            retry(0),
+            catchError(this.handleError)
+        );
     }
-    const terramaUrl = environment.terramaUrl;
-    if (!url.includes(terramaUrl)) {
-      url = terramaUrl + url;
-    }
-    return this.http.post(url, {
-      params: parameters
-    }).pipe(
-        retry(0),
-        catchError(this.handleError)
-    );
-  }
 
-  private handleError(error: HttpErrorResponse) {
-    return throwError(`Error occured: ${error.message}`);
-  }
+    postTerrama(url, parameters = {}) {
+        if (!url) {
+            return;
+        }
+        const terramaUrl = environment.terramaUrl;
+        if (!url.includes(terramaUrl)) {
+            url = terramaUrl + url;
+        }
+        return this.http.post(url, {
+            params: parameters
+        }).pipe(
+            retry(0),
+            catchError(this.handleError)
+        );
+    }
+
+    private handleError(error: HttpErrorResponse) {
+        return throwError(`Error occured: ${error.message}`);
+    }
 
 }

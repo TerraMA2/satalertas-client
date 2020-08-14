@@ -5,60 +5,61 @@ import {FilterAlertAnalyses} from '../../../models/filter-alert-type-analyzes.mo
 import {AnalyzeService} from '../../../services/analyze.service';
 
 @Component({
-  selector: 'app-class-area',
-  templateUrl: './class-area.component.html',
-  styleUrls: ['./class-area.component.css']
+    selector: 'app-class-area',
+    templateUrl: './class-area.component.html',
+    styleUrls: ['./class-area.component.css']
 })
 export class ClassAreaComponent implements OnInit, AfterViewInit {
 
-  @Input() disable;
-  @Output() onChangeClassFilter: EventEmitter<FilterClass> = new EventEmitter<FilterClass>();
+    @Input() disable;
+    @Output() onChangeClassFilter: EventEmitter<FilterClass> = new EventEmitter<FilterClass>();
 
-  filter;
-  filterClass: FilterClass;
+    filter;
+    filterClass: FilterClass;
 
-  constructor(
-      private configService: ConfigService,
-      private analyzeService: AnalyzeService
-  ) { }
-
-  ngOnInit() {
-    this.filterClass = new FilterClass('ALL', []);
-    this.filter = this.configService.getConfig('map').filter.classSearch;
-  }
-
-  async ngAfterViewInit() {
-    for (const analyze of this.filter.analyzes) {
-      const options =  await this.analyzeService.getAllClassByType(analyze.value);
-
-      this.filterClass.analyzes.push(new FilterAlertAnalyses(analyze.label, analyze.value, undefined, options));
+    constructor(
+        private configService: ConfigService,
+        private analyzeService: AnalyzeService
+    ) {
     }
-  }
 
-  onChange(event) {
-    const result = this.filterClass.radioValue !== 'ALL' ? this.filterClass : undefined;
+    ngOnInit() {
+        this.filterClass = new FilterClass('ALL', []);
+        this.filter = this.configService.getConfig('map').filter.classSearch;
+    }
 
-    this.onChangeClassFilter.emit(result);
-  }
+    async ngAfterViewInit() {
+        for (const analyze of this.filter.analyzes) {
+            const options = await this.analyzeService.getAllClassByType(analyze.value);
 
-  public clearAll() {
-    this.filterClass = new FilterClass('ALL', this.filterClass.analyzes);
-    this.onChangeClassFilter.emit(this.filterClass);
-  }
+            this.filterClass.analyzes.push(new FilterAlertAnalyses(analyze.label, analyze.value, undefined, options));
+        }
+    }
 
-  checkValid() {
-    return this.filterClass && this.filterClass.radioValue;
-  }
+    onChange(event) {
+        const result = this.filterClass.radioValue !== 'ALL' ? this.filterClass : undefined;
 
-  checkAnalyzesValid() {
-    return  this.filterClass &&
-        this.filterClass.radioValue &&
-        (this.filterClass.radioValue !== 'ALL') &&
-        this.filterClass.analyzes &&
-        (this.filterClass.analyzes.length > 0);
-  }
+        this.onChangeClassFilter.emit(result);
+    }
 
-  trackById(index, item) {
-    return item.id;
-  }
+    public clearAll() {
+        this.filterClass = new FilterClass('ALL', this.filterClass.analyzes);
+        this.onChangeClassFilter.emit(this.filterClass);
+    }
+
+    checkValid() {
+        return this.filterClass && this.filterClass.radioValue;
+    }
+
+    checkAnalyzesValid() {
+        return this.filterClass &&
+            this.filterClass.radioValue &&
+            (this.filterClass.radioValue !== 'ALL') &&
+            this.filterClass.analyzes &&
+            (this.filterClass.analyzes.length > 0);
+    }
+
+    trackById(index, item) {
+        return item.id;
+    }
 }
