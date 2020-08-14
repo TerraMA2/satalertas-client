@@ -8,7 +8,7 @@
          [(selection)]="selectedProperties"
          [columns]="selectedColumns"
          [lazy]="true"
-         [loading]="loading"
+         [loading]="isLoading"
          [paginator]="true"
          [reorderableColumns]="true"
          [resizableColumns]="true"
@@ -78,7 +78,7 @@
 
                     <p-multiSelect *ngIf="tableReportActive"
                                    [(ngModel)]="selectedFormats"
-                                   [disabled]="isExportDisabled"
+                                   [disabled]="isExportDisabled || isLoading"
                                    [filter]="false"
                                    [options]="formats"
                                    [style]="{minWidth: '16rem'}"
@@ -92,7 +92,7 @@
                     <button
                             (click)="onExportClick()"
                             *ngIf="tableReportActive"
-                            [disabled]="isExportDisabled"
+                            [disabled]="isExportDisabled || isLoading"
                             class="ui-button-raised"
                             icon="fas fa-save"
                             iconPos="left"
@@ -108,7 +108,7 @@
                     <button
                             (click)="onShowMapClicked()"
                             *ngIf="tableReportActive"
-                            [disabled]="isExportDisabled"
+                            [disabled]="isExportDisabled || isLoading"
                             class="ui-button-raised"
                             icon="fas fa-map-marker-alt"
                             iconPos="left"

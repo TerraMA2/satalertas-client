@@ -91,7 +91,9 @@
             [draggable]="false"
             [modal]="true"
             [resizable]="false"
-            [showHeader]="false">
+            [showHeader]="false"
+            autoZIndex="false"
+            baseZIndex="1001">
 
         <app-auth (closeLoginClicked)="onCloseLoginClick($event)"
                   [displayLogin]="displayLogin">

@@ -78,4 +78,50 @@ export class Util {
         }
         return resto === parseInt(inputCPF.substring(10, 11), 10);
     }
+
+    public static base64toBlob(content, contentType) {
+        contentType = contentType || '';
+
+        const sliceSize = 512;
+
+        const byteCharacters = window.atob(content);
+
+        const byteArrays = [];
+        for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+            const slice = byteCharacters.slice(offset, offset + sliceSize);
+            const byteNumbers = new Array(slice.length);
+            for (let i = 0; i < slice.length; i++) {
+                byteNumbers[i] = slice.charCodeAt(i);
+            }
+            const byteArray = new Uint8Array(byteNumbers);
+            byteArrays.push(byteArray);
+        }
+        return new Blob(byteArrays, {
+            type: contentType
+        });
+    }
+
+    public static getMimeType(selectedFormats) {
+        const fileType = {};
+        if (selectedFormats.length > 1) {
+            fileType['mimetype'] = 'application/zip';
+            fileType['format'] = 'zip';
+            return fileType;
+        } else {
+            if (selectedFormats[0] === 'csv') {
+                fileType['mimetype'] = 'text/csv';
+                fileType['format'] = 'csv';
+            } else if (selectedFormats[0] === 'kml') {
+                fileType['mimetype'] = 'application/vnd.google-earth.kml+xml';
+                fileType['format'] = 'kml';
+            } else if (selectedFormats[0] === 'geojson') {
+                fileType['mimetype'] = 'application/vnd.google-earth.geo+json';
+                fileType['format'] = 'geojson';
+            } else if (selectedFormats[0] === 'shapefile') {
+                fileType['mimetype'] = 'application/zip';
+                fileType['format'] = 'zip';
+            }
+        }
+        return fileType;
+    }
 }

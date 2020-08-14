@@ -4,9 +4,11 @@
         [blockScroll]="true"
         [positionLeft]="410"
         [positionTop]="60"
-        header="{{layer?.shortLabel }}">
+        header="{{layer?.shortLabel }}"
+        autoZIndex="false"
+        baseZIndex="1001">
 
-    <p-accordion [multiple]="true" [style]="{'min-width': '300px'}">
+    <p-accordion [multiple]="true" [style]="{'min-width': '250px'}">
         <p-accordionTab [selected]="toolSelected === 'description'"
                         header="Descrição">
             {{layer?.description }}
@@ -20,7 +22,13 @@
                        multiple="multiple">
             </p-listbox>
             <br>
-            <button (click)="onExportClick()" class="ui-button-raised" label="Exportar" pButton></button>
+            <div class="p-grid p-align-center p-justify-end p-nogutter">
+                <div *ngIf="isExportLoading">
+                    <p-progressSpinner strokeWidth="6" [style]="{width: '25px', height: '25px'}"></p-progressSpinner>
+                </div>
+                &nbsp;
+                <button (click)="onExportClick()" [disabled]="isExportLoading" class="ui-button-raised" label="Exportar" pButton></button>
+            </div>
         </p-accordionTab>
 
         <p-accordionTab [selected]="toolSelected === 'opacity'"

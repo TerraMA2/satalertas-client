@@ -1,11 +1,12 @@
-<p-dialog
-        (onHide)="onHide()"
+<p-dialog (onHide)="onHide()"
         [(visible)]="displayAbout"
         [contentStyle]="{'width': '50vw','max-height':'75vh'}"
         [positionLeft]="600"
         [positionTop]="60"
         header="Sobre"
-        resizable="false">
+        resizable="false"
+        autoZIndex="false"
+        baseZIndex="1001">
     <div class="about-padding">
         <div class="p-col-12">
             <h2 class="text-center">SatAlertas: Sistema Integrado de Monitoramento de Degradação Ambiental</h2>
@@ -103,7 +104,7 @@
             <p>Versão da TerraLib: 5.4.5</p>
         </div>
         <br>
-        <button (click)="closeAbout()" class="ui-button-rounded ui-button-raised ui-button-secondary width-100"
+        <button (click)="closeAbout()" class="ui-button-raised ui-button-secondary width-100"
                 label="Fechar"
                 pButton
                 type="button"></button>

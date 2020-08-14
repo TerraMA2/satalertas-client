@@ -10,13 +10,13 @@ import {MapService} from '../../../services/map.service';
 
 import {MessageService} from 'primeng-lts/api';
 
-import {environment} from 'src/environments/environment';
-
 import {FilterService} from '../../../services/filter.service';
 
 import {View} from '../../../models/view.model';
 
 import {LayerType} from '../../../enum/layer-type.enum';
+
+import {ExportService} from '../../../services/export.service';
 
 @Component({
     selector: 'app-layer-tools',
@@ -31,6 +31,8 @@ export class LayerToolsComponent implements OnInit {
 
     @Input() toolSelected: string;
 
+    isExportLoading = false;
+
     opacity = 100;
 
     formats: [];
@@ -41,7 +43,8 @@ export class LayerToolsComponent implements OnInit {
         private mapService: MapService,
         private httpService: HTTPService,
         private messageService: MessageService,
-        private filterService: FilterService
+        private filterService: FilterService,
+        private exportService: ExportService
     ) {
     }
 
@@ -62,16 +65,22 @@ export class LayerToolsComponent implements OnInit {
     }
 
     async onExportClick() {
-        if (!this.selectedFormats || this.selectedFormats.length === 0) {
+        const selectedFormats = this.selectedFormats;
+
+        this.isExportLoading = true;
+
+        if (!selectedFormats || selectedFormats.length === 0) {
             this.messageService.add({
                 severity: 'error',
                 summary: 'Exportação',
                 detail: 'Selecione ao menos 1 formato.'
             });
+            this.isExportLoading = false;
             return;
         }
-        const selectedFormats = this.selectedFormats;
+
         const layer = this.layer;
+
         const tableName = layer.tableName;
 
         const view = new View(
@@ -84,14 +93,12 @@ export class LayerToolsComponent implements OnInit {
             layer.tableName
         );
 
-        const {specificParameters, date, filter} = this.filterService.getParams(view);
+        const params = await this.filterService.getParams(view);
+        params['fileFormats'] = selectedFormats.toString();
 
-        const url = `${environment.reportServerUrl}/export/get?specificParameters=${specificParameters}&date=${date}&filter=${filter}&fileFormats=${selectedFormats.toString()}&tableName=${tableName}`;
-        const linkTag = document.createElement('a');
-        linkTag.setAttribute('id', 'exportLink');
-        linkTag.setAttribute('download', 'download');
-        linkTag.setAttribute('href', url);
-        linkTag.click();
+        await this.exportService.export(params, selectedFormats, tableName);
+
+        this.isExportLoading = false;
     }
 
     onLayerToolHide() {

@@ -1,10 +1,12 @@
 <p-dialog
         [(visible)]="displayVisibleLayers"
         [contentStyle]="{'width': '400px','max-height':'40vh'}"
-        [positionLeft]="375"
+        [positionLeft]="410"
         [positionTop]="60"
         header="Layers visíveis"
-        resizable="false">
+        resizable="false"
+        autoZIndex="false"
+        baseZIndex="1001">
 
     <div (onDragEnd)="dragEnd($event)"
          (onDragStart)="dragStart($event, selectedLayer)"

@@ -20,6 +20,11 @@ import {ReportService} from '../../../services/report.service';
 
 import {Response} from '../../../models/response.model';
 
+import {Util} from '../../../utils/util';
+
+import {ExportService} from '../../../services/export.service';
+import {LayerType} from '../../../enum/layer-type.enum';
+
 @Component({
     selector: 'app-table',
     templateUrl: './table.component.html',
@@ -45,7 +50,7 @@ export class TableComponent implements OnInit {
     selectedLayerLabel: string;
     selectedLayerValue: number;
 
-    loading = false;
+    isLoading = false;
 
     totalRecords = 0;
 
@@ -77,7 +82,8 @@ export class TableComponent implements OnInit {
         private filterService: FilterService,
         private mapService: MapService,
         private reportService: ReportService,
-        private messageService: MessageService
+        private messageService: MessageService,
+        private exportService: ExportService
     ) {
     }
 
@@ -90,7 +96,7 @@ export class TableComponent implements OnInit {
 
         this.tableService.loadTableData.subscribe(layer => {
             if (layer) {
-                this.loading = true;
+                this.isLoading = true;
                 this.loadTableData(layer, this.selectedRowsPerPage, 0);
             }
         });
@@ -107,7 +113,7 @@ export class TableComponent implements OnInit {
             this.showBurn = true;
             this.showProdes = true;
             this.showDeter = true;
-            this.loading = true;
+            this.isLoading = true;
             const selectedOption = this.filters[0];
             this.selectedLayer = selectedOption;
             this.selectedFilter = selectedOption;
@@ -131,7 +137,7 @@ export class TableComponent implements OnInit {
         if (!layer) {
             return;
         }
-        this.loading = true;
+        this.isLoading = true;
 
         const url = this.configService.getAppConfig('layerUrls')[layer.type];
         const countTotal = true;
@@ -242,7 +248,7 @@ export class TableComponent implements OnInit {
             }
 
         }
-        this.loading = false;
+        this.isLoading = false;
     }
 
     onLazyLoad(event: LazyLoadEvent) {
@@ -304,44 +310,56 @@ export class TableComponent implements OnInit {
         this.totalRecords = 0;
     }
 
-    onExportClick() {
-        if (!this.selectedFormats || this.selectedFormats.length === 0) {
+    async onExportClick() {
+        const selectedFormats = this.selectedFormats;
+
+        this.isLoading = true;
+
+        if (!selectedFormats || selectedFormats.length === 0) {
             this.messageService.add({
                 severity: 'error',
                 summary: 'Exportação',
                 detail: 'Selecione ao menos 1 formato.'
             });
+            this.isLoading = false;
             return;
         }
-        // const selectedFormats = this.selectedFormats;
-        // const layer = this.layer;
-        // const tableName = layer.tableName;
-        //
-        // const view = new View(
-        //     layer.value,
-        //     layer.cod,
-        //     layer.codgroup,
-        //     (layer.type === LayerType.ANALYSIS),
-        //     layer.isPrimary,
-        //     layer.tableOwner,
-        //     layer.tableName
-        // );
-        //
-        // const {specificParameters, date, filter } = this.filterService.getParams(view);
-        //
-        // const url = `${environment.reportServerUrl}/export/get?specificParameters=${specificParameters}&date=${date}&filter=${filter}&fileFormats=${selectedFormats.toString()}&tableName=${tableName}`;
-        // const linkTag = document.createElement('a');
-        // linkTag.setAttribute('href', url);
-        // linkTag.click();
+
+        const layer = this.selectedFilter;
+
+        const view = new View(
+            layer.value,
+            layer.cod,
+            layer.codgroup,
+            (layer.type === LayerType.ANALYSIS),
+            layer.isPrimary,
+            layer.tableOwner,
+            layer.tableName
+        );
+
+        const params = await this.filterService.getParams(view);
+        const selectedProperties = this.selectedProperties;
+
+        const selectedGids = [];
+        selectedProperties.forEach((selectedProperty) => {
+            selectedGids.push(selectedProperty.gid);
+        });
+
+        params['fileFormats'] = selectedFormats.toString();
+        params['selectedGids'] = selectedGids.toString();
+
+        await this.exportService.export(params, selectedFormats, layer.tableName);
+
+        this.isLoading = false;
     }
 
     getReport(report) {
-        this.loading = true;
+        this.isLoading = true;
         this.reportService.getReportById(report.id).then((response: Response) => {
             const reportResp = (response.status === 200) ? response.data : {};
 
-            window.open(window.URL.createObjectURL(this.base64toBlob(reportResp.base64, 'application/pdf')));
-            this.loading = false;
+            window.open(window.URL.createObjectURL(Util.base64toBlob(reportResp.base64, 'application/pdf')));
+            this.isLoading = false;
         });
     }
 
@@ -362,28 +380,6 @@ export class TableComponent implements OnInit {
         } else if (!checked) {
             this.isExportDisabled = true;
         }
-    }
-
-    base64toBlob(content, contentType) {
-        contentType = contentType || '';
-
-        const sliceSize = 512;
-
-        const byteCharacters = window.atob(content);
-
-        const byteArrays = [];
-        for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-            const slice = byteCharacters.slice(offset, offset + sliceSize);
-            const byteNumbers = new Array(slice.length);
-            for (let i = 0; i < slice.length; i++) {
-                byteNumbers[i] = slice.charCodeAt(i);
-            }
-            const byteArray = new Uint8Array(byteNumbers);
-            byteArrays.push(byteArray);
-        }
-        return new Blob(byteArrays, {
-            type: contentType
-        });
     }
 
     getRegister(data) {
