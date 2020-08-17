@@ -348,7 +348,7 @@ export class TableComponent implements OnInit {
         params['fileFormats'] = selectedFormats.toString();
         params['selectedGids'] = selectedGids.toString();
 
-        await this.exportService.export(params, selectedFormats, layer.tableName);
+        await this.exportService.export(params, selectedFormats, layer.table_name);
 
         this.isLoading = false;
     }
