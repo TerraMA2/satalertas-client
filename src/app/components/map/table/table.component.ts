@@ -329,12 +329,12 @@ export class TableComponent implements OnInit {
 
         const view = new View(
             layer.value,
-            layer.cod,
-            layer.codgroup,
-            (layer.type === LayerType.ANALYSIS),
-            layer.isPrimary,
-            layer.tableOwner,
-            layer.tableName
+            layer.label.toUpperCase().replace(' ', '_'),
+            layer.cod_group,
+          layer.cod_group !== 'CAR',
+            true,
+            layer.table_name,
+            layer.table_name
         );
 
         const params = await this.filterService.getParams(view);
