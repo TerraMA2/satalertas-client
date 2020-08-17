@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 import ConfigJson from '../../assets/config.json';
 
@@ -9,77 +9,78 @@ import {environment} from '../../environments/environment';
 const URL_REPORT_SERVER = environment.reportServerUrl;
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class ConfigService {
-  constructor(
-    private http: HttpClient
-  ) {}
-
-  getConfig(name) {
-    if (name) {
-      return ConfigJson[name];
+    constructor(
+        private http: HttpClient
+    ) {
     }
-    return ConfigJson;
-  }
 
-  getAppConfig(name = '') {
-    const appConfig = this.getConfig('app');
-    if (name) {
-      return appConfig[name];
+    getConfig(name) {
+        if (name) {
+            return ConfigJson[name];
+        }
+        return ConfigJson;
     }
-    return appConfig;
-  }
 
-  getAuthConfig(name = '') {
-    const authConfig = this.getConfig('auth');
-    if (name) {
-      return authConfig[name];
+    getAppConfig(name = '') {
+        const appConfig = this.getConfig('app');
+        if (name) {
+            return appConfig[name];
+        }
+        return appConfig;
     }
-    return authConfig;
-  }
 
-  getSidebarConfig(name = '') {
-    const sidebarConfig = this.getConfig('sidebar');
-    if (name) {
-      return sidebarConfig[name];
+    getAuthConfig(name = '') {
+        const authConfig = this.getConfig('auth');
+        if (name) {
+            return authConfig[name];
+        }
+        return authConfig;
     }
-    return sidebarConfig;
-  }
 
-  getMapConfig(name = '') {
-    const mapConfig = this.getConfig('map');
-    if (name) {
-      return mapConfig[name];
+    getSidebarConfig(name = '') {
+        const sidebarConfig = this.getConfig('sidebar');
+        if (name) {
+            return sidebarConfig[name];
+        }
+        return sidebarConfig;
     }
-    return mapConfig;
-  }
 
-  async getReportConfig() {
-    const parameters = { };
-    const url = `${URL_REPORT_SERVER}/config/getSynthesisConfig`;
+    getMapConfig(name = '') {
+        const mapConfig = this.getConfig('map');
+        if (name) {
+            return mapConfig[name];
+        }
+        return mapConfig;
+    }
 
-    return await this.http.get(url, { params: parameters }).toPromise();
-  }
+    async getReportConfig() {
+        const parameters = {};
+        const url = `${URL_REPORT_SERVER}/config/getSynthesisConfig`;
 
-  async getInfoColumns(codGroup?) {
-    const parameters = { codGroup };
-    const url = `${URL_REPORT_SERVER}/config/getInfoColumns`;
+        return await this.http.get(url, {params: parameters}).toPromise();
+    }
 
-    return await this.http.get(url, { params: parameters }).toPromise();
-  }
+    async getInfoColumns(codGroup?) {
+        const parameters = {codGroup};
+        const url = `${URL_REPORT_SERVER}/config/getInfoColumns`;
 
-  async getReportLayers() {
-    const parameters = { };
-    const url = `${URL_REPORT_SERVER}/view/getReportLayers`;
+        return await this.http.get(url, {params: parameters}).toPromise();
+    }
 
-    return await this.http.get(url, { params: parameters }).toPromise();
-  }
+    async getReportLayers() {
+        const parameters = {};
+        const url = `${URL_REPORT_SERVER}/view/getReportLayers`;
 
-  async getSidebarConfigurationDynamically() {
-    const parameters = { };
-    const url = `${URL_REPORT_SERVER}/view/getSidebarConfigDynamic`;
+        return await this.http.get(url, {params: parameters}).toPromise();
+    }
 
-    return await this.http.get(url, { params: parameters }).toPromise();
-  }
+    async getSidebarConfigurationDynamically() {
+        const parameters = {};
+        const url = `${URL_REPORT_SERVER}/view/getSidebarConfigDynamic`;
+
+        return await this.http.get(url, {params: parameters}).toPromise();
+    }
 }

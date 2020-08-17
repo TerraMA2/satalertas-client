@@ -1,42 +1,42 @@
-<div class="sidebar-layer-content"
-     *ngIf="displayChild"
-     [ngClass]="{'sidebar-layer-margin': layer.isChild === true, 'sidebar-layer-disabled': layer.isDisabled === true}">
-    <div class="sidebar-layer-label"
-         (click)="onChildClicked()">
+<div *ngIf="displayChild"
+     [ngClass]="{'sidebar-layer-margin': layer.isChild === true, 'sidebar-layer-disabled': layer.isDisabled === true}"
+     class="sidebar-layer-content">
+    <div (click)="onChildClicked()"
+         class="sidebar-layer-label">
 
-        <a> {{ layer.shortLabel }} </a>
+        <a> {{layer.shortLabel }} </a>
 
     </div>
 
     <div class="sidebar-layer-switch">
 
-        <p-radioButton *ngIf="layer.isPrimary && displayControls"
-                       [value]="layer.label"
-                       name="primary"
+        <p-radioButton (onClick)="onChildRadioClicked()"
+                       *ngIf="layer.isPrimary && displayControls"
                        [(ngModel)]="primaryRadio"
-                       (onClick)="onChildRadioClicked()">
+                       [value]="layer.label"
+                       name="primary">
         </p-radioButton>
 
-        <p-inputSwitch *ngIf="displayControls"
-                       [style]="{'margin-left': '8px'}"
+        <p-inputSwitch (onChange)="onChildSwitchChanged($event)"
+                       *ngIf="displayControls"
                        [(ngModel)]="isSelected"
                        [disabled]="layer.isDisabled"
-                       (onChange)="onChildSwitchChanged($event)">
+                       [style]="{'margin-left': '8px'}">
         </p-inputSwitch>
 
     </div>
 </div>
 <div *ngIf="layer.tools && displayControls"
-     class="sidebar-layer-tools"
      [ngClass]="{
                 'show': isToolsOpened && isLayerGroupOpened,
                 'hide': !isToolsOpened || !isLayerGroupOpened,
                 'sidebar-layer-margin': layer.isChild === true
-                }">
+                }"
+     class="sidebar-layer-tools">
 
-    <i *ngFor="let tool of layer.tools; trackBy: trackById"
+    <i (click)="onToolClicked(tool.name)"
+       *ngFor="let tool of layer.tools; trackBy: trackById"
        class="{{tool.icon}}"
-       (click)="onToolClicked(tool.name)"
        pTooltip="{{tool.title}}"
        tooltipPosition="top">
     </i>

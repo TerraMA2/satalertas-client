@@ -5,20 +5,21 @@ import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class AnalyzeService {
 
-  urlAnalyze = environment.reportServerUrl + '/analyze';
+    urlAnalyze = environment.reportServerUrl + '/analyze';
 
-  constructor(
-    private http: HttpClient
-  ) {}
+    constructor(
+        private http: HttpClient
+    ) {
+    }
 
-  async getAllClassByType(type) {
-    const url = `${this.urlAnalyze}/getAllClassByType`;
+    async getAllClassByType(type) {
+        const url = `${this.urlAnalyze}/getAllClassByType`;
 
-    return await this.http.get(url, { params: { type: type ? type : '' } }).toPromise();
-  }
+        return await this.http.get(url, {params: {type: type ? type : ''}}).toPromise();
+    }
 
 }

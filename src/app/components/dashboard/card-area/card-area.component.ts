@@ -1,65 +1,65 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 import {Alert} from '../../../models/alert.model';
 
 @Component({
-  selector: 'app-card-area',
-  templateUrl: './card-area.component.html',
-  styleUrls: ['./card-area.component.css']
+    selector: 'app-card-area',
+    templateUrl: './card-area.component.html',
+    styleUrls: ['./card-area.component.css']
 })
 export class CardAreaComponent implements OnInit {
 
-  @Input() alertsDisplayed: Alert [] = [];
+    @Input() alertsDisplayed: Alert [] = [];
 
-  @Output() onNubermImmobileClick: EventEmitter<Alert> = new EventEmitter<Alert>();
+    @Output() onNubermImmobileClick: EventEmitter<Alert> = new EventEmitter<Alert>();
 
-  @Output() onAreaClick: EventEmitter<Alert> = new EventEmitter<Alert>();
+    @Output() onAreaClick: EventEmitter<Alert> = new EventEmitter<Alert>();
 
-  constructor(
-  ) { }
-
-  ngOnInit() {
-  }
-
-  getLabelArea(alert: Alert) {
-    let label: string;
-
-    if (this.isBurnedArea(alert.codgroup)) {
-      label = 'Cicatriz:';
-    } else if (this.isFocus(alert.codgroup)) {
-      label = 'Nº Focos:';
-    } else {
-      label = 'Área:';
+    constructor() {
     }
 
-    return label;
-  }
+    ngOnInit() {
+    }
 
-  getUnitOfMeasurement(alert: Alert) {
-    return (this.isFocus(alert.codgroup) ? '' : 'ha');
-  }
+    getLabelArea(alert: Alert) {
+        let label: string;
 
-  getLabelNumCars(alert: Alert) {
-    return 'Alertas:';
-  }
+        if (this.isBurnedArea(alert.codgroup)) {
+            label = 'Cicatriz:';
+        } else if (this.isFocus(alert.codgroup)) {
+            label = 'Nº Focos:';
+        } else {
+            label = 'Área:';
+        }
 
-  getValueArea(alert: Alert) {
-    return alert.value2;
-  }
+        return label;
+    }
 
-  getValueNumCars(alert: Alert) {
-    return alert.value1;
-  }
+    getUnitOfMeasurement(alert: Alert) {
+        return (this.isFocus(alert.codgroup) ? '' : 'ha');
+    }
 
-  isFocus(codgroup) {
-    return codgroup === 'BURNED';
-  }
+    getLabelNumCars(alert: Alert) {
+        return 'Alertas:';
+    }
 
-  isBurnedArea(codgroup) {
-    return codgroup === 'BURNED_AREA';
-  }
+    getValueArea(alert: Alert) {
+        return alert.value2;
+    }
 
-  trackById(index, item) {
-    return item.id;
-  }
+    getValueNumCars(alert: Alert) {
+        return alert.value1;
+    }
+
+    isFocus(codgroup) {
+        return codgroup === 'BURNED';
+    }
+
+    isBurnedArea(codgroup) {
+        return codgroup === 'BURNED_AREA';
+    }
+
+    trackById(index, item) {
+        return item.id;
+    }
 }

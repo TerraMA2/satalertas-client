@@ -1,43 +1,51 @@
 <p-dialog
-        header="{{ layer?.shortLabel }}"
-        [positionLeft]="410"
-        [positionTop]="60"
+        (onHide)="onLayerToolHide()"
         [(visible)]="displayLayerTools"
         [blockScroll]="true"
-        (onHide)="onLayerToolHide()">
+        [positionLeft]="410"
+        [positionTop]="60"
+        header="{{layer?.shortLabel }}"
+        autoZIndex="false"
+        baseZIndex="1001">
 
-        <p-accordion [multiple]="true" [style]="{'min-width': '300px'}">
-            <p-accordionTab [selected]="toolSelected === 'description'"
-                            header="Descrição">
-                {{ layer?.description }}
-            </p-accordionTab>
+    <p-accordion [multiple]="true" [style]="{'min-width': '250px'}">
+        <p-accordionTab [selected]="toolSelected === 'description'"
+                        header="Descrição">
+            {{layer?.description }}
+        </p-accordionTab>
 
-            <p-accordionTab [selected]="toolSelected === 'export'"
-                            header="Exportação">
-                <p-listbox [options]="formats"
-                           [(ngModel)]="selectedFormats"
-                           multiple="multiple"
-                           checkbox="checkbox">
-                </p-listbox>
-                <br>
-                <button pButton label="Exportar" (click)="onExportClick()" class="ui-button-raised"></button>
-            </p-accordionTab>
+        <p-accordionTab [selected]="toolSelected === 'export'"
+                        header="Exportação">
+            <p-listbox [(ngModel)]="selectedFormats"
+                       [options]="formats"
+                       checkbox="checkbox"
+                       multiple="multiple">
+            </p-listbox>
+            <br>
+            <div class="p-grid p-align-center p-justify-end p-nogutter">
+                <div *ngIf="isExportLoading">
+                    <p-progressSpinner strokeWidth="6" [style]="{width: '25px', height: '25px'}"></p-progressSpinner>
+                </div>
+                &nbsp;
+                <button (click)="onExportClick()" [disabled]="isExportLoading" class="ui-button-raised" label="Exportar" pButton></button>
+            </div>
+        </p-accordionTab>
 
-            <p-accordionTab [selected]="toolSelected === 'opacity'"
-                            header="Opacidade">
-                <p-slider [animate]="true" [(ngModel)]="opacity" (onChange)="onOpacityChange($event)"></p-slider>
-                <br />
-                <strong>{{ opacity }} %</strong>
-            </p-accordionTab>
+        <p-accordionTab [selected]="toolSelected === 'opacity'"
+                        header="Opacidade">
+            <p-slider (onChange)="onOpacityChange($event)" [(ngModel)]="opacity" [animate]="true"></p-slider>
+            <br/>
+            <strong>{{opacity }} %</strong>
+        </p-accordionTab>
 
-<!--            <p-accordionTab [selected]="toolSelected === 'slider'"-->
-<!--                            header="Filtro por data">-->
-<!--                <p-slider [animate]="true" [(ngModel)]="opacity" (onChange)="onSliderChange($event)"></p-slider>-->
-<!--            </p-accordionTab>-->
+        <!--            <p-accordionTab [selected]="toolSelected === 'slider'"-->
+        <!--                            header="Filtro por data">-->
+        <!--                <p-slider [animate]="true" [(ngModel)]="opacity" (onChange)="onSliderChange($event)"></p-slider>-->
+        <!--            </p-accordionTab>-->
 
-<!--            <p-accordionTab [selected]="toolSelected === 'calendar'"-->
-<!--                            header="Filtro por intervalo de data">-->
-<!--            </p-accordionTab>-->
-        </p-accordion>
+        <!--            <p-accordionTab [selected]="toolSelected === 'calendar'"-->
+        <!--                            header="Filtro por intervalo de data">-->
+        <!--            </p-accordionTab>-->
+    </p-accordion>
 
 </p-dialog>

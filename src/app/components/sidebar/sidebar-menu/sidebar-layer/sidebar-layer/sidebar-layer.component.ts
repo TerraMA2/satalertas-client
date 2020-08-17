@@ -11,138 +11,139 @@ import {MapService} from '../../../../../services/map.service';
 import {LayerGroup} from '../../../../../models/layer-group.model';
 
 @Component({
-  selector: 'app-sidebar-layer',
-  templateUrl: './sidebar-layer.component.html',
-  styleUrls: ['./sidebar-layer.component.css']
+    selector: 'app-sidebar-layer',
+    templateUrl: './sidebar-layer.component.html',
+    styleUrls: ['./sidebar-layer.component.css']
 })
 export class SidebarLayerComponent implements OnInit {
 
-  @Input() layer: Layer;
+    @Input() layer: Layer;
 
-  @Input() parentSwitchChecked;
+    @Input() parentSwitchChecked;
 
-  primaryRadio: string;
+    primaryRadio: string;
 
-  @Input() isLayerGroupOpened;
+    @Input() isLayerGroupOpened;
 
-  isToolsOpened = false;
+    isToolsOpened = false;
 
-  @Input() displayControls = true;
+    @Input() displayControls = true;
 
-  @Input() displayChild = false;
+    @Input() displayChild = false;
 
-  isSelected = false;
+    isSelected = false;
 
-  constructor(
-    private sidebarService: SidebarService,
-    private mapService: MapService,
-    private tableService: TableService
-  ) { }
+    constructor(
+        private sidebarService: SidebarService,
+        private mapService: MapService,
+        private tableService: TableService
+    ) {
+    }
 
-  ngOnInit() {
-    this.sidebarService.sidebarLayerSwitchSelect.subscribe((layers: Layer[]) => {
-      this.changeState(layers, true);
-    });
+    ngOnInit() {
+        this.sidebarService.sidebarLayerSwitchSelect.subscribe((layers: Layer[]) => {
+            this.changeState(layers, true);
+        });
 
-    this.sidebarService.sidebarLayerSwitchDeselect.subscribe((layers: Layer[]) => {
-      this.changeState(layers, false);
-    });
+        this.sidebarService.sidebarLayerSwitchDeselect.subscribe((layers: Layer[]) => {
+            this.changeState(layers, false);
+        });
 
-    this.sidebarService.sidebarLayerGroupRadioDeselect.subscribe((layerGroup: LayerGroup) => {
-      layerGroup.children.forEach((layer: Layer) => {
-        if (layer.value === this.layer.value && this.layer.isPrimary) {
-          this.mapService.clearMarkers.next();
-          this.primaryRadio = null;
+        this.sidebarService.sidebarLayerGroupRadioDeselect.subscribe((layerGroup: LayerGroup) => {
+            layerGroup.children.forEach((layer: Layer) => {
+                if (layer.value === this.layer.value && this.layer.isPrimary) {
+                    this.mapService.clearMarkers.next();
+                    this.primaryRadio = null;
+                }
+            });
+        });
+
+        this.isSelected = this.layer.isDisabled ? null : this.parentSwitchChecked;
+    }
+
+    onChildClicked() {
+        if (!this.isToolsOpened && !this.isSelected) {
+            this.selectItem();
+            this.isSelected = true;
         }
-      });
-    });
-
-    this.isSelected = this.layer.isDisabled ? null : this.parentSwitchChecked;
-  }
-
-  private changeState(children: Layer[], selected) {
-    children.forEach((layer: Layer) => {
-      if (layer.value === this.layer.value) {
-        this.isSelected = selected;
-      }
-    });
-  }
-
-  onChildClicked() {
-    if (!this.isToolsOpened && !this.isSelected) {
-      this.selectItem();
-      this.isSelected = true;
+        this.isToolsOpened = !this.isToolsOpened;
     }
-    this.isToolsOpened = !this.isToolsOpened;
-  }
 
-  onChildSwitchChanged(event) {
-    if (event.checked) {
-      this.selectItem();
-    } else {
-      this.deselectItem();
+    onChildSwitchChanged(event) {
+        if (event.checked) {
+            this.selectItem();
+        } else {
+            this.deselectItem();
+        }
     }
-  }
 
-  selectItem() {
-    this.tableService.unloadTableData.next();
-    this.sidebarService.sidebarLayerSelect.next(this.layer);
-  }
-
-  deselectItem() {
-    this.sidebarService.sidebarLayerDeselect.next(this.layer);
-    this.tableService.unloadTableData.next(this.layer);
-    if (this.layer.isPrimary && this.primaryRadio) {
-      this.sidebarService.sidebarItemRadioDeselect.next(this.layer);
-      this.primaryRadio = null;
+    selectItem() {
+        this.tableService.unloadTableData.next();
+        this.sidebarService.sidebarLayerSelect.next(this.layer);
     }
-    this.isToolsOpened = false;
 
-    this.mapService.layerToolClose.next(this.layer);
-  }
+    deselectItem() {
+        this.sidebarService.sidebarLayerDeselect.next(this.layer);
+        this.tableService.unloadTableData.next(this.layer);
+        if (this.layer.isPrimary && this.primaryRadio) {
+            this.sidebarService.sidebarItemRadioDeselect.next(this.layer);
+            this.primaryRadio = null;
+        }
+        this.isToolsOpened = false;
 
-  onChildRadioClicked() {
-    this.selectItem();
-    this.isSelected = true;
-    this.sidebarService.sidebarItemRadioSelect.next(this.layer);
-  }
+        this.mapService.layerToolClose.next(this.layer);
+    }
 
-  onToolClicked(name) {
-    this[name + 'Tool']();
-  }
+    onChildRadioClicked() {
+        this.selectItem();
+        this.isSelected = true;
+        this.sidebarService.sidebarItemRadioSelect.next(this.layer);
+    }
 
-  exportTool() {
-    const layer = this.layer;
-    this.mapService.layerToolOpen.next({layer, toolName: 'export'});
-  }
+    onToolClicked(name) {
+        this[name + 'Tool']();
+    }
 
-  descriptionTool() {
-    const layer = this.layer;
-    this.mapService.layerToolOpen.next({layer, toolName: 'description'});
-  }
+    exportTool() {
+        const layer = this.layer;
+        this.mapService.layerToolOpen.next({layer, toolName: 'export'});
+    }
 
-  opacityTool() {
-    const layer = this.layer;
-    this.mapService.layerToolOpen.next({layer, toolName: 'opacity'});
-  }
+    descriptionTool() {
+        const layer = this.layer;
+        this.mapService.layerToolOpen.next({layer, toolName: 'description'});
+    }
 
-  sliderTool() {
-    const layer = this.layer;
-    this.mapService.layerToolOpen.next({layer, toolName: 'slider'});
-  }
+    opacityTool() {
+        const layer = this.layer;
+        this.mapService.layerToolOpen.next({layer, toolName: 'opacity'});
+    }
 
-  calendarTool() {
-    const layer = this.layer;
-    this.mapService.layerToolOpen.next({layer, toolName: 'calendar'});
-  }
+    sliderTool() {
+        const layer = this.layer;
+        this.mapService.layerToolOpen.next({layer, toolName: 'slider'});
+    }
 
-  extentTool() {
-    const layer = this.layer;
-    this.mapService.layerExtent.next(layer);
-  }
+    calendarTool() {
+        const layer = this.layer;
+        this.mapService.layerToolOpen.next({layer, toolName: 'calendar'});
+    }
 
-  trackById(index, item) {
-    return item.id;
-  }
+    extentTool() {
+        const layer = this.layer;
+        this.mapService.layerExtent.next(layer);
+    }
+
+    trackById(index, item) {
+        return item.id;
+    }
+
+    private changeState(children: Layer[], selected) {
+        children.forEach((layer: Layer) => {
+            if (layer.value === this.layer.value) {
+                this.isSelected = selected;
+            }
+        });
+    }
 
 }

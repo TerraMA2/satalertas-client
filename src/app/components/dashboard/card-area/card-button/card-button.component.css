@@ -22,7 +22,7 @@
     border: 1px solid #591111 !important;
 }
 
-.btn-alert-cars{
+.btn-alert-cars {
     margin-bottom: 18px;
 }
 
@@ -38,13 +38,13 @@
     border-radius: 17px;
 }
 
-.btn-alert-title{
+.btn-alert-title {
     text-align: center;
     font-size: 1.2rem;
     line-height: 1.75;
 }
 
-.btn-alert-value{
+.btn-alert-value {
     text-align: center;
     font-size: 0.9rem;
     line-height: 1.75;
