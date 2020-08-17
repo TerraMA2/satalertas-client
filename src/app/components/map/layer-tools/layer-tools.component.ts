@@ -104,5 +104,4 @@ export class LayerToolsComponent implements OnInit {
     onLayerToolHide() {
         this.mapService.layerToolClose.next(this.layer);
     }
-
 }
