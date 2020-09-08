@@ -167,13 +167,6 @@ export class TableComponent implements OnInit {
                 (layer.cod_group === 'CAR'));
         const params = {view, limit, offset, countTotal};
 
-        if (sortField) {
-            params['sortField'] = sortField;
-        }
-        if (sortOrder) {
-            params['sortOrder'] = sortOrder;
-        }
-
         if (this.selectedFilter) {
             params['count'] = this.selectedFilter.count;
             params['sum'] = this.selectedFilter.sum;
@@ -182,8 +175,10 @@ export class TableComponent implements OnInit {
             params['sumAlias'] = this.selectedFilter.sum_alias;
             params['countAlias'] = this.selectedFilter.count_alias;
             params['sumField'] = this.selectedFilter.sum_field;
-            params['sortField'] = this.selectedFilter.sort_field;
         }
+
+        params['sortField'] = sortField ? sortField : this.selectedFilter && this.selectedFilter.sort_field ? this.selectedFilter.sort_field : undefined;
+        params['sortOrder'] = sortOrder ?  sortOrder : 1;
 
         await this.hTTPService
             .get(url, this.filterService.getParams(params))
@@ -205,7 +200,7 @@ export class TableComponent implements OnInit {
                         const show = column ? column.show : false;
                         const alias = column ? column.alias : key;
                         if (show === true) {
-                            this.columns.push({field: alias, header: alias});
+                            this.columns.push({field: alias, header: alias, sortColumn: key});
                         }
                     });
                     Object.keys(data).forEach(dataKey => {
@@ -228,7 +223,7 @@ export class TableComponent implements OnInit {
                 } else {
                     Object.keys(data[0]).forEach(key => {
                         if (key !== 'lat' && key !== 'long' && key !== 'geom' && key !== 'intersection_geom' && key !== 'has_pdf') {
-                            this.columns.push({field: key, header: key});
+                            this.columns.push({field: key, header: key, sortColumn: key});
                         }
                     });
                 }
@@ -255,9 +250,19 @@ export class TableComponent implements OnInit {
         this.loadTableData(this.selectedLayer,
             event.rows,
             event.first,
-            event.sortField,
+            this.getSortField(event.sortField),
             event.sortOrder
         );
+    }
+
+    getSortField(sortField) {
+        let sortColumn = '';
+        for (const column of this.selectedColumns) {
+            if (sortField === column['field'] ) {
+                sortColumn = column['sortColumn'];
+            }
+        }
+        return sortColumn;
     }
 
     onSelectedLayerChange(layer) {
