@@ -212,7 +212,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                 });
 
                 titleDate.push({
-                    text: `Alerta(${deflorestationAlerts[i].date}) - Imagem(${deflorestationAlerts[i].has_deter ? deflorestationAlerts[i].date : deflorestationAlerts[i].year})`,
+                    text: `Alerta(${deflorestationAlerts[i].date}) - Imagem(${deflorestationAlerts[i].date})`,
                     fontSize: 8,
                     style: 'body',
                     alignment: 'center'
