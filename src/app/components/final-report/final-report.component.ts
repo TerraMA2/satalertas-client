@@ -74,7 +74,45 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     loggedUser: User = null;
     formatValueLocate = {
         async prodes(reportData) {
+            reportData.property.area = formatNumber(reportData.property.area, 'pt-BR', '1.0-4');
+            reportData.property.area_km = formatNumber(reportData.property.area_km, 'pt-BR', '1.0-4');
+            reportData.property.areaPastDeforestation = formatNumber(reportData.property.areaPastDeforestation, 'pt-BR', '1.0-4');
+            reportData.property.lat = formatNumber(reportData.property.lat, 'pt-BR', '1.0-4');
+            reportData.property.long = formatNumber(reportData.property.long, 'pt-BR', '1.0-4');
 
+
+            reportData.property.prodesTotalArea = formatNumber(reportData.property.prodesTotalArea, 'pt-BR', '1.0-4');
+            reportData.property.areaUsoCon = formatNumber(reportData.property.areaUsoCon, 'pt-BR', '1.0-4');
+            reportData.property.prodesArea = formatNumber(reportData.property.prodesArea, 'pt-BR', '1.0-4');
+
+            const listPastDeforestation = reportData.property.tableVegRadam.pastDeforestation.split('\n');
+            let pastDeforestationStr = '';
+            for (const data of listPastDeforestation) {
+                const pastDeforestation = data.substring(0, data.indexOf(':'));
+                const valuePastDeforestation = formatNumber(data.substring(data.indexOf(':') + 1, data.length), 'pt-BR', '1.0-4');
+
+                pastDeforestationStr = pastDeforestationStr ? `${pastDeforestationStr}\n${pastDeforestation}: ${valuePastDeforestation}` : `${pastDeforestation}: ${valuePastDeforestation}`;
+            }
+            reportData.property.tableVegRadam.pastDeforestation = pastDeforestationStr;
+            for (const data of reportData.prodesTableData) {
+                data.area = formatNumber(data.area, 'pt-BR', '1.0-4');
+            }
+            for (const data of reportData.property.vegRadam) {
+                data.area_ha_ = formatNumber(data.area_ha_, 'pt-BR', '1.0-4');
+                data.area_ha_car_vegradam = formatNumber(data.area_ha_car_vegradam, 'pt-BR', '1.0-4');
+            }
+            for (const data of reportData.property.prodesRadam) {
+                data.area = formatNumber(data.area, 'pt-BR', '1.0-4');
+            }
+            for (const data of reportData.property.deflorestationHistory) {
+                data.area = formatNumber(data.area, 'pt-BR', '1.0-4');
+            }
+            for (const data of reportData.property.tableData) {
+                data.pastDeforestation = formatNumber(data.pastDeforestation, 'pt-BR', '1.0-4');
+            }
+            for (const data of reportData.property.analyzesYear) {
+                data.area = formatNumber(data.area, 'pt-BR', '1.0-4');
+            }
         },
         async deter(reportData) {
             reportData.property.area = formatNumber(reportData.property.area, 'pt-BR', '1.0-4');
@@ -118,7 +156,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         });
         this.activatedRoute.params.subscribe(params => {
             this.carRegister = params.carRegister;
-            this.labelTextArea = params.type === 'deter' ? 'Conclusão:' : 'Observações:';
+            this.labelTextArea = 'Conclusão:';
             this.type = params.type;
         });
 
@@ -390,6 +428,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         const today = new Date();
 
         this.reportData = await this.finalReportService.getReportCarData(this.carRegister, this.date, this.filter, this.type).then((response: Response) => response.data);
+        await this.formatValueLocate[this.type](this.reportData);
         this.reportData['type'] = this.type;
         this.reportData['date'] = this.date;
         this.reportData['carRegister'] = this.carRegister;
@@ -421,8 +460,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
         this.reportData['chartImages'] = this.chartImages;
         this.reportData['type'] = this.reportData['type'];
-
-        await this.formatValueLocate[this.type](this.reportData);
 
         this.docDefinition = await this.reportService.createPdf(this.reportData).then(async (response: Response) => {
 
