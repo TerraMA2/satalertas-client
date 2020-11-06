@@ -101,8 +101,10 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                 data.area_ha_ = formatNumber(data.area_ha_, 'pt-BR', '1.0-4');
                 data.area_ha_car_vegradam = formatNumber(data.area_ha_car_vegradam, 'pt-BR', '1.0-4');
             }
-            for (const data of reportData.property.prodesRadam) {
-                data.area = formatNumber(data.area, 'pt-BR', '1.0-4');
+            if (reportData.property.prodesRadam) {
+                for (const data of reportData.property.prodesRadam) {
+                    data.area = formatNumber(data.area, 'pt-BR', '1.0-4');
+                }
             }
             for (const data of reportData.property.deflorestationHistory) {
                 data.area = formatNumber(data.area, 'pt-BR', '1.0-4');
@@ -117,7 +119,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         async deter(reportData) {
             reportData.property.area = formatNumber(reportData.property.area, 'pt-BR', '1.0-4');
             reportData.property.area_km = formatNumber(reportData.property.area_km, 'pt-BR', '1.0-4');
-            reportData.property.areaPastDeforestation = formatNumber(reportData.property.areaPastDeforestation, 'pt-BR', '1.0-4');
+            reportData.property.areaPastDeforestation = formatNumber(reportData.property.areaPastDeforestation ? reportData.property.areaPastDeforestation : 0, 'pt-BR', '1.0-4');
             reportData.property.lat = formatNumber(reportData.property.lat, 'pt-BR', '1.0-4');
             reportData.property.long = formatNumber(reportData.property.long, 'pt-BR', '1.0-4');
 
