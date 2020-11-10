@@ -31,6 +31,22 @@ export class CityService {
         return this.http.get(this.urlCity + '/getAllMesoregionsSimplified').toPromise();
     }
 
+    getAllSimplifiedImmediateRegion() {
+        return this.http.get(this.urlCity + '/getAllImmediateRegionSimplified').toPromise();
+    }
+
+    getAllSimplifiedIntermediateRegion() {
+        return this.http.get(this.urlCity + '/getAllIntermediateRegionSimplified').toPromise();
+    }
+
+    getAllSimplifiedPjbh() {
+        return this.http.get(this.urlCity + '/getAllPjbhSimplified').toPromise();
+    }
+
+    getAllSimplifiedProjus() {
+        return this.http.get(this.urlCity + '/getAllProjusSimplified').toPromise();
+    }
+
     getAllSimplifiedMicroregions() {
         return this.http.get(this.urlCity + '/getAllMicroregionsSimplified').toPromise();
     }
