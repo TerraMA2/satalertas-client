@@ -68,11 +68,24 @@ export class ThemeAreaComponent implements OnInit, AfterViewInit {
             this.optionSelectedByFilter = new FilterTheme(undefined, 'Mesorregião', 'mesoregion');
 
             this.loadComboMesoregion();
+        } else if (option.value === 'immediateregion') {
+            this.optionSelectedByFilter = new FilterTheme(undefined, 'RGI', 'immediateregion');
+
+            this.loadComboImmediateRegion();
+        } else if (option.value === 'intermediateregion') {
+            this.optionSelectedByFilter = new FilterTheme(undefined, 'RGINT', 'intermediateregion');
+
+            this.loadComboIntermediateRegion();
         } else if (option.value === 'microregion') {
             this.optionSelectedByFilter = new FilterTheme(undefined, 'Microrregião', 'microregion');
             this.optionsFilterLocalizations = [];
 
             this.loadComboMicroregion();
+        } else if (option.value === 'pjbh') {
+            this.optionSelectedByFilter = new FilterTheme(undefined, 'PJBH', 'pjbh');
+            this.optionsFilterLocalizations = [];
+
+            this.loadComboPjbh();
         } else if (option.value === 'ti') {
             this.optionSelectedByFilter = new FilterTheme(undefined, 'Terra indígena', 'ti');
 
@@ -115,6 +128,18 @@ export class ThemeAreaComponent implements OnInit, AfterViewInit {
 
     private loadComboMesoregion() {
         this.cityService.getAllSimplifiedMesoregions().then(result => this.optionsFilterLocalizations = result);
+    }
+
+    private loadComboImmediateRegion() {
+        this.cityService.getAllSimplifiedImmediateRegion().then(result => this.optionsFilterLocalizations = result);
+    }
+
+    private loadComboIntermediateRegion() {
+        this.cityService.getAllSimplifiedIntermediateRegion().then(result => this.optionsFilterLocalizations = result);
+    }
+
+    private loadComboPjbh() {
+        this.cityService.getAllSimplifiedPjbh().then(result => this.optionsFilterLocalizations = result);
     }
 
     private loadComboMicroregion() {

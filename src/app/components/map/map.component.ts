@@ -49,6 +49,7 @@ import {Response} from '../../models/response.model';
 import {environment} from 'src/environments/environment';
 
 import {Util} from '../../utils/util';
+import {LatLngBounds} from 'leaflet';
 
 @Component({
     selector: 'app-map',
@@ -264,6 +265,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         }
 
         const bounds = this.markerClusterGroup.getBounds();
+
         if (bounds && this.zoomIn) {
             this.map.fitBounds(bounds);
         }
@@ -300,7 +302,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     layerExtent(layer: Layer) {
         this.map.eachLayer((tileLayer: L.Layer) => {
             if (layer.leafletId === tileLayer['_leaflet_id']) {
-
+                const bbox = layer.layerData.bbox;
+                const latLngBounds = new LatLngBounds([0, 0], [0, 0]);
+                this.map.fitBounds(latLngBounds);
             }
         });
     }

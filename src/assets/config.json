@@ -258,10 +258,6 @@
             "value": "ALL"
           },
           {
-            "label": "Biomas",
-            "value": "biome"
-          },
-          {
             "label": "Comarca",
             "value": "region"
           },
@@ -274,12 +270,24 @@
             "value": "microregion"
           },
           {
+            "label": "RGI",
+            "value": "immediateregion"
+          },
+          {
+            "label": "RGINT",
+            "value": "intermediateregion"
+          },
+          {
             "label": "Municípios",
             "value": "city"
           },
           {
-            "label": "Projus bacia",
-            "value": "projus"
+            "label": "PJBH",
+            "value": "pjbh"
+          },
+          {
+            "label": "Biomas",
+            "value": "biome"
           },
           {
             "label": "UCs",
