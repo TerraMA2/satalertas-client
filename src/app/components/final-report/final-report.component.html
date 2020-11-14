@@ -39,7 +39,7 @@
     <div class="ui-toolbar-group-right">
         <button (click)="generatePdf('open')"
                 *ngIf="loggedUser.administrator"
-                ="!docBase64 || generatingReport"
+                [disabled]="!docBase64 || generatingReport"
                 icon="fas fa-download ui-button-raised"
                 label="Gerar Relatório"
                 pButton
@@ -53,7 +53,7 @@
     <br>
     <label>Sat: </label>
     <input [(ngModel)]="inputSat"
-           ="!docBase64 || generatingReport"
+           [disabled]="!docBase64 || generatingReport"
            class="width-100"
            pInputText
            placeholder="Sat"
@@ -65,7 +65,7 @@
     <textarea
             [(ngModel)]="textAreaComments"
             [cols]="30"
-            ="!docBase64 || generatingReport"
+            [disabled]="!docBase64 || generatingReport"
             [rows]="4"
             class="width-100"
             pInputTextarea>
