@@ -31,7 +31,6 @@
     </button>
     <button (click)="onViewReportClicked('queimada')"
             class="btn btn-icon ui-button-raised view-report-icon icon-margin"
-            disabled
             pButton
             pTooltip="Visualisar relatório Queimada"
             tooltipPosition="top">
@@ -40,7 +39,7 @@
     <div class="ui-toolbar-group-right">
         <button (click)="generatePdf('open')"
                 *ngIf="loggedUser.administrator"
-                [disabled]="!docBase64 || generatingReport"
+                ="!docBase64 || generatingReport"
                 icon="fas fa-download ui-button-raised"
                 label="Gerar Relatório"
                 pButton
@@ -54,7 +53,7 @@
     <br>
     <label>Sat: </label>
     <input [(ngModel)]="inputSat"
-           [disabled]="!docBase64 || generatingReport"
+           ="!docBase64 || generatingReport"
            class="width-100"
            pInputText
            placeholder="Sat"
@@ -66,7 +65,7 @@
     <textarea
             [(ngModel)]="textAreaComments"
             [cols]="30"
-            [disabled]="!docBase64 || generatingReport"
+            ="!docBase64 || generatingReport"
             [rows]="4"
             class="width-100"
             pInputTextarea>
