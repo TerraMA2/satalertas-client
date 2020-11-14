@@ -26,6 +26,14 @@ export class ReportService {
     ) {
     }
 
+    async getBurnlightCharts(carRegister, date, filter, type) {
+        const url = `${this.URL_REPORT_SERVER}/getBurnlightCharts`;
+
+        const parameters = {carRegister, date, filter, type};
+
+        return await this.http.get(url, {params: parameters}).toPromise();
+    }
+
     async getPointsAlerts(carRegister, date, filter, type) {
         const url = `${this.URL_REPORT_SERVER}/getPointsAlerts`;
 
