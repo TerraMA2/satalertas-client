@@ -180,6 +180,8 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
         if (this.type === 'prodes') {
             this.points = await this.reportService.getPointsAlerts(this.carRegister, this.date, this.filter, this.type).then(async (response: Response) => await response.data);
+        } else if (this.type === 'queimada') {
+            this.points = await this.reportService.getBurnlightCharts(this.carRegister, this.date, this.filter, this.type).then(async (response: Response) => await response.data);
         }
         this.year = new Date().getFullYear().toString();
         await this.setChartNdvi();
@@ -200,7 +202,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                 const ctx: any = canvas.getContext('2d');
                 const options = point.options;
 
-                const myChart = new Chart(ctx, point.options);
+                const myChart = new Chart(ctx, options);
 
                 myChart.update({
                     duration: 0,
@@ -217,6 +219,62 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
                 const chartImage = {
                     geoserverImageNdvi: geoserverImage,
+                    myChart: ndviChart
+                };
+
+                this.chartImages.push(chartImage);
+                ++count;
+            }
+        } else if (this.type === 'queimada') {
+            let count = 0;
+            for (const point of this.points) {
+                const canvas: any = document.createElement('canvas');
+                canvas.id = `burned${count}`;
+                canvas.setAttribute('width', 600);
+                canvas.setAttribute('height', 200);
+                canvas.setAttribute('style', 'display: none');
+
+                document.body.appendChild(canvas);
+
+                const ctx: any = canvas.getContext('2d');
+                const options = {
+                    type: 'line',
+                    data: {
+                        labels: [],
+                        lineColor: 'rgb(10,5,109)',
+                        datasets: [{
+                            label: 'NDVI',
+                            data: [],
+                            backgroundColor: 'rgba(17,17,177,0)',
+                            borderColor: 'rgba(5,177,0,1)',
+                            showLine: true,
+                            borderWidth: 2,
+                            pointRadius: 0
+                        }]
+                    },
+                    options: {
+                        responsive: false,
+                        legend: {
+                            display: false
+                        }
+                    }
+                };
+
+                const burnedChart = new Chart(ctx, options);
+
+                burnedChart.update({
+                    duration: 0,
+                    lazy: false,
+                    easing: 'easeOutBounce'
+                });
+
+                burnedChart.render();
+
+                burnedChart.stop();
+
+                const ndviChart = this.getImageObject(burnedChart && burnedChart.toBase64Image() ? [burnedChart.toBase64Image()] : null, [500, 500], [10, 0], 'center');
+
+                const chartImage = {
                     myChart: ndviChart
                 };
 
