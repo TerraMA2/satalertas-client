@@ -169,7 +169,7 @@ export class TableComponent implements OnInit {
 
         if (this.selectedFilter) {
             params['count'] = this.selectedFilter.count;
-            params['sum'] = this.selectedFilter.sum;
+            params['sum'] = !this.showBurn ? this.selectedFilter.sum : false;
             params['isDynamic'] = this.selectedFilter.is_dynamic;
             params['tableAlias'] = this.selectedFilter.table_alias;
             params['sumAlias'] = this.selectedFilter.sum_alias;
