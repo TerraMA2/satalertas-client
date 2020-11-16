@@ -225,62 +225,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                 this.chartImages.push(chartImage);
                 ++count;
             }
-        } else if (this.type === 'queimada') {
-            let count = 0;
-            for (const point of this.points) {
-                const canvas: any = document.createElement('canvas');
-                canvas.id = `burned${count}`;
-                canvas.setAttribute('width', 600);
-                canvas.setAttribute('height', 200);
-                canvas.setAttribute('style', 'display: none');
-
-                document.body.appendChild(canvas);
-
-                const ctx: any = canvas.getContext('2d');
-                const options = {
-                    type: 'line',
-                    data: {
-                        labels: [],
-                        lineColor: 'rgb(10,5,109)',
-                        datasets: [{
-                            label: 'NDVI',
-                            data: [],
-                            backgroundColor: 'rgba(17,17,177,0)',
-                            borderColor: 'rgba(5,177,0,1)',
-                            showLine: true,
-                            borderWidth: 2,
-                            pointRadius: 0
-                        }]
-                    },
-                    options: {
-                        responsive: false,
-                        legend: {
-                            display: false
-                        }
-                    }
-                };
-
-                const burnedChart = new Chart(ctx, options);
-
-                burnedChart.update({
-                    duration: 0,
-                    lazy: false,
-                    easing: 'easeOutBounce'
-                });
-
-                burnedChart.render();
-
-                burnedChart.stop();
-
-                const ndviChart = this.getImageObject(burnedChart && burnedChart.toBase64Image() ? [burnedChart.toBase64Image()] : null, [500, 500], [10, 0], 'center');
-
-                const chartImage = {
-                    myChart: ndviChart
-                };
-
-                this.chartImages.push(chartImage);
-                ++count;
-            }
         }
 
         await this.getReportData();
@@ -295,7 +239,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
             let subTitleArea = [];
             let startingYear = new Date().getFullYear();
 
-            // tslint:disable-next-line:prefer-for-of
             for (let i = 0; i < deflorestationAlerts.length; ++i) {
                 images.push(this.getImageObject(await this.getBaseImageUrl(deflorestationAlerts[i].urlGsImageBefore), [225, 225], [0, 0, 0, 0], 'left'));
                 images.push(this.getImageObject(await this.getBaseImageUrl(deflorestationAlerts[i].urlGsImageCurrent), [225, 225], [13, 0, 0, 0], 'rigth'));
@@ -516,6 +459,71 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
         if (this.reportData['type'] === 'deter') {
             this.reportData['deflorestationAlertsContext'] = await this.getContextDeflorestationAlerts(this.reportData.property.deflorestationAlerts);
+        }
+
+        if (this.reportData['type'] === 'queimada') {
+            const historyBurnlight = this.reportData['property']['historyBurnlight'];
+            const labels = [];
+            const dataFocus = [];
+            const dataUnauthorizedFocus = [];
+            historyBurnlight.forEach(element => {
+                labels.push(element['month_year_occurrence']);
+                dataFocus.push(element['total_focus']);
+                dataUnauthorizedFocus.push(element['unauthorized_focus']);
+            });
+            const chartIndexes = ['FocusChartImage', 'unauthorizedChartImage'];
+            historyBurnlight.forEach((element, index) => {
+                const canvas: any = document.createElement('canvas');
+                canvas.id = `burned${index}`;
+                canvas.setAttribute('width', 600);
+                canvas.setAttribute('height', 200);
+                canvas.setAttribute('style', 'display: none');
+
+                document.body.appendChild(canvas);
+
+                const ctx: any = canvas.getContext('2d');
+                const options = {
+                    type: 'line',
+                    data: {
+                        labels,
+                        lineColor: 'rgb(10,5,109)',
+                        datasets: [{
+                            label: 'Número de focos de calor',
+                            data: chartIndexes[index] === 'FocusChartImage' ? dataFocus : dataUnauthorizedFocus,
+                            backgroundColor: 'rgba(17,17,177,0)',
+                            borderColor: 'rgba(5,177,0,1)',
+                            showLine: true,
+                            borderWidth: 2,
+                            pointRadius: 0
+                        }]
+                    },
+                    options: {
+                        responsive: false,
+                        legend: {
+                            display: false
+                        }
+                    }
+                };
+
+                const burnedChart = new Chart(ctx, options);
+
+                burnedChart.update({
+                    duration: 0,
+                    lazy: false,
+                    easing: 'easeOutBounce'
+                });
+
+                burnedChart.render();
+
+                burnedChart.stop();
+
+                const focusChart = this.getImageObject(burnedChart && burnedChart.toBase64Image() ? [burnedChart.toBase64Image()] : null, [500, 500], [10, 0], 'center');
+
+                // const focusChartImage = {
+                //     myChart: focusChart
+                // };
+                this.reportData[chartIndexes[index]] = focusChart;
+            });
         }
 
         this.reportData['chartImages'] = this.chartImages;
