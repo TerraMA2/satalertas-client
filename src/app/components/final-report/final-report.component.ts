@@ -472,11 +472,11 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                 });
 
                 const totalFocusChart = this.reportService.generateChart(labels, dataFocus, 'Número de focos de calor');
-                const totalFocusChartImage = this.getImageObject(totalFocusChart && totalFocusChart.toBase64Image() ? [totalFocusChart.toBase64Image()] : null, [500, 500], [10, 0], 'center');
+                const totalFocusChartImage = this.getImageObject(totalFocusChart && totalFocusChart.toBase64Image() ? [totalFocusChart.toBase64Image()] : null, [450, 450], [10, 0], 'center');
                 this.reportData['FocusChartImage'] = totalFocusChartImage;
 
                 const unauthorizedFocusChart = this.reportService.generateChart(labels, dataFocus, 'Número de focos de calor');
-                const unauthorizedFocusChartImage = this.getImageObject(unauthorizedFocusChart && unauthorizedFocusChart.toBase64Image() ? [unauthorizedFocusChart.toBase64Image()] : null, [500, 500], [10, 0], 'center');
+                const unauthorizedFocusChartImage = this.getImageObject(unauthorizedFocusChart && unauthorizedFocusChart.toBase64Image() ? [unauthorizedFocusChart.toBase64Image()] : null, [450, 450], [10, 0], 'center');
                 this.reportData['unauthorizedChartImage'] = unauthorizedFocusChartImage;
             }
         }
