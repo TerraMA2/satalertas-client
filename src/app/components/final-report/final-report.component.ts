@@ -180,8 +180,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
         if (this.type === 'prodes') {
             this.points = await this.reportService.getPointsAlerts(this.carRegister, this.date, this.filter, this.type).then(async (response: Response) => await response.data);
-        } else if (this.type === 'queimada') {
-            this.points = await this.reportService.getBurnlightCharts(this.carRegister, this.date, this.filter, this.type).then(async (response: Response) => await response.data);
         }
         this.year = new Date().getFullYear().toString();
         await this.setChartNdvi();
@@ -466,64 +464,21 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
             const labels = [];
             const dataFocus = [];
             const dataUnauthorizedFocus = [];
-            historyBurnlight.forEach(element => {
-                labels.push(element['month_year_occurrence']);
-                dataFocus.push(element['total_focus']);
-                dataUnauthorizedFocus.push(element['unauthorized_focus']);
-            });
-            const chartIndexes = ['FocusChartImage', 'unauthorizedChartImage'];
-            historyBurnlight.forEach((element, index) => {
-                const canvas: any = document.createElement('canvas');
-                canvas.id = `burned${index}`;
-                canvas.setAttribute('width', 600);
-                canvas.setAttribute('height', 200);
-                canvas.setAttribute('style', 'display: none');
-
-                document.body.appendChild(canvas);
-
-                const ctx: any = canvas.getContext('2d');
-                const options = {
-                    type: 'line',
-                    data: {
-                        labels,
-                        lineColor: 'rgb(10,5,109)',
-                        datasets: [{
-                            label: 'Número de focos de calor',
-                            data: chartIndexes[index] === 'FocusChartImage' ? dataFocus : dataUnauthorizedFocus,
-                            backgroundColor: 'rgba(17,17,177,0)',
-                            borderColor: 'rgba(5,177,0,1)',
-                            showLine: true,
-                            borderWidth: 2,
-                            pointRadius: 0
-                        }]
-                    },
-                    options: {
-                        responsive: false,
-                        legend: {
-                            display: false
-                        }
-                    }
-                };
-
-                const burnedChart = new Chart(ctx, options);
-
-                burnedChart.update({
-                    duration: 0,
-                    lazy: false,
-                    easing: 'easeOutBounce'
+            if (historyBurnlight) {
+                historyBurnlight.forEach(element => {
+                    labels.push(element['month_year_occurrence']);
+                    dataFocus.push(element['total_focus']);
+                    dataUnauthorizedFocus.push(element['unauthorized_focus']);
                 });
 
-                burnedChart.render();
+                const totalFocusChart = this.reportService.generateChart(labels, dataFocus, 'Número de focos de calor');
+                const totalFocusChartImage = this.getImageObject(totalFocusChart && totalFocusChart.toBase64Image() ? [totalFocusChart.toBase64Image()] : null, [450, 450], [10, 0], 'center');
+                this.reportData['FocusChartImage'] = totalFocusChartImage;
 
-                burnedChart.stop();
-
-                const focusChart = this.getImageObject(burnedChart && burnedChart.toBase64Image() ? [burnedChart.toBase64Image()] : null, [500, 500], [10, 0], 'center');
-
-                // const focusChartImage = {
-                //     myChart: focusChart
-                // };
-                this.reportData[chartIndexes[index]] = focusChart;
-            });
+                const unauthorizedFocusChart = this.reportService.generateChart(labels, dataFocus, 'Número de focos de calor');
+                const unauthorizedFocusChartImage = this.getImageObject(unauthorizedFocusChart && unauthorizedFocusChart.toBase64Image() ? [unauthorizedFocusChart.toBase64Image()] : null, [450, 450], [10, 0], 'center');
+                this.reportData['unauthorizedChartImage'] = unauthorizedFocusChartImage;
+            }
         }
 
         this.reportData['chartImages'] = this.chartImages;

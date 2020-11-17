@@ -9,6 +9,7 @@ import {Vision} from '../models/vision.model';
 import {HttpClient} from '@angular/common/http';
 
 import {environment} from '../../environments/environment';
+import Chart from 'chart.js';
 
 @Injectable({
     providedIn: 'root'
@@ -24,14 +25,6 @@ export class ReportService {
     constructor(
         private http: HttpClient
     ) {
-    }
-
-    async getBurnlightCharts(carRegister, date, filter, type) {
-        const url = `${this.URL_REPORT_SERVER}/getBurnlightCharts`;
-
-        const parameters = {carRegister, date, filter, type};
-
-        return await this.http.get(url, {params: parameters}).toPromise();
     }
 
     async getPointsAlerts(carRegister, date, filter, type) {
@@ -403,5 +396,51 @@ export class ReportService {
 
     private replaceWildCard(text: string, wildCard: string, replaceValue: string, regexFlag: string = '') {
         return text.replace(new RegExp(wildCard, regexFlag), replaceValue);
+    }
+
+    generateChart(labels, data, title) {
+        const canvas: any = document.createElement('canvas');
+        canvas.setAttribute('width', 600);
+        canvas.setAttribute('height', 200);
+        canvas.setAttribute('style', 'display: none');
+
+        document.body.appendChild(canvas);
+
+        const ctx: any = canvas.getContext('2d');
+        const options = {
+            type: 'line',
+            data: {
+                labels,
+                lineColor: 'rgb(10,5,109)',
+                datasets: [{
+                    label: title,
+                    data,
+                    backgroundColor: 'rgba(17,17,177,0)',
+                    borderColor: 'rgba(5,177,0,1)',
+                    showLine: true,
+                    borderWidth: 2,
+                    pointRadius: 0
+                }]
+            },
+            options: {
+                responsive: false,
+                legend: {
+                    display: false
+                }
+            }
+        };
+
+        const chart = new Chart(ctx, options);
+
+        chart.update({
+            duration: 0,
+            lazy: false,
+            easing: 'easeOutBounce'
+        });
+
+        chart.render();
+        chart.stop();
+
+        return chart;
     }
 }
