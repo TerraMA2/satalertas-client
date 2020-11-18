@@ -398,8 +398,12 @@ export class ReportService {
         return text.replace(new RegExp(wildCard, regexFlag), replaceValue);
     }
 
-    generateChart(labels, data, title) {
+    generateChart(labels, data) {
         const canvas: any = document.createElement('canvas');
+        const unauthorizedFocusColor = 'rgba(255,5,0,1)';
+        const allBurningColor = 'rgba(5,177,0,1)';
+        const backgroundChartCollor = 'rgba(17,17,177,0)';
+
         canvas.setAttribute('width', 600);
         canvas.setAttribute('height', 200);
         canvas.setAttribute('style', 'display: none');
@@ -413,19 +417,33 @@ export class ReportService {
                 labels,
                 lineColor: 'rgb(10,5,109)',
                 datasets: [{
-                    label: title,
-                    data,
-                    backgroundColor: 'rgba(17,17,177,0)',
-                    borderColor: 'rgba(5,177,0,1)',
+                    label: data[0].title,
+                    data: data[0].data,
+                    backgroundColor: backgroundChartCollor,
+                    borderColor: allBurningColor,
                     showLine: true,
                     borderWidth: 2,
-                    pointRadius: 0
+                    pointRadius: 0,
+                    pointBackgroundColor: allBurningColor,
+                    pointRadius: 4,
+                    pointStyle: 'cross',
+                }, {
+                    label: data[1].title,
+                    data: data[1].data,
+                    backgroundColor: backgroundChartCollor,
+                    borderColor: unauthorizedFocusColor,
+                    showLine: true,
+                    borderWidth: 2,
+                    pointRadius: 0,
+                    pointBackgroundColor: unauthorizedFocusColor,
+                    pointRadius: 4,
+                    pointStyle: 'circle',
                 }]
             },
             options: {
                 responsive: false,
                 legend: {
-                    display: false
+                    display: true
                 }
             }
         };
