@@ -463,6 +463,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
         if (this.reportData['type'] === 'queimada') {
             const historyBurnlight = this.reportData['property']['historyBurnlight'];
+            const chartData =[];
             const labels = [];
             const dataFocus = [];
             const dataUnauthorizedFocus = [];
@@ -472,14 +473,12 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                     dataFocus.push(element['total_focus']);
                     dataUnauthorizedFocus.push(element['unauthorized_focus']);
                 });
-
-                const totalFocusChart = this.reportService.generateChart(labels, dataFocus, 'Número de focos de calor');
+                chartData.push({'title': 'Focos de calor total', 'data': dataFocus});
+                chartData.push({'title': 'Focos de calor (período proibitivo)', 'data': dataUnauthorizedFocus})
+                
+                const totalFocusChart = this.reportService.generateChart(labels, chartData);
                 const totalFocusChartImage = this.getImageObject(totalFocusChart && totalFocusChart.toBase64Image() ? [totalFocusChart.toBase64Image()] : null, [450, 450], [10, 0], 'center');
                 this.reportData['FocusChartImage'] = totalFocusChartImage;
-
-                const unauthorizedFocusChart = this.reportService.generateChart(labels, dataFocus, 'Número de focos de calor');
-                const unauthorizedFocusChartImage = this.getImageObject(unauthorizedFocusChart && unauthorizedFocusChart.toBase64Image() ? [unauthorizedFocusChart.toBase64Image()] : null, [450, 450], [10, 0], 'center');
-                this.reportData['unauthorizedChartImage'] = unauthorizedFocusChartImage;
             }
         }
 

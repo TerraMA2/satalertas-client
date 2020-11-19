@@ -398,8 +398,16 @@ export class ReportService {
         return text.replace(new RegExp(wildCard, regexFlag), replaceValue);
     }
 
-    generateChart(labels, data, title) {
+    generateChart(labels, burnData) {
         const canvas: any = document.createElement('canvas');
+        const unauthorizedFocusColor = 'rgba(255,5,0,1)';
+        const allBurningColor = 'rgba(5,177,0,1)';
+        const backgroundChartCollor = 'rgba(17,17,177,0)';
+        const burnLightData = burnData[0].data;
+        const unauthorizedFocus = burnData[1].data;
+        const burnTitle = burnData[0].title;
+        const unauthorizedTitle = burnData[1].title
+
         canvas.setAttribute('width', 600);
         canvas.setAttribute('height', 200);
         canvas.setAttribute('style', 'display: none');
@@ -412,20 +420,35 @@ export class ReportService {
             data: {
                 labels,
                 lineColor: 'rgb(10,5,109)',
-                datasets: [{
-                    label: title,
-                    data,
-                    backgroundColor: 'rgba(17,17,177,0)',
-                    borderColor: 'rgba(5,177,0,1)',
-                    showLine: true,
-                    borderWidth: 2,
-                    pointRadius: 0
-                }]
+                datasets: [
+                    {
+                        label:unauthorizedTitle,
+                        data: unauthorizedFocus,
+                        backgroundColor: backgroundChartCollor,
+                        borderColor: unauthorizedFocusColor,
+                        showLine: true,
+                        borderWidth: 2,
+                        pointBackgroundColor: unauthorizedFocusColor,
+                        pointRadius: 4,
+                        // pointStyle: 'cross',
+                    },
+                    {
+                        label: burnTitle,
+                        data: burnLightData,
+                        backgroundColor: backgroundChartCollor,
+                        borderColor: allBurningColor,
+                        showLine: true,
+                        borderWidth: 2,
+                        pointBackgroundColor: allBurningColor,
+                        pointRadius: 4,
+                        // pointStyle: 'circle',
+                    },
+                ]
             },
             options: {
                 responsive: false,
                 legend: {
-                    display: false
+                    display: true
                 }
             }
         };
