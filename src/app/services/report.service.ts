@@ -398,11 +398,15 @@ export class ReportService {
         return text.replace(new RegExp(wildCard, regexFlag), replaceValue);
     }
 
-    generateChart(labels, data) {
+    generateChart(labels, burnData) {
         const canvas: any = document.createElement('canvas');
         const unauthorizedFocusColor = 'rgba(255,5,0,1)';
         const allBurningColor = 'rgba(5,177,0,1)';
         const backgroundChartCollor = 'rgba(17,17,177,0)';
+        const burnLightData = burnData[0].data;
+        const unauthorizedFocus = burnData[1].data;
+        const burnTitle = burnData[0].title;
+        const unauthorizedTitle = burnData[1].title
 
         canvas.setAttribute('width', 600);
         canvas.setAttribute('height', 200);
@@ -418,28 +422,26 @@ export class ReportService {
                 lineColor: 'rgb(10,5,109)',
                 datasets: [
                     {
-                        label: data[1].title,
-                        data: data[1].data,
+                        label:unauthorizedTitle,
+                        data: unauthorizedFocus,
                         backgroundColor: backgroundChartCollor,
                         borderColor: unauthorizedFocusColor,
                         showLine: true,
                         borderWidth: 2,
-                        pointRadius: 0,
                         pointBackgroundColor: unauthorizedFocusColor,
                         pointRadius: 4,
-                        pointStyle: 'circle',
+                        // pointStyle: 'cross',
                     },
                     {
-                        label: data[0].title,
-                        data: data[0].data,
+                        label: burnTitle,
+                        data: burnLightData,
                         backgroundColor: backgroundChartCollor,
                         borderColor: allBurningColor,
                         showLine: true,
                         borderWidth: 2,
-                        pointRadius: 0,
                         pointBackgroundColor: allBurningColor,
                         pointRadius: 4,
-                        pointStyle: 'cross',
+                        // pointStyle: 'circle',
                     },
                 ]
             },
