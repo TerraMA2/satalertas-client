@@ -416,32 +416,22 @@ export class ReportService {
 
         const ctx: any = canvas.getContext('2d');
         const options = {
-            type: 'line',
+            type: 'bar',
             data: {
                 labels,
                 lineColor: 'rgb(10,5,109)',
                 datasets: [
                     {
-                        label:prohibitivePeriodTitle,
-                        data: prohibitivePeriod,
-                        backgroundColor: backgroundChartCollor,
-                        borderColor: prohibitivePeriodColor,
-                        showLine: true,
-                        borderWidth: 2,
-                        pointBackgroundColor: prohibitivePeriodColor,
-                        pointRadius: 4,
-                        // pointStyle: 'cross',
-                    },
-                    {
                         label: burnTitle,
                         data: burnLightData,
-                        backgroundColor: backgroundChartCollor,
-                        borderColor: allBurningColor,
-                        showLine: true,
-                        borderWidth: 2,
-                        pointBackgroundColor: allBurningColor,
-                        pointRadius: 4,
-                        // pointStyle: 'circle',
+                        backgroundColor: allBurningColor,
+                        barThickness: 'flex',
+                    },
+                    {
+                        label:prohibitivePeriodTitle,
+                        data: prohibitivePeriod,
+                        backgroundColor: prohibitivePeriodColor,
+                        barThickness: 'flex',
                     },
                 ]
             },
