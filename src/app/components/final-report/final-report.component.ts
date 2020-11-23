@@ -476,8 +476,8 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                     dataFocus.push(element['total_focus']);
                     prohibitivePeriod.push(element['prohibitive_period']);
                 });
-                chartData.push({ 'title': 'Focos de calor total', 'data': dataFocus });
-                chartData.push({ 'title': 'Focos de calor (período proibitivo)', 'data': prohibitivePeriod })
+                chartData.push({ 'title': 'Focos de fogo ativo', 'data': dataFocus });
+                chartData.push({ 'title': 'Focos de fogo ativo (período proibitivo)', 'data': prohibitivePeriod })
 
                 const totalFocusChart = this.reportService.generateChart(labels, chartData);
                 const totalFocusChartImage = this.getImageObject(totalFocusChart && totalFocusChart.toBase64Image() ? [totalFocusChart.toBase64Image()] : null, [450, 450], [10, 0], 'center');

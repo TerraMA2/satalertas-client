@@ -402,7 +402,6 @@ export class ReportService {
         const canvas: any = document.createElement('canvas');
         const prohibitivePeriodColor = 'rgba(255,5,0,1)';
         const allBurningColor = 'rgba(5,177,0,1)';
-        const backgroundChartCollor = 'rgba(17,17,177,0)';
         const burnLightData = burnData[0].data;
         const prohibitivePeriod = burnData[1].data;
         const burnTitle = burnData[0].title;
