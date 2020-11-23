@@ -189,41 +189,44 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
     async setChartNdvi() {
         if (this.type === 'prodes') {
-            let count = 0;
-            for (const point of this.points) {
-                const canvas: any = document.createElement('canvas');
-                canvas.id = `myChart${count}`;
-                canvas.setAttribute('width', 600);
-                canvas.setAttribute('height', 200);
-                canvas.setAttribute('style', 'display: none');
+            if (this.points && this.points.length && (this.points.length > 0)) {
+                let count = 0;
 
-                document.body.appendChild(canvas);
+                for (const point of this.points) {
+                    const canvas: any = document.createElement('canvas');
+                    canvas.id = `myChart${count}`;
+                    canvas.setAttribute('width', 600);
+                    canvas.setAttribute('height', 200);
+                    canvas.setAttribute('style', 'display: none');
 
-                const ctx: any = canvas.getContext('2d');
-                const options = point.options;
+                    document.body.appendChild(canvas);
 
-                const myChart = new Chart(ctx, options);
+                    const ctx: any = canvas.getContext('2d');
+                    const options = point.options;
 
-                myChart.update({
-                    duration: 0,
-                    lazy: false,
-                    easing: 'easeOutBounce'
-                });
+                    const myChart = new Chart(ctx, options);
 
-                myChart.render();
+                    myChart.update({
+                        duration: 0,
+                        lazy: false,
+                        easing: 'easeOutBounce'
+                    });
 
-                myChart.stop();
+                    myChart.render();
 
-                const ndviChart = this.getImageObject(myChart && myChart.toBase64Image() ? [myChart.toBase64Image()] : null, [500, 500], [10, 0], 'center');
-                const geoserverImage = this.getImageObject(await this.getBaseImageUrl(point.url), [200, 200], [10, 70], 'center');
+                    myChart.stop();
 
-                const chartImage = {
-                    geoserverImageNdvi: geoserverImage,
-                    myChart: ndviChart
-                };
+                    const ndviChart = this.getImageObject(myChart && myChart.toBase64Image() ? [myChart.toBase64Image()] : null, [500, 500], [10, 0], 'center');
+                    const geoserverImage = this.getImageObject(await this.getBaseImageUrl(point.url), [200, 200], [10, 70], 'center');
 
-                this.chartImages.push(chartImage);
-                ++count;
+                    const chartImage = {
+                        geoserverImageNdvi: geoserverImage,
+                        myChart: ndviChart
+                    };
+
+                    this.chartImages.push(chartImage);
+                    ++count;
+                }
             }
         }
 
