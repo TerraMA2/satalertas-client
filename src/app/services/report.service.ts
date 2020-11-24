@@ -424,13 +424,11 @@ export class ReportService {
                         label: burnTitle,
                         data: burnLightData,
                         backgroundColor: allBurningColor,
-                        barThickness: 'flex',
                     },
                     {
                         label:prohibitivePeriodTitle,
                         data: prohibitivePeriod,
                         backgroundColor: prohibitivePeriodColor,
-                        barThickness: 'flex',
                     },
                 ]
             },
