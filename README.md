@@ -23,3 +23,5 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 # Configuration
 
 Run `npm install -g @angular/cli@8.3.20` to install Angular CLI
+
+FrontEnd do Satalertas

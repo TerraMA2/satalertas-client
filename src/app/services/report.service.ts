@@ -9,6 +9,7 @@ import {Vision} from '../models/vision.model';
 import {HttpClient} from '@angular/common/http';
 
 import {environment} from '../../environments/environment';
+import Chart from 'chart.js';
 
 @Injectable({
     providedIn: 'root'
@@ -24,14 +25,6 @@ export class ReportService {
     constructor(
         private http: HttpClient
     ) {
-    }
-
-    async getBurnlightCharts(carRegister, date, filter, type) {
-        const url = `${this.URL_REPORT_SERVER}/getBurnlightCharts`;
-
-        const parameters = {carRegister, date, filter, type};
-
-        return await this.http.get(url, {params: parameters}).toPromise();
     }
 
     async getPointsAlerts(carRegister, date, filter, type) {
@@ -403,5 +396,63 @@ export class ReportService {
 
     private replaceWildCard(text: string, wildCard: string, replaceValue: string, regexFlag: string = '') {
         return text.replace(new RegExp(wildCard, regexFlag), replaceValue);
+    }
+
+    generateChart(labels, burnData) {
+        const canvas: any = document.createElement('canvas');
+        const prohibitivePeriodColor = 'rgba(255,5,0,1)';
+        const allBurningColor = 'rgba(5,177,0,1)';
+        const burnLightData = burnData[0].data;
+        const prohibitivePeriod = burnData[1].data;
+        const burnTitle = burnData[0].title;
+        const prohibitivePeriodTitle = burnData[1].title
+
+        canvas.setAttribute('width', 600);
+        canvas.setAttribute('height', 200);
+        canvas.setAttribute('style', 'display: none');
+
+        document.body.appendChild(canvas);
+
+        const ctx: any = canvas.getContext('2d');
+        const options = {
+            type: 'bar',
+            data: {
+                labels,
+                lineColor: 'rgb(10,5,109)',
+                datasets: [
+                    {
+                        label: burnTitle,
+                        data: burnLightData,
+                        backgroundColor: allBurningColor,
+                        barThickness: 'flex',
+                    },
+                    {
+                        label:prohibitivePeriodTitle,
+                        data: prohibitivePeriod,
+                        backgroundColor: prohibitivePeriodColor,
+                        barThickness: 'flex',
+                    },
+                ]
+            },
+            options: {
+                responsive: false,
+                legend: {
+                    display: true
+                }
+            }
+        };
+
+        const chart = new Chart(ctx, options);
+
+        chart.update({
+            duration: 0,
+            lazy: false,
+            easing: 'easeOutBounce'
+        });
+
+        chart.render();
+        chart.stop();
+
+        return chart;
     }
 }

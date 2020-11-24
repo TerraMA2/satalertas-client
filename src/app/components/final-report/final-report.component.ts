@@ -1,29 +1,29 @@
-import {AfterViewInit, Component, Inject, LOCALE_ID, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import { AfterViewInit, Component, Inject, LOCALE_ID, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import {SidebarService} from 'src/app/services/sidebar.service';
+import { SidebarService } from 'src/app/services/sidebar.service';
 
-import {ReportService} from '../../services/report.service';
+import { ReportService } from '../../services/report.service';
 
-import {Response} from 'src/app/models/response.model';
+import { Response } from 'src/app/models/response.model';
 
 import pdfMake from 'pdfmake/build/pdfmake';
 
 import Chart from 'chart.js';
 
 import pdfFonts from 'pdfmake/build/vfs_fonts';
-import {FinalReportService} from '../../services/final-report.service';
+import { FinalReportService } from '../../services/final-report.service';
 
-import {AuthService} from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 
-import {ConfirmationService, MessageService} from 'primeng-lts/api';
+import { ConfirmationService, MessageService } from 'primeng-lts/api';
 
-import {Image} from '../../models/image.model';
+import { Image } from '../../models/image.model';
 
-import {formatNumber} from '@angular/common';
+import { formatNumber } from '@angular/common';
 
-import {User} from '../../models/user.model';
+import { User } from '../../models/user.model';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -37,22 +37,22 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 export class FinalReportComponent implements OnInit, AfterViewInit {
 
-    @ViewChild('imagem2', {static: false}) imagem2: Chart;
-    @ViewChild('chartImg', {static: false}) chartImg: Chart;
-    @ViewChild('myChart0', {static: false}) myChart0: Chart;
-    @ViewChild('myChart1', {static: false}) myChart1: Chart;
-    @ViewChild('myChart2', {static: false}) myChart2: Chart;
-    @ViewChild('myChart3', {static: false}) myChart3: Chart;
-    @ViewChild('myChart4', {static: false}) myChart4: Chart;
-    @ViewChild('myChart5', {static: false}) myChart5: Chart;
-    @ViewChild('myChart6', {static: false}) myChart6: Chart;
-    @ViewChild('myChart7', {static: false}) myChart7: Chart;
-    @ViewChild('myChart8', {static: false}) myChart8: Chart;
-    @ViewChild('myChart9', {static: false}) myChart9: Chart;
-    @ViewChild('myChart10', {static: false}) myChart10: Chart;
-    @ViewChild('myChart11', {static: false}) myChart11: Chart;
-    @ViewChild('myChart12', {static: false}) myChart12: Chart;
-    @ViewChild('myChart13', {static: false}) myChart13: Chart;
+    @ViewChild('imagem2', { static: false }) imagem2: Chart;
+    @ViewChild('chartImg', { static: false }) chartImg: Chart;
+    @ViewChild('myChart0', { static: false }) myChart0: Chart;
+    @ViewChild('myChart1', { static: false }) myChart1: Chart;
+    @ViewChild('myChart2', { static: false }) myChart2: Chart;
+    @ViewChild('myChart3', { static: false }) myChart3: Chart;
+    @ViewChild('myChart4', { static: false }) myChart4: Chart;
+    @ViewChild('myChart5', { static: false }) myChart5: Chart;
+    @ViewChild('myChart6', { static: false }) myChart6: Chart;
+    @ViewChild('myChart7', { static: false }) myChart7: Chart;
+    @ViewChild('myChart8', { static: false }) myChart8: Chart;
+    @ViewChild('myChart9', { static: false }) myChart9: Chart;
+    @ViewChild('myChart10', { static: false }) myChart10: Chart;
+    @ViewChild('myChart11', { static: false }) myChart11: Chart;
+    @ViewChild('myChart12', { static: false }) myChart12: Chart;
+    @ViewChild('myChart13', { static: false }) myChart13: Chart;
     reportData;
     carRegister: string;
     chartImages = [];
@@ -153,7 +153,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
             this.loggedUser = user;
             if (!user) {
                 this.router.navigateByUrl('/map');
-                this.messageService.add({severity: 'error', summary: 'Atenção!', detail: 'Usuário não autenticado.'});
+                this.messageService.add({ severity: 'error', summary: 'Atenção!', detail: 'Usuário não autenticado.' });
             }
         });
         this.activatedRoute.params.subscribe(params => {
@@ -180,8 +180,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
         if (this.type === 'prodes') {
             this.points = await this.reportService.getPointsAlerts(this.carRegister, this.date, this.filter, this.type).then(async (response: Response) => await response.data);
-        } else if (this.type === 'queimada') {
-            this.points = await this.reportService.getBurnlightCharts(this.carRegister, this.date, this.filter, this.type).then(async (response: Response) => await response.data);
         }
         this.year = new Date().getFullYear().toString();
         await this.setChartNdvi();
@@ -449,10 +447,12 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         this.reportData.images['geoserverImage1'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage), [200, 200], [0, 10], 'center');
         this.reportData.images['geoserverImage2'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage1), [200, 200], [0, 10], 'center');
 
-        this.reportData.images['geoserverImage4'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage3), [200, 200], [0, 10], 'left');
-        this.reportData.images['geoserverImage5'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage4), [200, 200], [0, 10], 'right');
-        this.reportData.images['geoserverImage6'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage5), [200, 200], [0, 10], 'left');
-        this.reportData.images['geoserverImage7'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage6), [200, 200], [0, 10], 'right');
+        if (this.reportData['type'] !== 'queimada') {
+            this.reportData.images['geoserverImage4'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage3), [200, 200], [0, 10], 'left');
+            this.reportData.images['geoserverImage5'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage4), [200, 200], [0, 10], 'right');
+            this.reportData.images['geoserverImage6'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage5), [200, 200], [0, 10], 'left');
+            this.reportData.images['geoserverImage7'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage6), [200, 200], [0, 10], 'right');
+        }
 
         if (this.reportData['type'] === 'prodes') {
             this.reportData.images['geoserverImage3'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage2), [200, 200], [0, 10], 'center');
@@ -466,67 +466,23 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
         if (this.reportData['type'] === 'queimada') {
             const historyBurnlight = this.reportData['property']['historyBurnlight'];
+            const chartData = [];
             const labels = [];
             const dataFocus = [];
-            const dataUnauthorizedFocus = [];
-            historyBurnlight.forEach(element => {
-                labels.push(element['month_year_occurrence']);
-                dataFocus.push(element['total_focus']);
-                dataUnauthorizedFocus.push(element['unauthorized_focus']);
-            });
-            const chartIndexes = ['FocusChartImage', 'unauthorizedChartImage'];
-            historyBurnlight.forEach((element, index) => {
-                const canvas: any = document.createElement('canvas');
-                canvas.id = `burned${index}`;
-                canvas.setAttribute('width', 600);
-                canvas.setAttribute('height', 200);
-                canvas.setAttribute('style', 'display: none');
-
-                document.body.appendChild(canvas);
-
-                const ctx: any = canvas.getContext('2d');
-                const options = {
-                    type: 'line',
-                    data: {
-                        labels,
-                        lineColor: 'rgb(10,5,109)',
-                        datasets: [{
-                            label: 'Número de focos de calor',
-                            data: chartIndexes[index] === 'FocusChartImage' ? dataFocus : dataUnauthorizedFocus,
-                            backgroundColor: 'rgba(17,17,177,0)',
-                            borderColor: 'rgba(5,177,0,1)',
-                            showLine: true,
-                            borderWidth: 2,
-                            pointRadius: 0
-                        }]
-                    },
-                    options: {
-                        responsive: false,
-                        legend: {
-                            display: false
-                        }
-                    }
-                };
-
-                const burnedChart = new Chart(ctx, options);
-
-                burnedChart.update({
-                    duration: 0,
-                    lazy: false,
-                    easing: 'easeOutBounce'
+            const prohibitivePeriod = [];
+            if (historyBurnlight) {
+                historyBurnlight.forEach(element => {
+                    labels.push(element['month_year_occurrence']);
+                    dataFocus.push(element['total_focus']);
+                    prohibitivePeriod.push(element['prohibitive_period']);
                 });
+                chartData.push({ 'title': 'Focos de fogo ativo', 'data': dataFocus });
+                chartData.push({ 'title': 'Focos de fogo ativo (período proibitivo)', 'data': prohibitivePeriod })
 
-                burnedChart.render();
-
-                burnedChart.stop();
-
-                const focusChart = this.getImageObject(burnedChart && burnedChart.toBase64Image() ? [burnedChart.toBase64Image()] : null, [500, 500], [10, 0], 'center');
-
-                // const focusChartImage = {
-                //     myChart: focusChart
-                // };
-                this.reportData[chartIndexes[index]] = focusChart;
-            });
+                const totalFocusChart = this.reportService.generateChart(labels, chartData);
+                const totalFocusChartImage = this.getImageObject(totalFocusChart && totalFocusChart.toBase64Image() ? [totalFocusChart.toBase64Image()] : null, [450, 450], [10, 0], 'center');
+                this.reportData['FocusChartImage'] = totalFocusChartImage;
+            }
         }
 
         this.reportData['chartImages'] = this.chartImages;
