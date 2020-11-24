@@ -1018,7 +1018,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         return {
             request: 'GetFeatureInfo',
             service: 'WMS',
-            srs: 'EPSG:4326',
+            srs: 'EPSG:4674',
             styles: layer.wmsParams.styles,
             transparent: layer.wmsParams.transparent,
             version: layer.wmsParams.version,
@@ -1045,7 +1045,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         return {
             request: 'GetFeature',
             service: 'WFS',
-            srs: 'EPSG:4326',
+            srs: 'EPSG:4674',
             version: '2.0',
             outputFormat: 'application/json',
             typeNames: layer.wmsParams.layers,
