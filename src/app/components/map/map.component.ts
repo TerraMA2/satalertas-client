@@ -699,22 +699,25 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     addLayer(layer, addLayer) {
         let layerToAdd = null;
         if (layer && layer.layerData) {
-            if (addLayer) {
+            const hasLayer = this.selectedLayers.some(selectedLayer => selectedLayer.value === layer.value);
+            if (addLayer && !hasLayer) {
                 this.selectedLayers.push(layer);
             }
-            layer = this.setFilter(layer);
-            layerToAdd = this.getLayer(layer.layerData);
-            layerToAdd.on('loading', () => this.isLoading = true);
-            layerToAdd.on('load', () => this.isLoading = false);
-            layerToAdd.on('tileunload', () => {
-                if (this.selectedLayers.length === 0) {
-                    this.isLoading = false;
-                }
-            });
-            layerToAdd.on('tileerror', () => this.isLoading = false);
-            layerToAdd.setZIndex(1000 + this.selectedLayers.length);
-            layerToAdd.addTo(this.map);
-            layer.leafletId = layerToAdd._leaflet_id;
+            if (!hasLayer) {
+                layer = this.setFilter(layer);
+                layerToAdd = this.getLayer(layer.layerData);
+                layerToAdd.on('loading', () => this.isLoading = true);
+                layerToAdd.on('load', () => this.isLoading = false);
+                layerToAdd.on('tileunload', () => {
+                    if (this.selectedLayers.length === 0) {
+                        this.isLoading = false;
+                    }
+                });
+                layerToAdd.on('tileerror', () => this.isLoading = false);
+                layerToAdd.setZIndex(1000 + this.selectedLayers.length);
+                layerToAdd.addTo(this.map);
+                layer.leafletId = layerToAdd._leaflet_id;
+            }
         }
         return layerToAdd;
     }
