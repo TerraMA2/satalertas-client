@@ -48,7 +48,6 @@ import {Response} from '../../models/response.model';
 
 import {environment} from 'src/environments/environment';
 
-import {Util} from '../../utils/util';
 import {LatLngBounds} from 'leaflet';
 
 @Component({
@@ -57,7 +56,7 @@ import {LatLngBounds} from 'leaflet';
     styleUrls: ['./map.component.css']
 })
 
-export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
+export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
 
     selectedLayers: Layer[] = [];
     layerTool: Layer;
@@ -109,14 +108,14 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         this.sidebarService.sidebarLayerShowHide.next(true);
     }
 
-    ngOnDestroy() {
-        this.setLocalStorageData();
-    }
+    // ngOnDestroy() {
+    // this.setLocalStorageData(); Removed because on some layers the system was crashing. Need to fix this.
+    // }
 
     ngAfterViewInit() {
         this.setMap();
         this.setControls();
-        this.getLocalStorageData();
+        // this.getLocalStorageData(); Removed because on some layers the system was crashing. Need to fix this.
         this.setBaseLayers();
         this.setOverlayEvents();
         this.authService.user.subscribe(user => {
@@ -236,14 +235,11 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
         this.layerControl.removeLayer(this.markerClusterGroup);
 
-        const infoColumns = await this.configService.getInfoColumns(this.selectedPrimaryLayer.codgroup).then((response: Response) => response.data);
-
         data.forEach(markerData => {
             const popup = markerData[popupTitle.estadual] ? markerData[popupTitle.estadual] : markerData[popupTitle.federal];
             const link = `/report/${markerData[columnCarGid]}`;
 
-            const popupContent = this.getPopupContent(markerData, overlayName, infoColumns);
-            const marker = this.createMarker(popup, popupContent, [markerData.lat, markerData.long], overlayName, link);
+            const marker = this.createMarker(popup, '', [markerData.lat, markerData.long], overlayName, link, markerData);
 
             if (marker) {
                 this.markerClusterGroup.addLayer(marker);
@@ -253,17 +249,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         this.searchControl.setLayer(this.markerClusterGroup);
         this.searchControl.options.layer = this.markerClusterGroup;
 
-        if (this.selectedMarker) {
-            const markerLatLong = new L.LatLng(this.selectedMarker.latLong[0], this.selectedMarker.latLong[1]);
-            this.markerClusterGroup.eachLayer((marker: L.Marker) => {
-                if (marker.getLatLng().equals(markerLatLong)) {
-                    this.panMap(markerLatLong, 18);
-                    marker.fire('click');
-                    this.selectedMarker = null;
-                }
-            });
-        }
-
         const bounds = this.markerClusterGroup.getBounds();
 
         if (bounds && this.zoomIn) {
@@ -271,16 +256,14 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         }
     }
 
-    createMarker(popupTitle, popupContent, latLong, overlayName, link = '') {
-        if (!popupContent) {
-            return null;
-        }
+    createMarker(popupTitle, popupContent, latLong, overlayName, link = '', markerData = null) {
         const marker = L.marker(latLong, {title: popupTitle});
-        marker.bindPopup(popupContent, {maxWidth: 500, maxHeight: 500});
         if (link) {
-            this.linkPopupService.register(marker, link, 'Síntese');
+            const primaryLayer = this.selectedPrimaryLayer;
+            this.linkPopupService.register(marker, link, 'Síntese', primaryLayer, markerData);
             marker.on('popupopen', () =>
-                this.selectedMarker = new SelectedMarker(overlayName, popupTitle, popupContent, latLong, link));
+                this.selectedMarker = new SelectedMarker(overlayName, popupTitle, popupContent, latLong, link)
+            );
         }
         return marker;
     }
@@ -375,7 +358,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
             const infoColumns = await this.configService.getInfoColumns().then((response: Response) => response.data['STATIC']);
 
-            const popupContent = this.getPopupContent(data, markerLabel, infoColumns);
+            const popupContent = this.mapService.getPopupContent(data, markerLabel, infoColumns);
             this.markerInfo = this.createMarker(carRegister, popupContent, latLong, markerLabel, link);
 
             this.markerClusterGroup.addLayer(this.markerInfo);
@@ -1003,7 +986,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
         this.clearMarkerInfo();
 
-        this.markerInfo = this.createMarker('info', popupContent, latLong, '');
+        this.markerInfo = this.createMarker('info', popupContent, latLong, '', '');
         if (this.markerInfo) {
             this.markerInfo.addTo(this.map);
             this.markerInfo.openPopup();
@@ -1063,78 +1046,11 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
             features.forEach(feature => {
                 const properties = feature.properties;
                 if (properties) {
-                    popupContent += this.getPopupContent(properties, layerName, infoColumns);
+                    popupContent += this.mapService.getPopupContent(properties, layerName, infoColumns);
                 }
             });
         }
         return popupContent;
-    }
-
-    getPopupContent(data, name, infoColumns = null) {
-        let popupContent = '';
-        let popupContentBody = '';
-        Object.keys(data).forEach(key => {
-            if (key === 'lat' || key === 'long') {
-                return;
-            }
-            const column = infoColumns[key];
-            let show = true;
-            let alias;
-            if (column) {
-                alias = column.alias;
-                show = column.show === true;
-            } else {
-                alias = key;
-            }
-            if (show) {
-                if (alias === 'CPF/CNPJ') {
-                    popupContentBody += `
-            <tr>
-               <td>${alias}</td>
-               <td>${this.formatterCpfCnpj(data[key])}</td>
-               </tr>
-          `;
-                } else {
-                    popupContentBody += `
-              <tr>
-                <td>${alias}</td>
-                <td>${data[key]}</td>
-              </tr>
-          `;
-                }
-            }
-        });
-
-        popupContent += `
-        <br />
-        <div class="table-responsive">
-          <table class="table table-hover">
-              <thead><th colspan="2">${name}</th></thead>
-              ${popupContentBody}
-          </table>
-        </div>
-    `;
-
-        return popupContent;
-    }
-
-    formatterCpfCnpj(cpfCnpj) {
-        if (cpfCnpj) {
-            const listCpfCnpj = cpfCnpj.split(',');
-
-            cpfCnpj = '';
-            if (listCpfCnpj.length > 0) {
-                listCpfCnpj.forEach(value => {
-                    if (!cpfCnpj) {
-                        cpfCnpj = Util.cpfCnpjMask(value);
-                    } else {
-                        cpfCnpj += `, ${Util.cpfCnpjMask(value)}`;
-                    }
-                });
-            }
-        }
-
-        return cpfCnpj ? cpfCnpj : '';
     }
 
     setRestoreMapControl() {
