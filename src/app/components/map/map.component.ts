@@ -57,7 +57,7 @@ import {LatLngBounds} from 'leaflet';
     styleUrls: ['./map.component.css']
 })
 
-export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
+export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
 
     selectedLayers: Layer[] = [];
     layerTool: Layer;
@@ -109,14 +109,14 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         this.sidebarService.sidebarLayerShowHide.next(true);
     }
 
-    ngOnDestroy() {
-        this.setLocalStorageData();
-    }
+    // ngOnDestroy() {
+    // this.setLocalStorageData(); Removed because on some layers the system was crashing. Need to fix this.
+    // }
 
     ngAfterViewInit() {
         this.setMap();
         this.setControls();
-        this.getLocalStorageData();
+        // this.getLocalStorageData(); Removed because on some layers the system was crashing. Need to fix this.
         this.setBaseLayers();
         this.setOverlayEvents();
         this.authService.user.subscribe(user => {
