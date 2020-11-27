@@ -426,7 +426,7 @@ export class ReportService {
                         backgroundColor: allBurningColor,
                     },
                     {
-                        label:prohibitivePeriodTitle,
+                        label: prohibitivePeriodTitle,
                         data: prohibitivePeriod,
                         backgroundColor: prohibitivePeriodColor,
                     },
