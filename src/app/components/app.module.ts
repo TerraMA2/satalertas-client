@@ -66,7 +66,7 @@ import {SidebarItemComponent} from './sidebar/sidebar-menu/sidebar-item/sidebar-
 import {SidebarFooterComponent} from './sidebar/sidebar-footer/sidebar-footer.component';
 import {SidebarLayerComponent} from './sidebar/sidebar-menu/sidebar-layer/sidebar-layer/sidebar-layer.component';
 import {VisibleLayersComponent} from './map/visible-layers/visible-layers.component';
-import {PopupLinkComponent} from './map/popup-link/popup-link.component';
+import {PopupComponent} from './map/popup/popup.component';
 import {GraphicsAreaComponent} from './dashboard/graphics-area/graphics-area.component';
 import {CardAreaComponent} from './dashboard/card-area/card-area.component';
 import {CardButtonComponent} from './dashboard/card-area/card-button/card-button.component';
@@ -120,7 +120,7 @@ registerLocaleData(localePt, 'pt');
         SidebarLayerGroupComponent,
         SidebarLayerComponent,
         VisibleLayersComponent,
-        PopupLinkComponent,
+        PopupComponent,
         GraphicsAreaComponent,
         CardAreaComponent,
         CardButtonComponent,
@@ -181,7 +181,7 @@ registerLocaleData(localePt, 'pt');
         Title,
         MessageService
     ],
-    entryComponents: [PopupLinkComponent],
+    entryComponents: [PopupComponent],
     bootstrap: [AppComponent]
 })
 export class AppModule {

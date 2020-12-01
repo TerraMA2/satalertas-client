@@ -26,7 +26,7 @@ import {LayerGroup} from 'src/app/models/layer-group.model';
 
 import {FilterService} from '../../services/filter.service';
 
-import {LinkPopupService} from 'src/app/services/link-popup.service';
+import {PopupService} from 'src/app/services/popup.service';
 
 import {MapState} from 'src/app/models/map-state.model';
 
@@ -92,7 +92,7 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
         private tableService: TableService,
         private mapService: MapService,
         private filterService: FilterService,
-        private linkPopupService: LinkPopupService,
+        private linkPopupService: PopupService,
         private authService: AuthService
     ) {
     }
@@ -159,57 +159,56 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
         this.setMarkersGroup();
     }
 
-    getLocalStorageData() {
-        if (sessionStorage.getItem('mapState')) {
-            const mapState: MapState = JSON.parse(sessionStorage.getItem('mapState'));
-            this.selectedBaseLayer = mapState.selectedBaseLayer;
-            const previousSelectedLayers: Layer[] = mapState.selectedLayers;
-            const previousLatLong = mapState.mapLatLong;
-            const previousZoom = mapState.mapZoom;
-            this.selectedMarker = mapState.selectedMaker;
+    // getLocalStorageData() {
+    //     if (sessionStorage.getItem('mapState')) {
+    //         const mapState: MapState = JSON.parse(sessionStorage.getItem('mapState'));
+    //         this.selectedBaseLayer = mapState.selectedBaseLayer;
+    //         const previousSelectedLayers: Layer[] = mapState.selectedLayers;
+    //         const previousLatLong = mapState.mapLatLong;
+    //         const previousZoom = mapState.mapZoom;
+    //         this.selectedMarker = mapState.selectedMaker;
+    //
+    //         if (previousSelectedLayers && previousSelectedLayers.length > 0) {
+    //             previousSelectedLayers.forEach((layer: Layer) => {
+    //                 this.addLayer(layer, true);
+    //                 if (layer.markerSelected) {
+    //                     this.selectedPrimaryLayer = layer;
+    //                     this.updateMarkers(layer);
+    //                 }
+    //             });
+    //         } else {
+    //             if (this.selectedMarker) {
+    //                 const marker = this.createMarker(this.selectedMarker.title,
+    //                     this.selectedMarker.latLong,
+    //                     this.selectedMarker.overlayName,
+    //                     this.selectedMarker.link
+    //                 );
+    //                 this.markerClusterGroup.addLayer(marker);
+    //                 this.markerClusterGroup.addTo(this.map);
+    //                 marker.fire('click');
+    //             }
+    //         }
+    //         this.panMap(previousLatLong, previousZoom);
+    //     }
+    //     sessionStorage.removeItem('mapState');
+    // }
 
-            if (previousSelectedLayers && previousSelectedLayers.length > 0) {
-                previousSelectedLayers.forEach((layer: Layer) => {
-                    this.addLayer(layer, true);
-                    if (layer.markerSelected) {
-                        this.selectedPrimaryLayer = layer;
-                        this.updateMarkers(layer);
-                    }
-                });
-            } else {
-                if (this.selectedMarker) {
-                    const marker = this.createMarker(this.selectedMarker.title,
-                        this.selectedMarker.content,
-                        this.selectedMarker.latLong,
-                        this.selectedMarker.overlayName,
-                        this.selectedMarker.link
-                    );
-                    this.markerClusterGroup.addLayer(marker);
-                    this.markerClusterGroup.addTo(this.map);
-                    marker.fire('click');
-                }
-            }
-            this.panMap(previousLatLong, previousZoom);
-        }
-        sessionStorage.removeItem('mapState');
-    }
-
-    setLocalStorageData() {
-        if (this.selectedLayers) {
-            const mapState = new MapState(
-                this.selectedLayers,
-                this.selectedMarker,
-                this.map.getZoom(),
-                [
-                    this.map.getCenter().lat,
-                    this.map.getCenter().lng
-                ],
-                this.tableReportActive,
-                this.selectedBaseLayer
-            );
-            sessionStorage.setItem('mapState', JSON.stringify(mapState));
-        }
-    }
+    // setLocalStorageData() {
+    //     if (this.selectedLayers) {
+    //         const mapState = new MapState(
+    //             this.selectedLayers,
+    //             this.selectedMarker,
+    //             this.map.getZoom(),
+    //             [
+    //                 this.map.getCenter().lat,
+    //                 this.map.getCenter().lng
+    //             ],
+    //             this.tableReportActive,
+    //             this.selectedBaseLayer
+    //         );
+    //         sessionStorage.setItem('mapState', JSON.stringify(mapState));
+    //     }
+    // }
 
     setBaseLayers() {
         this.mapConfig.baselayers.forEach(baseLayerData => {
@@ -230,16 +229,17 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
         });
     }
 
-    async setMarkers(data, popupTitle, overlayName, columnCarGid) {
+    async setMarkers(data, carRegister, layer, columnCarGid) {
         this.clearMarkerInfo();
 
         this.layerControl.removeLayer(this.markerClusterGroup);
 
         data.forEach(markerData => {
-            const popup = markerData[popupTitle.estadual] ? markerData[popupTitle.estadual] : markerData[popupTitle.federal];
+            const popupTitle = markerData[carRegister.estadual] ? markerData[carRegister.estadual] : markerData[carRegister.federal];
             const link = `/report/${markerData[columnCarGid]}`;
-
-            const marker = this.createMarker(popup, '', [markerData.lat, markerData.long], overlayName, link, markerData);
+            const layerLabel = layer.label;
+            const codGroup = layer.codGroup;
+            const marker = this.createMarker(popupTitle, [markerData.lat, markerData.long], layerLabel, markerData[columnCarGid], codGroup, link);
 
             if (marker) {
                 this.markerClusterGroup.addLayer(marker);
@@ -256,15 +256,9 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
         }
     }
 
-    createMarker(popupTitle, popupContent, latLong, overlayName, link = '', markerData = null) {
-        const marker = L.marker(latLong, {title: popupTitle});
-        if (link) {
-            const primaryLayer = this.selectedPrimaryLayer;
-            this.linkPopupService.register(marker, link, 'Síntese', primaryLayer, markerData);
-            marker.on('popupopen', () =>
-                this.selectedMarker = new SelectedMarker(overlayName, popupTitle, popupContent, latLong, link)
-            );
-        }
+    createMarker(title, latLong, layerLabel, gid, codGroup, link = '') {
+        const marker = L.marker(latLong, {title});
+        this.linkPopupService.register(marker, layerLabel, gid, codGroup, link);
         return marker;
     }
 
@@ -299,7 +293,13 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
     }
 
     async setTableMarker(markerData) {
+        this.markerClusterGroup.clearLayers();
+
         let propertyData = markerData.data;
+
+        const layer: Layer = markerData.layer;
+        const codGroup = layer['cod_group'];
+
         if (!Array.isArray(propertyData)) {
             propertyData = [propertyData];
         }
@@ -315,15 +315,14 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
 
             let carRegister = '';
 
-            let markerLabel = '';
+            let layerLabel = '';
 
             if (this.tableReportActive) {
-                markerLabel = 'CAR Validado';
+                layerLabel = 'CAR Validado';
                 carRegister = data.gid;
 
                 const cqlFilter = ` gid = ${data.gid} `;
 
-                // TODO: Set car layer dynamically
                 const layerData = {
                     url: `${environment.geoserverUrl}/wms`,
                     layers: 'terrama2_119:view119',
@@ -338,8 +337,7 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
 
                 this.tableSelectedLayer = newLayer;
             } else {
-                const layer: Layer = markerData.layer;
-                markerLabel = layer.label;
+                layerLabel = layer.label;
                 const newLayer = JSON.parse(JSON.stringify(layer));
 
                 this.tableSelectedLayer = this.addLayer(newLayer, false);
@@ -356,14 +354,9 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
                 this.clearMarkerInfo();
             }
 
-            const infoColumns = await this.configService.getInfoColumns().then((response: Response) => response.data['STATIC']);
-
-            const popupContent = this.mapService.getPopupContent(data, markerLabel, infoColumns);
-            this.markerInfo = this.createMarker(carRegister, popupContent, latLong, markerLabel, link);
+            this.markerInfo = this.createMarker(carRegister, latLong, layerLabel, carRegister, codGroup, link);
 
             this.markerClusterGroup.addLayer(this.markerInfo);
-
-            this.selectedMarker = new SelectedMarker(markerLabel, carRegister, popupContent, latLong, link);
         }
 
         this.markerClusterGroup.addTo(this.map);
@@ -475,9 +468,6 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
             }
             layer.markerSelected = false;
             this.clearMarkerInfo();
-            if (this.selectedMarker && this.selectedMarker.overlayName === layer.label) {
-                this.markerClusterGroup.clearLayers();
-            }
         });
 
         this.mapService.clearMarkers.subscribe(() => {
@@ -946,7 +936,7 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
 
     async getFeatureInfo(event: L.LeafletMouseEvent) {
         const latLong = event.latlng;
-        let popupContent = `<div class="popup-container">`;
+        let popupContent = `<div class="popup-container-feature-info">`;
 
         if (this.selectedLayers.length === 0) {
             popupContent += `<h2>Layer não encontrado.</h2>`;
@@ -986,11 +976,10 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
 
         this.clearMarkerInfo();
 
-        this.markerInfo = this.createMarker('info', popupContent, latLong, '', '');
-        if (this.markerInfo) {
-            this.markerInfo.addTo(this.map);
-            this.markerInfo.openPopup();
-        }
+        this.markerInfo = L.marker(latLong, {});
+        this.markerInfo.bindPopup(popupContent, {maxWidth: 500, maxHeight: 500});
+        this.markerInfo.addTo(this.map);
+        this.markerInfo.openPopup();
     }
 
     getWMSFeatureInfoParams(layer: L.TileLayer.WMS, event: L.LeafletMouseEvent) {
@@ -1058,9 +1047,9 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
             onAdd: () => {
                 const div = L.DomUtil.create('div');
                 div.innerHTML = `
-          <div id="restoreMapBtn" class="leaflet-control-layers leaflet-custom-icon leaflet-restore-map" title="Restaurar mapa">
-            <a><i class='fas fa-crosshairs'></i></a>
-          </div>`;
+                  <div id="restoreMapBtn" class="leaflet-control-layers leaflet-custom-icon leaflet-restore-map" title="Restaurar mapa">
+                    <a><i class='fas fa-crosshairs'></i></a>
+                  </div>`;
                 return div;
             }
         });
@@ -1188,6 +1177,6 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
             estadual: layer.type === LayerType.ANALYSIS ? 'de_car_validado_sema_numero_do1' : 'numero_do1'
         };
         this.hTTPService.get(url, params)
-            .subscribe(data => this.setMarkers(data, carRegisterColumn, layer.label, columnCarGid));
+            .subscribe(data => this.setMarkers(data, carRegisterColumn, layer, columnCarGid));
     }
 }

@@ -56,31 +56,29 @@ export class MapService {
             if (show) {
                 if (alias === 'CPF/CNPJ') {
                     popupContentBody += `
-            <tr>
-               <td>${alias}</td>
-               <td>${this.formatterCpfCnpj(data[key])}</td>
-               </tr>
-          `;
+                        <tr>
+                           <td>${alias}</td>
+                           <td>${this.formatterCpfCnpj(data[key])}</td>
+                        </tr>`;
                 } else {
                     popupContentBody += `
-              <tr>
-                <td>${alias}</td>
-                <td>${data[key]}</td>
-              </tr>
-          `;
+                        <tr>
+                            <td>${alias}</td>
+                            <td>${data[key]}</td>
+                        </tr>`;
                 }
             }
         });
 
         popupContent += `
-        <br />
-        <div class="table-responsive">
-          <table class="table table-hover">
-              <thead><th colspan="2">${name}</th></thead>
-              ${popupContentBody}
-          </table>
-        </div>
-    `;
+            <br />
+            <div class="table-responsive">
+              <table class="table table-hover">
+                  <thead><th colspan="2">${name}</th></thead>
+                  ${popupContentBody}
+              </table>
+            </div>
+        `;
 
         return popupContent;
     }
