@@ -139,7 +139,7 @@ export class TableComponent implements OnInit {
         }
         this.isLoading = true;
 
-        const url = this.configService.getAppConfig('layerUrls')[layer.type];
+        const url = this.configService.getAppConfig('layerUrls')[layer.type]['table'];
         const countTotal = true;
 
         const view = JSON.stringify(

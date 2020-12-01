@@ -1167,7 +1167,7 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
     private updateMarkers(layer: Layer) {
         this.markerClusterGroup.clearLayers();
 
-        const url = this.configService.getAppConfig('layerUrls')[layer.type];
+        const url = this.configService.getAppConfig('layerUrls')[layer.type]['markers'];
 
         const view = JSON.stringify(
             new View(
