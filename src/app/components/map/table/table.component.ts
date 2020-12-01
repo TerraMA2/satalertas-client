@@ -117,7 +117,6 @@ export class TableComponent implements OnInit {
             this.selectedLayer = selectedOption;
             this.selectedFilter = selectedOption;
             this.selectedFilterValue = selectedOption.value;
-            // this.selectedLayerValue = selectedOption.value;
             this.selectedFilterSortField = selectedOption.sortField;
             this.loadTableData(selectedOption, this.selectedRowsPerPage, 0, this.selectedFilterSortField, 1);
         });
@@ -156,7 +155,6 @@ export class TableComponent implements OnInit {
         this.showDeter =
             ((layer.cod_group === 'DETER') ||
                 (layer.cod_group === 'CAR'));
-
         this.showProdes =
             ((layer.cod_group === 'PRODES') ||
                 (layer.cod_group === 'CAR'));
@@ -240,7 +238,6 @@ export class TableComponent implements OnInit {
                     value: this.totalRecords
                 });
             }
-
         }
         this.isLoading = false;
     }
@@ -305,9 +302,7 @@ export class TableComponent implements OnInit {
 
     clearTable() {
         this.tableData = undefined;
-        // this.selectedLayer = undefined;
         this.selectedFilterValue = undefined;
-        // this.selectedLayerLabel = '';
         this.selectedLayerValue = 0;
         this.selectedColumns = undefined;
         this.selectedRowsPerPage = this.defaultRowsPerPage;
@@ -335,7 +330,7 @@ export class TableComponent implements OnInit {
             layer.value,
             layer.label.toUpperCase().replace(' ', '_'),
             layer.cod_group,
-          layer.cod_group !== 'CAR',
+            layer.cod_group !== 'CAR',
             true,
             layer.table_name,
             layer.table_name
@@ -361,7 +356,6 @@ export class TableComponent implements OnInit {
         this.isLoading = true;
         this.reportService.getReportById(report.id).then((response: Response) => {
             const reportResp = (response.status === 200) ? response.data : {};
-
             window.open(window.URL.createObjectURL(Util.base64toBlob(reportResp.base64, 'application/pdf')));
             this.isLoading = false;
         });
