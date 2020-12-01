@@ -57,8 +57,17 @@
 }
 
 :host ::ng-deep .popup-container {
+    overflow: hidden;
+    text-align: center;
+}
+
+:host ::ng-deep .popup-container-feature-info {
     overflow: auto;
     text-align: center;
+}
+
+:host ::ng-deep .leaflet-popup-content {
+    overflow: auto;
 }
 
 :host ::ng-deep .leaflet-control-coordinates {

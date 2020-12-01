@@ -23,7 +23,6 @@ import {Response} from '../../../models/response.model';
 import {Util} from '../../../utils/util';
 
 import {ExportService} from '../../../services/export.service';
-import {LayerType} from '../../../enum/layer-type.enum';
 
 @Component({
     selector: 'app-table',

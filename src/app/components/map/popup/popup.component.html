@@ -1,0 +1,16 @@
+<div class="popup-container">
+    <div class="table-container">
+        <table class="table table-hover">
+            <thead><th colspan="2">{{ layerLabel }}</th></thead>
+            <tbody>
+                <tr *ngFor="let data of tableData">
+                    <td>{{ data.key }}</td>
+                    <td>{{ data.value }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="link-container">
+        <a class="fas fa-file-invoice link" routerLink="{{ link }}">&nbsp;Síntese</a>
+    </div>
+</div>
