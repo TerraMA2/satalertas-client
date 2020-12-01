@@ -238,7 +238,7 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
             const popupTitle = markerData[carRegister.estadual] ? markerData[carRegister.estadual] : markerData[carRegister.federal];
             const link = `/report/${markerData[columnCarGid]}`;
             const layerLabel = layer.label;
-            const codGroup = layer.codGroup;
+            const codGroup = layer.codgroup;
             const marker = this.createMarker(popupTitle, [markerData.lat, markerData.long], layerLabel, markerData[columnCarGid], codGroup, link);
 
             if (marker) {
