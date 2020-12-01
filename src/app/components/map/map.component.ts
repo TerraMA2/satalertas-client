@@ -238,7 +238,7 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
             const popupTitle = markerData[carRegister.estadual] ? markerData[carRegister.estadual] : markerData[carRegister.federal];
             const layerLabel = 'Descrição do CAR';
             const codGroup = layer.codgroup;
-            const marker = this.createMarker(popupTitle, [markerData.lat, markerData.long], layerLabel, markerData[columnCarGid], codGroup);
+            const marker = this.createMarker(popupTitle, [markerData.lat, markerData.long], layerLabel, markerData[columnCarGid], codGroup, layer);
 
             if (marker) {
                 this.markerClusterGroup.addLayer(marker);
@@ -255,9 +255,9 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
         }
     }
 
-    createMarker(title, latLong, layerLabel, gid, codGroup) {
+    createMarker(title, latLong, layerLabel, gid, codGroup, layer = null) {
         const marker = L.marker(latLong, {title});
-        this.linkPopupService.register(marker, layerLabel, gid, codGroup);
+        this.linkPopupService.register(marker, layerLabel, gid, codGroup, layer);
         return marker;
     }
 

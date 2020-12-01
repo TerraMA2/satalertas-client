@@ -5,6 +5,9 @@ import * as L from 'leaflet';
 import {ConfigService} from './config.service';
 
 import {PopupComponent} from '../components/map/popup/popup.component';
+import {FilterService} from './filter.service';
+import {View} from '../models/view.model';
+import {LayerType} from '../enum/layer-type.enum';
 
 @Injectable({
     providedIn: 'root'
@@ -14,16 +17,27 @@ export class PopupService {
     constructor(private cfr: ComponentFactoryResolver,
                 private injector: Injector,
                 private appRef: ApplicationRef,
-                private configService: ConfigService
+                private configService: ConfigService,
+                private filterService: FilterService
     ) {
     }
 
-    register(marker: L.Marker, layerLabel: string, gid, codGroup): void {
-        marker.on('click', $event => this.popup($event.target, layerLabel, gid, codGroup));
+    register(marker: L.Marker, layerLabel: string, gid, codGroup, layer = null): void {
+        marker.on('click', $event => this.popup($event.target, layerLabel, gid, codGroup, layer));
     }
 
-    async popup(marker: L.Marker, layerLabel: string, gid, codGroup) {
-        const data = await this.configService.getPopupInfo(gid, codGroup).then((response: Response) => response['data']);
+    async popup(marker: L.Marker, layerLabel: string, gid, codGroup, layer = null) {
+        const view = new View(
+            layer.value,
+            layer.cod,
+            layer.codgroup,
+            (layer.type === LayerType.ANALYSIS),
+            layer.isPrimary,
+            layer.tableOwner,
+            layer.tableName
+        );
+        const filter = this.filterService.getParams(view);
+        const data = await this.configService.getPopupInfo(gid, codGroup, filter).then((response: Response) => response['data']);
         const reportLink = '/finalReport/';
         const linkSynthesis = '/report/' + gid;
         let linkDETER = null;
