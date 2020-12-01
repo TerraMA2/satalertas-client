@@ -38,7 +38,6 @@ export class FilterService {
         const specificParameters = JSON.stringify(value);
         const filterParam = JSON.parse(localStorage.getItem('filterList'));
 
-        // @ts-ignore
         const filterNew = new FilterParam(
             (filterParam && filterParam.themeSelected ? filterParam.themeSelected : {value: 'ALL'}),
             (filterParam && filterParam.alertType ? filterParam.alertType : {radioValue: 'ALL', analyses: []}),
