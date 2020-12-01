@@ -8,7 +8,7 @@ import {Component, OnInit} from '@angular/core';
 export class PopupComponent implements OnInit {
     public layerLabel: string;
     public tableData;
-    public link: string;
+    public linkSynthesis: string;
     public linkDETER: string;
     public linkPRODES: string;
     public linkBurnlight: string;

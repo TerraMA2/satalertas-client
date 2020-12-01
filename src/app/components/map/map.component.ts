@@ -236,10 +236,9 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
 
         data.forEach(markerData => {
             const popupTitle = markerData[carRegister.estadual] ? markerData[carRegister.estadual] : markerData[carRegister.federal];
-            const link = `/report/${markerData[columnCarGid]}`;
-            const layerLabel = layer.label;
+            const layerLabel = 'Descrição do CAR';
             const codGroup = layer.codgroup;
-            const marker = this.createMarker(popupTitle, [markerData.lat, markerData.long], layerLabel, markerData[columnCarGid], codGroup, link);
+            const marker = this.createMarker(popupTitle, [markerData.lat, markerData.long], layerLabel, markerData[columnCarGid], codGroup);
 
             if (marker) {
                 this.markerClusterGroup.addLayer(marker);
@@ -256,9 +255,9 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
         }
     }
 
-    createMarker(title, latLong, layerLabel, gid, codGroup, link = '') {
+    createMarker(title, latLong, layerLabel, gid, codGroup) {
         const marker = L.marker(latLong, {title});
-        this.linkPopupService.register(marker, layerLabel, gid, codGroup, link);
+        this.linkPopupService.register(marker, layerLabel, gid, codGroup);
         return marker;
     }
 
@@ -296,7 +295,6 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
         this.markerClusterGroup.clearLayers();
 
         let propertyData = markerData.data;
-
         const layer: Layer = markerData.layer;
         const codGroup = layer['cod_group'];
 
@@ -311,50 +309,34 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
         for (const data of propertyData) {
             latLong = [data.lat, data.long];
 
-            let link = null;
-
             let carRegister = '';
 
             let layerLabel = '';
 
-            if (this.tableReportActive) {
-                layerLabel = 'CAR Validado';
-                carRegister = data.gid;
+            layerLabel = 'Descrição do CAR';
+            carRegister = data.gid;
 
-                const cqlFilter = ` gid = ${data.gid} `;
+            const cqlFilter = ` gid = ${data.gid} `;
 
-                const layerData = {
-                    url: `${environment.geoserverUrl}/wms`,
-                    layers: 'terrama2_119:view119',
-                    transparent: true,
-                    format: 'image/png',
-                    version: '1.1.0',
-                    cql_filter: cqlFilter
-                };
-                const newLayer = this.getLayer(layerData);
+            const layerData = {
+                url: `${environment.geoserverUrl}/wms`,
+                layers: 'terrama2_119:view119',
+                transparent: true,
+                format: 'image/png',
+                version: '1.1.0',
+                cql_filter: cqlFilter
+            };
+            const newLayer = this.getLayer(layerData);
 
-                newLayer.addTo(this.map);
+            newLayer.addTo(this.map);
 
-                this.tableSelectedLayer = newLayer;
-            } else {
-                layerLabel = layer.label;
-                const newLayer = JSON.parse(JSON.stringify(layer));
-
-                this.tableSelectedLayer = this.addLayer(newLayer, false);
-
-                const carRegisterKey = Object.keys(data).find(key => key.includes(layer.carRegisterColumn));
-                carRegister = data[carRegisterKey];
-            }
-
-            if (carRegister) {
-                link = `/report/${carRegister}`;
-            }
+            this.tableSelectedLayer = newLayer;
 
             if (propertyCount === 1) {
                 this.clearMarkerInfo();
             }
 
-            this.markerInfo = this.createMarker(carRegister, latLong, layerLabel, carRegister, codGroup, link);
+            this.markerInfo = this.createMarker(carRegister, latLong, layerLabel, carRegister, codGroup);
 
             this.markerClusterGroup.addLayer(this.markerInfo);
         }
