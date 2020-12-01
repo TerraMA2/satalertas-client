@@ -70,6 +70,13 @@ export class ConfigService {
         return await this.http.get(url, {params: parameters}).toPromise();
     }
 
+    async getPopupInfo(gid, codGroup) {
+        const parameters = {gid, codGroup};
+        const url = `${URL_REPORT_SERVER}/config/getPopupInfo`;
+
+        return await this.http.get(url, {params: parameters}).toPromise();
+    }
+
     async getReportLayers() {
         const parameters = {};
         const url = `${URL_REPORT_SERVER}/view/getReportLayers`;

@@ -1,0 +1,51 @@
+<div class="popup-container">
+    <div class="table-container">
+        <table class="table table-hover">
+            <thead>
+            <th colspan="2">{{ layerLabel }}</th>
+            </thead>
+            <tbody>
+            <tr *ngFor="let data of tableData">
+                <td>{{ data.key }}</td>
+                <td>{{ data.value }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="link-container">
+        <a href="{{ link }}"
+           class="btn btn-icon ui-button-raised view-report-icon icon-margin synthesis-link"
+           pButton
+           pTooltip="Visualizar Síntese"
+           tooltipPosition="top">
+            <span class="fas fa-file-invoice"></span>
+        </a>
+        <div *ngIf="linkDETER">
+            <a href="{{ linkDETER }}"
+               class="btn btn-icon ui-button-raised view-report-icon icon-margin"
+               pButton
+               pTooltip="Visualizar relatório Deter"
+               tooltipPosition="top">
+                <img src="assets/img/ico/deter32x32.png"/>
+            </a>
+        </div>
+        <div *ngIf="linkPRODES">
+            <a href="{{ linkPRODES }}"
+               class="btn btn-icon ui-button-raised view-report-icon icon-margin"
+               pButton
+               pTooltip="Visualizar relatório Prodes"
+               tooltipPosition="top">
+                <img src="assets/img/ico/prodes32x32.png"/>
+            </a>
+        </div>
+        <div *ngIf="linkBurnlight">
+            <a href="{{ linkBurnlight }}"
+               class="btn btn-icon ui-button-raised view-report-icon icon-margin"
+               pButton
+               pTooltip="Visualizar relatório Queimada"
+               tooltipPosition="top">
+                <img src="assets/img/ico/queima.ico"/>
+            </a>
+        </div>
+    </div>
+</div>
