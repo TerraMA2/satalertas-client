@@ -236,7 +236,7 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
 
         data.forEach(markerData => {
             const popupTitle = markerData[carRegister.estadual] ? markerData[carRegister.estadual] : markerData[carRegister.federal];
-            const layerLabel = layer.label;
+            const layerLabel = 'Descrição do CAR';
             const codGroup = layer.codgroup;
             const marker = this.createMarker(popupTitle, [markerData.lat, markerData.long], layerLabel, markerData[columnCarGid], codGroup);
 
@@ -313,7 +313,7 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
 
             let layerLabel = '';
 
-            layerLabel = 'CAR Validado';
+            layerLabel = 'Descrição do CAR';
             carRegister = data.gid;
 
             const cqlFilter = ` gid = ${data.gid} `;
