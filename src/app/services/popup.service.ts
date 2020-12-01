@@ -18,13 +18,14 @@ export class PopupService {
     ) {
     }
 
-    register(marker: L.Marker, layerLabel: string, gid, codGroup, link: string): void {
-        marker.on('click', $event => this.popup($event.target, layerLabel, gid, codGroup, link));
+    register(marker: L.Marker, layerLabel: string, gid, codGroup): void {
+        marker.on('click', $event => this.popup($event.target, layerLabel, gid, codGroup));
     }
 
-    async popup(marker: L.Marker, layerLabel: string, gid, codGroup, link: string) {
+    async popup(marker: L.Marker, layerLabel: string, gid, codGroup) {
         const data = await this.configService.getPopupInfo(gid, codGroup).then((response: Response) => response['data']);
         const reportLink = '/finalReport/';
+        const linkSynthesis = '/report/' + gid;
         let linkDETER = null;
         let linkPRODES = null;
         let linkBurnlight = null;
@@ -40,7 +41,7 @@ export class PopupService {
 
         const cmpFactory = this.cfr.resolveComponentFactory(PopupComponent);
         const componentRef = cmpFactory.create(this.injector);
-        componentRef.instance.link = link;
+        componentRef.instance.linkSynthesis = linkSynthesis;
         componentRef.instance.linkDETER = linkDETER;
         componentRef.instance.linkPRODES = linkPRODES;
         componentRef.instance.linkBurnlight = linkBurnlight;
