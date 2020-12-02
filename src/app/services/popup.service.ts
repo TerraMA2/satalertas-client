@@ -58,7 +58,6 @@ export class PopupService {
       case 'PRODES':
         layerLabel += ' - PRODES';
         linkDETER = '';
-        linkPRODES = '';
         linkBurnlight = '';
         break;
       case 'BURNED':
