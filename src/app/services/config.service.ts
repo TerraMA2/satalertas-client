@@ -72,7 +72,7 @@ export class ConfigService {
 
     async getPopupInfo(gid, codGroup, filter) {
         const parameters = {gid, codGroup, filter};
-        const url = `${URL_REPORT_SERVER}/config/getPopupInfo`;
+        const url = `${URL_REPORT_SERVER}/map/getPopupInfo`;
 
         return await this.http.get(url, {params: parameters}).toPromise();
     }

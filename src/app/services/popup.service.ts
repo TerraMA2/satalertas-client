@@ -36,8 +36,8 @@ export class PopupService {
             layer.tableOwner,
             layer.tableName
         );
-        const filter = this.filterService.getParams(view);
-        const data = await this.configService.getPopupInfo(gid, codGroup, filter).then((response: Response) => response['data']);
+        const filter = JSON.stringify(this.filterService.getParams(view));
+        const data = await this.configService.getPopupInfo(gid, codGroup, filter).then((response: Response) => { console.log(response);  return response['data']; });
         const reportLink = '/finalReport/';
         const linkSynthesis = '/report/' + gid;
         let linkDETER = null;
