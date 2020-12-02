@@ -909,7 +909,7 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
             popupContent += `<h2>Layer não encontrado.</h2>`;
         }
 
-        const infoColumns = await this.configService.getInfoColumns().then((response: Response) => response.data);
+        const infoColumns = await this.configService.getInfoColumns().then((response: Response) => response);
 
         let popupTable = '';
         for (const selectedLayer of this.selectedLayers) {
@@ -960,7 +960,7 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
         return {
             request: 'GetFeatureInfo',
             service: 'WMS',
-            srs: 'EPSG:4326',
+            srs: 'EPSG:4674',
             styles: layer.wmsParams.styles,
             transparent: layer.wmsParams.transparent,
             version: layer.wmsParams.version,
@@ -987,7 +987,7 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
         return {
             request: 'GetFeature',
             service: 'WFS',
-            srs: 'EPSG:4326',
+            srs: 'EPSG:4674',
             version: '2.0',
             outputFormat: 'application/json',
             typeNames: layer.wmsParams.layers,
@@ -1123,7 +1123,7 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
     private updateMarkers(layer: Layer) {
         this.markerClusterGroup.clearLayers();
 
-        const url = this.configService.getAppConfig('layerUrls')[layer.type];
+        const url = this.configService.getAppConfig('layerUrls')[layer.type]['markers'];
 
         const view = JSON.stringify(
             new View(
