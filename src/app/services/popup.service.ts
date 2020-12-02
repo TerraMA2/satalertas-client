@@ -5,8 +5,11 @@ import * as L from 'leaflet';
 import {ConfigService} from './config.service';
 
 import {PopupComponent} from '../components/map/popup/popup.component';
+
 import {FilterService} from './filter.service';
+
 import {View} from '../models/view.model';
+
 import {LayerType} from '../enum/layer-type.enum';
 
 @Injectable({
@@ -22,35 +25,48 @@ export class PopupService {
     ) {
     }
 
-    register(marker: L.Marker, layerLabel: string, gid, codGroup, layer = null): void {
+    register(marker: L.Marker, layerLabel: string, gid, codGroup, layer?): void {
         marker.on('click', $event => this.popup($event.target, layerLabel, gid, codGroup, layer));
     }
 
-    async popup(marker: L.Marker, layerLabel: string, gid, codGroup, layer = null) {
-        const view = new View(
-            layer.value,
-            layer.cod,
-            layer.codgroup,
-            (layer.type === LayerType.ANALYSIS),
-            layer.isPrimary,
-            layer.tableOwner,
-            layer.tableName
-        );
-        const filter = JSON.stringify(this.filterService.getParams(view));
-        const data = await this.configService.getPopupInfo(gid, codGroup, filter).then((response: Response) => response );
+    async popup(marker: L.Marker, layerLabel: string, gid, codGroup, layer?) {
+        let filter = null;
+        if (layer) {
+            const view = new View(
+                layer.value,
+                layer.cod,
+                layer.codgroup,
+                (layer.type === LayerType.ANALYSIS),
+                layer.isPrimary,
+                layer.tableOwner,
+                layer.tableName
+            );
+            filter = this.filterService.getParams(view);
+        }
+
+        const data = await this.configService.getPopupInfo(gid, codGroup, filter).then((response: Response) => response);
         const reportLink = '/finalReport/';
         const linkSynthesis = '/report/' + gid;
-        let linkDETER = null;
-        let linkPRODES = null;
-        let linkBurnlight = null;
-        if (codGroup === 'STATIC' || codGroup === 'CAR' || codGroup === 'DETER') {
-            linkDETER = reportLink + 'deter/' + gid;
-        }
-        if (codGroup === 'STATIC' || codGroup === 'CAR' || codGroup === 'PRODES') {
-            linkPRODES = reportLink + 'prodes/' + gid;
-        }
-        if (codGroup === 'STATIC' || codGroup === 'CAR' || codGroup === 'BURNED') {
-            linkBurnlight = reportLink + 'queimada/' + gid;
+        let linkDETER = reportLink + 'deter/' + gid;
+        let linkPRODES = reportLink + 'prodes/' + gid;
+        let linkBurnlight = reportLink + 'queimada/' + gid;
+        switch (codGroup) {
+            case 'DETER':
+                layerLabel += ' - DETER';
+                linkPRODES = '';
+                linkBurnlight = '';
+                break;
+            case 'PRODES':
+                layerLabel += ' - PRODES';
+                linkDETER = '';
+                linkPRODES = '';
+                linkBurnlight = '';
+                break;
+            case 'BURNED':
+                layerLabel += ' - FOCOS';
+                linkDETER = '';
+                linkPRODES = '';
+                break;
         }
 
         const cmpFactory = this.cfr.resolveComponentFactory(PopupComponent);

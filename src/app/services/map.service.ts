@@ -4,6 +4,8 @@ import {Subject} from 'rxjs';
 
 import {Layer} from '../models/layer.model';
 import {Util} from '../utils/util';
+import * as L from 'leaflet';
+import {LatLngBounds} from 'leaflet';
 
 @Injectable({
     providedIn: 'root'
@@ -100,5 +102,27 @@ export class MapService {
         }
 
         return cpfCnpj ? cpfCnpj : '';
+    }
+
+    getLayerById(leafletId, map: L.Map) {
+        let layer = null;
+        map.eachLayer((tileLayer: L.TileLayer.WMS) => {
+            if (leafletId === tileLayer['_leaflet_id']) {
+                layer =  tileLayer;
+            }
+        });
+        return layer;
+    }
+    setOpacity(layer: Layer, value: number, map: L.Map) {
+        const tileLayer: L.TileLayer.WMS = this.getLayerById(layer.leafletId, map);
+        value = value / 100;
+        tileLayer.setOpacity(value);
+    }
+
+    setExtent(layer: Layer, map: L.Map) {
+        // const tileLayer: L.TileLayer.WMS = this.getLayerById(layer.leafletId, map);
+        const bbox = layer.layerData.bbox;
+        const latLngBounds = new LatLngBounds([0, 0], [0, 0]);
+        map.fitBounds(latLngBounds);
     }
 }

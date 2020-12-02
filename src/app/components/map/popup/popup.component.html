@@ -2,13 +2,15 @@
     <div class="table-container">
         <table class="table table-hover">
             <thead>
-            <th colspan="2">{{ layerLabel }}</th>
+                <th colspan="2">{{ layerLabel }}</th>
             </thead>
             <tbody>
-            <tr *ngFor="let data of tableData">
-                <td>{{ data.key }}</td>
-                <td>{{ data.value }}</td>
-            </tr>
+                <tr *ngFor="let data of tableData">
+                    <td>{{ data.key }}</td>
+                    <td *ngIf="!data.type">{{ data.value }}</td>
+                    <td *ngIf="data.type == 'decimal'">{{ data.value | number:'1.0-2':'pt' }}</td>
+                    <td *ngIf="data.type == 'cpf'">{{ formatCPFCNPJ(data.value) }}</td>
+                </tr>
             </tbody>
         </table>
     </div>

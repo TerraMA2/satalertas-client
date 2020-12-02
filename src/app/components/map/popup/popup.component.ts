@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
+import {MapService} from '../../../services/map.service';
+
 @Component({
     selector: 'app-popup',
     templateUrl: './popup.component.html',
@@ -13,10 +15,14 @@ export class PopupComponent implements OnInit {
     public linkPRODES: string;
     public linkBurnlight: string;
 
-    constructor() {
+    constructor(
+        public mapService: MapService) {
     }
 
     ngOnInit() {
     }
 
+    formatCPFCNPJ(data) {
+        return this.mapService.formatterCpfCnpj(data);
+    }
 }
