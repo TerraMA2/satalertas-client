@@ -28,8 +28,6 @@ import {FilterService} from '../../services/filter.service';
 
 import {PopupService} from 'src/app/services/popup.service';
 
-import {MapState} from 'src/app/models/map-state.model';
-
 import {LayerInfo} from 'src/app/models/layer-info.model';
 
 import {LayerInfoFeature} from 'src/app/models/layer-info-feature.model';
@@ -47,8 +45,6 @@ import {AuthService} from 'src/app/services/auth.service';
 import {Response} from '../../models/response.model';
 
 import {environment} from 'src/environments/environment';
-
-import {LatLngBounds} from 'leaflet';
 
 @Component({
     selector: 'app-map',
@@ -255,7 +251,7 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
         }
     }
 
-    createMarker(title, latLong, layerLabel, gid, codGroup, layer = null) {
+    createMarker(title, latLong, layerLabel, gid, codGroup, layer?) {
         const marker = L.marker(latLong, {title});
         this.linkPopupService.register(marker, layerLabel, gid, codGroup, layer);
         return marker;
@@ -267,22 +263,11 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
     }
 
     setOpacity(layer: Layer, value: number) {
-        this.map.eachLayer((tileLayer: L.TileLayer.WMS) => {
-            if (layer.leafletId === tileLayer['_leaflet_id']) {
-                value = value / 100;
-                tileLayer.setOpacity(value);
-            }
-        });
+        this.mapService.setOpacity(layer, value, this.map);
     }
 
-    layerExtent(layer: Layer) {
-        this.map.eachLayer((tileLayer: L.Layer) => {
-            if (layer.leafletId === tileLayer['_leaflet_id']) {
-                const bbox = layer.layerData.bbox;
-                const latLngBounds = new LatLngBounds([0, 0], [0, 0]);
-                this.map.fitBounds(latLngBounds);
-            }
-        });
+    setExtent(layer: Layer) {
+        this.mapService.setExtent(layer, this.map);
     }
 
     clearMap() {
@@ -336,7 +321,7 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
                 this.clearMarkerInfo();
             }
 
-            this.markerInfo = this.createMarker(carRegister, latLong, layerLabel, carRegister, codGroup);
+            this.markerInfo = this.createMarker(carRegister, latLong, layerLabel, carRegister, codGroup, layer);
 
             this.markerClusterGroup.addLayer(this.markerInfo);
         }
@@ -356,7 +341,7 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
         });
 
         this.mapService.layerExtent.subscribe(layer => {
-            this.layerExtent(layer);
+            this.mapService.setExtent(layer, this.map);
         });
 
         this.mapService.layerToolOpen.subscribe((toolClicked) => {
