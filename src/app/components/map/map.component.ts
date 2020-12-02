@@ -924,7 +924,7 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
             popupContent += `<h2>Layer não encontrado.</h2>`;
         }
 
-        const infoColumns = await this.configService.getInfoColumns().then((response: Response) => response.data);
+        const infoColumns = await this.configService.getInfoColumns().then((response: Response) => response);
 
         let popupTable = '';
         for (const selectedLayer of this.selectedLayers) {

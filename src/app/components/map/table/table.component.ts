@@ -190,7 +190,7 @@ export class TableComponent implements OnInit {
 
             if (data[0]) {
                 if (!this.tableReportActive) {
-                    const infoColumns = await this.configService.getInfoColumns().then((response: Response) => response.data);
+                    const infoColumns = await this.configService.getInfoColumns().then((response: Response) => response);
                     const changedData = [];
                     Object.keys(data[0]).forEach(key => {
                         const column = infoColumns && infoColumns[group] ? infoColumns[group][key] : '';
