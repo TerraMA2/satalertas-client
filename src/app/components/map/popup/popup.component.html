@@ -15,7 +15,7 @@
         </table>
     </div>
     <div class="link-container">
-        <a href="{{ linkSynthesis }}"
+        <a routerLink="{{ linkSynthesis }}"
            class="btn btn-icon ui-button-raised view-report-icon icon-margin synthesis-link"
            pButton
            pTooltip="Visualizar Síntese"
@@ -23,7 +23,7 @@
             <span class="fas fa-file-invoice"></span>
         </a>
         <div *ngIf="linkDETER">
-            <a href="{{ linkDETER }}"
+            <a routerLink="{{ linkDETER }}"
                class="btn btn-icon ui-button-raised view-report-icon icon-margin"
                pButton
                pTooltip="Visualizar relatório Deter"
@@ -32,7 +32,7 @@
             </a>
         </div>
         <div *ngIf="linkPRODES">
-            <a href="{{ linkPRODES }}"
+            <a routerLink="{{ linkPRODES }}"
                class="btn btn-icon ui-button-raised view-report-icon icon-margin"
                pButton
                pTooltip="Visualizar relatório Prodes"
@@ -41,7 +41,7 @@
             </a>
         </div>
         <div *ngIf="linkBurnlight">
-            <a href="{{ linkBurnlight }}"
+            <a routerLink="{{ linkBurnlight }}"
                class="btn btn-icon ui-button-raised view-report-icon icon-margin"
                pButton
                pTooltip="Visualizar relatório Queimada"
