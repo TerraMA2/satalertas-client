@@ -85,15 +85,20 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
             reportData.property.areaUsoCon = formatNumber(reportData.property.areaUsoCon, 'pt-BR', '1.0-4');
             reportData.property.prodesArea = formatNumber(reportData.property.prodesArea, 'pt-BR', '1.0-4');
 
-            const listPastDeforestation = reportData.property.tableVegRadam.pastDeforestation.split('\n');
-            let pastDeforestationStr = '';
-            for (const data of listPastDeforestation) {
-                const pastDeforestation = data.substring(0, data.indexOf(':'));
-                const valuePastDeforestation = formatNumber(data.substring(data.indexOf(':') + 1, data.length), 'pt-BR', '1.0-4');
+            if (reportData.property.tableVegRadam.pastDeforestation) {
+                const listPastDeforestation = reportData.property.tableVegRadam.pastDeforestation.split('\n');
+                let pastDeforestationStr = '';
+                for (const data of listPastDeforestation) {
+                    const pastDeforestation = data.substring(0, data.indexOf(':'));
+                    const valuePastDeforestation = formatNumber(data.substring(data.indexOf(':') + 1, data.length), 'pt-BR', '1.0-4');
 
-                pastDeforestationStr = pastDeforestationStr ? `${pastDeforestationStr}\n${pastDeforestation}: ${valuePastDeforestation}` : `${pastDeforestation}: ${valuePastDeforestation}`;
+                    pastDeforestationStr = pastDeforestationStr ? `${pastDeforestationStr}\n${pastDeforestation}: ${valuePastDeforestation}` : `${pastDeforestation}: ${valuePastDeforestation}`;
+                }
+                reportData.property.tableVegRadam.pastDeforestation = pastDeforestationStr;
+            } else {
+                reportData.property.tableVegRadam.pastDeforestation = '0';
             }
-            reportData.property.tableVegRadam.pastDeforestation = pastDeforestationStr;
+
             for (const data of reportData.prodesTableData) {
                 data.area = formatNumber(data.area, 'pt-BR', '1.0-4');
             }
