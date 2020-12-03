@@ -210,9 +210,10 @@ export class TableComponent implements OnInit {
         if (data) {
             this.selectedColumns = [];
             this.columns = [];
-            this.totalRecords = data.pop();
 
-            if (data[0]) {
+            this.totalRecords = 0;
+            if (data && Array.isArray(data)) {
+                this.totalRecords = data.pop();
                 if (!this.tableReportActive) {
                     const infoColumns = await this.configService.getInfoColumns().then((response: Response) => response);
                     const changedData = [];
