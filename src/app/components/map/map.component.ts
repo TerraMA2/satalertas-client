@@ -281,7 +281,7 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
 
         let propertyData = markerData.data;
         const layer: Layer = markerData.layer;
-        const codGroup = layer['cod_group'];
+        const codGroup = layer['codgroup'];
 
         if (!Array.isArray(propertyData)) {
             propertyData = [propertyData];

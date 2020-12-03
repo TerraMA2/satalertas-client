@@ -24,6 +24,8 @@ import {Util} from '../../../utils/util';
 
 import {ExportService} from '../../../services/export.service';
 
+import {ReportLayer} from '../../../models/report-layer.model';
+
 @Component({
     selector: 'app-table',
     templateUrl: './table.component.html',
@@ -45,7 +47,7 @@ export class TableComponent implements OnInit {
 
     selectedProperties;
 
-    selectedLayer;
+    selectedLayer: ReportLayer;
     selectedLayerLabel: string;
     selectedLayerValue: number;
 
@@ -57,9 +59,9 @@ export class TableComponent implements OnInit {
     defaultRowsPerPage = 10;
     selectedRowsPerPage: number = this.defaultRowsPerPage;
 
-    filters: object | any[];
-    selectedFilter;
-    selectedFilterValue: string;
+    filters: ReportLayer[];
+    selectedFilter: ReportLayer;
+    selectedFilterValue: number;
     selectedFilterSortField: string;
     selectedFilterLabel: string;
 
@@ -106,7 +108,29 @@ export class TableComponent implements OnInit {
             }
         });
 
-        this.filters = await this.configService.getReportLayers().then((reportLayer: Response) => reportLayer.data);
+        this.filters = await this.configService.getReportLayers().then((response: Response) => {
+            const data = response.data;
+            const reportLayers = [];
+            data.forEach((rl) => {
+                reportLayers.push(new ReportLayer(
+                    rl['cod_group'],
+                    rl['count'],
+                    rl['count_alias'],
+                    rl['is_dynamic'],
+                    rl['label'],
+                    rl['seq'],
+                    rl['sort_field'],
+                    rl['sum'],
+                    rl['sum_alias'],
+                    rl['sum_field'],
+                    rl['table_alias'],
+                    rl['table_name'],
+                    rl['type'],
+                    rl['value']
+                ));
+            });
+            return reportLayers;
+        });
 
         this.tableService.loadReportTableData.subscribe(() => {
             this.showBurn = true;
@@ -144,42 +168,42 @@ export class TableComponent implements OnInit {
             new View(
                 layer.value,
                 layer.cod,
-                layer.cod_group ? layer.cod_group : layer.codgroup,
-                layer.is_dynamic ? layer.is_dynamic : layer.type === 'analysis',
+                layer.codgroup ? layer.codgroup : layer.codgroup,
+                layer.isDynamic ? layer.isDynamic : layer.type === 'analysis',
                 layer.isPrimary === undefined ? true : layer.isPrimary,
-                layer.table_owner ? layer.table_owner : layer.tableOwner,
-                layer.table_name ? layer.table_name : layer.tableName
+                layer.tableOwner ? layer.tableOwner : layer.tableOwner,
+                layer.tableName ? layer.tableName : layer.tableName
             )
         );
 
         this.showDeter =
-            ((layer.cod_group === 'DETER') ||
-                (layer.cod_group === 'CAR'));
+            ((layer.codgroup === 'DETER') ||
+                (layer.codgroup === 'CAR'));
         this.showProdes =
-            ((layer.cod_group === 'PRODES') ||
-                (layer.cod_group === 'CAR'));
+            ((layer.codgroup === 'PRODES') ||
+                (layer.codgroup === 'CAR'));
         this.showBurn =
-            ((layer.cod_group === 'BURNED_AREA') ||
-                (layer.cod_group === 'BURNED') ||
-                (layer.cod_group === 'CAR'));
+            ((layer.codgroup === 'BURNED_AREA') ||
+                (layer.codgroup === 'BURNED') ||
+                (layer.codgroup === 'CAR'));
         const params = {view, limit, offset, countTotal};
 
         if (this.selectedFilter) {
             params['count'] = this.selectedFilter.count;
             params['sum'] = !this.showBurn ? this.selectedFilter.sum : false;
-            params['isDynamic'] = this.selectedFilter.is_dynamic;
-            params['tableAlias'] = this.selectedFilter.table_alias;
-            params['sumAlias'] = this.selectedFilter.sum_alias;
-            params['countAlias'] = this.selectedFilter.count_alias;
-            params['sumField'] = this.selectedFilter.sum_field;
+            params['isDynamic'] = this.selectedFilter.isDynamic;
+            params['tableAlias'] = this.selectedFilter.tableAlias;
+            params['sumAlias'] = this.selectedFilter.sumAlias;
+            params['countAlias'] = this.selectedFilter.countAlias;
+            params['sumField'] = this.selectedFilter.sumField;
         }
 
-        params['sortField'] = sortField ? sortField : this.selectedFilter && this.selectedFilter.sort_field ? this.selectedFilter.sort_field : undefined;
+        params['sortField'] = sortField ? sortField : this.selectedFilter && this.selectedFilter.sortField ? this.selectedFilter.sortField : undefined;
         params['sortOrder'] = sortOrder ?  sortOrder : 1;
 
         await this.hTTPService
             .get(url, this.filterService.getParams(params))
-            .subscribe(async data => await this.setData(data, layer.cod_group ? layer.cod_group : layer.codgroup));
+            .subscribe(async data => await this.setData(data, layer.codgroup ? layer.codgroup : layer.codgroup));
     }
 
     async setData(data, group) {
@@ -283,7 +307,7 @@ export class TableComponent implements OnInit {
         this.selectedLayer = selectedOption;
         this.selectedFilter = selectedOption;
         this.selectedFilterLabel = selectedOption.label;
-        this.loadTableData(selectedOption, this.selectedRowsPerPage, 0, selectedOption.sort_field, 1);
+        this.loadTableData(selectedOption, this.selectedRowsPerPage, 0, selectedOption.sortField, 1);
     }
 
     trackById(index, item) {
@@ -329,11 +353,11 @@ export class TableComponent implements OnInit {
         const view = new View(
             layer.value,
             layer.label.toUpperCase().replace(' ', '_'),
-            layer.cod_group,
-            layer.cod_group !== 'CAR',
+            layer.codgroup,
+            layer.codgroup !== 'CAR',
             true,
-            layer.table_name,
-            layer.table_name
+            layer.tableName,
+            layer.tableName
         );
 
         const params = await this.filterService.getParams(view);
@@ -347,7 +371,7 @@ export class TableComponent implements OnInit {
         params['fileFormats'] = selectedFormats.toString();
         params['selectedGids'] = selectedGids.toString();
 
-        await this.exportService.export(params, selectedFormats, layer.table_name);
+        await this.exportService.export(params, selectedFormats, layer.tableName);
 
         this.isLoading = false;
     }
