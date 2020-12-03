@@ -643,7 +643,7 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
             if (addLayer && !hasLayer) {
                 this.selectedLayers.push(layer);
             }
-            if (!hasLayer) {
+            // if (!hasLayer) { //comentei o IF para o filtro poder refazer a visualização do mapa quando aplicado.
                 layer = this.setFilter(layer);
                 layerToAdd = this.getLayer(layer.layerData);
                 layerToAdd.on('loading', () => this.isLoading = true);
@@ -657,7 +657,7 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
                 layerToAdd.setZIndex(1000 + this.selectedLayers.length);
                 layerToAdd.addTo(this.map);
                 layer.leafletId = layerToAdd._leaflet_id;
-            }
+            // }
         }
         return layerToAdd;
     }
