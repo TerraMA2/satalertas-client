@@ -405,7 +405,7 @@ export class ReportService {
         const burnLightData = burnData[0].data;
         const prohibitivePeriod = burnData[1].data;
         const burnTitle = burnData[0].title;
-        const prohibitivePeriodTitle = burnData[1].title
+        const prohibitivePeriodTitle = burnData[1].title;
 
         canvas.setAttribute('width', 600);
         canvas.setAttribute('height', 200);

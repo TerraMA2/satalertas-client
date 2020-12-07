@@ -7,6 +7,7 @@ import {ConfigService} from '../services/config.service';
 import {AuthService} from '../services/auth.service';
 
 import {environment} from 'src/environments/environment';
+
 import {SidebarService} from '../services/sidebar.service';
 
 @Component({

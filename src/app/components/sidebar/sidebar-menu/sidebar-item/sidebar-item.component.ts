@@ -28,7 +28,7 @@ export class SidebarItemComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getDropdownData();
+        // this.getDropdownData(); // DO NOT REMOVE
     }
 
     onSidebarItemClicked() {
@@ -40,21 +40,22 @@ export class SidebarItemComponent implements OnInit {
     }
 
     private getDropdownData() {
-        const dataUrl = this.sidebarItem.dataUrl;
-        if (dataUrl) {
-            this.dropdownData = [
-                {
-                    label: 'project1',
-                    value: 1
-                },
-                {
-                    label: 'project2',
-                    value: 2
-                }
-            ];
-            // this.hTTPService.get(dataUrl).subscribe((data: any) => {
-            //   this.dropdownData = data;
-            // });
-        }
+        // DO NOT REMOVE.
+        // const dataUrl = this.sidebarItem.dataUrl;
+        // if (dataUrl) {
+        //     this.dropdownData = [
+        //         {
+        //             label: 'project1',
+        //             value: 1
+        //         },
+        //         {
+        //             label: 'project2',
+        //             value: 2
+        //         }
+        //     ];
+        //     this.hTTPService.get(dataUrl).subscribe((data: any) => {
+        //       this.dropdownData = data;
+        //     });
+        // }
     }
 }
