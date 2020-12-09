@@ -1,49 +1,49 @@
 <p-toolbar>
-<!--    <div class="ui-toolbar-group-left">-->
-        <div class="p-grid">
-            <div class="p-col-4">
-                <button class="ui-button-raised"
-                        icon="fas fa-arrow-left"
-                        label="Voltar ao mapa"
-                        pButton
-                        routerLink="/map">
-                </button>
-            </div>
-            <div class="p-col-4">
-                <div *ngIf="isLoading" class="loading-report">
-                    <p-progressSpinner [style]="{width: '30px', height: '30px'}" strokeWidth="6"></p-progressSpinner>
-                </div>
-            </div>
-            <div class="p-col-4 text-right">
-                <button (click)="onViewReportClicked('deter')"
-                        class="btn btn-icon ui-button-raised view-report-icon"
-                        pButton
-                        pTooltip="Visualizar relatório Deter"
-                        tooltipPosition="top">
-                    <img src="assets/img/ico/deter32x32.png"/>
-                </button>
-                <button (click)="onViewReportClicked('prodes')"
-                        class="btn btn-icon ui-button-raised view-report-icon icon-margin"
-                        pButton
-                        pTooltip="Visualizar relatório Prodes"
-                        tooltipPosition="top">
-                    <img src="assets/img/ico/prodes32x32.png"/>
-                </button>
-                <button (click)="onViewReportClicked('queimada')"
-                        class="btn btn-icon ui-button-raised view-report-icon icon-margin"
-                        pButton
-                        pTooltip="Visualizar relatório Queimada"
-                        tooltipPosition="top">
-                    <img src="assets/img/ico/queima.ico"/>
-                </button>
+    <!--    <div class="ui-toolbar-group-left">-->
+    <div class="p-grid">
+        <div class="p-col-4">
+            <button class="ui-button-raised"
+                    icon="fas fa-arrow-left"
+                    label="Voltar ao mapa"
+                    pButton
+                    routerLink="/map">
+            </button>
+        </div>
+        <div class="p-col-4">
+            <div *ngIf="isLoading" class="loading-report">
+                <p-progressSpinner [style]="{width: '30px', height: '30px'}" strokeWidth="6"></p-progressSpinner>
             </div>
         </div>
+        <div class="p-col-4 text-right">
+            <button (click)="onViewReportClicked('deter')"
+                    class="btn btn-icon ui-button-raised view-report-icon"
+                    pButton
+                    pTooltip="Visualizar relatório Deter"
+                    tooltipPosition="top">
+                <img src="assets/img/ico/deter32x32.png"/>
+            </button>
+            <button (click)="onViewReportClicked('prodes')"
+                    class="btn btn-icon ui-button-raised view-report-icon icon-margin"
+                    pButton
+                    pTooltip="Visualizar relatório Prodes"
+                    tooltipPosition="top">
+                <img src="assets/img/ico/prodes32x32.png"/>
+            </button>
+            <button (click)="onViewReportClicked('queimada')"
+                    class="btn btn-icon ui-button-raised view-report-icon icon-margin"
+                    pButton
+                    pTooltip="Visualizar relatório Queimada"
+                    tooltipPosition="top">
+                <img src="assets/img/ico/queima.ico"/>
+            </button>
+        </div>
+    </div>
 
-<!--    </div>-->
+    <!--    </div>-->
 
-<!--    <div class="ui-toolbar-group-right">-->
+    <!--    <div class="ui-toolbar-group-right">-->
 
-<!--    </div>-->
+    <!--    </div>-->
 </p-toolbar>
 <p-scrollPanel [style]="{width: '100%', height: 'calc(100vh - 100px)'}">
     <div class="background-color-gray">

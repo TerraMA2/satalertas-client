@@ -199,7 +199,7 @@ export class TableComponent implements OnInit {
         }
 
         params['sortField'] = sortField ? sortField : this.selectedFilter && this.selectedFilter.sortField ? this.selectedFilter.sortField : undefined;
-        params['sortOrder'] = sortOrder ?  sortOrder : 1;
+        params['sortOrder'] = sortOrder ? sortOrder : 1;
 
         await this.hTTPService
             .get(url, this.filterService.getParams(params))
@@ -279,7 +279,7 @@ export class TableComponent implements OnInit {
     getSortField(sortField) {
         let sortColumn = '';
         for (const column of this.selectedColumns) {
-            if (sortField === column['field'] ) {
+            if (sortField === column['field']) {
                 sortColumn = column['sortColumn'];
             }
         }

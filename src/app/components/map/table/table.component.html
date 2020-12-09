@@ -130,7 +130,8 @@
         <tr>
             <th *ngIf="tableReportActive"
                 style="width: 2.5em"></th>
-            <th style="width: 3.2em"></th>
+            <th *ngIf="tableReportActive"
+                style="width: 3.2em"></th>
             <th *ngIf="tableReportActive" style="width: 3.2em">
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
             </th>
@@ -154,7 +155,8 @@
                     <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
                 </a>
             </td>
-            <td style="width: 3.2em">
+            <td *ngIf="tableReportActive"
+                style="width: 3.2em">
                 <i [ngClass]="rowData.has_pdf ? 'pi pi-file-pdf' : 'pi pi-file-o'" style="font-size: 1.6em;"></i>
             </td>
             <td *ngIf="tableReportActive"

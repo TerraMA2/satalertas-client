@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 
 import * as L from 'leaflet';
 
@@ -276,7 +276,7 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
         this.selectedLayers = [];
     }
 
-    async setTableMarker(markerData) {
+    setTableMarker(markerData) {
         this.markerClusterGroup.clearLayers();
 
         let propertyData = markerData.data;
@@ -643,21 +643,19 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
             if (addLayer && !hasLayer) {
                 this.selectedLayers.push(layer);
             }
-            // if (!hasLayer) { //comentei o IF para o filtro poder refazer a visualização do mapa quando aplicado.
-                layer = this.setFilter(layer);
-                layerToAdd = this.getLayer(layer.layerData);
-                layerToAdd.on('loading', () => this.isLoading = true);
-                layerToAdd.on('load', () => this.isLoading = false);
-                layerToAdd.on('tileunload', () => {
-                    if (this.selectedLayers.length === 0) {
-                        this.isLoading = false;
-                    }
-                });
-                layerToAdd.on('tileerror', () => this.isLoading = false);
-                layerToAdd.setZIndex(1000 + this.selectedLayers.length);
-                layerToAdd.addTo(this.map);
-                layer.leafletId = layerToAdd._leaflet_id;
-            // }
+            layer = this.setFilter(layer);
+            layerToAdd = this.getLayer(layer.layerData);
+            layerToAdd.on('loading', () => this.isLoading = true);
+            layerToAdd.on('load', () => this.isLoading = false);
+            layerToAdd.on('tileunload', () => {
+                if (this.selectedLayers.length === 0) {
+                    this.isLoading = false;
+                }
+            });
+            layerToAdd.on('tileerror', () => this.isLoading = false);
+            layerToAdd.setZIndex(1000 + this.selectedLayers.length);
+            layerToAdd.addTo(this.map);
+            layer.leafletId = layerToAdd._leaflet_id;
         }
         return layerToAdd;
     }

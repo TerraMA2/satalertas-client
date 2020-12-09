@@ -76,8 +76,12 @@ export class MapService {
             <br />
             <div class="table-responsive">
               <table class="table table-hover">
-                  <thead><th colspan="2">${name}</th></thead>
-                  ${popupContentBody}
+                <thead>
+                    <tr>
+                        <th colspan="2">${name}</th>
+                    </tr>
+                </thead>
+                ${popupContentBody}
               </table>
             </div>
         `;
@@ -108,11 +112,12 @@ export class MapService {
         let layer = null;
         map.eachLayer((tileLayer: L.TileLayer.WMS) => {
             if (leafletId === tileLayer['_leaflet_id']) {
-                layer =  tileLayer;
+                layer = tileLayer;
             }
         });
         return layer;
     }
+
     setOpacity(layer: Layer, value: number, map: L.Map) {
         const tileLayer: L.TileLayer.WMS = this.getLayerById(layer.leafletId, map);
         value = value / 100;

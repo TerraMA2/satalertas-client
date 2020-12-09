@@ -1,7 +1,5 @@
 import {Injectable} from '@angular/core';
 
-import {Property} from '../models/property.model';
-
 import {HttpClient} from '@angular/common/http';
 
 import {environment} from '../../environments/environment';

@@ -2193,7 +2193,7 @@ body .fc .fc-toolbar .fc-button:enabled:hover {
 }
 
 body .fc .fc-toolbar .fc-button .fc-icon-chevron-left {
-    font-family: "PrimeIcons" !important;
+    font-family: "PrimeIcons", serif !important;
     text-indent: 0;
 }
 
@@ -2202,7 +2202,7 @@ body .fc .fc-toolbar .fc-button .fc-icon-chevron-left:before {
 }
 
 body .fc .fc-toolbar .fc-button .fc-icon-chevron-right {
-    font-family: "PrimeIcons" !important;
+    font-family: "PrimeIcons", serif !important;
     text-indent: 0;
 }
 

@@ -16,11 +16,11 @@
 
             <div class="p-grid">
                 <p-card class="p-md-6">
-                    <p-chart [data]="alertGraphic.graphics[0].data" height="350px" type="bar"></p-chart>
+                    <p-chart [data]="alertGraphic.graphics[0]['data']" height="350px" type="bar"></p-chart>
                 </p-card>
 
                 <p-card class="p-md-6">
-                    <p-chart [data]="alertGraphic.graphics[1].data" height="350px" type="bar"></p-chart>
+                    <p-chart [data]="alertGraphic.graphics[1]['data']" height="350px" type="bar"></p-chart>
                 </p-card>
             </div>
         </p-accordionTab>
