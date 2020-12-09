@@ -619,7 +619,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     }
 
     getImageObject(image, fit, margin, alignment) {
-        if (image && image[0] && !image[0].includes('data:application/vnd.ogc.se_xml')) {
+        if (image && image[0] && !image[0].includes('data:application/vnd.ogc.se_xml') && !image[0].includes('data:text/xml;')) {
             return new Image(
                 image,
                 fit,
