@@ -527,7 +527,8 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
                 }
 
                 if ((analyze.type && analyze.type === 'burned') && (layer.codgroup === 'BURNED') && (layer.cod === 'CAR_X_FOCOS')) {
-                    layer.layerData.viewparams = `min:${values.min};max:${values.max}`;
+                    cqlFilter += cqlFilter ? ' and ' : '';
+                    cqlFilter += ` num_car_focos ${values.columnValueFocos} `;
                 }
 
                 if ((analyze.type && analyze.type === 'burned_area') && (layer.codgroup === 'BURNED_AREA') && (layer.cod === 'CAR_X_AREA_Q')) {
@@ -625,7 +626,11 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
 
         const currentDateInput = JSON.parse(localStorage.getItem('dateFilter'));
 
-        layer.layerData.time = `${currentDateInput[0]}/${currentDateInput[1]}`;
+        if (layer.cod === 'CAR_X_FOCOS') {
+            layer.layerData.viewparams = `date1:${currentDateInput[0].substring(0, 10)};date2:${currentDateInput[1].substring(0, 10)}`;
+        } else {
+            layer.layerData.time = `${currentDateInput[0]}/${currentDateInput[1]}`;
+        }
 
         if (layer.type === LayerType.DYNAMIC) {
             return layer;
