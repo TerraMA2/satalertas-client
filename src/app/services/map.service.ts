@@ -125,9 +125,10 @@ export class MapService {
     }
 
     setExtent(layer: Layer, map: L.Map) {
-        // const tileLayer: L.TileLayer.WMS = this.getLayerById(layer.leafletId, map);
+        const tileLayer: L.TileLayer.WMS = this.getLayerById(layer.leafletId, map);
         const bbox = layer.layerData.bbox;
-        const latLngBounds = new LatLngBounds([0, 0], [0, 0]);
+        const bboxArray = bbox.split(',');
+        const latLngBounds = new LatLngBounds([parseFloat(bboxArray[2]), parseFloat(bboxArray[3])], [parseFloat(bboxArray[0]), parseFloat(bboxArray[1])]);
         map.fitBounds(latLngBounds);
     }
 }

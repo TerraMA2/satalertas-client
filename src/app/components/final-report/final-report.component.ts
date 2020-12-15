@@ -74,19 +74,25 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     loggedUser: User = null;
     formatValueLocate = {
         async prodes(reportData) {
-            reportData.property.area = formatNumber(reportData.property.area, 'pt-BR', '1.0-4');
-            reportData.property.area_km = formatNumber(reportData.property.area_km, 'pt-BR', '1.0-4');
-            reportData.property.areaPastDeforestation = formatNumber(reportData.property.areaPastDeforestation, 'pt-BR', '1.0-4');
-            reportData.property.lat = formatNumber(reportData.property.lat, 'pt-BR', '1.0-4');
-            reportData.property.long = formatNumber(reportData.property.long, 'pt-BR', '1.0-4');
+            const property = reportData.property;
+            if (!property) {
+                return;
+            }
+            property.area = formatNumber(reportData.property.area, 'pt-BR', '1.0-4');
+            property.area_km = formatNumber(reportData.property.area_km, 'pt-BR', '1.0-4');
+            property.areaPastDeforestation = formatNumber(reportData.property.areaPastDeforestation, 'pt-BR', '1.0-4');
+            property.lat = formatNumber(reportData.property.lat, 'pt-BR', '1.0-4');
+            property.long = formatNumber(reportData.property.long, 'pt-BR', '1.0-4');
 
+            property.prodesTotalArea = formatNumber(reportData.property.prodesTotalArea, 'pt-BR', '1.0-4');
+            property.areaUsoCon = formatNumber(reportData.property.areaUsoCon, 'pt-BR', '1.0-4');
+            property.prodesArea = formatNumber(reportData.property.prodesArea, 'pt-BR', '1.0-4');
 
-            reportData.property.prodesTotalArea = formatNumber(reportData.property.prodesTotalArea, 'pt-BR', '1.0-4');
-            reportData.property.areaUsoCon = formatNumber(reportData.property.areaUsoCon, 'pt-BR', '1.0-4');
-            reportData.property.prodesArea = formatNumber(reportData.property.prodesArea, 'pt-BR', '1.0-4');
-
-            if (reportData.property.tableVegRadam.pastDeforestation) {
-                const listPastDeforestation = reportData.property.tableVegRadam.pastDeforestation.split('\n');
+            if (!property.tableVegRadam) {
+                return;
+            }
+            if (property.tableVegRadam.pastDeforestation) {
+                const listPastDeforestation = property.tableVegRadam.pastDeforestation.split('\n');
                 let pastDeforestationStr = '';
                 for (const data of listPastDeforestation) {
                     const pastDeforestation = data.substring(0, data.indexOf(':'));
@@ -94,46 +100,51 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
                     pastDeforestationStr = pastDeforestationStr ? `${pastDeforestationStr}\n${pastDeforestation}: ${valuePastDeforestation}` : `${pastDeforestation}: ${valuePastDeforestation}`;
                 }
-                reportData.property.tableVegRadam.pastDeforestation = pastDeforestationStr;
+                property.tableVegRadam.pastDeforestation = pastDeforestationStr;
             } else {
-                reportData.property.tableVegRadam.pastDeforestation = '0';
+                property.tableVegRadam.pastDeforestation = '0';
             }
 
             for (const data of reportData.prodesTableData) {
                 data.area = formatNumber(data.area, 'pt-BR', '1.0-4');
             }
-            for (const data of reportData.property.vegRadam) {
+            for (const data of property.vegRadam) {
                 data.area_ha_ = formatNumber(data.area_ha_, 'pt-BR', '1.0-4');
                 data.area_ha_car_vegradam = formatNumber(data.area_ha_car_vegradam, 'pt-BR', '1.0-4');
             }
-            if (reportData.property.prodesRadam) {
-                for (const data of reportData.property.prodesRadam) {
+            if (property.prodesRadam) {
+                for (const data of property.prodesRadam) {
                     data.area = formatNumber(data.area, 'pt-BR', '1.0-4');
                 }
             }
-            for (const data of reportData.property.deflorestationHistory) {
+            for (const data of property.deflorestationHistory) {
                 data.area = formatNumber(data.area, 'pt-BR', '1.0-4');
             }
-            for (const data of reportData.property.tableData) {
+            for (const data of property.tableData) {
                 data.pastDeforestation = formatNumber(data.pastDeforestation, 'pt-BR', '1.0-4');
             }
-            for (const data of reportData.property.analyzesYear) {
+            for (const data of property.analyzesYear) {
                 data.area = formatNumber(data.area, 'pt-BR', '1.0-4');
             }
         },
         async deter(reportData) {
-            reportData.property.area = formatNumber(reportData.property.area, 'pt-BR', '1.0-4');
-            reportData.property.area_km = formatNumber(reportData.property.area_km, 'pt-BR', '1.0-4');
-            reportData.property.areaPastDeforestation = formatNumber(reportData.property.areaPastDeforestation ? reportData.property.areaPastDeforestation : 0, 'pt-BR', '1.0-4');
-            reportData.property.lat = formatNumber(reportData.property.lat, 'pt-BR', '1.0-4');
-            reportData.property.long = formatNumber(reportData.property.long, 'pt-BR', '1.0-4');
+            const property = reportData.property;
+            if (!property) {
+                return;
+            }
+            property.area = formatNumber(property.area, 'pt-BR', '1.0-4');
+            property.area_km = formatNumber(property.area_km, 'pt-BR', '1.0-4');
+            property.areaPastDeforestation = formatNumber(property.areaPastDeforestation ? property.areaPastDeforestation : 0, 'pt-BR', '1.0-4');
+            property.lat = formatNumber(property.lat, 'pt-BR', '1.0-4');
+            property.long = formatNumber(property.long, 'pt-BR', '1.0-4');
 
-            for (const data of reportData.property.tableData) {
-                data.pastDeforestation = formatNumber(data.pastDeforestation, 'pt-BR', '1.0-4');
+            if (property.tableData) {
+                for (const data of property.tableData) {
+                    data.pastDeforestation = formatNumber(data.pastDeforestation, 'pt-BR', '1.0-4');
+                }
             }
         },
         async queimada(reportData) {
-
         }
     };
 
@@ -192,9 +203,9 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
     async setChartNdvi() {
         if (this.type === 'prodes') {
-            if (this.points && this.points.length && (this.points.length > 0)) {
+            const pointsCount = this.points.length;
+            if (this.points && pointsCount && pointsCount > 0) {
                 let count = 0;
-
                 for (const point of this.points) {
                     const canvas: any = document.createElement('canvas');
                     canvas.id = `myChart${count}`;
@@ -238,14 +249,15 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
     async getContextDeflorestationAlerts(deflorestationAlerts) {
         const deflorestationAlertsContext = [];
+        const deflorestationAlertsCount = deflorestationAlerts.length;
 
-        if (deflorestationAlerts && deflorestationAlerts.length > 0) {
+        if (deflorestationAlerts && deflorestationAlertsCount > 0) {
             let images = [];
             let titleDate = [];
             let subTitleArea = [];
             let startingYear = new Date().getFullYear();
 
-            for (let i = 0; i < deflorestationAlerts.length; ++i) {
+            for (let i = 0; i < deflorestationAlertsCount; ++i) {
                 images.push(this.getImageObject(await this.getBaseImageUrl(deflorestationAlerts[i].urlGsImageBefore), [225, 225], [0, 0, 0, 0], 'left'));
                 images.push(this.getImageObject(await this.getBaseImageUrl(deflorestationAlerts[i].urlGsImageCurrent), [225, 225], [13, 0, 0, 0], 'rigth'));
 
@@ -336,8 +348,9 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
     async getContextDesflorestationHistory(deflorestationHistory, urlGsDeforestationHistory, urlGsDeforestationHistory1) {
         const deflorestationHistoryContext = [];
+        const deflorestationHistoryCount = deflorestationHistory.length;
 
-        if (deflorestationHistory && deflorestationHistory.length > 0) {
+        if (deflorestationHistory && deflorestationHistoryCount > 0) {
             let images = [];
             let titles = [];
             let subTitles = [];
@@ -360,7 +373,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                 style: 'body'
             });
             let count = 1;
-            for (let i = 0; i < deflorestationHistory.length; ++i) {
+            for (let i = 0; i < deflorestationHistoryCount; ++i) {
                 count += 1;
                 const view = deflorestationHistory[i].date < 2013 ? 'LANDSAT_5_' :
                     deflorestationHistory[i].date < 2017 ? 'LANDSAT_8_' :
@@ -368,8 +381,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
                 let url = deflorestationHistory[i].date === 2012 ? urlGsDeforestationHistory1 : urlGsDeforestationHistory.replace(new RegExp('#{image}#', ''), `${view}${deflorestationHistory[i].date}`);
                 url = url.replace(new RegExp('#{year}#', ''), deflorestationHistory[i].date);
-
-                const alignment = count === 1 ? 'left' : count === 2 ? 'center' : 'rigth';
 
                 images.push(this.getImageObject(await this.getBaseImageUrl(url), [117, 117], [5, 0], 'center'));
                 titles.push({
@@ -427,7 +438,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     }
 
     async getReportData() {
-
         this.dateFilter = `${this.date[0]}/${this.date[1]}`;
         const startDate = new Date(this.date[0]).toLocaleDateString('pt-BR');
         const endDate = new Date(this.date[1]).toLocaleDateString('pt-BR');
@@ -493,31 +503,32 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         this.reportData['type'] = this.reportData['type'];
 
         this.docDefinition = await this.reportService.createPdf(this.reportData).then(async (response: Response) => {
-
-            response.data.docDefinitions.footer = (pagenumber, pageCount) => {
-                return {
-                    table: {
-                        body: [
-                            [
-                                {
-                                    text: 'Página ' + pagenumber + ' de ' + pageCount,
-                                    fontSize: 8,
-                                    margin: [483, 0, 30, 0]
-                                }
-                            ],
-                        ]
-                    },
-                    layout: 'noBorders'
+            const data = response.data;
+            const docDefinitions = data.docDefinitions;
+            if (data) {
+                docDefinitions.footer = (pagenumber, pageCount) => {
+                    return {
+                        table: {
+                            body: [
+                                [
+                                    {
+                                        text: 'Página ' + pagenumber + ' de ' + pageCount,
+                                        fontSize: 8,
+                                        margin: [483, 0, 30, 0]
+                                    }
+                                ],
+                            ]
+                        },
+                        layout: 'noBorders'
+                    };
                 };
-            };
-
-            response.data.docDefinitions.header = (currentPage, pageCount, pageSize) => {
-                return {
-                    columns: response.data.headerDocument
+                docDefinitions.header = (currentPage, pageCount, pageSize) => {
+                    return {
+                        columns: data.headerDocument
+                    };
                 };
-            };
-
-            this.getPdfBase64(response.data.docDefinitions);
+                this.getPdfBase64(docDefinitions);
+            }
         });
     }
 
@@ -570,7 +581,9 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                 this.reportService.generatePdf(this.reportData).then((response: Response) => {
                     const reportResp = (response.status === 200) ? response.data : {};
                     if (response.status === 200) {
-                        reportResp.document.docDefinitions.footer = (pagenumber, pageCount) => {
+                        const document = reportResp.document;
+                        const docDefinitions = document.docDefinitions;
+                        docDefinitions.footer = (pagenumber, pageCount) => {
                             return {
                                 table: {
                                     body: [
@@ -586,13 +599,13 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                                 layout: 'noBorders'
                             };
                         };
-                        reportResp.document.docDefinitions.header = (currentPage, pageCount, pageSize) => {
+                        docDefinitions.header = (currentPage, pageCount, pageSize) => {
                             return {
-                                columns: reportResp.document.headerDocument
+                                columns: document.headerDocument
                             };
                         };
 
-                        pdfMake.createPdf(reportResp.document.docDefinitions).download(reportResp.name);
+                        pdfMake.createPdf(docDefinitions).download(reportResp.name);
                         this.generatingReport = false;
                     } else {
                         this.generatingReport = false;
