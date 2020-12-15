@@ -1,0 +1,21 @@
+<section>
+    <h2 class="text-center">Áreas Queimadas</h2>
+    <hr>
+    <div class="p-grid">
+        <div *ngFor="let burnedArea of burnedAreas; trackBy: trackById"
+             class="p-col-4 p-md-4">
+            <div class="card text-center">
+                <p-card styleClass="ui-card-shadow">
+                    <p-header class="card-header">
+                        <span>{{burnedArea.title }}</span>
+                    </p-header>
+                    <img class="map img-fluid" src="{{burnedArea.image}}"/>
+                    <p-footer *ngIf="burnedArea.description" class="card-footer">
+                        {{burnedArea.description['text'] }}
+                        {{burnedArea.description['value'] | number:'1.0-4':'pt' }} ha
+                    </p-footer>
+                </p-card>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,88 @@
+.collapse.show {
+    max-height: 100%;
+    visibility: visible;
+}
+
+.collapse.hide {
+    max-height: 0;
+    visibility: hidden;
+}
+
+.sidebar-layer-group-label {
+    flex-grow: 1;
+}
+
+.sidebar-layer-group-switch {
+    margin-top: 5px;
+    flex-grow: 0;
+}
+
+.sidebar-layer-group-link {
+    display: block;
+}
+
+:host ::ng-deep .sidebar-layer-group-body {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 0 10px;
+    background-color: #fff;
+    transition: background-color 500ms ease-in-out
+}
+
+:host ::ng-deep .sidebar-layer-group-body:hover,
+:host ::ng-deep .sidebar-layer-body.sidebar-layer-body:hover {
+    background-color: #eee;
+}
+
+:host ::ng-deep .sidebar-layer-group-body.active,
+:host ::ng-deep .sidebar-layer-body.active {
+    background-color: #591111;
+    color: #fff;
+}
+
+:host ::ng-deep .sidebar-layer-group-body.active:hover,
+:host ::ng-deep .sidebar-layer-body.active:hover {
+    background-color: #591111;
+    color: #fff;
+}
+
+:host ::ng-deep .sidebar-layer-group-body.active a,
+:host ::ng-deep .sidebar-layer-group-body.active i,
+:host ::ng-deep .sidebar-layer-body.active a,
+:host ::ng-deep .sidebar-layer-body.active i {
+    color: #fff;
+}
+
+:host ::ng-deep .sidebar-layer-group-body.active:hover a,
+:host ::ng-deep .sidebar-layer-group-body.active:hover i,
+:host ::ng-deep .sidebar-layer-body.active:hover a,
+:host ::ng-deep .sidebar-layer-body.active:hover i {
+    color: #eee;
+}
+
+:host ::ng-deep .sidebar-layer-group-body a,
+:host ::ng-deep .sidebar-layer-group-body .sidebar-layer-group-arrow,
+:host ::ng-deep .sidebar-layer-body a,
+:host ::ng-deep .sidebar-layer-body .sidebar-layer-group-arrow {
+    margin-left: 5px;
+    color: #5f5f5f;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+:host ::ng-deep .sidebar-layer-group-body:hover a,
+:host ::ng-deep .sidebar-layer-group-body:hover i,
+:host ::ng-deep .sidebar-layer-body:hover a,
+:host ::ng-deep .sidebar-layer-body:hover i {
+    color: #591111;
+}
+
+:host ::ng-deep .sidebar-layer-body {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 0 10px;
+    background-color: #fff;
+    transition: background-color 500ms ease-in-out;
+}

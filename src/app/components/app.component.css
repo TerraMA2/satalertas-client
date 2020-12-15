@@ -1,0 +1,20 @@
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    z-index: 1001;
+    top: 0;
+    left: 0;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    visibility: visible;
+}
+
+.sidebar.hide-sidebar {
+    width: 0;
+    visibility: hidden;
+}
+
+:host ::ng-deep main {
+    height: calc(100vh - 50px);
+}

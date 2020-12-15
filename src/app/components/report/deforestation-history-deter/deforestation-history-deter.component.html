@@ -1,0 +1,21 @@
+<section>
+    <h2 class="text-center">Histórico de Desmatamento - DETER</h2>
+    <hr>
+    <div class="p-grid">
+        <div *ngFor="let deforestationDeter of deforestationHistoryDeters; trackBy: trackById"
+             class="p-col-4 p-md-4">
+            <div class="card">
+                <p-card styleClass="ui-card-shadow">
+                    <p-header class="card-header">
+                        <span>{{deforestationDeter.title }}</span>
+                    </p-header>
+                    <img class="map img-fluid" src="{{deforestationDeter.image}}"/>
+                    <p-footer *ngIf="deforestationDeter.description" class="card-footer">
+                        {{deforestationDeter.description['text'] }}
+                        {{deforestationDeter.description['value'] | number:'1.0-4':'pt' }} ha
+                    </p-footer>
+                </p-card>
+            </div>
+        </div>
+    </div>
+</section>

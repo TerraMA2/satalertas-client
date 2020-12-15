@@ -1,0 +1,20 @@
+<section>
+    <div class="p-grid">
+        <div *ngFor="let vision of visions; trackBy: trackById"
+             class="p-col-4 p-md-4">
+            <div class="card text-center ">
+                <p-card styleClass="ui-card-shadow">
+                    <p-header class="card-header text-center">
+                        <span [innerHTML]="vision.title"></span>
+                    </p-header>
+                    <img class="img-fluid" src="{{vision.image}}"/>
+                    <p-footer *ngIf="vision.description" class="card text-center card-footer">
+                        {{vision.description }}
+                    </p-footer>
+                </p-card>
+            </div>
+        </div>
+    </div>
+</section>
+<br>
+<app-report-legend [legends]="legends"></app-report-legend>

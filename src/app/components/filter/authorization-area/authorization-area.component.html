@@ -1,0 +1,10 @@
+<h3 class="form-margin">Autorização</h3>
+<p-dropdown
+        (onChange)="onChange($event)"
+        [(ngModel)]="authorization"
+        [disabled]="disable"
+        [options]="authorizations"
+        filter="true"
+        optionLabel="name"
+        scrollHeight="100px">
+</p-dropdown>

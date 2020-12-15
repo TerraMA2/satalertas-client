@@ -1,0 +1,28 @@
+<div (click)="onSidebarItemClicked()"
+     [ngClass]="
+            {
+                'sidebar-separator': sidebarItem.separator,
+                'sidebar-item-body': !sidebarItem.separator
+            }"
+     class="p-align-center">
+
+    <i *ngIf="!sidebarItem.separator"
+       [class]="sidebarItem.icon">
+    </i>
+
+    <div *ngIf="!sidebarItem.separator"
+         class="sidebar-item-label">
+
+        <a *ngIf="!sidebarItem.dataUrl">
+            {{sidebarItem.label }}
+        </a>
+
+        <p-dropdown *ngIf="sidebarItem.dataUrl"
+                    [(ngModel)]="selectedDropdownItem"
+                    [options]="dropdownData"
+                    [placeholder]="sidebarItem.label"
+                    [style]="{'width': '250px'}">
+        </p-dropdown>
+
+    </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="p-grid box">
+    <p-card *ngFor="let alert of alertsDisplayed; trackBy: trackById"
+            [styleClass]="'ui-card-active'"
+            [style]="{borderRadius: '18px'}"
+            class="box-card p-col-12 p-md-3"
+            header="{{alert.label}}">
+
+        <app-card-button (onAreaClick)="onAreaClick.emit($event)"
+                         (onNubermImmobileClick)="onNubermImmobileClick.emit($event)"
+                         [alert]="alert"
+                         [labelArea]="getLabelArea(alert)"
+                         [labelNumCars]="getLabelNumCars(alert)"
+                         [unitOfMeasurement]="getUnitOfMeasurement(alert)"
+                         [valueArea]="getValueArea(alert)"
+                         [valueNumCars]="getValueNumCars(alert)">
+        </app-card-button>
+    </p-card>
+</div>

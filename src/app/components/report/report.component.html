@@ -1,0 +1,113 @@
+<p-toolbar>
+    <!--    <div class="ui-toolbar-group-left">-->
+    <div class="p-grid">
+        <div class="p-col-4">
+            <button class="ui-button-raised"
+                    icon="fas fa-arrow-left"
+                    label="Voltar ao mapa"
+                    pButton
+                    routerLink="/map">
+            </button>
+        </div>
+        <div class="p-col-4">
+            <div *ngIf="isLoading" class="loading-report">
+                <p-progressSpinner [style]="{width: '30px', height: '30px'}" strokeWidth="6"></p-progressSpinner>
+            </div>
+        </div>
+        <div class="p-col-4 text-right">
+            <button (click)="onViewReportClicked('deter')"
+                    class="btn btn-icon ui-button-raised view-report-icon"
+                    pButton
+                    pTooltip="Visualizar relatório Deter"
+                    tooltipPosition="top">
+                <img src="assets/img/ico/deter32x32.png"/>
+            </button>
+            <button (click)="onViewReportClicked('prodes')"
+                    class="btn btn-icon ui-button-raised view-report-icon icon-margin"
+                    pButton
+                    pTooltip="Visualizar relatório Prodes"
+                    tooltipPosition="top">
+                <img src="assets/img/ico/prodes32x32.png"/>
+            </button>
+            <button (click)="onViewReportClicked('queimada')"
+                    class="btn btn-icon ui-button-raised view-report-icon icon-margin"
+                    pButton
+                    pTooltip="Visualizar relatório Queimada"
+                    tooltipPosition="top">
+                <img src="assets/img/ico/queima.ico"/>
+            </button>
+        </div>
+    </div>
+
+    <!--    </div>-->
+
+    <!--    <div class="ui-toolbar-group-right">-->
+
+    <!--    </div>-->
+</p-toolbar>
+<p-scrollPanel [style]="{width: '100%', height: 'calc(100vh - 100px)'}">
+    <div class="background-color-gray">
+        <br>
+        <div class="container" id="print-section">
+            <app-property-data [property]="property"></app-property-data>
+            <hr>
+            <app-vision [legends]="visionLegends" [visions]="visions"></app-vision>
+            <br>
+            <app-vision-detailed [detailedVisions]="detailedVisions"
+                                 [formattedFilterDate]="formattedFilterDate"></app-vision-detailed>
+            <br>
+            <app-deforestation [deforestations]="deforestations"></app-deforestation>
+            <br>
+            <app-deforestation-history-deter
+                    [deforestationHistoryDeters]="deforestationHistoryDeters"></app-deforestation-history-deter>
+            <br>
+            <app-history-deter-chart [data]="historyDeterChartData"></app-history-deter-chart>
+            <br>
+            <app-deforestation-history-prodes
+                    [deforestationHistoryProdes]="deforestationHistoryProdes"></app-deforestation-history-prodes>
+            <br>
+            <app-history-prodes-chart [data]="historyProdesChartData"></app-history-prodes-chart>
+            <br>
+            <app-burning-spotlights [burningSpotlights]="burningSpotlights"></app-burning-spotlights>
+            <br>
+            <app-burning-spotlights-chart [data]="burningSpotlightsChartData"></app-burning-spotlights-chart>
+            <br>
+            <app-burned-areas [burnedAreas]="burnedAreas"></app-burned-areas>
+            <br>
+            <app-burned-areas-chart [burnedAreasChartData]="burnedAreasChartData"
+                                    [burnedAreasPerPropertyChartDatas]="burnedAreasPerPropertyChartDatas"></app-burned-areas-chart>
+            <br/>
+
+            <section *ngIf="chartImages && chartImages.length > 0">
+                <h2 class="text-center">
+                    Áreas de desmatamento (PRODES) e gráfico NDVI (SATVeg - Embrapa)
+                    <br/>
+                    <small>{{formattedFilterDate }}</small>
+                </h2>
+                <hr>
+                <br>
+                <div class="p-grid">
+                    <div *ngFor="let chartImage of chartImages; trackBy: trackById; let i = index"
+                         class="p-col-12 p-md-12">
+                        <div class="card text-center">
+                            <p-card class="ui-card-shadow">
+                                <div class="p-grid p-align-center p-justify-center">
+                                    <img [src]="chartImage.geoserverImageNdvi"/>
+                                </div>
+                                <br>
+                                <div class="p-grid p-align-center p-justify-center">
+
+                                    <p-chart [data]="chartImage.myChart" class="width-100" type="line"></p-chart>
+                                </div>
+                                <br>
+                                <br>
+                            </p-card>
+                        </div>
+
+                    </div>
+                </div>
+                <hr>
+            </section>
+        </div>
+    </div>
+</p-scrollPanel>

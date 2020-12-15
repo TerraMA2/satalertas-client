@@ -1,0 +1,23 @@
+.right {
+    margin-left: auto;
+}
+
+.sidebar-header {
+    background-color: #eee;
+    flex-grow: 0;
+}
+
+.sidebar-menu {
+    flex-grow: 1;
+}
+
+.sidebar-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-grow: 0;
+    background-color: #591111;
+    height: 50px;
+    color: #fff;
+    padding: 10px;
+}

@@ -1,0 +1,232 @@
+<br/>
+
+<p-table (onHeaderCheckboxToggle)="onHeaderCheckboxToggle($event)"
+         (onLazyLoad)="onLazyLoad($event)"
+         (onRowExpand)="onRowExpand($event)"
+         (onRowSelect)="onRowSelect()"
+         (onRowUnselect)="onRowUnselect()"
+         [(selection)]="selectedProperties"
+         [columns]="selectedColumns"
+         [lazy]="true"
+         [loading]="isLoading"
+         [paginator]="true"
+         [reorderableColumns]="true"
+         [resizableColumns]="true"
+         [responsive]="true"
+         [rowTrackBy]="trackById"
+         [rows]="selectedRowsPerPage"
+         [scrollable]="true"
+         [totalRecords]="totalRecords"
+         [value]="tableData"
+         dataKey="gid"
+         exportFilename="Satélite_Alertas_CAR"
+         loadingIcon="fas fa-circle-notch color-black"
+         responsive="true"
+         rowExpandMode="single">
+
+    <ng-template pTemplate="caption">
+        <div class="p-grid p-nogutter">
+
+            <div class="p-col-12 p-md-6 p-col-nogutter">
+
+                <div class="float-left">
+
+                    <p-multiSelect [(ngModel)]="selectedColumns"
+                                   [options]="columns"
+                                   [style]="{minWidth: '200px'}"
+                                   defaultLabel="Selecione as colunas"
+                                   optionLabel="header"
+                                   selectedItemsLabel="{0} columns selected">
+                    </p-multiSelect>
+
+                    &nbsp;&nbsp;
+
+                    <p-dropdown
+                            (onChange)="onRowsPerPageChange($event)"
+                            [(ngModel)]="selectedRowsPerPage"
+                            [options]="rowsPerPage"
+                            [style]="{minWidth: '100px'}">
+                    </p-dropdown>
+
+                    &nbsp;&nbsp;
+
+                    <p-dropdown #selectedLayersDropdown
+                                (onChange)="onSelectedLayerChange(selectedLayersDropdown)"
+                                *ngIf="!tableReportActive"
+                                [(ngModel)]="selectedLayerValue"
+                                [options]="selectedLayers"
+                                [style]="{minWidth: '200px'}"
+                                placeholder="Layers">
+                    </p-dropdown>
+
+                    &nbsp;&nbsp;
+
+                    <p-dropdown #selectedFilter
+                                (onChange)="onFilterChange(selectedFilter)"
+                                *ngIf="tableReportActive"
+                                [(ngModel)]="selectedFilterValue"
+                                [options]="filters">
+                    </p-dropdown>
+
+                </div>
+            </div>
+
+            <div class="p-col-12 p-md-6 p-col-nogutter">
+
+                <div class="float-right">
+
+                    <p-multiSelect *ngIf="tableReportActive"
+                                   [(ngModel)]="selectedFormats"
+                                   [disabled]="isExportDisabled || isLoading"
+                                   [filter]="false"
+                                   [options]="formats"
+                                   [style]="{minWidth: '16rem', 'vertical-align': 'middle'}"
+                                   defaultLabel="Selecione um formato"
+                                   maxSelectedLabels="4">
+                    </p-multiSelect>
+
+                    &nbsp;&nbsp;
+
+                    <button
+                            (click)="onExportClick()"
+                            *ngIf="tableReportActive"
+                            [disabled]="isExportDisabled || isLoading"
+                            class="ui-button-raised"
+                            icon="fas fa-save"
+                            iconPos="left"
+                            label="Exportar"
+                            pButton
+                            pTooltip="Exportar selecionados"
+                            tooltipPosition="top"
+                            type="button">
+                    </button>
+
+                    &nbsp;&nbsp;
+
+                    <button
+                            (click)="onShowMapClicked()"
+                            *ngIf="tableReportActive"
+                            [disabled]="isExportDisabled || isLoading"
+                            class="ui-button-raised"
+                            icon="fas fa-map-marker-alt"
+                            iconPos="left"
+                            label="Visualizar no mapa"
+                            pButton
+                            pTooltip="Visualizar selecionados no mapa"
+                            tooltipPosition="top"
+                            type="button">
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+    </ng-template>
+
+    <ng-template let-columns pTemplate="header">
+        <tr>
+            <th *ngIf="tableReportActive"
+                style="width: 2.5em"></th>
+            <th *ngIf="tableReportActive"
+                style="width: 3.2em"></th>
+            <th *ngIf="tableReportActive" style="width: 3.2em">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th *ngFor="let col of columns; trackBy: trackById" [pSortableColumn]="col.field" pReorderableColumn
+                pResizableColumn>
+                {{col.header}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+            <th *ngIf="tableReportActive" pResizableColumn></th>
+        </tr>
+    </ng-template>
+
+    <ng-template let-columns="columns"
+                 let-expanded="expanded"
+                 let-rowData
+                 pTemplate="body">
+        <tr [pSelectableRow]="rowData">
+            <td *ngIf="tableReportActive"
+                style="width: 2.5em">
+                <a [pRowToggler]="rowData">
+                    <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+                </a>
+            </td>
+            <td *ngIf="tableReportActive"
+                style="width: 3.2em">
+                <i [ngClass]="rowData.has_pdf ? 'pi pi-file-pdf' : 'pi pi-file-o'" style="font-size: 1.6em;"></i>
+            </td>
+            <td *ngIf="tableReportActive"
+                style="width:3em">
+                <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+            </td>
+            <td *ngFor="let col of columns; trackBy: trackById" class="ui-resizable-column">
+                {{rowData[col.field]}}
+            </td>
+            <td *ngIf="tableReportActive">
+                <button *ngIf="tableReportActive && showDeter"
+                        class="btn ui-button-raised view-report-icon"
+                        pButton
+                        pTooltip="Visualizar relatório Deter"
+                        routerLink="/finalReport/deter/{{getRegister(rowData)}}"
+                        tooltipPosition="top">
+                    <img src="assets/img/ico/deter32x32.png"/>
+                </button>
+                <button *ngIf="tableReportActive && showProdes"
+                        class="btn ui-button-raised view-report-icon icon-margin"
+                        pButton
+                        pTooltip="Visualizar relatório Prodes"
+                        routerLink="/finalReport/prodes/{{getRegister(rowData)}}"
+                        tooltipPosition="top">
+                    <img src="assets/img/ico/prodes32x32.png"/>
+                </button>
+                <button *ngIf="tableReportActive && showBurn"
+                        class="btn ui-button-raised view-report-icon icon-margin"
+                        pButton
+                        pTooltip="Visualizar relatório Queimada"
+                        routerLink="/finalReport/queimada/{{getRegister(rowData)}}"
+                        tooltipPosition="top">
+                    <img src="assets/img/ico/queima.ico"/>
+                </button>
+                <button (click)="onShowMapClicked(rowData)"
+                        *ngIf="tableReportActive"
+                        class="btn ui-button-raised view-report-icon icon-margin"
+                        pButton
+                        pTooltip="Visualizar no mapa">
+                    <i class="fa fa-map-marker-alt marker-icon"></i>
+                </button>
+            </td>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="rowexpansion">
+        <tr>
+            <td [attr.colspan]="selectedColumns.length + 4">
+                <div *ngIf="reports.length > 0" class="p-grid text-left">
+                    <div *ngFor="let report of reports; trackBy: trackById" class="p-col">
+                        <button (click)="getReport(report)"
+                                [label]="report.name"
+                                class="report-history-item ui-button-raised report-button"
+                                pButton
+                                pTooltip="Baixar relatório"
+                                tooltipPosition="top">
+                            {{report.createdAt | date:'dd/MM/yyyy HH:mm:ss' }}
+                        </button>
+                    </div>
+                </div>
+                <div *ngIf="reports.length === 0" class="p-grid text-center">
+                    <h4 class="p-col text-center">Não possui relatórios gerados!</h4>
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+
+    <ng-template let-state pTemplate="paginatorleft">
+        <br/>
+        &nbsp;&nbsp;<strong>{{state.totalRecords }} registros</strong>
+        &nbsp;&nbsp;<strong *ngIf="tableReportActive">{{selectedProperties ? selectedProperties?.length : '0' }}
+        selecionados</strong>
+    </ng-template>
+
+</p-table>

@@ -1,0 +1,6 @@
+export const environment = {
+  production: true,
+  terramaUrl: 'http://www.terrama2.dpi.inpe.br/adm',
+  reportServerUrl: 'http://www.terrama2.dpi.inpe.br/alertaServer',
+  geoserverUrl: 'http://www.terrama2.dpi.inpe.br/geoserver',
+};

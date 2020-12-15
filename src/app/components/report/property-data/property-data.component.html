@@ -1,0 +1,29 @@
+<section>
+    <h2>Dados do Imóvel</h2>
+    <hr>
+    <div class="p-grid p-nogutter">
+        Registro estadual do CAR:
+        <strong class="word-wrap">&nbsp;{{property?.register}}</strong>
+    </div>
+    <div class="p-grid p-nogutter">
+        Registro federal do CAR:
+        <strong class="word-wrap">&nbsp;{{property?.federalregister}}</strong>
+    </div>
+    <div class="p-grid p-nogutter">
+        CPF/CNPJ:
+        <strong class="word-wrap">&nbsp;{{formatterCpfCnpj(property?.cpf)}}</strong>
+    </div>
+    <div class="p-grid p-nogutter">
+        <div class="p-col-6">
+            <div class="p-grid p-nogutter">
+                Área do imóvel:
+                <strong>&nbsp;{{property?.area | number:'1.0-4':'pt' }} ha ({{property?.area_km | number:'1.0-4':'pt' }}
+                    km²)</strong>
+            </div>
+            <div class="p-grid p-nogutter">
+                Município / UF:
+                <strong>&nbsp;{{property?.city}} </strong>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,55 @@
+<div *ngIf="checkAlertTypeValid()">
+    <h3 class="form-margin">Tipo do alerta</h3>
+    <p-radioButton [(ngModel)]="alertType.radioValue"
+                   [disabled]="disable"
+                   inputId="preopt1"
+                   label="Todos"
+                   name="ALL"
+                   value="ALL">
+    </p-radioButton>
+    &nbsp;&nbsp;
+    <p-radioButton [(ngModel)]="alertType.radioValue"
+                   [disabled]="disable"
+                   inputId="preopt2"
+                   label="Áreas/Ocorrências"
+                   name="OCCURRENCE-AREA"
+                   value="OCCURRENCE-AREA">
+    </p-radioButton>
+
+    <div *ngIf="checkAnalyzesValid()">
+        <div *ngFor="let analyze of alertType.analyzes; trackBy: trackById">
+            <h3 class="form-margin">{{analyze.label}}</h3>
+            <div class="p-grid">
+                <div [ngClass]="{'p-col-6': isCustomSelected(analyze), 'p-col-12 form-padding': !isCustomSelected(analyze) }">
+                    <p-dropdown
+                            (onChange)="onChangeAnalyzeOption($event)"
+                            [(ngModel)]="analyze.valueOption"
+                            [autoDisplayFirst]="false"
+                            [disabled]="false"
+                            [name]="analyze.type"
+                            [options]="analyze.options"
+                            [showClear]="true"
+                            filter="true"
+                            optionLabel="label"
+                            scrollHeight="100px"
+                            styleClass="width-100">
+                    </p-dropdown>
+                </div>
+                <div *ngIf="isCustomSelected(analyze)"
+                     [ngClass]="{
+                                    'p-col-6': isCustomSelected(analyze),
+                                    'p-col-12 form-padding': !isCustomSelected(analyze)
+                                }">
+                    <input (ngModelChange)="onChange()"
+                           *ngIf="isCustomSelected(analyze)"
+                           [(ngModel)]="analyze.valueOptionBiggerThen"
+                           [name]="'specificValueInput'"
+                           class="width-100"
+                           pInputText
+                           placeholder="Digite o valor"
+                           type="text">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

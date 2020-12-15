@@ -1,0 +1,10 @@
+{
+  "/api/*": {
+    "target": "http://www.dpi.inpe.br/fipcerrado-geoserver/ows",
+    "secure": false,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/api": ""
+    }
+  }
+}

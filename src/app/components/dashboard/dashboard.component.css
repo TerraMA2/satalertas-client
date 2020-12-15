@@ -1,0 +1,21 @@
+.box {
+    padding: 0;
+    margin-left: 16px;
+    margin-right: 19px;
+}
+
+.box-title-panel {
+    text-align: left;
+    color: #591111;
+    font-size: 0.4vw;
+    text-decoration: none;
+    border-bottom: 1px solid #591111;
+    margin-bottom: 2.0em;
+    margin-top: 1.5vw;
+}
+
+.loading-dashboard {
+    text-align: center;
+    vertical-align: middle;
+    margin-top: 35vh;
+}

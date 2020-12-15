@@ -1,0 +1,25 @@
+<div class="p-grid">
+    <div class="p-col-4 p-md-4">
+        <div class="card text-center">
+            <p-card class="ui-card-shadow">
+                <div class="p-grid width-100 p-align-center p-justify-center">
+                    <p-chart [data]="burnedAreasChartData" [options]="options" class="width-100" height="400px"
+                             type="bar"></p-chart>
+                </div>
+            </p-card>
+        </div>
+    </div>
+</div>
+<br><br>
+<div class="p-grid">
+    <div *ngFor="let chartData of burnedAreasPerPropertyChartDatas; trackBy: trackById" class="p-col-4 p-md-4">
+        <div class="card text-center">
+            <p-card class="ui-card-shadow">
+                <div class="p-grid width-100 p-align-center p-justify-center">
+                    <p-chart [data]="chartData" [options]="options" class="width-100" height="400px"
+                             type="pie"></p-chart>
+                </div>
+            </p-card>
+        </div>
+    </div>
+</div>

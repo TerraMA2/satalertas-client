@@ -1,0 +1,21 @@
+<section>
+    <h2 class="text-center">Focos de Queimadas</h2>
+    <hr>
+    <div class="p-grid">
+        <div *ngFor="let burningSpotlight of burningSpotlights; trackBy: trackById"
+             class="p-col-4 p-md-4">
+            <div class="card text-center">
+                <p-card styleClass="ui-card-shadow">
+                    <p-header class="card-header">
+                        <span>{{burningSpotlight.title }}</span>
+                    </p-header>
+                    <img class="map img-fluid" src="{{burningSpotlight.image}}"/>
+                    <p-footer *ngIf="burningSpotlight.description" class="card text-center card-footer">
+                        {{burningSpotlight.description['text'] }}
+                        {{burningSpotlight.description['value'] | number:'1.0-0':'pt' }} foco(s)
+                    </p-footer>
+                </p-card>
+            </div>
+        </div>
+    </div>
+</section>

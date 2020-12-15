@@ -1,0 +1,91 @@
+<p-toolbar>
+    <div class="ui-toolbar-group-left">
+        <button class="ui-button-raised"
+                icon="fas fa-arrow-left"
+                label="Voltar ao mapa"
+                pButton
+                routerLink="/map">
+        </button>
+        &nbsp;&nbsp;
+        <button (click)="onViewReportClicked('')"
+                class="ui-button-raised"
+                icon="fas fa-file-alt"
+                label="Síntese"
+                pButton>
+        </button>
+    </div>
+    &nbsp;&nbsp;
+    <button (click)="onViewReportClicked('deter')"
+            class="btn btn-icon ui-button-raised view-report-icon"
+            pButton
+            pTooltip="Visualizar relatório Deter"
+            tooltipPosition="top">
+        <img src="assets/img/ico/deter32x32.png"/>
+    </button>
+    <button (click)="onViewReportClicked('prodes')"
+            class="btn btn-icon ui-button-raised view-report-icon icon-margin"
+            pButton
+            pTooltip="Visualizar relatório Prodes"
+            tooltipPosition="top">
+        <img src="assets/img/ico/prodes32x32.png"/>
+    </button>
+    <button (click)="onViewReportClicked('queimada')"
+            class="btn btn-icon ui-button-raised view-report-icon icon-margin"
+            pButton
+            pTooltip="Visualizar relatório Queimada"
+            tooltipPosition="top">
+        <img src="assets/img/ico/queima.ico"/>
+    </button>
+    <div class="ui-toolbar-group-right">
+        <button (click)="generatePdf('open')"
+                *ngIf="loggedUser.administrator"
+                [disabled]="!docBase64 || generatingReport"
+                icon="fas fa-download ui-button-raised"
+                label="Gerar Relatório"
+                pButton
+                type="button">
+        </button>
+    </div>
+</p-toolbar>
+<canvas height="400" id="imagem2" style="display: none" width="600"></canvas>
+<canvas height="400" id="chartImg" style="display: none" width="600"></canvas>
+<div *ngIf="loggedUser.administrator" class="form">
+    <br>
+    <label>Sat: </label>
+    <input [(ngModel)]="inputSat"
+           [disabled]="!docBase64 || generatingReport"
+           class="width-100"
+           pInputText
+           placeholder="Sat"
+           type="text">
+</div>
+<div *ngIf="loggedUser.administrator" class="form">
+    <br>
+    <label>{{labelTextArea}} </label>
+    <textarea
+            [(ngModel)]="textAreaComments"
+            [cols]="30"
+            [disabled]="!docBase64 || generatingReport"
+            [rows]="4"
+            class="width-100"
+            pInputTextarea>
+        </textarea> <br>
+</div>
+<div *ngIf="!!docBase64">
+    <ngx-extended-pdf-viewer
+            [base64Src]="docBase64"
+            [handTool]="false"
+            [height]="loggedUser.administrator ? 'calc(100vh - 310px)' : 'calc(100vh - 100px)'"
+            [showFindButton]="false"
+            [showHandToolButton]="true"
+            [showSecondaryToolbarButton]="false"
+            [showSidebarButton]="false"
+            [useBrowserLocale]="true"
+            backgroundColor="#ffffff">
+    </ngx-extended-pdf-viewer>
+</div>
+
+<div *ngIf="!docBase64" class="final-report-loading">
+    <p-progressSpinner strokeWidth="6"></p-progressSpinner>
+</div>
+<p-confirmDialog [baseZIndex]="10000" [style]="{width: '25vw'}"></p-confirmDialog>

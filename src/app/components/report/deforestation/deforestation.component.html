@@ -1,0 +1,20 @@
+<section>
+    <h2 class="text-center">Desmatamento</h2>
+    <hr>
+    <div class="p-grid">
+        <div *ngFor="let deforestation of deforestations; trackBy: trackById"
+             class="p-col-4 p-md-4">
+            <div class="card text-center">
+                <p-card styleClass="ui-card-shadow">
+                    <p-header class="card-header">
+                        <span>{{deforestation.title }}</span>
+                    </p-header>
+                    <img class="img-fluid" src="{{deforestation.image}}"/>
+                    <p-footer *ngIf="deforestation.description" class="card-footer">
+                        {{deforestation.description }}
+                    </p-footer>
+                </p-card>
+            </div>
+        </div>
+    </div>
+</section>

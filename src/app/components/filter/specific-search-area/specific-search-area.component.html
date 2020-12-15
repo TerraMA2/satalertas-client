@@ -1,0 +1,51 @@
+<div class="p-grid">
+    <div class="p-col-12">
+        <p-checkbox
+                (onChange)="onChange($event)"
+                [(ngModel)]="specificSearchFilter.isChecked"
+                binary="true"
+                inputId="isChecked"
+                label="Busca específica"
+                name="isChecked">
+        </p-checkbox>
+    </div>
+    <div class="p-col-12">
+        <div *ngIf="specificSearchFilter.isChecked">
+            <p-radioButton
+                    (ngModelChange)="onChange($event)"
+                    [(ngModel)]="specificSearchFilter.CarCPF"
+                    inputId="CAR"
+                    label="CAR Estadual"
+                    name="CAR"
+                    value="CAR">
+            </p-radioButton>
+            &nbsp;&nbsp;
+            <p-radioButton
+                    (ngModelChange)="onChange($event)"
+                    [(ngModel)]="specificSearchFilter.CarCPF"
+                    inputId="CAR_FEDERAL"
+                    label="CAR Federal"
+                    name="CAR"
+                    value="CAR_FEDERAL">
+            </p-radioButton>
+            &nbsp;&nbsp;
+            <p-radioButton
+                    (ngModelChange)="onChange($event)"
+                    [(ngModel)]="specificSearchFilter.CarCPF"
+                    inputId="CPF"
+                    label="CPF Proprietário"
+                    name="CPF"
+                    value="CPF">
+            </p-radioButton>
+            <input (ngModelChange)="onChangeInput($event)"
+                   [(ngModel)]="specificSearchFilter.inputValue"
+                   [maxlength]="maxlength"
+                   [name]="'specificValueInput'"
+                   class="width-100"
+                   id="inputValue"
+                   pInputText
+                   placeholder="Digite o valor"
+                   type="text">
+        </div>
+    </div>
+</div>

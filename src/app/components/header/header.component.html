@@ -1,0 +1,104 @@
+<div class="p-col-12 header p-nogutter">
+    <i (click)="showHideSidebar()" class="fas fa-bars header-icon sidebar-icon"></i>
+
+    &nbsp;&nbsp;
+
+    <!-- <a href="{{headerLogoLink}}" target="_blank" class="header-logo-height">
+        <img src="{{headerLogo}}" class="header-logo-height" />
+    </a> -->
+    <!-- <span class="app-title">&nbsp;&nbsp;{{mainApplication}}&nbsp;&nbsp;</span> -->
+    <span class="header-title">{{headerTitle}}</span>
+
+    <button (click)="showFilter()"
+            class="ui-button-raised ui-button-secondary button-filter"
+            icon="fas fa-filter"
+            label="Filtrar"
+            pButton
+            type="button">
+    </button>
+
+    <div class="ui-g-12 ui-md-4 header-filter">
+        <p-calendar #dataFilter
+                    (onClose)="onFilterClose()"
+                    (onFocus)="onFilterFocus()"
+                    [(ngModel)]="dateInput"
+                    [dateFormat]="dateField.dateFormat"
+                    [hideOnDateTimeSelect]="true"
+                    [locale]="locale"
+                    [maxDate]="maxDate"
+                    [monthNavigator]="false"
+                    [name]="dateField.name"
+                    [numberOfMonths]="2"
+                    [readonlyInput]="false"
+                    [selectionMode]="dateField.selectionMode"
+                    [showIcon]="false"
+                    [showOnFocus]="true"
+                    [showTime]="dateField.showTime"
+                    [yearNavigator]="false"
+                    yearRange="2000:2030">
+            <p-footer class="date-footer">
+                <button (click)="onTodayClick()"
+                        [label]="locale.today"
+                        class="date-button date-button-today ui-button-raised"
+                        pButton
+                        type="button">
+                </button>
+                <button (click)="onFilterClick()"
+                        [disabled]="(dateInput && !dateInput[1] && dateInput[1] === null)"
+                        [style]="{float:'right'}"
+                        class="date-button button-right ui-button-raised"
+                        label="Filtrar"
+                        pButton
+                        type="button">
+                </button>
+            </p-footer>
+        </p-calendar>
+    </div>
+
+    <div class="header-right">
+
+        &nbsp;&nbsp;
+
+        <ng-container *ngIf="hasLogin && !isAuthenticated; then login; else logout"></ng-container>
+
+        <ng-template #login>
+            <button (click)="onLoginClick()"
+                    class="ui-button-raised ui-button-secondary"
+                    icon="fa fa-sign-in-alt"
+                    label="Login"
+                    pButton
+                    type="button">
+            </button>
+        </ng-template>
+
+        <ng-template #logout>
+            <div>{{loggedUserName }}</div>
+            &nbsp;&nbsp;
+            <button (click)="onLogoutClick()"
+                    class="ui-button-raised ui-button-secondary"
+                    icon="fa fa-sign-in-alt"
+                    label="Logout"
+                    pButton
+                    type="button">
+            </button>
+        </ng-template>
+
+    </div>
+
+    <p-dialog
+            [(visible)]="displayLogin"
+            [baseZIndex]="1002"
+            [draggable]="false"
+            [modal]="true"
+            [resizable]="false"
+            [showHeader]="false"
+            autoZIndex="false"
+            baseZIndex="1001">
+
+        <app-auth (closeLoginClicked)="onCloseLoginClick($event)"
+                  [displayLogin]="displayLogin">
+        </app-auth>
+
+    </p-dialog>
+
+</div>

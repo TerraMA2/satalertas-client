@@ -1,0 +1,58 @@
+<p-dialog (onHide)="onDialogHide()"
+          [(visible)]="displayFilter"
+          [header]="filterLabel"
+          [positionLeft]="410"
+          [positionTop]="60"
+          [style]="{'width': '500px'}"
+          autoZIndex="false"
+          baseZIndex="1001">
+
+    <div class="p-grid">
+        <div class="p-col-12 form-padding">
+            <app-theme-area
+                #themeAreaComponent
+                (onchangeOptionSelected)="onUpdateFilterTheme($event)"
+                [disable]="filterParam.specificSearch.isChecked">
+            </app-theme-area>
+        </div>
+
+        <div class="p-col-12 form-padding">
+            <app-alert-type-area
+                #alertTypeAreaComponent
+                (onchangeAlertType)="onUpdateAlertType($event)"
+                [disable]="filterParam.specificSearch.isChecked">
+            </app-alert-type-area>
+        </div>
+
+        <div class="p-col-12 form-padding">
+            <app-class-area
+                #classAreaComponent
+                (onChangeClassFilter)="onUpdateClassFilter($event)"
+                [disable]="filterParam.specificSearch.isChecked">
+            </app-class-area>
+        </div>
+
+        <div *ngIf="false" class="p-col-12 form-padding">
+            <app-authorization-area
+                #authorizationAreaComponent
+                (onchangeAuthorization)="onUpdateAuthorization($event)"
+                [disable]="authorizationDisable">
+            </app-authorization-area>
+        </div>
+        <br/>
+        <div class="p-col-12 form-padding">
+            <app-specific-search-area
+                #specificSearchAreaComponent
+                (onchangeAuthorization)="onUpdateSpacificSearch($event)">
+            </app-specific-search-area>
+        </div>
+    </div>
+
+    <p-footer class="p-col-12 form-padding">
+        <app-footer-filter-area
+                (onClearFilterClicked)="onClearFilterClicked()"
+                (onCloseClicked)="onCloseClicked()"
+                (onFilterClicked)="onFilterClicked(true)">
+        </app-footer-filter-area>
+    </p-footer>
+</p-dialog>

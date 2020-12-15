@@ -1,0 +1,9 @@
+<section>
+    <h2>Legenda</h2>
+    <hr>
+    <div class="p-grid p-nogutter">
+        <div *ngFor="let legend of legends; trackBy: trackById" class="p-col-3 p-col-nogutter">
+            <img src="{{legend.url}}">
+        </div>
+    </div>
+</section>

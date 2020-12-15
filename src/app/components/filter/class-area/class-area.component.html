@@ -1,0 +1,64 @@
+<div *ngIf="checkValid()">
+    <h3 class="form-margin">Classe</h3>
+    <p-radioButton [(ngModel)]="filterClass.radioValue"
+                   [disabled]="disable"
+                   inputId="preopt1"
+                   label="Todos"
+                   name="CLASS_ALL"
+                   value="ALL">
+    </p-radioButton>
+    &nbsp;&nbsp;
+    <p-radioButton [(ngModel)]="filterClass.radioValue"
+                   [disabled]="disable"
+                   inputId="preopt2"
+                   label="Selecionada"
+                   name="SELECTION"
+                   value="SELECTION">
+    </p-radioButton>
+
+    <div *ngIf="checkAnalyzesValid()">
+        <div *ngFor="let analyze of filterClass.analyzes; trackBy: trackById">
+            <h3 class="form-margin">{{analyze.label}}</h3>
+            <div class="p-grid">
+                <div [ngClass]="{'p-col-6': false, 'p-col-12 form-padding': true }">
+                    <p-dropdown
+                            (onChange)="onChange($event)"
+                            [(ngModel)]="analyze.valueOption"
+                            [autoDisplayFirst]="true"
+                            [disabled]="false"
+                            [name]="analyze.type+'class'"
+                            [options]="analyze.options"
+                            [showClear]="true"
+                            filter="true"
+                            optionLabel="name"
+                            placeholder="Todos"
+                            scrollHeight="100px"
+                            styleClass="width-100">
+                    </p-dropdown>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--    <div *ngIf="checkAnalyzesValid()" >-->
+    <!--        <div *ngFor="let analyze of filterClass.analyzes; trackBy: trackById">-->
+    <!--            <h3 class="form-margin">{{analyze.label}}</h3>-->
+    <!--            <div class="p-grid">-->
+    <!--                <div class="p-col-12 form-padding">-->
+    <!--                    <p-dropdown-->
+    <!--                            [options]="analyze.options"-->
+    <!--                            [(ngModel)]="analyze.valueOption"-->
+    <!--                            [autoDisplayFirst]="false"-->
+    <!--                            [name]="analyze.type"-->
+    <!--                            optionLabel="name"-->
+    <!--                            [showClear]="true"-->
+    <!--                            [disabled]="false"-->
+    <!--                            (onChange)="onChange($event)"-->
+    <!--                            filter="true"-->
+    <!--                            styleClass="width-100"-->
+    <!--                            scrollHeight="100px">-->
+    <!--                    </p-dropdown>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
+</div>

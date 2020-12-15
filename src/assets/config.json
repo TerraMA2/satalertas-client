@@ -1,0 +1,455 @@
+{
+  "app": {
+    "mainApplication": "TerraMA²",
+    "headerLogo": "./assets/img/logos/terrama2-small.png",
+    "headerTitle": "SatAlertas: Sistema Integrado de Monitoramento de Degradação Ambiental",
+    "hasLogin": true,
+    "headerLogoLink": "http://www.terrama2.dpi.inpe.br",
+    "layerUrls": {
+      "static": {
+        "markers": "/map/getStaticData",
+        "table": "/map/getStaticData"
+      },
+      "dynamic": {
+        "markers": "/map/getDynamicData",
+        "table": "/map/getDynamicData"
+      },
+      "analysis": {
+        "markers": "/map/getAnalysisCentroid",
+        "table": "/map/getAnalysisData"
+      },
+      "report": {
+        "markers": "/car/getAllSimplified",
+        "table": "/car/getAllSimplified"
+      }
+    }
+  },
+  "auth": {
+    "url": "/api/login",
+    "expiresIn": "86400"
+  },
+  "sidebar": {
+    "logoPath": "./assets/img/logos/mpmt-large.png",
+    "logoLink": "https://mpmt.mp.br/",
+    "sidebarItems": [
+      {
+        "icon": "fas fa-chart-line",
+        "label": "Dashboard",
+        "link": "/",
+        "method": "",
+        "value": ""
+      },
+      {
+        "icon": "fas fa-map",
+        "label": "Mapa",
+        "link": "/map",
+        "method": "",
+        "value": ""
+      },
+      {
+        "separator": "true"
+      }
+    ]
+  },
+  "map": {
+    "initialLatLong": [
+      -14.5463,
+      -52.7941
+    ],
+    "initialZoom": 6,
+    "maxZoom": 18,
+    "controls": {
+      "layers": {
+        "position": "topleft",
+        "collapsed": false,
+        "autoZIndex": false,
+        "hideSingleBase": false
+      },
+      "search": {
+        "propertyName": "title",
+        "position": "topleft",
+        "zoom": 12,
+        "minLength": 1,
+        "hideMarkerOnCollapse": true,
+        "textErr": "Nenhum imóvel foi encontrado",
+        "textCancel": "Cancelar",
+        "textPlaceholder": "Buscar por registro do CAR",
+        "marker": {
+          "radius": 10,
+          "weight": 3,
+          "stroke": true,
+          "fill": true
+        }
+      },
+      "fullscreen": {
+        "zoomInTitle": "+ zoom",
+        "zoomOutTitle": "- zoom",
+        "position": "topleft",
+        "title": "Entrar em tela cheia",
+        "titleCancel": "Sair da tela cheia"
+      },
+      "scale": {
+        "position": "bottomleft"
+      },
+      "draw": {
+        "edit": {
+          "featureGroup": ""
+        },
+        "draw": {
+          "circlemarker": false,
+          "marker": false,
+          "rectangle": false,
+          "polygon": {
+            "showArea": true,
+            "showLength": true
+          }
+        }
+      }
+    },
+    "baselayers": [
+      {
+        "name": "osm",
+        "url": "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        "layers": "",
+        "format": "",
+        "version": "",
+        "crossOrigin": "anonymous",
+        "transparent": true,
+        "attribution": "&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a>"
+      },
+      {
+        "default": true,
+        "name": "sentinel",
+        "url": "https://b.s2maps-tiles.eu/wms?",
+        "layers": "s2cloudless-2018",
+        "format": "image/jpeg",
+        "version": "1.1.1",
+        "crs": "EPSG4326",
+        "crossOrigin": "anonymous",
+        "transparent": true,
+        "attribution": "Sentinel-2 cloudless - https://s2maps.eu by EOX IT Services GmbH (Contains modified Copernicus Sentinel data 2017 & 2018)"
+      },
+      {
+        "name": "gebco",
+        "url": "https://www.gebco.net/data_and_products/gebco_web_services/web_map_service/mapserv?request=getmap&service=wms",
+        "layers": "gebco_08_grid",
+        "format": "image/jpeg",
+        "version": "1.1.1",
+        "crossOrigin": "anonymous",
+        "transparent": true,
+        "attribution": "GEBCO Compilation Group (2019) GEBCO 2019 Grid"
+      }
+    ],
+    "filter": {
+      "url": "/api/report/getData",
+      "alertType": {
+        "analyzes": [
+          {
+            "label": "Análise DETER",
+            "value": "deter"
+          },
+          {
+            "label": "Análise PRODES",
+            "value": "deforestation"
+          },
+          {
+            "label": "Análise FOCOS",
+            "value": "burned"
+          },
+          {
+            "label": "Análise Área Queimada",
+            "value": "burned_area"
+          },
+          {
+            "label": "Área do Imóvel CAR",
+            "value": "car_area"
+          }
+        ],
+        "optionsFocos": [
+          {
+            "label": "< 10",
+            "value": 1
+          },
+          {
+            "label": "10 a 20",
+            "value": 2
+          },
+          {
+            "label": "20 a 50",
+            "value": 3
+          },
+          {
+            "label": "50 a 100",
+            "value": 4
+          },
+          {
+            "label": " > 100 ",
+            "value": 5
+          },
+          {
+            "label": "Valor > que ...",
+            "value": 6
+          }
+        ],
+        "options": [
+          {
+            "label": "< 5",
+            "value": 1
+          },
+          {
+            "label": "5 a 25",
+            "value": 2
+          },
+          {
+            "label": "25 a 50",
+            "value": 3
+          },
+          {
+            "label": "50 a 100",
+            "value": 4
+          },
+          {
+            "label": " > 100",
+            "value": 5
+          },
+          {
+            "label": "Valor > que ...",
+            "value": 6
+          }
+        ]
+      },
+      "classSearch": {
+        "analyzes": [
+          {
+            "label": "Classes DETER",
+            "value": "deter"
+          }
+        ]
+      },
+      "group": {
+        "label": "Grupo",
+        "name": "group",
+        "options": [
+          {
+            "label": "Análise DETER",
+            "value": "deter"
+          },
+          {
+            "label": "Análise PRODES",
+            "value": "deforestation"
+          },
+          {
+            "label": "Análise FOCOS",
+            "value": "burned"
+          },
+          {
+            "label": "Análise Área Queimada",
+            "value": "burned_area"
+          },
+          {
+            "label": "Área do Imóvel CAR",
+            "value": "car_area"
+          }
+        ]
+      },
+      "date": {
+        "label": "Data",
+        "name": "date",
+        "dateFormat": "dd/mm/yy",
+        "selectionMode": "range",
+        "showTime": false,
+        "showButtonBar": true,
+        "numberOfMonths": 2
+      },
+      "optionField": {
+        "label": "Tema: ",
+        "name": "localization",
+        "options": [
+          {
+            "label": "Todos",
+            "value": "ALL"
+          },
+          {
+            "label": "Comarca",
+            "value": "region"
+          },
+          {
+            "label": "Mesorregiões",
+            "value": "mesoregion"
+          },
+          {
+            "label": "Microrregiões",
+            "value": "microregion"
+          },
+          {
+            "label": "RGI",
+            "value": "immediateregion"
+          },
+          {
+            "label": "RGINT",
+            "value": "intermediateregion"
+          },
+          {
+            "label": "Municípios",
+            "value": "city"
+          },
+          {
+            "label": "PJBH",
+            "value": "pjbh"
+          },
+          {
+            "label": "Biomas",
+            "value": "biome"
+          },
+          {
+            "label": "UCs",
+            "value": "uc"
+          },
+          {
+            "label": "TIs",
+            "value": "ti"
+          }
+        ],
+        "locale": {
+          "firstDayOfWeek": 1,
+          "dayNames": [
+            "domingo",
+            "segunda",
+            "terça",
+            "quarta",
+            "quinta",
+            "sexta",
+            "sábado"
+          ],
+          "dayNamesShort": [
+            "dom",
+            "seg",
+            "ter",
+            "qua",
+            "qui",
+            "sex",
+            "sáb"
+          ],
+          "dayNamesMin": [
+            "D",
+            "S",
+            "T",
+            "Q",
+            "Q",
+            "S",
+            "S"
+          ],
+          "monthNames": [
+            "Janeiro",
+            "Fevereiro",
+            "Março",
+            "Abril",
+            "Maio",
+            "Junho",
+            "Julho",
+            "Agosto",
+            "Setembro",
+            "Outubro",
+            "Novembro",
+            "Dezembro"
+          ],
+          "monthNamesShort": [
+            "jan",
+            "fev",
+            "mar",
+            "abr",
+            "mai",
+            "jun",
+            "jul",
+            "ago",
+            "set",
+            "out",
+            "nov",
+            "dez"
+          ],
+          "today": "Hoje",
+          "clear": "Limpar",
+          "filter": "Filtrar"
+        }
+      },
+      "area": {
+        "label": "Área",
+        "name": "area"
+      }
+    },
+    "table": {
+      "panelHeightSmall": "28vh",
+      "panelHeight": "48vh",
+      "panelHeightBig": "calc(100vh - 50px)",
+      "heightSmall": "10vh",
+      "height": "30vh",
+      "heightBig": "78vh",
+      "rowsPerPage": [
+        {
+          "label": "10",
+          "value": 10
+        },
+        {
+          "label": "20",
+          "value": 20
+        },
+        {
+          "label": "30",
+          "value": 30
+        },
+        {
+          "label": "40",
+          "value": 40
+        },
+        {
+          "label": "50",
+          "value": 50
+        },
+        {
+          "label": "80",
+          "value": 80
+        },
+        {
+          "label": "100",
+          "value": 100
+        },
+        {
+          "label": "150",
+          "value": 150
+        },
+        {
+          "label": "250",
+          "value": 250
+        },
+        {
+          "label": "500",
+          "value": 500
+        },
+        {
+          "label": "1000",
+          "value": 1000
+        }
+      ]
+    },
+    "export": {
+      "formats": [
+        {
+          "label": "CSV",
+          "value": "csv"
+        },
+        {
+          "label": "GeoJSON",
+          "value": "geojson"
+        },
+        {
+          "label": "KML",
+          "value": "kml"
+        },
+        {
+          "label": "Shapefile",
+          "value": "shapefile"
+        }
+      ]
+    }
+  }
+}

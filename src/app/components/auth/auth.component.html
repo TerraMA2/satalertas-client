@@ -1,0 +1,47 @@
+<div class="p-grid p-nogutter">
+
+    <div class="p-col-12 p-col-nogutter">
+
+        <div *ngIf="isLoading" class="loading-login">
+            <p-progressSpinner [style]="{width: '200px', height: '200px'}"></p-progressSpinner>
+        </div>
+
+        <div *ngIf="!isLoading">
+            <h2>Login</h2>
+            <hr>
+            <br>
+            <form #loginForm="ngForm" (ngSubmit)="onLoginClicked(loginForm)">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon"><i class="fas fa-user"></i></span>
+                    <input name="username" ngModel pInputText placeholder="Usuário" size="30" type="text"/>
+                </div>
+
+                <br>
+
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon"><i class="fas fa-key"></i></span>
+                    <input name="password" ngModel pInputText placeholder="Senha" size="30" type="password"/>
+                </div>
+
+                <br/><br/>
+
+                <button class="ui-button-raised width-100"
+                        label="Login"
+                        pButton
+                        type="submit">
+                </button>
+
+                <br/><br/>
+
+                <button (click)="onCloseLoginClick()"
+                        class="ui-button-secondary width-100 ui-button-raised"
+                        label="Fechar"
+                        pButton
+                        type="button">
+                </button>
+            </form>
+        </div>
+
+    </div>
+
+</div>

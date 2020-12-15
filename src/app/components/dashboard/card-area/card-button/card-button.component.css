@@ -1,0 +1,51 @@
+
+.btn-alert {
+    height: 4rem;
+    text-align: left;
+    width: 90%;
+    font-size: 1vw;
+    margin: 9px;
+    display: inline-grid;
+    border-radius: 15px;
+    color: #7a0000 !important;
+}
+
+:host /deep/ .ui-button {
+    background-color: #591111;
+    color: white;
+}
+
+.ui-card-active {
+    background-color: #591111 !important;
+    color: white !important;
+    opacity: 1 !important;
+    border: 1px solid #591111 !important;
+}
+
+.btn-alert-cars {
+    margin-bottom: 18px;
+}
+
+.number-display {
+    font-size: 14px;
+}
+
+.number-display span {
+    font-size: 1vw;
+}
+
+.ui-corner-all {
+    border-radius: 17px;
+}
+
+.btn-alert-title {
+    text-align: center;
+    font-size: 1.2rem;
+    line-height: 1.75;
+}
+
+.btn-alert-value {
+    text-align: center;
+    font-size: 0.9rem;
+    line-height: 1.75;
+}

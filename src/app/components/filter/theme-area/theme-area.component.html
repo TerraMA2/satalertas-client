@@ -1,0 +1,30 @@
+<h3 class="form-margin">{{optionField.label}}</h3>
+<span>
+        <p-dropdown
+                (onChange)="onChangeOptionField($event)"
+                [(ngModel)]="selectedOption"
+                [autoDisplayFirst]="false"
+                [disabled]="disable"
+                [name]="optionField.name"
+                [options]="options"
+                [showClear]="false"
+                scrollHeight="180px"
+                styleClass="width-100">
+        </p-dropdown>
+</span>
+<div *ngIf="optionSelectedByFilter.label">
+    <p-dropdown
+            (onChange)="onchangeSelected($event)"
+            [(ngModel)]="optionSelectedByFilter.value"
+            [autoDisplayFirst]="false"
+            [disabled]="false"
+            [name]="optionSelectedByFilter.type"
+            [options]="optionsFilterLocalizations"
+            [placeholder]="optionSelectedByFilter.label"
+            [showClear]="true"
+            filter="true"
+            optionLabel="name"
+            scrollHeight="180px"
+            styleClass="width-100">
+    </p-dropdown>
+</div>

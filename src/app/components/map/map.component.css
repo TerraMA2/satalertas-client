@@ -1,0 +1,77 @@
+.map {
+    z-index: 1001;
+}
+
+.loading-map {
+    position: absolute;
+    top: 20px;
+    left: 100px;
+    z-index: 5000;
+    font-size: 20px;
+}
+
+:host ::ng-deep .leaflet-custom-icon {
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+    width: 26px;
+    height: 26px;
+    line-height: 26px;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+}
+
+:host ::ng-deep .leaflet-custom-icon-selected {
+    background-color: #c0c0c0;
+}
+
+:host ::ng-deep .leaflet-report-table-icon {
+    padding: 4px 8px;
+    width: unset;
+    height: unset;
+}
+
+:host ::ng-deep .leaflet-latlong-icon {
+    padding: 4px 8px;
+    width: unset;
+    height: unset;
+}
+
+.leaflet-control {
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
+    border-radius: 4px;
+}
+
+:host ::ng-deep .leaflet-custom-icon a {
+    color: #000;
+}
+
+:host ::ng-deep .leaflet-custom-icon:hover {
+    cursor: pointer;
+    background-color: #f4f4f4;
+}
+
+:host ::ng-deep .sidebar.hide-sidebar > * {
+    display: none;
+}
+
+:host ::ng-deep .popup-container {
+    overflow: hidden;
+    text-align: center;
+}
+
+:host ::ng-deep .popup-container-feature-info {
+    overflow: auto;
+    text-align: center;
+}
+
+:host ::ng-deep .leaflet-popup-content {
+    overflow: auto;
+}
+
+:host ::ng-deep .leaflet-control-coordinates {
+    background-color: rgba(255, 255, 255, .8);
+    cursor: default;
+    border-radius: 4px
+}

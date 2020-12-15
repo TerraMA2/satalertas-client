@@ -1,0 +1,34 @@
+<div [ngClass]="{'active': isLayerGroupOpened }"
+     class="sidebar-layer-group-body p-align-center">
+
+    <i [class]="sidebarLayerGroup.icon"></i>
+
+    <div (click)="onLayerGroupClicked()"
+         class="sidebar-layer-group-label">
+
+        <i [ngClass]="{'fa-chevron-down': isLayerGroupOpened, 'fa-chevron-right': !isLayerGroupOpened}"
+           class="fas sidebar-layer-group-arrow">
+        </i>
+        <a>{{sidebarLayerGroup.label }}</a>
+
+    </div>
+
+    <div class="sidebar-layer-group-switch">
+
+        <p-inputSwitch (onChange)="onSwitchChanged($event)">
+        </p-inputSwitch>
+
+    </div>
+</div>
+<div [ngClass]="{show: isLayerGroupOpened, hide: !isLayerGroupOpened}"
+     class="collapse border-left-right">
+
+    <app-sidebar-layer *ngFor="let layer of sidebarLayers; trackBy: trackById"
+                       [displayChild]="true"
+                       [isLayerGroupOpened]="isLayerGroupOpened"
+                       [layer]="layer"
+                       [parentSwitchChecked]="switchChecked"
+                       class="sidebar-layer-body p-dir-col p-align-stretch">
+    </app-sidebar-layer>
+
+</div>

@@ -1,0 +1,29 @@
+<div class="p-grid p-justify-between">
+    <div>
+        <button (click)="onFilterClicked.emit($event)"
+                class="ui-button-raised"
+                label="Aplicar"
+                pButton
+                type="submit">
+        </button>
+
+        <button (click)="onClearFilterClicked.emit($event)"
+                class="ui-button-secondary
+                                ui-button ui-widget ui-state-default
+                                ui-corner-all ui-button-text-only ui-button-raised"
+                label="Remover Filtros"
+                pButton
+                type="button">
+        </button>
+    </div>
+    <div>
+        <button (click)="onCloseClicked.emit($event)"
+                class="ui-button-secondary
+                                ui-button ui-widget ui-state-default
+                                ui-corner-all ui-button-text-only ui-button-raised"
+                label="Fechar"
+                pButton
+                type="button">
+        </button>
+    </div>
+</div>
