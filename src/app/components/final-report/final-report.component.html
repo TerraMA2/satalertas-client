@@ -8,10 +8,11 @@
         </button>
         &nbsp;&nbsp;
         <button (click)="onViewReportClicked('')"
-                class="p-button-raised"
-                icon="fas fa-file-alt"
-                label="Síntese"
-                pButton>
+                class="btn btn-icon p-button-raised view-report-icon icon-margin synthesis-link"
+                pButton
+                pTooltip="Visualizar Síntese"
+                tooltipPosition="top">
+            <span class="fas fa-file-invoice synthesis-icon"></span>
         </button>
         &nbsp;&nbsp;
         <button (click)="onViewReportClicked('deter')"

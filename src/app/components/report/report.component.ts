@@ -131,7 +131,11 @@ export class ReportComponent implements OnInit {
     }
 
     onViewReportClicked(reportType) {
-        this.router.navigateByUrl(`/finalReport/${reportType}/${this.carRegister.replace('/', '\\')}`);
+        if (reportType === 'synthesis'){
+            this.router.navigateByUrl(`/report/${this.carRegister.replace('/', '\\')}`);
+        } else {
+            this.router.navigateByUrl(`/finalReport/${reportType}/${this.carRegister.replace('/', '\\')}`);
+        }
     }
 
     async getBase64ImageFromUrl(imageUrl) {

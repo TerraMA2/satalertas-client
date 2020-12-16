@@ -105,3 +105,13 @@ h2 {
 body .p-dialog .p-dialog-content {
     font-size: 18px;
 }
+
+.synthesis-icon {
+    color: #591111;
+    margin: 10px 8px;
+}
+
+.synthesis-link {
+    font-size: 20px;
+    color: #591111;
+}
