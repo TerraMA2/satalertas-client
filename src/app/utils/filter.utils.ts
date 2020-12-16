@@ -12,9 +12,16 @@ export class FilterUtils {
                 geocode: `'${filter.themeSelected.value.geocodigo}'`
             };
 
-            layer.layerData.cql_filter =
-                FilterUtils.setCqlFilter(
+            if (layer.filter[filter.themeSelected.type].param) {
+                layer.layerData.viewparams =
+                  layer.layerData.viewparams ?
+                    `${layer.layerData.viewparams};${layer.filter[filter.themeSelected.type].field}:${value[layer.filter[filter.themeSelected.type].value]}` :
+                    `${layer.filter[filter.themeSelected.type].field}:${value[layer.filter[filter.themeSelected.type].value]}`;
+            } else {
+                layer.layerData.cql_filter =
+                  FilterUtils.setCqlFilter(
                     value[layer.filter[filter.themeSelected.type].value], layer.filter[filter.themeSelected.type].field, cqlFilter);
+            }
         } else {
             delete layer.layerData.cql_filter;
         }
@@ -28,8 +35,8 @@ export class FilterUtils {
     private static setCqlFilter(value, column, cqlFilter) {
         let cFilter = cqlFilter ? cqlFilter : '';
 
-        cFilter += cFilter ? '; ' : '';
-        cFilter += ` ${column} = ${value} `;
+        cFilter += cFilter ? ';' : '';
+        cFilter += `${column}=${value} `;
 
         return cFilter;
     }
