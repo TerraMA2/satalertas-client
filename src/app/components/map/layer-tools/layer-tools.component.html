@@ -24,7 +24,7 @@
             <br>
             <div class="p-grid p-align-center p-justify-end p-nogutter">
                 <div *ngIf="isExportLoading">
-                    <p-progressSpinner strokeWidth="6" [style]="{width: '25px', height: '25px'}"></p-progressSpinner>
+                    <p-progressSpinner strokeWidth="6" [style]="{width: '25px', height: '25px'}" animationDuration="1s"></p-progressSpinner>
                 </div>
                 &nbsp;
                 <button (click)="onExportClick()" [disabled]="isExportLoading" class="p-button-raised" label="Exportar"

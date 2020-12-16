@@ -1,43 +1,40 @@
 <p-toolbar>
-    <div class="p-grid">
-        <div class="p-col-4">
+    <div class="p-toolbar-group-left">
             <button class="p-button-raised"
                     icon="fas fa-arrow-left"
                     label="Voltar ao mapa"
                     pButton
                     routerLink="/map">
             </button>
-        </div>
-        <div class="p-col-4">
-            <div *ngIf="isLoading" class="loading-report">
-                <p-progressSpinner [style]="{width: '30px', height: '30px'}" strokeWidth="6"></p-progressSpinner>
-            </div>
-        </div>
-        <div class="p-col-4 text-right">
-            <button (click)="onViewReportClicked('deter')"
-                    class="btn btn-icon p-button-raised view-report-icon"
-                    pButton
-                    pTooltip="Visualizar relatório Deter"
-                    tooltipPosition="top">
-                <img src="assets/img/ico/deter32x32.png"/>
-            </button>
-            <button (click)="onViewReportClicked('prodes')"
-                    class="btn btn-icon p-button-raised view-report-icon icon-margin"
-                    pButton
-                    pTooltip="Visualizar relatório Prodes"
-                    tooltipPosition="top">
-                <img src="assets/img/ico/prodes32x32.png"/>
-            </button>
-            <button (click)="onViewReportClicked('queimada')"
-                    class="btn btn-icon p-button-raised view-report-icon icon-margin"
-                    pButton
-                    pTooltip="Visualizar relatório Queimada"
-                    tooltipPosition="top">
-                <img src="assets/img/ico/queima.ico"/>
-            </button>
-        </div>
+    </div>
+    <div *ngIf="isLoading" class="loading-report">
+        <p-progressSpinner [style]="{width: '30px', height: '30px'}" strokeWidth="6" animationDuration="1s"></p-progressSpinner>
+    </div>
+    <div class="p-toolbar-group-right">
+        <button (click)="onViewReportClicked('deter')"
+                class="btn btn-icon p-button-raised view-report-icon"
+                pButton
+                pTooltip="Visualizar relatório Deter"
+                tooltipPosition="top">
+            <img src="assets/img/ico/deter32x32.png"/>
+        </button>
+        <button (click)="onViewReportClicked('prodes')"
+                class="btn btn-icon p-button-raised view-report-icon icon-margin"
+                pButton
+                pTooltip="Visualizar relatório Prodes"
+                tooltipPosition="top">
+            <img src="assets/img/ico/prodes32x32.png"/>
+        </button>
+        <button (click)="onViewReportClicked('queimada')"
+                class="btn btn-icon p-button-raised view-report-icon icon-margin"
+                pButton
+                pTooltip="Visualizar relatório Queimada"
+                tooltipPosition="top">
+            <img src="assets/img/ico/queima.ico"/>
+        </button>
     </div>
 </p-toolbar>
+
 <p-scrollPanel [style]="{width: '100%', height: 'calc(100vh - 100px)'}">
     <div class="background-color-gray">
         <br>
@@ -89,14 +86,12 @@
                                 </div>
                                 <br>
                                 <div class="p-grid p-align-center p-justify-center">
-
                                     <p-chart [data]="chartImage.myChart" class="width-100" type="line"></p-chart>
                                 </div>
                                 <br>
                                 <br>
                             </p-card>
                         </div>
-
                     </div>
                 </div>
                 <hr>

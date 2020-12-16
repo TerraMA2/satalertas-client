@@ -38,6 +38,7 @@
 }
 
 .sidebar-layer-switch {
+    display: flex;
     margin-top: 5px;
     flex-grow: 0;
 }

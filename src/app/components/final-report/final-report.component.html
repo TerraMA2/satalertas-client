@@ -13,29 +13,29 @@
                 label="Síntese"
                 pButton>
         </button>
+        &nbsp;&nbsp;
+        <button (click)="onViewReportClicked('deter')"
+                class="btn btn-icon p-button-raised view-report-icon"
+                pButton
+                pTooltip="Visualizar relatório Deter"
+                tooltipPosition="top">
+            <img src="assets/img/ico/deter32x32.png"/>
+        </button>
+        <button (click)="onViewReportClicked('prodes')"
+                class="btn btn-icon p-button-raised view-report-icon icon-margin"
+                pButton
+                pTooltip="Visualizar relatório Prodes"
+                tooltipPosition="top">
+            <img src="assets/img/ico/prodes32x32.png"/>
+        </button>
+        <button (click)="onViewReportClicked('queimada')"
+                class="btn btn-icon p-button-raised view-report-icon icon-margin"
+                pButton
+                pTooltip="Visualizar relatório Queimada"
+                tooltipPosition="top">
+            <img src="assets/img/ico/queima.ico"/>
+        </button>
     </div>
-    &nbsp;&nbsp;
-    <button (click)="onViewReportClicked('deter')"
-            class="btn btn-icon p-button-raised view-report-icon"
-            pButton
-            pTooltip="Visualizar relatório Deter"
-            tooltipPosition="top">
-        <img src="assets/img/ico/deter32x32.png"/>
-    </button>
-    <button (click)="onViewReportClicked('prodes')"
-            class="btn btn-icon p-button-raised view-report-icon icon-margin"
-            pButton
-            pTooltip="Visualizar relatório Prodes"
-            tooltipPosition="top">
-        <img src="assets/img/ico/prodes32x32.png"/>
-    </button>
-    <button (click)="onViewReportClicked('queimada')"
-            class="btn btn-icon p-button-raised view-report-icon icon-margin"
-            pButton
-            pTooltip="Visualizar relatório Queimada"
-            tooltipPosition="top">
-        <img src="assets/img/ico/queima.ico"/>
-    </button>
     <div class="p-toolbar-group-right">
         <button (click)="generatePdf('open')"
                 *ngIf="loggedUser.administrator"
@@ -86,6 +86,6 @@
 </div>
 
 <div *ngIf="!docBase64" class="final-report-loading">
-    <p-progressSpinner strokeWidth="6"></p-progressSpinner>
+    <p-progressSpinner strokeWidth="6" animationDuration="1s"></p-progressSpinner>
 </div>
 <p-confirmDialog [baseZIndex]="10000" [style]="{width: '25vw'}"></p-confirmDialog>

@@ -3,7 +3,7 @@
     <div class="p-col-12 p-col-nogutter">
 
         <div *ngIf="isLoading" class="loading-login">
-            <p-progressSpinner [style]="{width: '200px', height: '200px'}"></p-progressSpinner>
+            <p-progressSpinner [style]="{width: '200px', height: '200px'}" animationDuration="1s"></p-progressSpinner>
         </div>
 
         <div *ngIf="!isLoading">
