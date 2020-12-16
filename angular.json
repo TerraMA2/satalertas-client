@@ -45,8 +45,9 @@
               "src/manifest.webmanifest"
             ],
             "styles": [
-              "node_modules/primeicons/primeicons.css",
+              "src/theme.css",
               "node_modules/primeng-lts/resources/primeng.min.css",
+              "node_modules/primeicons/primeicons.css",
               "node_modules/primeflex/primeflex.css",
               "node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css",
               "node_modules/@fortawesome/fontawesome-free/css/solid.min.css",

@@ -18,7 +18,7 @@
 }
 
 .sidebar-item-body a,
-.sidebar-item-body p-dropdown .ui-dropdown-label {
+.sidebar-item-body p-dropdown .p-dropdown-label {
     margin-left: 5px;
     color: #5f5f5f;
     font-weight: bold;
@@ -29,7 +29,7 @@
     margin-left: 5px;
 }
 
-.sidebar-item-body p-dropdown .ui-dropdown-label {
+.sidebar-item-body p-dropdown .p-dropdown-label {
     padding: 3px 5px;
     font-size: 20px;
 }

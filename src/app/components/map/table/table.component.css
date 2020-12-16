@@ -20,12 +20,13 @@
 }
 
 .icon-margin {
+    margin: unset;
     margin-left: 5px !important;
 }
 
 .marker-icon {
     color: #2C84CB;
-    margin: 6px 3px;
+    margin: 10px 10px;
 }
 
 .report-button {

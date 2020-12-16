@@ -1,6 +1,6 @@
 <p-toolbar>
-    <div class="ui-toolbar-group-left">
-        <button class="ui-button-raised"
+    <div class="p-toolbar-group-left">
+        <button class="p-button-raised"
                 icon="fas fa-arrow-left"
                 label="Voltar ao mapa"
                 pButton
@@ -8,7 +8,7 @@
         </button>
         &nbsp;&nbsp;
         <button (click)="onViewReportClicked('')"
-                class="ui-button-raised"
+                class="p-button-raised"
                 icon="fas fa-file-alt"
                 label="Síntese"
                 pButton>
@@ -16,31 +16,31 @@
     </div>
     &nbsp;&nbsp;
     <button (click)="onViewReportClicked('deter')"
-            class="btn btn-icon ui-button-raised view-report-icon"
+            class="btn btn-icon p-button-raised view-report-icon"
             pButton
             pTooltip="Visualizar relatório Deter"
             tooltipPosition="top">
         <img src="assets/img/ico/deter32x32.png"/>
     </button>
     <button (click)="onViewReportClicked('prodes')"
-            class="btn btn-icon ui-button-raised view-report-icon icon-margin"
+            class="btn btn-icon p-button-raised view-report-icon icon-margin"
             pButton
             pTooltip="Visualizar relatório Prodes"
             tooltipPosition="top">
         <img src="assets/img/ico/prodes32x32.png"/>
     </button>
     <button (click)="onViewReportClicked('queimada')"
-            class="btn btn-icon ui-button-raised view-report-icon icon-margin"
+            class="btn btn-icon p-button-raised view-report-icon icon-margin"
             pButton
             pTooltip="Visualizar relatório Queimada"
             tooltipPosition="top">
         <img src="assets/img/ico/queima.ico"/>
     </button>
-    <div class="ui-toolbar-group-right">
+    <div class="p-toolbar-group-right">
         <button (click)="generatePdf('open')"
                 *ngIf="loggedUser.administrator"
                 [disabled]="!docBase64 || generatingReport"
-                icon="fas fa-download ui-button-raised"
+                icon="fas fa-download p-button-raised"
                 label="Gerar Relatório"
                 pButton
                 type="button">

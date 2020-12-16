@@ -11,21 +11,21 @@
             <hr>
             <br>
             <form #loginForm="ngForm" (ngSubmit)="onLoginClicked(loginForm)">
-                <div class="ui-inputgroup">
-                    <span class="ui-inputgroup-addon"><i class="fas fa-user"></i></span>
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon"><i class="fas fa-user"></i></span>
                     <input name="username" ngModel pInputText placeholder="Usuário" size="30" type="text"/>
                 </div>
 
                 <br>
 
-                <div class="ui-inputgroup">
-                    <span class="ui-inputgroup-addon"><i class="fas fa-key"></i></span>
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon"><i class="fas fa-key"></i></span>
                     <input name="password" ngModel pInputText placeholder="Senha" size="30" type="password"/>
                 </div>
 
                 <br/><br/>
 
-                <button class="ui-button-raised width-100"
+                <button class="p-button-raised width-100"
                         label="Login"
                         pButton
                         type="submit">
@@ -34,7 +34,7 @@
                 <br/><br/>
 
                 <button (click)="onCloseLoginClick()"
-                        class="ui-button-secondary width-100 ui-button-raised"
+                        class="p-button-secondary width-100 p-button-raised"
                         label="Fechar"
                         pButton
                         type="button">

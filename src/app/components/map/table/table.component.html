@@ -91,7 +91,7 @@
                             (click)="onExportClick()"
                             *ngIf="tableReportActive"
                             [disabled]="isExportDisabled || isLoading"
-                            class="ui-button-raised"
+                            class="p-button-raised"
                             icon="fas fa-save"
                             iconPos="left"
                             label="Exportar"
@@ -107,7 +107,7 @@
                             (click)="onShowMapClicked()"
                             *ngIf="tableReportActive"
                             [disabled]="isExportDisabled || isLoading"
-                            class="ui-button-raised"
+                            class="p-button-raised"
                             icon="fas fa-map-marker-alt"
                             iconPos="left"
                             label="Visualizar no mapa"
@@ -161,12 +161,12 @@
                 style="width:3em">
                 <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
             </td>
-            <td *ngFor="let col of columns; trackBy: trackById" class="ui-resizable-column">
+            <td *ngFor="let col of columns; trackBy: trackById" class="p-resizable-column">
                 {{rowData[col.field]}}
             </td>
             <td *ngIf="tableReportActive">
                 <button *ngIf="tableReportActive && showDeter"
-                        class="btn ui-button-raised view-report-icon"
+                        class="btn p-button-raised view-report-icon"
                         pButton
                         pTooltip="Visualizar relatório Deter"
                         routerLink="/finalReport/deter/{{getRegister(rowData)}}"
@@ -174,7 +174,7 @@
                     <img src="assets/img/ico/deter32x32.png"/>
                 </button>
                 <button *ngIf="tableReportActive && showProdes"
-                        class="btn ui-button-raised view-report-icon icon-margin"
+                        class="btn p-button-raised view-report-icon icon-margin"
                         pButton
                         pTooltip="Visualizar relatório Prodes"
                         routerLink="/finalReport/prodes/{{getRegister(rowData)}}"
@@ -182,7 +182,7 @@
                     <img src="assets/img/ico/prodes32x32.png"/>
                 </button>
                 <button *ngIf="tableReportActive && showBurn"
-                        class="btn ui-button-raised view-report-icon icon-margin"
+                        class="btn p-button-raised view-report-icon icon-margin"
                         pButton
                         pTooltip="Visualizar relatório Queimada"
                         routerLink="/finalReport/queimada/{{getRegister(rowData)}}"
@@ -191,7 +191,7 @@
                 </button>
                 <button (click)="onShowMapClicked(rowData)"
                         *ngIf="tableReportActive"
-                        class="btn ui-button-raised view-report-icon icon-margin"
+                        class="btn p-button-raised view-report-icon icon-margin"
                         pButton
                         pTooltip="Visualizar no mapa">
                     <i class="fa fa-map-marker-alt marker-icon"></i>
@@ -207,7 +207,7 @@
                     <div *ngFor="let report of reports; trackBy: trackById" class="p-col">
                         <button (click)="getReport(report)"
                                 [label]="report.name"
-                                class="report-history-item ui-button-raised report-button"
+                                class="report-history-item p-button-raised report-button"
                                 pButton
                                 pTooltip="Baixar relatório"
                                 tooltipPosition="top">

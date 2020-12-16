@@ -2,8 +2,7 @@
         (onHide)="onLayerToolHide()"
         [(visible)]="displayLayerTools"
         [blockScroll]="true"
-        [positionLeft]="410"
-        [positionTop]="60"
+        position="center"
         header="{{layer?.shortLabel }}"
         autoZIndex="false"
         baseZIndex="1001">
@@ -27,7 +26,7 @@
                     <p-progressSpinner strokeWidth="6" [style]="{width: '25px', height: '25px'}"></p-progressSpinner>
                 </div>
                 &nbsp;
-                <button (click)="onExportClick()" [disabled]="isExportLoading" class="ui-button-raised" label="Exportar"
+                <button (click)="onExportClick()" [disabled]="isExportLoading" class="p-button-raised" label="Exportar"
                         pButton></button>
             </div>
         </p-accordionTab>

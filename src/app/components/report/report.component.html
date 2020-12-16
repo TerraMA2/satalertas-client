@@ -1,8 +1,8 @@
 <p-toolbar>
-    <!--    <div class="ui-toolbar-group-left">-->
+    <!--    <div class="p-toolbar-group-left">-->
     <div class="p-grid">
         <div class="p-col-4">
-            <button class="ui-button-raised"
+            <button class="p-button-raised"
                     icon="fas fa-arrow-left"
                     label="Voltar ao mapa"
                     pButton
@@ -16,21 +16,21 @@
         </div>
         <div class="p-col-4 text-right">
             <button (click)="onViewReportClicked('deter')"
-                    class="btn btn-icon ui-button-raised view-report-icon"
+                    class="btn btn-icon p-button-raised view-report-icon"
                     pButton
                     pTooltip="Visualizar relatório Deter"
                     tooltipPosition="top">
                 <img src="assets/img/ico/deter32x32.png"/>
             </button>
             <button (click)="onViewReportClicked('prodes')"
-                    class="btn btn-icon ui-button-raised view-report-icon icon-margin"
+                    class="btn btn-icon p-button-raised view-report-icon icon-margin"
                     pButton
                     pTooltip="Visualizar relatório Prodes"
                     tooltipPosition="top">
                 <img src="assets/img/ico/prodes32x32.png"/>
             </button>
             <button (click)="onViewReportClicked('queimada')"
-                    class="btn btn-icon ui-button-raised view-report-icon icon-margin"
+                    class="btn btn-icon p-button-raised view-report-icon icon-margin"
                     pButton
                     pTooltip="Visualizar relatório Queimada"
                     tooltipPosition="top">
@@ -41,7 +41,7 @@
 
     <!--    </div>-->
 
-    <!--    <div class="ui-toolbar-group-right">-->
+    <!--    <div class="p-toolbar-group-right">-->
 
     <!--    </div>-->
 </p-toolbar>
@@ -90,7 +90,7 @@
                     <div *ngFor="let chartImage of chartImages; trackBy: trackById; let i = index"
                          class="p-col-12 p-md-12">
                         <div class="card text-center">
-                            <p-card class="ui-card-shadow">
+                            <p-card class="p-card-shadow">
                                 <div class="p-grid p-align-center p-justify-center">
                                     <img [src]="chartImage.geoserverImageNdvi"/>
                                 </div>

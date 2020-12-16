@@ -10,14 +10,14 @@
     <span class="header-title">{{headerTitle}}</span>
 
     <button (click)="showFilter()"
-            class="ui-button-raised ui-button-secondary button-filter"
+            class="p-button-raised p-button-secondary button-filter"
             icon="fas fa-filter"
             label="Filtrar"
             pButton
             type="button">
     </button>
 
-    <div class="ui-g-12 ui-md-4 header-filter">
+    <div class="p-g-12 p-md-4 header-filter">
         <p-calendar #dataFilter
                     (onClose)="onFilterClose()"
                     (onFocus)="onFilterFocus()"
@@ -39,14 +39,14 @@
             <p-footer class="date-footer">
                 <button (click)="onTodayClick()"
                         [label]="locale.today"
-                        class="date-button date-button-today ui-button-raised"
+                        class="date-button date-button-today p-button-raised"
                         pButton
                         type="button">
                 </button>
                 <button (click)="onFilterClick()"
                         [disabled]="(dateInput && !dateInput[1] && dateInput[1] === null)"
                         [style]="{float:'right'}"
-                        class="date-button button-right ui-button-raised"
+                        class="date-button button-right p-button-raised"
                         label="Filtrar"
                         pButton
                         type="button">
@@ -63,7 +63,7 @@
 
         <ng-template #login>
             <button (click)="onLoginClick()"
-                    class="ui-button-raised ui-button-secondary"
+                    class="p-button-raised p-button-secondary"
                     icon="fa fa-sign-in-alt"
                     label="Login"
                     pButton
@@ -75,7 +75,7 @@
             <div>{{loggedUserName }}</div>
             &nbsp;&nbsp;
             <button (click)="onLogoutClick()"
-                    class="ui-button-raised ui-button-secondary"
+                    class="p-button-raised p-button-secondary"
                     icon="fa fa-sign-in-alt"
                     label="Logout"
                     pButton

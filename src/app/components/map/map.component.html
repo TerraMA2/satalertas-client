@@ -9,10 +9,11 @@
            [dismissible]="false"
            [modal]="false"
            [showCloseIcon]="true"
-           [style]="{width:'inherit', left: 'unset', height: tablePanelHeight, 'text-align': 'center' }"
+           [style]="{width: 'inherit', left: 'unset', height: tablePanelHeight, 'text-align': 'center' }"
            position="bottom">
     <a (click)="expandShrinkTable()"
-       class="ui-sidebar-close">
+       class="p-sidebar-close"
+       style="margin-right: 20px">
               <span [ngClass]="{
                                 'pi-window-minimize': tableFullscreen,
                                 'pi-window-maximize': !tableFullscreen

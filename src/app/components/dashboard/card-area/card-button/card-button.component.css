@@ -10,12 +10,12 @@
     color: #7a0000 !important;
 }
 
-:host /deep/ .ui-button {
+:host /deep/ .p-button {
     background-color: #591111;
     color: white;
 }
 
-.ui-card-active {
+.p-card-active {
     background-color: #591111 !important;
     color: white !important;
     opacity: 1 !important;
@@ -32,10 +32,6 @@
 
 .number-display span {
     font-size: 1vw;
-}
-
-.ui-corner-all {
-    border-radius: 17px;
 }
 
 .btn-alert-title {
