@@ -1,20 +1,24 @@
 <div *ngIf="checkAlertTypeValid()">
     <h3 class="form-margin">Tipo do alerta</h3>
-    <p-radioButton [(ngModel)]="alertType.radioValue"
-                   [disabled]="disable"
-                   inputId="preopt1"
-                   label="Todos"
-                   name="ALL"
-                   value="ALL">
-    </p-radioButton>
-    &nbsp;&nbsp;
-    <p-radioButton [(ngModel)]="alertType.radioValue"
-                   [disabled]="disable"
-                   inputId="preopt2"
-                   label="Áreas/Ocorrências"
-                   name="OCCURRENCE-AREA"
-                   value="OCCURRENCE-AREA">
-    </p-radioButton>
+    <div class="p-formgroup-inline">
+        <div class="p-field-checkbox">
+            <p-radioButton [(ngModel)]="alertType.radioValue"
+                           [disabled]="disable"
+                           inputId="preopt1"
+                           value="ALL">
+            </p-radioButton>
+            <label>Todos</label>
+        </div>
+        <div class="p-field-checkbox">
+            <p-radioButton [(ngModel)]="alertType.radioValue"
+                           [disabled]="disable"
+                           inputId="preopt2"
+                           name="OCCURRENCE-AREA"
+                           value="OCCURRENCE-AREA">
+            </p-radioButton>
+            <label>Áreas/Ocorrências</label>
+        </div>
+    </div>
 
     <div *ngIf="checkAnalyzesValid()">
         <div *ngFor="let analyze of alertType.analyzes; trackBy: trackById">

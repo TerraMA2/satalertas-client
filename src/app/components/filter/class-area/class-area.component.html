@@ -1,26 +1,30 @@
 <div *ngIf="checkValid()">
     <h3 class="form-margin">Classe</h3>
-    <p-radioButton [(ngModel)]="filterClass.radioValue"
-                   [disabled]="disable"
-                   inputId="preopt1"
-                   label="Todos"
-                   name="CLASS_ALL"
-                   value="ALL">
-    </p-radioButton>
-    &nbsp;&nbsp;
-    <p-radioButton [(ngModel)]="filterClass.radioValue"
-                   [disabled]="disable"
-                   inputId="preopt2"
-                   label="Selecionada"
-                   name="SELECTION"
-                   value="SELECTION">
-    </p-radioButton>
-
+    <div class="p-formgroup-inline">
+        <div class="p-field-checkbox">
+            <p-radioButton [(ngModel)]="filterClass.radioValue"
+                           [disabled]="disable"
+                           inputId="preopt1"
+                           name="CLASS_ALL"
+                           value="ALL">
+            </p-radioButton>
+            <label>Todos</label>
+        </div>
+        <div class="p-field-checkbox">
+            <p-radioButton [(ngModel)]="filterClass.radioValue"
+                           [disabled]="disable"
+                           inputId="preopt2"
+                           name="SELECTION"
+                           value="SELECTION">
+            </p-radioButton>
+            <label>Selecionada</label>
+        </div>
+    </div>
     <div *ngIf="checkAnalyzesValid()">
         <div *ngFor="let analyze of filterClass.analyzes; trackBy: trackById">
-            <h3 class="form-margin">{{analyze.label}}</h3>
             <div class="p-grid">
                 <div [ngClass]="{'p-col-6': false, 'p-col-12 form-padding': true }">
+                    <h3 class="form-margin">{{analyze.label}}</h3>
                     <p-dropdown
                             (onChange)="onChange($event)"
                             [(ngModel)]="analyze.valueOption"

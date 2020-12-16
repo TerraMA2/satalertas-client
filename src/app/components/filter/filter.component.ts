@@ -90,7 +90,6 @@ export class FilterComponent implements OnInit, AfterViewInit {
 
     onFilterClicked(zoomIn: boolean) {
         this.updateFilter();
-
         this.filterService.filterMap.next(zoomIn);
         this.filterService.filterDashboard.next();
         this.filterService.filterTable.next();
