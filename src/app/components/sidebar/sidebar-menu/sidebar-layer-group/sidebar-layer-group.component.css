@@ -82,7 +82,7 @@
     display: flex;
     justify-content: space-between;
     cursor: pointer;
-    padding: 0 10px;
+    padding: 0 6px;
     background-color: #fff;
     transition: background-color 500ms ease-in-out;
 }

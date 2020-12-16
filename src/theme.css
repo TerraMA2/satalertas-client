@@ -751,7 +751,7 @@ p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext {
     width: 1.25rem;
     height: 1.25rem;
     left: 0.25rem;
-    margin-top: -0.625rem;
+    margin-top: -0.6rem;
     border-radius: 50%;
     transition-duration: 0.2s;
 }
@@ -1467,7 +1467,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
     border-color: #eeeeee;
 }
 .p-button.p-button-secondary:enabled:focus, .p-buttonset.p-button-secondary > .p-button:enabled:focus, .p-splitbutton.p-button-secondary > .p-button:enabled:focus {
-    /*box-shadow: 0 0 0 0.2rem #B0BEC5;*/
+    box-shadow: none;
 }
 .p-button.p-button-secondary:enabled:active, .p-buttonset.p-button-secondary > .p-button:enabled:active, .p-splitbutton.p-button-secondary > .p-button:enabled:active {
     background-color: #eeeeee;
