@@ -34,7 +34,6 @@
     "ng2-charts": "^2.4.2",
     "ng2-pdf-viewer": "^6.3.2",
     "ngx-extended-pdf-viewer": "^7.1.0",
-    "ngx-print": "^1.2.0-beta.5",
     "pdfmake": "^0.1.65",
     "primeflex": "^2.0.0",
     "primeicons": "^4.0.0",

@@ -1459,50 +1459,50 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 .p-button.p-button-secondary, .p-buttonset.p-button-secondary > .p-button, .p-splitbutton.p-button-secondary > .p-button {
     color: #000000;
     background: #ffffff;
-    border: 1px solid #000000;
+    border: 1px solid #eeeeee;
 }
 .p-button.p-button-secondary:enabled:hover, .p-buttonset.p-button-secondary > .p-button:enabled:hover, .p-splitbutton.p-button-secondary > .p-button:enabled:hover {
     background: #dddddd;
     color: #000000;
-    border-color: #000000;
+    border-color: #eeeeee;
 }
 .p-button.p-button-secondary:enabled:focus, .p-buttonset.p-button-secondary > .p-button:enabled:focus, .p-splitbutton.p-button-secondary > .p-button:enabled:focus {
-    box-shadow: 0 0 0 0.2rem #B0BEC5;
+    /*box-shadow: 0 0 0 0.2rem #B0BEC5;*/
 }
 .p-button.p-button-secondary:enabled:active, .p-buttonset.p-button-secondary > .p-button:enabled:active, .p-splitbutton.p-button-secondary > .p-button:enabled:active {
-    background: #455A64;
+    background-color: #eeeeee;
     color: #ffffff;
-    border-color: #455A64;
+    border-color: #eeeeee;
 }
 .p-button.p-button-secondary.p-button-outlined, .p-buttonset.p-button-secondary > .p-button.p-button-outlined, .p-splitbutton.p-button-secondary > .p-button.p-button-outlined {
     background-color: transparent;
-    color: #607D8B;
+    color: #eeeeee;
     border: 1px solid;
 }
 .p-button.p-button-secondary.p-button-outlined:enabled:hover, .p-buttonset.p-button-secondary > .p-button.p-button-outlined:enabled:hover, .p-splitbutton.p-button-secondary > .p-button.p-button-outlined:enabled:hover {
     background: rgba(96, 125, 139, 0.04);
-    color: #607D8B;
+    color: #eeeeee;
     border: 1px solid;
 }
 .p-button.p-button-secondary.p-button-outlined:enabled:active, .p-buttonset.p-button-secondary > .p-button.p-button-outlined:enabled:active, .p-splitbutton.p-button-secondary > .p-button.p-button-outlined:enabled:active {
-    background: rgba(96, 125, 139, 0.16);
-    color: #607D8B;
+    background: #eeeeee;
+    color: #eeeeee;
     border: 1px solid;
 }
 .p-button.p-button-secondary.p-button-text, .p-buttonset.p-button-secondary > .p-button.p-button-text, .p-splitbutton.p-button-secondary > .p-button.p-button-text {
     background-color: transparent;
-    color: #607D8B;
+    color: #eeeeee;
     border-color: transparent;
 }
 .p-button.p-button-secondary.p-button-text:enabled:hover, .p-buttonset.p-button-secondary > .p-button.p-button-text:enabled:hover, .p-splitbutton.p-button-secondary > .p-button.p-button-text:enabled:hover {
     background: rgba(96, 125, 139, 0.04);
     border-color: transparent;
-    color: #607D8B;
+    color: #eeeeee;
 }
 .p-button.p-button-secondary.p-button-text:enabled:active, .p-buttonset.p-button-secondary > .p-button.p-button-text:enabled:active, .p-splitbutton.p-button-secondary > .p-button.p-button-text:enabled:active {
-    background: rgba(96, 125, 139, 0.16);
+    background: #eeeeee;
     border-color: transparent;
-    color: #607D8B;
+    color: #eeeeee;
 }
 
 .p-button.p-button-info, .p-buttonset.p-button-info > .p-button, .p-splitbutton.p-button-info > .p-button {
@@ -1907,7 +1907,6 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
     background: #ffffff;
     color: #333333;
     transition: background-color 0.2s, box-shadow 0.2s;
-
 }
 .p-datatable .p-datatable-tbody > tr > td {
     text-align: left;
@@ -2983,7 +2982,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 
 .p-scrollpanel .p-scrollpanel-bar {
-    background: #f8f8f8;
+    background-color: var(--primary-color);
     border: 0 none;
 }
 
@@ -4557,4 +4556,25 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 .p-dialog .p-dialog-header .p-dialog-header-icon:enabled:hover {
     color: #333333;
+}
+
+body .p-progress-spinner-circle {
+    animation: custom-progress-spinner-color 1ms ease-in-out infinite;
+}
+
+@keyframes custom-progress-spinner-color {
+    100%,
+    0% {
+        stroke: #591111;
+    }
+    40% {
+        stroke: #591111;
+    }
+    66% {
+        stroke: #591111;
+    }
+    80%,
+    90% {
+        stroke: #591111;
+    }
 }

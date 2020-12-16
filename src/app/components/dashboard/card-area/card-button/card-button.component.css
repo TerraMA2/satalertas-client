@@ -1,47 +1,32 @@
-
 .btn-alert {
     height: 4rem;
-    text-align: left;
-    width: 90%;
-    font-size: 1vw;
-    margin: 9px;
+    width: 100%;
+    font-size: 1.1em;
     display: inline-grid;
-    border-radius: 15px;
-    color: #7a0000 !important;
+    border-radius: 18px;
+    background-color: #f4f4f4;
+    border: none;
+    box-shadow: 0 2px 3px 0 rgba(0,0,0,.15);
+    color: #591111;
 }
 
-:host /deep/ .p-button {
-    background-color: #591111;
-    color: white;
+.btn-alert:first-of-type {
+    margin-bottom: 20px;
 }
 
 .p-card-active {
-    background-color: #591111 !important;
-    color: white !important;
-    opacity: 1 !important;
-    border: 1px solid #591111 !important;
-}
-
-.btn-alert-cars {
-    margin-bottom: 18px;
-}
-
-.number-display {
-    font-size: 14px;
-}
-
-.number-display span {
-    font-size: 1vw;
+    background-color: #591111;
+    color: white;
+    opacity: 1;
 }
 
 .btn-alert-title {
     text-align: center;
-    font-size: 1.2rem;
     line-height: 1.75;
 }
 
 .btn-alert-value {
     text-align: center;
-    font-size: 0.9rem;
     line-height: 1.75;
+    font-size: 0.8em;
 }

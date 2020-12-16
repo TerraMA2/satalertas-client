@@ -21,9 +21,9 @@ export class CardButtonComponent implements OnInit {
 
     @Input() unitOfMeasurement: string;
 
-    @Output() onNubermImmobileClick: EventEmitter<Alert> = new EventEmitter<Alert>();
+    @Output() alertClick: EventEmitter<Alert> = new EventEmitter<Alert>();
 
-    @Output() onAreaClick: EventEmitter<Alert> = new EventEmitter<Alert>();
+    @Output() areaClick: EventEmitter<Alert> = new EventEmitter<Alert>();
 
     constructor() {
     }

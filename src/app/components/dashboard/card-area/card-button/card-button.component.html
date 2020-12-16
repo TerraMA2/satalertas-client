@@ -1,4 +1,4 @@
-<button (click)="onAreaClick.emit(alert) "
+<button (click)="areaClick.emit(alert) "
         [disabled]="alert.activearea"
         [ngClass]="{'p-card-active': alert.activearea}"
         class="p-button-raised p-button-secondary btn-alert"
@@ -9,13 +9,13 @@
     <strong class="btn-alert-value">{{valueArea | number:'1.0-4':'pt'}} {{unitOfMeasurement}}</strong>
 </button>
 
-<button (click)="onNubermImmobileClick.emit(alert)"
-        [disabled]="alert.immobileactive"
-        [ngClass]="{'p-card-active': alert.immobileactive}"
-        class="p-button-raised p-button-secondary btn-alert btn-alert-cars"
+<button (click)="alertClick.emit(alert)"
+        [disabled]="alert.activealert"
+        [ngClass]="{'p-card-active': alert.activealert}"
+        class="p-button-raised p-button-secondary btn-alert"
         pButton
         title="Total de cars {{alert.label}}">
 
     <strong class="btn-alert-title">{{labelNumCars}}</strong>
-    <strong class="btn-alert-value">{{valueNumCars}}</strong>
+    <strong class="btn-alert-value">{{valueNumCars | number:'1.0-4':'pt'}}</strong>
 </button>

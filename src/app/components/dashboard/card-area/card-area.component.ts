@@ -11,9 +11,9 @@ export class CardAreaComponent implements OnInit {
 
     @Input() alertsDisplayed: Alert [] = [];
 
-    @Output() onNubermImmobileClick: EventEmitter<Alert> = new EventEmitter<Alert>();
+    @Output() alertClick: EventEmitter<Alert> = new EventEmitter<Alert>();
 
-    @Output() onAreaClick: EventEmitter<Alert> = new EventEmitter<Alert>();
+    @Output() areaClick: EventEmitter<Alert> = new EventEmitter<Alert>();
 
     constructor() {
     }
@@ -39,7 +39,7 @@ export class CardAreaComponent implements OnInit {
         return (this.isFocus(alert.codgroup) ? '' : 'ha');
     }
 
-    getLabelNumCars(alert: Alert) {
+    getLabelNumCars() {
         return 'Alertas:';
     }
 

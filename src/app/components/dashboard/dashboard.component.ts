@@ -77,7 +77,7 @@ export class DashboardComponent implements OnInit {
     setactivearea() {
         this.alertsDisplayed.forEach(alert => {
             if (alert.activearea) {
-                this.onAreaClick(alert);
+                this.areaClick(alert);
             }
         });
     }
@@ -110,7 +110,7 @@ export class DashboardComponent implements OnInit {
         return alert;
     }
 
-    onAreaClick(alertSelected) {
+    areaClick(alertSelected) {
         this.cleanActive();
 
         this.activeArea(alertSelected.alertsgraphics);
@@ -130,7 +130,7 @@ export class DashboardComponent implements OnInit {
             });
 
             alertSelected.activearea = true;
-            alertSelected.immobileactive = false;
+            alertSelected.activealert = false;
 
             if (this.alertGraphics && this.alertGraphics.length > 0) {
                 this.alertGraphics[0].active = true;
@@ -138,10 +138,10 @@ export class DashboardComponent implements OnInit {
         });
     }
 
-    onNubermImmobileClick(alertSelected) {
+    alertClick(alertSelected) {
         this.cleanActive();
 
-        this.activeImmobile(alertSelected.alertsgraphics);
+        this.activeAlert(alertSelected.alertsgraphics);
 
         this.filterService.getDetailsAnalysisTotals(alertSelected.alertsgraphics).then((alertsGraphics: AlertGraphic[]) => {
             this.alertGraphics = alertsGraphics;
@@ -157,7 +157,7 @@ export class DashboardComponent implements OnInit {
                 graphic.graphics[0].data.datasets[0].hoverBackgroundColor = '#874847';
                 graphic.graphics[1].data.datasets[0].hoverBackgroundColor = '#874847';
             });
-            alertSelected.immobileactive = true;
+            alertSelected.activealert = true;
             alertSelected.activearea = false;
 
             if (this.alertGraphics && this.alertGraphics.length > 0) {
@@ -187,20 +187,12 @@ export class DashboardComponent implements OnInit {
     private cleanActive() {
         if (this.alertsDisplayed && this.alertsDisplayed.length > 0) {
             this.alertsDisplayed.forEach(groupLayer => {
-                groupLayer.immobileactive = false;
+                groupLayer.activealert = false;
                 groupLayer.activearea = false;
             });
         }
 
         this.alertGraphics = [];
-    }
-
-    private adjustGraphValues(alertsGraphics) {
-        const listAlertGraphics = [];
-
-        this.filterService.getDetailsAnalysisTotals(alertsGraphics);
-
-        this.alertGraphics = listAlertGraphics; // ListAlertGraphic.listAlertsGraphic;
     }
 
     private activeArea(alertsgraphics) {
@@ -211,7 +203,7 @@ export class DashboardComponent implements OnInit {
         }
     }
 
-    private activeImmobile(alertsgraphics) {
+    private activeAlert(alertsgraphics) {
         if (alertsgraphics && alertsgraphics.length > 0) {
             alertsgraphics.forEach(alert => {
                 alert.activearea = false;

@@ -1,32 +1,8 @@
-
 .box {
-    padding: 0;
-    margin-left: 16px;
-    margin-right: 16px;
+    margin: 0 16px;
 }
 
 .box-card {
-    border-radius: 0;
-    padding: 7px;
-    margin-top: 18px;
-    margin-bottom: 18px;
+    margin: 18px 0;
     text-align: center !important;
-}
-
-/*:host /deep/ .p-card {*/
-/*    background-color: #591111;*/
-/*    color: white;*/
-/*}*/
-
-.alert-selected {
-    background-color: #7a0000 !important;
-    color: #ffffff !important;
-}
-
-.box-title-panel {
-    text-align: left;
-    color: #591111;
-    font-size: 1.4vw;
-    text-decoration: none;
-    border-bottom: 1px solid #591111;
 }

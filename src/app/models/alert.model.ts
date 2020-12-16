@@ -10,7 +10,7 @@ export class Alert {
         public value1: number,
         public selected?: boolean,
         public activearea?: boolean,
-        public immobileactive?: boolean,
+        public activealert?: boolean,
         public alertsgraphics?: ParamAlert[],
         public isAnalysis?: boolean,
         public isPrimary?: boolean,
