@@ -14,7 +14,9 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": [
-              "ng2-pdf-viewer"
+              "ng2-pdf-viewer",
+              "leaflet-search",
+              "chart.js"
             ],
             "outputPath": "dist/terrama2-report",
             "index": "src/index.html",
@@ -76,7 +78,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": true,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,

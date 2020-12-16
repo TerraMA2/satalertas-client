@@ -28,7 +28,6 @@ import {InputSwitchModule} from 'primeng-lts/inputswitch';
 import {CheckboxModule} from 'primeng-lts/checkbox';
 import {ToastModule} from 'primeng-lts/toast';
 import {RadioButtonModule} from 'primeng-lts/radiobutton';
-import {NgxPrintModule} from 'ngx-print';
 import {ToolbarModule} from 'primeng-lts/toolbar';
 import {NgxExtendedPdfViewerModule} from 'ngx-extended-pdf-viewer';
 import {PdfViewerModule} from 'ng2-pdf-viewer';
@@ -163,7 +162,6 @@ registerLocaleData(localePt, 'pt');
         CheckboxModule,
         ToastModule,
         RadioButtonModule,
-        NgxPrintModule,
         ToolbarModule,
         NgxExtendedPdfViewerModule,
         PdfViewerModule,
