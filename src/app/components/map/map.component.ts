@@ -648,6 +648,7 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
             if (addLayer && !hasLayer) {
                 this.selectedLayers.push(layer);
             }
+            // layer.layerData.viewparams.delete;
             layer = this.setFilter(layer);
             layerToAdd = this.getLayer(layer.layerData);
             layerToAdd.on('loading', () => this.isLoading = true);
