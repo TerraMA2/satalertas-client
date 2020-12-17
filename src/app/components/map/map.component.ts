@@ -53,7 +53,6 @@ import {environment} from 'src/environments/environment';
 })
 
 export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
-
     selectedLayers: Layer[] = [];
     layerTool: Layer;
     toolSelected: string;
@@ -69,9 +68,6 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
     // displayVisibleLayers = false;
     displayLayerTools = false;
     tableReportActive = false;
-    tablePanelHeight;
-    tableHeight;
-    tableFullscreen = false;
     selectedBaseLayer: string;
     isLoading = false;
     private map: L.Map;
@@ -96,10 +92,6 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
     ngOnInit() {
         this.mapConfig = this.configService.getMapConfig();
         this.tableConfig = this.configService.getMapConfig('table');
-
-        const tableConfig = this.tableConfig;
-        this.tablePanelHeight = tableConfig.panelHeight;
-        this.tableHeight = tableConfig.height;
 
         this.sidebarService.sidebarLayerShowHide.next(true);
     }
@@ -363,11 +355,6 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
         });
 
         this.mapService.showMarker.subscribe(markerData => {
-            const heightSmall = this.tableConfig.heightSmall;
-            const panelHeightSmall = this.tableConfig.panelHeightSmall;
-            this.tableHeight = heightSmall;
-            this.tablePanelHeight = panelHeightSmall;
-
             this.setTableMarker(markerData);
         });
 
@@ -1101,26 +1088,6 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
     }
 
     expandShrinkTable() {
-        const panelHeightSmall = this.tableConfig.panelHeightSmall;
-
-        const height = this.tableConfig.height;
-        const panelHeight = this.tableConfig.panelHeight;
-
-        const heightBig = this.tableConfig.heightBig;
-        const panelHeightBig = this.tableConfig.panelHeightBig;
-        if (this.tablePanelHeight === panelHeight) {
-            this.tablePanelHeight = panelHeightBig;
-            this.tableHeight = heightBig;
-            this.tableFullscreen = true;
-        } else if (this.tablePanelHeight === panelHeightBig) {
-            this.tablePanelHeight = panelHeight;
-            this.tableHeight = height;
-            this.tableFullscreen = false;
-        } else if (this.tablePanelHeight === panelHeightSmall) {
-            this.tablePanelHeight = panelHeight;
-            this.tableHeight = height;
-            this.tableFullscreen = false;
-        }
     }
 
     private updateMarkers(layer: Layer) {

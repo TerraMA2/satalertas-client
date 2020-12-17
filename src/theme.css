@@ -3169,8 +3169,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
     box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.16);
 }
 .p-sidebar .p-sidebar-close {
-    width: 2rem;
-    height: 2rem;
+    width: 1rem;
     color: #a6a6a6;
     border: 0 none;
     background: transparent;

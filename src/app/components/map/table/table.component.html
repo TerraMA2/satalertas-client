@@ -1,5 +1,4 @@
 <br/>
-
 <p-table (onHeaderCheckboxToggle)="onHeaderCheckboxToggle($event)"
          (onLazyLoad)="onLazyLoad($event)"
          (onRowExpand)="onRowExpand($event)"
@@ -15,6 +14,7 @@
          [responsive]="true"
          [rowTrackBy]="trackById"
          [rows]="selectedRowsPerPage"
+         [scrollHeight]="'34vh'"
          [scrollable]="true"
          [totalRecords]="totalRecords"
          [value]="tableData"
@@ -23,7 +23,6 @@
          loadingIcon="fas fa-circle-notch color-black"
          responsive="true"
          rowExpandMode="single">
-
     <ng-template pTemplate="caption">
         <div class="p-grid p-nogutter">
 
@@ -80,7 +79,7 @@
                                    [disabled]="isExportDisabled || isLoading"
                                    [filter]="false"
                                    [options]="formats"
-                                   [style]="{minWidth: '16rem', 'vertical-align': 'middle'}"
+                                   [style]="{minWidth: '16rem'}"
                                    defaultLabel="Selecione um formato"
                                    maxSelectedLabels="4">
                     </p-multiSelect>
@@ -91,7 +90,7 @@
                             (click)="onExportClick()"
                             *ngIf="tableReportActive"
                             [disabled]="isExportDisabled || isLoading"
-                            class="p-button-raised"
+                            class="ui-button-raised"
                             icon="fas fa-save"
                             iconPos="left"
                             label="Exportar"
@@ -107,7 +106,7 @@
                             (click)="onShowMapClicked()"
                             *ngIf="tableReportActive"
                             [disabled]="isExportDisabled || isLoading"
-                            class="p-button-raised"
+                            class="ui-button-raised"
                             icon="fas fa-map-marker-alt"
                             iconPos="left"
                             label="Visualizar no mapa"
@@ -133,12 +132,11 @@
             <th *ngIf="tableReportActive" style="width: 3.2em">
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
             </th>
-            <th *ngFor="let col of columns; trackBy: trackById" [pSortableColumn]="col.field" pReorderableColumn
-                pResizableColumn>
+            <th *ngFor="let col of columns; trackBy: trackById" [pSortableColumn]="col.field" pReorderableColumn>
                 {{col.header}}
                 <p-sortIcon [field]="col.field"></p-sortIcon>
             </th>
-            <th *ngIf="tableReportActive" pResizableColumn></th>
+            <th *ngIf="tableReportActive" ></th>
         </tr>
     </ng-template>
 
@@ -161,12 +159,12 @@
                 style="width:3em">
                 <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
             </td>
-            <td *ngFor="let col of columns; trackBy: trackById" class="p-resizable-column">
+            <td *ngFor="let col of columns; trackBy: trackById" pTooltip="{{ rowData[col.field] }}" tooltipPosition="top" style="overflow: hidden;word-break: break-all;">
                 {{rowData[col.field]}}
             </td>
             <td *ngIf="tableReportActive">
                 <button *ngIf="tableReportActive && showDeter"
-                        class="btn p-button-raised view-report-icon"
+                        class="btn ui-button-raised view-report-icon"
                         pButton
                         pTooltip="Visualizar relatório Deter"
                         routerLink="/finalReport/deter/{{getRegister(rowData)}}"
@@ -174,7 +172,7 @@
                     <img src="assets/img/ico/deter32x32.png"/>
                 </button>
                 <button *ngIf="tableReportActive && showProdes"
-                        class="btn p-button-raised view-report-icon icon-margin"
+                        class="btn ui-button-raised view-report-icon icon-margin"
                         pButton
                         pTooltip="Visualizar relatório Prodes"
                         routerLink="/finalReport/prodes/{{getRegister(rowData)}}"
@@ -182,7 +180,7 @@
                     <img src="assets/img/ico/prodes32x32.png"/>
                 </button>
                 <button *ngIf="tableReportActive && showBurn"
-                        class="btn p-button-raised view-report-icon icon-margin"
+                        class="btn ui-button-raised view-report-icon icon-margin"
                         pButton
                         pTooltip="Visualizar relatório Queimada"
                         routerLink="/finalReport/queimada/{{getRegister(rowData)}}"
@@ -191,7 +189,7 @@
                 </button>
                 <button (click)="onShowMapClicked(rowData)"
                         *ngIf="tableReportActive"
-                        class="btn p-button-raised view-report-icon icon-margin"
+                        class="btn ui-button-raised view-report-icon icon-margin"
                         pButton
                         pTooltip="Visualizar no mapa">
                     <i class="fa fa-map-marker-alt marker-icon"></i>
@@ -207,7 +205,7 @@
                     <div *ngFor="let report of reports; trackBy: trackById" class="p-col">
                         <button (click)="getReport(report)"
                                 [label]="report.name"
-                                class="report-history-item p-button-raised report-button"
+                                class="report-history-item ui-button-raised report-button"
                                 pButton
                                 pTooltip="Baixar relatório"
                                 tooltipPosition="top">
@@ -222,11 +220,10 @@
         </tr>
     </ng-template>
 
-    <ng-template let-state pTemplate="paginatorleft">
-        <br/>
-        &nbsp;&nbsp;<strong>{{state.totalRecords }} registros</strong>
-        &nbsp;&nbsp;<strong *ngIf="tableReportActive">{{selectedProperties ? selectedProperties?.length : '0' }}
-        selecionados</strong>
+    <ng-template let-state pTemplate="paginatorright">
+        <strong>{{state.totalRecords | number:'1.0-4':'pt' }} registros</strong>
+        &nbsp;
+        <strong *ngIf="tableReportActive">{{selectedProperties ? selectedProperties?.length : '0' }} selecionados</strong>
     </ng-template>
 
 </p-table>
