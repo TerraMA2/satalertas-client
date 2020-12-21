@@ -24,6 +24,7 @@ import {Image} from '../../models/image.model';
 import {formatNumber} from '@angular/common';
 
 import {User} from '../../models/user.model';
+import {Util} from "../../utils/util";
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -579,34 +580,12 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                 this.reportData.property['sat'] = this.inputSat;
                 this.reportData.property['comments'] = this.textAreaComments;
                 this.reportService.generatePdf(this.reportData).then((response: Response) => {
-                    const reportResp = (response.status === 200) ? response.data : {};
                     if (response.status === 200) {
-                        const document = reportResp.document;
-                        const docDefinitions = document.docDefinitions;
-                        docDefinitions.footer = (pagenumber, pageCount) => {
-                            return {
-                                table: {
-                                    body: [
-                                        [
-                                            {
-                                                text: 'Página ' + pagenumber + ' de ' + pageCount,
-                                                fontSize: 8,
-                                                margin: [483, 0, 30, 0]
-                                            }
-                                        ],
-                                    ]
-                                },
-                                layout: 'noBorders'
-                            };
-                        };
-                        docDefinitions.header = (currentPage, pageCount, pageSize) => {
-                            return {
-                                columns: document.headerDocument
-                            };
-                        };
-
-                        pdfMake.createPdf(docDefinitions).download(reportResp.name);
-                        this.generatingReport = false;
+                        this.reportService.getReportById(response.data.id).then((resp: Response) => {
+                            const reportResp = (resp.status === 200) ? resp.data : {};
+                            window.open(window.URL.createObjectURL(Util.base64toBlob(reportResp.base64, 'application/pdf')));
+                            this.generatingReport = false;
+                        });
                     } else {
                         this.generatingReport = false;
                         alert(`${response.status} - ${response.message}`);
