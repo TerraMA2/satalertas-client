@@ -268,65 +268,6 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
         this.selectedLayers = [];
     }
 
-    setTableMarker(markerData) {
-        this.markerClusterGroup.clearLayers();
-
-        let propertyData = markerData.data;
-        const layer: Layer = markerData.layer;
-        const codGroup = layer['codgroup'];
-
-        if (!Array.isArray(propertyData)) {
-            propertyData = [propertyData];
-        }
-
-        const propertyCount = propertyData.length;
-
-        let latLong = null;
-
-        for (const data of propertyData) {
-            latLong = [data.lat, data.long];
-
-            let carRegister = '';
-
-            let layerLabel = '';
-
-            layerLabel = 'Descrição do CAR';
-            carRegister = data.gid;
-
-            const cqlFilter = ` gid = ${data.gid} `;
-
-            const layerData = {
-                url: `${environment.geoserverUrl}/wms`,
-                layers: 'terrama2_119:view119',
-                transparent: true,
-                format: 'image/png',
-                version: '1.1.0',
-                cql_filter: cqlFilter
-            };
-            const newLayer = this.getLayer(layerData);
-
-            newLayer.addTo(this.map);
-
-            this.tableSelectedLayer = newLayer;
-
-            if (propertyCount === 1) {
-                this.clearMarkerInfo();
-            }
-
-            this.markerInfo = this.createMarker(carRegister, latLong, layerLabel, carRegister, codGroup, layer);
-
-            this.markerClusterGroup.addLayer(this.markerInfo);
-        }
-
-        this.markerClusterGroup.addTo(this.map);
-        if (propertyCount === 1) {
-            this.panMap(latLong, 13);
-            this.markerInfo.fire('click');
-        }
-        this.searchControl.setLayer(this.markerClusterGroup);
-        this.searchControl.options.layer = this.markerClusterGroup;
-    }
-
     setOverlayEvents() {
         this.mapService.layerOpactity.subscribe((layerObject) => {
             this.setOpacity(layerObject['layer'], layerObject['value']);
@@ -352,10 +293,6 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
 
         this.mapService.legendClose.subscribe(() => {
             this.displayLegend = false;
-        });
-
-        this.mapService.showMarker.subscribe(markerData => {
-            this.setTableMarker(markerData);
         });
 
         this.mapService.reportTable.subscribe(() => {
@@ -1085,9 +1022,6 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
             this.markerInfo.removeFrom(this.map);
             this.markerInfo = null;
         }
-    }
-
-    expandShrinkTable() {
     }
 
     private updateMarkers(layer: Layer) {

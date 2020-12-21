@@ -9,17 +9,8 @@
            [dismissible]="false"
            [modal]="false"
            [showCloseIcon]="true"
-           [style]="{width: 'inherit', left: 'unset', height: '55vh' }"
+           [style]="{width: 'inherit', left: 'unset', height: '60vh' }"
            position="bottom">
-    <a (click)="expandShrinkTable()"
-       class="p-sidebar-close"
-       style="margin-right: 20px">
-              <span [ngClass]="{
-                                'pi-window-minimize': '',
-                                'pi-window-maximize': ''
-                              }"
-                    class="pi"></span>
-    </a>
 
     <app-table [selectedLayers]="selectedLayers"
                [tableReportActive]="tableReportActive">

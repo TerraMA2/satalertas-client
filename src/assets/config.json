@@ -378,12 +378,6 @@
       }
     },
     "table": {
-      "panelHeightSmall": "28vh",
-      "panelHeight": "48vh",
-      "panelHeightBig": "calc(100vh - 50px)",
-      "heightSmall": "10vh",
-      "height": "30vh",
-      "heightBig": "78vh",
       "rowsPerPage": [
         {
           "label": "10",

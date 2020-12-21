@@ -14,7 +14,7 @@
          [responsive]="true"
          [rowTrackBy]="trackById"
          [rows]="selectedRowsPerPage"
-         [scrollHeight]="'34vh'"
+         [scrollHeight]="'42vh'"
          [scrollable]="true"
          [totalRecords]="totalRecords"
          [value]="tableData"
@@ -100,22 +100,6 @@
                             type="button">
                     </button>
 
-                    &nbsp;&nbsp;
-
-                    <button
-                            (click)="onShowMapClicked()"
-                            *ngIf="tableReportActive"
-                            [disabled]="isExportDisabled || isLoading"
-                            class="ui-button-raised"
-                            icon="fas fa-map-marker-alt"
-                            iconPos="left"
-                            label="Visualizar no mapa"
-                            pButton
-                            pTooltip="Visualizar selecionados no mapa"
-                            tooltipPosition="top"
-                            type="button">
-                    </button>
-
                 </div>
 
             </div>
@@ -187,12 +171,11 @@
                         tooltipPosition="top">
                     <img src="assets/img/ico/queima.ico"/>
                 </button>
-                <button (click)="onShowMapClicked(rowData)"
-                        *ngIf="tableReportActive"
-                        class="btn ui-button-raised view-report-icon icon-margin"
+                <button class="btn ui-button-raised view-report-icon icon-margin"
                         pButton
-                        pTooltip="Visualizar no mapa">
-                    <i class="fa fa-map-marker-alt marker-icon"></i>
+                        pTooltip="Visualizar síntese do CAR"
+                        routerLink="/report/{{getRegister(rowData)}}">
+                    <i class="fa fa-file-invoice synthesis-link"></i>
                 </button>
             </td>
         </tr>

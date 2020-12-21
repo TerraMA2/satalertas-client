@@ -318,16 +318,6 @@ export class TableComponent implements OnInit {
         return item.field;
     }
 
-    onShowMapClicked(rowData = null) {
-        if (!rowData) {
-            rowData = this.selectedProperties;
-        }
-        this.mapService.showMarker.next({
-            layer: this.selectedLayer,
-            data: rowData
-        });
-    }
-
     clearTable() {
         this.tableData = undefined;
         this.selectedFilterValue = undefined;
