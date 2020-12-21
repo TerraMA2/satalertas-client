@@ -64,8 +64,7 @@
               "node_modules/leaflet-draw/dist/leaflet.draw.css",
               "src/styles.css"
             ],
-            "scripts": [
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -131,6 +130,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "terrama2-report"
+    }
+  },
+  "defaultProject": "terrama2-report",
+  "cli": {
+    "analytics": false
+  }
 }
