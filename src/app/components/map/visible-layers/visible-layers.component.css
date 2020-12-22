@@ -1,8 +1,8 @@
 .visible-layers-item {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
-    padding: 10px 20px;
+    padding: 8px 15px;
     cursor: grabbing;
     background-color: #fefefe;
     transition: background-color 500ms ease-in-out;
@@ -16,4 +16,8 @@
 .visible-layers-item:hover {
     background-color: #eee;
     color: #777;
+}
+
+.visible-layers-item > i {
+    margin-left: 30px;
 }

@@ -1,6 +1,5 @@
 <p-dialog
         [(visible)]="displayVisibleLayers"
-        [contentStyle]="{'width': '400px','max-height':'40vh'}"
         position="top-left"
         [style]="{top: '60px', left: '410px' }"
         header="Layers visíveis"
@@ -16,6 +15,7 @@
          pDraggable="dd"
          pDroppable="dd">
         {{ selectedLayer.label }}
+        <i class="pi pi-bars"></i>
     </div>
 
 </p-dialog>
