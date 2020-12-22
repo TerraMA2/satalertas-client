@@ -65,7 +65,7 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
     displayTable = false;
     displayLegend = false;
     displayInfo = false;
-    // displayVisibleLayers = false;
+    displayVisibleLayers = false;
     displayLayerTools = false;
     tableReportActive = false;
     selectedBaseLayer: string;
@@ -143,7 +143,7 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
         this.setReportTableControl();
         this.setInfoControl();
         this.setRestoreMapControl();
-        // this.setVisibleLayersControl();
+        this.setVisibleLayersControl();
         this.setMarkersGroup();
     }
 
@@ -371,6 +371,9 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
 
             const draggedItemTo = items[1].item;
             const draggedItemToIndex = items[1].index;
+    
+            const selectedLayers = items[2].selectedLayers;
+            this.selectedLayers = selectedLayers;
 
             this.map.eachLayer((layer: L.TileLayer.WMS) => {
                 if (layer.options.layers === draggedItemFrom.layerData.layers) {
@@ -961,30 +964,30 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
             .addEventListener('click', () => this.panMap(initialLatLong, initialZoom));
     }
 
-    // setVisibleLayersControl() {
-    //   const VisibleLayers = L.Control.extend({
-    //     onAdd: () => {
-    //       const div = L.DomUtil.create('div');
-    //       div.innerHTML = `
-    //         <div id="visibleLayersBtn" class="leaflet-control-layers leaflet-custom-icon" title="Layers visíveis">
-    //           <a><i class='fas fa-list'></i></a>
-    //         </div>`;
-    //       return div;
-    //     }
-    //   });
-    //
-    //   new VisibleLayers({position: 'topleft' }).addTo(this.map);
-    //
-    //   this.setVisibleLayersControlEvent();
-    // }
-    //
-    // setVisibleLayersControlEvent() {
-    //   document.querySelector('#visibleLayersBtn')
-    //           .addEventListener('click', () => {
-    //             this.displayVisibleLayers = !this.displayVisibleLayers;
-    //             L.DomEvent.on(L.DomUtil.get('visibleLayersBtn'), 'dblclick', L.DomEvent.stopPropagation);
-    //   });
-    // }
+    setVisibleLayersControl() {
+      const VisibleLayers = L.Control.extend({
+        onAdd: () => {
+          const div = L.DomUtil.create('div');
+          div.innerHTML = `
+            <div id="visibleLayersBtn" class="leaflet-control-layers leaflet-custom-icon" title="Layers visíveis">
+              <a><i class='fas fa-list'></i></a>
+            </div>`;
+          return div;
+        }
+      });
+
+      new VisibleLayers({position: 'topleft' }).addTo(this.map);
+
+      this.setVisibleLayersControlEvent();
+    }
+
+    setVisibleLayersControlEvent() {
+      document.querySelector('#visibleLayersBtn')
+              .addEventListener('click', () => {
+                this.displayVisibleLayers = !this.displayVisibleLayers;
+                L.DomEvent.on(L.DomUtil.get('visibleLayersBtn'), 'dblclick', L.DomEvent.stopPropagation);
+      });
+    }
 
     // Events
     onShowTable() {

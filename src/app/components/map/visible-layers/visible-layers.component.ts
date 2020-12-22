@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output} from '@angular/core';
 
 import {Layer} from 'src/app/models/layer.model';
 
@@ -14,7 +14,7 @@ export class VisibleLayersComponent implements OnInit {
     draggedItem: Layer;
 
     @Input() selectedLayers: Layer[] = [];
-
+    
     @Input() displayVisibleLayers = false;
 
     cols;
@@ -47,15 +47,21 @@ export class VisibleLayersComponent implements OnInit {
             let itemDraggedToIndex = this.selectedLayers.findIndex(child => child.label === itemDraggedToLabel);
             const itemDraggedTo = this.selectedLayers[itemDraggedToIndex];
 
-            this.selectedLayers[draggedItemIndex] = this.selectedLayers.splice(itemDraggedToIndex, 1, this.selectedLayers[draggedItemIndex])[0];
+            this.selectedLayers = this.selectedLayers.filter((child) => child.label !== this.draggedItem.label);
+
+            this.selectedLayers = [
+                ...this.selectedLayers.slice(0, itemDraggedToIndex),
+                this.draggedItem,
+                ...this.selectedLayers.slice(itemDraggedToIndex)
+            ];
 
             const items = [];
 
             itemDraggedToIndex += 1001;
             draggedItemIndex += 1001;
-
             items.push({item: this.draggedItem, index: draggedItemIndex});
             items.push({item: itemDraggedTo, index: itemDraggedToIndex});
+            items.push({selectedLayers: this.selectedLayers })
             this.mapService.resetLayers.next(items);
         }
     }

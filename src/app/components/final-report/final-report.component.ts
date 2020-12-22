@@ -250,9 +250,9 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
     async getContextDeflorestationAlerts(deflorestationAlerts) {
         const deflorestationAlertsContext = [];
-        const deflorestationAlertsCount = deflorestationAlerts.length;
 
-        if (deflorestationAlerts && deflorestationAlertsCount > 0) {
+        if (deflorestationAlerts) {
+            const deflorestationAlertsCount = deflorestationAlerts.length;
             let images = [];
             let titleDate = [];
             let subTitleArea = [];

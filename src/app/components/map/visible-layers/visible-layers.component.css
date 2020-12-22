@@ -1,21 +1,19 @@
-:host ::ng-deep .visible-layers-item {
+.visible-layers-item {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    cursor: pointer;
-    padding: 5px 10px;
-    background-color: #fff;
+    padding: 10px 20px;
+    cursor: grabbing;
+    background-color: #fefefe;
     transition: background-color 500ms ease-in-out;
     font-weight: bold;
     color: #5f5f5f;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
 }
 
-:host ::ng-deep .visible-layers-item:hover {
+.visible-layers-item:hover {
     background-color: #eee;
     color: #777;
-}
-
-:host ::ng-deep .visible-layers-item.active {
-    background-color: #591111;
-    color: #fff;
 }

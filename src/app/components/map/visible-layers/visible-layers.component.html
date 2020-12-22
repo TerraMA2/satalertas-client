@@ -11,11 +11,11 @@
     <div (onDragEnd)="dragEnd($event)"
          (onDragStart)="dragStart($event, selectedLayer)"
          (onDrop)="drop($event)"
-         *ngFor="let selectedLayer of selectedLayers; trackBy: trackById"
+         *ngFor="let selectedLayer of selectedLayers.reverse(); trackBy: trackById"
          class="visible-layers-item"
          pDraggable="dd"
          pDroppable="dd">
-        {{selectedLayer.label }}
+        {{ selectedLayer.label }}
     </div>
 
 </p-dialog>
