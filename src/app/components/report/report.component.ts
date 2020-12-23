@@ -31,7 +31,6 @@ export class ReportComponent implements OnInit {
     carRegister: string;
     property: Property;
     bbox: string;
-    cityBBox: string;
     visions: Vision[] = [];
     detailedVisions: Vision[] = [];
     deforestations: Vision[] = [];

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 import {Layer} from 'src/app/models/layer.model';
 
@@ -14,7 +14,7 @@ export class VisibleLayersComponent implements OnInit {
     draggedItem: Layer;
 
     @Input() selectedLayers: Layer[] = [];
-    
+
     @Input() displayVisibleLayers = false;
 
     cols;

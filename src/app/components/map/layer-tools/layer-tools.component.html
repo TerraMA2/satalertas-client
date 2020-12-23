@@ -11,7 +11,9 @@
     <p-accordion [multiple]="true" [style]="{'min-width': '250px'}">
         <p-accordionTab [selected]="toolSelected === 'description'"
                         header="Descrição">
-            {{layer?.description }}
+            <div style="max-width: 500px">
+                {{layer?.description }}
+            </div>
         </p-accordionTab>
 
         <p-accordionTab [selected]="toolSelected === 'export'"

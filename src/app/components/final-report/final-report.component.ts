@@ -24,7 +24,8 @@ import {Image} from '../../models/image.model';
 import {formatNumber} from '@angular/common';
 
 import {User} from '../../models/user.model';
-import {Util} from "../../utils/util";
+
+import {Util} from '../../utils/util';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 

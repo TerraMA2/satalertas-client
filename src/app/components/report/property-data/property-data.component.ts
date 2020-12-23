@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Util} from '../../../utils/util';
 import {Property} from 'src/app/models/property.model';
+import {MapService} from '../../../services/map.service';
 
 @Component({
     selector: 'app-property-data',
@@ -11,7 +12,9 @@ export class PropertyDataComponent implements OnInit {
 
     @Input() property: Property;
 
-    constructor() {
+    constructor(
+      private mapService: MapService
+    ) {
     }
 
     ngOnInit() {
@@ -19,22 +22,7 @@ export class PropertyDataComponent implements OnInit {
     }
 
     formatterCpfCnpj(cpfCnpj) {
-        if (cpfCnpj) {
-            const listCpfCnpj = cpfCnpj.split(',');
-
-            cpfCnpj = '';
-            if (listCpfCnpj.length > 0) {
-                listCpfCnpj.forEach(value => {
-                    if (!cpfCnpj) {
-                        cpfCnpj = Util.cpfCnpjMask(value);
-                    } else {
-                        cpfCnpj += `, ${Util.cpfCnpjMask(value)}`;
-                    }
-                });
-            }
-        }
-
-        return cpfCnpj ? cpfCnpj : '';
+        return this.mapService.formatterCpfCnpj(cpfCnpj);
     }
 
 }
