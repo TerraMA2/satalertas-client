@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     @Output() showHideSidebarClicked = new EventEmitter<boolean>();
 
-    @ViewChild('dataFilter', {static: true}) datePicker;
+    @ViewChild('dateFilter', {static: true}) datePicker;
     loggedUserName: string;
     isAuthenticated = false;
     dateInput;
@@ -193,12 +193,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     onFilterClick() {
         localStorage.setItem('dateFilter', JSON.stringify(this.dateInput));
-        this.datePicker.overlayVisible = false;
+        // this.datePicker.overlayVisible = false;
 
         this.filterService.filterMap.next();
         this.filterService.filterTable.next();
         this.filterService.filterReport.next();
         this.filterService.filterDashboard.next();
+
+        this.datePicker.toggle();
     }
 
     showFilter() {

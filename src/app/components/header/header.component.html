@@ -18,7 +18,7 @@
     </button>
 
     <div class="p-g-12 p-md-4 header-filter">
-        <p-calendar #dataFilter
+        <p-calendar #dateFilter
                     (onClose)="onFilterClose()"
                     (onFocus)="onFilterFocus()"
                     [(ngModel)]="dateInput"
@@ -28,14 +28,17 @@
                     [maxDate]="maxDate"
                     [monthNavigator]="false"
                     [name]="dateField.name"
-                    [numberOfMonths]="2"
+                    [numberOfMonths]="dateField.numberOfMonths"
                     [readonlyInput]="false"
                     [selectionMode]="dateField.selectionMode"
                     [showIcon]="false"
                     [showOnFocus]="true"
                     [showTime]="dateField.showTime"
-                    [yearNavigator]="false"
-                    yearRange="2000:2030">
+                    [yearNavigator]="true"
+                    [showButtonBar]="true"
+                    todayButtonStyleClass="hide-button"
+                    clearButtonStyleClass="hide-button"
+                    yearRange="1998:2100">
             <p-footer class="date-footer">
                 <button (click)="onTodayClick()"
                         [label]="locale.today"
@@ -45,7 +48,6 @@
                 </button>
                 <button (click)="onFilterClick()"
                         [disabled]="(dateInput && !dateInput[1] && dateInput[1] === null)"
-                        [style]="{float:'right'}"
                         class="date-button button-right p-button-raised"
                         label="Filtrar"
                         pButton

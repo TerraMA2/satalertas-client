@@ -71,3 +71,7 @@
 .background-color-white {
     background-color: #fff;
 }
+
+:host ::ng-deep .hide-button {
+    display: none;
+}

@@ -371,9 +371,8 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
 
             const draggedItemTo = items[1].item;
             const draggedItemToIndex = items[1].index;
-    
-            const selectedLayers = items[2].selectedLayers;
-            this.selectedLayers = selectedLayers;
+
+            this.selectedLayers = items[2].selectedLayers;
 
             this.map.eachLayer((layer: L.TileLayer.WMS) => {
                 if (layer.options.layers === draggedItemFrom.layerData.layers) {
