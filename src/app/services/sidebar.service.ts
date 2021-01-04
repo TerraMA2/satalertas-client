@@ -27,7 +27,7 @@ export class SidebarService {
 
     sidebarItemRadioDeselect = new Subject<Layer>();
 
-    sidebarReload = new Subject<boolean>();
+    sidebarReload = new Subject<string>();
 
     sidebarLayerShowHide = new Subject<boolean>();
 
