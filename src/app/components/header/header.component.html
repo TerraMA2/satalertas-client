@@ -74,9 +74,9 @@
             &nbsp;&nbsp;
 
             <div *ngIf="isAdministrator == true">
-                <button (click)="onLogoutClick()"
-                icon="pi pi-cog"
-                pButton
+                <button routerLink="/settings"
+                    icon="pi pi-cog"
+                    pButton
                 type="button">
                 </button>
             </div>
