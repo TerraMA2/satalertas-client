@@ -9,13 +9,15 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {ReportComponent} from './report/report.component';
 
 import {FinalReportComponent} from './final-report/final-report.component';
+import {SettingsComponent} from './settings/settings.component';
 
 const routes: Routes = [
     {path: '', component: DashboardComponent},
     {path: 'map', component: MapComponent, data: {reuseRoute: true}},
     {path: 'report', component: ReportComponent},
     {path: 'report/:carRegister', component: ReportComponent},
-    {path: 'finalReport/:type/:carRegister', component: FinalReportComponent}
+    {path: 'finalReport/:type/:carRegister', component: FinalReportComponent},
+    {path: 'settings', component: SettingsComponent},
 ];
 
 @NgModule({
