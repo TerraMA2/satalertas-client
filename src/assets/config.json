@@ -51,6 +51,19 @@
       }
     ]
   },
+  "sidebar-settings": {
+    "logoPath": "./assets/img/logos/mpmt-large.png",
+    "logoLink": "https://mpmt.mp.br/",
+    "sidebarItems": [
+      {
+        "icon": "pi pi-list",
+        "label": "Grupos",
+        "link": "/group",
+        "method": "",
+        "value": ""
+      }
+    ]
+  },
   "map": {
     "initialLatLong": [
       -14.5463,
