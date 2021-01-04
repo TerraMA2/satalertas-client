@@ -85,6 +85,8 @@ import {ClassAreaComponent} from './filter/class-area/class-area.component';
 import {ListboxModule} from 'primeng-lts/listbox';
 import {LayerToolsComponent} from './map/layer-tools/layer-tools.component';
 import {SliderModule} from 'primeng-lts/slider';
+import { SettingsComponent } from './settings/settings.component';
+import { GroupManagerComponent } from './settings/group-manager/group-manager.component';
 
 registerLocaleData(localePt, 'pt');
 
@@ -134,6 +136,8 @@ registerLocaleData(localePt, 'pt');
         HistoryProdesChartComponent,
         ClassAreaComponent,
         LayerToolsComponent,
+        SettingsComponent,
+        GroupManagerComponent,
     ],
 
     imports: [
