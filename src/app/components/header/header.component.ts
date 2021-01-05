@@ -56,7 +56,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         private filterService: FilterService,
         private sidebarService: SidebarService,
         private mapService: MapService,
-        private _location: Location
+        private location: Location
     ) {
     }
 
@@ -213,7 +213,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
 
     backClicked() {
-        this._location.back();
+        this.location.back();
         this.sidebarService.sidebarReload.next();
     }
 
