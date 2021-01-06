@@ -18,8 +18,6 @@ import {environment} from 'src/environments/environment';
 
 import {FilterDate} from '../../models/filter-date.model';
 
-import {Location} from '@angular/common';
-
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
@@ -55,8 +53,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         private messageService: MessageService,
         private filterService: FilterService,
         private sidebarService: SidebarService,
-        private mapService: MapService,
-        private location: Location
+        private mapService: MapService
     ) {
     }
 
@@ -211,10 +208,4 @@ export class HeaderComponent implements OnInit, OnDestroy {
     showFilter() {
         this.filterService.displayFilter.next();
     }
-
-    backClicked() {
-        this.location.back();
-        this.sidebarService.sidebarReload.next();
-    }
-
 }
