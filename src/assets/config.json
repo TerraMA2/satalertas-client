@@ -56,6 +56,23 @@
     "logoLink": "https://mpmt.mp.br/",
     "sidebarItems": [
       {
+        "icon": "fas fa-chart-line",
+        "label": "Dashboard",
+        "link": "/",
+        "method": "",
+        "value": ""
+      },
+      {
+        "icon": "fas fa-map",
+        "label": "Mapa",
+        "link": "/map",
+        "method": "",
+        "value": ""
+      },
+      {
+        "separator": "true"
+      },
+      {
         "icon": "pi pi-list",
         "label": "Grupos",
         "link": "/settings/group",
