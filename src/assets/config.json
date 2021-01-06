@@ -58,7 +58,7 @@
       {
         "icon": "pi pi-list",
         "label": "Grupos",
-        "link": "/group",
+        "link": "/settings/group",
         "method": "",
         "value": ""
       }

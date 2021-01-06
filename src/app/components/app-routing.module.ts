@@ -1,3 +1,4 @@
+import { GroupManagerComponent } from './settings/group-manager/group-manager.component';
 import {NgModule} from '@angular/core';
 
 import {RouterModule, Routes} from '@angular/router';
@@ -18,6 +19,7 @@ const routes: Routes = [
     {path: 'report/:carRegister', component: ReportComponent},
     {path: 'finalReport/:type/:carRegister', component: FinalReportComponent},
     {path: 'settings', component: SettingsComponent},
+    {path: 'settings/group', component: GroupManagerComponent}
 ];
 
 @NgModule({
