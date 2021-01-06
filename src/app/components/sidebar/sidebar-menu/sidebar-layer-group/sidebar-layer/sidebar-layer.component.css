@@ -43,6 +43,15 @@
     flex-grow: 0;
 }
 
+.sidebar-layer-alert {
+    font-weight: bold;
+}
+
+.sidebar-layer-alert a {
+    color: black;
+    font-size: 20px;
+}
+
 .sidebar-layer-margin {
     margin-left: 15px;
     font-size: 80%;

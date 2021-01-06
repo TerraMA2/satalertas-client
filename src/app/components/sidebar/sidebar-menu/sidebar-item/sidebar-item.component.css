@@ -12,8 +12,10 @@
     background-color: #eee;
 }
 
-.sidebar-item-body:active {
+.sidebar-item-body-active {
     background-color: #591111;
+}
+.sidebar-item-body-active .sidebar-item-label a, .sidebar-item-body-active i{
     color: #fff;
 }
 

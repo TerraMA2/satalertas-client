@@ -33,6 +33,14 @@
     "logoLink": "https://mpmt.mp.br/",
     "sidebarItems": [
       {
+        "icon": "fas fa-briefcase",
+        "label": "Projetos",
+        "dataUrl": "/projects",
+        "link": "",
+        "method": "",
+        "value": ""
+      },
+      {
         "icon": "fas fa-chart-line",
         "label": "Dashboard",
         "link": "/",

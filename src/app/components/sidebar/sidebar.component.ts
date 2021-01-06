@@ -85,7 +85,7 @@ export class SidebarComponent implements OnInit {
                         children = sidebarLayer.children;
                     }
                     if (children) {
-                        sidebarLayer.children.forEach(sidebarLayerChild => {
+                        sidebarLayer.children.forEach((sidebarLayerChild, index) => {
                             let layer;
                             if (!sidebarLayerChild.isHidden) {
                                 layer = new Layer(
@@ -104,6 +104,7 @@ export class SidebarComponent implements OnInit {
                                     sidebarLayerChild.isPrivate,
                                     sidebarLayerChild.isPrimary,
                                     sidebarLayerChild.isChild,
+                                    sidebarLayerChild.isAlert,
                                     sidebarLayerChild.filter,
                                     sidebarLayerChild.layerData,
                                     sidebarLayerChild.legend,
