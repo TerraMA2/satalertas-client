@@ -89,7 +89,8 @@ import {SliderModule} from 'primeng-lts/slider';
 import { SettingsComponent } from './settings/settings.component';
 import { GroupManagerComponent } from './settings/group-manager/group-manager.component';
 import { GroupListComponent } from './settings/group-manager/group-list/group-list.component';
-
+import { ModalComponent } from './modal.component/modal.component';
+import { ButtonActionComponent } from './button-action.component/button-action.component';
 registerLocaleData(localePt, 'pt');
 
 @NgModule({
@@ -141,6 +142,8 @@ registerLocaleData(localePt, 'pt');
         SettingsComponent,
         GroupManagerComponent,
         GroupListComponent,
+        ModalComponent,
+        ButtonActionComponent
     ],
 
     imports: [
