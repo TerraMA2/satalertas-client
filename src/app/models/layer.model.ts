@@ -23,6 +23,7 @@ export class Layer {
         public isPrivate: boolean,
         public isPrimary: boolean,
         public isChild: boolean,
+        public isAlert: boolean,
         public filter: LayerFilter[],
         public layerData: LayerData,
         public legend: Legend,

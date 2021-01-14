@@ -1,5 +1,9 @@
 <div *ngIf="displayChild"
-     [ngClass]="{'sidebar-layer-margin': layer.isChild === true, 'sidebar-layer-disabled': layer.isDisabled === true}"
+     [ngClass]="{
+                    'sidebar-layer-alert': layer.isAlert === true,
+                    'sidebar-layer-margin': layer.isChild === true,
+                    'sidebar-layer-disabled': layer.isDisabled === true
+                }"
      class="sidebar-layer-content">
     <div (click)="onChildClicked()"
          class="sidebar-layer-label">
