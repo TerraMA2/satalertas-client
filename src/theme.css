@@ -461,6 +461,7 @@ p-chips.ng-dirty.ng-invalid > .p-chips > .p-inputtext {
     border: 1px solid #a6a6a6;
     transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
     border-radius: 3px;
+    width: 220px;
 }
 .p-dropdown:not(.p-disabled):hover {
     border-color: #212121;

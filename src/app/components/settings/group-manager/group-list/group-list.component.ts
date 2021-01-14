@@ -1,4 +1,4 @@
-import { SettingsService } from 'src/app/services/group.service';
+import { GroupService } from 'src/app/services/group.service';
 import { Component, OnInit } from '@angular/core';
 import {TreeNode, MessageService, ConfirmationService} from 'primeng-lts/api';
 import { Group } from '../../../../models/groups.model';
@@ -25,13 +25,13 @@ export class GroupListComponent implements OnInit {
   group: Group = {};
 
   constructor(
-    private settingsService: SettingsService,
+    private groupService: GroupService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService
   ) { }
 
   async ngOnInit() {
-    await this.settingsService.getAllGroups().then(res => {
+    await this.groupService.getAllGroups().then(res => {
       this.groups = res;
       for (let field of this.cols) {
         const fiel = {
@@ -77,7 +77,7 @@ export class GroupListComponent implements OnInit {
       header: "Atenção!",
       icon: "pi pi-exclamation-triangle",
       accept: () => {
-        this.settingsService.removeGroup(deletedGroup.id)
+        this.groupService.removeGroup(deletedGroup.id)
         .then(() => {
           const groupPos = this.groups
           .findIndex(item => item.id === deletedGroup.id);
@@ -96,14 +96,14 @@ export class GroupListComponent implements OnInit {
   async closeModalDialog() {
     this.dialogVisible = false;
     if (this.group.id) {
-      await this.settingsService.editGroup(this.group)
+      await this.groupService.editGroup(this.group)
         .then(response => {
           const groupPos = this.groups
           .findIndex(item => item.id === this.group.id);
           this.groups.splice(groupPos, 1, response);
         });  
     } else {
-      await this.settingsService.createNewGroup(this.group)
+      await this.groupService.createNewGroup(this.group)
       .then(response => {
           this.groups.push(response);
       });

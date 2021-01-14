@@ -218,3 +218,9 @@ img {
 body .p-scrollpanel-content {
     width: calc(100% + 25px);
 }
+.container {
+    margin: 0 50px;
+}
+.container-lg {
+    margin: 0 70px;
+}

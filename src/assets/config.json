@@ -85,6 +85,14 @@
         "method": "",
         "value": ""
       }
+      ,
+      {
+        "icon": "fas fa-layer-group",
+        "label": "Camadas",
+        "link": "/layers",
+        "method": "",
+        "value": ""
+      }
     ]
   },
   "map": {

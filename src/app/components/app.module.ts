@@ -35,6 +35,7 @@ import {ProgressSpinnerModule} from 'primeng-lts/progressspinner';
 import {InputTextareaModule} from 'primeng-lts/inputtextarea';
 import {ChartsModule} from 'ng2-charts';
 import { TreeTableModule } from 'primeng-lts/treetable';
+import {PickListModule} from 'primeng-lts/picklist';
 
 import {AppComponent} from './app.component';
 import {MapComponent} from './map/map.component';
@@ -91,6 +92,8 @@ import { GroupManagerComponent } from './settings/group-manager/group-manager.co
 import { GroupListComponent } from './settings/group-manager/group-list/group-list.component';
 import { ModalComponent } from './modal.component/modal.component';
 import { ButtonActionComponent } from './button-action.component/button-action.component';
+import { LayersComponent } from './settings/layers/layers.component';
+
 registerLocaleData(localePt, 'pt');
 
 @NgModule({
@@ -143,7 +146,8 @@ registerLocaleData(localePt, 'pt');
         GroupManagerComponent,
         GroupListComponent,
         ModalComponent,
-        ButtonActionComponent
+        ButtonActionComponent,
+        LayersComponent,
     ],
 
     imports: [
@@ -184,6 +188,7 @@ registerLocaleData(localePt, 'pt');
         ListboxModule,
         SliderModule,
         TreeTableModule,
+        PickListModule,
     ],
     providers: [
         TreeDragDropService,

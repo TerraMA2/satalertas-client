@@ -5,7 +5,7 @@ import {environment} from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class SettingsService {
+export class GroupService {
   URL_REPORT_SERVER = environment.reportServerUrl;
   url = `${this.URL_REPORT_SERVER}/group`;
 
