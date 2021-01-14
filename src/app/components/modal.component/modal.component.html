@@ -1,0 +1,48 @@
+<form #modal>
+  <p-dialog
+            [header]="header"
+            [(visible)]="displayModal"
+            [modal]="true"
+            [style]="modalStyle"
+            [baseZIndex]="10000"
+            (onHide)="onClose()"
+            [closable]="false"
+            [draggable]="false"
+            [resizable]="false" class="p-grid">
+
+    <form #form="ngForm">
+      <p-messages [(value)]="msgs"></p-messages>
+      <div
+            class="container-fluid p-grid p-col-12 container-modal p-field"
+            *ngFor="let line of lines; let j = index" >
+        {{line.label}}
+        <div
+          class="p-field"
+          *ngFor="let input of line.inputs; trackBy: trackById; let i = index" >
+          <label [for]="'input'+i" [ngClass]="input.inputClass">{{input.label}}</label>
+          <input *ngIf="(input.type === 'text')"
+                  [(ngModel)]="data[input.field]"
+                  pInputText required autofocus
+                 [id]="'input'+i"
+                 [ngClass]="input.inputClass"
+                 pInputText
+                 type="text"
+                 [name]="input.field"
+                 (change)="onChange('input'+i, i, j)"
+                 [pKeyFilter]="ccRegex"
+                 [pValidateOnly]="true"
+                 style="margin-right: .5em"
+          />
+        </div>
+      </div>
+    </form>
+    <p-footer>
+      <button pButton pRiple label="Cancelar" icon="pi pi-times"
+        class="p-button-text" (click)="onClose()">
+      </button>
+      <button pButton pRiple label="Salvar" icon="pi pi-check"
+        class="p-button-text"(click)="onSave(validateFields())">
+      </button>
+    </p-footer>
+  </p-dialog>
+</form>
