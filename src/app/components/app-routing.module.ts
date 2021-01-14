@@ -11,6 +11,7 @@ import {ReportComponent} from './report/report.component';
 
 import {FinalReportComponent} from './final-report/final-report.component';
 import {SettingsComponent} from './settings/settings.component';
+import { LayersComponent } from './settings/layers/layers.component';
 
 const routes: Routes = [
     {path: '', component: DashboardComponent},
@@ -19,7 +20,8 @@ const routes: Routes = [
     {path: 'report/:carRegister', component: ReportComponent},
     {path: 'finalReport/:type/:carRegister', component: FinalReportComponent},
     {path: 'settings', component: SettingsComponent},
-    {path: 'settings/group', component: GroupManagerComponent}
+    {path: 'settings/group', component: GroupManagerComponent},
+    {path: 'layers', component: LayersComponent}
 ];
 
 @NgModule({
