@@ -2,62 +2,70 @@
 <div class="card">
   <p-toolbar styleClass="p-mb-4">
     <ng-template pTemplate="left">
-      <button pButton pRipple label="Novo Grupo" icon="pi pi-plus"
-      class="p-button-success p-mr-2"></button>
-      <button pButton pRipple label="Remover" class="p-button-danger"
-      icon="pi pi-trash"
+      <button
+        pButton
+        pRipple
+        label="Novo Grupo"
+        icon="pi pi-plus"
+        class="p-button-success p-mr-2"
+        (click)="startNewGroup()"
       ></button>
+      <!-- <button pButton pRipple label="Remover" class="p-button-danger"
+      icon="pi pi-trash"
+      ></button> -->
     </ng-template>
   </p-toolbar>
 </div>
 
-<p-treeTable #tt [value]='files' [columns]="cols" [rows]="5" [paginator]="true"
-  sortMode="multiple" selectionMode="checkbox" [(selection)]="selectedGroups"
-  (onNodeSelect)="groupSelect($event)"  (onNodeUnselect)="groupUnSelect($event)"
+<p-table #dt [value]='groups' [columns]="cols" [rows]="5" [paginator]="true"
+  selectionMode="checkbox" [(selection)]="selectedGroups"
   [rowHover]="true"
 >
   <ng-template pTemplate="caption">
     <div class="p-d-flex p-ai-center p-jc-between">
-      <h5 class="p-m-0">Gerenciar Grupos</h5>
-      <div class="p-d-flex">
-        <p-treeTableHeaderCheckbox></p-treeTableHeaderCheckbox>
+      <h3 class="p-m-0">Gerenciar Grupos</h3>
+      <!-- <div class="p-d-flex">
+        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
         <span class="p-ml-2">Selecionar Todos</span>
-      </div>
+      </div> -->
       <span class="p-input-icon-left">
         <i class="pi pi-search"></i>
         <input type="text" pInputText size="50" placeholder="Filtro Global"
-        (input)="tt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+        (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
       </span>
     </div>
   </ng-template>
   <ng-template pTemplate='header' let-columns >
-    
     <tr>
       <th *ngFor="let col of columns">
         <div class="p-d-flex p-ai-center p-jc-between">
-          <div [ttSortableColumn]="col.field" class="p-ai-center p-jc-between  p-p-2">
+          <div [pSortableColumn]="col.field" class="p-ai-center p-jc-between  p-p-2">
             {{col.header}}
-            <p-treeTableSortIcon [field]="col.field"></p-treeTableSortIcon>
+            <p-sortIcon [field]="col.field"></p-sortIcon>
           </div>
-            <input pInputText type='text' (input)="tt.filter($event.target.value, col.field, col.filterMatchMode)" style="width:auto">
+            <input pInputText type='text' (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)" style="width:auto">
         </div>
       </th>
       <th></th>
-
     </tr>
   </ng-template>
-  <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
     <tr>
-      <td *ngFor="let col of cols; let i = index">
-        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
-        <p-treeTableCheckbox [value]="rowNode" *ngIf="rowData['type'] == 'layer_group' && i == 0"></p-treeTableCheckbox>
+      <td *ngFor="let col of columns">
+        <!-- <p-tableCheckbox [value]="groups"></p-tableCheckbox> -->
         {{rowData[col.field]}}
-        <!-- {{rowData['key']||'key'}} -->
       </td>
-      <td *ngIf="rowData['type'] == 'layer_group'">
-        <button pButton pRipple class="p-button-rounded p-mr-2" icon="pi pi-trash"></button>
-        <button pButton pRipple class="p-button-rounded p-mr-2" icon="pi pi-pencil"></button>
-
+      <td>
+        <button pButton pRipple 
+          class="p-button-danger p-button-rounded p-mr-2"
+          icon="pi pi-trash"
+          (click)="removeGroup(rowData)">
+        </button>
+        <button pButton pRipple
+          class="p-button-rounded p-mr-2"
+          icon="pi pi-pencil"
+          (click)="editGroup(rowData)">
+        </button>
       </td>
     </tr>
   </ng-template>
@@ -66,4 +74,16 @@
       <td [attr.colspan]="cols.length">Nenhum dado encontrado</td>
     </tr>
   </ng-template>
-</p-treeTable>
+</p-table>
+
+<app-modal
+  #modalGroup
+  [data]="group"
+  header="Dados do Grupo"
+  [displayModal]="dialogVisible"
+  [modalStyle]="{width: '50vw'}"
+  [lines]="lines"
+  (onClickCancel)="cancelNewGroup()"
+  (onClickSave)="closeModalDialog()"
+></app-modal>
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
