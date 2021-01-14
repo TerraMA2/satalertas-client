@@ -1,32 +1,35 @@
-import {Injectable} from '@angular/core';
-
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import {environment} from '../../environments/environment';
 
-import {HttpClient} from '@angular/common/http';
-
-import { GroupView } from 'src/app/models/group-view.model';
-
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
-
 export class GroupService {
+  URL_REPORT_SERVER = environment.reportServerUrl;
+  url = `${this.URL_REPORT_SERVER}/group`;
 
-    url = environment.reportServerUrl + '/group';
+  constructor(private http: HttpClient) { }
 
-    constructor(
-        private http: HttpClient
-    ) {}
+  async getAllGroups() {
+    return await this.http.get<any>(this.url)
+      .toPromise()
+      .then(res => res);
+  };
 
-    getAll() {
-        return this.http.get<any>(this.url + '/').toPromise();
-    }
+  async createNewGroup(params) {
+    return await this.http.post(this.url, {...params}).toPromise()
+    .then(res => res);
+  }
 
-    update(params) {
-        return this.http.put(this.url + '/', {params}).toPromise();
-    }
+  async editGroup(params) {
+    return await this.http.put(this.url, {...params}).toPromise()
+    .then(res => res);
+  }
 
-    add(params) {
-        return this.http.post(this.url + '/', {params}).toPromise();
-    }
+  async removeGroup(groupId) {
+    const deleteUrl = `${this.url}/${groupId}`
+    return await this.http.delete(deleteUrl).toPromise()
+    .then(res => res);
+  }
 }

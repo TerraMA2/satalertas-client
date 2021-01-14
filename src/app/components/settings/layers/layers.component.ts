@@ -30,7 +30,7 @@ export class LayersComponent implements OnInit {
   async ngOnInit() {
     this.sidebarService.sidebarReload.next('settings');
     
-    this.groups = await this.groupService.getAll().then((data) => {
+    this.groups = await this.groupService.getAllGroups().then((data) => {
       return data.map((group) => ({label: group.name, value: group.id}));
     }).catch(() => []);
   }

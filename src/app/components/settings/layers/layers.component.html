@@ -7,7 +7,7 @@
             type="button">
         </button>
 
-        <p-dropdown class="space" style="width: 100px" [options]="groups" [(ngModel)]="selectedGroup" optionLabel="label" [filter]="true" filterBy="label"
+        <p-dropdown class="space" [options]="groups" [(ngModel)]="selectedGroup" optionLabel="label" [filter]="true" filterBy="label"
                 [showClear]="true" placeholder="Selecione um grupo" (onChange)="onChangeOptionField($event)">
         </p-dropdown>
         

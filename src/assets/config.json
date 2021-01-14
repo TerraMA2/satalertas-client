@@ -51,6 +51,12 @@
       }
     ]
   },
+  "settings": {
+    "groupsColumns": [
+      {"field": "name", "header": "Nome"},
+      {"field": "code", "header": "Código"}
+    ]
+  },
   "sidebar-settings": {
     "logoPath": "./assets/img/logos/mpmt-large.png",
     "logoLink": "https://mpmt.mp.br/",
@@ -75,7 +81,7 @@
       {
         "icon": "pi pi-list",
         "label": "Grupos",
-        "link": "/group",
+        "link": "/settings/group",
         "method": "",
         "value": ""
       }

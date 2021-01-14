@@ -1,0 +1,16 @@
+#modal {
+
+}
+
+.container-modal {
+  margin: 1rem 0 1rem 0;
+  display: flex;
+}
+
+.input-group {
+  width: 17rem;
+}
+
+.input-group-right {
+  margin-left: 2rem;
+}

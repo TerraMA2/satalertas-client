@@ -12,3 +12,5 @@ logs
 .history/
 src/environments/environment.prod.ts
 src/environments/environment.ts
+#ignorando um arquivo da máquina do kyle
+src/assets/files.json
