@@ -1,0 +1,25 @@
+div.button_down{
+    padding-top: 20px;
+    padding-left: 20px;
+    margin-right: 20px;
+}
+
+div.down {
+    position:relative;
+    padding-top: 19px;
+    padding-bottom: 60px;
+    top:20px;
+    margin-left:20px;
+    margin-right:20px;
+}
+
+div.pos {
+    position:relative;
+    top:20px;
+    margin-left:20px;
+    margin-right:20px;
+}
+
+.space{
+    padding: 0.571rem 1rem;
+}
