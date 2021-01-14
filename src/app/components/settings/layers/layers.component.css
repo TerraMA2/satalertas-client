@@ -1,4 +1,4 @@
-div.button_down{
+div.button-down{
     padding-top: 20px;
     padding-left: 20px;
     margin-right: 20px;
@@ -7,8 +7,7 @@ div.button_down{
 div.down {
     position:relative;
     padding-top: 19px;
-    padding-bottom: 60px;
-    top:20px;
+    padding-bottom: 50px;
     margin-left:20px;
     margin-right:20px;
 }
@@ -18,8 +17,4 @@ div.pos {
     top:20px;
     margin-left:20px;
     margin-right:20px;
-}
-
-.space{
-    padding: 0.571rem 1rem;
 }
