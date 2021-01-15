@@ -1,10 +1,10 @@
 <div class="button-down">
     <button (click)="backClicked()"
-            icon="pi pi-replay"
-            label="Voltar"
-            pButton
-            type="button">
-        </button>
+        icon="pi pi-replay"
+        label="Voltar"
+        pButton
+        type="button">
+    </button>
     <div class="container-lg">
         <h2>Gerênciador de Camadas</h2>
         <p-dropdown [options]="groups" [(ngModel)]="selectedGroup" optionLabel="label" [filter]="true" filterBy="label"
@@ -12,7 +12,6 @@
         </p-dropdown>
     </div>
 </div>
-
 <div class="down">
     <p-pickList [source]="availableLayers" [target]="selectedLayers" sourceHeader="Camadas disponíveis" targetHeader="Camadas selecionadas" dragdrop="true"
         [responsive]="true" [sourceStyle]="{'height':'100%'}" [targetStyle]="{'height':'100%'}" filterBy="name"
@@ -21,5 +20,6 @@
             <h3 class="p-mb-2">{{layer.name}}</h3>
         </ng-template>
     </p-pickList>
-    <button pButton pRipple type="button" label="Salvar" class="p-button-raised p-button-success" style="float: right; margin-right: 70px; margin-top: 130px;"></button> 
+   
+    <button pButton pRipple type="button" label="Salvar" (click)="update()" class="p-button-raised p-button-success" style="float: right; margin-right: 70px; margin-top: 130px;"></button> 
 </div>

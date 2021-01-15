@@ -28,7 +28,7 @@ export class GroupViewService {
     }
 
     async getByGroupId(groupId) {
-        const parameters = {idGroup: groupId};
+        const parameters = {id_group: groupId};
         return await this.http.get<any[]>(this.url + '/getByIdGroup', {params: parameters}).toPromise();
     }
 
@@ -37,7 +37,7 @@ export class GroupViewService {
     }
 
     async getAvailableLayers(groupId) {
-        const parameters = {idGroup: groupId};
+        const parameters = {id_group: groupId};
         return await this.http.get<any[]>(this.url + '/getNotBelongingToTheGroup', {params: parameters}).toPromise();
     }
 }
