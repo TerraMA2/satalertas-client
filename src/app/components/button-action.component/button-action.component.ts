@@ -11,9 +11,7 @@ export class ButtonActionComponent implements OnInit {
   @Input() action: string;
   @Input() rowData: any;
 
-  // tslint:disable-next-line:no-output-on-prefix
   @Output() onClickReset: EventEmitter<Event> = new EventEmitter<Event>();
-  // tslint:disable-next-line:no-output-on-prefix
   @Output() onClickUpdate: EventEmitter<Event> = new EventEmitter<Event>();
 
   constructor() { }

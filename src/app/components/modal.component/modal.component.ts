@@ -1,9 +1,7 @@
-// @ts-ignore
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {LineInputModel} from '../../models/line-input.model';
 import {Message, MessageService} from 'primeng-lts/api';
 
-// @ts-ignore
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',

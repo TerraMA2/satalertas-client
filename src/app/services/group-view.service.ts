@@ -4,8 +4,6 @@ import {environment} from '../../environments/environment';
 
 import {HttpClient} from '@angular/common/http';
 
-import { GroupView } from 'src/app/models/group-view.model';
-
 @Injectable({
     providedIn: 'root'
 })
@@ -17,7 +15,6 @@ export class GroupViewService {
     constructor(
         private http: HttpClient
     ) {}
-
 
     getAll() {
         return this.http.get(this.url + '/').toPromise();

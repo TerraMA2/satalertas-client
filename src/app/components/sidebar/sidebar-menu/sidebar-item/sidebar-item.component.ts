@@ -29,22 +29,22 @@ export class SidebarItemComponent implements OnInit {
 
     private getDropdownData() {
         // DO NOT REMOVE.
-        const dataUrl = this.sidebarItem.dataUrl;
-        if (dataUrl) {
-            const dropdownJsonExample = [ // JSON that must be returned from the server
-                {
-                    label: 'project1',
-                    value: 1
-                },
-                {
-                    label: 'project2',
-                    value: 2
-                }
-            ];
-            this.dropdownData = dropdownJsonExample;
+        // const dataUrl = this.sidebarItem.dataUrl;
+        // if (dataUrl) {
+            // const dropdownJsonExample = [ // JSON that must be returned from the server
+            //     {
+            //         label: 'project1',
+            //         value: 1
+            //     },
+            //     {
+            //         label: 'project2',
+            //         value: 2
+            //     }
+            // ];
+            // this.dropdownData = dropdownJsonExample;
             // this.hTTPService.get(dataUrl).subscribe((data: any) => {
             //   this.dropdownData = data;
             // });
-        }
+        // }
     }
 }

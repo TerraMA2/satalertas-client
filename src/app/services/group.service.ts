@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
 
 @Injectable({
@@ -11,10 +11,10 @@ export class GroupService {
 
   constructor(private http: HttpClient) { }
 
-  async getAllGroups() {
+  async getAll() {
     return await this.http.get<any>(this.url)
       .toPromise()
-      .then(res => res);
+      .then(res  => res);
   };
 
   async createNewGroup(params) {
