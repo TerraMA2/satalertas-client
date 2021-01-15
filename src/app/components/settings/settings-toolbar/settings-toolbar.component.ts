@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Location} from '@angular/common';
-import {SidebarService} from '../../../services/sidebar.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-settings-toolbar',
@@ -10,16 +9,18 @@ import {SidebarService} from '../../../services/sidebar.service';
 export class SettingsToolbarComponent implements OnInit {
 
   constructor(
-    private sidebarService: SidebarService,
-    private location: Location
+    // private sidebarService: SidebarService,
+    // private location: Location,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
   }
 
   backClicked() {
-    this.location.back();
-    this.sidebarService.sidebarReload.next();
+    this.router.navigateByUrl('/map');
+    // this.location.back();
+    // this.sidebarService.sidebarReload.next();
   }
 
 }
