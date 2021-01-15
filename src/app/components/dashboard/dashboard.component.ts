@@ -41,6 +41,7 @@ export class DashboardComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.sidebarService.sidebarReload.next();
         this.isLoading = true;
         this.configService.getSidebarConfigurationDynamically().then((sidebarLayers: Response) => {
             this.sidebarLayers = sidebarLayers.data;

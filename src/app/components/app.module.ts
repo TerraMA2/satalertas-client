@@ -23,7 +23,7 @@ import {DialogModule} from 'primeng-lts/dialog';
 import {CalendarModule} from 'primeng-lts/calendar';
 import {AccordionModule} from 'primeng-lts/accordion';
 import {KeyFilterModule} from 'primeng-lts/keyfilter';
-import { MessageService, TreeDragDropService } from 'primeng-lts/api';
+import {MessageService, TreeDragDropService} from 'primeng-lts/api';
 import {InputSwitchModule} from 'primeng-lts/inputswitch';
 import {CheckboxModule} from 'primeng-lts/checkbox';
 import {ToastModule} from 'primeng-lts/toast';
@@ -34,7 +34,7 @@ import {PdfViewerModule} from 'ng2-pdf-viewer';
 import {ProgressSpinnerModule} from 'primeng-lts/progressspinner';
 import {InputTextareaModule} from 'primeng-lts/inputtextarea';
 import {ChartsModule} from 'ng2-charts';
-import { TreeTableModule } from 'primeng-lts/treetable';
+import {TreeTableModule} from 'primeng-lts/treetable';
 import {PickListModule} from 'primeng-lts/picklist';
 
 import {AppComponent} from './app.component';
@@ -87,12 +87,13 @@ import {ClassAreaComponent} from './filter/class-area/class-area.component';
 import {ListboxModule} from 'primeng-lts/listbox';
 import {LayerToolsComponent} from './map/layer-tools/layer-tools.component';
 import {SliderModule} from 'primeng-lts/slider';
-import { SettingsComponent } from './settings/settings.component';
-import { GroupManagerComponent } from './settings/group-manager/group-manager.component';
-import { GroupListComponent } from './settings/group-manager/group-list/group-list.component';
-import { ModalComponent } from './modal.component/modal.component';
-import { ButtonActionComponent } from './button-action.component/button-action.component';
-import { LayersComponent } from './settings/layers/layers.component';
+import {SettingsComponent} from './settings/settings.component';
+import {GroupManagerComponent} from './settings/group-manager/group-manager.component';
+import {GroupListComponent} from './settings/group-manager/group-list/group-list.component';
+import {ModalComponent} from './modal.component/modal.component';
+import {ButtonActionComponent} from './button-action.component/button-action.component';
+import {LayersComponent} from './settings/layers/layers.component';
+import { SettingsToolbarComponent } from './settings/settings-toolbar/settings-toolbar.component';
 
 registerLocaleData(localePt, 'pt');
 
@@ -148,6 +149,7 @@ registerLocaleData(localePt, 'pt');
         ModalComponent,
         ButtonActionComponent,
         LayersComponent,
+        SettingsToolbarComponent,
     ],
 
     imports: [

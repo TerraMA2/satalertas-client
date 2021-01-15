@@ -1,4 +1,4 @@
-import {ConfInputsModel} from "./conf-inputs.model";
+import {ConfInputsModel} from './conf-inputs.model';
 
 export class LineInputModel {
   constructor(

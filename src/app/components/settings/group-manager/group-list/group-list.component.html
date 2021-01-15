@@ -4,13 +4,12 @@
     <ng-template pTemplate="left">
       <button
         pButton
-        pRipple
         label="Novo Grupo"
         icon="pi pi-plus"
         class="p-button-success p-mr-2"
         (click)="startNewGroup()"
       ></button>
-      <!-- <button pButton pRipple label="Remover" class="p-button-danger"
+      <!-- <button pButton label="Remover" class="p-button-danger"
       icon="pi pi-trash"
       ></button> -->
     </ng-template>
@@ -56,12 +55,12 @@
         {{rowData[col.field]}}
       </td>
       <td>
-        <button pButton pRipple 
+        <button pButton
           class="p-button-danger p-button-rounded p-mr-2"
           icon="pi pi-trash"
           (click)="removeGroup(rowData)">
         </button>
-        <button pButton pRipple
+        <button pButton
           class="p-button-rounded p-mr-2"
           icon="pi pi-pencil"
           (click)="editGroup(rowData)">
@@ -77,7 +76,6 @@
 </p-table>
 
 <app-modal
-  #modalGroup
   [data]="group"
   header="Dados do Grupo"
   [displayModal]="dialogVisible"

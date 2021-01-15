@@ -1,8 +1,9 @@
-import { GroupService } from 'src/app/services/group.service';
-import { Component, OnInit } from '@angular/core';
-import {TreeNode, MessageService, ConfirmationService} from 'primeng-lts/api';
-import { Group } from '../../../../models/groups.model';
+import {GroupService} from 'src/app/services/group.service';
+import {Component, OnInit} from '@angular/core';
+import {ConfirmationService, MessageService, TreeNode} from 'primeng-lts/api';
 import ConfigJson from 'src/assets/config.json';
+import {Group} from '../../../../models/group.model';
+
 @Component({
   selector: 'app-group-list',
   templateUrl: './group-list.component.html',
@@ -31,9 +32,9 @@ export class GroupListComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
-    await this.groupService.getAllGroups().then(res => {
+    await this.groupService.getAll().then(res  => {
       this.groups = res;
-      for (let field of this.cols) {
+      for (const field of this.cols) {
         const fiel = {
           show: true,
           disable: false,
@@ -41,12 +42,12 @@ export class GroupListComponent implements OnInit {
           inputClass: 'input-group',
           type: 'text',
           // model: '',
-          onChange: (event) => { console.log(event)},
+          onChange: (event) => { },
           field: `${field.field}`,
           required: true
         };
         this.inputs.push(fiel);
-      };
+      }
       this.lines = [
         { show: true,
           label: '',
@@ -74,19 +75,19 @@ export class GroupListComponent implements OnInit {
   async removeGroup(deletedGroup: Group) {
     this.confirmationService.confirm({
       message: `Deseja deletar o grupo ${deletedGroup.name}?`,
-      header: "Atenção!",
-      icon: "pi pi-exclamation-triangle",
+      header: 'Atenção!',
+      icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.groupService.removeGroup(deletedGroup.id)
         .then(() => {
           const groupPos = this.groups
-          .findIndex(item => item.id === deletedGroup.id);
+          .findIndex((item: Group) => item.id === deletedGroup.id);
           this.groups.splice(groupPos, 1);
         });
         this.messageService.add({
           severity: 'success',
-          summary: "Sucesso",
-          detail: "Grupo deletado",
+          summary: 'Sucesso',
+          detail: 'Grupo deletado',
           life: 3000
         });
       }
@@ -101,7 +102,7 @@ export class GroupListComponent implements OnInit {
           const groupPos = this.groups
           .findIndex(item => item.id === this.group.id);
           this.groups.splice(groupPos, 1, response);
-        });  
+        });
     } else {
       await this.groupService.createNewGroup(this.group)
       .then(response => {
@@ -110,8 +111,8 @@ export class GroupListComponent implements OnInit {
     }
     this.messageService.add({
       severity: 'success',
-      summary: "Sucesso",
-      detail: "Grupo salvo",
+      summary: 'Sucesso',
+      detail: 'Grupo salvo',
       life: 3000
     });
     this.group = {};

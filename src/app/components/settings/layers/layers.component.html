@@ -1,12 +1,7 @@
+<app-settings-toolbar></app-settings-toolbar>
 <div class="button-down">
-    <button (click)="backClicked()"
-        icon="pi pi-replay"
-        label="Voltar"
-        pButton
-        type="button">
-    </button>
     <div class="container-lg">
-        <h2>Gerênciador de Camadas</h2>
+        <h2>Gerenciador de Camadas</h2>
         <p-dropdown [options]="groups" [(ngModel)]="selectedGroup" optionLabel="label" [filter]="true" filterBy="label"
                 [showClear]="true" placeholder="Selecione um grupo" (onChange)="onChangeOptionField($event)">
         </p-dropdown>
@@ -21,5 +16,5 @@
         </ng-template>
     </p-pickList>
    
-    <button pButton pRipple type="button" label="Salvar" (click)="update()" class="p-button-raised p-button-success" style="float: right; margin-right: 70px; margin-top: 130px;"></button> 
+    <button pButton type="button" label="Salvar" (click)="update()" class="p-button-raised p-button-success" style="float: right; margin-right: 70px; margin-top: 130px;"></button>
 </div>

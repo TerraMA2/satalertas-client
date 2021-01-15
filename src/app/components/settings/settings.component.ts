@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {SidebarService} from '../../services/sidebar.service';
 import {Location} from '@angular/common';
 import {AuthService} from 'src/app/services/auth.service';
-import { User } from '../../models/user.model';
-import { Router } from '@angular/router';
-import { MessageService } from 'primeng-lts/api';
+import {User} from '../../models/user.model';
+import {Router} from '@angular/router';
+import {MessageService} from 'primeng-lts/api';
+
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -16,8 +17,8 @@ export class SettingsComponent implements OnInit {
 
   constructor(
     private sidebarService: SidebarService,
-    private location: Location, 
-    private authService: AuthService, 
+    private location: Location,
+    private authService: AuthService,
     private router: Router,
     private messageService: MessageService
   ) { }
@@ -31,11 +32,6 @@ export class SettingsComponent implements OnInit {
         this.messageService.add({severity: 'error', summary: 'Atenção!', detail: 'Usuário não autenticado.'});
       }
     })
-  }
-
-  backClicked() {
-    this.location.back();
-    this.sidebarService.sidebarReload.next();
   }
 
 }

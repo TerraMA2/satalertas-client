@@ -1,8 +1,5 @@
-export class Group {
-    constructor(
-        id: number,
-        name: string,
-        code: string
-    ) {
-    }
+export interface Group {
+    id?:string;
+    name?:string;
+    code?:string;
 }
