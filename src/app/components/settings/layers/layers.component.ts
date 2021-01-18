@@ -9,15 +9,13 @@ import {Group} from '../../../models/group.model';
 
 @Component({
   selector: 'app-layers',
-  templateUrl: './layers.component.html',
-  styleUrls: ['./layers.component.css']
+  templateUrl: './layers.component.html'
 })
 
 export class LayersComponent implements OnInit {
   groups: SelectItem[];
 
   selectedGroup;
-
   availableLayers;
   selectedLayers;
 
@@ -59,6 +57,7 @@ export class LayersComponent implements OnInit {
   }
 
   async update(){
-    await this.groupViewService.update({id_group: this.selectedGroup.value, layers: this.selectedLayers});
+    const layers = this.selectedLayers.map(layerId => ({id_group: this.selectedGroup.value, id_view: layerId.id_view}));
+    await this.groupViewService.update({id_group: this.selectedGroup.value, layers});
   }
 }
