@@ -6,6 +6,7 @@ import {GroupViewService} from 'src/app/services/group-view.service';
 import {GroupService} from 'src/app/services/group.service';
 import {SelectItem} from 'primeng-lts/api';
 import {Group} from '../../../models/group.model';
+import {MessageService} from 'primeng-lts/api';
 
 @Component({
   selector: 'app-layers',
@@ -24,6 +25,7 @@ export class LayersComponent implements OnInit {
     private location: Location,
     private groupViewService: GroupViewService,
     private groupService: GroupService,
+    private messageService: MessageService,
   ) { }
 
   async ngOnInit() {
@@ -59,5 +61,6 @@ export class LayersComponent implements OnInit {
   async update(){
     const layers = this.selectedLayers.map(layerId => ({id_group: this.selectedGroup.value, id_view: layerId.id_view}));
     await this.groupViewService.update({id_group: this.selectedGroup.value, layers});
+    this.messageService.add({severity:'success', summary:'Sucesso', detail:'Camadas do grupo atualizadas'});
   }
 }

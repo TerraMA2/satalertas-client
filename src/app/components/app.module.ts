@@ -36,6 +36,8 @@ import {InputTextareaModule} from 'primeng-lts/inputtextarea';
 import {ChartsModule} from 'ng2-charts';
 import {TreeTableModule} from 'primeng-lts/treetable';
 import {PickListModule} from 'primeng-lts/picklist';
+import {RippleModule} from 'primeng-lts/ripple';
+import {MessageModule} from 'primeng-lts/message';
 
 import {AppComponent} from './app.component';
 import {MapComponent} from './map/map.component';
@@ -191,6 +193,8 @@ registerLocaleData(localePt, 'pt');
         SliderModule,
         TreeTableModule,
         PickListModule,
+        RippleModule,
+        MessageModule,
     ],
     providers: [
         TreeDragDropService,
