@@ -20,6 +20,7 @@ export class Layer {
         public carRegisterColumn: string,
         public classNameColumn: string,
         public type: string,
+        public showMarker: boolean,
         public isPrivate: boolean,
         public isPrimary: boolean,
         public isChild: boolean,

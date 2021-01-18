@@ -15,8 +15,8 @@
     <div class="sidebar-layer-switch">
 
         <p-radioButton (onClick)="onChildRadioClicked()"
-                       *ngIf="layer.isPrimary && displayControls"
-                       [(ngModel)]="primaryRadio"
+                       *ngIf="layer.showMarker && displayControls"
+                       [(ngModel)]="showMarkerRadio"
                        [value]="layer.label"
                        name="primary">
         </p-radioButton>
@@ -32,9 +32,9 @@
 </div>
 <div *ngIf="layer.tools && displayControls"
      [ngClass]="{
-                'show': isToolsOpened && isLayerGroupOpened,
-                'hide': !isToolsOpened || !isLayerGroupOpened,
-                'sidebar-layer-margin': layer.isChild === true
+                    'show': isToolsOpened && isLayerGroupOpened,
+                    'hide': !isToolsOpened || !isLayerGroupOpened,
+                    'sidebar-layer-margin': layer.isChild === true
                 }"
      class="sidebar-layer-tools">
 
