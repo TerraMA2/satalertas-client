@@ -101,6 +101,7 @@ export class SidebarComponent implements OnInit {
                                     sidebarLayerChild.carRegisterColumn,
                                     sidebarLayerChild.classNameColumn,
                                     sidebarLayerChild.type,
+                                    sidebarLayerChild.showMarker,
                                     sidebarLayerChild.isPrivate,
                                     sidebarLayerChild.isPrimary,
                                     sidebarLayerChild.isChild,
