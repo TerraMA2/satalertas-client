@@ -361,7 +361,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
             });
             deflorestationHistoryContext.push({
                 columns: [{
-                    text: `O histórico do  desmatamento nos  últimos 12  anos pode  se visto  na`,
+                    text: `O histórico do  desmatamento desde ${deflorestationHistory[0].date} pode ser visto  na`,
                     alignment: 'justify',
                     margin: [157, 0, 30, 0],
                     style: 'body'
@@ -381,7 +381,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
                 let url = deflorestationHistory[i].date === 2012 ? urlGsDeforestationHistory1 : urlGsDeforestationHistory.replace(new RegExp('#{image}#', ''), `${view}${deflorestationHistory[i].date}`);
                 url = url.replace(new RegExp('#{year}#', ''), deflorestationHistory[i].date);
-
                 images.push(this.getImageObject(await this.getBaseImageUrl(url), [117, 117], [5, 0], 'center'));
                 titles.push({
                     text: `${deflorestationHistory[i].date}`,
@@ -424,7 +423,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                             bold: true
                         },
                         {
-                            text: ` Histórico de desmatamento do PRODES nos últimos 12 anos.`,
+                            text: ` Histórico de desmatamento do PRODES desde ${deflorestationHistory[0].date}.`,
                             bold: false
                         }
                     ],
@@ -464,15 +463,19 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
         if (this.reportData['type'] !== 'queimada') {
             this.reportData.images['geoserverImage4'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage3), [200, 200], [0, 10], 'left');
-            this.reportData.images['geoserverImage5'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage4), [200, 200], [0, 10], 'right');
-            this.reportData.images['geoserverImage6'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage5), [200, 200], [0, 10], 'left');
+            this.reportData.images['geoserverImage5'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage4), [200, 200], [0, 10], 'left');
+            this.reportData.images['geoserverImage6'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage5), [200, 200], [0, 10], 'right');
             this.reportData.images['geoserverImage7'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage6), [200, 200], [0, 10], 'right');
         }
 
         if (this.reportData['type'] === 'prodes') {
             this.reportData.images['geoserverImage3'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage2), [200, 200], [0, 10], 'center');
+            console.log('imageaqui');
+            console.log(this.reportData.urlGsImage2);
             this.reportData['desflorestationHistoryContext'] = await this.getContextDesflorestationHistory(this.reportData.property['deflorestationHistory'], this.reportData.urlGsDeforestationHistory, this.reportData.urlGsDeforestationHistory1);
             this.reportData.images['geoserverLegend'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsLegend), [200, 200], [0, 10], 'center');
+            console.log('legendaaqui');
+            console.log(this.reportData.urlGsLegend);
         }
 
         if (this.reportData['type'] === 'deter') {
