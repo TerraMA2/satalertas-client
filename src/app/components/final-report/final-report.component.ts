@@ -24,6 +24,7 @@ import {Image} from '../../models/image.model';
 import {formatNumber} from '@angular/common';
 
 import {User} from '../../models/user.model';
+// import { SLD } from '../../utils/sld.utils';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -470,12 +471,8 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
         if (this.reportData['type'] === 'prodes') {
             this.reportData.images['geoserverImage3'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage2), [200, 200], [0, 10], 'center');
-            console.log('imageaqui');
-            console.log(this.reportData.urlGsImage2);
             this.reportData['desflorestationHistoryContext'] = await this.getContextDesflorestationHistory(this.reportData.property['deflorestationHistory'], this.reportData.urlGsDeforestationHistory, this.reportData.urlGsDeforestationHistory1);
             this.reportData.images['geoserverLegend'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsLegend), [200, 200], [0, 10], 'center');
-            console.log('legendaaqui');
-            console.log(this.reportData.urlGsLegend);
         }
 
         if (this.reportData['type'] === 'deter') {
