@@ -362,7 +362,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
             });
             deflorestationHistoryContext.push({
                 columns: [{
-                    text: `O histórico do  desmatamento desde ${deflorestationHistory[0].date} pode ser visto  na`,
+                    text: `O histórico do desmatamento desde ${deflorestationHistory[0].date} pode ser visto  na`,
                     alignment: 'justify',
                     margin: [157, 0, 30, 0],
                     style: 'body'
