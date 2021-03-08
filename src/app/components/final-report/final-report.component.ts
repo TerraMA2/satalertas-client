@@ -1,29 +1,29 @@
-import {AfterViewInit, Component, Inject, LOCALE_ID, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import { AfterViewInit, Component, Inject, LOCALE_ID, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import {SidebarService} from 'src/app/services/sidebar.service';
+import { SidebarService } from 'src/app/services/sidebar.service';
 
-import {ReportService} from '../../services/report.service';
+import { ReportService } from '../../services/report.service';
 
-import {Response} from 'src/app/models/response.model';
+import { Response } from 'src/app/models/response.model';
 
 import pdfMake from 'pdfmake/build/pdfmake';
 
 import Chart from 'chart.js';
 
 import pdfFonts from 'pdfmake/build/vfs_fonts';
-import {FinalReportService} from '../../services/final-report.service';
+import { FinalReportService } from '../../services/final-report.service';
 
-import {AuthService} from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 
-import {ConfirmationService, MessageService} from 'primeng-lts/api';
+import { ConfirmationService, MessageService } from 'primeng-lts/api';
 
-import {Image} from '../../models/image.model';
+import { Image } from '../../models/image.model';
 
-import {formatNumber} from '@angular/common';
+import { formatNumber } from '@angular/common';
 
-import {User} from '../../models/user.model';
+import { User } from '../../models/user.model';
 // import { SLD } from '../../utils/sld.utils';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -38,22 +38,22 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 export class FinalReportComponent implements OnInit, AfterViewInit {
 
-    @ViewChild('imagem2', {static: false}) imagem2: Chart;
-    @ViewChild('chartImg', {static: false}) chartImg: Chart;
-    @ViewChild('myChart0', {static: false}) myChart0: Chart;
-    @ViewChild('myChart1', {static: false}) myChart1: Chart;
-    @ViewChild('myChart2', {static: false}) myChart2: Chart;
-    @ViewChild('myChart3', {static: false}) myChart3: Chart;
-    @ViewChild('myChart4', {static: false}) myChart4: Chart;
-    @ViewChild('myChart5', {static: false}) myChart5: Chart;
-    @ViewChild('myChart6', {static: false}) myChart6: Chart;
-    @ViewChild('myChart7', {static: false}) myChart7: Chart;
-    @ViewChild('myChart8', {static: false}) myChart8: Chart;
-    @ViewChild('myChart9', {static: false}) myChart9: Chart;
-    @ViewChild('myChart10', {static: false}) myChart10: Chart;
-    @ViewChild('myChart11', {static: false}) myChart11: Chart;
-    @ViewChild('myChart12', {static: false}) myChart12: Chart;
-    @ViewChild('myChart13', {static: false}) myChart13: Chart;
+    @ViewChild('imagem2', { static: false }) imagem2: Chart;
+    @ViewChild('chartImg', { static: false }) chartImg: Chart;
+    @ViewChild('myChart0', { static: false }) myChart0: Chart;
+    @ViewChild('myChart1', { static: false }) myChart1: Chart;
+    @ViewChild('myChart2', { static: false }) myChart2: Chart;
+    @ViewChild('myChart3', { static: false }) myChart3: Chart;
+    @ViewChild('myChart4', { static: false }) myChart4: Chart;
+    @ViewChild('myChart5', { static: false }) myChart5: Chart;
+    @ViewChild('myChart6', { static: false }) myChart6: Chart;
+    @ViewChild('myChart7', { static: false }) myChart7: Chart;
+    @ViewChild('myChart8', { static: false }) myChart8: Chart;
+    @ViewChild('myChart9', { static: false }) myChart9: Chart;
+    @ViewChild('myChart10', { static: false }) myChart10: Chart;
+    @ViewChild('myChart11', { static: false }) myChart11: Chart;
+    @ViewChild('myChart12', { static: false }) myChart12: Chart;
+    @ViewChild('myChart13', { static: false }) myChart13: Chart;
     reportData;
     carRegister: string;
     chartImages = [];
@@ -170,7 +170,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
             this.loggedUser = user;
             if (!user) {
                 this.router.navigateByUrl('/map');
-                this.messageService.add({severity: 'error', summary: 'Atenção!', detail: 'Usuário não autenticado.'});
+                this.messageService.add({ severity: 'error', summary: 'Atenção!', detail: 'Usuário não autenticado.' });
             }
         });
         this.activatedRoute.params.subscribe(params => {
@@ -352,9 +352,8 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         const deflorestationHistoryCount = deflorestationHistory.length;
 
         if (deflorestationHistory && deflorestationHistoryCount > 0) {
-            let images = [];
-            let titles = [];
-            let subTitles = [];
+            const deforestationData = [];
+            const deforestationColumns = [];
 
             deflorestationHistoryContext.push({
                 text: '',
@@ -362,16 +361,10 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
             });
             deflorestationHistoryContext.push({
                 columns: [{
-                    text: `O histórico do desmatamento desde ${deflorestationHistory[0].date} pode ser visto  na`,
-                    alignment: 'justify',
-                    margin: [157, 0, 30, 0],
-                    style: 'body'
+                    text: `O histórico do desmatamento desde ${deflorestationHistory[0].date} pode ser visto na figura 7.`,
+                    margin: [30, 0, 30, 15],
+                    style: 'bodyIndentFirst'
                 }]
-            });
-            deflorestationHistoryContext.push({
-                text: `figura 7.`,
-                margin: [30, 0, 30, 5],
-                style: 'body'
             });
             let count = 1;
             for (let i = 0; i < deflorestationHistoryCount; ++i) {
@@ -382,41 +375,53 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
                 let url = deflorestationHistory[i].date === 2012 ? urlGsDeforestationHistory1 : urlGsDeforestationHistory.replace(new RegExp('#{image}#', ''), `${view}${deflorestationHistory[i].date}`);
                 url = url.replace(new RegExp('#{year}#', ''), deflorestationHistory[i].date);
-                images.push(this.getImageObject(await this.getBaseImageUrl(url), [117, 117], [5, 0], 'center'));
-                titles.push({
-                    text: `${deflorestationHistory[i].date}`,
-                    style: 'body',
-                    alignment: 'center'
-                });
-                subTitles.push({
-                    text: `${deflorestationHistory[i].area} ha`,
-                    style: 'body',
-                    alignment: 'center'
-                });
 
-                if (((i + 1) % 3) === 0) {
-                    deflorestationHistoryContext.push(
+                deforestationData.push(
+                    [
                         {
-                            columns: titles,
-                            margin: [30, 0, 30, 0]
+                            text: `${deflorestationHistory[i].date}`,
+                            style: 'body',
+                            alignment: 'center'
                         },
+                        this.getImageObject(await this.getBaseImageUrl(url), [117, 117], [5, 0], 'center'),
                         {
-                            columns: images,
-                            margin: [30, 0, 30, 0]
-                        },
-                        {
-                            columns: subTitles,
-                            margin: [30, 0, 30, 10]
+                            text: `${deflorestationHistory[i].area} ha`,
+                            style: 'body',
+                            alignment: 'center'
                         }
-                    );
+                    ]
 
-                    images = [];
-                    titles = [];
-                    subTitles = [];
+                );
+            }
+
+            for (let start = 0; start < deforestationData.length; start += 3) {
+                if (start != 0 && ((start) % 12) === 0) {
+                    deforestationColumns.push({
+                        text: '',
+                        pageBreak: 'after'
+                    })
+                }
+                if ((start + 3) < deforestationData.length) {
+                    deforestationColumns.push({
+                        margin: [30, 0, 30, 0],
+                        alignment: 'center',
+                        columns: [
+                            ...deforestationData.slice(start, start + 3)
+                        ]
+                    })
+                } else {
+                    deforestationColumns.push({
+                        margin: [30, 0, 30, 0],
+                        alignment: 'center',
+                        columns: [
+                            ...deforestationData.slice(start),
+                        ]
+                    });
                 }
             }
 
             deflorestationHistoryContext.push(
+                ...deforestationColumns,
                 {
                     text: [
                         {
@@ -491,8 +496,8 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                     dataFocus.push(element['total_focus']);
                     prohibitivePeriod.push(element['prohibitive_period']);
                 });
-                chartData.push({title: 'Focos de fogo ativo', data: dataFocus});
-                chartData.push({title: 'Focos de fogo ativo (período proibitivo)', data: prohibitivePeriod});
+                chartData.push({ title: 'Focos de fogo ativo', data: dataFocus });
+                chartData.push({ title: 'Focos de fogo ativo (período proibitivo)', data: prohibitivePeriod });
 
                 const totalFocusChart = this.reportService.generateChart(labels, chartData);
                 this.reportData['FocusChartImage'] = this.getImageObject(totalFocusChart && totalFocusChart.toBase64Image() ? [totalFocusChart.toBase64Image()] : null, [450, 450], [10, 0], 'center');
