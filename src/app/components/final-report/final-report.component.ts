@@ -1,3 +1,4 @@
+import { InputSwitchModule } from 'primeng-lts/inputswitch';
 import { AfterViewInit, Component, Inject, LOCALE_ID, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,6 +15,7 @@ import Chart from 'chart.js';
 
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { FinalReportService } from '../../services/final-report.service';
+import { ExportService } from '../../services/export.service';
 
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -24,7 +26,6 @@ import { Image } from '../../models/image.model';
 import { formatNumber } from '@angular/common';
 
 import { User } from '../../models/user.model';
-// import { SLD } from '../../utils/sld.utils';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -148,6 +149,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         async queimada(reportData) {
         }
     };
+    downloadVectors: boolean = false;
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -158,6 +160,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         private messageService: MessageService,
         private router: Router,
         private confirmationService: ConfirmationService,
+        private ExportService: ExportService,
         @Inject(LOCALE_ID) private locale: string
     ) {
     }
@@ -611,6 +614,13 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                         };
 
                         pdfMake.createPdf(docDefinitions).download(reportResp.name);
+                        if (this.downloadVectors) {
+                            const { vectorViews } = this.reportData;
+                            const fileName = reportResp.name.split('.')[0];
+
+                            console.log(this.reportData.vectorViews);
+                            this.ExportService.getVectors(vectorViews, fileName)
+                        }
                         this.generatingReport = false;
                     } else {
                         this.generatingReport = false;

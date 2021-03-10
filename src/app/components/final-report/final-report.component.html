@@ -1,4 +1,4 @@
-<p-toolbar>
+<p-toolbar class="p-d-flex p-ai-center">
     <div class="ui-toolbar-group-left">
         <button class="ui-button-raised"
                 icon="fas fa-arrow-left"
@@ -37,15 +37,26 @@
         <img src="assets/img/ico/queima.ico"/>
     </button>
     <div class="ui-toolbar-group-right">
-        <button (click)="generatePdf('open')"
-                *ngIf="loggedUser.administrator"
-                [disabled]="!docBase64 || generatingReport"
-                icon="fas fa-download ui-button-raised"
-                label="Gerar Relatório"
-                pButton
-                type="button">
-        </button>
+        <div class="p-mr-2">
+            <button (click)="generatePdf('open')"
+                    *ngIf="loggedUser.administrator"
+                    [disabled]="!docBase64 || generatingReport"
+                    icon="fas fa-download ui-button-raised"
+                    label="Gerar Relatório"
+                    pButton
+            type="button">
+            </button>
+            <div class="p-mt-1 p-d-inline-flex p-ai-center">
+                <p-inputSwitch [disabled]="!docBase64 || generatingReport"
+                                class="p-pt-2 p-mt-2"
+                                id="getVectors"
+                                [(ngModel)]="downloadVectors">
+                </p-inputSwitch>
+                <label for="getVectors" class="p-ml-1">Baixar Vetores</label>
+            </div>
+        </div>
     </div>
+                
 </p-toolbar>
 <canvas height="400" id="imagem2" style="display: none" width="600"></canvas>
 <canvas height="400" id="chartImg" style="display: none" width="600"></canvas>
