@@ -37,22 +37,21 @@
         <img src="assets/img/ico/queima.ico"/>
     </button>
     <div class="ui-toolbar-group-right">
-        <div class="p-mr-2">
+        <div class="report-buttons">
             <button (click)="generatePdf('open')"
                     *ngIf="loggedUser.administrator"
                     [disabled]="!docBase64 || generatingReport"
                     icon="fas fa-download ui-button-raised"
                     label="Gerar Relatório"
                     pButton
-            type="button">
+                    type="button">
             </button>
-            <div class="p-mt-1 p-d-inline-flex p-ai-center">
+            <div class="vector-button">
                 <p-inputSwitch [disabled]="!docBase64 || generatingReport"
-                                class="p-pt-2 p-mt-2"
                                 id="getVectors"
                                 [(ngModel)]="downloadVectors">
                 </p-inputSwitch>
-                <label for="getVectors" class="p-ml-1">Baixar Vetores</label>
+                <label for="getVectors">Baixar Vetores</label>
             </div>
         </div>
     </div>
