@@ -105,3 +105,17 @@ h2 {
 body .ui-dialog .ui-dialog-content {
     font-size: 18px;
 }
+
+.report-buttons {
+    display: flex;
+}
+
+.vector-button {
+    display: flex;
+    align-items: center;
+    margin-left: 2px
+}
+
+.vector-button > label {
+    margin-left: 2px
+}
