@@ -37,9 +37,8 @@
         <img src="assets/img/ico/queima.ico"/>
     </button>
     <div class="ui-toolbar-group-right">
-        <div class="p-mr-2">
+        <div class="p-mr-2"  *ngIf="loggedUser.administrator">
             <button (click)="generatePdf('open')"
-                    *ngIf="loggedUser.administrator"
                     [disabled]="!docBase64 || generatingReport"
                     icon="fas fa-download ui-button-raised"
                     label="Gerar Relatório"
