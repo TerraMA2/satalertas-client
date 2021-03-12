@@ -37,7 +37,7 @@
         <img src="assets/img/ico/queima.ico"/>
     </button>
     <div class="ui-toolbar-group-right">
-        <div class="p-mr-2"  *ngIf="loggedUser.administrator">
+        <div class="report-buttons"  *ngIf="loggedUser.administrator">
             <button (click)="generatePdf('open')"
                     [disabled]="!docBase64 || generatingReport"
                     icon="fas fa-download ui-button-raised"
