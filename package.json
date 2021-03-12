@@ -35,7 +35,7 @@
     "ngx-extended-pdf-viewer": "^2.1.2",
     "ngx-print": "^1.2.0-beta.5",
     "pdfmake": "^0.1.65",
-    "primeflex": "^1.1.1",
+    "primeflex": "^1.3.1",
     "primeicons": "^2.0.0",
     "primeng-lts": "^8.2.6",
     "rxjs": "^6.5.5",
