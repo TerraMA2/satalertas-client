@@ -618,7 +618,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                             const { vectorViews } = this.reportData;
                             const fileName = reportResp.name.split('.')[0];
 
-                            console.log(this.reportData.vectorViews);
                             this.ExportService.getVectors(vectorViews, fileName)
                         }
                         this.generatingReport = false;
