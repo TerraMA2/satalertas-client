@@ -115,3 +115,17 @@ body .p-dialog .p-dialog-content {
     font-size: 20px;
     color: #591111;
 }
+
+.report-buttons {
+    display: flex;
+}
+
+.vector-button {
+    display: flex;
+    align-items: center;
+    margin-left: 2px
+}
+
+.vector-button > label {
+    margin-left: 2px
+}

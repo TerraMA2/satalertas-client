@@ -13,6 +13,7 @@ import pdfMake from 'pdfmake/build/pdfmake';
 import Chart from 'chart.js';
 
 import pdfFonts from 'pdfmake/build/vfs_fonts';
+
 import {FinalReportService} from '../../services/final-report.service';
 
 import {AuthService} from 'src/app/services/auth.service';
@@ -25,7 +26,7 @@ import {formatNumber} from '@angular/common';
 
 import {User} from '../../models/user.model';
 
-import {Util} from '../../utils/util';
+import {ExportService} from '../../services/export.service';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -149,6 +150,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         async queimada(reportData) {
         }
     };
+    downloadVectors = false;
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -159,6 +161,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         private messageService: MessageService,
         private router: Router,
         private confirmationService: ConfirmationService,
+        private exportService: ExportService,
         @Inject(LOCALE_ID) private locale: string
     ) {
     }
@@ -353,9 +356,8 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         const deflorestationHistoryCount = deflorestationHistory.length;
 
         if (deflorestationHistory && deflorestationHistoryCount > 0) {
-            let images = [];
-            let titles = [];
-            let subTitles = [];
+            const deforestationData = [];
+            const deforestationColumns = [];
 
             deflorestationHistoryContext.push({
                 text: '',
@@ -363,10 +365,9 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
             });
             deflorestationHistoryContext.push({
                 columns: [{
-                    text: `O histórico do  desmatamento nos  últimos 12  anos pode  se visto  na`,
-                    alignment: 'justify',
-                    margin: [157, 0, 30, 0],
-                    style: 'body'
+                  text: `O histórico do desmatamento desde ${deflorestationHistory[0].date} pode ser visto na figura 7.`,
+                  margin: [30, 0, 30, 15],
+                  style: 'bodyIndentFirst'
                 }]
             });
             deflorestationHistoryContext.push({
@@ -384,41 +385,52 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                 let url = deflorestationHistory[i].date === 2012 ? urlGsDeforestationHistory1 : urlGsDeforestationHistory.replace(new RegExp('#{image}#', ''), `${view}${deflorestationHistory[i].date}`);
                 url = url.replace(new RegExp('#{year}#', ''), deflorestationHistory[i].date);
 
-                images.push(this.getImageObject(await this.getBaseImageUrl(url), [117, 117], [5, 0], 'center'));
-                titles.push({
-                    text: `${deflorestationHistory[i].date}`,
-                    style: 'body',
-                    alignment: 'center'
-                });
-                subTitles.push({
-                    text: `${deflorestationHistory[i].area} ha`,
-                    style: 'body',
-                    alignment: 'center'
-                });
-
-                if (((i + 1) % 3) === 0) {
-                    deflorestationHistoryContext.push(
+                deforestationData.push(
+                    [
                         {
-                            columns: titles,
-                            margin: [30, 0, 30, 0]
+                            text: `${deflorestationHistory[i].date}`,
+                            style: 'body',
+                            alignment: 'center'
                         },
+                        this.getImageObject(await this.getBaseImageUrl(url), [117, 117], [5, 0], 'center'),
                         {
-                            columns: images,
-                            margin: [30, 0, 30, 0]
-                        },
-                        {
-                            columns: subTitles,
-                            margin: [30, 0, 30, 10]
+                            text: `${deflorestationHistory[i].area} ha`,
+                            style: 'body',
+                            alignment: 'center'
                         }
-                    );
+                    ]
 
-                    images = [];
-                    titles = [];
-                    subTitles = [];
+                );
+            }
+
+            for (let start = 0; start < deforestationData.length; start += 3) {
+                if (start != 0 && ((start) % 12) === 0) {
+                    deforestationColumns.push({
+                        text: '',
+                        pageBreak: 'after'
+                    })
+                }
+                if ((start + 3) < deforestationData.length) {
+                    deforestationColumns.push({
+                        margin: [30, 0, 30, 0],
+                        alignment: 'center',
+                        columns: [
+                            ...deforestationData.slice(start, start + 3)
+                        ]
+                    })
+                } else {
+                    deforestationColumns.push({
+                        margin: [30, 0, 30, 0],
+                        alignment: 'center',
+                        columns: [
+                            ...deforestationData.slice(start),
+                        ]
+                    });
                 }
             }
 
             deflorestationHistoryContext.push(
+                ...deforestationColumns,
                 {
                     text: [
                         {
@@ -426,8 +438,8 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                             bold: true
                         },
                         {
-                            text: ` Histórico de desmatamento do PRODES nos últimos 12 anos.`,
-                            bold: false
+                            text: ` Histórico de desmatamento do PRODES desde ${deflorestationHistory[0].date}.`,
+                          bold: false
                         }
                     ],
                     margin: [30, 0, 30, 0],
@@ -466,8 +478,8 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
 
         if (this.reportData['type'] !== 'queimada') {
             this.reportData.images['geoserverImage4'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage3), [200, 200], [0, 10], 'left');
-            this.reportData.images['geoserverImage5'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage4), [200, 200], [0, 10], 'right');
-            this.reportData.images['geoserverImage6'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage5), [200, 200], [0, 10], 'left');
+            this.reportData.images['geoserverImage5'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage4), [200, 200], [0, 10], 'left');
+            this.reportData.images['geoserverImage6'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage5), [200, 200], [0, 10], 'right');
             this.reportData.images['geoserverImage7'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage6), [200, 200], [0, 10], 'right');
         }
 
@@ -493,8 +505,8 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                     dataFocus.push(element['total_focus']);
                     prohibitivePeriod.push(element['prohibitive_period']);
                 });
-                chartData.push({title: 'Focos de fogo ativo', data: dataFocus});
-                chartData.push({title: 'Focos de fogo ativo (período proibitivo)', data: prohibitivePeriod});
+                chartData.push({ title: 'Focos de fogo ativo', data: dataFocus });
+                chartData.push({ title: 'Focos de fogo ativo (período proibitivo)', data: prohibitivePeriod });
 
                 const totalFocusChart = this.reportService.generateChart(labels, chartData);
                 this.reportData['FocusChartImage'] = this.getImageObject(totalFocusChart && totalFocusChart.toBase64Image() ? [totalFocusChart.toBase64Image()] : null, [450, 450], [10, 0], 'center');
@@ -581,12 +593,40 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                 this.reportData.property['sat'] = this.inputSat;
                 this.reportData.property['comments'] = this.textAreaComments;
                 this.reportService.generatePdf(this.reportData).then((response: Response) => {
+                    const reportResp = (response.status === 200) ? response.data : {};
                     if (response.status === 200) {
-                        this.reportService.getReportById(response.data.id).then((resp: Response) => {
-                            const reportResp = (resp.status === 200) ? resp.data : {};
-                            window.open(window.URL.createObjectURL(Util.base64toBlob(reportResp.base64, 'application/pdf')));
-                            this.generatingReport = false;
-                        });
+                        const document = reportResp.document;
+                        const docDefinitions = document.docDefinitions;
+                        docDefinitions.footer = (pagenumber, pageCount) => {
+                            return {
+                                table: {
+                                    body: [
+                                        [
+                                            {
+                                                text: 'Página ' + pagenumber + ' de ' + pageCount,
+                                                fontSize: 8,
+                                                margin: [483, 0, 30, 0]
+                                            }
+                                        ],
+                                    ]
+                                },
+                                layout: 'noBorders'
+                            };
+                        };
+                        docDefinitions.header = (currentPage, pageCount, pageSize) => {
+                            return {
+                                columns: document.headerDocument
+                            };
+                        };
+
+                        pdfMake.createPdf(docDefinitions).download(reportResp.name);
+                        if (this.downloadVectors) {
+                            const { vectorViews } = this.reportData;
+                            const fileName = reportResp.name.split('.')[0];
+
+                            this.exportService.getVectors(vectorViews, fileName)
+                        }
+                        this.generatingReport = false;
                     } else {
                         this.generatingReport = false;
                         alert(`${response.status} - ${response.message}`);

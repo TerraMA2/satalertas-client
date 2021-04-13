@@ -16,7 +16,8 @@
             </div>
         </p-accordionTab>
 
-        <p-accordionTab [selected]="toolSelected === 'export'"
+        <p-accordionTab *ngIf="loggedUser && loggedUser.administrator"
+                        [selected]="toolSelected === 'export'"
                         header="Exportação">
             <p-listbox [(ngModel)]="selectedFormats"
                        [options]="formats"

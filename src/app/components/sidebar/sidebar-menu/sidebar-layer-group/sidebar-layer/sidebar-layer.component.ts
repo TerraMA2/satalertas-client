@@ -9,6 +9,8 @@ import {Layer} from 'src/app/models/layer.model';
 import {MapService} from '../../../../../services/map.service';
 
 import {LayerGroup} from '../../../../../models/layer-group.model';
+import {AuthService} from '../../../../../services/auth.service';
+import {User} from '../../../../../models/user.model';
 
 @Component({
     selector: 'app-sidebar-layer',
@@ -32,15 +34,25 @@ export class SidebarLayerComponent implements OnInit {
     @Input() displayChild = false;
 
     isSelected = false;
+    loggedUser: User = null;
+    disableTool = {};
 
     constructor(
         private sidebarService: SidebarService,
         private mapService: MapService,
-        private tableService: TableService
+        private tableService: TableService,
+        private authService: AuthService
     ) {
     }
 
     ngOnInit() {
+        this.authService.user.subscribe((user) => {
+            if (!user || !user.administrator) {
+                this.disableTool['export'] = true;
+            } else {
+                this.disableTool= {};
+            }
+        })
         this.sidebarService.sidebarLayerSwitchSelect.subscribe((layers: Layer[]) => {
             this.changeState(layers, true);
         });

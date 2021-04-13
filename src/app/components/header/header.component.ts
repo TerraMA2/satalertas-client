@@ -72,7 +72,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
                 this.loggedUserName = user.username;
             }
         });
-
     }
 
     setFilterSettings() {
@@ -108,6 +107,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     showHideSidebar() {
         this.displaySidebar = !this.displaySidebar;
         this.showHideSidebarClicked.emit(this.displaySidebar);
+        window.dispatchEvent(new Event('resize'));
     }
 
     onLoginClick() {

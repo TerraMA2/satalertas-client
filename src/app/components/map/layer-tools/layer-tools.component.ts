@@ -17,6 +17,8 @@ import {View} from '../../../models/view.model';
 import {LayerType} from '../../../enum/layer-type.enum';
 
 import {ExportService} from '../../../services/export.service';
+import {AuthService} from '../../../services/auth.service';
+import {User} from '../../../models/user.model';
 
 @Component({
     selector: 'app-layer-tools',
@@ -37,6 +39,8 @@ export class LayerToolsComponent implements OnInit {
 
     formats: [];
     selectedFormats: [];
+    disableTool = [];
+    loggedUser: User = null;
 
     constructor(
         private configService: ConfigService,
@@ -44,12 +48,16 @@ export class LayerToolsComponent implements OnInit {
         private httpService: HTTPService,
         private messageService: MessageService,
         private filterService: FilterService,
-        private exportService: ExportService
+        private exportService: ExportService,
+        private authService: AuthService
     ) {
     }
 
     ngOnInit() {
         this.formats = this.configService.getMapConfig('export').formats;
+        this.authService.user.subscribe((user) => {
+            this.loggedUser = user;
+        });
     }
 
     onOpacityChange(event) {

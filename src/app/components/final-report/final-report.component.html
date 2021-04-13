@@ -38,14 +38,22 @@
         </button>
     </div>
     <div class="p-toolbar-group-right">
-        <button (click)="generatePdf('open')"
-                *ngIf="loggedUser.administrator"
-                [disabled]="!docBase64 || generatingReport"
-                icon="fas fa-download p-button-raised"
-                label="Gerar Relatório"
-                pButton
-                type="button">
-        </button>
+        <div class="report-buttons" *ngIf="loggedUser.administrator">
+            <button (click)="generatePdf('open')"
+                    [disabled]="!docBase64 || generatingReport"
+                    icon="fas fa-download p-button-raised"
+                    label="Gerar Relatório"
+                    pButton
+                    type="button">
+            </button>
+            <div class="vector-button">
+                <p-inputSwitch [disabled]="!docBase64 || generatingReport"
+                               id="getVectors"
+                               [(ngModel)]="downloadVectors">
+                </p-inputSwitch>
+                <label for="getVectors">Baixar Vetores</label>
+            </div>
+        </div>
     </div>
 </p-toolbar>
 <canvas height="400" id="imagem2" style="display: none" width="600"></canvas>
