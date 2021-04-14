@@ -23,7 +23,7 @@ export class SidebarLayerComponent implements OnInit {
 
     @Input() parentSwitchChecked;
 
-    primaryRadio: string;
+    showMarkerRadio: string;
 
     @Input() isLayerGroupOpened;
 
@@ -63,9 +63,9 @@ export class SidebarLayerComponent implements OnInit {
 
         this.sidebarService.sidebarLayerGroupRadioDeselect.subscribe((layerGroup: LayerGroup) => {
             layerGroup.children.forEach((layer: Layer) => {
-                if (layer.value === this.layer.value && this.layer.isPrimary) {
+                if (layer.value === this.layer.value && this.layer.showMarker) {
                     this.mapService.clearMarkers.next();
-                    this.primaryRadio = null;
+                    this.showMarkerRadio = null;
                 }
             });
         });
@@ -97,9 +97,9 @@ export class SidebarLayerComponent implements OnInit {
     deselectItem() {
         this.sidebarService.sidebarLayerDeselect.next(this.layer);
         this.tableService.unloadTableData.next(this.layer);
-        if (this.layer.isPrimary && this.primaryRadio) {
+        if (this.layer.showMarker && this.showMarkerRadio) {
             this.sidebarService.sidebarItemRadioDeselect.next(this.layer);
-            this.primaryRadio = null;
+            this.showMarkerRadio = null;
         }
         this.isToolsOpened = false;
 

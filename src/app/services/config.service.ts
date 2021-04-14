@@ -47,6 +47,13 @@ export class ConfigService {
         }
         return sidebarConfig;
     }
+    getSidebarSettingsConfig(name = '') {
+        const sidebarConfig = this.getConfig('sidebar-settings');
+        if (name) {
+            return sidebarConfig[name];
+        }
+        return sidebarConfig;
+    }
 
     getMapConfig(name = '') {
         const mapConfig = this.getConfig('map');

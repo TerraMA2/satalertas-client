@@ -1,4 +1,6 @@
-<div (click)="onSidebarItemClicked()"
+<div [routerLink]="!sidebarItem.dataUrl ? sidebarItem.link : ''"
+     [routerLinkActive]="[!sidebarItem.dataUrl ? 'sidebar-item-body-active' : '']"
+     [routerLinkActiveOptions]="{exact: true}"
      [ngClass]="
             {
                 'sidebar-separator': sidebarItem.separator,

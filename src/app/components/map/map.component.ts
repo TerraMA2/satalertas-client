@@ -94,6 +94,7 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
         this.tableConfig = this.configService.getMapConfig('table');
 
         this.sidebarService.sidebarLayerShowHide.next(true);
+        this.sidebarService.sidebarReload.next();
     }
 
     // ngOnDestroy() {
