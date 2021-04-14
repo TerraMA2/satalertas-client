@@ -20,7 +20,11 @@
                 </p-pickList>
             </div>
             <div class="p-field p-text-right container-lg">
-                <button pButton type="button" label="Salvar" (click)="update()" class="p-button-raised p-button-success"></button>
+                <ng-template [ngIf]="selectedGroup">
+                    <div>
+                        <button pButton type="button" label="Salvar" (click)="update()" class="p-button-raised p-button-success"></button>
+                    </div>
+                </ng-template>
             </div>
         </div>
     </div>
