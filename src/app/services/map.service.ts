@@ -18,6 +18,8 @@ export class MapService {
 
     reportTable = new Subject();
 
+    showMarker = new Subject();
+
     reportTableButton = new Subject<boolean>();
 
     layerToolOpen = new Subject<object>();

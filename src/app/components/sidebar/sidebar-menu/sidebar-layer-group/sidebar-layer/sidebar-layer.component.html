@@ -33,12 +33,12 @@
                 'sidebar-layer-margin': layer.isChild === true
                 }"
      class="sidebar-layer-tools">
-
-    <i (click)="onToolClicked(tool.name)"
-       *ngFor="let tool of layer.tools; trackBy: trackById"
-       class="{{tool.icon}}"
-       pTooltip="{{tool.title}}"
-       tooltipPosition="top">
-    </i>
-
+    <div *ngFor="let tool of layer.tools; trackBy: trackById">
+        <i *ngIf="!disableTool[tool.name]"
+        (click)="onToolClicked(tool.name)"
+        class="{{tool.icon}}"
+        pTooltip="{{tool.name}}"
+        tooltipPosition="top">
+        </i>
+    </div>
 </div>

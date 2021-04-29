@@ -26,6 +26,10 @@ import {ExportService} from '../../../services/export.service';
 
 import {ReportLayer} from '../../../models/report-layer.model';
 
+import {AuthService} from 'src/app/services/auth.service';
+import {User} from '../../../models/user.model';
+
+
 @Component({
     selector: 'app-table',
     templateUrl: './table.component.html',
@@ -75,6 +79,7 @@ export class TableComponent implements OnInit {
     formats;
     selectedFormats: [];
     private tableConfig;
+    loggedUser: User = null;
 
     constructor(
         private hTTPService: HTTPService,
@@ -84,7 +89,8 @@ export class TableComponent implements OnInit {
         private mapService: MapService,
         private reportService: ReportService,
         private messageService: MessageService,
-        private exportService: ExportService
+        private exportService: ExportService,
+        private authService: AuthService
     ) {
     }
 
@@ -94,6 +100,9 @@ export class TableComponent implements OnInit {
         this.formats = this.configService.getMapConfig('export').formats;
 
         this.rowsPerPage = this.tableConfig.rowsPerPage;
+
+        this.authService.user.subscribe((user) => this.loggedUser = user)
+
 
         this.tableService.loadTableData.subscribe(layer => {
             if (layer) {
@@ -318,6 +327,16 @@ export class TableComponent implements OnInit {
         return item.field;
     }
 
+    onShowMapClicked(rowData = null) {
+        if (!rowData) {
+            rowData = this.selectedProperties;
+        }
+        this.mapService.showMarker.next({
+            layer: this.selectedLayer,
+            data: rowData
+        });
+    }
+
     clearTable() {
         this.tableData = undefined;
         this.selectedFilterValue = undefined;
@@ -380,18 +399,20 @@ export class TableComponent implements OnInit {
     }
 
     onRowSelect() {
-        this.isExportDisabled = false;
+        if (this.loggedUser && this.loggedUser.administrator) {
+            this.isExportDisabled = false;
+        }
     }
 
     onRowUnselect() {
-        if (this.selectedProperties.length === 0) {
+        if (this.selectedProperties.length === 0 || !this.loggedUser || this.loggedUser.administrator) {
             this.isExportDisabled = true;
         }
     }
 
     onHeaderCheckboxToggle(event) {
         const checked = event.checked;
-        if (checked && this.isExportDisabled) {
+        if (checked && this.isExportDisabled && this.loggedUser && this.loggedUser.administrator) {
             this.isExportDisabled = false;
         } else if (!checked) {
             this.isExportDisabled = true;

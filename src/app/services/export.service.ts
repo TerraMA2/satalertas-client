@@ -34,4 +34,15 @@ export class ExportService {
             }
         });
     }
+
+    async getVectors(params, fileName) {
+        const { layers, filters, outputFormat='shape-zip' } = params;
+        let url = `${environment.geoserverUrl}/wfs?request=GetFeature&service=WFS&version=1.0.0`;
+        const typeName = 'typeName=' + layers.join(',');
+        url = [url, `outputFormat=${outputFormat}`, typeName, `fileName=${fileName}_vectors`, filters].join('&')
+        const linkTag = document.createElement('a');
+        linkTag.setAttribute('download', `${fileName}`);
+        linkTag.setAttribute('href', url);
+        linkTag.click();
+    }
 }
