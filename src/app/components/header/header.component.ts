@@ -144,7 +144,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     onFilterFocus() {
         document.addEventListener('keypress', e => {
-            if (document.querySelector('.ui-datepicker') && (e['which'] === 13 || e['keyCode'] === 13)) {
+            if (document.querySelector('.p-datepicker') && (e['which'] === 13 || e['keyCode'] === 13)) {
                 this.onFilterClick();
             }
         });
