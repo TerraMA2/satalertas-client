@@ -1412,7 +1412,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
     background-color: var(--primary-color);
 }
 .p-button.p-button-raised {
-    box-shadow:0 3px 1px -2px rgba(0, 0, 0, 0.2),0 2px 2px0 rgba(0, 0, 0, 0.14),0 1px 5px0 rgba(0, 0, 0, 0.12);
+    box-shadow:0 3px 1px -2px rgba(0, 0, 0, 0.2),0 2px 2px 0 rgba(0, 0, 0, 0.14),0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
 .p-button.p-button-rounded {
     border-radius: 2rem;
@@ -3295,7 +3295,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
     background: #ffffff;
     color: #333333;
     border: 1px solid #c8c8c8;
-    box-shadow: 00 6px 0 rgba(0, 0, 0, 0.16);
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.16);
     width: 12.5rem;
 }
 .p-contextmenu .p-menuitem-link {
@@ -3336,7 +3336,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
     padding: 0;
     background: #ffffff;
     border: 1px solid #c8c8c8;
-    box-shadow: 00 6px 0 rgba(0, 0, 0, 0.16);
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.16);
 }
 .p-contextmenu .p-menuitem.p-menuitem-active > .p-menuitem-link {
     background: #eaeaea;
@@ -3451,7 +3451,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
     background: #ffffff;
     color: #333333;
     border: 1px solid #c8c8c8;
-    box-shadow: 00 6px 0 rgba(0, 0, 0, 0.16);
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.16);
 }
 .p-megamenu .p-megamenu-submenu-header {
     margin: 0;
@@ -3529,7 +3529,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 .p-menu.p-menu-overlay {
     background: #ffffff;
     border: 1px solid #c8c8c8;
-    box-shadow: 00 6px 0 rgba(0, 0, 0, 0.16);
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.16);
 }
 .p-menu .p-submenu-header {
     margin: 0;
@@ -3641,7 +3641,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
     padding: 0;
     background: #ffffff;
     border: 1px solid #c8c8c8;
-    box-shadow: 00 6px 0 rgba(0, 0, 0, 0.16);
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.16);
     width: 12.5rem;
 }
 .p-menubar .p-submenu-list .p-menu-separator {
@@ -3688,7 +3688,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
         padding: 0;
         background: #ffffff;
         border: 1px solid #c8c8c8;
-        box-shadow: 00 6px 0 rgba(0, 0, 0, 0.16);
+        box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.16);
         width: 100%;
     }
     .p-menubar .p-menubar-root-list .p-menu-separator {
@@ -3924,13 +3924,13 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 .p-slidemenu.p-slidemenu-overlay {
     background: #ffffff;
     border: 1px solid #c8c8c8;
-    box-shadow: 00 6px 0 rgba(0, 0, 0, 0.16);
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.16);
 }
 .p-slidemenu .p-slidemenu-list {
     padding: 0;
     background: #ffffff;
     border: 1px solid #c8c8c8;
-    box-shadow: 00 6px 0 rgba(0, 0, 0, 0.16);
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.16);
 }
 .p-slidemenu .p-slidemenu.p-slidemenu-active > .p-slidemenu-link {
     background: #eaeaea;
@@ -4083,13 +4083,13 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 .p-tieredmenu.p-tieredmenu-overlay {
     background: #ffffff;
     border: 1px solid #c8c8c8;
-    box-shadow: 00 6px 0 rgba(0, 0, 0, 0.16);
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.16);
 }
 .p-tieredmenu .p-submenu-list {
     padding: 0;
     background: #ffffff;
     border: 1px solid #c8c8c8;
-    box-shadow: 00 6px 0 rgba(0, 0, 0, 0.16);
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.16);
 }
 .p-tieredmenu .p-menuitem.p-menuitem-active > .p-menuitem-link {
     background: #eaeaea;
