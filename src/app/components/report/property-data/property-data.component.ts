@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Util} from '../../../utils/util';
 import {Property} from 'src/app/models/property.model';
 import {MapService} from '../../../services/map.service';
 

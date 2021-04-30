@@ -1,0 +1,87 @@
+<p-toast></p-toast>
+<div class="card">
+  <p-toolbar styleClass="p-mb-4">
+    <ng-template pTemplate="left">
+      <button
+        pButton
+        label="Novo Grupo"
+        icon="pi pi-plus"
+        class="p-button-success p-mr-2"
+        (click)="startNewGroup()"
+      ></button>
+      <!-- <button pButton label="Remover" class="p-button-danger"
+      icon="pi pi-trash"
+      ></button> -->
+    </ng-template>
+  </p-toolbar>
+</div>
+
+<p-table #dt [value]='groups' [columns]="cols" [rows]="5" [paginator]="true"
+  selectionMode="checkbox" [(selection)]="selectedGroups"
+  [rowHover]="true"
+>
+  <ng-template pTemplate="caption">
+    <div class="p-d-flex p-ai-center p-jc-between">
+      <h3 class="p-m-0">Gerenciar Grupos</h3>
+      <!-- <div class="p-d-flex">
+        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        <span class="p-ml-2">Selecionar Todos</span>
+      </div> -->
+      <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input type="text" pInputText size="50" placeholder="Filtro Global"
+        (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+      </span>
+    </div>
+  </ng-template>
+  <ng-template pTemplate='header' let-columns >
+    <tr>
+      <th *ngFor="let col of columns">
+        <div class="p-d-flex p-ai-center p-jc-between">
+          <div [pSortableColumn]="col.field" class="p-ai-center p-jc-between  p-p-2">
+            {{col.header}}
+            <p-sortIcon [field]="col.field"></p-sortIcon>
+          </div>
+            <input pInputText type='text' (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)" style="width:auto">
+        </div>
+      </th>
+      <th>Ações</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+    <tr>
+      <td *ngFor="let col of columns">
+        <!-- <p-tableCheckbox [value]="groups"></p-tableCheckbox> -->
+        {{rowData[col.field]}}
+      </td>
+      <td>
+        <button pButton
+          class="p-button-danger p-button-rounded p-mr-2"
+          icon="pi pi-trash"
+          (click)="removeGroup(rowData)">
+        </button>
+        <button pButton
+          class="p-button-rounded p-mr-2"
+          icon="pi pi-pencil"
+          (click)="editGroup(rowData)">
+        </button>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td [attr.colspan]="cols.length+1">Nenhum dado encontrado</td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<app-modal
+  [data]="group"
+  header="Dados do Grupo"
+  [displayModal]="dialogVisible"
+  [modalStyle]="{width: '50vw'}"
+  [lines]="lines"
+  (onClickCancel)="cancelNewGroup()"
+  (onClickSave)="closeModalDialog()"
+></app-modal>
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

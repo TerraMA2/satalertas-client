@@ -1,0 +1,31 @@
+<p-scrollPanel [style]="{width: '100%', height: 'calc(100vh - 50px)'}">
+    <app-settings-toolbar></app-settings-toolbar>
+    <div class="p-grid">
+        <div class="p-col-12">
+            <div class="p-field">
+                <div class="container-lg">
+                    <h2>Gerenciador de Camadas</h2>
+                    <p-dropdown [options]="groups" [(ngModel)]="selectedGroup" optionLabel="label" [filter]="true" filterBy="label"
+                            [showClear]="true" placeholder="Selecione um grupo" (onChange)="onChangeOptionField($event)">
+                    </p-dropdown>
+                </div>
+            </div>
+            <div class="p-field">
+                <p-pickList [source]="availableLayers" [target]="selectedLayers" sourceHeader="Camadas disponíveis" targetHeader="Camadas selecionadas" dragdrop="true"
+                    [responsive]="true" [sourceStyle]="{'height':'500px'}" [targetStyle]="{'height':'500px'}" filterBy="name"
+                    sourceFilterPlaceholder="Pesquisar por nome" targetFilterPlaceholder="Pesquisar por nome">
+                    <ng-template let-layer pTemplate="item">
+                        <h3 class="p-mb-2">{{layer.name}}</h3>
+                    </ng-template>
+                </p-pickList>
+            </div>
+            <div class="p-field p-text-right container-lg">
+                <ng-template [ngIf]="selectedGroup">
+                    <div>
+                        <button pButton type="button" label="Salvar" (click)="update()" class="p-button-raised p-button-success"></button>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</p-scrollPanel>

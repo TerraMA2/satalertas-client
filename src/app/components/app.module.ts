@@ -34,6 +34,10 @@ import {PdfViewerModule} from 'ng2-pdf-viewer';
 import {ProgressSpinnerModule} from 'primeng-lts/progressspinner';
 import {InputTextareaModule} from 'primeng-lts/inputtextarea';
 import {ChartsModule} from 'ng2-charts';
+import {TreeTableModule} from 'primeng-lts/treetable';
+import {PickListModule} from 'primeng-lts/picklist';
+import {RippleModule} from 'primeng-lts/ripple';
+import {MessageModule} from 'primeng-lts/message';
 
 import {AppComponent} from './app.component';
 import {MapComponent} from './map/map.component';
@@ -85,6 +89,13 @@ import {ClassAreaComponent} from './filter/class-area/class-area.component';
 import {ListboxModule} from 'primeng-lts/listbox';
 import {LayerToolsComponent} from './map/layer-tools/layer-tools.component';
 import {SliderModule} from 'primeng-lts/slider';
+import {SettingsComponent} from './settings/settings.component';
+import {GroupManagerComponent} from './settings/group-manager/group-manager.component';
+import {GroupListComponent} from './settings/group-manager/group-list/group-list.component';
+import {ModalComponent} from './modal.component/modal.component';
+import {ButtonActionComponent} from './button-action.component/button-action.component';
+import {LayersComponent} from './settings/layers/layers.component';
+import { SettingsToolbarComponent } from './settings/settings-toolbar/settings-toolbar.component';
 
 registerLocaleData(localePt, 'pt');
 
@@ -134,6 +145,13 @@ registerLocaleData(localePt, 'pt');
         HistoryProdesChartComponent,
         ClassAreaComponent,
         LayerToolsComponent,
+        SettingsComponent,
+        GroupManagerComponent,
+        GroupListComponent,
+        ModalComponent,
+        ButtonActionComponent,
+        LayersComponent,
+        SettingsToolbarComponent,
     ],
 
     imports: [
@@ -173,6 +191,10 @@ registerLocaleData(localePt, 'pt');
         ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
         ListboxModule,
         SliderModule,
+        TreeTableModule,
+        PickListModule,
+        RippleModule,
+        MessageModule,
     ],
     providers: [
         TreeDragDropService,

@@ -51,6 +51,33 @@
       }
     ]
   },
+  "settings": {
+    "groupsColumns": [
+      {"field": "name", "header": "Nome"},
+      {"field": "code", "header": "Código"}
+    ]
+  },
+  "sidebar-settings": {
+    "logoPath": "./assets/img/logos/mpmt-large.png",
+    "logoLink": "https://mpmt.mp.br/",
+    "sidebarItems": [
+      {
+        "icon": "pi pi-list",
+        "label": "Grupos",
+        "link": "/settings/groups",
+        "method": "",
+        "value": ""
+      }
+      ,
+      {
+        "icon": "fas fa-layer-group",
+        "label": "Camadas",
+        "link": "/settings/layers",
+        "method": "",
+        "value": ""
+      }
+    ]
+  },
   "map": {
     "initialLatLong": [
       -14.5463,

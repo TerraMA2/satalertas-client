@@ -10,5 +10,7 @@ dist
 logs
 .vscode/
 .history/
-environment.prod.ts
-environment.ts
+src/environments/environment.prod.ts
+src/environments/environment.ts
+#ignorando um arquivo da máquina do kyle
+src/assets/files.json

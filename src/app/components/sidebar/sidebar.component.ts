@@ -44,8 +44,15 @@ export class SidebarComponent implements OnInit {
         this.logoPath = this.sidebarConfig.logoPath;
         this.logoLink = this.sidebarConfig.logoLink;
         this.setItems();
-        this.sidebarService.sidebarReload.subscribe(() => {
-            this.setSidebarLayers();
+        this.sidebarService.sidebarReload.subscribe((type) => {
+            if (type === 'settings') {
+                this.sidebarConfig = this.configService.getSidebarSettingsConfig();
+                this.setSidebarItems();
+                this.sidebarLayerGroups = [];
+            } else {
+                this.sidebarConfig = this.configService.getSidebarConfig();
+                this.setItems();
+            }
             this.mapService.clearMap.next();
         });
     }
@@ -78,7 +85,7 @@ export class SidebarComponent implements OnInit {
                         children = sidebarLayer.children;
                     }
                     if (children) {
-                        sidebarLayer.children.forEach(sidebarLayerChild => {
+                        sidebarLayer.children.forEach((sidebarLayerChild, index) => {
                             let layer;
                             if (!sidebarLayerChild.isHidden) {
                                 layer = new Layer(
@@ -94,9 +101,11 @@ export class SidebarComponent implements OnInit {
                                     sidebarLayerChild.carRegisterColumn,
                                     sidebarLayerChild.classNameColumn,
                                     sidebarLayerChild.type,
+                                    sidebarLayerChild.showMarker,
                                     sidebarLayerChild.isPrivate,
                                     sidebarLayerChild.isPrimary,
                                     sidebarLayerChild.isChild,
+                                    sidebarLayerChild.isAlert,
                                     sidebarLayerChild.filter,
                                     sidebarLayerChild.layerData,
                                     sidebarLayerChild.legend,

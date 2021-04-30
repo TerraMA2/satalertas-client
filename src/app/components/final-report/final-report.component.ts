@@ -27,8 +27,6 @@ import { formatNumber } from '@angular/common';
 
 import { User } from '../../models/user.model';
 
-import {Util} from '../../utils/util';
-
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
@@ -162,7 +160,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         private messageService: MessageService,
         private router: Router,
         private confirmationService: ConfirmationService,
-        private ExportService: ExportService,
+        private exportService: ExportService,
         @Inject(LOCALE_ID) private locale: string
     ) {
     }
@@ -620,7 +618,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                             const { vectorViews } = this.reportData;
                             const fileName = reportResp.name.split('.')[0];
 
-                            this.ExportService.getVectors(vectorViews, fileName)
+                            this.exportService.getVectors(vectorViews, fileName)
                         }
                         this.generatingReport = false;
                     } else {

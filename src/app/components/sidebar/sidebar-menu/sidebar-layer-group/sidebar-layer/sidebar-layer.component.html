@@ -1,5 +1,9 @@
 <div *ngIf="displayChild"
-     [ngClass]="{'sidebar-layer-margin': layer.isChild === true, 'sidebar-layer-disabled': layer.isDisabled === true}"
+     [ngClass]="{
+                    'sidebar-layer-alert': layer.isAlert === true,
+                    'sidebar-layer-margin': layer.isChild === true,
+                    'sidebar-layer-disabled': layer.isDisabled === true
+                }"
      class="sidebar-layer-content">
     <div (click)="onChildClicked()"
          class="sidebar-layer-label">
@@ -11,8 +15,8 @@
     <div class="sidebar-layer-switch">
 
         <p-radioButton (onClick)="onChildRadioClicked()"
-                       *ngIf="layer.isPrimary && displayControls"
-                       [(ngModel)]="primaryRadio"
+                       *ngIf="layer.showMarker && displayControls"
+                       [(ngModel)]="showMarkerRadio"
                        [value]="layer.label"
                        name="primary">
         </p-radioButton>
@@ -28,17 +32,21 @@
 </div>
 <div *ngIf="layer.tools && displayControls"
      [ngClass]="{
-                'show': isToolsOpened && isLayerGroupOpened,
-                'hide': !isToolsOpened || !isLayerGroupOpened,
-                'sidebar-layer-margin': layer.isChild === true
+                    'show': isToolsOpened && isLayerGroupOpened,
+                    'hide': !isToolsOpened || !isLayerGroupOpened,
+                    'sidebar-layer-margin': layer.isChild === true
                 }"
      class="sidebar-layer-tools">
+
     <div *ngFor="let tool of layer.tools; trackBy: trackById">
         <i *ngIf="!disableTool[tool.name]"
-        (click)="onToolClicked(tool.name)"
-        class="{{tool.icon}}"
-        pTooltip="{{tool.name}}"
-        tooltipPosition="top">
+           (click)="onToolClicked(tool.name)"
+           class="{{tool.icon}}"
+           pTooltip="{{tool.title}}"
+           tooltipPosition="top">
         </i>
     </div>
+
 </div>
+
+

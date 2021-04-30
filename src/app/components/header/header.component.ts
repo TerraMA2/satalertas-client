@@ -28,6 +28,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     @Output() showHideSidebarClicked = new EventEmitter<boolean>();
 
     @ViewChild('dateFilter', {static: true}) datePicker;
+    isAdministrator: boolean;
     loggedUserName: string;
     isAuthenticated = false;
     dateInput;
@@ -68,11 +69,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
         this.userSub = this.authService.user.subscribe(user => {
             if (user) {
+                this.isAdministrator = user.administrator;
                 this.isAuthenticated = true;
                 this.loggedUserName = user.username;
             }
         });
-
     }
 
     setFilterSettings() {

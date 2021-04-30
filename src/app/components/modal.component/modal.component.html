@@ -1,0 +1,53 @@
+<p-dialog
+          [header]="header"
+          [(visible)]="displayModal"
+          [modal]="true"
+          [style]="modalStyle"
+          [baseZIndex]="10000"
+          (onHide)="onClose()"
+          [closable]="false"
+          [draggable]="false"
+          [resizable]="false">
+
+  <form>
+    <p-messages [(value)]="msgs"></p-messages>
+    <div class="p-fluid container-modal"
+          *ngFor="let line of lines; let j = index" >
+      {{line.label}}
+      <div class="p-field"
+        *ngFor="let input of line.inputs; trackBy: trackById; let i = index" >
+        <label [for]="'input'+i" [ngClass]="input.inputClass">{{input.label}}</label>
+        <input *ngIf="(input.type === 'text')"
+               [(ngModel)]="data[input.field]"
+               pInputText
+               required
+               autofocus
+               [id]="'input'+i"
+               [ngClass]="input.inputClass"
+               type="text"
+               [name]="input.field"
+               (change)="onChange('input'+i, i, j)"
+               [pKeyFilter]="ccRegex"
+               [pValidateOnly]="true" />
+      </div>
+    </div>
+  </form>
+  <p-footer>
+    <button class="p-button-raised"
+            label="Salvar"
+            pButton
+            type="submit"
+            icon="pi pi-check"
+            (click)="onSave(validateFields())">
+    </button>
+
+    <button
+            class="p-button-secondary p-button p-component p-button-text-only p-button-raised"
+            label="Cancelar"
+            pButton
+            type="button"
+            icon="pi pi-times"
+            (click)="onClose()">
+    </button>
+  </p-footer>
+</p-dialog>

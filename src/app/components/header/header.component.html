@@ -68,10 +68,19 @@
                     type="button">
             </button>
         </ng-template>
-
+        
         <ng-template #logout>
             <div>{{loggedUserName }}</div>
             &nbsp;&nbsp;
+
+            <div *ngIf="isAdministrator == true">
+                <button routerLink="/settings/groups"
+                    icon="pi pi-cog"
+                    pButton
+                    type="button">
+                </button>
+            </div>
+
             <button (click)="onLogoutClick()"
                     class="p-button-raised p-button-secondary"
                     icon="fa fa-sign-in-alt"
