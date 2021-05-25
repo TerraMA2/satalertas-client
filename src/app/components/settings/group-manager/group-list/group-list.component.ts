@@ -33,7 +33,10 @@ export class GroupListComponent implements OnInit {
 
   async ngOnInit() {
     await this.groupService.getAll().then(res  => {
-      this.groups = res;
+      console.log(res);
+      if (res.length > 0) {
+        this.groups = res;
+      }
       for (const field of this.cols) {
         const fiel = {
           show: true,
@@ -106,7 +109,7 @@ export class GroupListComponent implements OnInit {
     } else {
       await this.groupService.createNewGroup(this.group)
       .then(response => {
-          this.groups.push(response);
+        this.groups.push(response);
       });
     }
     this.messageService.add({

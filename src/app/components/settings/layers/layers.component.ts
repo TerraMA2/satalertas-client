@@ -40,18 +40,27 @@ export class LayersComponent implements OnInit {
     const group = event.value;
 
     if (group){
-      this.selectedLayers = await this.groupViewService.getByGroupId(group.value).then((selectedGroupViews) => {
-        if (selectedGroupViews && Array.isArray(selectedGroupViews) && selectedGroupViews.length > 0) {
-          return selectedGroupViews.map((selectedGroupView) => ({id: selectedGroupView.id, id_group: selectedGroupView.id_group, name: selectedGroupView.view.name, id_view: selectedGroupView.id_view}));
+      const viewsGroup = await this.groupViewService.getByGroupId(group.value).then((selectedGroupViews) => {
+        const filteredViews =  selectedGroupViews.filter(view => view.id_view && view.view);
+        if (filteredViews && Array.isArray(filteredViews) && filteredViews.length > 0) {
+          return filteredViews.map((selectedGroupView) => ({
+            id: selectedGroupView.id,
+            id_group: selectedGroupView.id_group,
+            name: selectedGroupView.view.name,
+            id_view: selectedGroupView.id_view
+          }));
         }
         return [];
       });
-      this.availableLayers = await this.groupViewService.getAvailableLayers(group.value).then((availableGroupViews) => {
+      this.selectedLayers = viewsGroup;
+      const getLayers = await this.groupViewService.getAvailableLayers(group.value).then((availableGroupViews) => {
+        console.log(availableGroupViews);
         if (availableGroupViews && Array.isArray(availableGroupViews) && availableGroupViews.length > 0) {
           return availableGroupViews.map((availableGroupView) => ({name: availableGroupView.name, id_view: availableGroupView.id}));
         }
         return [];
       });
+      this.availableLayers = getLayers;
     } else {
       this.selectedLayers = [];
       this.availableLayers = [];

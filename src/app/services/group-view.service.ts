@@ -34,7 +34,10 @@ export class GroupViewService {
     }
 
     async getAvailableLayers(groupId) {
+        console.log("no view-service: ", groupId)
         const parameters = {id_group: groupId};
-        return await this.http.get<any[]>(this.url + '/getNotBelongingToTheGroup', {params: parameters}).toPromise();
+        const result = await this.http.get<any[]>(this.url + '/getNotBelongingToTheGroup', {params: parameters}).toPromise();
+        console.log(result);
+        return result 
     }
 }
