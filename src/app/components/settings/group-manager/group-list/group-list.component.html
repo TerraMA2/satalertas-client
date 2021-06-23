@@ -51,7 +51,6 @@
   <ng-template pTemplate="body" let-rowData let-columns="columns">
     <tr>
       <td *ngFor="let col of columns">
-        <!-- <p-tableCheckbox [value]="groups"></p-tableCheckbox> -->
         {{rowData[col.field]}}
       </td>
       <td>

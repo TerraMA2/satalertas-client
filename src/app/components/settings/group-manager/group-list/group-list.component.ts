@@ -33,7 +33,6 @@ export class GroupListComponent implements OnInit {
 
   async ngOnInit() {
     await this.groupService.getAll().then(res  => {
-      console.log(res);
       if (res.length > 0) {
         this.groups = res;
       }
