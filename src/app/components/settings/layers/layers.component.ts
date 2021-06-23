@@ -32,29 +32,19 @@ export class LayersComponent implements OnInit {
     this.sidebarService.sidebarReload.next('settings');
 
     this.groups = await this.groupService.getAll().then((data) => {
+      console.log('goups:\n', data);
       return data.map((group: Group) => ({label: group.name, value: group.id}));
     }).catch(() => []);
   }
 
   async onChangeOptionField(event){
     const group = event.value;
-
     if (group){
-      const viewsGroup = await this.groupViewService.getByGroupId(group.value).then((selectedGroupViews) => {
-        const filteredViews =  selectedGroupViews.filter(view => view.id_view && view.view);
-        if (filteredViews && Array.isArray(filteredViews) && filteredViews.length > 0) {
-          return filteredViews.map((selectedGroupView) => ({
-            id: selectedGroupView.id,
-            id_group: selectedGroupView.id_group,
-            name: selectedGroupView.view.name,
-            id_view: selectedGroupView.id_view
-          }));
-        }
-        return [];
+      const viewsGroup = await this.groupViewService.getByGroupId(group.value).then((retorno) => {
+        return retorno.filter(layer => layer.view || layer.name);
       });
       this.selectedLayers = viewsGroup;
       const getLayers = await this.groupViewService.getAvailableLayers(group.value).then((availableGroupViews) => {
-        console.log(availableGroupViews);
         if (availableGroupViews && Array.isArray(availableGroupViews) && availableGroupViews.length > 0) {
           return availableGroupViews.map((availableGroupView) => ({name: availableGroupView.name, id_view: availableGroupView.id}));
         }
