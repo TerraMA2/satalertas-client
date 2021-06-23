@@ -12,6 +12,7 @@ import {ReportComponent} from './report/report.component';
 import {FinalReportComponent} from './final-report/final-report.component';
 import {SettingsComponent} from './settings/settings.component';
 import {LayersComponent} from './settings/layers/layers.component';
+import {LayersAdvancedComponent} from './settings/layers-advanced/layers-advanced.component';
 
 const routes: Routes = [
 	{path: '', component: DashboardComponent},
@@ -23,7 +24,8 @@ const routes: Routes = [
 		children: [
 			{path: '', redirectTo: 'groups', pathMatch: 'full'},
 			{path: 'groups', component: GroupManagerComponent},
-			{path: 'layers', component: LayersComponent}
+			{path: 'layers', component: LayersComponent},
+			{path: 'layers-advanced', component: LayersAdvancedComponent}
 		]
 	}
 ];

@@ -96,6 +96,8 @@ import {ModalComponent} from './modal.component/modal.component';
 import {ButtonActionComponent} from './button-action.component/button-action.component';
 import {LayersComponent} from './settings/layers/layers.component';
 import { SettingsToolbarComponent } from './settings/settings-toolbar/settings-toolbar.component';
+import { LayersAdvancedComponent } from './settings/layers-advanced/layers-advanced.component';
+import { LayersAdvancedEditionComponent } from './settings/layers-advanced/layers-advanced-edition/layers-advanced-edition.component';
 
 registerLocaleData(localePt, 'pt');
 
@@ -152,6 +154,8 @@ registerLocaleData(localePt, 'pt');
         ButtonActionComponent,
         LayersComponent,
         SettingsToolbarComponent,
+        LayersAdvancedComponent,
+        LayersAdvancedEditionComponent,
     ],
 
     imports: [

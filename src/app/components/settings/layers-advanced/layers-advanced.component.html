@@ -1,0 +1,166 @@
+<p-toast></p-toast>
+<div class="card">
+  <app-settings-toolbar></app-settings-toolbar>
+  <div class="p-grid">
+    <div class="p-col-12">
+      <div class="p-field">
+        <div class="card">
+          <h2>Gerenciador de Camadas Avançado</h2>
+          <p-toolbar class="p-mb-4">
+            <p-dropdown
+              class="p-mb-2"
+              [options]="groups"
+              [(ngModel)]="selectedGroup"
+              optionLabel="name"
+              optionValue="id"
+              [filter]="true"
+              filterBy="label"
+              [showClear]="true"
+              placeholder="Selecione um grupo"
+              (onChange)="onGroupChange($event)"
+            ></p-dropdown>
+          </p-toolbar>
+        </div>
+      </div>
+      <div>
+        <p-table
+          [value]="groupLayers"
+          dataKey="name"
+          [scrollable]="true"
+          scrollHeight="400px"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 3rem"></th>
+              <th pSortableColumn="name">
+                Nome <p-sortIcon field="name"></p-sortIcon>
+              </th>
+              <th pSortableColumn="description">
+                Descrição <p-sortIcon field="description"></p-sortIcon>
+              </th>
+              <th pSortableColumn="private">
+                Privada <p-sortIcon field="private"></p-sortIcon>
+              </th>
+              <th pSortableColumn="is_primary">
+                Primária <p-sortIcon field="is_primary"></p-sortIcon>
+              </th>
+              <th>Ações</th>
+            </tr>
+          </ng-template>
+          <ng-template
+            pTemplate="body"
+            let-item
+            let-expanded="expanded"
+          >
+            <tr>
+              <td style="width: 3rem">
+                <button
+                  type="button"
+                  pButton
+                  pRipple
+                  [pRowToggler]="item"
+                  class="p-button-text p-button-rounded p-button-plain"
+                  [icon]="
+                    expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'
+                  "
+                ></button>
+              </td>
+              <td>
+                {{ item.name ? item.name : item.view ? item.view.name : null }}
+              </td>
+              <td>
+                {{ item.description || (item.view && item.view.description) }}
+              </td>
+              <td>
+                <i
+                  [ngClass]="
+                    item.private || (item.view && item.view.private)
+                      ? 'pi pi-check-circle'
+                      : 'pi pi-minus-circle no'
+                  "
+                ></i>
+              </td>
+              <td>
+                <i
+                  [ngClass]="
+                    item.is_primary
+                      ? 'pi pi-check-circle yes'
+                      : 'pi pi-minus-circle no'
+                  "
+                ></i>
+              </td>
+              <td>
+                <button
+                  pButton
+                  class="p-button-rounded p-mr-2"
+                  icon="pi pi-pencil"
+                  (click)="editLayer(item)"
+                ></button>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="rowexpansion" let-item>
+            <ng-template [ngIf]="item.sub_layers">
+              <tr>
+                <td colspan='6'>
+                  <div class="p-p-1">
+                    <p-table [value]='item.sub_layers' dataKey='id'>
+                      <ng-template pTemplate='header'>
+                        <tr>
+                          <th>Nome </th>
+                          <th>Descrição </th>
+                        </tr>
+                      </ng-template>
+                      <ng-template pTemplate='body' let-subLayer>
+                        <tr>
+                          <td>{{ subLayer.name ? subLayer.name : subLayer.view ? subLayer.view.name : null }}</td>
+                          <td>{{ subLayer.description ? subLayer.description : subLayer.view ? subLayer.view.description : null }}</td>
+                        </tr>
+  
+                      </ng-template>
+                    </p-table>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+    <p-footer>
+      <button
+        [disabled]='!edited'
+        class="p-button-raised"
+        label="Salvar"
+        pButton
+        type="button"
+        icon="pi pi-check"
+        (click)='saveGroupEdition()'
+      ></button>
+      <button
+        [disabled]='!edited'
+        class="
+          p-button-secondary
+          p-button
+          p-component
+          p-button-text-only
+          p-button-raised
+        "
+        label="Cancelar"
+        pButton
+        type="button"
+        icon="pi pi-times"
+        (click)="cancelGroupEdition()"
+      ></button>
+    </p-footer>
+</div>
+<app-layers-advanced-edition
+  [displayModal]="displayModal"
+  (onClickCancel)="cancelModalEdition()"
+  (onClickSave)="getModalEditions()"
+  [(data)]="layer"
+  [layers]="availableLayers"
+  [(newData)]="layerEdition"
+></app-layers-advanced-edition>
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

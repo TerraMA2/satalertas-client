@@ -67,12 +67,18 @@
         "link": "/settings/groups",
         "method": "",
         "value": ""
-      }
-      ,
+      },
       {
         "icon": "fas fa-layer-group",
         "label": "Camadas",
         "link": "/settings/layers",
+        "method": "",
+        "value": ""
+      },
+      {
+        "icon": "fas fa-layer-group",
+        "label": "Camadas (avançado)",
+        "link": "/settings/layers-advanced",
         "method": "",
         "value": ""
       }

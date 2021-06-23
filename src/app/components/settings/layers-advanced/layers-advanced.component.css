@@ -1,0 +1,9 @@
+.yes {
+  color: rgb(20, 72, 20);
+  align-items: center;
+}
+
+.no {
+  color: rgb(191, 37, 37);
+  font: bold;
+}
