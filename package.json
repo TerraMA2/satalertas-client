@@ -3,9 +3,9 @@
   "version": "2.0.0-beta",
   "scripts": {
     "start": "ng serve",
-    "build": "ng build --prod --base-href /mpmt/alerta/ --deploy-url /mpmt/alerta/",
+    "build": "ng build --configuration production --base-href /mpmt/alerta/ --deploy-url /mpmt/alerta/",
     "dev": "ng serve",
-    "prod": "ng serve --prod"
+    "prod": "ng serve --configuration production"
   },
   "private": true,
   "dependencies": {
@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^12.1.0",
-    "@angular/cli": "^11.0.4",
+    "@angular/cli": "^12.1.0",
     "@angular/compiler-cli": "~12.1.0",
     "@angular/language-service": "~12.1.0",
     "@fortawesome/fontawesome-free": "^5.15.1",
