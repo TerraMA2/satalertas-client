@@ -1,7 +1,7 @@
 import { GroupService } from 'src/app/services/group.service';
 import { GroupViewService } from './../../../services/group-view.service';
 import { SidebarService } from 'src/app/services/sidebar.service';
-import { ConfirmationService, MessageService } from 'primeng-lts/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -42,9 +42,9 @@ export class LayersAdvancedComponent implements OnInit {
     return layers.filter(({id}) => subLayersIds.includes(id));
   }
 
-  async getGroupData(group) {
-    if (group) {
-      await this.groupViewService.getByGroupId(group.id)
+  async getGroupData(groupId) {
+    if (groupId) {
+      await this.groupViewService.getByGroupId(groupId)
         .then((data) => {
           data.forEach((item) => {
             if (item.sub_layers) {
@@ -84,13 +84,11 @@ export class LayersAdvancedComponent implements OnInit {
     const sbIdx = this.newGroupData.findIndex(({ id }) => id === this.layerEdition['id']);
 
     if (sbIdx >= 0) {
-      console.log('achou')
       const sbLyr = this.newGroupData[sbIdx];
       this.newGroupData[sbIdx] = { ...sbLyr, ...this.layerEdition };
     } else {
       this.newGroupData.push(this.layerEdition);
     }
-    console.log('Edições das camadas do grupo\n', this.newGroupData)
     const layerToEdit = this.groupLayers.findIndex((item) => item.id === this.layerEdition['id']);
     if (layerToEdit >= 0) {
       this.groupLayers[layerToEdit] = { ...this.layer, ...this.layerEdition };
@@ -105,7 +103,7 @@ export class LayersAdvancedComponent implements OnInit {
       header: "Atenção!",
       icon: "pi pi-exclamation-triangle",
       accept: async () => {
-        await this.groupViewService.updateAdvanced({ id_group: this.selectedGroup.id, editions: this.newGroupData })
+        await this.groupViewService.updateAdvanced({ id_group: this.selectedGroup, editions: this.newGroupData })
         .then(() => {
           this.onGroupChange({value: this.selectedGroup});
           this.edited = false;

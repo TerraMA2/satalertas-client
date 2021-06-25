@@ -4,7 +4,7 @@ import {Location} from '@angular/common';
 import {AuthService} from 'src/app/services/auth.service';
 import {User} from '../../models/user.model';
 import {Router} from '@angular/router';
-import {MessageService} from 'primeng-lts/api';
+import {MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-settings',

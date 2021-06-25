@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import { Message , MessageService } from 'primeng-lts/api';
+import { Message , MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-layers-advanced-edition',

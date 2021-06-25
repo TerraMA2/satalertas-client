@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {LineInputModel} from '../../models/line-input.model';
-import {Message, MessageService} from 'primeng-lts/api';
+import {Message, MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-modal',
