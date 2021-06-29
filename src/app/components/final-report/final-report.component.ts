@@ -1,4 +1,4 @@
-import { InputSwitchModule } from 'primeng-lts/inputswitch';
+import { InputSwitchModule } from 'primeng/inputswitch';
 import { AfterViewInit, Component, Inject, LOCALE_ID, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 
 import { ActivatedRoute, Router } from '@angular/router';
@@ -19,7 +19,7 @@ import { ExportService } from '../../services/export.service';
 
 import { AuthService } from 'src/app/services/auth.service';
 
-import { ConfirmationService, MessageService } from 'primeng-lts/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 import { Image } from '../../models/image.model';
 

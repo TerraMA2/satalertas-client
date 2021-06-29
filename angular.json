@@ -23,7 +23,6 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "aot": true,
             "assets": [
               "src/favicon.ico",
               "src/assets",
@@ -51,7 +50,7 @@
             ],
             "styles": [
               "src/theme.css",
-              "node_modules/primeng-lts/resources/primeng.min.css",
+              "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeicons/primeicons.css",
               "node_modules/primeflex/primeflex.css",
               "node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css",
@@ -64,7 +63,13 @@
               "node_modules/leaflet-draw/dist/leaflet.draw.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -76,7 +81,6 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -96,7 +100,8 @@
               "serviceWorker": true,
               "ngswConfigPath": "ngsw-config.json"
             }
-          }
+          },
+          "defaultConfiguration": ""
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",

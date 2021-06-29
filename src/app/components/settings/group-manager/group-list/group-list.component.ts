@@ -1,6 +1,6 @@
 import {GroupService} from 'src/app/services/group.service';
 import {Component, OnInit} from '@angular/core';
-import {ConfirmationService, MessageService, TreeNode} from 'primeng-lts/api';
+import {ConfirmationService, MessageService, TreeNode} from 'primeng/api';
 import ConfigJson from 'src/assets/config.json';
 import {Group} from '../../../../models/group.model';
 

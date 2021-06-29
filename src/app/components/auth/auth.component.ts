@@ -4,7 +4,7 @@ import {AuthService} from 'src/app/services/auth.service';
 
 import {ConfigService} from 'src/app/services/config.service';
 
-import {MessageService} from 'primeng-lts/api';
+import {MessageService} from 'primeng/api';
 
 import {NgForm} from '@angular/forms';
 

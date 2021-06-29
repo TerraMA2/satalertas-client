@@ -4,9 +4,9 @@ import {Location} from '@angular/common';
 
 import {GroupViewService} from 'src/app/services/group-view.service';
 import {GroupService} from 'src/app/services/group.service';
-import {SelectItem} from 'primeng-lts/api';
+import {SelectItem} from 'primeng/api';
 import {Group} from '../../../models/group.model';
-import {MessageService} from 'primeng-lts/api';
+import {MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-layers',

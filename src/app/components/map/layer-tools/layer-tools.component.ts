@@ -8,7 +8,7 @@ import {HTTPService} from '../../../services/http.service';
 
 import {MapService} from '../../../services/map.service';
 
-import {MessageService} from 'primeng-lts/api';
+import {MessageService} from 'primeng/api';
 
 import {FilterService} from '../../../services/filter.service';
 

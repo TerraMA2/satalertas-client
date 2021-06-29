@@ -4,7 +4,7 @@ import {SidebarItem} from 'src/app/models/sidebar-item.model';
 
 import {HTTPService} from '../../../../services/http.service';
 
-import {SelectItem} from 'primeng-lts/api';
+import {SelectItem} from 'primeng/api';
 
 @Component({
     selector: 'app-sidebar-item',

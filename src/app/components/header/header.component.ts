@@ -6,7 +6,7 @@ import {Subscription} from 'rxjs';
 
 import {AuthService} from 'src/app/services/auth.service';
 
-import {MessageService} from 'primeng-lts/api';
+import {MessageService} from 'primeng/api';
 
 import {FilterService} from '../../services/filter.service';
 
