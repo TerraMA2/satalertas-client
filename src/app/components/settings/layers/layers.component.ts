@@ -32,7 +32,6 @@ export class LayersComponent implements OnInit {
     this.sidebarService.sidebarReload.next('settings');
 
     this.groups = await this.groupService.getAll().then((data) => {
-      console.log('goups:\n', data);
       return data.map((group: Group) => ({label: group.name, value: group.id}));
     }).catch(() => []);
   }

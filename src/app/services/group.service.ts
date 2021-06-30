@@ -19,7 +19,6 @@ export class GroupService {
 
   async getCodGroups() {
     const codUrl = `${this.url}/getCodGroups`
-    console.log('url: ', codUrl);
     return await this.http.get<any>(codUrl)
       .toPromise()
       .then(res => res);
