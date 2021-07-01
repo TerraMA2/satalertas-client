@@ -42,7 +42,7 @@ export class GroupListComponent implements OnInit {
           disable: false,
           label: `${field.header}`,
           inputClass: 'input-group',
-          type: 'text',
+          type: field.type,
           // model: '',
           onChange: (event) => { },
           field: `${field.field}`,

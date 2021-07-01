@@ -9,67 +9,104 @@
         class="p-button-success p-mr-2"
         (click)="startNewGroup()"
       ></button>
-      <!-- <button pButton label="Remover" class="p-button-danger"
-      icon="pi pi-trash"
-      ></button> -->
     </ng-template>
   </p-toolbar>
 </div>
 
-<p-table #dt [value]='groups' [columns]="cols" [rows]="5" [paginator]="true"
-  selectionMode="checkbox" [(selection)]="selectedGroups"
+<p-table
+  #dt
+  [value]="groups"
+  [columns]="cols"
+  [rows]="5"
+  [paginator]="true"
+  selectionMode="checkbox"
+  [(selection)]="selectedGroups"
   [rowHover]="true"
+  class="p-d-flex"
 >
   <ng-template pTemplate="caption">
     <div class="p-d-flex p-ai-center p-jc-between">
       <h3 class="p-m-0">Gerenciar Grupos</h3>
-      <!-- <div class="p-d-flex">
-        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-        <span class="p-ml-2">Selecionar Todos</span>
-      </div> -->
       <span class="p-input-icon-left">
         <i class="pi pi-search"></i>
-        <input type="text" pInputText size="50" placeholder="Filtro Global"
-        (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+        <input
+          type="text"
+          pInputText
+          size="50"
+          placeholder="Filtro Global"
+          (input)="dt.filterGlobal($event.target.value, 'contains')"
+          style="width: auto"
+        />
       </span>
     </div>
   </ng-template>
-  <ng-template pTemplate='header' let-columns >
+  <ng-template pTemplate="header" let-columns>
     <tr>
       <th *ngFor="let col of columns">
         <div class="p-d-flex p-ai-center p-jc-between">
-          <div [pSortableColumn]="col.field" class="p-ai-center p-jc-between  p-p-2">
-            {{col.header}}
-            <p-sortIcon [field]="col.field"></p-sortIcon>
+          <div
+            [pSortableColumn]="col.field"
+            class="p-ai-center p-jc-between p-p-2"
+          >
+            {{ col.header }}
           </div>
-            <input pInputText type='text' (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)" style="width:auto">
+          <p-sortIcon [field]="col.field"></p-sortIcon>
         </div>
       </th>
-      <th>Ações</th>
+      <th rowspan="2" class="p-text-center">Ações</th>
+    </tr>
+    <tr>
+      <th *ngFor="let col of columns">
+        <input
+          pInputText
+          type="text"
+          (input)="
+            dt.filter($event.target.value, col.field, col.filterMatchMode)
+          "
+          style="width: 100%"
+        />
+      </th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-rowData let-columns="columns">
     <tr>
-      <td *ngFor="let col of columns">
-        {{rowData[col.field]}}
+      <td *ngFor="let col of columns" class="p-text-truncate">
+        <ng-template [ngIf]="col.type === 'text'">
+          {{ rowData[col.field] }}
+        </ng-template>
+        <ng-template [ngIf]="col.type === 'boolean'">
+          <div class="p-text-center">
+            <i
+              [ngClass]="
+                rowData[col.field]
+                  ? 'pi pi-check-circle yes'
+                  : 'pi pi-minus-circle no'
+              "
+            ></i>
+          </div>
+        </ng-template>
       </td>
       <td>
-        <button pButton
-          class="p-button-danger p-button-rounded p-mr-2"
-          icon="pi pi-trash"
-          (click)="removeGroup(rowData)">
-        </button>
-        <button pButton
-          class="p-button-rounded p-mr-2"
-          icon="pi pi-pencil"
-          (click)="editGroup(rowData)">
-        </button>
+        <div class="p-text-center">
+          <button
+            pButton
+            class="p-button-danger p-button-rounded p-mr-2"
+            icon="pi pi-trash"
+            (click)="removeGroup(rowData)"
+          ></button>
+          <button
+            pButton
+            class="p-button-rounded p-mr-2"
+            icon="pi pi-pencil"
+            (click)="editGroup(rowData)"
+          ></button>
+        </div>
       </td>
     </tr>
   </ng-template>
   <ng-template pTemplate="emptymessage">
     <tr>
-      <td [attr.colspan]="cols.length+1">Nenhum dado encontrado</td>
+      <td [attr.colspan]="cols.length + 1">Nenhum dado encontrado</td>
     </tr>
   </ng-template>
 </p-table>
@@ -78,9 +115,9 @@
   [data]="group"
   header="Dados do Grupo"
   [displayModal]="dialogVisible"
-  [modalStyle]="{width: '50vw'}"
+  [modalStyle]="{ width: '50vw' }"
   [lines]="lines"
   (onClickCancel)="cancelNewGroup()"
   (onClickSave)="closeModalDialog()"
 ></app-modal>
-<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
