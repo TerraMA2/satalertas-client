@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "terrama2-report": {
+    "satalertas-client": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -18,7 +18,7 @@
               "leaflet-search",
               "chart.js"
             ],
-            "outputPath": "dist/terrama2-report",
+            "outputPath": "dist/satalertas-client",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -106,12 +106,12 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "terrama2-report:build",
+            "browserTarget": "satalertas-client:build",
             "proxyConfig": "src/proxy.conf.json"
           },
           "configurations": {
             "production": {
-              "browserTarget": "terrama2-report:build:production",
+              "browserTarget": "satalertas-client:build:production",
               "proxyConfig": "src/proxy.conf.json"
             }
           }
@@ -119,7 +119,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "terrama2-report:build"
+            "browserTarget": "satalertas-client:build"
           }
         },
         "lint": {
@@ -137,7 +137,7 @@
       }
     }
   },
-  "defaultProject": "terrama2-report",
+  "defaultProject": "satalertas-client",
   "cli": {
     "analytics": false
   }
