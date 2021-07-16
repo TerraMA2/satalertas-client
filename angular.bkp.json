@@ -71,9 +71,8 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,
+              "sourceMap": true,
               "extractCss": true,
-              "aot": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -81,8 +80,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "8mb",
-                  "maximumError": "10mb"
+                  "maximumWarning": "5mb",
+                  "maximumError": "8mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -90,38 +89,7 @@
                   "maximumError": "10kb"
                 }
               ],
-              "serviceWorker": false,
-              "ngswConfigPath": "ngsw-config.json"
-            },
-            "development": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.prod.ts",
-                  "with": "src/environments/environment.ts"
-                }
-              ],
-              "optimization": false,
-              "outputHashing": "all",
-              "sourceMap": true,
-              "extractCss": false,
-              "aot": true,
-              "namedChunks": false,
-              "extractLicenses": false,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "8mb",
-                  "maximumError": "10mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
-                }
-              ],
-              "serviceWorker": false,
+              "serviceWorker": true,
               "ngswConfigPath": "ngsw-config.json"
             }
           }
@@ -129,15 +97,13 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "terrama2-report:build"
+            "browserTarget": "terrama2-report:build",
+            "proxyConfig": "src/proxy.conf.json"
           },
           "configurations": {
             "production": {
               "browserTarget": "terrama2-report:build:production",
               "proxyConfig": "src/proxy.conf.json"
-            },
-            "development": {
-              "browserTarget": "terrama2-report:build:development"
             }
           }
         },

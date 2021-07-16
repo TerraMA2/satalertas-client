@@ -2,10 +2,10 @@
   "name": "terrama2-report",
   "version": "0.0.0",
   "scripts": {
-    "start": "ng serve",
+    "start": "ng serve --configuration development",
     "build": "ng build --prod --base-href /mpmt/alerta/ --deploy-url /mpmt/alerta/",
     "dev": "ng serve",
-    "prod": "ng serve --prod"
+    "prod": "ng serve --host 0.0.0.0 --port 4200 --disableHostCheck --configuration production --base-href /mpmt/alerta/ --deploy-url /mpmt/alerta/"
   },
   "private": true,
   "dependencies": {
