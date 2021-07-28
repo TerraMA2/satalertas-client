@@ -26,7 +26,6 @@ export class LayersAdvancedEditionComponent implements OnInit {
   };
 
   setBooleanField(field, value) {
-    console.log(field, value);
     this.newData[`${field}`] = value;
     this.submit = true;
   }
@@ -67,16 +66,8 @@ export class LayersAdvancedEditionComponent implements OnInit {
     const subIdx = this.newData['sub_layers'].findIndex(({id}) => id === lyr.id)
     this.newData['sub_layers'].splice(subIdx, 1);
   }
-
-  async showModal() {
-    console.log('>>> advanced-edition showing modal');
-    console.log("layers do grupo\n", this.layers);
-  };
   
   async cancelEdition() {
-    console.log('saindo advanced-edition');
-    console.log("layer recebida\n", this.data);
-
     this.cleanData();
     this.displayModal = false;
     this.onClickCancel.emit();
@@ -91,8 +82,5 @@ export class LayersAdvancedEditionComponent implements OnInit {
   async cleanData() {
     this.newData = {};
     this.data = {};
-  }
-  print(e) {
-    console.log(e);
   }
 }

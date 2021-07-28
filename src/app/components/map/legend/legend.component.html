@@ -11,7 +11,7 @@
         <p-accordionTab
                 *ngFor="let selectedLayer of selectedLayers; trackBy: trackById"
                 header="{{selectedLayer.legend.title }}"
-                selected="true">
+                [selected]="true">
             <img src="{{selectedLayer.legend.url }}"/>
         </p-accordionTab>
     </p-accordion>

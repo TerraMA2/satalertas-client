@@ -49,6 +49,7 @@ export class ModalComponent implements OnInit {
     if (validationMessage) {
       this.showError(validationMessage);
     } else {
+      // console.log(this.lines)
       this.onClickSave.emit();
       this.cleanInputs();
     }
@@ -72,9 +73,15 @@ export class ModalComponent implements OnInit {
     }
   }
 
-  onChange(inputName, indexInput, numberLine) {
+  onChange(inputName, indexInput, numberLine, bool=false, event=undefined) {
     const input = document.getElementById(inputName);
-    this.lines[numberLine].inputs[indexInput].model = input['value'];
+    console.log(input)
+    console.log(input["value"])
+    if (bool) {
+      this.lines[numberLine].inputs[indexInput].model = event;
+    } else {
+      this.lines[numberLine].inputs[indexInput].model = input["value"];
+    }
     this.lines[numberLine].inputs[indexInput].name = inputName;
   }
 

@@ -28,12 +28,16 @@
           [responsive]="true"
           [sourceStyle]="{ height: '500px' }"
           [targetStyle]="{ height: '500px' }"
+          (onMoveToTarget)="appendLayer($event.items)"
+          (onMoveAllToTarget)="appendLayer($event.items)"
+          (onMoveToSource)="removeLayer($event.items)"
+          (onMoveAllToSource)="removeLayer($event.items)"
           filterBy="name"
           sourceFilterPlaceholder="Pesquisar por nome"
           targetFilterPlaceholder="Pesquisar por nome"
         >
           <ng-template let-layer pTemplate="item">
-            <h3 class="p-mb-2">{{ layer.name || layer.view && layer.view.name }}</h3>
+            <h3 class="p-mb-2">{{ layer.name }}</h3>
           </ng-template>
         </p-pickList>
       </div>

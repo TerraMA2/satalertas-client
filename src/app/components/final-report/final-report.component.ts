@@ -487,26 +487,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
             this.reportData['deflorestationAlertsContext'] = await this.getContextDeflorestationAlerts(this.reportData.property.deflorestationAlerts);
         }
 
-        if (this.reportData['type'] === 'queimada') {
-            const historyBurnlight = this.reportData['property']['historyBurnlight'];
-            const chartData = [];
-            const labels = [];
-            const dataFocus = [];
-            const prohibitivePeriod = [];
-            if (historyBurnlight) {
-                historyBurnlight.forEach(element => {
-                    labels.push(element['month_year_occurrence']);
-                    dataFocus.push(element['total_focus']);
-                    prohibitivePeriod.push(element['prohibitive_period']);
-                });
-                chartData.push({ title: 'Focos de fogo ativo', data: dataFocus });
-                chartData.push({ title: 'Focos de fogo ativo (período proibitivo)', data: prohibitivePeriod });
-
-                const totalFocusChart = this.reportService.generateChart(labels, chartData);
-                this.reportData['FocusChartImage'] = this.getImageObject(totalFocusChart && totalFocusChart.toBase64Image() ? [totalFocusChart.toBase64Image()] : null, [450, 450], [10, 0], 'center');
-            }
-        }
-
         this.reportData['chartImages'] = this.chartImages;
         this.reportData['type'] = this.reportData['type'];
 

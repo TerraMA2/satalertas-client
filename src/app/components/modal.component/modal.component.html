@@ -15,19 +15,35 @@
       {{line.label}}
       <div class="p-field"
         *ngFor="let input of line.inputs; trackBy: trackById; let i = index" >
-        <label [for]="'input'+i" [ngClass]="input.inputClass">{{input.label}}</label>
-        <input *ngIf="(input.type === 'text')"
-               [(ngModel)]="data[input.field]"
-               pInputText
-               required
-               autofocus
-               [id]="'input'+i"
-               [ngClass]="input.inputClass"
-               type="text"
-               [name]="input.field"
-               (change)="onChange('input'+i, i, j)"
-               [pKeyFilter]="ccRegex"
-               [pValidateOnly]="true" />
+        <ng-template [ngIf]="input.type === 'text'">
+          <label [for]="'input'+i" [ngClass]="input.inputClass">{{input.label}}</label>
+          <input *ngIf="(input.type === 'text')"
+                 [(ngModel)]="data[input.field]"
+                 pInputText
+                 required
+                 autofocus
+                 [id]="'input'+i"
+                 [ngClass]="input.inputClass"
+                 type="text"
+                 [name]="input.field"
+                 (change)="onChange('input'+i, i, j)"
+                 [pKeyFilter]="ccRegex"
+                 [pValidateOnly]="true" />
+        </ng-template>
+        <ng-template [ngIf]="input.type === 'boolean'">
+          <div class="p-field-checkbox">
+            <p-checkbox
+            [name]="input.field"
+            binary='true'
+            [id]="'input'+i"
+            [(ngModel)]="data[input.field]"
+            (onChange)="onChange('input'+i, i, j, true, $event.checked)"
+            [pKeyFilter]="ccRegex"
+            [pValidateOnly]="true"
+            ></p-checkbox>
+            <label [for]="input.field">{{input.label}}</label>
+          </div>
+        </ng-template>
       </div>
     </div>
   </form>

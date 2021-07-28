@@ -53,8 +53,10 @@
   },
   "settings": {
     "groupsColumns": [
-      {"field": "name", "header": "Nome"},
-      {"field": "code", "header": "Código"}
+      {"field": "name", "header": "Nome", "type": "text"},
+      {"field": "code", "header": "Código", "type": "text"},
+      {"field": "active_area", "header": "Selecionado", "type": "boolean"},
+      {"field": "view_graph", "header": "Exibir no Dashboard", "type": "boolean"}
     ]
   },
   "sidebar-settings": {

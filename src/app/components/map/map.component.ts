@@ -922,6 +922,7 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
             outputFormat: 'application/json',
             typeNames: layer.wmsParams.layers,
             count: 1,
+            // cql_filter: `INTERSECTS(${geomColumn}, POINT(${event.latlng.lng} ${event.latlng.lat}))`/
             cql_filter: `INTERSECTS(${geomColumn}, POINT(${event.latlng.lat} ${event.latlng.lng}))`
         };
     }
