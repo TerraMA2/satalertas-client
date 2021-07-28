@@ -488,7 +488,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         }
 
         this.reportData['chartImages'] = this.chartImages;
-        console.log(this.chartImages)
         this.reportData['type'] = this.reportData['type'];
 
         this.docDefinition = await this.reportService.createPdf(this.reportData).then(async (response: Response) => {
