@@ -33,8 +33,8 @@ export class LayersAdvancedComponent implements OnInit {
 
   async ngOnInit() {
     this.sidebarService.sidebarReload.next('settings');
-    this.groups = await this.groupService.getAll().then((data) => {
-      return data;
+    this.groupService.getAll().then((data) => {
+      this.groups = data;
     })
   }
 

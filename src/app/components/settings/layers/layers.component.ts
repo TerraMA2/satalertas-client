@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {SidebarService} from '../../../services/sidebar.service';
-import {Location} from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { SidebarService } from '../../../services/sidebar.service';
+import { Location } from '@angular/common';
 
-import {GroupViewService} from 'src/app/services/group-view.service';
-import {GroupService} from 'src/app/services/group.service';
-import {SelectItem} from 'primeng/api';
-import {Group} from '../../../models/group.model';
-import {MessageService} from 'primeng/api';
+import { GroupViewService } from 'src/app/services/group-view.service';
+import { GroupService } from 'src/app/services/group.service';
+import { SelectItem } from 'primeng/api';
+import { Group } from '../../../models/group.model';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-layers',
@@ -19,6 +19,9 @@ export class LayersComponent implements OnInit {
   selectedGroup;
   availableLayers;
   selectedLayers;
+  groupLayersReceived = [];
+  appendedLayers = [];
+  removedLayers = [];
 
   constructor(
     private sidebarService: SidebarService,
@@ -30,35 +33,73 @@ export class LayersComponent implements OnInit {
 
   async ngOnInit() {
     this.sidebarService.sidebarReload.next('settings');
-
-    this.groups = await this.groupService.getAll().then((data) => {
-      return data.map((group: Group) => ({label: group.name, value: group.id}));
-    }).catch(() => []);
+    this.getAllGroups();
   }
 
-  async onChangeOptionField(event){
+  async getAllGroups() {
+    this.groupService.getAll().then((data) => {
+      this.groups = data.map((group: Group) => ({ label: group.name, value: group.id }));
+    });
+  }
+
+  async onChangeOptionField(event) {
     const group = event.value;
-    if (group){
-      const viewsGroup = await this.groupViewService.getByGroupId(group.value).then((retorno) => {
-        return retorno.filter(layer => layer.view || layer.name);
-      });
-      this.selectedLayers = viewsGroup;
-      const getLayers = await this.groupViewService.getAvailableLayers(group.value).then((availableGroupViews) => {
+    if (group) {
+      await this.groupViewService.getByGroupId(group.value)
+        .then((retorno) =>
+          retorno.filter(layer => layer.view || layer.name)
+        )
+        .then(layers => {
+          this.selectedLayers = layers;
+          this.groupLayersReceived = [...layers];
+        });
+      this.groupViewService.getAvailableLayers(group.value).then((availableGroupViews) => {
         if (availableGroupViews && Array.isArray(availableGroupViews) && availableGroupViews.length > 0) {
-          return availableGroupViews.map((availableGroupView) => ({name: availableGroupView.name, id_view: availableGroupView.id}));
+          this.availableLayers = availableGroupViews;
+          // this.availableLayers = availableGroupViews.map((availableGroupView) => ({name: availableGroupView.name, id_view: availableGroupView.id}));
         }
         return [];
       });
-      this.availableLayers = getLayers;
     } else {
       this.selectedLayers = [];
       this.availableLayers = [];
     }
   }
 
-  async update(){
-    const layers = this.selectedLayers.map(layerId => ({id_group: this.selectedGroup.value, id_view: layerId.id_view}));
-    await this.groupViewService.update({id_group: this.selectedGroup.value, layers});
-    this.messageService.add({severity:'success', summary:'Sucesso', detail:'Camadas do grupo atualizadas'});
+  async update() {
+    const layers = this.selectedLayers.map(layerId => ({ id_group: this.selectedGroup.value, id_view: layerId.id_view }));
+    console.log(layers)
+    this.groupViewService.update({ id_group: this.selectedGroup.value, layers })
+    .then(() => {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Sucesso',
+        detail: 'Camadas do grupo atualizadas'
+      });
+    });
+  }
+  async appendLayer(param) {
+    console.log('Camadas recebidas via API');
+    console.log(this.groupLayersReceived);
+    param.forEach(layer => {
+      if (!this.groupLayersReceived.find(({ id }) => id === layer.id)) {
+        this.appendedLayers.push(layer);
+      }
+    });
+    console.log("Camadas novas inseridas")
+    console.log(this.appendedLayers);
+  }
+  async removeLayer(param) {
+    // this.availableLayers.push(...param)
+    console.log('Camadas recebidas via API');
+    console.log(this.groupLayersReceived);
+    console.log('Ids recebidos');
+    param.forEach(layer => {
+      if (this.groupLayersReceived.find(({ id }) => id === layer.id)) {
+        this.removedLayers.push(layer);
+      }
+    });
+    console.log("Camadas removidas")
+    console.log(this.removedLayers)
   }
 }

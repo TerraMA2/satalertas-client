@@ -117,7 +117,7 @@
   [displayModal]="dialogVisible"
   [modalStyle]="{ width: '50vw' }"
   [lines]="lines"
-  (onClickCancel)="cancelNewGroup()"
-  (onClickSave)="closeModalDialog()"
+  (onClickCancel)="cancelGroupEdition()"
+  (onClickSave)="saveGroup()"
 ></app-modal>
 <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>

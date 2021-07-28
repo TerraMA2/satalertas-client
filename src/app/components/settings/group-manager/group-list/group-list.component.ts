@@ -1,8 +1,8 @@
-import {GroupService} from 'src/app/services/group.service';
-import {Component, OnInit} from '@angular/core';
-import {ConfirmationService, MessageService, TreeNode} from 'primeng/api';
+import { GroupService } from 'src/app/services/group.service';
+import { Component, OnInit } from '@angular/core';
+import { ConfirmationService, MessageService, TreeNode } from 'primeng/api';
 import ConfigJson from 'src/assets/config.json';
-import {Group} from '../../../../models/group.model';
+import { Group } from '../../../../models/group.model';
 
 @Component({
   selector: 'app-group-list',
@@ -32,7 +32,7 @@ export class GroupListComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
-    await this.groupService.getAll().then(res  => {
+    await this.groupService.getAll().then(res => {
       if (res.length > 0) {
         this.groups = res;
       }
@@ -51,11 +51,21 @@ export class GroupListComponent implements OnInit {
         this.inputs.push(fiel);
       }
       this.lines = [
-        { show: true,
+        {
+          show: true,
           label: '',
-          inputs: [...this.inputs]}
+          inputs: [...this.inputs]
+        }
       ];
     });
+  }
+
+  async getAllGroups() {
+    await this.groupService.getAll().then(res => {
+      if (res.length > 0) {
+        this.groups = res;
+      }
+    })
   }
 
   startNewGroup() {
@@ -64,7 +74,7 @@ export class GroupListComponent implements OnInit {
     this.dialogVisible = true;
   }
 
-  cancelNewGroup() {
+  cancelGroupEdition() {
     this.dialogVisible = false;
     this.submitted = false;
   }
@@ -82,34 +92,32 @@ export class GroupListComponent implements OnInit {
       accept: () => {
         this.groupService.removeGroup(deletedGroup.id)
         .then(() => {
-          const groupPos = this.groups
-          .findIndex((item: Group) => item.id === deletedGroup.id);
-          this.groups.splice(groupPos, 1);
-        });
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Sucesso',
-          detail: 'Grupo deletado',
-          life: 3000
+          this.getAllGroups();
+        })
+        .then(() => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Sucesso',
+            detail: 'Grupo deletado',
+            life: 3000
+          });
         });
       }
     });
   }
 
-  async closeModalDialog() {
+  async saveGroup() {
     this.dialogVisible = false;
     if (this.group.id) {
       await this.groupService.editGroup(this.group)
-        .then(response => {
-          const groupPos = this.groups
-          .findIndex(item => item.id === this.group.id);
-          this.groups.splice(groupPos, 1, response);
+        .then(() => {
+          this.getAllGroups();
         });
     } else {
       await this.groupService.createNewGroup(this.group)
-      .then(response => {
-        this.groups.push(response);
-      });
+        .then(() => {
+          this.getAllGroups();
+        });
     }
     this.messageService.add({
       severity: 'success',

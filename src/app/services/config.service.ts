@@ -70,8 +70,8 @@ export class ConfigService {
         return await this.http.get(url, {params: parameters}).toPromise();
     }
 
-    async getInfoColumns(codGroup?) {
-        const parameters = {codGroup};
+    async getInfoColumns(viewId?) {
+        const parameters = {viewId};
         const url = `${URL_REPORT_SERVER}/config/getInfoColumns`;
 
         return await this.http.get(url, {params: parameters}).toPromise();
