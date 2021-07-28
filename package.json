@@ -1,6 +1,6 @@
 {
   "name": "terrama2-report",
-  "version": "0.0.0",
+  "version": "1.0.1",
   "scripts": {
     "start": "ng serve --configuration development",
     "build": "ng build --prod --base-href /mpmt/alerta/ --deploy-url /mpmt/alerta/",
