@@ -34,11 +34,11 @@ export class AuthService {
         private sidebarService: SidebarService,
         private mapService: MapService
     ) {
-        this.authConfig = this.configService.getAuthConfig();
     }
 
     login(params) {
-        return this.hTTPService.postTerrama(this.authConfig.url, params)
+        const authConfig = this.configService.getAuthConfig();
+        return this.hTTPService.postTerrama(authConfig.url, params)
             .pipe(
                 catchError(this.handleError),
                 tap(resData => this.handleAuthentication(resData['user']))
@@ -99,7 +99,8 @@ export class AuthService {
         if (!loggedUser) {
             return false;
         }
-        let expiresIn = this.authConfig.expiresIn;
+        const authConfig = this.configService.getAuthConfig();
+        let expiresIn = authConfig.expiresIn;
         if (!environment.production) {
             expiresIn = 31536000;
         }

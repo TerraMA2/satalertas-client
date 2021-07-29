@@ -1,10 +1,8 @@
 {
   "app": {
-    "mainApplication": "TerraMA²",
-    "headerLogo": "./assets/img/logos/terrama2-small.png",
+    "pageTitle": "TerraMA² | SatAlertas: Sistema Integrado de Monitoramento de Degradação Ambiental",
     "headerTitle": "SatAlertas: Sistema Integrado de Monitoramento de Degradação Ambiental",
-    "hasLogin": true,
-    "headerLogoLink": "http://www.terrama2.dpi.inpe.br",
+    "hasLogin":  true,
     "layerUrls": {
       "static": {
         "markers": "/map/getStaticData",
@@ -24,12 +22,138 @@
       }
     }
   },
+  "about": {
+    "title": "SatAlertas: Sistema Integrado de Monitoramento de Degradação Ambiental",
+    "version": "2.0.0-dev",
+    "date": "13/Abril/2021",
+    "description": "<p>O <strong>SatAlertas</strong> é uma aplicação destinada ao monitoramento de degradação ambiental que foi desenvolvido sobre a plataforma TerraMA² do INPE, com objetivo específico de monitorar, analisar e gerenciar alertas resultantes do cruzamento dos dados do PRODES, DETER e Queimadas do INPE com CAR e outras bases.</p>",
+    "terrama2Version": "4.1.1",
+    "terralibVersion": "5.4.5",
+    "offerings" : [
+      {
+        "title": "Parcerias",
+        "companies": [
+          [
+            {
+              "logo": "assets/config/mpmt/img/mpmt-small.png",
+              "link": "https://mpmt.mp.br/",
+              "description": "Ministério Publico do Estado de Mato Grosso",
+              "height": 60,
+              "width": 180
+            },
+            {
+              "logo": "assets/config/mpmt/img/pjedaou-large.png",
+              "link": "https://pjedaou.mpmt.mp.br/",
+              "description": "Procuradoria de Justiça Especializada em Defesa Ambiental e Ordem Urbanística",
+              "height": 80,
+              "width": 140
+            },
+            {
+              "logo": "assets/config/mpmt/img/caex.png",
+              "link": "",
+              "description": "Centro de Apoio Técnico à Execução Ambiental",
+              "height": 60,
+              "width": 80
+            }
+          ],
+          [
+            {
+              "logo": "assets/img/logos/inpe.png",
+              "link": "http://www.inpe.br/",
+              "description": "Instituto Nacional de Pesquisas Espaciais",
+              "height": 100,
+              "width": 130
+            },
+            {
+              "logo": "assets/img/logos/dpi.png",
+              "link": "http://www.dpi.inpe.br/DPI/",
+              "description": "Divisão de Processamento de Imagens do INPE",
+              "height": 80,
+              "width": 100
+            }
+          ],
+          [
+            {
+              "logo": "assets/config/mpmt/img/mt.png",
+              "link": "http://www.mt.gov.br/",
+              "description": "Governo de Mato Grosso",
+              "height": 60,
+              "width": 200
+            },
+            {
+              "logo": "assets/config/mpmt/img/sema.png",
+              "link": "http://www.sema.mt.gov.br/",
+              "description": "Secretaria de Estado de Meio Ambiente",
+              "height": 100,
+              "width": 100
+            }
+          ]
+        ]
+      },
+      {
+        "title": "Base tecnológica",
+        "companies": [
+          [
+            {
+              "logo": "assets/img/logos/terrama2-large.png",
+              "link": "http://www.terrama2.dpi.inpe.br/",
+              "description": "Plataforma de monitoramento, análise e alerta a extremos ambientais",
+              "height": 120,
+              "width": 200
+            }
+          ]
+        ]
+      },
+      {
+        "title": "Base de Dados Ambientais",
+        "companies": [
+          [
+            {
+              "logo": "assets/img/logos/deter.png",
+              "link": "http://www.obt.inpe.br/OBT/assuntos/programas/amazonia/deter",
+              "description": "DETER",
+              "height": 100,
+              "width": 120
+            },
+            {
+              "logo": "assets/img/logos/prodes.png",
+              "link": "http://www.obt.inpe.br/OBT/assuntos/programas/amazonia/prodes",
+              "description": "PRODES",
+              "height": 100,
+              "width": 150
+            },
+            {
+              "logo": "assets/img/logos/queimadas.png",
+              "link": "https://queimadas.dgi.inpe.br/queimadas/portal",
+              "description": "Programa Queimadas do INPE",
+              "height": 100,
+              "width": 120
+            }
+          ]
+        ]
+      },
+      {
+        "title": "Apoio Financeiro",
+        "companies": [
+          [
+            {
+              "logo": "assets/config/mpmt/img/votorantim.png",
+              "link": "https://www.votorantimcimentos.com.br/",
+              "description": "Votorantim Cimentos",
+              "height": 134,
+              "width": 376
+            }
+          ]
+        ]
+      }
+    ]
+  },
   "auth": {
     "url": "/api/login",
     "expiresIn": "86400"
   },
   "sidebar": {
-    "logoPath": "./assets/img/logos/mpmt-large.png",
+    "logoPath": "assets/config/mpmt/img/mpmt-large.png",
     "logoLink": "https://mpmt.mp.br/",
     "sidebarItems": [
       {
@@ -59,8 +183,8 @@
       {"field": "view_graph", "header": "Exibir no Dashboard", "type": "boolean"}
     ]
   },
-  "sidebar-settings": {
-    "logoPath": "./assets/img/logos/mpmt-large.png",
+  "sidebarSettings": {
+    "logoPath": "assets/config/mpmt/img/mpmt-large.png",
     "logoLink": "https://mpmt.mp.br/",
     "sidebarItems": [
       {

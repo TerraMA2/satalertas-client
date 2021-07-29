@@ -1,8 +1,8 @@
 import { GroupService } from 'src/app/services/group.service';
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationService, MessageService, TreeNode } from 'primeng/api';
-import ConfigJson from 'src/assets/config.json';
 import { Group } from '../../../../models/group.model';
+import {ConfigService} from '../../../../services/config.service';
 
 @Component({
   selector: 'app-group-list',
@@ -19,7 +19,7 @@ export class GroupListComponent implements OnInit {
   lines = [];
   selectedGroups: TreeNode[];
   files: any[];
-  cols = ConfigJson.settings.groupsColumns;
+  cols;
   dialogVisible: boolean;
   inputs = [];
   submitted: boolean;
@@ -28,10 +28,12 @@ export class GroupListComponent implements OnInit {
   constructor(
     private groupService: GroupService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private configService: ConfigService
   ) { }
 
   async ngOnInit() {
+    this.cols = this.configService.getSettingsConfig('groupsColumns')
     await this.groupService.getAll().then(res => {
       if (res.length > 0) {
         this.groups = res;

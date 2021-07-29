@@ -74,7 +74,7 @@ export class SidebarComponent implements OnInit {
     const children: Layer[] = [];
     await this.groupViewService.getByGroupId(group.idGroup)
     .then((layerGroup) => {
-      console.log("groupLayer", layerGroup)
+      console.log('groupLayer', layerGroup)
       layerGroup.forEach((groupLayer) => {
         const layer = new Layer(
           groupLayer.name.split(' ').join('_'),
@@ -112,10 +112,10 @@ export class SidebarComponent implements OnInit {
     return children;
   }
 
-  async setSidebarLayers() { //traz todos os grupos e as camadas
+  async setSidebarLayers() { // traz todos os grupos e as camadas
     await this.configService.getSidebarConfigurationDynamically().then((layers: Response) => {
-      this.sidebarLayers = layers.data; //todas as camadas
-      this.sidebarLayerGroups = []; //grupos de camadas que aparecem no SB
+      this.sidebarLayers = layers.data; // todas as camadas
+      this.sidebarLayerGroups = []; // grupos de camadas que aparecem no SB
       if (this.sidebarLayers) {
         this.sidebarLayers.forEach(sidebarLayer => {
           const layerChildren: Layer[] = [];
@@ -123,9 +123,9 @@ export class SidebarComponent implements OnInit {
           if (sidebarLayer) {
             children = sidebarLayer.children;
           }
-          if (children) { //construindo cada camada.
+          if (children) { // construindo cada camada.
             sidebarLayer.children.forEach((sidebarLayerChild, index) => {
-              let layer; //Camada
+              let layer; // Camada
               if (!sidebarLayerChild.isHidden) {
                 layer = new Layer(
                   sidebarLayerChild.cod,
@@ -157,7 +157,7 @@ export class SidebarComponent implements OnInit {
                   sidebarLayerChild.tableOwner,
                   sidebarLayerChild.tableName
                 );
-                layerChildren.push(layer); //monta a camada
+                layerChildren.push(layer); // monta a camada
               }
             });
           }
@@ -174,12 +174,15 @@ export class SidebarComponent implements OnInit {
             layerChildren,
             sidebarLayer.tableOwner
           );
-          this.sidebarLayerGroups.push(layerGroup); //insere o grupo na lista
+          this.sidebarLayerGroups.push(layerGroup); // insere o grupo na lista
         });
       }
     });
 
     await this.groupService.getAll().then((groups) => {
+      if (!groups){
+        return;
+      }
       groups.forEach(async (groupLyr) => {
         const layerGroup = new LayerGroup(
           groupLyr.id,

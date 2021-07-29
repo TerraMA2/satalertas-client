@@ -13,7 +13,7 @@ export class Layer {
         public label: string,
         public shortLabel: string,
         public description: string,
-        public value: number, //id da view
+        public value: number, // id da view
         public dateColumn: string,// opcional
         public geomColumn: string,
         public areaColumn: string, // opcional

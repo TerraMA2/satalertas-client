@@ -40,8 +40,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     displayLogin = false;
     hasLogin = false;
     headerTitle: string;
-    headerLogo: string;
-    headerLogoLink: string;
     mainApplication: string;
     appConfig;
     private userSub: Subscription;
@@ -62,9 +60,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
         this.appConfig = this.configService.getAppConfig();
         this.mainApplication = this.appConfig.mainApplication;
-        this.headerLogoLink = this.appConfig.headerLogoLink;
         this.headerTitle = this.appConfig.headerTitle;
-        this.headerLogo = this.appConfig.headerLogo;
         this.hasLogin = this.appConfig.hasLogin;
 
         this.userSub = this.authService.user.subscribe(user => {

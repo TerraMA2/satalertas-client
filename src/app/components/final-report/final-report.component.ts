@@ -1,4 +1,3 @@
-import { InputSwitchModule } from 'primeng/inputswitch';
 import { AfterViewInit, Component, Inject, LOCALE_ID, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 
 import { ActivatedRoute, Router } from '@angular/router';
@@ -149,7 +148,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         async queimada(reportData) {
         }
     };
-    downloadVectors: boolean = false;
+    downloadVectors = false;
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -398,7 +397,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
             }
 
             for (let start = 0; start < deforestationData.length; start += 3) {
-                if (start != 0 && ((start) % 12) === 0) {
+                if (start !== 0 && ((start) % 12) === 0) {
                     deforestationColumns.push({
                         text: '',
                         pageBreak: 'after'
