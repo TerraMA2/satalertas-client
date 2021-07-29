@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import { Message , MessageService } from 'primeng/api';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Message, MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-layers-advanced-edition',
@@ -18,7 +18,7 @@ export class LayersAdvancedEditionComponent implements OnInit {
   @Input() newData = {};
   subLayers;
   msgs: Message[] = [];
-  submit: boolean = false
+  submit = false
 
   constructor(private messageService: MessageService) { }
 
@@ -66,12 +66,12 @@ export class LayersAdvancedEditionComponent implements OnInit {
     const subIdx = this.newData['sub_layers'].findIndex(({id}) => id === lyr.id)
     this.newData['sub_layers'].splice(subIdx, 1);
   }
-  
+
   async cancelEdition() {
     this.cleanData();
     this.displayModal = false;
     this.onClickCancel.emit();
-  };  
+  };
   async sendEdition() {
     this.newData['id'] =  this.data['id'];
     this.submit = true;

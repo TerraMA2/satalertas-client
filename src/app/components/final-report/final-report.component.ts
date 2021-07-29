@@ -1,30 +1,30 @@
-import { AfterViewInit, Component, Inject, LOCALE_ID, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import {AfterViewInit, Component, Inject, LOCALE_ID, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 
-import { ActivatedRoute, Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
-import { SidebarService } from 'src/app/services/sidebar.service';
+import {SidebarService} from 'src/app/services/sidebar.service';
 
-import { ReportService } from '../../services/report.service';
+import {ReportService} from '../../services/report.service';
 
-import { Response } from 'src/app/models/response.model';
+import {Response} from 'src/app/models/response.model';
 
 import pdfMake from 'pdfmake/build/pdfmake';
 
 import Chart from 'chart.js';
 
 import pdfFonts from 'pdfmake/build/vfs_fonts';
-import { FinalReportService } from '../../services/final-report.service';
-import { ExportService } from '../../services/export.service';
+import {FinalReportService} from '../../services/final-report.service';
+import {ExportService} from '../../services/export.service';
 
-import { AuthService } from 'src/app/services/auth.service';
+import {AuthService} from 'src/app/services/auth.service';
 
-import { ConfirmationService, MessageService } from 'primeng/api';
+import {ConfirmationService, MessageService} from 'primeng/api';
 
-import { Image } from '../../models/image.model';
+import {Image} from '../../models/image.model';
 
-import { formatNumber } from '@angular/common';
+import {formatNumber} from '@angular/common';
 
-import { User } from '../../models/user.model';
+import {User} from '../../models/user.model';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 

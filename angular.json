@@ -14,7 +14,6 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": [
-              "ng2-pdf-viewer",
               "leaflet-search",
               "chart.js"
             ],
@@ -45,8 +44,7 @@
                 "glob": "**/*",
                 "input": "node_modules/ngx-extended-pdf-viewer/assets/",
                 "output": "/assets/"
-              },
-              "src/manifest.webmanifest"
+              }
             ],
             "styles": [
               "src/theme.css",
@@ -92,9 +90,7 @@
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
                 }
-              ],
-              "serviceWorker": true,
-              "ngswConfigPath": "ngsw-config.json"
+              ]
             },
             "development": {
               "fileReplacements": [

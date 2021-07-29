@@ -1,7 +1,7 @@
-import { GroupService } from 'src/app/services/group.service';
-import { Component, OnInit } from '@angular/core';
-import { ConfirmationService, MessageService, TreeNode } from 'primeng/api';
-import { Group } from '../../../../models/group.model';
+import {GroupService} from 'src/app/services/group.service';
+import {Component, OnInit} from '@angular/core';
+import {ConfirmationService, MessageService, TreeNode} from 'primeng/api';
+import {Group} from '../../../../models/group.model';
 import {ConfigService} from '../../../../services/config.service';
 
 @Component({

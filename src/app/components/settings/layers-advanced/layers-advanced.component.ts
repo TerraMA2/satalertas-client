@@ -1,8 +1,8 @@
-import { GroupService } from 'src/app/services/group.service';
-import { GroupViewService } from './../../../services/group-view.service';
-import { SidebarService } from 'src/app/services/sidebar.service';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { Component, OnInit } from '@angular/core';
+import {GroupService} from 'src/app/services/group.service';
+import {GroupViewService} from './../../../services/group-view.service';
+import {SidebarService} from 'src/app/services/sidebar.service';
+import {ConfirmationService, MessageService} from 'primeng/api';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-layers-advanced',
@@ -66,9 +66,9 @@ export class LayersAdvancedComponent implements OnInit {
   }
 
   editLayer(layerToEdit) {
-    `
+    /*
     Sends the choosen layer to be edited at modal editor advanced.
-    `
+    */
     this.layer = { ...layerToEdit };
     this.availableLayers = this.groupLayers.filter((item) => item.id_view !== layerToEdit.id_view);
     this.displayModal = true;
@@ -99,9 +99,9 @@ export class LayersAdvancedComponent implements OnInit {
 
   async saveGroupEdition() {
     this.confirmationService.confirm({
-      message: "Deseja salvar todas as edições feitas no grupo?",
-      header: "Atenção!",
-      icon: "pi pi-exclamation-triangle",
+      message: 'Deseja salvar todas as edições feitas no grupo?',
+      header: 'Atenção!',
+      icon: 'pi pi-exclamation-triangle',
       accept: async () => {
         await this.groupViewService.updateAdvanced({ id_group: this.selectedGroup, editions: this.newGroupData })
         .then(() => {
@@ -109,8 +109,8 @@ export class LayersAdvancedComponent implements OnInit {
           this.edited = false;
           this.messageService.add({
             severity: 'success',
-            summary: "Sucesso",
-            detail: "Edições Salvas",
+            summary: 'Sucesso',
+            detail: 'Edições Salvas',
             life: 3000
           })
         })
@@ -120,9 +120,9 @@ export class LayersAdvancedComponent implements OnInit {
 
   async cancelGroupEdition() {
     this.confirmationService.confirm({
-      message: "Esta ação irá cancelar TODAS as edições feitas neste grupom, deseja continuar?",
-      header: "Atenção!",
-      icon: "pi pi-exclamation-triangle",
+      message: 'Esta ação irá cancelar TODAS as edições feitas neste grupom, deseja continuar?',
+      header: 'Atenção!',
+      icon: 'pi pi-exclamation-triangle',
       accept: async () => {
         await this.getGroupData(this.selectedGroup)
           .then(() => {
@@ -130,8 +130,8 @@ export class LayersAdvancedComponent implements OnInit {
             this.edited = false;
             this.messageService.add({
               severity: 'success',
-              summary: "Sucesso",
-              detail: "Edições desfeitas",
+              summary: 'Sucesso',
+              detail: 'Edições desfeitas',
               life: 3000
             })
           });
