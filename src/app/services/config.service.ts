@@ -1,12 +1,14 @@
 import {Injectable} from '@angular/core';
 
-import ConfigJson from '../../assets/config.json';
+import ConfigJson from '../../assets/config/config.json';
+import MPMTConfigJson from '../../assets/config/mpmt/mpmt-config.json';
 
 import {HttpClient} from '@angular/common/http';
 
 import {environment} from '../../environments/environment';
 
 const URL_REPORT_SERVER = environment.reportServerUrl;
+const PROJECT = environment.project;
 
 @Injectable({
     providedIn: 'root'
@@ -18,10 +20,21 @@ export class ConfigService {
     }
 
     getConfig(name) {
-        if (name) {
-            return ConfigJson[name];
+        let configJson;
+        switch (PROJECT) {
+            case 'mpmt': {
+                configJson = MPMTConfigJson;
+                break;
+            }
+            default: {
+                configJson = ConfigJson;
+                break;
+            }
         }
-        return ConfigJson;
+        if (name) {
+            return configJson[name];
+        }
+        return configJson;
     }
 
     getAppConfig(name = '') {
@@ -47,8 +60,25 @@ export class ConfigService {
         }
         return sidebarConfig;
     }
+
     getSidebarSettingsConfig(name = '') {
         const sidebarConfig = this.getConfig('sidebar-settings');
+        if (name) {
+            return sidebarConfig[name];
+        }
+        return sidebarConfig;
+    }
+
+    getSettingsConfig(name = '') {
+        const sidebarConfig = this.getConfig('settings');
+        if (name) {
+            return sidebarConfig[name];
+        }
+        return sidebarConfig;
+    }
+
+    getAboutConfig(name = '') {
+        const sidebarConfig = this.getConfig('about');
         if (name) {
             return sidebarConfig[name];
         }

@@ -19,7 +19,6 @@ export class AppComponent implements OnInit {
 
     displayAbout = false;
     displaySidebar = true;
-    private appConfig;
 
     constructor(
         private configService: ConfigService,
@@ -38,8 +37,8 @@ export class AppComponent implements OnInit {
             localStorage.removeItem('filterList');
         }
 
-        this.appConfig = this.configService.getAppConfig();
-        this.titleService.setTitle(`${this.appConfig.mainApplication} | ${this.appConfig.headerTitle}`);
+        const pageTitle = this.configService.getAppConfig('pageTitle');
+        this.titleService.setTitle(pageTitle);
 
         this.sidebarService.sidebarAbout.subscribe(show => this.displayAbout = show);
     }
