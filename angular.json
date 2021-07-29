@@ -63,13 +63,7 @@
               "node_modules/leaflet-draw/dist/leaflet.draw.css",
               "src/styles.css"
             ],
-            "scripts": [],
-            "vendorChunk": true,
-            "extractLicenses": false,
-            "buildOptimizer": false,
-            "sourceMap": true,
-            "optimization": false,
-            "namedChunks": true
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -81,6 +75,8 @@
               ],
               "optimization": true,
               "outputHashing": "all",
+              "sourceMap": false,
+              "aot": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -99,6 +95,36 @@
               ],
               "serviceWorker": true,
               "ngswConfigPath": "ngsw-config.json"
+            },
+            "development": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.prod.ts",
+                  "with": "src/environments/environment.ts"
+                }
+              ],
+              "optimization": false,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "aot": true,
+              "namedChunks": false,
+              "extractLicenses": false,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "8mb",
+                  "maximumError": "10mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ],
+              "serviceWorker": false,
+              "ngswConfigPath": "ngsw-config.json"
             }
           },
           "defaultConfiguration": ""
@@ -113,6 +139,9 @@
             "production": {
               "browserTarget": "satalertas-client:build:production",
               "proxyConfig": "src/proxy.conf.json"
+            },
+            "development": {
+              "browserTarget": "satalertas-client:build:development"
             }
           }
         },
