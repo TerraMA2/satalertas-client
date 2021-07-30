@@ -67,7 +67,7 @@ export class ConfigService {
     }
 
     getSidebarSettingsConfig(name = '') {
-        const sidebarConfig = this.getConfig('sidebar-settings');
+        const sidebarConfig = this.getConfig('sidebarSettings');
         if (name) {
             return sidebarConfig[name];
         }
