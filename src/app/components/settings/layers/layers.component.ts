@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {SidebarService} from '../../../services/sidebar.service';
-import {Location} from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { SidebarService } from '../../../services/sidebar.service';
+import { Location } from '@angular/common';
 
-import {GroupViewService} from 'src/app/services/group-view.service';
-import {GroupService} from 'src/app/services/group.service';
-import {MessageService, SelectItem} from 'primeng/api';
-import {Group} from '../../../models/group.model';
+import { GroupViewService } from 'src/app/services/group-view.service';
+import { GroupService } from 'src/app/services/group.service';
+import { MessageService, SelectItem } from 'primeng/api';
+import { Group } from '../../../models/group.model';
 
 @Component({
   selector: 'app-layers',
@@ -66,16 +66,19 @@ export class LayersComponent implements OnInit {
   }
 
   async update() {
-    const layers = this.selectedLayers.map(layerId => ({ id_group: this.selectedGroup.value, id_view: layerId.id_view }));
-    console.log(layers)
+    const layers = this.selectedLayers
+      .map(layerId => ({
+        id_group: this.selectedGroup.value, id_view: layerId.id
+      }));
+    console.log('camadas: ', layers)
     this.groupViewService.update({ id_group: this.selectedGroup.value, layers })
-    .then(() => {
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Sucesso',
-        detail: 'Camadas do grupo atualizadas'
+      .then(() => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Sucesso',
+          detail: 'Camadas do grupo atualizadas'
+        });
       });
-    });
   }
   async appendLayer(param) {
     console.log('Camadas recebidas via API');
