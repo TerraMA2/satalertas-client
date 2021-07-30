@@ -73,7 +73,7 @@ export class ModalComponent implements OnInit {
     }
   }
 
-  onChange(inputName, indexInput, numberLine, bool=false, event=undefined) {
+  onChange(inputName, indexInput, numberLine, bool=false, event?) {
     const input = document.getElementById(inputName);
     console.log(input)
     console.log(input["value"])

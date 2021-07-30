@@ -30,10 +30,8 @@ import {ToastModule} from 'primeng/toast';
 import {RadioButtonModule} from 'primeng/radiobutton';
 import {ToolbarModule} from 'primeng/toolbar';
 import {NgxExtendedPdfViewerModule} from 'ngx-extended-pdf-viewer';
-import {PdfViewerModule} from 'ng2-pdf-viewer';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {InputTextareaModule} from 'primeng/inputtextarea';
-import {ChartsModule} from 'ng2-charts';
 import {TreeTableModule} from 'primeng/treetable';
 import {PickListModule} from 'primeng/picklist';
 import {RippleModule} from 'primeng/ripple';
@@ -83,8 +81,6 @@ import {HistoryDeterChartComponent} from './report/history-deter-chart/history-d
 import {HistoryProdesChartComponent} from './report/history-prodes-chart/history-prodes-chart.component';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {MessagesModule} from 'primeng/messages';
-import {ServiceWorkerModule} from '@angular/service-worker';
-import {environment} from 'src/environments/environment';
 import {ClassAreaComponent} from './filter/class-area/class-area.component';
 import {ListboxModule} from 'primeng/listbox';
 import {LayerToolsComponent} from './map/layer-tools/layer-tools.component';
@@ -95,9 +91,9 @@ import {GroupListComponent} from './settings/group-manager/group-list/group-list
 import {ModalComponent} from './modal.component/modal.component';
 import {ButtonActionComponent} from './button-action.component/button-action.component';
 import {LayersComponent} from './settings/layers/layers.component';
-import { SettingsToolbarComponent } from './settings/settings-toolbar/settings-toolbar.component';
-import { LayersAdvancedComponent } from './settings/layers-advanced/layers-advanced.component';
-import { LayersAdvancedEditionComponent } from './settings/layers-advanced/layers-advanced-edition/layers-advanced-edition.component';
+import {SettingsToolbarComponent} from './settings/settings-toolbar/settings-toolbar.component';
+import {LayersAdvancedComponent} from './settings/layers-advanced/layers-advanced.component';
+import {LayersAdvancedEditionComponent} from './settings/layers-advanced/layers-advanced-edition/layers-advanced-edition.component';
 
 registerLocaleData(localePt, 'pt');
 
@@ -186,13 +182,10 @@ registerLocaleData(localePt, 'pt');
         RadioButtonModule,
         ToolbarModule,
         NgxExtendedPdfViewerModule,
-        PdfViewerModule,
         ProgressSpinnerModule,
         InputTextareaModule,
-        ChartsModule,
         ConfirmDialogModule,
         MessagesModule,
-        ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
         ListboxModule,
         SliderModule,
         TreeTableModule,

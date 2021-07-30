@@ -197,243 +197,6 @@
         "attribution": "GEBCO Compilation Group (2019) GEBCO 2019 Grid"
       }
     ],
-    "filter": {
-      "url": "/api/report/getData",
-      "alertType": {
-        "analyzes": [
-          {
-            "label": "Análise DETER",
-            "value": "deter"
-          },
-          {
-            "label": "Análise PRODES",
-            "value": "deforestation"
-          },
-          {
-            "label": "Análise FOCOS",
-            "value": "burned"
-          },
-          {
-            "label": "Análise Área Queimada",
-            "value": "burned_area"
-          },
-          {
-            "label": "Área do Imóvel CAR",
-            "value": "car_area"
-          }
-        ],
-        "optionsFocos": [
-          {
-            "label": "< 10",
-            "value": 1
-          },
-          {
-            "label": "10 a 20",
-            "value": 2
-          },
-          {
-            "label": "20 a 50",
-            "value": 3
-          },
-          {
-            "label": "50 a 100",
-            "value": 4
-          },
-          {
-            "label": " > 100 ",
-            "value": 5
-          },
-          {
-            "label": "Valor > que ...",
-            "value": 6
-          }
-        ],
-        "options": [
-          {
-            "label": "< 5",
-            "value": 1
-          },
-          {
-            "label": "5 a 25",
-            "value": 2
-          },
-          {
-            "label": "25 a 50",
-            "value": 3
-          },
-          {
-            "label": "50 a 100",
-            "value": 4
-          },
-          {
-            "label": " > 100",
-            "value": 5
-          },
-          {
-            "label": "Valor > que ...",
-            "value": 6
-          }
-        ]
-      },
-      "classSearch": {
-        "analyzes": [
-          {
-            "label": "Classes DETER",
-            "value": "deter"
-          }
-        ]
-      },
-      "group": {
-        "label": "Grupo",
-        "name": "group",
-        "options": [
-          {
-            "label": "Análise DETER",
-            "value": "deter"
-          },
-          {
-            "label": "Análise PRODES",
-            "value": "deforestation"
-          },
-          {
-            "label": "Análise FOCOS",
-            "value": "burned"
-          },
-          {
-            "label": "Análise Área Queimada",
-            "value": "burned_area"
-          },
-          {
-            "label": "Área do Imóvel CAR",
-            "value": "car_area"
-          }
-        ]
-      },
-      "date": {
-        "label": "Data",
-        "name": "date",
-        "dateFormat": "dd/mm/yy",
-        "selectionMode": "range",
-        "showTime": false,
-        "showButtonBar": true,
-        "numberOfMonths": 2
-      },
-      "optionField": {
-        "label": "Tema: ",
-        "name": "localization",
-        "options": [
-          {
-            "label": "Todos",
-            "value": "ALL"
-          },
-          {
-            "label": "Comarca",
-            "value": "region"
-          },
-          {
-            "label": "Mesorregiões",
-            "value": "mesoregion"
-          },
-          {
-            "label": "Microrregiões",
-            "value": "microregion"
-          },
-          {
-            "label": "RGI",
-            "value": "immediateregion"
-          },
-          {
-            "label": "RGINT",
-            "value": "intermediateregion"
-          },
-          {
-            "label": "Municípios",
-            "value": "city"
-          },
-          {
-            "label": "PJBH",
-            "value": "pjbh"
-          },
-          {
-            "label": "Biomas",
-            "value": "biome"
-          },
-          {
-            "label": "UCs",
-            "value": "uc"
-          },
-          {
-            "label": "TIs",
-            "value": "ti"
-          }
-        ],
-        "locale": {
-          "firstDayOfWeek": 1,
-          "dayNames": [
-            "domingo",
-            "segunda",
-            "terça",
-            "quarta",
-            "quinta",
-            "sexta",
-            "sábado"
-          ],
-          "dayNamesShort": [
-            "dom",
-            "seg",
-            "ter",
-            "qua",
-            "qui",
-            "sex",
-            "sáb"
-          ],
-          "dayNamesMin": [
-            "D",
-            "S",
-            "T",
-            "Q",
-            "Q",
-            "S",
-            "S"
-          ],
-          "monthNames": [
-            "Janeiro",
-            "Fevereiro",
-            "Março",
-            "Abril",
-            "Maio",
-            "Junho",
-            "Julho",
-            "Agosto",
-            "Setembro",
-            "Outubro",
-            "Novembro",
-            "Dezembro"
-          ],
-          "monthNamesShort": [
-            "jan",
-            "fev",
-            "mar",
-            "abr",
-            "mai",
-            "jun",
-            "jul",
-            "ago",
-            "set",
-            "out",
-            "nov",
-            "dez"
-          ],
-          "today": "Hoje",
-          "clear": "Limpar",
-          "filter": "Filtrar"
-        }
-      },
-      "area": {
-        "label": "Área",
-        "name": "area"
-      }
-    },
     "table": {
       "rowsPerPage": [
         {
@@ -501,6 +264,242 @@
           "value": "shapefile"
         }
       ]
+    }
+  },
+  "filter": {
+    "url": "/api/report/getData",
+    "alertType": {
+      "analyzes": [
+        {
+          "label": "Análise DETER",
+          "value": "deter"
+        },
+        {
+          "label": "Análise PRODES",
+          "value": "deforestation"
+        },
+        {
+          "label": "Análise FOCOS",
+          "value": "burned"
+        },
+        {
+          "label": "Análise Área Queimada",
+          "value": "burned_area"
+        },
+        {
+          "label": "Área do Imóvel CAR",
+          "value": "car_area"
+        }
+      ],
+      "optionsFocos": [
+        {
+          "label": "< 10",
+          "value": 1
+        },
+        {
+          "label": "10 a 20",
+          "value": 2
+        },
+        {
+          "label": "20 a 50",
+          "value": 3
+        },
+        {
+          "label": "50 a 100",
+          "value": 4
+        },
+        {
+          "label": " > 100 ",
+          "value": 5
+        },
+        {
+          "label": "Valor > que ...",
+          "value": 6
+        }
+      ],
+      "options": [
+        {
+          "label": "< 5",
+          "value": 1
+        },
+        {
+          "label": "5 a 25",
+          "value": 2
+        },
+        {
+          "label": "25 a 50",
+          "value": 3
+        },
+        {
+          "label": "50 a 100",
+          "value": 4
+        },
+        {
+          "label": " > 100",
+          "value": 5
+        },
+        {
+          "label": "Valor > que ...",
+          "value": 6
+        }
+      ]
+    },
+    "classSearch": {
+      "analyzes": [
+        {
+          "label": "Classes DETER",
+          "value": "deter"
+        }
+      ]
+    },
+    "group": {
+      "label": "Grupo",
+      "name": "group",
+      "options": [
+        {
+          "label": "Análise DETER",
+          "value": "deter"
+        },
+        {
+          "label": "Análise PRODES",
+          "value": "deforestation"
+        },
+        {
+          "label": "Análise FOCOS",
+          "value": "burned"
+        },
+        {
+          "label": "Análise Área Queimada",
+          "value": "burned_area"
+        },
+        {
+          "label": "Área do Imóvel CAR",
+          "value": "car_area"
+        }
+      ]
+    },
+    "date": {
+      "label": "Data",
+      "name": "date",
+      "dateFormat": "dd/mm/yy",
+      "selectionMode": "range",
+      "showTime": false,
+      "showButtonBar": true,
+      "numberOfMonths": 2
+    },
+    "optionField": {
+      "label": "Tema: ",
+      "name": "localization",
+      "options": [
+        {
+          "label": "Todos",
+          "value": "ALL"
+        },
+        {
+          "label": "Comarca",
+          "value": "region"
+        },
+        {
+          "label": "Mesorregiões",
+          "value": "mesoregion"
+        },
+        {
+          "label": "Microrregiões",
+          "value": "microregion"
+        },
+        {
+          "label": "RGI",
+          "value": "immediateregion"
+        },
+        {
+          "label": "RGINT",
+          "value": "intermediateregion"
+        },
+        {
+          "label": "Municípios",
+          "value": "city"
+        },
+        {
+          "label": "PJBH",
+          "value": "pjbh"
+        },
+        {
+          "label": "Biomas",
+          "value": "biome"
+        },
+        {
+          "label": "UCs",
+          "value": "uc"
+        },
+        {
+          "label": "TIs",
+          "value": "ti"
+        }
+      ]
+    },
+    "area": {
+      "label": "Área",
+      "name": "area"
+    },
+    "locale": {
+      "dayNames": [
+        "domingo",
+        "segunda",
+        "terça",
+        "quarta",
+        "quinta",
+        "sexta",
+        "sábado"
+      ],
+      "dayNamesShort": [
+        "dom",
+        "seg",
+        "ter",
+        "qua",
+        "qui",
+        "sex",
+        "sáb"
+      ],
+      "dayNamesMin": [
+        "D",
+        "S",
+        "T",
+        "Q",
+        "Q",
+        "S",
+        "S"
+      ],
+      "monthNames": [
+        "Janeiro",
+        "Fevereiro",
+        "Março",
+        "Abril",
+        "Maio",
+        "Junho",
+        "Julho",
+        "Agosto",
+        "Setembro",
+        "Outubro",
+        "Novembro",
+        "Dezembro"
+      ],
+      "monthNamesShort": [
+        "jan",
+        "fev",
+        "mar",
+        "abr",
+        "mai",
+        "jun",
+        "jul",
+        "ago",
+        "set",
+        "out",
+        "nov",
+        "dez"
+      ],
+      "today": "Hoje",
+      "clear": "Limpar",
+      "filter": "Filtrar"
     }
   }
 }

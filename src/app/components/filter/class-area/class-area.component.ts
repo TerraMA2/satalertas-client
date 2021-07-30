@@ -25,7 +25,7 @@ export class ClassAreaComponent implements OnInit, AfterViewInit {
 
     ngOnInit() {
         this.filterClass = new FilterClass('ALL', []);
-        this.filter = this.configService.getConfig('map').filter.classSearch;
+        this.filter = this.configService.getFilterConfig('classSearch');
     }
 
     async ngAfterViewInit() {

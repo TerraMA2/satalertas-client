@@ -40,7 +40,7 @@ export class ThemeAreaComponent implements OnInit, AfterViewInit {
 
     ngOnInit() {
         this.optionSelectedByFilter = new FilterTheme('ALL', undefined, undefined);
-        this.optionField = this.configService.getMapConfig('filter').optionField;
+        this.optionField = this.configService.getFilterConfig('optionField');
         this.options = this.optionField.options;
         this.selectedOption = 'ALL';
         this.onchangeSelected({value: this.selectedOption});

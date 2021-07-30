@@ -60,7 +60,7 @@ export class TableComponent implements OnInit {
     totalRecords = 0;
 
     rowsPerPage: any[];
-    defaultRowsPerPage = 10;
+    defaultRowsPerPage = 20;
     selectedRowsPerPage: number = this.defaultRowsPerPage;
 
     filters: ReportLayer[];

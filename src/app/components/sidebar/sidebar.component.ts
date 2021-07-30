@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { ConfigService } from '../../services/config.service';
-import { LayerGroup } from 'src/app/models/layer-group.model';
-import { Layer } from 'src/app/models/layer.model';
-import { SidebarService } from 'src/app/services/sidebar.service';
-import { MapService } from 'src/app/services/map.service';
-import { SidebarItem } from 'src/app/models/sidebar-item.model';
-import { Response } from '../../models/response.model';
-import { GroupService } from 'src/app/services/group.service';
-import { GroupViewService } from './../../services/group-view.service';
+import {Component, OnInit} from '@angular/core';
+import {ConfigService} from '../../services/config.service';
+import {LayerGroup} from 'src/app/models/layer-group.model';
+import {Layer} from 'src/app/models/layer.model';
+import {SidebarService} from 'src/app/services/sidebar.service';
+import {MapService} from 'src/app/services/map.service';
+import {SidebarItem} from 'src/app/models/sidebar-item.model';
+import {Response} from '../../models/response.model';
+import {GroupService} from 'src/app/services/group.service';
+import {GroupViewService} from './../../services/group-view.service';
 
 @Component({
   selector: 'app-sidebar',

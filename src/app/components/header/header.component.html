@@ -20,7 +20,7 @@
                     [(ngModel)]="dateInput"
                     [dateFormat]="dateField.dateFormat"
                     [hideOnDateTimeSelect]="true"
-                    [locale]="locale"
+                    [firstDayOfWeek]="1"
                     [maxDate]="maxDate"
                     [monthNavigator]="false"
                     [name]="dateField.name"
@@ -37,7 +37,7 @@
                     yearRange="1998:2100">
             <p-footer class="date-footer">
                 <button (click)="onTodayClick()"
-                        [label]="locale.today"
+                        label="Hoje"
                         class="date-button date-button-today p-button-raised"
                         pButton
                         type="button">

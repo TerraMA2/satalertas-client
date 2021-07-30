@@ -21,7 +21,7 @@ export class AlertTypeAreaComponent implements OnInit, AfterViewInit {
 
     ngOnInit() {
         this.alertType = new FilterAlertType('ALL', []);
-        this.filter = this.configService.getConfig('map').filter.alertType;
+        this.filter = this.configService.getFilterConfig('alertType');
     }
 
     ngAfterViewInit() {
