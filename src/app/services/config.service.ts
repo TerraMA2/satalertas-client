@@ -6,6 +6,7 @@ import MPMTConfigJson from '../../assets/config/mpmt/mpmt-config.json';
 import {HttpClient} from '@angular/common/http';
 
 import {environment} from '../../environments/environment';
+import {Project} from '../enum/project.enum';
 
 const URL_REPORT_SERVER = environment.reportServerUrl;
 const PROJECT = environment.project;
@@ -22,8 +23,12 @@ export class ConfigService {
     getConfig(name) {
         let configJson;
         switch (PROJECT) {
-            case 'mpmt': {
+            case Project.MPMT: {
                 configJson = MPMTConfigJson;
+                break;
+            }
+            case Project.TERRAMA2: {
+                configJson = ConfigJson;
                 break;
             }
             default: {
