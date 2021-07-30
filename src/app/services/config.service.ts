@@ -93,6 +93,13 @@ export class ConfigService {
         return mapConfig;
     }
 
+    getFilterConfig(name = '') {
+        const mapConfig = this.getConfig('filter');
+        if (name) {
+            return mapConfig[name];
+        }
+        return mapConfig;
+    }
     async getReportConfig() {
         const parameters = {};
         const url = `${URL_REPORT_SERVER}/config/getSynthesisConfig`;

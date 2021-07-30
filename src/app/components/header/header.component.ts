@@ -73,10 +73,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
 
     setFilterSettings() {
-        this.filterConfig = this.configService.getMapConfig('filter');
+        this.filterConfig = this.configService.getFilterConfig();
         this.dateField = this.filterConfig.date;
         this.optionField = this.filterConfig.optionField;
-        this.locale = this.optionField.locale;
         this.setDefaultDate();
     }
 

@@ -9,6 +9,7 @@ import {AuthService} from '../services/auth.service';
 import {environment} from 'src/environments/environment';
 
 import {SidebarService} from '../services/sidebar.service';
+import {PrimeNGConfig} from 'primeng/api';
 
 @Component({
     selector: 'app-root',
@@ -24,11 +25,14 @@ export class AppComponent implements OnInit {
         private configService: ConfigService,
         private titleService: Title,
         private authService: AuthService,
-        private sidebarService: SidebarService
+        private sidebarService: SidebarService,
+        private config: PrimeNGConfig
     ) {
     }
 
     ngOnInit() {
+        const filterLocale = this.configService.getFilterConfig('locale');
+        this.config.setTranslation(filterLocale);
         this.authService.autoLogin();
 
         if (environment.production) {

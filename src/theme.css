@@ -210,11 +210,11 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
     height: 2.5rem;
 }
 .p-datepicker table td {
-    padding: 0.5rem;
+    padding: 0.3rem;
 }
 .p-datepicker table td > span {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2.2rem;
+    height: 2.2rem;
     border-radius: 3px;
     transition: background-color 0.2s, box-shadow 0.2s;
     border: 1px solid transparent;
@@ -238,7 +238,6 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
     background: var(--primary-color);
 }
 .p-datepicker .p-datepicker-buttonbar {
-    padding: 0.857rem 0 0.429rem 0;
     border-top: 1px solid #d8dae2;
 }
 .p-datepicker .p-datepicker-buttonbar .p-button {

@@ -48,8 +48,7 @@
 
 .date-button {
     display: inline-flex;
-    margin: 5px;
-    padding: 5px;
+    margin: 10px 0;
 }
 
 .date-button-today {

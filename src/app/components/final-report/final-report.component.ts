@@ -65,7 +65,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
     date;
     points: any[] = [];
     type: string;
-    year: string;
     docDefinition: any;
     docBase64;
     generatingReport = false;
@@ -200,7 +199,6 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         if (this.type === 'prodes') {
             this.points = await this.reportService.getPointsAlerts(this.carRegister, this.date, this.filter, this.type).then(async (response: Response) => await response.data);
         }
-        this.year = new Date().getFullYear().toString();
         await this.setChartNdvi();
     }
 
