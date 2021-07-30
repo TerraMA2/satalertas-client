@@ -1,7 +1,7 @@
 {
   "app": {
-    "pageTitle": "TerraMA² | SatAlertas: Sistema Integrado de Monitoramento de Degradação Ambiental",
-    "headerTitle": "SatAlertas: Sistema Integrado de Monitoramento de Degradação Ambiental",
+    "pageTitle": "pageTitle",
+    "headerTitle": "headerTitle",
     "hasLogin":  true,
     "layerUrls": {
       "static": {
@@ -20,18 +20,35 @@
         "markers": "/car/getAllSimplified",
         "table": "/car/getAllSimplified"
       }
+    },
+    "locale":
+    {
+      "defaultLanguage": {
+        "label": "Brazil",
+        "value": "br"
+      },
+      "languages": [
+        {
+          "label": "Brazil",
+          "value": "br"
+        },
+        {
+          "label": "United States",
+          "value": "us"
+        }
+      ]
     }
   },
   "about": {
-    "title": "SatAlertas: Sistema Integrado de Monitoramento de Degradação Ambiental",
+    "title": "headerTitle",
     "version": "2.0.0-dev",
-    "date": "13/Abril/2021",
-    "description": "<p>O <strong>SatAlertas</strong> é uma aplicação destinada ao monitoramento de degradação ambiental que foi desenvolvido sobre a plataforma TerraMA² do INPE, com objetivo específico de monitorar, analisar e gerenciar alertas resultantes do cruzamento dos dados do PRODES, DETER e Queimadas do INPE com CAR e outras bases.</p>",
+    "date": "13/04/2021",
+    "description": "aboutDescription",
     "terrama2Version": "4.1.1",
     "terralibVersion": "5.4.5",
     "offerings" : [
       {
-        "title": "Parcerias",
+        "title": "partnerships",
         "companies": [
           [
             {
@@ -91,7 +108,7 @@
         ]
       },
       {
-        "title": "Base tecnológica",
+        "title": "technologicalBase",
         "companies": [
           [
             {
@@ -105,7 +122,7 @@
         ]
       },
       {
-        "title": "Base de Dados Ambientais",
+        "title": "database",
         "companies": [
           [
             {
@@ -133,7 +150,7 @@
         ]
       },
       {
-        "title": "Apoio Financeiro",
+        "title": "financialSupport",
         "companies": [
           [
             {
@@ -158,14 +175,14 @@
     "sidebarItems": [
       {
         "icon": "fas fa-chart-line",
-        "label": "Dashboard",
+        "label": "dashboard",
         "link": "/",
         "method": "",
         "value": ""
       },
       {
         "icon": "fas fa-map",
-        "label": "Mapa",
+        "label": "map",
         "link": "/map",
         "method": "",
         "value": ""
@@ -373,23 +390,23 @@
     "alertType": {
       "analyzes": [
         {
-          "label": "Análise DETER",
+          "label": "deterAnalysis",
           "value": "deter"
         },
         {
-          "label": "Análise PRODES",
+          "label": "prodesAnalysis",
           "value": "deforestation"
         },
         {
-          "label": "Análise FOCOS",
+          "label": "fireSpotAnalysis",
           "value": "burned"
         },
         {
-          "label": "Análise Área Queimada",
+          "label": "burnedAreaAnalysis",
           "value": "burned_area"
         },
         {
-          "label": "Área do Imóvel CAR",
+          "label": "carArea",
           "value": "car_area"
         }
       ],
@@ -542,66 +559,6 @@
     "area": {
       "label": "Área",
       "name": "area"
-    },
-    "locale": {
-      "dayNames": [
-        "domingo",
-        "segunda",
-        "terça",
-        "quarta",
-        "quinta",
-        "sexta",
-        "sábado"
-      ],
-      "dayNamesShort": [
-        "dom",
-        "seg",
-        "ter",
-        "qua",
-        "qui",
-        "sex",
-        "sáb"
-      ],
-      "dayNamesMin": [
-        "D",
-        "S",
-        "T",
-        "Q",
-        "Q",
-        "S",
-        "S"
-      ],
-      "monthNames": [
-        "Janeiro",
-        "Fevereiro",
-        "Março",
-        "Abril",
-        "Maio",
-        "Junho",
-        "Julho",
-        "Agosto",
-        "Setembro",
-        "Outubro",
-        "Novembro",
-        "Dezembro"
-      ],
-      "monthNamesShort": [
-        "jan",
-        "fev",
-        "mar",
-        "abr",
-        "mai",
-        "jun",
-        "jul",
-        "ago",
-        "set",
-        "out",
-        "nov",
-        "dez"
-      ],
-      "today": "Hoje",
-      "clear": "Limpar",
-      "filter": "Filtrar"
     }
   }
 }

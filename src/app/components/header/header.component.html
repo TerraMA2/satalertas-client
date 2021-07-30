@@ -3,15 +3,15 @@
 
     &nbsp;&nbsp;
 
-    <span class="header-title">{{headerTitle}}</span>
+    <span class="header-title">{{ headerTitle | translate}}</span>
 
-    <button (click)="showFilter()"
-            class="p-button-raised p-button-secondary button-filter"
-            icon="fas fa-filter"
-            label="Filtrar"
-            pButton
-            type="button">
-    </button>
+    &nbsp;&nbsp;
+
+    <p-button (click)="showFilter()"
+              icon="fas fa-filter"
+              label="{{'headerFilterButton' | translate}}"
+              styleClass="p-button-raised p-button-secondary button-filter">
+    </p-button>
 
     <div class="p-g-12 p-md-4 header-filter">
         <p-calendar #dateFilter
@@ -19,75 +19,94 @@
                     (onFocus)="onFilterFocus()"
                     [(ngModel)]="dateInput"
                     [dateFormat]="dateField.dateFormat"
-                    [hideOnDateTimeSelect]="true"
                     [firstDayOfWeek]="1"
+                    [hideOnDateTimeSelect]="true"
                     [maxDate]="maxDate"
                     [monthNavigator]="false"
                     [name]="dateField.name"
                     [numberOfMonths]="dateField.numberOfMonths"
                     [readonlyInput]="false"
                     [selectionMode]="dateField.selectionMode"
+                    [showButtonBar]="true"
                     [showIcon]="false"
                     [showOnFocus]="true"
                     [showTime]="dateField.showTime"
                     [yearNavigator]="true"
-                    [showButtonBar]="true"
-                    todayButtonStyleClass="hide-button"
                     clearButtonStyleClass="hide-button"
+                    todayButtonStyleClass="hide-button"
                     yearRange="1998:2100">
             <p-footer class="date-footer">
-                <button (click)="onTodayClick()"
-                        label="Hoje"
-                        class="date-button date-button-today p-button-raised"
-                        pButton
-                        type="button">
-                </button>
-                <button (click)="onFilterClick()"
-                        [disabled]="(dateInput && !dateInput[1] && dateInput[1] === null)"
-                        class="date-button button-right p-button-raised"
-                        label="Filtrar"
-                        pButton
-                        type="button">
-                </button>
+                <p-button (click)="onTodayClick()"
+                          label="{{ 'primeng.today' | translate }}"
+                          styleClass="date-button date-button-today p-button-raised"
+
+                          type="button">
+                </p-button>
+                <p-button (click)="onFilterClick()"
+                          [disabled]="(dateInput && !dateInput[1] && dateInput[1] === null)"
+                          label="{{ 'calendarFilterButton' | translate}}"
+                          styleClass="date-button button-right p-button-raised"
+
+                          type="button">
+                </p-button>
             </p-footer>
         </p-calendar>
     </div>
 
     <div class="header-right">
 
+        <p-dropdown (onChange)="languageChanged($event)"
+                    [(ngModel)]="selectedLanguage"
+                    [options]="languages"
+                    [style]="{width: '75px'}"
+                    optionLabel="label"
+                    placeholder="{{ 'selectLanguage' | translate }}">
+            <ng-template pTemplate="selectedItem">
+                <div *ngIf="selectedLanguage" class="flag-container">
+                    <img [class]="'flag flag-' + selectedLanguage.value" src="assets/img/flag_placeholder.png"/>
+                </div>
+            </ng-template>
+            <ng-template let-language pTemplate="item">
+                <div class="flag-container">
+                    <img [class]="'flag flag-' + language.value" src="assets/img/flag_placeholder.png"/>
+                    <div>{{language.label}}</div>
+                </div>
+            </ng-template>
+        </p-dropdown>
         &nbsp;&nbsp;
+
 
         <ng-container *ngIf="hasLogin && !isAuthenticated; then login; else logout"></ng-container>
 
         <ng-template #login>
-            <button (click)="onLoginClick()"
-                    class="p-button-raised p-button-secondary"
-                    icon="fa fa-sign-in-alt"
-                    label="Login"
-                    pButton
-                    type="button">
-            </button>
+            <p-button (click)="onLoginClick()"
+                      icon="fa fa-sign-in-alt"
+                      label="{{'login' | translate}}"
+                      styleClass="p-button-raised p-button-secondary"
+
+                      type="button">
+            </p-button>
         </ng-template>
-        
+
         <ng-template #logout>
             <div>{{loggedUserName }}</div>
             &nbsp;&nbsp;
 
             <div *ngIf="isAdministrator == true">
-                <button routerLink="/settings/groups"
-                    icon="pi pi-cog"
-                    pButton
-                    type="button">
-                </button>
+                <p-button icon="pi pi-cog"
+                          routerLink="/settings/groups"
+
+                          type="button">
+                </p-button>
             </div>
 
-            <button (click)="onLogoutClick()"
-                    class="p-button-raised p-button-secondary"
-                    icon="fa fa-sign-in-alt"
-                    label="Logout"
-                    pButton
-                    type="button">
-            </button>
+            <p-button (click)="onLogoutClick()"
+                      icon="fa fa-sign-in-alt"
+                      label="{{'logout' | translate}}"
+                      styleClass="p-button-raised p-button-secondary"
+
+                      type="button">
+            </p-button>
         </ng-template>
 
     </div>

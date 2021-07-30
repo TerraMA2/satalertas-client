@@ -1,34 +1,36 @@
 <p-dialog (onHide)="onHide()"
           [(visible)]="displayAbout"
           [contentStyle]="{'width': '50vw','max-height':'75vh'}"
-          position="center"
-          header="Sobre"
-          resizable="false"
           autoZIndex="false"
-          baseZIndex="1001">
+          baseZIndex="1001"
+          header="{{'about' | translate}}"
+          position="center"
+          resizable="false">
     <div class="about-padding">
         <div class="p-col-12">
-            <h2 class="text-center">{{ title }}</h2>
+            <h2 class="text-center">{{ title | translate }}</h2>
         </div>
         <div class="p-col-12 text-right">
             <p>{{ version }}</p>
-            <p>{{ date }}<p>
+            <p>{{ date }}
+            <p>
             <p>Copyright© 2021</p>
         </div>
         <div class="p-grid">
-            <div [innerHTML]="description"></div>
+            <div [innerHTML]="description | translate"></div>
         </div>
 
         <br>
 
         <div *ngFor="let offering of offerings">
 
-            <h2>{{ offering.title }}</h2>
+            <h2>{{ offering.title | translate }}</h2>
 
             <div *ngFor="let company of offering.companies" class="p-grid text-center">
                 <div *ngFor="let c of company" class="p-col">
                     <a href="{{ c.link }}" target="_blank">
-                        <img height="{{ c.height }}" width="{{ c.width }}" src="{{ c.logo }}" title="{{ c.description }}">
+                        <img height="{{ c.height }}" src="{{ c.logo }}" title="{{ c.description }}"
+                             width="{{ c.width }}">
                     </a>
                 </div>
             </div>
@@ -38,14 +40,12 @@
         <br>
         <br>
         <div class="p-col-12 text-right">
-            <p>Versão da TerraMA²: {{ terrama2Version }}</p>
-            <p>Versão da TerraLib: {{ terralibVersion }}</p>
+            <p> {{ 'terrama2Version' | translate }}: {{ terrama2Version }}</p>
+            <p> {{ 'terralibVersion' | translate }}: {{ terralibVersion }}</p>
         </div>
         <br>
-        <button (click)="closeAbout()" class="p-button-raised p-button-secondary width-100"
-                label="Fechar"
-                pButton
-                type="button">
-        </button>
+        <p-button (click)="closeAbout()" label="{{ 'close' | translate}}"
+                  styleClass="p-button-raised p-button-secondary width-100">
+        </p-button>
     </div>
 </p-dialog>

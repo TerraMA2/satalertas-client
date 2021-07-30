@@ -8,10 +8,10 @@
                     inputId="isChecked"
                     name="isChecked">
             </p-checkbox>
-            <label>Busca específica</label>
+            <label>{{ 'specificSearch' | translate}}</label>
         </div>
     </div>
-    <div class="p-col-12" *ngIf="specificSearchFilter.isChecked">
+    <div *ngIf="specificSearchFilter.isChecked" class="p-col-12">
         <div class="p-formgroup-inline">
             <div class="p-field-radiobutton">
                 <p-radioButton
@@ -21,7 +21,7 @@
                         name="CAR"
                         value="CAR">
                 </p-radioButton>
-                <label>CAR Estadual</label>
+                <label>{{ 'stateCAR' | translate}}</label>
             </div>
             <div class="p-field-radiobutton">
                 <p-radioButton
@@ -31,7 +31,7 @@
                         name="CAR"
                         value="CAR_FEDERAL">
                 </p-radioButton>
-                <label>CAR Federal</label>
+                <label>{{ 'federalCAR' | translate}}</label>
             </div>
             <div class="p-field-radiobutton">
                 <p-radioButton
@@ -41,7 +41,7 @@
                         name="CPF"
                         value="CPF">
                 </p-radioButton>
-                <label>CPF Proprietário</label>
+                <label>{{ 'ownerCPF' | translate}}</label>
             </div>
         </div>
 
@@ -53,7 +53,7 @@
                    class="width-100"
                    id="inputValue"
                    pInputText
-                   placeholder="Digite o valor"
+                   placeholder="{{'typeValue' | translate}}"
                    type="text">
         </div>
     </div>

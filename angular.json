@@ -100,7 +100,6 @@
                 }
               ],
               "optimization": false,
-              "outputHashing": "all",
               "sourceMap": true,
               "aot": true,
               "namedChunks": false,

@@ -20,7 +20,8 @@ const routes: Routes = [
 	{path: 'report', component: ReportComponent},
 	{path: 'report/:carRegister', component: ReportComponent},
 	{path: 'finalReport/:type/:carRegister', component: FinalReportComponent},
-	{path: 'settings', component: SettingsComponent,
+	{
+		path: 'settings', component: SettingsComponent,
 		children: [
 			{path: '', redirectTo: 'groups', pathMatch: 'full'},
 			{path: 'groups', component: GroupManagerComponent},

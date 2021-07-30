@@ -48,17 +48,17 @@ export class PopupService {
         const linkSynthesis = '/report/' + gid;
         let linkDETER = reportLink + 'deter/' + gid;
         let linkPRODES = reportLink + 'prodes/' + gid;
-        let linkBurnlight = reportLink + 'queimada/' + gid;
+        let linkFireSpot = reportLink + 'queimada/' + gid;
         switch (codGroup) {
             case 'DETER':
                 layerLabel += ' - DETER';
                 linkPRODES = '';
-                linkBurnlight = '';
+                linkFireSpot = '';
                 break;
             case 'PRODES':
                 layerLabel += ' - PRODES';
                 linkDETER = '';
-                linkBurnlight = '';
+                linkFireSpot = '';
                 break;
             case 'BURNED':
                 layerLabel += ' - FOCOS';
@@ -72,7 +72,7 @@ export class PopupService {
         componentRef.instance.linkSynthesis = linkSynthesis;
         componentRef.instance.linkDETER = linkDETER;
         componentRef.instance.linkPRODES = linkPRODES;
-        componentRef.instance.linkBurnlight = linkBurnlight;
+        componentRef.instance.linkFireSpot = linkFireSpot;
         componentRef.instance.layerLabel = layerLabel;
         componentRef.instance.tableData = data;
         this.appRef.attachView(componentRef.hostView);

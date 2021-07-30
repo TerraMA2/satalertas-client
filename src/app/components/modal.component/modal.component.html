@@ -1,68 +1,68 @@
 <p-dialog
-          [header]="header"
-          [(visible)]="displayModal"
-          [modal]="true"
-          [style]="modalStyle"
-          [baseZIndex]="10000"
-          (onHide)="onClose()"
-          [closable]="false"
-          [draggable]="false"
-          [resizable]="false">
-  <form>
-    <p-messages [(value)]="msgs"></p-messages>
-    <div class="p-fluid container-modal"
-          *ngFor="let line of lines; let j = index" >
-      {{line.label}}
-      <div class="p-field"
-        *ngFor="let input of line.inputs; trackBy: trackById; let i = index" >
-        <ng-template [ngIf]="input.type === 'text'">
-          <label [for]="'input'+i" [ngClass]="input.inputClass">{{input.label}}</label>
-          <input *ngIf="(input.type === 'text')"
-                 [(ngModel)]="data[input.field]"
-                 pInputText
-                 required
-                 autofocus
-                 [id]="'input'+i"
-                 [ngClass]="input.inputClass"
-                 type="text"
-                 [name]="input.field"
-                 (change)="onChange('input'+i, i, j)"
-                 [pKeyFilter]="ccRegex"
-                 [pValidateOnly]="true" />
-        </ng-template>
-        <ng-template [ngIf]="input.type === 'boolean'">
-          <div class="p-field-checkbox">
-            <p-checkbox
-            [name]="input.field"
-            binary='true'
-            [id]="'input'+i"
-            [(ngModel)]="data[input.field]"
-            (onChange)="onChange('input'+i, i, j, true, $event.checked)"
-            [pKeyFilter]="ccRegex"
-            [pValidateOnly]="true"
-            ></p-checkbox>
-            <label [for]="input.field">{{input.label}}</label>
-          </div>
-        </ng-template>
-      </div>
-    </div>
-  </form>
-  <p-footer>
-    <button class="p-button-raised"
-            label="Salvar"
-            pButton
-            type="submit"
-            icon="pi pi-check"
-            (click)="onSave(validateFields())">
-    </button>
+        (onHide)="onClose()"
+        [(visible)]="displayModal"
+        [baseZIndex]="10000"
+        [closable]="false"
+        [draggable]="false"
+        [header]="header"
+        [modal]="true"
+        [resizable]="false"
+        [style]="modalStyle">
+    <form>
+        <p-messages [(value)]="msgs"></p-messages>
+        <div *ngFor="let line of lines; let j = index"
+             class="p-fluid container-modal">
+            {{line.label}}
+            <div *ngFor="let input of line.inputs; trackBy: trackById; let i = index"
+                 class="p-field">
+                <ng-template [ngIf]="input.type === 'text'">
+                    <label [for]="'input'+i" [ngClass]="input.inputClass">{{input.label}}</label>
+                    <input (change)="onChange('input'+i, i, j)"
+                           *ngIf="(input.type === 'text')"
+                           [(ngModel)]="data[input.field]"
+                           [id]="'input'+i"
+                           [name]="input.field"
+                           [ngClass]="input.inputClass"
+                           [pKeyFilter]="ccRegex"
+                           [pValidateOnly]="true"
+                           autofocus
+                           pInputText
+                           required
+                           type="text"/>
+                </ng-template>
+                <ng-template [ngIf]="input.type === 'boolean'">
+                    <div class="p-field-checkbox">
+                        <p-checkbox
+                                (onChange)="onChange('input'+i, i, j, true, $event.checked)"
+                                [(ngModel)]="data[input.field]"
+                                [id]="'input'+i"
+                                [name]="input.field"
+                                [pKeyFilter]="ccRegex"
+                                [pValidateOnly]="true"
+                                binary='true'
+                        ></p-checkbox>
+                        <label [for]="input.field">{{input.label}}</label>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </form>
+    <p-footer>
+        <p-button (click)="onSave(validateFields())"
+                  styleClass="p-button-raised"
 
-    <button
-            class="p-button-secondary p-button p-component p-button-text-only p-button-raised"
-            label="Cancelar"
-            pButton
-            type="button"
-            icon="pi pi-times"
-            (click)="onClose()">
-    </button>
-  </p-footer>
+                  icon="pi pi-check"
+                  label="Salvar"
+                  type="submit">
+        </p-button>
+
+        <p-button
+                (click)="onClose()"
+                styleClass="p-button-secondary p-button p-component p-button-text-only p-button-raised"
+
+                icon="pi pi-times"
+                label="Cancelar"
+                type="button">
+        </p-button>
+    </p-footer>
 </p-dialog>

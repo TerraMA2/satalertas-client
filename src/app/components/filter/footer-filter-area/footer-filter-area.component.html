@@ -1,27 +1,25 @@
 <div class="p-grid p-justify-between">
     <div>
-        <button (click)="onFilterClicked.emit($event)"
-                class="p-button-raised"
-                label="Aplicar"
-                pButton
-                type="submit">
-        </button>
+        <p-button (click)="onFilterClicked.emit($event)"
+                  label="{{ 'primeng.apply' | translate}}"
+                  styleClass="p-button-raised"
 
-        <button (click)="onClearFilterClicked.emit($event)"
-                class="p-button-secondary
-                                p-button p-component p-button-text-only p-button-raised"
-                label="Remover Filtros"
-                pButton
-                type="button">
-        </button>
+        >
+        </p-button>
+
+        <p-button (click)="onClearFilterClicked.emit($event)"
+                  label="{{ 'removeFilters' | translate}}"
+                  styleClass="p-button-secondary p-button p-component p-button-text-only p-button-raised"
+
+        >
+        </p-button>
     </div>
     <div>
-        <button (click)="onCloseClicked.emit($event)"
-                class="p-button-secondary
+        <p-button (click)="onCloseClicked.emit($event)"
+                  label="{{ 'close' | translate}}"
+                  styleClass="p-button-secondary
                         p-button p-component p-button-text-only p-button-raised"
-                label="Fechar"
-                pButton
-                type="button">
-        </button>
+        >
+        </p-button>
     </div>
 </div>

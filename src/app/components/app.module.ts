@@ -1,7 +1,7 @@
 import {BrowserModule, Title} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgModule} from '@angular/core';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import {registerLocaleData} from '@angular/common';
 
@@ -36,6 +36,7 @@ import {TreeTableModule} from 'primeng/treetable';
 import {PickListModule} from 'primeng/picklist';
 import {RippleModule} from 'primeng/ripple';
 import {MessageModule} from 'primeng/message';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 
 import {AppComponent} from './app.component';
 import {MapComponent} from './map/map.component';
@@ -94,111 +95,128 @@ import {LayersComponent} from './settings/layers/layers.component';
 import {SettingsToolbarComponent} from './settings/settings-toolbar/settings-toolbar.component';
 import {LayersAdvancedComponent} from './settings/layers-advanced/layers-advanced.component';
 import {LayersAdvancedEditionComponent} from './settings/layers-advanced/layers-advanced-edition/layers-advanced-edition.component';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {environment} from '../../environments/environment';
+
 
 registerLocaleData(localePt, 'pt');
 
-@NgModule({
-    declarations: [
-        AppComponent,
-        SidebarComponent,
-        MapComponent,
-        DashboardComponent,
-        TableComponent,
-        ReportComponent,
-        FilterComponent,
-        HeaderComponent,
-        LegendComponent,
-        PropertyDataComponent,
-        VisionComponent,
-        VisionDetailedComponent,
-        DeforestationComponent,
-        DeforestationHistoryProdesComponent,
-        DeforestationHistoryDeterComponent,
-        BurningSpotlightsComponent,
-        BurningSpotlightsChartComponent,
-        BurnedAreasComponent,
-        BurnedAreasChartComponent,
-        ImageHistoryComponent,
-        ReportLegendComponent,
-        AuthComponent,
-        AboutComponent,
-        SidebarHeaderComponent,
-        SidebarFooterComponent,
-        SidebarMenuComponent,
-        SidebarLayerGroupComponent,
-        SidebarLayerComponent,
-        VisibleLayersComponent,
-        PopupComponent,
-        GraphicsAreaComponent,
-        CardAreaComponent,
-        CardButtonComponent,
-        ThemeAreaComponent,
-        AlertTypeAreaComponent,
-        AuthorizationAreaComponent,
-        SpecificSearchAreaComponent,
-        FooterFilterAreaComponent,
-        SidebarItemComponent,
-        FinalReportComponent,
-        HistoryDeterChartComponent,
-        HistoryProdesChartComponent,
-        ClassAreaComponent,
-        LayerToolsComponent,
-        SettingsComponent,
-        GroupManagerComponent,
-        GroupListComponent,
-        ModalComponent,
-        ButtonActionComponent,
-        LayersComponent,
-        SettingsToolbarComponent,
-        LayersAdvancedComponent,
-        LayersAdvancedEditionComponent,
-    ],
+const project = environment.project;
 
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
-        CardModule,
-        ChartModule,
-        ScrollPanelModule,
-        TableModule,
-        DragDropModule,
-        SidebarModule,
-        MultiSelectModule,
-        InputTextModule,
-        FormsModule,
-        PasswordModule,
-        ButtonModule,
-        TooltipModule,
-        DropdownModule,
-        DialogModule,
-        CalendarModule,
-        AccordionModule,
-        KeyFilterModule,
-        InputSwitchModule,
-        CheckboxModule,
-        ToastModule,
-        RadioButtonModule,
-        ToolbarModule,
-        NgxExtendedPdfViewerModule,
-        ProgressSpinnerModule,
-        InputTextareaModule,
-        ConfirmDialogModule,
-        MessagesModule,
-        ListboxModule,
-        SliderModule,
-        TreeTableModule,
-        PickListModule,
-        RippleModule,
-        MessageModule,
-    ],
-    providers: [
-        TreeDragDropService,
-        Title,
-        MessageService
-    ],
-    bootstrap: [AppComponent]
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+	return new TranslateHttpLoader(http, `./assets/config${project ? '/' + project + '/' : ''}i18n/`, '.json');
+}
+
+@NgModule({
+	declarations: [
+		AppComponent,
+		SidebarComponent,
+		MapComponent,
+		DashboardComponent,
+		TableComponent,
+		ReportComponent,
+		FilterComponent,
+		HeaderComponent,
+		LegendComponent,
+		PropertyDataComponent,
+		VisionComponent,
+		VisionDetailedComponent,
+		DeforestationComponent,
+		DeforestationHistoryProdesComponent,
+		DeforestationHistoryDeterComponent,
+		BurningSpotlightsComponent,
+		BurningSpotlightsChartComponent,
+		BurnedAreasComponent,
+		BurnedAreasChartComponent,
+		ImageHistoryComponent,
+		ReportLegendComponent,
+		AuthComponent,
+		AboutComponent,
+		SidebarHeaderComponent,
+		SidebarFooterComponent,
+		SidebarMenuComponent,
+		SidebarLayerGroupComponent,
+		SidebarLayerComponent,
+		VisibleLayersComponent,
+		PopupComponent,
+		GraphicsAreaComponent,
+		CardAreaComponent,
+		CardButtonComponent,
+		ThemeAreaComponent,
+		AlertTypeAreaComponent,
+		AuthorizationAreaComponent,
+		SpecificSearchAreaComponent,
+		FooterFilterAreaComponent,
+		SidebarItemComponent,
+		FinalReportComponent,
+		HistoryDeterChartComponent,
+		HistoryProdesChartComponent,
+		ClassAreaComponent,
+		LayerToolsComponent,
+		SettingsComponent,
+		GroupManagerComponent,
+		GroupListComponent,
+		ModalComponent,
+		ButtonActionComponent,
+		LayersComponent,
+		SettingsToolbarComponent,
+		LayersAdvancedComponent,
+		LayersAdvancedEditionComponent
+	],
+
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		BrowserAnimationsModule,
+		HttpClientModule,
+		CardModule,
+		ChartModule,
+		ScrollPanelModule,
+		TableModule,
+		DragDropModule,
+		SidebarModule,
+		MultiSelectModule,
+		InputTextModule,
+		FormsModule,
+		PasswordModule,
+		ButtonModule,
+		TooltipModule,
+		DropdownModule,
+		DialogModule,
+		CalendarModule,
+		AccordionModule,
+		KeyFilterModule,
+		InputSwitchModule,
+		CheckboxModule,
+		ToastModule,
+		RadioButtonModule,
+		ToolbarModule,
+		NgxExtendedPdfViewerModule,
+		ProgressSpinnerModule,
+		InputTextareaModule,
+		ConfirmDialogModule,
+		MessagesModule,
+		ListboxModule,
+		SliderModule,
+		TreeTableModule,
+		PickListModule,
+		RippleModule,
+		MessageModule,
+		TranslateModule.forRoot({
+			loader: {
+				provide: TranslateLoader,
+				useFactory: HttpLoaderFactory,
+				deps: [HttpClient]
+			}
+		})
+	],
+	providers: [
+		TreeDragDropService,
+		Title,
+		MessageService
+	],
+	bootstrap: [AppComponent]
 })
 export class AppModule {
 }

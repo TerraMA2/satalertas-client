@@ -27,112 +27,111 @@ import {FilterClass} from '../../models/filter-class.model';
 import {ClassAreaComponent} from './class-area/class-area.component';
 
 @Component({
-    selector: 'app-filter',
-    templateUrl: './filter.component.html',
-    styleUrls: ['./filter.component.css']
+	selector: 'app-filter',
+	templateUrl: './filter.component.html',
+	styleUrls: ['./filter.component.css']
 })
 export class FilterComponent implements OnInit, AfterViewInit {
 
-    @ViewChild('filterForm') filterForm: NgForm;
-    @ViewChild('themeAreaComponent') themeAreaComponent: ThemeAreaComponent;
-    @ViewChild('alertTypeAreaComponent') alertTypeAreaComponent: AlertTypeAreaComponent;
-    @ViewChild('authorizationAreaComponent') authorizationAreaComponent: AuthorizationAreaComponent;
-    @ViewChild('specificSearchAreaComponent') specificSearchAreaComponent: SpecificSearchAreaComponent;
-    @ViewChild('classAreaComponent') classAreaComponent: ClassAreaComponent;
+	@ViewChild('filterForm') filterForm: NgForm;
+	@ViewChild('themeAreaComponent') themeAreaComponent: ThemeAreaComponent;
+	@ViewChild('alertTypeAreaComponent') alertTypeAreaComponent: AlertTypeAreaComponent;
+	@ViewChild('authorizationAreaComponent') authorizationAreaComponent: AuthorizationAreaComponent;
+	@ViewChild('specificSearchAreaComponent') specificSearchAreaComponent: SpecificSearchAreaComponent;
+	@ViewChild('classAreaComponent') classAreaComponent: ClassAreaComponent;
 
-    authorizationDisable: boolean;
+	authorizationDisable: boolean;
 
-    filterParam: FilterParam;
-    filterLabel: string;
-    displayFilter = false;
+	filterParam: FilterParam;
+	filterLabel: string;
+	displayFilter = false;
 
-    constructor(
-        private filterService: FilterService
-    ) {
-    }
+	constructor(
+		private filterService: FilterService
+	) {
+	}
 
-    ngOnInit() {
-        this.authorizationDisable = true;
+	ngOnInit() {
+		this.authorizationDisable = true;
 
-        this.filterParam = new FilterParam(
-            new FilterTheme(),
-            new FilterAlertType('ALL'),
-            new FilterAuthorization('Todos', 'ALL'),
-            new FilterSpecificSearch(false));
-    }
+		this.filterParam = new FilterParam(
+			new FilterTheme(),
+			new FilterAlertType('ALL'),
+			new FilterAuthorization('Todos', 'ALL'),
+			new FilterSpecificSearch(false));
+	}
 
-    ngAfterViewInit() {
-        this.setFilterEvents();
-    }
+	ngAfterViewInit() {
+		this.setFilterEvents();
+	}
 
-    setFilterEvents() {
-        this.filterService.displayFilter.subscribe(() => this.onDisplayFilter());
-    }
+	setFilterEvents() {
+		this.filterService.displayFilter.subscribe(() => this.onDisplayFilter());
+	}
 
-    updateFilter() {
-        localStorage.removeItem('filterList');
+	updateFilter() {
+		localStorage.removeItem('filterList');
 
-        localStorage.setItem('filterList', JSON.stringify(this.filterParam));
-    }
+		localStorage.setItem('filterList', JSON.stringify(this.filterParam));
+	}
 
-    onDialogHide() {
-        this.onCloseClicked();
-    }
+	onDialogHide() {
+		this.onCloseClicked();
+	}
 
-    onDisplayFilter() {
-        this.displayFilter = !this.displayFilter;
-        this.filterLabel = 'Filtro';
-    }
+	onDisplayFilter() {
+		this.displayFilter = !this.displayFilter;
+	}
 
-    onCloseClicked() {
-        this.displayFilter = false;
-    }
+	onCloseClicked() {
+		this.displayFilter = false;
+	}
 
-    onFilterClicked(zoomIn: boolean) {
-        this.updateFilter();
-        this.filterService.filterMap.next(zoomIn);
-        this.filterService.filterDashboard.next();
-        this.filterService.filterTable.next();
-        this.filterService.filterReport.next();
-    }
+	onFilterClicked(zoomIn: boolean) {
+		this.updateFilter();
+		this.filterService.filterMap.next(zoomIn);
+		this.filterService.filterDashboard.next();
+		this.filterService.filterTable.next();
+		this.filterService.filterReport.next();
+	}
 
-    onClearFilterClicked() {
-        this.authorizationDisable = true;
+	onClearFilterClicked() {
+		this.authorizationDisable = true;
 
-        this.cleanOthers();
-        this.specificSearchAreaComponent.clearAll();
+		this.cleanOthers();
+		this.specificSearchAreaComponent.clearAll();
 
-        this.onFilterClicked(false);
-    }
+		this.onFilterClicked(false);
+	}
 
-    onUpdateFilterTheme(theme: FilterTheme) {
-        this.filterParam.themeSelected = theme;
-    }
+	onUpdateFilterTheme(theme: FilterTheme) {
+		this.filterParam.themeSelected = theme;
+	}
 
-    onUpdateAlertType(alertType: FilterAlertType) {
-        this.filterParam.alertType = alertType;
-    }
+	onUpdateAlertType(alertType: FilterAlertType) {
+		this.filterParam.alertType = alertType;
+	}
 
-    onUpdateClassFilter(classSearch: FilterClass) {
-        this.filterParam.classSearch = classSearch;
-    }
+	onUpdateClassFilter(classSearch: FilterClass) {
+		this.filterParam.classSearch = classSearch;
+	}
 
-    onUpdateAuthorization(authorization: FilterAuthorization) {
-        this.filterParam.autorization = authorization;
-    }
+	onUpdateAuthorization(authorization: FilterAuthorization) {
+		this.filterParam.autorization = authorization;
+	}
 
-    onUpdateSpacificSearch(spacificSearch: FilterSpecificSearch) {
-        if (spacificSearch) {
-            this.cleanOthers();
-        }
+	onUpdateSpacificSearch(spacificSearch: FilterSpecificSearch) {
+		if (spacificSearch) {
+			this.cleanOthers();
+		}
 
-        this.filterParam.specificSearch = spacificSearch;
-    }
+		this.filterParam.specificSearch = spacificSearch;
+	}
 
-    cleanOthers() {
-        this.themeAreaComponent.clearAll();
-        // this.authorizationAreaComponent.clearAll();
-        this.alertTypeAreaComponent.clearAll();
-        this.classAreaComponent.clearAll();
-    }
+	cleanOthers() {
+		this.themeAreaComponent.clearAll();
+		// this.authorizationAreaComponent.clearAll();
+		this.alertTypeAreaComponent.clearAll();
+		this.classAreaComponent.clearAll();
+	}
 }

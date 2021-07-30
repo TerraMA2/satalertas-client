@@ -3,25 +3,25 @@ import {Property} from 'src/app/models/property.model';
 import {MapService} from '../../../services/map.service';
 
 @Component({
-    selector: 'app-property-data',
-    templateUrl: './property-data.component.html',
-    styleUrls: ['./property-data.component.css']
+	selector: 'app-property-data',
+	templateUrl: './property-data.component.html',
+	styleUrls: ['./property-data.component.css']
 })
 export class PropertyDataComponent implements OnInit {
 
-    @Input() property: Property;
+	@Input() property: Property;
 
-    constructor(
-      private mapService: MapService
-    ) {
-    }
+	constructor(
+		private mapService: MapService
+	) {
+	}
 
-    ngOnInit() {
+	ngOnInit() {
 
-    }
+	}
 
-    formatterCpfCnpj(cpfCnpj) {
-        return this.mapService.formatterCpfCnpj(cpfCnpj);
-    }
+	formatterCpfCnpj(cpfCnpj) {
+		return this.mapService.formatterCpfCnpj(cpfCnpj);
+	}
 
 }

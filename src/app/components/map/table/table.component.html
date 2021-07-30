@@ -19,7 +19,7 @@
          [totalRecords]="totalRecords"
          [value]="tableData"
          dataKey="gid"
-         exportFilename="Satélite_Alertas_CAR"
+         exportFilename="Satélites_Alertas_CAR"
          loadingIcon="fas fa-circle-notch color-black"
          responsive="true"
          rowExpandMode="single">
@@ -33,7 +33,7 @@
                     <p-multiSelect [(ngModel)]="selectedColumns"
                                    [options]="columns"
                                    [style]="{minWidth: '200px'}"
-                                   defaultLabel="Selecione as colunas"
+                                   defaultLabel="{{ 'selectColumns' | translate}}"
                                    optionLabel="header"
                                    selectedItemsLabel="{0} columns selected">
                     </p-multiSelect>
@@ -80,25 +80,25 @@
                                    [filter]="false"
                                    [options]="formats"
                                    [style]="{minWidth: '16rem'}"
-                                   defaultLabel="Selecione um formato"
+                                   defaultLabel="{{'selectFormat' | translate}}"
                                    maxSelectedLabels="4">
                     </p-multiSelect>
 
                     &nbsp;&nbsp;
 
-                    <button
+                    <p-button
                             (click)="onExportClick()"
                             *ngIf="tableReportActive"
                             [disabled]="isExportDisabled || isLoading"
-                            class="ui-button-raised"
                             icon="fas fa-save"
                             iconPos="left"
-                            label="Exportar"
-                            pButton
-                            pTooltip="Exportar selecionados"
+                            label="{{'export' | translate}}"
+                            pTooltip="{{ 'exportSelected' | translate }}"
+
+                            styleClass="ui-button-raised"
                             tooltipPosition="top"
                             type="button">
-                    </button>
+                    </p-button>
 
                 </div>
 
@@ -120,7 +120,7 @@
                 {{col.header}}
                 <p-sortIcon [field]="col.field"></p-sortIcon>
             </th>
-            <th *ngIf="tableReportActive" ></th>
+            <th *ngIf="tableReportActive"></th>
         </tr>
     </ng-template>
 
@@ -143,14 +143,15 @@
                 style="width:3em">
                 <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
             </td>
-            <td *ngFor="let col of columns; trackBy: trackById" pTooltip="{{ rowData[col.field] }}" tooltipPosition="top" style="overflow: hidden;word-break: break-all;">
+            <td *ngFor="let col of columns; trackBy: trackById" pTooltip="{{ rowData[col.field] }}"
+                style="overflow: hidden;word-break: break-all;" tooltipPosition="top">
                 {{rowData[col.field]}}
             </td>
             <td *ngIf="tableReportActive">
                 <button *ngIf="tableReportActive && showDeter"
                         class="btn ui-button-raised view-report-icon"
                         pButton
-                        pTooltip="Visualizar relatório Deter"
+                        pTooltip="{{ 'viewDeterReport' | translate }}"
                         routerLink="/finalReport/deter/{{getRegister(rowData)}}"
                         tooltipPosition="top">
                     <img src="assets/img/ico/deter32x32.png"/>
@@ -158,7 +159,7 @@
                 <button *ngIf="tableReportActive && showProdes"
                         class="btn ui-button-raised view-report-icon icon-margin"
                         pButton
-                        pTooltip="Visualizar relatório Prodes"
+                        pTooltip="{{ 'viewDeterReport' | translate }}"
                         routerLink="/finalReport/prodes/{{getRegister(rowData)}}"
                         tooltipPosition="top">
                     <img src="assets/img/ico/prodes32x32.png"/>
@@ -166,14 +167,14 @@
                 <button *ngIf="tableReportActive && showBurn"
                         class="btn ui-button-raised view-report-icon icon-margin"
                         pButton
-                        pTooltip="Visualizar relatório Queimada"
+                        pTooltip="{{ 'viewBurnedReport' | translate }}"
                         routerLink="/finalReport/queimada/{{getRegister(rowData)}}"
                         tooltipPosition="top">
                     <img src="assets/img/ico/queima.ico"/>
                 </button>
                 <button class="btn ui-button-raised view-report-icon icon-margin"
                         pButton
-                        pTooltip="Visualizar síntese do CAR"
+                        pTooltip="{{ 'viewSynthesis' | translate }}"
                         routerLink="/report/{{getRegister(rowData)}}">
                     <i class="fa fa-file-invoice synthesis-link"></i>
                 </button>
@@ -186,27 +187,27 @@
             <td [attr.colspan]="selectedColumns.length + 4">
                 <div *ngIf="reports.length > 0" class="p-grid text-left">
                     <div *ngFor="let report of reports; trackBy: trackById" class="p-col">
-                        <button (click)="getReport(report)"
-                                [label]="report.name"
-                                class="report-history-item ui-button-raised report-button"
-                                pButton
-                                pTooltip="Baixar relatório"
-                                tooltipPosition="top">
+                        <p-button (click)="getReport(report)"
+                                  [label]="report.name"
+                                  pTooltip="{{'downloadReport' | translate}}"
+
+                                  styleClass="report-history-item ui-button-raised report-button"
+                                  tooltipPosition="top">
                             {{report.createdAt | date:'dd/MM/yyyy HH:mm:ss' }}
-                        </button>
+                        </p-button>
                     </div>
                 </div>
                 <div *ngIf="reports.length === 0" class="p-grid text-center">
-                    <h4 class="p-col text-center">Não possui relatórios gerados!</h4>
+                    <h4 class="p-col text-center">{{ 'noReportFound' | translate}}</h4>
                 </div>
             </td>
         </tr>
     </ng-template>
 
     <ng-template let-state pTemplate="paginatorright">
-        <strong>{{state.totalRecords | number:'1.0-4':'pt' }} registros</strong>
+        <strong>{{state.totalRecords | number:'1.0-4':'pt' }} {{'registers' | translate}}</strong>
         &nbsp;
-        <strong *ngIf="tableReportActive">{{selectedProperties ? selectedProperties?.length : '0' }} selecionados</strong>
+        <strong *ngIf="tableReportActive">{{selectedProperties ? selectedProperties?.length : '0' }} {{'selecteds' | translate}}</strong>
     </ng-template>
 
 </p-table>

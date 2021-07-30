@@ -1,10 +1,10 @@
 <p-dialog (onHide)="onDialogHide()"
           [(visible)]="displayFilter"
-          [header]="filterLabel"
-          position="center"
+          [header]="'filter' | translate"
           [style]="{'width': '500px'}"
           autoZIndex="false"
-          baseZIndex="1001">
+          baseZIndex="1001"
+          position="center">
 
     <div class="p-grid">
         <div class="p-col-12 form-padding">

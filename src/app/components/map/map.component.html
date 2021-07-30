@@ -1,6 +1,7 @@
 <div [ngStyle]="{height: 'calc(100vh - 50px)'}" class="map" id="map">
     <div *ngIf="isLoading" class="loading-map">
-        <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="6" animationDuration="1s"></p-progressSpinner>
+        <p-progressSpinner [style]="{width: '50px', height: '50px'}" animationDuration="1s"
+                           strokeWidth="6"></p-progressSpinner>
     </div>
 </div>
 <p-sidebar (onHide)="onHideTable()"
@@ -18,9 +19,8 @@
 
 </p-sidebar>
 
-<app-visible-layers [selectedLayers]="selectedLayers"
-
-                    [displayVisibleLayers]="displayVisibleLayers">
+<app-visible-layers [displayVisibleLayers]="displayVisibleLayers"
+                    [selectedLayers]="selectedLayers">
 </app-visible-layers>
 
 <app-legend [displayLegend]="displayLegend"

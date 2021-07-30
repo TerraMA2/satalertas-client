@@ -29,7 +29,7 @@ export class Property {
         public owner: string,
         public foundProdes: boolean,
         public foundDeter: boolean,
-        public foundBurnlight: boolean,
+        public foundFireSpot: boolean,
         public cpf?: string,
         public county?: string,
         public prodesArea?: number,

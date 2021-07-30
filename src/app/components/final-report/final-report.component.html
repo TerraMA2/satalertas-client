@@ -1,57 +1,54 @@
 <p-toolbar>
     <div class="p-toolbar-group-left">
-        <button class="p-button-raised"
-                icon="fas fa-arrow-left"
-                label="Voltar ao mapa"
-                pButton
-                routerLink="/map">
-        </button>
+        <p-button icon="fas fa-arrow-left"
+                  label="Voltar ao mapa"
+                  routerLink="/map"
+
+                  styleClass="p-button-raised">
+        </p-button>
         &nbsp;&nbsp;
-        <button (click)="onViewReportClicked('')"
-                class="btn btn-icon p-button-raised view-report-icon icon-margin synthesis-link"
-                pButton
-                pTooltip="Visualizar Síntese"
-                tooltipPosition="top">
+        <p-button (click)="onViewReportClicked('')"
+                  pTooltip="{{ 'viewSynthesis' | translate }}"
+
+                  styleClass="btn btn-icon p-button-raised view-report-icon icon-margin synthesis-link"
+                  tooltipPosition="top">
             <span class="fas fa-file-invoice synthesis-icon"></span>
-        </button>
+        </p-button>
         &nbsp;&nbsp;
-        <button (click)="onViewReportClicked('deter')"
-                class="btn btn-icon p-button-raised view-report-icon"
-                pButton
-                pTooltip="Visualizar relatório Deter"
-                tooltipPosition="top">
+        <p-button (click)="onViewReportClicked('deter')"
+                  pTooltip="{{'viewDeterReport' | translate}}"
+                  styleClass="btn btn-icon p-button-raised view-report-icon"
+                  tooltipPosition="top">
             <img src="assets/img/ico/deter32x32.png"/>
-        </button>
-        <button (click)="onViewReportClicked('prodes')"
-                class="btn btn-icon p-button-raised view-report-icon icon-margin"
-                pButton
-                pTooltip="Visualizar relatório Prodes"
-                tooltipPosition="top">
+        </p-button>
+        <p-button (click)="onViewReportClicked('prodes')"
+                  pTooltip="{{'viewPordesReport' | translate}}"
+                  styleClass="btn btn-icon p-button-raised view-report-icon icon-margin"
+                  tooltipPosition="top">
             <img src="assets/img/ico/prodes32x32.png"/>
-        </button>
-        <button (click)="onViewReportClicked('queimada')"
-                class="btn btn-icon p-button-raised view-report-icon icon-margin"
-                pButton
-                pTooltip="Visualizar relatório Queimada"
-                tooltipPosition="top">
+        </p-button>
+        <p-button (click)="onViewReportClicked('queimada')"
+                  pTooltip="{{'viewBurnedReport' | translate}}"
+                  styleClass="btn btn-icon p-button-raised view-report-icon icon-margin"
+                  tooltipPosition="top">
             <img src="assets/img/ico/queima.ico"/>
-        </button>
+        </p-button>
     </div>
     <div class="p-toolbar-group-right">
-        <div class="report-buttons" *ngIf="loggedUser.administrator">
-            <button (click)="generatePdf('open')"
-                    [disabled]="!docBase64 || generatingReport"
-                    icon="fas fa-download p-button-raised"
-                    label="Gerar Relatório"
-                    pButton
-                    type="button">
-            </button>
+        <div *ngIf="loggedUser.administrator" class="report-buttons">
+            <p-button (click)="generatePdf('open')"
+                      [disabled]="!docBase64 || generatingReport"
+                      icon="fas fa-download p-button-raised"
+                      label="{{'generateReport' | translate}}"
+
+                      type="button">
+            </p-button>
             <div class="vector-button">
-                <p-inputSwitch [disabled]="!docBase64 || generatingReport"
-                               id="getVectors"
-                               [(ngModel)]="downloadVectors">
+                <p-inputSwitch [(ngModel)]="downloadVectors"
+                               [disabled]="!docBase64 || generatingReport"
+                               id="getVectors">
                 </p-inputSwitch>
-                <label for="getVectors">Baixar Vetores</label>
+                <label for="getVectors">{{'downloadVectors' | translate}}</label>
             </div>
         </div>
     </div>
@@ -95,6 +92,6 @@
 </div>
 
 <div *ngIf="!docBase64" class="final-report-loading">
-    <p-progressSpinner strokeWidth="6" animationDuration="1s"></p-progressSpinner>
+    <p-progressSpinner animationDuration="1s" strokeWidth="6"></p-progressSpinner>
 </div>
 <p-confirmDialog [baseZIndex]="10000" [style]="{width: '25vw'}"></p-confirmDialog>

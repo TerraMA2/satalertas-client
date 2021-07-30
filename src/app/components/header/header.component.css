@@ -70,3 +70,23 @@
 :host ::ng-deep .hide-button {
     display: none;
 }
+
+.flag-container {
+    display: flex;
+}
+
+.flag {
+    background: url('src/assets/img/flags_responsive.png') no-repeat;
+    background-size: 100%;
+    vertical-align: middle;
+    width: 30px;
+    margin-right: 5px;
+}
+
+.flag-br {
+    background-position: 0 11.983471%;
+}
+
+.flag-us {
+    background-position: 0 93.38843%;
+}

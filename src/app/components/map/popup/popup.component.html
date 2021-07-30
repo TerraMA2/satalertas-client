@@ -2,51 +2,51 @@
     <div class="table-container">
         <table class="table table-hover">
             <thead>
-                <tr>
-                    <th colspan="2">{{ layerLabel }}</th>
-                </tr>
+            <tr>
+                <th colspan="2">{{ layerLabel }}</th>
+            </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let data of tableData">
-                    <td>{{ data.key }}</td>
-                    <td *ngIf="!data.type">{{ data.value }}</td>
-                    <td *ngIf="data.type == 'decimal'">{{ data.value | number:'1.0-4':'pt' }}</td>
-                    <td *ngIf="data.type == 'cpf'">{{ formatCPFCNPJ(data.value) }}</td>
-                </tr>
+            <tr *ngFor="let data of tableData">
+                <td>{{ data.key }}</td>
+                <td *ngIf="!data.type">{{ data.value }}</td>
+                <td *ngIf="data.type == 'decimal'">{{ data.value | number:'1.0-4':'pt' }}</td>
+                <td *ngIf="data.type == 'cpf'">{{ formatCPFCNPJ(data.value) }}</td>
+            </tr>
             </tbody>
         </table>
     </div>
     <div class="link-container">
-        <a routerLink="{{ linkSynthesis }}"
-           class="btn btn-icon p-button-raised view-report-icon icon-margin synthesis-link"
-           pButton
-           pTooltip="Visualizar Síntese"
+        <a class="btn btn-icon p-button-raised view-report-icon icon-margin synthesis-link"
+           pTooltip="{{'viewSynthesis' | translate}}"
+
+           routerLink="{{ linkSynthesis }}"
            tooltipPosition="top">
             <span class="fas fa-file-invoice synthesis-icon"></span>
         </a>
         <div *ngIf="linkDETER">
-            <a routerLink="{{ linkDETER }}"
-               class="btn btn-icon p-button-raised view-report-icon icon-margin"
-               pButton
-               pTooltip="Visualizar relatório Deter"
+            <a class="btn btn-icon p-button-raised view-report-icon icon-margin"
+               pTooltip="{{'viewDeterReport' | translate}}"
+
+               routerLink="{{ linkDETER }}"
                tooltipPosition="top">
                 <img src="assets/img/ico/deter32x32.png"/>
             </a>
         </div>
         <div *ngIf="linkPRODES">
-            <a routerLink="{{ linkPRODES }}"
-               class="btn btn-icon p-button-raised view-report-icon icon-margin"
-               pButton
-               pTooltip="Visualizar relatório Prodes"
+            <a class="btn btn-icon p-button-raised view-report-icon icon-margin"
+               pTooltip="{{'viewProdesReport' | translate}}"
+
+               routerLink="{{ linkPRODES }}"
                tooltipPosition="top">
                 <img src="assets/img/ico/prodes32x32.png"/>
             </a>
         </div>
-        <div *ngIf="linkBurnlight">
-            <a routerLink="{{ linkBurnlight }}"
-               class="btn btn-icon p-button-raised view-report-icon icon-margin"
-               pButton
-               pTooltip="Visualizar relatório Queimada"
+        <div *ngIf="linkFireSpot">
+            <a class="btn btn-icon p-button-raised view-report-icon icon-margin"
+               pTooltip="{{'viewBurnedReport' | translate}}"
+
+               routerLink="{{ linkFireSpot }}"
                tooltipPosition="top">
                 <img src="assets/img/ico/queima.ico"/>
             </a>

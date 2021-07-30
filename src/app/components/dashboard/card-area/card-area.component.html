@@ -4,11 +4,11 @@
             class="box-card p-col-12 p-md-3"
             header="{{alert.label}}">
 
-        <app-card-button (areaClick)="areaClick.emit($event)"
-                         (alertClick)="alertClick.emit($event)"
+        <app-card-button (alertClick)="alertClick.emit($event)"
+                         (areaClick)="areaClick.emit($event)"
                          [alert]="alert"
-                         [labelArea]="getLabelArea(alert)"
-                         [labelNumCars]="getLabelNumCars()"
+                         [labelArea]="getLabelArea(alert) | translate"
+                         [labelNumCars]="getLabelNumCars() | translate"
                          [unitOfMeasurement]="getUnitOfMeasurement(alert)"
                          [valueArea]="getValueArea(alert)"
                          [valueNumCars]="getValueNumCars(alert)">

@@ -1,10 +1,10 @@
 <div *ngIf="isLoading" class="loading-dashboard">
-    <p-progressSpinner strokeWidth="6" animationDuration="1s"></p-progressSpinner>
+    <p-progressSpinner animationDuration="1s" strokeWidth="6"></p-progressSpinner>
 </div>
 <p-scrollPanel *ngIf="!isLoading" [style]="{width: '100%', height: 'calc(100vh - 50px)'}" styleClass="scrollbar">
     <app-card-area
-            (areaClick)="areaClick($event)"
             (alertClick)="alertClick($event)"
+            (areaClick)="areaClick($event)"
             [alertsDisplayed]="alertsDisplayed">
     </app-card-area>
 

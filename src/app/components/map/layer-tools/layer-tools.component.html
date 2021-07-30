@@ -2,15 +2,15 @@
         (onHide)="onLayerToolHide()"
         [(visible)]="displayLayerTools"
         [blockScroll]="true"
-        position="top-left"
         [style]="{top: '60px', left: '410px' }"
-        header="{{layer?.shortLabel }}"
         autoZIndex="false"
-        baseZIndex="1001">
+        baseZIndex="1001"
+        header="{{layer?.shortLabel }}"
+        position="top-left">
 
     <p-accordion [multiple]="true" [style]="{'min-width': '250px'}">
         <p-accordionTab [selected]="toolSelected === 'description'"
-                        header="Descrição">
+                        header="{{'description' | translate}}">
             <div style="max-width: 500px">
                 {{layer?.description }}
             </div>
@@ -18,7 +18,7 @@
 
         <p-accordionTab *ngIf="loggedUser && loggedUser.administrator"
                         [selected]="toolSelected === 'export'"
-                        header="Exportação">
+                        header="{{'exportation' | translate}}">
             <p-listbox [(ngModel)]="selectedFormats"
                        [options]="formats"
                        checkbox="checkbox"
@@ -27,16 +27,18 @@
             <br>
             <div class="p-grid p-align-center p-justify-end p-nogutter">
                 <div *ngIf="isExportLoading">
-                    <p-progressSpinner strokeWidth="6" [style]="{width: '25px', height: '25px'}" animationDuration="1s"></p-progressSpinner>
+                    <p-progressSpinner [style]="{width: '25px', height: '25px'}" animationDuration="1s"
+                                       strokeWidth="6"></p-progressSpinner>
                 </div>
                 &nbsp;
-                <button (click)="onExportClick()" [disabled]="isExportLoading" class="p-button-raised" label="Exportar"
-                        pButton></button>
+                <p-button (click)="onExportClick()" [disabled]="isExportLoading" label="{{'export' | translate}}"
+                          styleClass="p-button-raised"
+                ></p-button>
             </div>
         </p-accordionTab>
 
         <p-accordionTab [selected]="toolSelected === 'opacity'"
-                        header="Opacidade">
+                        header="{{'opacity' | translate}}">
             <p-slider (onChange)="onOpacityChange($event)" [(ngModel)]="opacity" [animate]="true"></p-slider>
             <br/>
             <strong>{{opacity }} %</strong>

@@ -10,45 +10,44 @@ import {environment} from 'src/environments/environment';
 
 import {SidebarService} from '../services/sidebar.service';
 import {PrimeNGConfig} from 'primeng/api';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css']
+	selector: 'app-root',
+	templateUrl: './app.component.html',
+	styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
 
-    displayAbout = false;
-    displaySidebar = true;
+	displayAbout = false;
+	displaySidebar = true;
 
-    constructor(
-        private configService: ConfigService,
-        private titleService: Title,
-        private authService: AuthService,
-        private sidebarService: SidebarService,
-        private config: PrimeNGConfig
-    ) {
-    }
+	constructor(
+		private configService: ConfigService,
+		private titleService: Title,
+		private authService: AuthService,
+		private sidebarService: SidebarService,
+		private config: PrimeNGConfig,
+		private translateService: TranslateService
+	) {
+		this.translateService.setDefaultLang(this.configService.getAppConfig('locale').defaultLanguage.value);
+		this.translateService.get('primeng').subscribe(res => this.config.setTranslation(res));
+		this.translateService.get('pageTitle').subscribe((res) => this.titleService.setTitle(res));
+	}
 
-    ngOnInit() {
-        const filterLocale = this.configService.getFilterConfig('locale');
-        this.config.setTranslation(filterLocale);
-        this.authService.autoLogin();
+	ngOnInit() {
+		this.authService.autoLogin();
 
-        if (environment.production) {
-            localStorage.removeItem('dateFilter');
-            localStorage.removeItem('mapState');
-            localStorage.removeItem('filterList');
-        }
+		if (environment.production) {
+			localStorage.removeItem('dateFilter');
+			localStorage.removeItem('mapState');
+			localStorage.removeItem('filterList');
+		}
+		this.sidebarService.sidebarAbout.subscribe(show => this.displayAbout = show);
+	}
 
-        const pageTitle = this.configService.getAppConfig('pageTitle');
-        this.titleService.setTitle(pageTitle);
-
-        this.sidebarService.sidebarAbout.subscribe(show => this.displayAbout = show);
-    }
-
-    showHideSidebar(displaySidebar: boolean) {
-        this.displaySidebar = displaySidebar;
-    }
+	showHideSidebar(displaySidebar: boolean) {
+		this.displaySidebar = displaySidebar;
+	}
 
 }

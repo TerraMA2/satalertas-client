@@ -1,31 +1,31 @@
 import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
-    selector: 'app-burned-areas-chart',
-    templateUrl: './burned-areas-chart.component.html',
-    styleUrls: ['./burned-areas-chart.component.css']
+	selector: 'app-burned-areas-chart',
+	templateUrl: './burned-areas-chart.component.html',
+	styleUrls: ['./burned-areas-chart.component.css']
 })
 export class BurnedAreasChartComponent implements OnInit {
 
-    @Input() burnedAreasChartData;
+	@Input() burnedAreasChartData;
 
-    @Input() burnedAreasPerPropertyChartDatas;
+	@Input() burnedAreasPerPropertyChartDatas;
 
-    options;
+	options;
 
-    constructor() {
-    }
+	constructor() {
+	}
 
-    ngOnInit() {
-        this.options = {
-            title: {
-                display: false
-            }
-        };
-    }
+	ngOnInit() {
+		this.options = {
+			title: {
+				display: false
+			}
+		};
+	}
 
-    trackById(index, item) {
-        return item.id;
-    }
+	trackById(index, item) {
+		return item.id;
+	}
 
 }

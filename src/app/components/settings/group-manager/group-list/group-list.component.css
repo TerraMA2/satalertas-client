@@ -1,4 +1,4 @@
-:host ::ng-deep .priority-2, 
+:host ::ng-deep .priority-2,
 :host ::ng-deep .priority-3,
 :host ::ng-deep .visibility-sm {
     display: none;
@@ -26,7 +26,7 @@
     color: rgb(20, 72, 20);
     align-items: center;
 }
-  
+
 .no {
     color: rgb(191, 37, 37);
     font: bold;

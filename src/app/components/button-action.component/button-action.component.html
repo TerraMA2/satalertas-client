@@ -1,22 +1,20 @@
-<div id="actions" class="p-grid p-col-12" >
-  <div  *ngIf="!action" >
-    <button
-            *ngFor="let confBut of confButtons; trackBy: trackById"
-            type="button"
-            [ngClass]="confBut.buttonClass"
-            [disabled]="confBut.disable"
-            (click)="confBut.action()">
-      {{confBut.label}}
-    </button>
-  </div>
-  <div *ngIf="action && action=='action'" >
-    <button
-      *ngFor="let confBut of confButtons; trackBy: trackById"
-      type="button"
-      [ngClass]="confBut.buttonClass"
-      [disabled]="confBut.disable"
-      (click)="confBut.action(rowData)">
-      <i [ngClass]="confBut.buttonClassIco"></i>
-    </button>
-  </div>
+<div class="p-grid p-col-12" id="actions">
+    <div *ngIf="!action">
+        <p-button
+                (click)="confBut.action()"
+                *ngFor="let confBut of confButtons; trackBy: trackById"
+                [disabled]="confBut.disable"
+                [ngClass]="confBut.buttonClass">
+            {{confBut.label}}
+        </p-button>
+    </div>
+    <div *ngIf="action && action=='action'">
+        <p-button
+                (click)="confBut.action(rowData)"
+                *ngFor="let confBut of confButtons; trackBy: trackById"
+                [disabled]="confBut.disable"
+                [ngClass]="confBut.buttonClass">
+            <i [ngClass]="confBut.buttonClassIco"></i>
+        </p-button>
+    </div>
 </div>

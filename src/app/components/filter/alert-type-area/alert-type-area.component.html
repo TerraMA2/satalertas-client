@@ -1,5 +1,5 @@
 <div *ngIf="checkAlertTypeValid()">
-    <h3 class="form-margin">Tipo do alerta</h3>
+    <h3 class="form-margin">{{ 'alertType' | translate }}</h3>
     <div class="p-formgroup-inline">
         <div class="p-field-checkbox">
             <p-radioButton [(ngModel)]="alertType.radioValue"
@@ -7,7 +7,7 @@
                            inputId="preopt1"
                            value="ALL">
             </p-radioButton>
-            <label>Todos</label>
+            <label>{{ 'all' | translate }}</label>
         </div>
         <div class="p-field-checkbox">
             <p-radioButton [(ngModel)]="alertType.radioValue"
@@ -16,13 +16,13 @@
                            name="OCCURRENCE-AREA"
                            value="OCCURRENCE-AREA">
             </p-radioButton>
-            <label>Áreas/Ocorrências</label>
+            <label> {{'areasOccurrences' | translate}}</label>
         </div>
     </div>
 
     <div *ngIf="checkAnalyzesValid()">
         <div *ngFor="let analyze of alertType.analyzes; trackBy: trackById">
-            <h3 class="form-margin">{{analyze.label}}</h3>
+            <h3 class="form-margin">{{analyze.label | translate}}</h3>
             <div class="p-grid">
                 <div [ngClass]="{'p-col-6': isCustomSelected(analyze), 'p-col-12 form-padding': !isCustomSelected(analyze) }">
                     <p-dropdown
@@ -50,7 +50,7 @@
                            [name]="'specificValueInput'"
                            class="width-100"
                            pInputText
-                           placeholder="Digite o valor"
+                           placeholder="{{ 'typeValue' | translate}}"
                            type="text">
                 </div>
             </div>

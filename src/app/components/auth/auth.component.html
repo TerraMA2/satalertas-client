@@ -7,38 +7,38 @@
         </div>
 
         <div *ngIf="!isLoading">
-            <h2>Login</h2>
+            <h2>{{'login' | translate}}</h2>
             <hr>
             <br>
             <form #loginForm="ngForm" (ngSubmit)="onLoginClicked(loginForm)">
                 <div class="p-inputgroup">
                     <span class="p-inputgroup-addon"><i class="fas fa-user"></i></span>
-                    <input name="username" ngModel pInputText placeholder="Usuário" size="30" type="text"/>
+                    <input name="username" ngModel pInputText placeholder="{{'user' | translate}}" size="30"
+                           type="text"/>
                 </div>
 
                 <br>
 
                 <div class="p-inputgroup">
                     <span class="p-inputgroup-addon"><i class="fas fa-key"></i></span>
-                    <input name="password" ngModel pInputText placeholder="Senha" size="30" type="password"/>
+                    <input name="password" ngModel pInputText placeholder="{{'password' | translate}}" size="30"
+                           type="password"/>
                 </div>
 
                 <br/><br/>
 
-                <button class="p-button-raised width-100"
-                        label="Login"
-                        pButton
-                        type="submit">
-                </button>
+                <p-button label="{{'login' | translate}}"
+                          styleClass="p-button-raised width-100"
+                          type="submit">
+                </p-button>
 
                 <br/><br/>
 
-                <button (click)="onCloseLoginClick()"
-                        class="p-button-secondary width-100 p-button-raised"
-                        label="Fechar"
-                        pButton
-                        type="button">
-                </button>
+                <p-button (click)="onCloseLoginClick()"
+                          label="{{'close' | translate}}"
+                          styleClass="p-button-secondary width-100 p-button-raised"
+                          type="button">
+                </p-button>
             </form>
         </div>
 
