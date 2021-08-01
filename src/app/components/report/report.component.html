@@ -3,7 +3,6 @@
         <p-button icon="fas fa-arrow-left"
                   label="Voltar ao mapa"
                   routerLink="/map"
-
                   styleClass="p-button-raised">
         </p-button>
     </div>
@@ -12,31 +11,34 @@
                            strokeWidth="6"></p-progressSpinner>
     </div>
     <div class="p-toolbar-group-right">
-        <p-button (click)="onViewReportClicked('deter')"
+        <button (click)="onViewReportClicked('deter')"
                   pTooltip="{{'viewDeterReport' | translate}}"
-                  styleClass="btn btn-icon p-button-raised view-report-icon"
+                pButton
+                  class="btn-icon p-button-raised view-report-icon icon-margin"
                   tooltipPosition="top">
             <img src="assets/img/ico/deter32x32.png"/>
-        </p-button>
-        <p-button (click)="onViewReportClicked('prodes')"
-                  pTooltip="{{'viewPordesReport' | translate}}"
-                  styleClass="btn btn-icon p-button-raised view-report-icon icon-margin"
+        </button>
+        <button (click)="onViewReportClicked('prodes')"
+                  pTooltip="{{'viewProdesReport' | translate}}"
+                pButton
+                  class="btn-icon p-button-raised view-report-icon icon-margin"
                   tooltipPosition="top">
             <img src="assets/img/ico/prodes32x32.png"/>
-        </p-button>
-        <p-button (click)="onViewReportClicked('queimada')"
+        </button>
+        <button (click)="onViewReportClicked('queimada')"
                   pTooltip="{{'viewBurnedReport' | translate}}"
-                  styleClass="btn btn-icon p-button-raised view-report-icon icon-margin"
+                  class="btn-icon p-button-raised view-report-icon icon-margin"
+                pButton
                   tooltipPosition="top">
             <img src="assets/img/ico/queima.ico"/>
-        </p-button>
+        </button>
     </div>
 </p-toolbar>
 
 <p-scrollPanel [style]="{width: '100%', height: 'calc(100vh - 100px)'}">
     <div class="background-color-gray">
         <br>
-        <div class="container" id="print-section">
+        <div class="container">
             <app-property-data [property]="property"></app-property-data>
             <hr>
             <app-vision [legends]="visionLegends" [visions]="visions"></app-vision>
@@ -46,13 +48,11 @@
             <br>
             <app-deforestation [deforestations]="deforestations"></app-deforestation>
             <br>
-            <app-deforestation-history-deter
-                    [deforestationHistoryDeters]="deforestationHistoryDeters"></app-deforestation-history-deter>
+            <app-deforestation-history-deter [deforestationHistoryDeters]="deforestationHistoryDeters"></app-deforestation-history-deter>
             <br>
             <app-history-deter-chart [data]="historyDeterChartData"></app-history-deter-chart>
             <br>
-            <app-deforestation-history-prodes
-                    [deforestationHistoryProdes]="deforestationHistoryProdes"></app-deforestation-history-prodes>
+            <app-deforestation-history-prodes [deforestationHistoryProdes]="deforestationHistoryProdes"></app-deforestation-history-prodes>
             <br>
             <app-history-prodes-chart [data]="historyProdesChartData"></app-history-prodes-chart>
             <br>
