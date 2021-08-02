@@ -38,16 +38,12 @@
             <p-footer class="date-footer">
                 <p-button (click)="onTodayClick()"
                           label="{{ 'primeng.today' | translate }}"
-                          styleClass="date-button date-button-today p-button-raised"
-
-                          type="button">
+                          styleClass="date-button date-button-today p-button-raised">
                 </p-button>
                 <p-button (click)="onFilterClick()"
                           [disabled]="(dateInput && !dateInput[1] && dateInput[1] === null)"
                           label="{{ 'calendarFilterButton' | translate}}"
-                          styleClass="date-button button-right p-button-raised"
-
-                          type="button">
+                          styleClass="date-button button-right p-button-raised">
                 </p-button>
             </p-footer>
         </p-calendar>

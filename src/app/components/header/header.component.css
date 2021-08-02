@@ -43,7 +43,9 @@
 }
 
 .date-footer {
-    margin-top: 5rem;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
 }
 
 .date-button {

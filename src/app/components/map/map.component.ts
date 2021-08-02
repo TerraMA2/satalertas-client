@@ -52,7 +52,7 @@ import {environment} from 'src/environments/environment';
 	styleUrls: ['./map.component.css']
 })
 
-export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
+export class MapComponent implements OnInit, AfterViewInit {
 	selectedLayers: Layer[] = [];
 	layerTool: Layer;
 	toolSelected: string;
@@ -97,14 +97,9 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
 		this.sidebarService.sidebarReload.next();
 	}
 
-	// ngOnDestroy() {
-	// this.setLocalStorageData(); Removed because on some layers the system was crashing. Need to fix this.
-	// }
-
 	ngAfterViewInit() {
 		this.setMap();
 		this.setControls();
-		// this.getLocalStorageData(); Removed because on some layers the system was crashing. Need to fix this.
 		this.setBaseLayers();
 		this.setOverlayEvents();
 		this.authService.user.subscribe(user => {
@@ -147,57 +142,6 @@ export class MapComponent implements OnInit, AfterViewInit/*, OnDestroy*/ {
 		this.setVisibleLayersControl();
 		this.setMarkersGroup();
 	}
-
-	// getLocalStorageData() {
-	//     if (sessionStorage.getItem('mapState')) {
-	//         const mapState: MapState = JSON.parse(sessionStorage.getItem('mapState'));
-	//         this.selectedBaseLayer = mapState.selectedBaseLayer;
-	//         const previousSelectedLayers: Layer[] = mapState.selectedLayers;
-	//         const previousLatLong = mapState.mapLatLong;
-	//         const previousZoom = mapState.mapZoom;
-	//         this.selectedMarker = mapState.selectedMaker;
-	//
-	//         if (previousSelectedLayers && previousSelectedLayers.length > 0) {
-	//             previousSelectedLayers.forEach((layer: Layer) => {
-	//                 this.addLayer(layer, true);
-	//                 if (layer.markerSelected) {
-	//                     this.selectedPrimaryLayer = layer;
-	//                     this.updateMarkers(layer);
-	//                 }
-	//             });
-	//         } else {
-	//             if (this.selectedMarker) {
-	//                 const marker = this.createMarker(this.selectedMarker.title,
-	//                     this.selectedMarker.latLong,
-	//                     this.selectedMarker.overlayName,
-	//                     this.selectedMarker.link
-	//                 );
-	//                 this.markerClusterGroup.addLayer(marker);
-	//                 this.markerClusterGroup.addTo(this.map);
-	//                 marker.fire('click');
-	//             }
-	//         }
-	//         this.panMap(previousLatLong, previousZoom);
-	//     }
-	//     sessionStorage.removeItem('mapState');
-	// }
-
-	// setLocalStorageData() {
-	//     if (this.selectedLayers) {
-	//         const mapState = new MapState(
-	//             this.selectedLayers,
-	//             this.selectedMarker,
-	//             this.map.getZoom(),
-	//             [
-	//                 this.map.getCenter().lat,
-	//                 this.map.getCenter().lng
-	//             ],
-	//             this.tableReportActive,
-	//             this.selectedBaseLayer
-	//         );
-	//         sessionStorage.setItem('mapState', JSON.stringify(mapState));
-	//     }
-	// }
 
 	setBaseLayers() {
 		this.mapConfig.baselayers.forEach(baseLayerData => {

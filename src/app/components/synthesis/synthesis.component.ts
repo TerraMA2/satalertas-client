@@ -13,6 +13,7 @@ import {SidebarService} from 'src/app/services/sidebar.service';
 import {SynthesisService} from '../../services/synthesis.service';
 
 import {Response} from '../../models/response.model';
+import {ReportService} from '../../services/report.service';
 
 @Component({
 	selector: 'app-report',
@@ -51,7 +52,8 @@ export class SynthesisComponent implements OnInit {
 		private synthesisService: SynthesisService,
 		private filterService: FilterService,
 		private sidebarService: SidebarService,
-		private router: Router,
+		private reportService: ReportService,
+		private router: Router
 	) {
 	}
 
@@ -81,8 +83,9 @@ export class SynthesisComponent implements OnInit {
 		const endDate = new Date(date[1]).toLocaleDateString('pt-BR');
 
 		this.formattedFilterDate = `${startDate} - ${endDate}`;
+		this.synthesisService.getNDVI(this.carRegister, date).then(data => this.chartImages = data);
 
-		await this.synthesisService.getSynthesis(this.carRegister, date, this.formattedFilterDate, JSON.stringify(cardsConfig)).then(async (response: Response) => {
+		this.synthesisService.getSynthesis(this.carRegister, date, this.formattedFilterDate, JSON.stringify(cardsConfig)).then((response: Response) => {
 			const propertyData = response.data;
 
 			this.property = propertyData;
@@ -99,8 +102,6 @@ export class SynthesisComponent implements OnInit {
 			this.burningFireSpotChartData = this.synthesisService.getChart(this.fireSpotHistory, 'Focos');
 			this.burnedAreasChartData = this.synthesisService.getChart(this.burnedAreaHistory, 'Áreas Queimadas');
 			this.burnedAreasPerPropertyChartDatas = this.synthesisService.getPerPropertyChart(this.burnedAreaHistory, propertyData.area, 'Áreas Queimadas');
-			const prodesAlerts = propertyData.prodesAlerts.data;
-			this.chartImages = this.synthesisService.getNDVI(prodesAlerts);
 			this.isLoading = false;
 		});
 	}

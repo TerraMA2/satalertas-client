@@ -40,7 +40,6 @@ export class AppComponent implements OnInit {
 
 		if (environment.production) {
 			localStorage.removeItem('dateFilter');
-			localStorage.removeItem('mapState');
 			localStorage.removeItem('filterList');
 		}
 		this.sidebarService.sidebarAbout.subscribe(show => this.displayAbout = show);
