@@ -7,6 +7,8 @@ import {Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 
 import {environment} from '../../environments/environment';
+import {Response} from '../models/response.model';
+import {ReportService} from './report.service';
 
 @Injectable({
     providedIn: 'root'
@@ -18,7 +20,8 @@ export class SynthesisService {
     property = new Subject<Property>();
 
     constructor(
-        private http: HttpClient
+        private http: HttpClient,
+        private reportService: ReportService
     ) {
     }
 
@@ -27,20 +30,23 @@ export class SynthesisService {
         const parameters = {carRegister, date, formattedFilterDate, synthesisConfig};
         return await this.http.get(url, {params: parameters}).toPromise();
     }
-    getNDVI(prodesAlerts) {
-        const chartImages = [];
-        for (const alert of prodesAlerts) {
-            const chartOptions = alert['options']['options'];
-            const chartData = alert['options']['data'];
-            const url = alert['url'];
-            const chartImage = {
-                geoserverImageNdvi: url,
-                chartData,
-                chartOptions
-            };
-            chartImages.push(chartImage);
-        }
-        return chartImages;
+    getNDVI(carRegister, date) {
+        return this.reportService.getPointsAlerts(carRegister, date, null, 'prodes').then((response: Response) => {
+            const data = response.data
+            const chartImages = [];
+            for (const alert of data) {
+                const chartOptions = alert['options']['options'];
+                const chartData = alert['options']['data'];
+                const url = alert['url'];
+                const chartImage = {
+                    geoserverImageNdvi: url,
+                    chartData,
+                    chartOptions
+                };
+                chartImages.push(chartImage);
+            }
+            return chartImages;
+        });
     }
     getChart(chartData, legends) {
         const years = [];
