@@ -1,0 +1,27 @@
+<section *ngIf="chartImages && chartImages.length > 0">
+    <h2 class="text-center">
+        Áreas de desmatamento (PRODES) e gráfico NDVI (SATVeg - Embrapa)
+        <br/>
+        <small>{{ formattedFilterDate }}</small>
+    </h2>
+    <hr>
+    <br>
+    <div class="p-grid">
+        <div *ngFor="let chartImage of chartImages; trackBy: trackById; let i = index" class="p-col-12 p-md-12">
+            <div class="card text-center">
+                <p-card class="p-card-shadow">
+                    <div class="p-grid p-align-center p-justify-center">
+                        <img src="{{chartImage.geoserverImageNdvi}}"/>
+                    </div>
+                    <br>
+                    <div class="p-grid p-align-center p-justify-center">
+                        <p-chart [data]="chartImage.chartData" [options]="chartImage.chartOptions" class="width-100" type="line"></p-chart>
+                    </div>
+                    <br>
+                    <br>
+                </p-card>
+            </div>
+        </div>
+    </div>
+    <hr>
+</section>

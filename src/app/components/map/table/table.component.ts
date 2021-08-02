@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+	import {Component, Input, OnInit} from '@angular/core';
 
 import {LazyLoadEvent, MessageService} from 'primeng/api';
 

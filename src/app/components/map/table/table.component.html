@@ -152,7 +152,7 @@
                         class="btn ui-button-raised view-report-icon"
                         pButton
                         pTooltip="{{ 'viewDeterReport' | translate }}"
-                        routerLink="/finalReport/deter/{{getRegister(rowData)}}"
+                        routerLink="/report/deter/{{getRegister(rowData)}}"
                         tooltipPosition="top">
                     <img src="assets/img/ico/deter32x32.png"/>
                 </button>
@@ -160,7 +160,7 @@
                         class="btn ui-button-raised view-report-icon icon-margin"
                         pButton
                         pTooltip="{{ 'viewDeterReport' | translate }}"
-                        routerLink="/finalReport/prodes/{{getRegister(rowData)}}"
+                        routerLink="/report/prodes/{{getRegister(rowData)}}"
                         tooltipPosition="top">
                     <img src="assets/img/ico/prodes32x32.png"/>
                 </button>
@@ -168,14 +168,14 @@
                         class="btn ui-button-raised view-report-icon icon-margin"
                         pButton
                         pTooltip="{{ 'viewBurnedReport' | translate }}"
-                        routerLink="/finalReport/queimada/{{getRegister(rowData)}}"
+                        routerLink="/report/queimada/{{getRegister(rowData)}}"
                         tooltipPosition="top">
                     <img src="assets/img/ico/queima.ico"/>
                 </button>
                 <button class="btn ui-button-raised view-report-icon icon-margin"
                         pButton
                         pTooltip="{{ 'viewSynthesis' | translate }}"
-                        routerLink="/report/{{getRegister(rowData)}}">
+                        routerLink="/synthesis/{{getRegister(rowData)}}">
                     <i class="fa fa-file-invoice synthesis-link"></i>
                 </button>
             </td>

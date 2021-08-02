@@ -105,11 +105,12 @@ export class ConfigService {
         }
         return mapConfig;
     }
-    async getReportConfig() {
-        const parameters = {};
-        const url = `${URL_REPORT_SERVER}/config/getSynthesisConfig`;
-
-        return await this.http.get(url, {params: parameters}).toPromise();
+    getSynthesisConfig(name = '') {
+        const appConfig = this.getConfig('synthesis');
+        if (name) {
+            return appConfig[name];
+        }
+        return appConfig;
     }
 
     async getInfoColumns(viewId?) {

@@ -1,140 +1,533 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Inject, LOCALE_ID, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 
 import {ActivatedRoute, Router} from '@angular/router';
 
-import {Property} from 'src/app/models/property.model';
-
-import {ConfigService} from 'src/app/services/config.service';
-
-import {Vision} from 'src/app/models/vision.model';
-
-import {Legend} from 'src/app/models/legend.model';
-
-import {ReportService} from 'src/app/services/report.service';
-
-import {FilterService} from 'src/app/services/filter.service';
-
 import {SidebarService} from 'src/app/services/sidebar.service';
 
-import {Response} from '../../models/response.model';
+import {ReportService} from '../../services/report.service';
+
+import {Response} from 'src/app/models/response.model';
+
+import pdfMake from 'pdfmake/build/pdfmake';
 
 import Chart from 'chart.js';
 
-@Component({
-	selector: 'app-report',
-	templateUrl: './report.component.html',
-	styleUrls: ['./report.component.css']
-})
-export class ReportComponent implements OnInit {
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+import {ExportService} from '../../services/export.service';
 
-	points: any[] = [];
+import {AuthService} from 'src/app/services/auth.service';
+
+import {ConfirmationService, MessageService} from 'primeng/api';
+
+import {Image} from '../../models/image.model';
+
+import {formatNumber} from '@angular/common';
+
+import {User} from '../../models/user.model';
+
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
+@Component({
+	selector: 'app-final-report',
+	templateUrl: './report.component.html',
+	styleUrls: ['./report.component.css'],
+	encapsulation: ViewEncapsulation.None,
+	providers: [ConfirmationService]
+})
+
+export class ReportComponent implements OnInit, AfterViewInit {
+
+	@ViewChild('imagem2') imagem2: Chart;
+	@ViewChild('chartImg') chartImg: Chart;
+	@ViewChild('myChart0') myChart0: Chart;
+	@ViewChild('myChart1') myChart1: Chart;
+	@ViewChild('myChart2') myChart2: Chart;
+	@ViewChild('myChart3') myChart3: Chart;
+	@ViewChild('myChart4') myChart4: Chart;
+	@ViewChild('myChart5') myChart5: Chart;
+	@ViewChild('myChart6') myChart6: Chart;
+	@ViewChild('myChart7') myChart7: Chart;
+	@ViewChild('myChart8') myChart8: Chart;
+	@ViewChild('myChart9') myChart9: Chart;
+	@ViewChild('myChart10') myChart10: Chart;
+	@ViewChild('myChart11') myChart11: Chart;
+	@ViewChild('myChart12') myChart12: Chart;
+	@ViewChild('myChart13') myChart13: Chart;
+	reportData;
 	carRegister: string;
-	property: Property;
-	bbox: string;
-	visions: Vision[] = [];
-	detailedVisions: Vision[] = [];
-	deforestations: Vision[] = [];
-	deforestationHistoryDeters: Vision[] = [];
-	historyDeterChartData: any;
-	deforestationHistoryProdes: Vision[] = [];
-	historyProdesChartData: any;
-	deforestationHistories: Vision[] = [];
-	burningSpotlights: Vision[] = [];
-	burningSpotlightsChartData: any;
-	burnedAreas: Vision[] = [];
-	burnedAreasChartData: any;
-	burnedAreasPerPropertyChartDatas: any[] = [];
-	landsatHistories: Vision[] = [];
-	visionLegends: Legend[] = [];
-	formattedFilterDate: string;
 	chartImages = [];
-	isLoading = false;
-	private reportConfig;
+	dateFilter: string;
+	formattedFilterDate: string;
+	currentYear: number;
+	currentDate: string;
+	filter;
+	date;
+	points: any[] = [];
+	type: string;
+	docDefinition: any;
+	docBase64;
+	generatingReport = false;
+	inputSat: string;
+	textAreaComments: string;
+	labelTextArea: string;
+	loggedUser: User = null;
+	formatValueLocate = {
+		async prodes(reportData) {
+			const property = reportData.property;
+			if (!property) {
+				return;
+			}
+			property.area = formatNumber(reportData.property.area, 'pt-BR', '1.0-4');
+			property.area_km = formatNumber(reportData.property.area_km, 'pt-BR', '1.0-4');
+			property.areaPastDeforestation = formatNumber(reportData.property.areaPastDeforestation, 'pt-BR', '1.0-4');
+			property.lat = formatNumber(reportData.property.lat, 'pt-BR', '1.0-4');
+			property.long = formatNumber(reportData.property.long, 'pt-BR', '1.0-4');
+
+			property.prodesTotalArea = formatNumber(reportData.property.prodesTotalArea, 'pt-BR', '1.0-4');
+			property.areaUsoCon = formatNumber(reportData.property.areaUsoCon, 'pt-BR', '1.0-4');
+			property.prodesArea = formatNumber(reportData.property.prodesArea, 'pt-BR', '1.0-4');
+
+			if (!property.tableVegRadam) {
+				return;
+			}
+			if (property.tableVegRadam.pastDeforestation) {
+				const listPastDeforestation = property.tableVegRadam.pastDeforestation.split('\n');
+				let pastDeforestationStr = '';
+				for (const data of listPastDeforestation) {
+					const pastDeforestation = data.substring(0, data.indexOf(':'));
+					const valuePastDeforestation = formatNumber(data.substring(data.indexOf(':') + 1, data.length), 'pt-BR', '1.0-4');
+
+					pastDeforestationStr = pastDeforestationStr ? `${pastDeforestationStr}\n${pastDeforestation}: ${valuePastDeforestation}` : `${pastDeforestation}: ${valuePastDeforestation}`;
+				}
+				property.tableVegRadam.pastDeforestation = pastDeforestationStr;
+			} else {
+				property.tableVegRadam.pastDeforestation = '0';
+			}
+
+			for (const data of reportData.prodesTableData) {
+				data.area = formatNumber(data.area, 'pt-BR', '1.0-4');
+			}
+			for (const data of property.vegRadam) {
+				data.area_ha_ = formatNumber(data.area_ha_, 'pt-BR', '1.0-4');
+				data.area_ha_car_vegradam = formatNumber(data.area_ha_car_vegradam, 'pt-BR', '1.0-4');
+			}
+			if (property.prodesRadam) {
+				for (const data of property.prodesRadam) {
+					data.area = formatNumber(data.area, 'pt-BR', '1.0-4');
+				}
+			}
+			for (const data of property.deflorestationHistory) {
+				data.area = formatNumber(data.area, 'pt-BR', '1.0-4');
+			}
+			for (const data of property.tableData) {
+				data.pastDeforestation = formatNumber(data.pastDeforestation, 'pt-BR', '1.0-4');
+			}
+			for (const data of property.analyzesYear) {
+				data.area = formatNumber(data.area, 'pt-BR', '1.0-4');
+			}
+		},
+		async deter(reportData) {
+			const property = reportData.property;
+			if (!property) {
+				return;
+			}
+			property.area = formatNumber(property.area, 'pt-BR', '1.0-4');
+			property.area_km = formatNumber(property.area_km, 'pt-BR', '1.0-4');
+			property.areaPastDeforestation = formatNumber(property.areaPastDeforestation ? property.areaPastDeforestation : 0, 'pt-BR', '1.0-4');
+			property.lat = formatNumber(property.lat, 'pt-BR', '1.0-4');
+			property.long = formatNumber(property.long, 'pt-BR', '1.0-4');
+
+			if (property.tableData) {
+				for (const data of property.tableData) {
+					data.pastDeforestation = formatNumber(data.pastDeforestation, 'pt-BR', '1.0-4');
+				}
+			}
+		},
+		async queimada(reportData) {
+		}
+	};
+	downloadVectors = false;
 
 	constructor(
 		private activatedRoute: ActivatedRoute,
-		private configService: ConfigService,
-		private reportService: ReportService,
-		private filterService: FilterService,
 		private sidebarService: SidebarService,
+		private reportService: ReportService,
+		private authService: AuthService,
+		private messageService: MessageService,
 		private router: Router,
+		private confirmationService: ConfirmationService,
+		private exportService: ExportService,
+		@Inject(LOCALE_ID) private locale: string
 	) {
 	}
 
 	async ngOnInit() {
-		this.filterService.filterReport.subscribe(() => {
-			if (this.router.url.startsWith('/report')) {
-				this.getPropertyData();
+		this.inputSat = '';
+		this.textAreaComments = '';
+
+		this.authService.user.subscribe(user => {
+			this.loggedUser = user;
+			if (!user) {
+				this.router.navigateByUrl('/map');
+				this.messageService.add({severity: 'error', summary: 'Atenção!', detail: 'Usuário não autenticado.'});
 			}
 		});
-		this.activatedRoute.params.subscribe(params => this.carRegister = params.carRegister);
+		this.activatedRoute.params.subscribe(params => {
+			this.carRegister = params.carRegister;
+			this.labelTextArea = 'Conclusão:';
+			this.type = params.type;
+		});
 
-		this.reportConfig = await this.configService.getReportConfig().then((response: Response) => response.data);
-
-		this.visionLegends = this.reportConfig.visionslegends;
+		this.reportService.changeReportType.subscribe(() => {
+			this.activatedRoute.params.subscribe(params => {
+				this.carRegister = params.carRegister;
+				this.type = params.type;
+				this.ngAfterViewInit();
+			});
+		});
 
 		this.sidebarService.sidebarLayerShowHide.next(false);
 
-		await this.getPropertyData();
 	}
 
-	async getPropertyData() {
-		this.isLoading = true;
-		const date = JSON.parse(localStorage.getItem('dateFilter'));
-		const startDate = new Date(date[0]).toLocaleDateString('pt-BR');
-		const endDate = new Date(date[1]).toLocaleDateString('pt-BR');
+	async ngAfterViewInit() {
+		this.filter = localStorage.getItem('filterList');
+		this.date = JSON.parse(localStorage.getItem('dateFilter'));
 
-		const filter = JSON.parse(localStorage.getItem('filterList'));
+		if (this.type === 'prodes') {
+			this.points = await this.reportService.getPointsAlerts(this.carRegister, this.date, this.filter, this.type).then(async (response: Response) => await response.data);
+		}
+		await this.setChartNdvi();
+	}
 
-		this.formattedFilterDate = `${startDate} - ${endDate}`;
+	async setChartNdvi() {
+		if (this.type === 'prodes') {
+			const pointsCount = this.points.length;
+			if (this.points && pointsCount && pointsCount > 0) {
+				let count = 0;
+				for (const point of this.points) {
+					const canvas: any = document.createElement('canvas');
+					canvas.id = `myChart${count}`;
+					canvas.setAttribute('width', 600);
+					canvas.setAttribute('height', 200);
+					canvas.setAttribute('style', 'display: none');
 
-		await this.reportService.getSynthesisCarData(this.carRegister, date, filter).then(async (response: Response) => {
-			const propertyData = response.data;
+					document.body.appendChild(canvas);
 
-			const burnedAreas = propertyData.burnedAreasYear;
+					const ctx: any = canvas.getContext('2d');
+					const options = point.options;
 
-			const area = propertyData.area;
+					const myChart = new Chart(ctx, options);
 
-			this.property = propertyData;
+					myChart.update({
+						duration: 0,
+						lazy: false,
+						easing: 'easeOutBounce'
+					});
 
-			this.visions = this.reportService.getVisions(propertyData, this.reportConfig.visions);
+					myChart.render();
 
-			this.detailedVisions = this.reportService.getVisions(propertyData, this.reportConfig.detailedVisions);
+					myChart.stop();
 
-			this.deforestations = this.reportService.getVisions(propertyData, this.reportConfig.deforestations);
+					const ndviChart = this.getImageObject(myChart && myChart.toBase64Image() ? [myChart.toBase64Image()] : null, [500, 500], [10, 0], 'center');
+					const geoserverImage = this.getImageObject(await this.getBaseImageUrl(point.url), [200, 200], [10, 70], 'center');
 
-			this.deforestationHistoryDeters = this.reportService.getVisions(propertyData, this.reportConfig.deforestationHistoryDeters, 'deterYear');
+					const chartImage = {
+						geoserverImageNdvi: geoserverImage,
+						myChart: ndviChart
+					};
 
-			this.historyDeterChartData = this.reportService.getHistoryDeterChart(propertyData.deterYear);
+					this.chartImages.push(chartImage);
+					++count;
+				}
+			}
+		}
 
-			this.deforestationHistoryProdes = this.reportService.getVisions(propertyData, this.reportConfig.deforestationHistoryProdes);
+		await this.getReportData();
+	}
 
-			this.historyProdesChartData = this.reportService.getHistoryProdesChart(propertyData.prodesYear);
+	async getContextDeflorestationAlerts(deflorestationAlerts) {
+		const deflorestationAlertsContext = [];
+		const deflorestationAlertsCount = deflorestationAlerts.length;
 
-			this.burnedAreas = this.reportService.getVisions(propertyData, this.reportConfig.burnedAreasYear, 'burnedAreasYear');
+		if (deflorestationAlerts && deflorestationAlertsCount > 0) {
+			let images = [];
+			let titleDate = [];
+			let subTitleArea = [];
+			let startingYear = new Date().getFullYear();
 
-			this.burningSpotlights = this.reportService.getVisions(propertyData, this.reportConfig.burningSpotlights, 'spotlightsYear');
+			for (let i = 0; i < deflorestationAlertsCount; ++i) {
+				images.push(this.getImageObject(await this.getBaseImageUrl(deflorestationAlerts[i].urlGsImageBefore), [225, 225], [0, 0, 0, 0], 'left'));
+				images.push(this.getImageObject(await this.getBaseImageUrl(deflorestationAlerts[i].urlGsImageCurrent), [225, 225], [13, 0, 0, 0], 'rigth'));
 
-			this.burningSpotlightsChartData = this.reportService.getBurningSpotlightsChart(propertyData.spotlightsYear);
+				startingYear = (deflorestationAlerts[i].year - 1) < startingYear ? (deflorestationAlerts[i].year - 1) : startingYear;
 
-			this.burnedAreasChartData = this.reportService.getBurnedAreasChart(burnedAreas);
+				titleDate.push({
+					text: `Alerta(${deflorestationAlerts[i].date}) - Imagem(${deflorestationAlerts[i].year - 1})`,
+					fontSize: 8,
+					style: 'body',
+					alignment: 'center'
+				});
 
-			this.burnedAreasPerPropertyChartDatas = this.reportService.getBurnedAreasPerPropertyChart(burnedAreas, area);
+				titleDate.push({
+					text: `Alerta(${deflorestationAlerts[i].date}) - Imagem(${deflorestationAlerts[i].date})`,
+					fontSize: 8,
+					style: 'body',
+					alignment: 'center'
+				});
 
-			this.points = await this.reportService.getPointsAlerts(this.carRegister.replace('\\', '/'), date, filter, 'prodes').then(async (resp: Response) => await resp.data);
+				subTitleArea.push({
+					text: `${formatNumber(deflorestationAlerts[i].area, 'pt-BR', '1.0-4')} ha`,
+					fontSize: 8,
+					style: 'body',
+					alignment: 'center'
+				});
 
-			await this.setChartNdvi();
+				if (i === 0) {
+					deflorestationAlertsContext.push(
+						{
+							text: `Na  figura 3, a seguir, será  representado  o detalhamento  dos  alertas.`,
+							alignment: 'right',
+							margin: [30, 0, 30, 0],
+							style: 'body'
+						}
+					);
+				} else {
+					deflorestationAlertsContext.push(
+						{
+							text: '',
+							pageBreak: 'after'
+						}
+					);
+				}
+				deflorestationAlertsContext.push(
+					{
+						columns: titleDate,
+						margin: [30, 0, 30, 0]
+					},
+					{
+						columns: images,
+						margin: [30, 0, 30, 0]
+					},
+					{
+						columns: [
+							this.getImageObject(await this.getBaseImageUrl(deflorestationAlerts[i].urlGsImagePlanetCurrentAndCar), [420, 420], [0, 0], 'center')
+						],
+						margin: [30, 5, 30, 0]
+					},
+					{
+						columns: subTitleArea,
+						margin: [30, 5, 30, 5]
+					}
+				);
 
-			this.isLoading = false;
+				images = [];
+				titleDate = [];
+				subTitleArea = [];
+			}
+
+			deflorestationAlertsContext.push({
+				text: [
+					{
+						text: 'Figura 3. ',
+						bold: true
+					},
+					{
+						text: ` Comparativo de imagens de satélite anterior à ${startingYear} e atual ${new Date().getFullYear()}.`,
+						bold: false
+					}
+				],
+				margin: [30, 0, 30, 0],
+				alignment: 'center',
+				fontSize: 9
+			});
+		}
+		return deflorestationAlertsContext;
+	}
+
+	async getContextDesflorestationHistory(deflorestationHistory, urlGsDeforestationHistory, urlGsDeforestationHistory1) {
+		const deflorestationHistoryContext = [];
+		const deflorestationHistoryCount = deflorestationHistory.length;
+
+		if (deflorestationHistory && deflorestationHistoryCount > 0) {
+			const deforestationData = [];
+			const deforestationColumns = [];
+
+			deflorestationHistoryContext.push({
+				text: '',
+				pageBreak: 'after'
+			});
+			deflorestationHistoryContext.push({
+				columns: [{
+					text: `O histórico do desmatamento desde ${deflorestationHistory[0].date} pode ser visto na figura 7.`,
+					margin: [30, 0, 30, 15],
+					style: 'bodyIndentFirst'
+				}]
+			});
+			let count = 1;
+			for (let i = 0; i < deflorestationHistoryCount; ++i) {
+				count += 1;
+				const view = deflorestationHistory[i].date < 2013 ? 'LANDSAT_5_' :
+					deflorestationHistory[i].date < 2017 ? 'LANDSAT_8_' :
+						'SENTINEL_2_';
+
+				let url = deflorestationHistory[i].date === 2012 ? urlGsDeforestationHistory1 : urlGsDeforestationHistory.replace(new RegExp('#{image}#', ''), `${view}${deflorestationHistory[i].date}`);
+				url = url.replace(new RegExp('#{year}#', ''), deflorestationHistory[i].date);
+
+				deforestationData.push(
+					[
+						{
+							text: `${deflorestationHistory[i].date}`,
+							style: 'body',
+							alignment: 'center'
+						},
+						this.getImageObject(await this.getBaseImageUrl(url), [117, 117], [5, 0], 'center'),
+						{
+							text: `${deflorestationHistory[i].area} ha`,
+							style: 'body',
+							alignment: 'center'
+						}
+					]
+				);
+			}
+
+			for (let start = 0; start < deforestationData.length; start += 3) {
+				if (start !== 0 && ((start) % 12) === 0) {
+					deforestationColumns.push({
+						text: '',
+						pageBreak: 'after'
+					});
+				}
+				if ((start + 3) < deforestationData.length) {
+					deforestationColumns.push({
+						margin: [30, 0, 30, 0],
+						alignment: 'center',
+						columns: [
+							...deforestationData.slice(start, start + 3)
+						]
+					});
+				} else {
+					deforestationColumns.push({
+						margin: [30, 0, 30, 0],
+						alignment: 'center',
+						columns: [
+							...deforestationData.slice(start),
+						]
+					});
+				}
+			}
+
+			deflorestationHistoryContext.push(
+				...deforestationColumns,
+				{
+					text: [
+						{
+							text: 'Figura 7. ',
+							bold: true
+						},
+						{
+							text: ` Histórico de desmatamento do PRODES desde ${deflorestationHistory[0].date}.`,
+							bold: false
+						}
+					],
+					margin: [30, 0, 30, 0],
+					alignment: 'center',
+					fontSize: 9
+				});
+		}
+
+		return deflorestationHistoryContext;
+	}
+
+	async getReportData() {
+		this.dateFilter = `${this.date[0]}/${this.date[1]}`;
+		const startDate = new Date(this.date[0]).toLocaleDateString('pt-BR');
+		const endDate = new Date(this.date[1]).toLocaleDateString('pt-BR');
+
+		this.currentYear = new Date().getFullYear();
+
+		const today = new Date();
+
+		this.reportData = await this.reportService.getReportCarData(this.carRegister, this.date, this.filter, this.type).then((response: Response) => response.data);
+		await this.formatValueLocate[this.type](this.reportData);
+		this.reportData['type'] = this.type;
+		this.reportData['date'] = this.date;
+		this.reportData['carRegister'] = this.carRegister;
+		this.reportData['formattedFilterDate'] = `${startDate} a ${endDate}`;
+		this.reportData['currentYear'] = new Date().getFullYear();
+		this.reportData['currentDate'] = `${this.setFormatDay(today.getDate())}/${this.setFormatMonth(today.getMonth())}/${today.getFullYear()}`;
+
+		if (!this.reportData['images']) {
+			this.reportData['images'] = {};
+		}
+
+		this.reportData.images['geoserverImage1'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage), [200, 200], [0, 10], 'center');
+		this.reportData.images['geoserverImage2'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage1), [200, 200], [0, 10], 'center');
+
+		if (this.reportData['type'] !== 'queimada') {
+			this.reportData.images['geoserverImage4'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage3), [200, 200], [0, 10], 'left');
+			this.reportData.images['geoserverImage5'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage4), [200, 200], [0, 10], 'left');
+			this.reportData.images['geoserverImage6'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage5), [200, 200], [0, 10], 'right');
+			this.reportData.images['geoserverImage7'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage6), [200, 200], [0, 10], 'right');
+		}
+
+		if (this.reportData['type'] === 'prodes') {
+			this.reportData.images['geoserverImage3'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage2), [200, 200], [0, 10], 'center');
+			this.reportData['desflorestationHistoryContext'] = await this.getContextDesflorestationHistory(this.reportData.property['deflorestationHistory'], this.reportData.urlGsDeforestationHistory, this.reportData.urlGsDeforestationHistory1);
+			this.reportData.images['geoserverLegend'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsLegend), [200, 200], [0, 10], 'center');
+		}
+
+		if (this.reportData['type'] === 'deter') {
+			this.reportData['deflorestationAlertsContext'] = await this.getContextDeflorestationAlerts(this.reportData.property.deflorestationAlerts);
+		}
+
+		this.reportData['chartImages'] = this.chartImages;
+		this.reportData['type'] = this.reportData['type'];
+
+		this.docDefinition = await this.reportService.createPdf(this.reportData).then(async (response: Response) => {
+			const data = response.data;
+			const docDefinitions = data.docDefinitions;
+			if (data) {
+				docDefinitions.footer = (pagenumber, pageCount) => {
+					return {
+						table: {
+							body: [
+								[
+									{
+										text: 'Página ' + pagenumber + ' de ' + pageCount,
+										fontSize: 8,
+										margin: [483, 0, 30, 0]
+									}
+								],
+							]
+						},
+						layout: 'noBorders'
+					};
+				};
+				docDefinitions.header = (currentPage, pageCount, pageSize) => {
+					return {
+						columns: data.headerDocument
+					};
+				};
+				this.getPdfBase64(docDefinitions);
+			}
 		});
 	}
 
-	onViewReportClicked(reportType) {
-		if (reportType === 'synthesis') {
-			this.router.navigateByUrl(`/report/${this.carRegister.replace('/', '\\')}`);
-		} else {
-			this.router.navigateByUrl(`/finalReport/${reportType}/${this.carRegister.replace('/', '\\')}`);
-		}
+	setFormatMonth(date) {
+		return ('0' + (date + 1)).slice(-2);
+	}
+
+	setFormatDay(date) {
+		return ('0' + (date)).slice(-2);
+	}
+
+	getPdfBase64(docDefinition) {
+		const pdfDocGenerator = pdfMake.createPdf(docDefinition);
+
+		pdfDocGenerator.getBase64((data) => {
+			this.docBase64 = data;
+		});
 	}
 
 	async getBase64ImageFromUrl(imageUrl) {
@@ -148,39 +541,100 @@ export class ReportComponent implements OnInit {
 		});
 	}
 
-	async setChartNdvi() {
-		for (let index = 0; index < this.points.length; index++) {
-			const canvas: any = document.createElement('canvas');
-			canvas.id = `myChart${index}`;
-			canvas.setAttribute('width', 600);
-			canvas.setAttribute('height', 200);
-			canvas.setAttribute('style', 'display: none');
+	async getBaseImageUrl(url: string) {
+		return await this.getBase64ImageFromUrl(url).then(result => {
+			const baseImageAux = [];
+			baseImageAux.push(result);
+			return baseImageAux;
+		}).catch(err => console.error(err));
+	}
 
-			document.body.appendChild(canvas);
+	async generatePdf(action = 'open') {
+		this.confirmationService.confirm({
+			message: 'Deseja gerar o relatório em PDF?',
+			header: 'Confirmação',
+			icon: 'pi pi-exclamation-triangle',
+			acceptLabel: 'Sim',
+			rejectLabel: 'Não',
+			accept: () => {
+				this.generatingReport = true;
+				this.reportData.property['sat'] = this.inputSat;
+				this.reportData.property['comments'] = this.textAreaComments;
+				this.reportService.generatePdf(this.reportData).then((response: Response) => {
+					const reportResp = (response.status === 200) ? response.data : {};
+					if (response.status === 200) {
+						const document = reportResp.document;
+						const docDefinitions = document.docDefinitions;
+						docDefinitions.footer = (pagenumber, pageCount) => {
+							return {
+								table: {
+									body: [
+										[
+											{
+												text: 'Página ' + pagenumber + ' de ' + pageCount,
+												fontSize: 8,
+												margin: [483, 0, 30, 0]
+											}
+										],
+									]
+								},
+								layout: 'noBorders'
+							};
+						};
+						docDefinitions.header = (currentPage, pageCount, pageSize) => {
+							return {
+								columns: document.headerDocument
+							};
+						};
 
-			const ctx: any = canvas.getContext('2d');
+						pdfMake.createPdf(docDefinitions).download(reportResp.name);
+						if (this.downloadVectors) {
+							const {vectorViews} = this.reportData;
+							const fileName = reportResp.name.split('.')[0];
 
-			const myChart = new Chart(ctx, this.points[index].options);
+							this.exportService.getVectors(vectorViews, fileName);
+						}
+						this.generatingReport = false;
+					} else {
+						this.generatingReport = false;
+						alert(`${response.status} - ${response.message}`);
+					}
+				});
+			},
+			reject: () => {
+				this.generatingReport = false;
+			}
+		});
+	}
 
-			myChart.update({
-				duration: 0,
-				lazy: false,
-				easing: 'easeOutBounce'
-			});
-
-			myChart.render();
-
-			myChart.stop();
-
-			const chartImage = {
-				geoserverImageNdvi: await this.getBase64ImageFromUrl(this.points[index].url),
-				myChart: this.points[index].options.data
-			};
-			this.chartImages.push(chartImage);
+	onViewReportClicked(reportType) {
+		const register = this.reportData.carRegister;
+		if (reportType) {
+			this.router.navigateByUrl(`/report/${reportType}/${register}`);
+			this.docBase64 = null;
+			this.reportService.changeReportType.next();
+		} else {
+			this.router.navigateByUrl(`/synthesis/${register}`);
 		}
 	}
 
-	trackById(index, item) {
-		return item.id;
+	getImageObject(image, fit, margin, alignment) {
+		if (image && image[0] && !image[0].includes('data:application/vnd.ogc.se_xml') && !image[0].includes('data:text/xml;')) {
+			return new Image(
+				image,
+				fit,
+				margin,
+				alignment
+			);
+		} else {
+			return {
+				text: 'Imagem não encontrada.',
+				alignment: 'center',
+				color: '#ff0000',
+				fontSize: 9,
+				italics: true,
+				margin: [30, 60, 30, 60]
+			};
+		}
 	}
 }

@@ -1,0 +1,11 @@
+<div class="card text-center">
+    <p-card styleClass="p-card-shadow">
+        <p-header class="card-header">
+            <span [innerHTML]="card.title"></span>
+        </p-header>
+        <img class="map img-fluid" src="{{card.image}}"/>
+        <p-footer *ngIf="card.description" class="card text-center card-footer">
+            {{ card.description }}
+        </p-footer>
+    </p-card>
+</div>

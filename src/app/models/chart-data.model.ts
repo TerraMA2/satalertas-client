@@ -9,8 +9,8 @@ export class ChartData {
 export class Datasets {
     constructor(
         public data: number[],
-        public backgroundColor: string[],
-        public hoverBackgroundColor: []
+        public backgroundColor: string,
+        public hoverBackgroundColor: string
     ) {
     }
 }

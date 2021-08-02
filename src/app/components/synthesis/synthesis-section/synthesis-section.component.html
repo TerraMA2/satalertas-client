@@ -1,0 +1,15 @@
+<section>
+    <h2 *ngIf="title" class="text-center">
+        {{ title }}
+        <br/>
+        <small *ngIf="subtitle">{{ subtitle }}</small>
+    </h2>
+    <hr>
+    <div class="p-grid">
+        <div *ngFor="let card of cards; trackBy: trackById"
+             class="p-col-4 p-md-4">
+            <app-report-card [card]="card">
+            </app-report-card>
+        </div>
+    </div>
+</section>
