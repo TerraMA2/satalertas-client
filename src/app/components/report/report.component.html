@@ -5,95 +5,91 @@
                   routerLink="/map"
                   styleClass="p-button-raised">
         </p-button>
-    </div>
-    <div *ngIf="isLoading" class="loading-report">
-        <p-progressSpinner [style]="{width: '30px', height: '30px'}" animationDuration="1s"
-                           strokeWidth="6"></p-progressSpinner>
-    </div>
-    <div class="p-toolbar-group-right">
-        <button (click)="onViewReportClicked('deter')"
+        &nbsp;&nbsp;
+        <p-button (click)="onViewReportClicked('')"
+                  pTooltip="{{ 'viewSynthesis' | translate }}"
+                  styleClass="btn btn-icon p-button-raised view-report-icon icon-margin synthesis-link"
+                  tooltipPosition="top">
+            <span class="fas fa-file-invoice synthesis-icon"></span>
+        </p-button>
+        &nbsp;&nbsp;
+        <p-button (click)="onViewReportClicked('deter')"
                   pTooltip="{{'viewDeterReport' | translate}}"
-                pButton
-                  class="btn-icon p-button-raised view-report-icon icon-margin"
+                  styleClass="btn btn-icon p-button-raised view-report-icon"
                   tooltipPosition="top">
             <img src="assets/img/ico/deter32x32.png"/>
-        </button>
-        <button (click)="onViewReportClicked('prodes')"
+        </p-button>
+        <p-button (click)="onViewReportClicked('prodes')"
                   pTooltip="{{'viewProdesReport' | translate}}"
-                pButton
-                  class="btn-icon p-button-raised view-report-icon icon-margin"
+                  styleClass="btn btn-icon p-button-raised view-report-icon icon-margin"
                   tooltipPosition="top">
             <img src="assets/img/ico/prodes32x32.png"/>
-        </button>
-        <button (click)="onViewReportClicked('queimada')"
+        </p-button>
+        <p-button (click)="onViewReportClicked('queimada')"
                   pTooltip="{{'viewBurnedReport' | translate}}"
-                  class="btn-icon p-button-raised view-report-icon icon-margin"
-                pButton
+                  styleClass="btn btn-icon p-button-raised view-report-icon icon-margin"
                   tooltipPosition="top">
             <img src="assets/img/ico/queima.ico"/>
-        </button>
+        </p-button>
     </div>
-</p-toolbar>
+    <div class="p-toolbar-group-right">
+        <div *ngIf="loggedUser.administrator" class="report-buttons">
+            <p-button (click)="generatePdf('open')"
+                      [disabled]="!docBase64 || generatingReport"
+                      icon="fas fa-download p-button-raised"
+                      label="{{'generateReport' | translate}}"
 
-<p-scrollPanel [style]="{width: '100%', height: 'calc(100vh - 100px)'}">
-    <div class="background-color-gray">
-        <br>
-        <div class="container">
-            <app-property-data [property]="property"></app-property-data>
-            <hr>
-            <app-vision [legends]="visionLegends" [visions]="visions"></app-vision>
-            <br>
-            <app-vision-detailed [detailedVisions]="detailedVisions"
-                                 [formattedFilterDate]="formattedFilterDate"></app-vision-detailed>
-            <br>
-            <app-deforestation [deforestations]="deforestations"></app-deforestation>
-            <br>
-            <app-deforestation-history-deter [deforestationHistoryDeters]="deforestationHistoryDeters"></app-deforestation-history-deter>
-            <br>
-            <app-history-deter-chart [data]="historyDeterChartData"></app-history-deter-chart>
-            <br>
-            <app-deforestation-history-prodes [deforestationHistoryProdes]="deforestationHistoryProdes"></app-deforestation-history-prodes>
-            <br>
-            <app-history-prodes-chart [data]="historyProdesChartData"></app-history-prodes-chart>
-            <br>
-            <app-burning-spotlights [burningSpotlights]="burningSpotlights"></app-burning-spotlights>
-            <br>
-            <app-burning-spotlights-chart [data]="burningSpotlightsChartData"></app-burning-spotlights-chart>
-            <br>
-            <app-burned-areas [burnedAreas]="burnedAreas"></app-burned-areas>
-            <br>
-            <app-burned-areas-chart [burnedAreasChartData]="burnedAreasChartData"
-                                    [burnedAreasPerPropertyChartDatas]="burnedAreasPerPropertyChartDatas"></app-burned-areas-chart>
-            <br/>
-
-            <section *ngIf="chartImages && chartImages.length > 0">
-                <h2 class="text-center">
-                    Áreas de desmatamento (PRODES) e gráfico NDVI (SATVeg - Embrapa)
-                    <br/>
-                    <small>{{formattedFilterDate }}</small>
-                </h2>
-                <hr>
-                <br>
-                <div class="p-grid">
-                    <div *ngFor="let chartImage of chartImages; trackBy: trackById; let i = index"
-                         class="p-col-12 p-md-12">
-                        <div class="card text-center">
-                            <p-card class="p-card-shadow">
-                                <div class="p-grid p-align-center p-justify-center">
-                                    <img [src]="chartImage.geoserverImageNdvi"/>
-                                </div>
-                                <br>
-                                <div class="p-grid p-align-center p-justify-center">
-                                    <p-chart [data]="chartImage.myChart" class="width-100" type="line"></p-chart>
-                                </div>
-                                <br>
-                                <br>
-                            </p-card>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-            </section>
+                      type="button">
+            </p-button>
+            <div class="vector-button">
+                <p-inputSwitch [(ngModel)]="downloadVectors"
+                               [disabled]="!docBase64 || generatingReport"
+                               id="getVectors">
+                </p-inputSwitch>
+                <label for="getVectors">{{'downloadVectors' | translate}}</label>
+            </div>
         </div>
     </div>
-</p-scrollPanel>
+</p-toolbar>
+<canvas height="400" id="imagem2" style="display: none" width="600"></canvas>
+<canvas height="400" id="chartImg" style="display: none" width="600"></canvas>
+<div *ngIf="loggedUser.administrator" class="form">
+    <br>
+    <label>Sat: </label>
+    <input [(ngModel)]="inputSat"
+           [disabled]="!docBase64 || generatingReport"
+           class="width-100"
+           pInputText
+           placeholder="Sat"
+           type="text">
+</div>
+<div *ngIf="loggedUser.administrator" class="form">
+    <br>
+    <label>{{labelTextArea}} </label>
+    <textarea
+            [(ngModel)]="textAreaComments"
+            [cols]="30"
+            [disabled]="!docBase64 || generatingReport"
+            [rows]="4"
+            class="width-100"
+            pInputTextarea>
+        </textarea> <br>
+</div>
+<div *ngIf="!!docBase64">
+    <ngx-extended-pdf-viewer
+            [base64Src]="docBase64"
+            [handTool]="false"
+            [height]="loggedUser.administrator ? 'calc(100vh - 310px)' : 'calc(100vh - 100px)'"
+            [showFindButton]="false"
+            [showHandToolButton]="true"
+            [showSecondaryToolbarButton]="false"
+            [showSidebarButton]="false"
+            [useBrowserLocale]="true"
+            backgroundColor="#ffffff">
+    </ngx-extended-pdf-viewer>
+</div>
+
+<div *ngIf="!docBase64" class="final-report-loading">
+    <p-progressSpinner animationDuration="1s" strokeWidth="6"></p-progressSpinner>
+</div>
+<p-confirmDialog [baseZIndex]="10000" [style]="{width: '25vw'}"></p-confirmDialog>

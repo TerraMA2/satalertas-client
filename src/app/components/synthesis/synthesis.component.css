@@ -1,0 +1,100 @@
+.background-color-gray {
+    background-color: #eee;
+}
+
+.container {
+    background: #fff;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 20px;
+    max-width: 90% !important;
+}
+
+@media (min-width: 576px) {
+    .container {
+        max-width: 540px;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 720px;
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        max-width: 960px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px;
+    }
+}
+
+.chart {
+    height: 300px;
+    max-width: 100%
+}
+
+.card-disabled h5 {
+    color: #9b9b9b
+}
+
+.card-disabled img {
+    filter: grayscale(100%);
+}
+
+.word-wrap {
+    overflow-wrap: break-word;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+:host ::ng-deep .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 5px;
+}
+
+:host ::ng-deep .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 5px;
+}
+
+:host ::ng-deep img {
+    padding: 5px;
+}
+
+.btn-icon {
+    background-color: #ffffff !important;
+}
+
+.btn-icon:hover {
+    background-color: #CBC5C7 !important;
+}
+
+.btn-icon:active {
+    background-color: #591111 !important;
+}
+
+.icon-margin {
+    margin-left: 10px !important;
+}
+
+.loading-report {
+    text-align: center;
+    vertical-align: middle;
+    margin: 0 auto
+}

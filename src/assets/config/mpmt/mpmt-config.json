@@ -2,7 +2,7 @@
   "app": {
     "pageTitle": "pageTitle",
     "headerTitle": "headerTitle",
-    "hasLogin":  true,
+    "hasLogin": true,
     "layerUrls": {
       "static": {
         "markers": "/map/getStaticData",
@@ -21,8 +21,7 @@
         "table": "/car/getAllSimplified"
       }
     },
-    "locale":
-    {
+    "locale": {
       "defaultLanguage": {
         "label": "Brazil",
         "value": "br"
@@ -46,7 +45,7 @@
     "description": "aboutDescription",
     "terrama2Version": "4.1.1",
     "terralibVersion": "5.4.5",
-    "offerings" : [
+    "offerings": [
       {
         "title": "partnerships",
         "companies": [
@@ -194,10 +193,26 @@
   },
   "settings": {
     "groupsColumns": [
-      {"field": "name", "header": "Nome", "type": "text"},
-      {"field": "code", "header": "Código", "type": "text"},
-      {"field": "active_area", "header": "Selecionado", "type": "boolean"},
-      {"field": "view_graph", "header": "Exibir no Dashboard", "type": "boolean"}
+      {
+        "field": "name",
+        "header": "Nome",
+        "type": "text"
+      },
+      {
+        "field": "code",
+        "header": "Código",
+        "type": "text"
+      },
+      {
+        "field": "active_area",
+        "header": "Selecionado",
+        "type": "boolean"
+      },
+      {
+        "field": "view_graph",
+        "header": "Exibir no Dashboard",
+        "type": "boolean"
+      }
     ]
   },
   "sidebarSettings": {
@@ -386,7 +401,7 @@
     }
   },
   "filter": {
-    "url": "/api/report/getData",
+    "url": "/api/synthesis/getData",
     "alertType": {
       "analyzes": [
         {
@@ -559,6 +574,242 @@
     "area": {
       "label": "Área",
       "name": "area"
+    }
+  },
+  "synthesis": {
+    "cards": {
+      "visions": {
+        "state": {
+          "title": "Visão do Estado<br/><br/>",
+          "descriptionPrefix": "",
+          "descriptionSuffix": "",
+          "layers": "terrama2_170:view170,terrama2_170:view170,terrama2_119:view119",
+          "cqlFilter": "geocodigo<>'';municipio='{cityName}';rid='{rid}'"
+        },
+        "city": {
+          "title": "Visão do Município<br/><br/>",
+          "descriptionPrefix": "",
+          "descriptionSuffix": "",
+          "layers": "terrama2_170:view170,terrama2_119:view119",
+          "cqlFilter": "municipio='{cityName}';rid='{rid}'"
+        },
+        "deterAlert": {
+          "title": "Visão do alerta no Imóvel (DETER)<br/>{filterDate}",
+          "descriptionPrefix": "",
+          "descriptionSuffix": "",
+          "layers": "terrama2_119:view119,terrama2_67:view67",
+          "cqlFilter": "rid='{rid}';de_car_validado_sema_gid='{gid}'"
+        },
+        "ambientalDegradation": {
+          "title": "Degradação Ambiental (DETER)<br/>{filterDate}",
+          "descriptionPrefix": "",
+          "descriptionSuffix": "",
+          "layers": "terrama2_119:view119,terrama2_67:view67",
+          "cqlFilter": "rid='{rid}';de_car_validado_sema_gid='{rid}' AND dd_deter_inpe_classname='DEGRADACAO'"
+        },
+        "deforestation": {
+          "title": "Desmatamento<br/>{filterDate}",
+          "descriptionPrefix": "",
+          "descriptionSuffix": "",
+          "layers": "terrama2_119:view119,terrama2_35:view35",
+          "cqlFilter": "rid='{rid}';de_car_validado_sema_gid='{gid}'"
+        },
+        "burnedArea": {
+          "title": "Queimadas<br/>{filterDate}",
+          "descriptionPrefix": "",
+          "descriptionSuffix": "",
+          "layers": "terrama2_119:view119,terrama2_155:view155",
+          "cqlFilter": "rid='{rid}';de_car_validado_sema_gid='{gid}'"
+        }
+      },
+      "legends": {
+        "municipalBoundaries": {
+          "layer": "terrama2_170:view170"
+        },
+        "nativeVegetationArea": {
+          "layer": "terrama2_6:view6"
+        },
+        "indigenousLand": {
+          "layer": "terrama2_74:view74"
+        },
+        "appArea": {
+          "layer": "terrama2_110:view110"
+        },
+        "consolidatedUseArea": {
+          "layer": "terrama2_121:view121"
+        },
+        "car": {
+          "layer": "terrama2_119:view119"
+        },
+        "anthropizedUse": {
+          "layer": "terrama2_5:view5"
+        },
+        "carDeter": {
+          "layer": "terrama2_67:view67"
+        },
+        "legalreserve": {
+          "layer": "terrama2_4:view4"
+        },
+        "carProdes": {
+          "layer": "terrama2_35:view35"
+        }
+      },
+      "detailedVisions": {
+        "indigenousLand": {
+          "title": "Terra Indígena",
+          "descriptionPrefix": "",
+          "descriptionSuffix": "",
+          "layers": "terrama2_119:view119,terrama2_41:view41",
+          "cqlFilter": "rid='{rid}';a_carprodes_1_de_car_validado_sema_gid='{gid}'"
+        },
+        "conservationUnit": {
+          "title": "Unidade de Conservação",
+          "descriptionPrefix": "",
+          "descriptionSuffix": "",
+          "layers": "terrama2_119:view119,terrama2_42:view42",
+          "cqlFilter": "rid='{rid}';a_carprodes_1_de_car_validado_sema_gid='{gid}'"
+        },
+        "legalReserve": {
+          "title": "Reserva Legal",
+          "descriptionPrefix": "",
+          "descriptionSuffix": "",
+          "layers": "terrama2_119:view119,terrama2_104:view104",
+          "cqlFilter": "rid='{rid}';a_carprodes_1_de_car_validado_sema_gid='{gid}'"
+        },
+        "app": {
+          "title": "APP",
+          "descriptionPrefix": "",
+          "descriptionSuffix": "",
+          "layers": "terrama2_119:view119,terrama2_111:view111",
+          "cqlFilter": "rid='{rid}';a_carprodes_1_de_car_validado_sema_gid='{gid}'"
+        },
+        "anthropizedUse": {
+          "title": "Uso antropizado",
+          "descriptionPrefix": "",
+          "descriptionSuffix": "",
+          "layers": "terrama2_119:view119,terrama2_37:view37",
+          "cqlFilter": "rid='{rid}';a_carprodes_1_de_car_validado_sema_gid='{gid}'"
+        },
+        "nativeVegetation": {
+          "title": "Vegetação nativa",
+          "descriptionPrefix": "",
+          "descriptionSuffix": "",
+          "layers": "terrama2_119:view119,terrama2_38:view38",
+          "cqlFilter": "rid='{rid}';a_carprodes_1_de_car_validado_sema_gid='{gid}'"
+        }
+      },
+      "deforestation": {
+        "spot": {
+          "title": "SPOT de 2008",
+          "descriptionPrefix": "",
+          "descriptionSuffix": "",
+          "layers": "terrama2_119:MosaicSpot2008,terrama2_119:view119,terrama2_35:view35",
+          "cqlFilter": "RED_BAND>0;rid='{rid}';de_car_validado_sema_gid='{gid}'",
+          "styles": ",terrama2_119:view119_yellow_style,terrama2_35:view35_Mod_style",
+          "time": "P1Y/2008"
+        },
+        "landsat": {
+          "title": "LANDSAT de 2018",
+          "descriptionPrefix": "",
+          "descriptionSuffix": "",
+          "layers": "terrama2_35:LANDSAT_8_2018,terrama2_119:view119,terrama2_35:view35",
+          "cqlFilter": "RED_BAND>0;rid='{rid}';de_car_validado_sema_gid='{gid}'",
+          "styles": ",terrama2_119:view119_yellow_style,terrama2_35:view35_Mod_style",
+          "time": "P1Y/2018"
+        },
+        "sentinel": {
+          "title": "SENTINEL de 2019",
+          "descriptionPrefix": "",
+          "descriptionSuffix": "",
+          "layers": "terrama2_35:SENTINEL_2_2019,terrama2_119:view119,terrama2_35:view35",
+          "cqlFilter": "RED_BAND>0;rid='{rid}';de_car_validado_sema_gid='{gid}'",
+          "styles": ",terrama2_119:view119_yellow_style,terrama2_35:view35_Mod_style",
+          "time": "P1Y/2019"
+        }
+      },
+      "histories": {
+        "deterHistory": {
+          "layers": "terrama2_119:view119,terrama2_67:view67",
+          "cqlFilter": "rid='{rid}';de_car_validado_sema_gid='{gid}'",
+          "title": "DETER",
+          "descriptionPrefix": "Total Área Desmatada em",
+          "descriptionSuffix": ""
+        },
+        "prodesHistory": {
+          "layers": "terrama2_35:{landsatLayer},terrama2_119:view119,terrama2_35:view35",
+          "cqlFilter": "RED_BAND>0;rid='{rid}';de_car_validado_sema_gid='{gid}'",
+          "styles": ",terrama2_119:view119_yellow_style,terrama2_35:view35_Mod_style",
+          "title": "PRODES",
+          "descriptionPrefix": "Total Área Desmatada em",
+          "descriptionSuffix": ""
+        },
+        "fireSpotHistory": {
+          "layers": "terrama2_119:view119,terrama2_182:view182",
+          "cqlFilter": "rid='{rid}';de_car_validado_sema_gid='{gid}'",
+          "title": "Focos",
+          "descriptionPrefix": "Total Focos em",
+          "descriptionSuffix": ""
+        },
+        "burnedAreaHistory": {
+          "layers": "terrama2_119:view119,terrama2_155:view155",
+          "cqlFilter": "rid='{rid}';de_car_validado_sema_gid='{gid}'",
+          "title": "Área queimada",
+          "descriptionPrefix": "Total Áreas queimadas em",
+          "descriptionSuffix": ""
+        },
+        "landsatLayers": {
+          "1999": "LANDSAT_5_1999",
+          "2008": "LANDSAT_5_2008",
+          "2009": "LANDSAT_5_2009",
+          "2010": "LANDSAT_5_2010",
+          "2011": "LANDSAT_5_2011",
+          "2013": "LANDSAT_8_2013",
+          "2014": "LANDSAT_8_2014",
+          "2015": "LANDSAT_8_2015",
+          "2016": "LANDSAT_8_2016",
+          "2017": "LANDSAT_8_2017",
+          "2018": "LANDSAT_8_2018",
+          "2019": "SENTINEL_2_2019",
+          "2020": "SENTINEL_2_2020"
+        }
+      }
+    },
+    "charts": {
+      "deter": {
+        "title": {
+          "display": true,
+          "text": "DETER",
+          "fontSize": 16
+        },
+        "legend": {
+          "display": false
+        }
+      },
+      "prodes": {
+        "title": {
+          "display": true,
+          "text": "PRODES",
+          "fontSize": 16
+        },
+        "legend": {
+          "display": false
+        }
+      },
+      "fireSpot": {
+        "title": {
+          "display": true,
+          "text": "Focos",
+          "fontSize": 16
+        },
+        "legend": {
+          "display": false
+        }
+      },
+      "burnedArea": {
+        "title": {
+          "display": false
+        }
+      }
     }
   }
 }

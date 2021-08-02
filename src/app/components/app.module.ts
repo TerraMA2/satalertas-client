@@ -42,23 +42,13 @@ import {AppComponent} from './app.component';
 import {MapComponent} from './map/map.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {TableComponent} from './map/table/table.component';
-import {ReportComponent} from './report/report.component';
+import {SynthesisComponent} from './synthesis/synthesis.component';
 import {FilterComponent} from './filter/filter.component';
 import {HeaderComponent} from './header/header.component';
 import {SidebarComponent} from './sidebar/sidebar.component';
 import {LegendComponent} from './map/legend/legend.component';
-import {ReportLegendComponent} from './report/report-legend/report-legend.component';
-import {PropertyDataComponent} from './report/property-data/property-data.component';
-import {VisionComponent} from './report/vision/vision.component';
-import {VisionDetailedComponent} from './report/vision-detailed/vision-detailed.component';
-import {DeforestationComponent} from './report/deforestation/deforestation.component';
-import {DeforestationHistoryProdesComponent} from './report/deforestation-history-prodes/deforestation-history-prodes.component';
-import {DeforestationHistoryDeterComponent} from './report/deforestation-history-deter/deforestation-history-deter.component';
-import {BurningSpotlightsComponent} from './report/burning-spotlights/burning-spotlights.component';
-import {BurningSpotlightsChartComponent} from './report/burning-spotlights-chart/burning-spotlights-chart.component';
-import {BurnedAreasComponent} from './report/burned-areas/burned-areas.component';
-import {BurnedAreasChartComponent} from './report/burned-areas-chart/burned-areas-chart.component';
-import {ImageHistoryComponent} from './report/image-history/image-history.component';
+import {SynthesisLegendComponent} from './synthesis/synthesis-legend/synthesis-legend.component';
+import {SynthesisPropertyDataComponent} from './synthesis/synthesis-property-data/synthesis-property-data.component';
 import {AuthComponent} from './auth/auth.component';
 import {AboutComponent} from './about/about.component';
 import {SidebarHeaderComponent} from './sidebar/sidebar-header/sidebar-header.component';
@@ -77,9 +67,7 @@ import {AlertTypeAreaComponent} from './filter/alert-type-area/alert-type-area.c
 import {AuthorizationAreaComponent} from './filter/authorization-area/authorization-area.component';
 import {SpecificSearchAreaComponent} from './filter/specific-search-area/specific-search-area.component';
 import {FooterFilterAreaComponent} from './filter/footer-filter-area/footer-filter-area.component';
-import {FinalReportComponent} from './final-report/final-report.component';
-import {HistoryDeterChartComponent} from './report/history-deter-chart/history-deter-chart.component';
-import {HistoryProdesChartComponent} from './report/history-prodes-chart/history-prodes-chart.component';
+import {ReportComponent} from './report/report.component';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {MessagesModule} from 'primeng/messages';
 import {ClassAreaComponent} from './filter/class-area/class-area.component';
@@ -90,20 +78,23 @@ import {SettingsComponent} from './settings/settings.component';
 import {GroupManagerComponent} from './settings/group-manager/group-manager.component';
 import {GroupListComponent} from './settings/group-manager/group-list/group-list.component';
 import {ModalComponent} from './modal.component/modal.component';
-import {ButtonActionComponent} from './button-action.component/button-action.component';
 import {LayersComponent} from './settings/layers/layers.component';
 import {SettingsToolbarComponent} from './settings/settings-toolbar/settings-toolbar.component';
 import {LayersAdvancedComponent} from './settings/layers-advanced/layers-advanced.component';
 import {LayersAdvancedEditionComponent} from './settings/layers-advanced/layers-advanced-edition/layers-advanced-edition.component';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {environment} from '../../environments/environment';
+import { SynthesisCardComponent } from './synthesis/synthesis-card/synthesis-card.component';
+import { SynthesisChartComponent } from './synthesis/synthesis-chart/synthesis-chart.component';
+import { SynthesisSectionComponent } from './synthesis/synthesis-section/synthesis-section.component';
+import { SynthesisChartCardComponent } from './synthesis/synthesis-chart-card/synthesis-chart-card.component';
+import { SynthesisNdviComponent } from './synthesis/synthesis-ndvi/synthesis-ndvi.component';
 
 
 registerLocaleData(localePt, 'pt');
 
 const project = environment.project;
 
-// AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
 	return new TranslateHttpLoader(http, `./assets/config${project ? '/' + project + '/' : ''}i18n/`, '.json');
 }
@@ -115,22 +106,12 @@ export function HttpLoaderFactory(http: HttpClient) {
 		MapComponent,
 		DashboardComponent,
 		TableComponent,
-		ReportComponent,
+		SynthesisComponent,
 		FilterComponent,
 		HeaderComponent,
 		LegendComponent,
-		PropertyDataComponent,
-		VisionComponent,
-		VisionDetailedComponent,
-		DeforestationComponent,
-		DeforestationHistoryProdesComponent,
-		DeforestationHistoryDeterComponent,
-		BurningSpotlightsComponent,
-		BurningSpotlightsChartComponent,
-		BurnedAreasComponent,
-		BurnedAreasChartComponent,
-		ImageHistoryComponent,
-		ReportLegendComponent,
+		SynthesisPropertyDataComponent,
+		SynthesisLegendComponent,
 		AuthComponent,
 		AboutComponent,
 		SidebarHeaderComponent,
@@ -149,20 +130,22 @@ export function HttpLoaderFactory(http: HttpClient) {
 		SpecificSearchAreaComponent,
 		FooterFilterAreaComponent,
 		SidebarItemComponent,
-		FinalReportComponent,
-		HistoryDeterChartComponent,
-		HistoryProdesChartComponent,
+		ReportComponent,
 		ClassAreaComponent,
 		LayerToolsComponent,
 		SettingsComponent,
 		GroupManagerComponent,
 		GroupListComponent,
 		ModalComponent,
-		ButtonActionComponent,
 		LayersComponent,
 		SettingsToolbarComponent,
 		LayersAdvancedComponent,
-		LayersAdvancedEditionComponent
+		LayersAdvancedEditionComponent,
+	  SynthesisCardComponent,
+	  SynthesisChartComponent,
+	  SynthesisSectionComponent,
+	  SynthesisChartCardComponent,
+	  SynthesisNdviComponent
 	],
 
 	imports: [

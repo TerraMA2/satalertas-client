@@ -1,0 +1,93 @@
+<p-toolbar>
+    <div class="p-toolbar-group-left">
+        <p-button icon="fas fa-arrow-left"
+                  label="Voltar ao mapa"
+                  routerLink="/map"
+                  styleClass="p-button-raised">
+        </p-button>
+    </div>
+    <div *ngIf="isLoading" class="loading-report">
+        <p-progressSpinner [style]="{width: '30px', height: '30px'}" animationDuration="1s"
+                           strokeWidth="6"></p-progressSpinner>
+    </div>
+    <div class="p-toolbar-group-right">
+        <button (click)="onViewReportClicked('deter')"
+                pTooltip="{{'viewDeterReport' | translate}}"
+                pButton
+                class="btn-icon p-button-raised view-report-icon icon-margin"
+                tooltipPosition="top">
+            <img src="assets/img/ico/deter32x32.png"/>
+        </button>
+        <button (click)="onViewReportClicked('prodes')"
+                pTooltip="{{'viewProdesReport' | translate}}"
+                pButton
+                class="btn-icon p-button-raised view-report-icon icon-margin"
+                tooltipPosition="top">
+            <img src="assets/img/ico/prodes32x32.png"/>
+        </button>
+        <button (click)="onViewReportClicked('queimada')"
+                pTooltip="{{'viewBurnedReport' | translate}}"
+                class="btn-icon p-button-raised view-report-icon icon-margin"
+                pButton
+                tooltipPosition="top">
+            <img src="assets/img/ico/queima.ico"/>
+        </button>
+    </div>
+</p-toolbar>
+
+<p-scrollPanel [style]="{width: '100%', height: 'calc(100vh - 100px)'}">
+    <div class="background-color-gray">
+        <br>
+        <div class="container">
+            <app-property-data [property]="property"></app-property-data>
+            <hr>
+
+            <app-report-section [cards]="visions"></app-report-section>
+            <app-report-legend [legends]="legends"></app-report-legend>
+
+            <br>
+            <app-report-section [cards]="detailedVisions"
+                                [title]="'Visão Detalhada do Imóvel (CAR X PRODES)'"
+                                [subtitle]="formattedFilterDate"></app-report-section>
+            <br>
+            <app-report-section [cards]="deforestations"
+                                [title]="'Desmatamento'"></app-report-section>
+            <br>
+            <app-report-section [cards]="deterHistory"
+                                [title]="'Histórico de Desmatamento - DETER'"></app-report-section>
+            <br>
+            <app-report-chart [data]="historyDeterChartData"
+                              [options]="historyDeterChartOptions"
+                              type="bar"></app-report-chart>
+            <br>
+            <app-report-section [cards]="prodesHistory"
+                                [title]="'Histórico de Desmatamento - PRODES'"></app-report-section>
+            <br>
+            <app-report-chart [data]="historyProdesChartData"
+                              [options]="historyProdesChartOptions"
+                              type="bar"></app-report-chart>
+            <br>
+            <app-report-section [cards]="fireSpotHistory"
+                                [title]="'Focos de queimadas'"></app-report-section>
+            <br>
+            <app-report-chart [data]="burningFireSpotChartData"
+                              [options]="historyFireSpotChartOptions"
+                              type="bar"></app-report-chart>
+            <br>
+            <app-report-section [cards]="burnedAreaHistory"
+                                [title]="'Áreas queimadas'"></app-report-section>
+            <br>
+            <app-report-chart [data]="burnedAreasChartData"
+                              [options]="historyBurnedChartOptions"
+                              type="bar"></app-report-chart>
+            <app-report-chart [chartDatas]="burnedAreasPerPropertyChartDatas"
+                              [options]="historyBurnedChartOptions"
+                              type="pie"></app-report-chart>
+            <br/>
+
+            <app-report-ndvi
+                [chartImages]="chartImages"
+                [formattedFilterDate]="formattedFilterDate"></app-report-ndvi>
+        </div>
+    </div>
+</p-scrollPanel>

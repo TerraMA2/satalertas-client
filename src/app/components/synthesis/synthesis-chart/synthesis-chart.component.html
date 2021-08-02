@@ -1,0 +1,18 @@
+<ng-container *ngIf="!chartDatas; then chart; else charts"></ng-container>
+
+<ng-template #chart>
+    <div class="p-grid">
+        <div class="p-col-12 p-md-12">
+            <app-report-chart-card [data]="data" [options]="options" [type]="type"></app-report-chart-card>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #charts>
+    <div class="p-grid">
+        <div *ngFor="let chartData of chartDatas; trackBy: trackById"
+             class="p-col-4 p-md-4">
+            <app-report-chart-card [data]="chartData" [options]="options" [type]="type"></app-report-chart-card>
+        </div>
+    </div>
+</ng-template>
