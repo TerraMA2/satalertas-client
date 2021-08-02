@@ -28,7 +28,7 @@ export class SynthesisService {
     async getSynthesis(carRegister, date, formattedFilterDate, synthesisConfig) {
         const url = `${this.URL_REPORT_SERVER}/getSynthesis`;
         const parameters = {carRegister, date, formattedFilterDate, synthesisConfig};
-        return await this.http.get(url, {params: parameters}).toPromise();
+        return await this.http.post(url, {params: parameters}).toPromise();
     }
     getNDVI(carRegister, date) {
         return this.reportService.getPointsAlerts(carRegister, date, null, 'prodes').then((response: Response) => {

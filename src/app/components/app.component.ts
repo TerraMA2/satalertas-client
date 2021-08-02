@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
 		private config: PrimeNGConfig,
 		private translateService: TranslateService
 	) {
-		this.translateService.setDefaultLang(this.configService.getAppConfig('locale').defaultLanguage.value);
+		this.translateService.setDefaultLang(this.configService.getAppConfig('locale').defaultLanguage);
 		this.translateService.get('primeng').subscribe(res => this.config.setTranslation(res));
 		this.translateService.get('pageTitle').subscribe((res) => this.titleService.setTitle(res));
 	}

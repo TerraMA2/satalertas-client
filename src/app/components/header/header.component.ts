@@ -63,7 +63,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.appConfig = this.configService.getAppConfig();
 		const locale = this.appConfig.locale;
 		this.languages = locale.languages;
-		this.selectedLanguage = locale.defaultLanguage;
+		const defaultLanguage = locale.defaultLanguage;
+		this.selectedLanguage = this.languages.find(language => language.value === defaultLanguage);
 		this.setFilterSettings();
 		this.headerTitle = this.appConfig.headerTitle;
 		this.hasLogin = this.appConfig.hasLogin;

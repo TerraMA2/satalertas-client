@@ -84,12 +84,11 @@ import {LayersAdvancedComponent} from './settings/layers-advanced/layers-advance
 import {LayersAdvancedEditionComponent} from './settings/layers-advanced/layers-advanced-edition/layers-advanced-edition.component';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {environment} from '../../environments/environment';
-import { SynthesisCardComponent } from './synthesis/synthesis-card/synthesis-card.component';
+import { SynthesisCardComponent } from './synthesis/synthesis-section/synthesis-card/synthesis-card.component';
 import { SynthesisChartComponent } from './synthesis/synthesis-chart/synthesis-chart.component';
 import { SynthesisSectionComponent } from './synthesis/synthesis-section/synthesis-section.component';
-import { SynthesisChartCardComponent } from './synthesis/synthesis-chart-card/synthesis-chart-card.component';
+import { SynthesisChartCardComponent } from './synthesis/synthesis-chart/synthesis-chart-card/synthesis-chart-card.component';
 import { SynthesisNdviComponent } from './synthesis/synthesis-ndvi/synthesis-ndvi.component';
-
 
 registerLocaleData(localePt, 'pt');
 

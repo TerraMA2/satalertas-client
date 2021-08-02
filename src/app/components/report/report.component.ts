@@ -608,7 +608,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 	}
 
 	onViewReportClicked(reportType) {
-		const register = this.reportData.carRegister;
+		const register = this.carRegister;
 		if (reportType) {
 			this.router.navigateByUrl(`/report/${reportType}/${register}`);
 			this.docBase64 = null;

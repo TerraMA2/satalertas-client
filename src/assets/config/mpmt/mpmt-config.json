@@ -22,10 +22,7 @@
       }
     },
     "locale": {
-      "defaultLanguage": {
-        "label": "Brazil",
-        "value": "br"
-      },
+      "defaultLanguage": "br",
       "languages": [
         {
           "label": "Brazil",
@@ -655,6 +652,7 @@
         }
       },
       "detailedVisions": {
+        "title": "Visão Detalhada do Imóvel (CAR X PRODES)",
         "indigenousLand": {
           "title": "Terra Indígena",
           "descriptionPrefix": "",
@@ -699,6 +697,7 @@
         }
       },
       "deforestation": {
+        "title": "Desmatamento",
         "spot": {
           "title": "SPOT de 2008",
           "descriptionPrefix": "",
@@ -728,6 +727,7 @@
         }
       },
       "histories": {
+        "titleDeter": "Histórico de Desmatamento - DETER",
         "deterHistory": {
           "layers": "terrama2_119:view119,terrama2_67:view67",
           "cqlFilter": "rid='{rid}';de_car_validado_sema_gid='{gid}'",
@@ -735,6 +735,7 @@
           "descriptionPrefix": "Total Área Desmatada em",
           "descriptionSuffix": ""
         },
+        "titleProdes": "Histórico de Desmatamento - PRODES",
         "prodesHistory": {
           "layers": "terrama2_35:{landsatLayer},terrama2_119:view119,terrama2_35:view35",
           "cqlFilter": "RED_BAND>0;rid='{rid}';de_car_validado_sema_gid='{gid}'",
@@ -743,6 +744,7 @@
           "descriptionPrefix": "Total Área Desmatada em",
           "descriptionSuffix": ""
         },
+        "titleFireSpot": "Focos de queimadas",
         "fireSpotHistory": {
           "layers": "terrama2_119:view119,terrama2_182:view182",
           "cqlFilter": "rid='{rid}';de_car_validado_sema_gid='{gid}'",
@@ -750,6 +752,7 @@
           "descriptionPrefix": "Total Focos em",
           "descriptionSuffix": ""
         },
+        "titleBurnedArea": "Áreas queimadas",
         "burnedAreaHistory": {
           "layers": "terrama2_119:view119,terrama2_155:view155",
           "cqlFilter": "rid='{rid}';de_car_validado_sema_gid='{gid}'",

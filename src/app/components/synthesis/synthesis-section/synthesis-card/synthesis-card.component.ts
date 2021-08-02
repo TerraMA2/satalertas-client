@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {SynthesisCard} from '../../../models/synthesis-card.model';
+import {SynthesisCard} from '../../../../models/synthesis-card.model';
 
 @Component({
   selector: 'app-report-card',
