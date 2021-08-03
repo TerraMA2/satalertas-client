@@ -4,7 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 
 import {SidebarService} from 'src/app/services/sidebar.service';
 
-import {ReportService} from '../../services/report.service';
+import {ReportService} from '../../../services/report.service';
 
 import {Response} from 'src/app/models/response.model';
 
@@ -13,17 +13,17 @@ import pdfMake from 'pdfmake/build/pdfmake';
 import Chart from 'chart.js';
 
 import pdfFonts from 'pdfmake/build/vfs_fonts';
-import {ExportService} from '../../services/export.service';
+import {ExportService} from '../../../services/export.service';
 
 import {AuthService} from 'src/app/services/auth.service';
 
 import {ConfirmationService, MessageService} from 'primeng/api';
 
-import {Image} from '../../models/image.model';
+import {Image} from '../../../models/image.model';
 
 import {formatNumber} from '@angular/common';
 
-import {User} from '../../models/user.model';
+import {User} from '../../../models/user.model';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -162,6 +162,8 @@ export class ReportComponent implements OnInit, AfterViewInit {
 	}
 
 	async ngOnInit() {
+		this.sidebarService.sidebarLayerShowHide.next(true);
+		this.sidebarService.sidebarReload.next();
 		this.inputSat = '';
 		this.textAreaComments = '';
 
@@ -610,7 +612,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 	onViewReportClicked(reportType) {
 		const register = this.carRegister;
 		if (reportType) {
-			this.router.navigateByUrl(`/report/${reportType}/${register}`);
+			this.router.navigateByUrl(`/reports/${reportType}/${register}`);
 			this.docBase64 = null;
 			this.reportService.changeReportType.next();
 		} else {

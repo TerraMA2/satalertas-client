@@ -44,7 +44,7 @@ export class PopupService {
             filter = JSON.stringify(this.filterService.getParams(view));
         }
         const data = await this.configService.getPopupInfo(gid, codGroup, filter).then(response => response);
-        const reportLink = '/report/';
+        const reportLink = '/reports/';
         const linkSynthesis = '/synthesis/' + gid;
         let linkDETER = reportLink + 'deter/' + gid;
         let linkPRODES = reportLink + 'prodes/' + gid;

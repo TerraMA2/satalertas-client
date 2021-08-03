@@ -123,7 +123,7 @@ export class SynthesisComponent implements OnInit {
 		if (reportType === 'synthesis') {
 			this.router.navigateByUrl(`/synthesis/${this.carRegister.replace('/', '\\')}`);
 		} else {
-			this.router.navigateByUrl(`/report/${reportType}/${this.carRegister.replace('/', '\\')}`);
+			this.router.navigateByUrl(`/reports/${reportType}/${this.carRegister.replace('/', '\\')}`);
 		}
 	}
 
