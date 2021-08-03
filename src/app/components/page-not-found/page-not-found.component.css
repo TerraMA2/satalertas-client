@@ -1,0 +1,12 @@
+.notfound-container {
+    margin: 5%;
+    background-color: #eee;
+    padding: 60px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: #ccc 1px 2px;
+}
+
+.notfound-container h1 {
+    font-size: 3rem;
+}

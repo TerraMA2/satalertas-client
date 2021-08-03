@@ -1,4 +1,4 @@
-	import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 import {LazyLoadEvent, MessageService} from 'primeng/api';
 
@@ -374,7 +374,7 @@ export class TableComponent implements OnInit {
 			layer.tableName
 		);
 
-		const params = await this.filterService.getParams(view);
+		const params = this.filterService.getParams(view);
 		const selectedProperties = this.selectedProperties;
 
 		const selectedGids = [];

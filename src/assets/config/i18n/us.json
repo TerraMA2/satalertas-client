@@ -56,6 +56,7 @@
   "fireSpots": "Fire Spots",
   "area": "Area",
   "alerts": "Alerts",
+  "pageNotFound": "Page not found",
   "primeng": {
     "startsWith": "Starts with",
     "contains": "Contains",

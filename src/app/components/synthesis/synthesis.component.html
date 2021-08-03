@@ -47,35 +47,35 @@
 
             <br>
             <app-report-section [cards]="detailedVisions"
-                                [title]="'Visão Detalhada do Imóvel (CAR X PRODES)'"
+                                [title]="titleDetailedVisions"
                                 [subtitle]="formattedFilterDate"></app-report-section>
             <br>
             <app-report-section [cards]="deforestations"
-                                [title]="'Desmatamento'"></app-report-section>
+                                [title]="titleDeforestation"></app-report-section>
             <br>
             <app-report-section [cards]="deterHistory"
-                                [title]="'Histórico de Desmatamento - DETER'"></app-report-section>
+                                [title]="titleDeter"></app-report-section>
             <br>
             <app-report-chart [data]="historyDeterChartData"
                               [options]="historyDeterChartOptions"
                               type="bar"></app-report-chart>
             <br>
             <app-report-section [cards]="prodesHistory"
-                                [title]="'Histórico de Desmatamento - PRODES'"></app-report-section>
+                                [title]="titleProdes"></app-report-section>
             <br>
             <app-report-chart [data]="historyProdesChartData"
                               [options]="historyProdesChartOptions"
                               type="bar"></app-report-chart>
             <br>
             <app-report-section [cards]="fireSpotHistory"
-                                [title]="'Focos de queimadas'"></app-report-section>
+                                [title]="titleFireSpot"></app-report-section>
             <br>
             <app-report-chart [data]="burningFireSpotChartData"
                               [options]="historyFireSpotChartOptions"
                               type="bar"></app-report-chart>
             <br>
             <app-report-section [cards]="burnedAreaHistory"
-                                [title]="'Áreas queimadas'"></app-report-section>
+                                [title]="titleBurnedArea"></app-report-section>
             <br>
             <app-report-chart [data]="burnedAreasChartData"
                               [options]="historyBurnedChartOptions"

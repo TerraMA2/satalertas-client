@@ -1,4 +1,3 @@
-<br/>
 <p-table (onHeaderCheckboxToggle)="onHeaderCheckboxToggle($event)"
          (onLazyLoad)="onLazyLoad($event)"
          (onRowExpand)="onRowExpand($event)"
@@ -14,7 +13,7 @@
          [responsive]="true"
          [rowTrackBy]="trackById"
          [rows]="selectedRowsPerPage"
-         [scrollHeight]="tableReportActive ? '68vh' : '42vh'"
+         [scrollHeight]="'90vh'"
          [scrollable]="true"
          [totalRecords]="totalRecords"
          [value]="tableData"
@@ -49,20 +48,9 @@
 
                     &nbsp;&nbsp;
 
-                    <p-dropdown #selectedLayersDropdown
-                                (onChange)="onSelectedLayerChange(selectedLayersDropdown)"
-                                *ngIf="!tableReportActive"
-                                [(ngModel)]="selectedLayerValue"
-                                [options]="selectedLayers"
-                                [style]="{minWidth: '200px'}"
-                                placeholder="Layers">
-                    </p-dropdown>
-
-                    &nbsp;&nbsp;
 
                     <p-dropdown #selectedFilter
                                 (onChange)="onFilterChange(selectedFilter)"
-                                *ngIf="tableReportActive"
                                 [(ngModel)]="selectedFilterValue"
                                 [options]="filters">
                     </p-dropdown>
@@ -74,8 +62,7 @@
 
                 <div class="float-right">
 
-                    <p-multiSelect *ngIf="tableReportActive"
-                                   [(ngModel)]="selectedFormats"
+                    <p-multiSelect [(ngModel)]="selectedFormats"
                                    [disabled]="isExportDisabled || isLoading"
                                    [filter]="false"
                                    [options]="formats"
@@ -88,16 +75,13 @@
 
                     <p-button
                             (click)="onExportClick()"
-                            *ngIf="tableReportActive"
                             [disabled]="isExportDisabled || isLoading"
                             icon="fas fa-save"
                             iconPos="left"
                             label="{{'export' | translate}}"
                             pTooltip="{{ 'exportSelected' | translate }}"
-
                             styleClass="ui-button-raised"
-                            tooltipPosition="top"
-                            type="button">
+                            tooltipPosition="top">
                     </p-button>
 
                 </div>
@@ -109,18 +93,16 @@
 
     <ng-template let-columns pTemplate="header">
         <tr>
-            <th *ngIf="tableReportActive"
-                style="width: 2.5em"></th>
-            <th *ngIf="tableReportActive"
-                style="width: 3.2em"></th>
-            <th *ngIf="tableReportActive" style="width: 3.2em">
+            <th style="width: 2.5em"></th>
+            <th style="width: 3.2em"></th>
+            <th style="width: 3.2em">
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
             </th>
             <th *ngFor="let col of columns; trackBy: trackById" [pSortableColumn]="col.field" pReorderableColumn>
                 {{col.header}}
                 <p-sortIcon [field]="col.field"></p-sortIcon>
             </th>
-            <th *ngIf="tableReportActive"></th>
+            <th></th>
         </tr>
     </ng-template>
 
@@ -129,26 +111,23 @@
                  let-rowData
                  pTemplate="body">
         <tr [pSelectableRow]="rowData">
-            <td *ngIf="tableReportActive"
-                style="width: 2.5em">
+            <td style="width: 2.5em">
                 <a [pRowToggler]="rowData">
                     <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
                 </a>
             </td>
-            <td *ngIf="tableReportActive"
-                style="width: 3.2em">
+            <td style="width: 3.2em">
                 <i [ngClass]="rowData.has_pdf ? 'pi pi-file-pdf' : 'pi pi-file-o'" style="font-size: 1.6em;"></i>
             </td>
-            <td *ngIf="tableReportActive"
-                style="width:3em">
+            <td style="width:3em">
                 <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
             </td>
             <td *ngFor="let col of columns; trackBy: trackById" pTooltip="{{ rowData[col.field] }}"
                 style="overflow: hidden;word-break: break-all;" tooltipPosition="top">
                 {{rowData[col.field]}}
             </td>
-            <td *ngIf="tableReportActive">
-                <button *ngIf="tableReportActive && showDeter"
+            <td>
+                <button *ngIf="showDeter"
                         class="btn ui-button-raised view-report-icon"
                         pButton
                         pTooltip="{{ 'viewDeterReport' | translate }}"
@@ -156,7 +135,7 @@
                         tooltipPosition="top">
                     <img src="assets/img/ico/deter32x32.png"/>
                 </button>
-                <button *ngIf="tableReportActive && showProdes"
+                <button *ngIf="showProdes"
                         class="btn ui-button-raised view-report-icon icon-margin"
                         pButton
                         pTooltip="{{ 'viewDeterReport' | translate }}"
@@ -164,7 +143,7 @@
                         tooltipPosition="top">
                     <img src="assets/img/ico/prodes32x32.png"/>
                 </button>
-                <button *ngIf="tableReportActive && showBurn"
+                <button *ngIf="showBurn"
                         class="btn ui-button-raised view-report-icon icon-margin"
                         pButton
                         pTooltip="{{ 'viewBurnedReport' | translate }}"
@@ -186,14 +165,14 @@
         <tr>
             <td [attr.colspan]="selectedColumns.length + 4">
                 <div *ngIf="reports.length > 0" class="p-grid text-left">
-                    <div *ngFor="let report of reports; trackBy: trackById" class="p-col">
-                        <p-button (click)="getReport(report)"
-                                  [label]="report.name"
-                                  pTooltip="{{'downloadReport' | translate}}"
-                                  styleClass="report-history-item ui-button-raised report-button"
-                                  tooltipPosition="top">
-                            {{report.createdAt | date:'dd/MM/yyyy HH:mm:ss' }}
-                        </p-button>
+                    <div *ngFor="let report of reports; trackBy: trackById" class="p-col-2">
+                        <div class="report-card"
+                             pTooltip="{{'downloadReport' | translate}}"
+                             tooltipPosition="top"
+                             (click)="getReport(report)">
+                            <p>{{report.name}}</p>
+                            <p>{{report.createdAt | date:'dd/MM/yyyy HH:mm:ss' }}</p>
+                        </div>
                     </div>
                 </div>
                 <div *ngIf="reports.length === 0" class="p-grid text-center">
@@ -206,7 +185,7 @@
     <ng-template let-state pTemplate="paginatorright">
         <strong>{{state.totalRecords | number:'1.0-4':'pt' }} {{'registers' | translate}}</strong>
         &nbsp;
-        <strong *ngIf="tableReportActive">{{selectedProperties ? selectedProperties?.length : '0' }} {{'selecteds' | translate}}</strong>
+        <strong>{{selectedProperties ? selectedProperties?.length : '0' }} {{'selecteds' | translate}}</strong>
     </ng-template>
 
 </p-table>

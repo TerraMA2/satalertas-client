@@ -37,6 +37,7 @@ import {PickListModule} from 'primeng/picklist';
 import {RippleModule} from 'primeng/ripple';
 import {MessageModule} from 'primeng/message';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { ReportsComponent } from './reports/reports.component';
 
 import {AppComponent} from './app.component';
 import {MapComponent} from './map/map.component';
@@ -67,7 +68,7 @@ import {AlertTypeAreaComponent} from './filter/alert-type-area/alert-type-area.c
 import {AuthorizationAreaComponent} from './filter/authorization-area/authorization-area.component';
 import {SpecificSearchAreaComponent} from './filter/specific-search-area/specific-search-area.component';
 import {FooterFilterAreaComponent} from './filter/footer-filter-area/footer-filter-area.component';
-import {ReportComponent} from './report/report.component';
+import {ReportComponent} from './reports/report/report.component';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {MessagesModule} from 'primeng/messages';
 import {ClassAreaComponent} from './filter/class-area/class-area.component';
@@ -84,12 +85,13 @@ import {LayersAdvancedComponent} from './settings/layers-advanced/layers-advance
 import {LayersAdvancedEditionComponent} from './settings/layers-advanced/layers-advanced-edition/layers-advanced-edition.component';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {environment} from '../../environments/environment';
-import { SynthesisCardComponent } from './synthesis/synthesis-card/synthesis-card.component';
+import { SynthesisCardComponent } from './synthesis/synthesis-section/synthesis-card/synthesis-card.component';
 import { SynthesisChartComponent } from './synthesis/synthesis-chart/synthesis-chart.component';
 import { SynthesisSectionComponent } from './synthesis/synthesis-section/synthesis-section.component';
-import { SynthesisChartCardComponent } from './synthesis/synthesis-chart-card/synthesis-chart-card.component';
+import { SynthesisChartCardComponent } from './synthesis/synthesis-chart/synthesis-chart-card/synthesis-chart-card.component';
 import { SynthesisNdviComponent } from './synthesis/synthesis-ndvi/synthesis-ndvi.component';
-
+import { ReportListComponent } from './reports/report-list/report-list.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 registerLocaleData(localePt, 'pt');
 
@@ -145,7 +147,10 @@ export function HttpLoaderFactory(http: HttpClient) {
 	  SynthesisChartComponent,
 	  SynthesisSectionComponent,
 	  SynthesisChartCardComponent,
-	  SynthesisNdviComponent
+	  SynthesisNdviComponent,
+    ReportsComponent,
+    ReportListComponent,
+    PageNotFoundComponent
 	],
 
 	imports: [
