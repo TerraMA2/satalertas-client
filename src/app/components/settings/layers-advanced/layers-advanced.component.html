@@ -62,11 +62,9 @@
                                         [icon]="
                     expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'
                   "
-
                                         [pRowToggler]="item"
                                         pRipple
                                         styleClass="p-button-text p-button-rounded p-button-plain"
-                                        type="button"
                                 ></p-button>
                             </td>
                             <td>
@@ -137,10 +135,8 @@
             (click)='saveGroupEdition()'
             [disabled]='!edited'
             icon="pi pi-check"
-
             label="Salvar"
             styleClass="p-button-raised"
-            type="button"
     ></p-button>
     <p-button
             (click)="cancelGroupEdition()"
@@ -149,13 +145,12 @@
 
             label="Cancelar"
             styleClass="
-          p-button-secondary
-          p-button
-          p-component
-          p-button-text-only
-          p-button-raised
-        "
-            type="button"
+                  p-button-secondary
+                  p-button
+                  p-component
+                  p-button-text-only
+                  p-button-raised
+            "
     ></p-button>
 </p-footer>
 </div>

@@ -57,6 +57,12 @@
   "area": "Area",
   "alerts": "Alerts",
   "pageNotFound": "Page not found",
+  "noRecordsFound": "No records found",
+  "generateReport": "Generate Report",
+  "conclusion": "Conclusion",
+  "goBack": "Go back",
+  "downloadVectors": "Download vectors",
+  "alterConclusion": "Alter conclusion and Sat",
   "primeng": {
     "startsWith": "Starts with",
     "contains": "Contains",

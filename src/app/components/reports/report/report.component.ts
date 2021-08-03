@@ -69,7 +69,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
 	generatingReport = false;
 	inputSat: string;
 	textAreaComments: string;
-	labelTextArea: string;
 	loggedUser: User = null;
 	formatValueLocate = {
 		async prodes(reportData) {
@@ -148,6 +147,8 @@ export class ReportComponent implements OnInit, AfterViewInit {
 	};
 	downloadVectors = false;
 
+	previousUrl: string;
+
 	constructor(
 		private activatedRoute: ActivatedRoute,
 		private sidebarService: SidebarService,
@@ -162,8 +163,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 	}
 
 	async ngOnInit() {
-		this.sidebarService.sidebarLayerShowHide.next(true);
-		this.sidebarService.sidebarReload.next();
+		this.previousUrl = localStorage.getItem('previousUrl');
 		this.inputSat = '';
 		this.textAreaComments = '';
 
@@ -176,7 +176,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
 		});
 		this.activatedRoute.params.subscribe(params => {
 			this.carRegister = params.carRegister;
-			this.labelTextArea = 'Conclusão:';
 			this.type = params.type;
 		});
 
@@ -189,7 +188,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 		});
 
 		this.sidebarService.sidebarLayerShowHide.next(false);
-
+		this.sidebarService.sidebarReload.next();
 	}
 
 	async ngAfterViewInit() {

@@ -25,7 +25,7 @@ export class FilterService {
 
     displayFilter = new Subject();
 
-    filterReport = new Subject<Layer>();
+    filterSynthesis = new Subject<Layer>();
 
     constructor(
         private http: HttpClient

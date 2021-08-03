@@ -92,7 +92,7 @@ export class FilterComponent implements OnInit, AfterViewInit {
 		this.filterService.filterMap.next(zoomIn);
 		this.filterService.filterDashboard.next();
 		this.filterService.filterTable.next();
-		this.filterService.filterReport.next();
+		this.filterService.filterSynthesis.next();
 	}
 
 	onClearFilterClicked() {

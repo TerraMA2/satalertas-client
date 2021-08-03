@@ -2,8 +2,8 @@
 <p-toolbar>
     <div class="p-toolbar-group-left">
         <p-button icon="fas fa-arrow-left"
-                  label="Voltar"
-                  routerLink="/reports"
+                  label="{{ 'goBack' | translate }}"
+                  routerLink="{{previousUrl}}"
                   styleClass="p-button-raised">
         </p-button>
         &nbsp;&nbsp;
@@ -33,14 +33,13 @@
             <img src="../../../../assets/img/ico/queima.ico"/>
         </p-button>
     </div>
+    <p-button label="{{ 'conclusion' | translate }}" pTooltip="{{ 'alterConclusion' | translate }}" tooltipPosition="bottom" (click)="op.toggle($event)"></p-button>
     <div class="p-toolbar-group-right">
         <div *ngIf="loggedUser.administrator" class="report-buttons">
             <p-button (click)="generatePdf('open')"
                       [disabled]="!docBase64 || generatingReport"
                       icon="fas fa-download p-button-raised"
-                      label="{{'generateReport' | translate}}"
-
-                      type="button">
+                      label="{{'generateReport' | translate}}">
             </p-button>
             <div class="vector-button">
                 <p-inputSwitch [(ngModel)]="downloadVectors"
@@ -54,39 +53,18 @@
 </p-toolbar>
 <canvas height="400" id="imagem2" style="display: none" width="600"></canvas>
 <canvas height="400" id="chartImg" style="display: none" width="600"></canvas>
-<div *ngIf="loggedUser.administrator" class="form">
-    <br>
-    <label>Sat: </label>
-    <input [(ngModel)]="inputSat"
-           [disabled]="!docBase64 || generatingReport"
-           class="width-100"
-           pInputText
-           placeholder="Sat"
-           type="text">
-</div>
-<div *ngIf="loggedUser.administrator" class="form">
-    <br>
-    <label>{{labelTextArea}} </label>
-    <textarea
-            [(ngModel)]="textAreaComments"
-            [cols]="30"
-            [disabled]="!docBase64 || generatingReport"
-            [rows]="4"
-            class="width-100"
-            pInputTextarea>
-        </textarea> <br>
-</div>
 <div *ngIf="!!docBase64">
     <ngx-extended-pdf-viewer
             [base64Src]="docBase64"
             [handTool]="false"
-            [height]="loggedUser.administrator ? 'calc(100vh - 310px)' : 'calc(100vh - 100px)'"
+            [height]="'calc(100vh - 100px)'"
             [showFindButton]="false"
             [showHandToolButton]="true"
             [showSecondaryToolbarButton]="false"
             [showSidebarButton]="false"
             [useBrowserLocale]="true"
-            backgroundColor="#ffffff">
+            [enableDragAndDrop]="false"
+            backgroundColor="#ccc">
     </ngx-extended-pdf-viewer>
 </div>
 
@@ -94,3 +72,33 @@
     <p-progressSpinner animationDuration="1s" strokeWidth="6"></p-progressSpinner>
 </div>
 <p-confirmDialog [baseZIndex]="10000" [style]="{width: '25vw'}"></p-confirmDialog>
+
+<p-overlayPanel #op [dismissable]="true" [showCloseIcon]="false">
+    <ng-template pTemplate>
+        <div *ngIf="loggedUser.administrator">
+            <p-scrollPanel [style]="{width: '100%', height: '350px'}">
+            <br>
+            <label>Sat: </label>
+            <input [(ngModel)]="inputSat"
+                   [disabled]="!docBase64 || generatingReport"
+                   class="width-100"
+                   pInputText
+                   placeholder="Sat"
+                   type="text">
+            <br>
+            <br>
+            <label>{{ 'conclusion' | translate }}: </label>
+            <textarea
+                    [(ngModel)]="textAreaComments"
+                    [cols]="30"
+                    [disabled]="!docBase64 || generatingReport"
+                    [rows]="10"
+                    class="width-100"
+                    autoResize="autoResize"
+                    pInputTextarea>
+                </textarea>
+            <br>
+            </p-scrollPanel>
+        </div>
+    </ng-template>
+</p-overlayPanel>

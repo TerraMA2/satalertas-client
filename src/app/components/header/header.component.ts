@@ -144,12 +144,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.setDefaultDate();
 	}
 
-	onFilterFocus() {
-		document.addEventListener('keypress', e => {
-			if (document.querySelector('.p-datepicker') && (e['which'] === 13 || e['keyCode'] === 13)) {
+	onFilterFocus(event: KeyboardEvent) {
+			if (document.querySelector('.p-datepicker') && (event.code === 'Enter')) {
 				this.onFilterClick();
 			}
-		});
 	}
 
 	onTodayClick() {
@@ -173,7 +171,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				day: date.getDay(),
 				month: date.getMonth(),
 				year: date.getFullYear(),
-				today: true, selectable: true
+				today: true,
+				selectable: true
 			}
 		};
 	}
@@ -199,7 +198,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 		this.filterService.filterMap.next();
 		this.filterService.filterTable.next();
-		this.filterService.filterReport.next();
+		this.filterService.filterSynthesis.next();
 		this.filterService.filterDashboard.next();
 
 		this.datePicker.toggle();

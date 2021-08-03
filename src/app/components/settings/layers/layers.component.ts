@@ -37,7 +37,9 @@ export class LayersComponent implements OnInit {
 
   async getAllGroups() {
     this.groupService.getAll().then((data) => {
-      this.groups = data.map((group: Group) => ({ label: group.name, value: group.id }));
+      if (data) {
+        this.groups = data.map((group: Group) => ({ label: group.name, value: group.id }));
+      }
     });
   }
 
@@ -88,7 +90,7 @@ export class LayersComponent implements OnInit {
         this.appendedLayers.push(layer);
       }
     });
-    console.log("Camadas novas inseridas")
+    console.log('Camadas novas inseridas')
     console.log(this.appendedLayers);
   }
   async removeLayer(param) {
@@ -101,7 +103,7 @@ export class LayersComponent implements OnInit {
         this.removedLayers.push(layer);
       }
     });
-    console.log("Camadas removidas")
+    console.log('Camadas removidas')
     console.log(this.removedLayers)
   }
 }

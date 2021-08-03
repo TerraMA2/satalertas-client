@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Router, RoutesRecognized} from '@angular/router';
 
 import {Property} from 'src/app/models/property.model';
 
@@ -13,6 +13,7 @@ import {SidebarService} from 'src/app/services/sidebar.service';
 import {SynthesisService} from '../../services/synthesis.service';
 
 import {Response} from '../../models/response.model';
+import {filter, pairwise} from 'rxjs/operators';
 
 @Component({
 	selector: 'app-report',
@@ -52,6 +53,8 @@ export class SynthesisComponent implements OnInit {
 	titleDetailedVisions;
 	titleDeforestation;
 
+	previousUrl: string;
+
 	constructor(
 		private activatedRoute: ActivatedRoute,
 		private configService: ConfigService,
@@ -63,13 +66,15 @@ export class SynthesisComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.filterService.filterReport.subscribe(() => {
+		this.previousUrl = localStorage.getItem('previousUrl');
+		this.filterService.filterSynthesis.subscribe(() => {
 			if (this.router.url.startsWith('/synthesis')) {
 				this.getPropertyData();
 			}
 		});
 		this.activatedRoute.params.subscribe(params => this.carRegister = params.carRegister);
 		this.sidebarService.sidebarLayerShowHide.next(false);
+		this.sidebarService.sidebarReload.next();
 
 		this.getPropertyData();
 	}

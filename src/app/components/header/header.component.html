@@ -16,7 +16,7 @@
     <div class="p-g-12 p-md-4 header-filter">
         <p-calendar #dateFilter
                     (onClose)="onFilterClose()"
-                    (onFocus)="onFilterFocus()"
+                    (keypress)="onFilterFocus($event)"
                     [(ngModel)]="dateInput"
                     [dateFormat]="dateField.dateFormat"
                     [firstDayOfWeek]="1"
@@ -50,7 +50,6 @@
     </div>
 
     <div class="header-right">
-
         <p-dropdown (onChange)="languageChanged($event)"
                     [(ngModel)]="selectedLanguage"
                     [options]="languages"
@@ -71,16 +70,13 @@
         </p-dropdown>
         &nbsp;&nbsp;
 
-
         <ng-container *ngIf="hasLogin && !isAuthenticated; then login; else logout"></ng-container>
 
         <ng-template #login>
             <p-button (click)="onLoginClick()"
                       icon="fa fa-sign-in-alt"
                       label="{{'login' | translate}}"
-                      styleClass="p-button-raised p-button-secondary"
-
-                      type="button">
+                      styleClass="p-button-raised p-button-secondary">
             </p-button>
         </ng-template>
 
@@ -90,18 +86,14 @@
 
             <div *ngIf="isAdministrator == true">
                 <p-button icon="pi pi-cog"
-                          routerLink="/settings/groups"
-
-                          type="button">
+                          routerLink="/settings/groups">
                 </p-button>
             </div>
 
             <p-button (click)="onLogoutClick()"
                       icon="fa fa-sign-in-alt"
                       label="{{'logout' | translate}}"
-                      styleClass="p-button-raised p-button-secondary"
-
-                      type="button">
+                      styleClass="p-button-raised p-button-secondary">
             </p-button>
         </ng-template>
 
@@ -116,7 +108,6 @@
             [showHeader]="false"
             autoZIndex="false"
             baseZIndex="1001">
-
         <app-auth (closeLoginClicked)="onCloseLoginClick($event)"
                   [displayLogin]="displayLogin">
         </app-auth>

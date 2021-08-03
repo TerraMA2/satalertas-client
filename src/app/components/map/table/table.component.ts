@@ -103,7 +103,6 @@ export class TableComponent implements OnInit {
 
 		this.authService.user.subscribe((user) => this.loggedUser = user);
 
-
 		this.tableService.loadTableData.subscribe(layer => {
 			if (layer) {
 				this.isLoading = true;

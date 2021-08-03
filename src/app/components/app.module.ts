@@ -37,7 +37,7 @@ import {PickListModule} from 'primeng/picklist';
 import {RippleModule} from 'primeng/ripple';
 import {MessageModule} from 'primeng/message';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import { ReportsComponent } from './reports/reports.component';
+import {ScrollTopModule} from 'primeng/scrolltop';
 
 import {AppComponent} from './app.component';
 import {MapComponent} from './map/map.component';
@@ -92,13 +92,15 @@ import { SynthesisChartCardComponent } from './synthesis/synthesis-chart/synthes
 import { SynthesisNdviComponent } from './synthesis/synthesis-ndvi/synthesis-ndvi.component';
 import { ReportListComponent } from './reports/report-list/report-list.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ReportsComponent } from './reports/reports.component';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
 
 registerLocaleData(localePt, 'pt');
 
 const project = environment.project;
 
 export function HttpLoaderFactory(http: HttpClient) {
-	return new TranslateHttpLoader(http, `./assets/config${project ? '/' + project + '/' : ''}i18n/`, '.json');
+	return new TranslateHttpLoader(http, `./assets/config/${project ? project + '/' : ''}i18n/`, '.json');
 }
 
 @NgModule({
@@ -152,7 +154,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     ReportListComponent,
     PageNotFoundComponent
 	],
-
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
@@ -191,13 +192,15 @@ export function HttpLoaderFactory(http: HttpClient) {
 		PickListModule,
 		RippleModule,
 		MessageModule,
+		ScrollTopModule,
 		TranslateModule.forRoot({
 			loader: {
 				provide: TranslateLoader,
 				useFactory: HttpLoaderFactory,
 				deps: [HttpClient]
 			}
-		})
+		}),
+		OverlayPanelModule,
 	],
 	providers: [
 		TreeDragDropService,

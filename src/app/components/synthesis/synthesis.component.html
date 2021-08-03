@@ -2,7 +2,7 @@
     <div class="p-toolbar-group-left">
         <p-button icon="fas fa-arrow-left"
                   label="Voltar ao mapa"
-                  routerLink="/map"
+                  routerLink="{{previousUrl}}"
                   styleClass="p-button-raised">
         </p-button>
     </div>
@@ -90,4 +90,5 @@
                 [formattedFilterDate]="formattedFilterDate"></app-report-ndvi>
         </div>
     </div>
+    <p-scrollTop target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="fas fa-arrow-circle-up"></p-scrollTop>
 </p-scrollPanel>

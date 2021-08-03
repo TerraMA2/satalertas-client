@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 import {LazyLoadEvent, MessageService} from 'primeng/api';
 
@@ -118,6 +118,16 @@ export class ReportListComponent implements OnInit {
     this.selectedFilterSortField = selectedOption.sortField;
     await this.loadTableData(selectedOption, this.selectedRowsPerPage, 0, this.selectedFilterSortField, 1);
 
+    this.tableService.clearTable.subscribe(() => this.clearTable());
+
+    this.filterService.filterTable.subscribe(() => this.tableService.loadTableData.next(this.selectedFilter));
+
+    this.tableService.loadTableData.subscribe(layer => {
+      if (layer) {
+        this.isLoading = true;
+        this.loadTableData(layer, this.selectedRowsPerPage, 0);
+      }
+    });
   }
 
   async loadTableData(layer,

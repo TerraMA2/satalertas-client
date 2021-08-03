@@ -57,6 +57,12 @@
   "area": "Área",
   "alerts": "Alertas",
   "pageNotFound": "Página não encontrada",
+  "noRecordsFound": "Nenhum registro encontrado",
+  "generateReport": "Gerar relatório",
+  "conclusion": "Conclusão",
+  "goBack": "Voltar",
+  "downloadVectors": "Baixar vetores",
+  "alterConclusion": "Alterar conclusão e Sat",
   "primeng": {
     "startsWith": "Começa com",
     "contains": "Contém",
