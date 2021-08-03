@@ -91,6 +91,7 @@ import { SynthesisSectionComponent } from './synthesis/synthesis-section/synthes
 import { SynthesisChartCardComponent } from './synthesis/synthesis-chart/synthesis-chart-card/synthesis-chart-card.component';
 import { SynthesisNdviComponent } from './synthesis/synthesis-ndvi/synthesis-ndvi.component';
 import { ReportListComponent } from './reports/report-list/report-list.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 registerLocaleData(localePt, 'pt');
 
@@ -148,7 +149,8 @@ export function HttpLoaderFactory(http: HttpClient) {
 	  SynthesisChartCardComponent,
 	  SynthesisNdviComponent,
     ReportsComponent,
-    ReportListComponent
+    ReportListComponent,
+    PageNotFoundComponent
 	],
 
 	imports: [

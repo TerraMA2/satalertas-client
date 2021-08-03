@@ -12,6 +12,7 @@ import {LayersComponent} from './settings/layers/layers.component';
 import {LayersAdvancedComponent} from './settings/layers-advanced/layers-advanced.component';
 import {ReportsComponent} from './reports/reports.component';
 import {ReportListComponent} from './reports/report-list/report-list.component';
+import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
 	{path: '', component: DashboardComponent},
@@ -33,14 +34,12 @@ const routes: Routes = [
 			{path: 'layers', component: LayersComponent},
 			{path: 'layers-advanced', component: LayersAdvancedComponent}
 		]
-	}
+	},
+	{ path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({
-	imports: [RouterModule.forRoot(routes, {
-		onSameUrlNavigation: 'ignore',
-		relativeLinkResolution: 'legacy'
-	})],
+	imports: [RouterModule.forRoot(routes)],
 	exports: [RouterModule]
 })
 export class AppRoutingModule {

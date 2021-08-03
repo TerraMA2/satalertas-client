@@ -66,6 +66,7 @@
   "layerNotFound": "Layer not found",
   "infoNotFound": "Information not found",
   "restoreMap": "Restore map",
+  "pageNotFound": "Page not found",
   "primeng": {
     "startsWith": "Starts with",
     "contains": "Contains",
