@@ -28,6 +28,8 @@ import {ReportLayer} from '../../../models/report-layer.model';
 
 import {AuthService} from 'src/app/services/auth.service';
 import {User} from '../../../models/user.model';
+import {InfoColumnsService} from '../../../services/info-columns.service';
+import {environment} from '../../../../environments/environment';
 
 
 @Component({
@@ -90,7 +92,8 @@ export class TableComponent implements OnInit {
 		private reportService: ReportService,
 		private messageService: MessageService,
 		private exportService: ExportService,
-		private authService: AuthService
+		private authService: AuthService,
+		private infoColumnsService: InfoColumnsService
 	) {
 	}
 
@@ -116,7 +119,7 @@ export class TableComponent implements OnInit {
 			}
 		});
 
-		this.filters = await this.configService.getReportLayers().then((response: Response) => {
+		this.filters = await this.tableService.getReportLayers().then((response: Response) => {
 			const data = response.data;
 			const reportLayers = [];
 			data.forEach((rl) => {
@@ -210,7 +213,7 @@ export class TableComponent implements OnInit {
 		params['sortOrder'] = sortOrder ? sortOrder : 1;
 
 		await this.hTTPService
-		.get(url, this.filterService.getParams(params))
+		.get<any>(environment.reportServerUrl + url, {params: this.filterService.getParams(params)})
 		.subscribe(async data => await this.setData(data, layer.codgroup ? layer.codgroup : layer.codgroup));
 	}
 
@@ -226,7 +229,7 @@ export class TableComponent implements OnInit {
 			}
 			if (data.length > 0) {
 				if (!this.tableReportActive) {
-					const infoColumns = await this.configService.getInfoColumns().then((response: Response) => response);
+					const infoColumns = await this.infoColumnsService.getInfoColumns().then((response: Response) => response);
 					const changedData = [];
 					Object.keys(data[0]).forEach(key => {
 						const column = infoColumns && infoColumns[group] ? infoColumns[group][key] : '';

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 
-import {throwError} from 'rxjs';
+import {Observable, throwError} from 'rxjs';
 
 import {catchError, retry} from 'rxjs/operators';
 
@@ -14,69 +14,45 @@ import {environment} from '../../environments/environment';
 export class HTTPService {
 
     constructor(
-        private http: HttpClient
+        private httpClient: HttpClient
     ) {
     }
 
-    get(url, parameters = {}) {
+    get<T>(url, params = {}): Observable<T> {
+        return this.httpClient.get<T>(url, params)
+            .pipe(
+                retry(1),
+                catchError(this.handleError)
+            );
+    }
+
+    post(url, params = {}) {
         if (!url) {
             return;
         }
-
-        const terramaUrl = environment.reportServerUrl;
-        const geoserverUrl = environment.geoserverUrl;
-        const terramaUrlProd = 'http://www.terrama2.dpi.inpe.br/mpmt';
-        const testUrl = 'http://localhost:3200';
-
-        if (!url.includes(terramaUrl) &&
-            !url.includes(terramaUrlProd) &&
-            !url.includes(testUrl) &&
-            !url.includes(geoserverUrl) &&
-            !url.includes('https://www.satveg.cnptia.embrapa.br')) {
-            url = terramaUrl + url;
-        }
-        return this.http.get(url, {params: parameters}).pipe(
+        return this.httpClient.post(url, params).pipe(
             retry(1),
             catchError(this.handleError)
         );
     }
 
-    getBlob(url, parameters = {}) {
+    put(url, params = {}) {
         if (!url) {
             return;
         }
-
-        const terramaUrl = environment.reportServerUrl;
-        const geoserverUrl = environment.geoserverUrl;
-        const terramaUrlProd = 'http://www.terrama2.dpi.inpe.br/mpmt';
-        const testUrl = 'http://localhost:3200';
-
-        if (!url.includes(terramaUrl) &&
-            !url.includes(terramaUrlProd) &&
-            !url.includes(testUrl) &&
-            !url.includes(geoserverUrl) &&
-            !url.includes('https://www.satveg.cnptia.embrapa.br')) {
-            url = terramaUrl + url;
-        }
-        return this.http.get(url, {params: parameters, responseType: 'blob'}).pipe(
-            retry(1),
-            catchError(this.handleError)
+        return this.httpClient.put(url, params).pipe(
+          retry(1),
+          catchError(this.handleError)
         );
     }
 
-    post(url, parameters = {}) {
+    delete(url, params = {}) {
         if (!url) {
             return;
         }
-        const terramaUrl = environment.reportServerUrl;
-        if (!url.includes(terramaUrl)) {
-            url = terramaUrl + url;
-        }
-        return this.http.post(url, {
-            params: parameters
-        }).pipe(
-            retry(0),
-            catchError(this.handleError)
+        return this.httpClient.delete(url, params).pipe(
+          retry(1),
+          catchError(this.handleError)
         );
     }
 
@@ -88,7 +64,7 @@ export class HTTPService {
         if (!url.includes(terramaUrl)) {
             url = terramaUrl + url;
         }
-        return this.http.post(url, {
+        return this.httpClient.post(url, {
             params: parameters
         }).pipe(
             retry(0),

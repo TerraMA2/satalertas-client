@@ -4,7 +4,7 @@ import {Property} from '../models/property.model';
 
 import {Subject} from 'rxjs';
 
-import {HttpClient} from '@angular/common/http';
+import {HTTPService} from './http.service';
 
 import {environment} from '../../environments/environment';
 
@@ -20,52 +20,80 @@ export class ReportService {
     changeReportType = new Subject();
 
     constructor(
-        private http: HttpClient
+        private httpService: HTTPService
     ) {
     }
 
     async getReportCarData(carRegister, date, filter, type) {
         const url = `${this.URL_REPORT_SERVER}/getReportCarData`;
 
-        const parameters = {carRegister, date, filter, type};
+        const params = {
+            params: {
+                carRegister,
+                date,
+                filter,
+                type
+            }
+        };
 
-        return await this.http.get(url, {params: parameters}).toPromise();
+        return await this.httpService.get<any>(url, params).toPromise();
     }
 
     async getPointsAlerts(carRegister, date, filter, type) {
         const url = `${this.URL_REPORT_SERVER}/getPointsAlerts`;
 
-        const parameters = {carRegister, date, filter, type};
+        const params = {
+            params: {
+                carRegister,
+                date,
+                filter,
+                type
+            }
+        };
 
-        return await this.http.get(url, {params: parameters}).toPromise();
+        return await this.httpService.get<any>(url, params).toPromise();
     }
 
     async createPdf(reportData) {
         const url = this.URL_REPORT_SERVER + '/createPdf';
-        const parameters = {reportData};
-
-        return await this.http.post(url, {params: parameters}).toPromise();
+        const params = {
+            params: {
+                reportData
+            }
+        };
+        return await this.httpService.post(url, params).toPromise();
     }
 
 
     async generatePdf(reportData) {
         const url = this.URL_REPORT_SERVER + '/generatePdf';
-        const parameters = {reportData};
+        const params = {
+            params: {
+                reportData
+            }
+        };
 
-        return await this.http.post(url, {params: parameters}).toPromise();
+        return await this.httpService.post(url, params).toPromise();
     }
 
     async getReportsByCARCod(carCode) {
         const url = this.URL_REPORT_SERVER + '/getReportsByCARCod';
-        const parameters = {carCode};
+        const params = {
+            params: {
+                carCode
+            }
+        };
 
-        return await this.http.get(url, {params: parameters}).toPromise();
+        return await this.httpService.get<any>(url, params).toPromise();
     }
 
     async getReportById(id) {
         const url = this.URL_REPORT_SERVER;
-        const parameters = {id};
-
-        return await this.http.get(url, {params: parameters}).toPromise();
+        const params = {
+            params: {
+                id
+            }
+        };
+        return await this.httpService.get<any>(url, params).toPromise();
     }
 }

@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import ConfigJson from '../../assets/config/config.json';
 import MPMTConfigJson from '../../assets/config/mpmt/mpmt-config.json';
 
-import {HttpClient} from '@angular/common/http';
+import {HTTPService} from './http.service';
 
 import {environment} from '../../environments/environment';
 import {Project} from '../enum/project.enum';
@@ -16,7 +16,7 @@ const PROJECT = environment.project;
 })
 export class ConfigService {
     constructor(
-        private http: HttpClient
+        private httpService: HTTPService
     ) {
     }
 
@@ -113,31 +113,9 @@ export class ConfigService {
         return appConfig;
     }
 
-    async getInfoColumns(viewId?) {
-        const parameters = {viewId};
-        const url = `${URL_REPORT_SERVER}/config/getInfoColumns`;
-
-        return await this.http.get(url, {params: parameters}).toPromise();
-    }
-
-    async getPopupInfo(gid, codGroup, filter?) {
-        const parameters = {gid, codGroup, filter};
-        const url = `${URL_REPORT_SERVER}/map/getPopupInfo`;
-
-        return await this.http.get(url, {params: parameters}).toPromise();
-    }
-
-    async getReportLayers() {
-        const parameters = {};
-        const url = `${URL_REPORT_SERVER}/view/getReportLayers`;
-
-        return await this.http.get(url, {params: parameters}).toPromise();
-    }
-
     async getSidebarConfigurationDynamically() {
-        const parameters = {};
         const url = `${URL_REPORT_SERVER}/view/getSidebarConfigDynamic`;
 
-        return await this.http.get(url, {params: parameters}).toPromise();
+        return await this.httpService.get<any>(url).toPromise();
     }
 }

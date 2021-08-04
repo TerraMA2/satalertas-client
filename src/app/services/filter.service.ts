@@ -6,11 +6,10 @@ import {Layer} from '../models/layer.model';
 
 import {Alert} from '../models/alert.model';
 
-import {HttpClient} from '@angular/common/http';
-
 import {environment} from '../../environments/environment';
 
 import {FilterParam} from '../models/filter-param.model';
+import {HTTPService} from './http.service';
 
 @Injectable({
     providedIn: 'root'
@@ -28,7 +27,7 @@ export class FilterService {
     filterSynthesis = new Subject<Layer>();
 
     constructor(
-        private http: HttpClient
+        private httpService: HTTPService
     ) {
     }
 
@@ -60,15 +59,21 @@ export class FilterService {
         const url = this.urlDashboard + '/getAnalysisTotals';
 
         const parameters = this.getParams(alerts);
+        const params = {
+            params: parameters
+        };
 
-        return await this.http.get(url, {params: parameters}).toPromise();
+        return await this.httpService.get<any>(url, params).toPromise();
     }
 
     async getDetailsAnalysisTotals(alerts: Alert [] = []) {
         const url = this.urlDashboard + '/getDetailsAnalysisTotals';
 
         const parameters = this.getParams(alerts);
+        const params = {
+            params: parameters
+        };
 
-        return await this.http.get(url, {params: parameters}).toPromise();
+        return await this.httpService.get<any>(url, params).toPromise();
     }
 }

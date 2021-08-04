@@ -1,4 +1,4 @@
-import {HttpClient} from '@angular/common/http';
+import {HTTPService} from './http.service';
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
 
@@ -9,34 +9,34 @@ export class GroupService {
   URL_REPORT_SERVER = environment.reportServerUrl;
   url = `${this.URL_REPORT_SERVER}/group`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private httpService: HTTPService) { }
 
   async getAll() {
-    return await this.http.get<any>(this.url)
+    return await this.httpService.get<any>(this.url)
       .toPromise()
       .then(res => res);
   };
 
   async getCodGroups() {
     const codUrl = `${this.url}/getCodGroups`
-    return await this.http.get<any>(codUrl)
+    return await this.httpService.get<any>(codUrl)
       .toPromise()
       .then(res => res);
   }
 
   async createNewGroup(params) {
-    return await this.http.post(this.url, { ...params }).toPromise()
+    return await this.httpService.post(this.url, { ...params }).toPromise()
       .then(res => res);
   }
 
   async editGroup(params) {
-    return await this.http.put(this.url, { ...params }).toPromise()
+    return await this.httpService.put(this.url, { ...params }).toPromise()
       .then(res => res);
   }
 
   async removeGroup(groupId) {
     const deleteUrl = `${this.url}/${groupId}`
-    return await this.http.delete(deleteUrl).toPromise()
+    return await this.httpService.delete(deleteUrl).toPromise()
       .then(res => res);
   }
 }

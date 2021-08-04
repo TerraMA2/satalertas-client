@@ -11,6 +11,7 @@ import {FilterService} from './filter.service';
 import {View} from '../models/view.model';
 
 import {LayerType} from '../enum/layer-type.enum';
+import {MapService} from './map.service';
 
 @Injectable({
     providedIn: 'root'
@@ -21,7 +22,8 @@ export class PopupService {
                 private injector: Injector,
                 private appRef: ApplicationRef,
                 private configService: ConfigService,
-                private filterService: FilterService
+                private filterService: FilterService,
+                private mapService: MapService
     ) {
     }
 
@@ -43,7 +45,7 @@ export class PopupService {
             );
             filter = JSON.stringify(this.filterService.getParams(view));
         }
-        const data = await this.configService.getPopupInfo(gid, codGroup, filter).then(response => response);
+        const data = await this.mapService.getPopupInfo(gid, codGroup, filter).then(response => response);
         const reportLink = '/reports/';
         const linkSynthesis = '/synthesis/' + gid;
         let linkDETER = reportLink + 'deter/' + gid;

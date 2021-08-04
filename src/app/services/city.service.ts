@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 
 import {environment} from '../../environments/environment';
 
-import {HttpClient} from '@angular/common/http';
+import {HTTPService} from './http.service';
 
 @Injectable({
     providedIn: 'root'
@@ -11,43 +11,43 @@ export class CityService {
     urlCity = environment.reportServerUrl + '/city';
 
     constructor(
-        private http: HttpClient
+        private httpService: HTTPService
     ) {
     }
 
     getAll() {
-        return this.http.get(this.urlCity + '/getAll').toPromise();
+        return this.httpService.get<any>(this.urlCity + '/getAll').toPromise();
     }
 
     getAllSimplified() {
-        return this.http.get(this.urlCity + '/getAllSimplified').toPromise();
+        return this.httpService.get<any>(this.urlCity + '/getAllSimplified').toPromise();
     }
 
     getAllSimplifiedRegions() {
-        return this.http.get(this.urlCity + '/getAllRegionsSimplified').toPromise();
+        return this.httpService.get<any>(this.urlCity + '/getAllRegionsSimplified').toPromise();
     }
 
     getAllSimplifiedMesoregions() {
-        return this.http.get(this.urlCity + '/getAllMesoregionsSimplified').toPromise();
+        return this.httpService.get<any>(this.urlCity + '/getAllMesoregionsSimplified').toPromise();
     }
 
     getAllSimplifiedImmediateRegion() {
-        return this.http.get(this.urlCity + '/getAllImmediateRegionSimplified').toPromise();
+        return this.httpService.get<any>(this.urlCity + '/getAllImmediateRegionSimplified').toPromise();
     }
 
     getAllSimplifiedIntermediateRegion() {
-        return this.http.get(this.urlCity + '/getAllIntermediateRegionSimplified').toPromise();
+        return this.httpService.get<any>(this.urlCity + '/getAllIntermediateRegionSimplified').toPromise();
     }
 
     getAllSimplifiedPjbh() {
-        return this.http.get(this.urlCity + '/getAllPjbhSimplified').toPromise();
+        return this.httpService.get<any>(this.urlCity + '/getAllPjbhSimplified').toPromise();
     }
 
     getAllSimplifiedProjus() {
-        return this.http.get(this.urlCity + '/getAllProjusSimplified').toPromise();
+        return this.httpService.get<any>(this.urlCity + '/getAllProjusSimplified').toPromise();
     }
 
     getAllSimplifiedMicroregions() {
-        return this.http.get(this.urlCity + '/getAllMicroregionsSimplified').toPromise();
+        return this.httpService.get<any>(this.urlCity + '/getAllMicroregionsSimplified').toPromise();
     }
 }

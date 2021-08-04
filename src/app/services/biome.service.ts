@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 
-import {HttpClient} from '@angular/common/http';
+import {HTTPService} from './http.service';
 
 import {environment} from '../../environments/environment';
 
@@ -12,15 +12,15 @@ export class BiomeService {
     urlBiome = environment.reportServerUrl + '/biome';
 
     constructor(
-        private http: HttpClient
+        private httpService: HTTPService
     ) {
     }
 
     getAll() {
-        return this.http.get(this.urlBiome + '/getAll').toPromise();
+        return this.httpService.get<any>(this.urlBiome + '/getAll').toPromise();
     }
 
     getAllSimplified() {
-        return this.http.get(this.urlBiome + '/getAllSimplified').toPromise();
+        return this.httpService.get<any>(this.urlBiome + '/getAllSimplified').toPromise();
     }
 }

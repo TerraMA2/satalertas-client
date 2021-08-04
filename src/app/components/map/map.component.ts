@@ -45,6 +45,7 @@ import {AuthService} from 'src/app/services/auth.service';
 import {Response} from '../../models/response.model';
 
 import {environment} from 'src/environments/environment';
+import {InfoColumnsService} from '../../services/info-columns.service';
 
 @Component({
 	selector: 'app-map',
@@ -85,7 +86,8 @@ export class MapComponent implements OnInit, AfterViewInit {
 		private mapService: MapService,
 		private filterService: FilterService,
 		private linkPopupService: PopupService,
-		private authService: AuthService
+		private authService: AuthService,
+		private infoColumnsService: InfoColumnsService
 	) {
 	}
 
@@ -782,7 +784,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 			popupContent += `<h2>Layer não encontrado.</h2>`;
 		}
 
-		const infoColumns = await this.configService.getInfoColumns().then((response: Response) => response);
+		const infoColumns = await this.infoColumnsService.getInfoColumns().then((response: Response) => response);
 
 		let popupTable = '';
 		for (const selectedLayer of this.selectedLayers) {
@@ -800,7 +802,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 				params = this.getWMSFeatureInfoParams(layer, event);
 			}
 
-			await this.hTTPService.get(url, params).toPromise().then((layerInfo: LayerInfo) => {
+			await this.hTTPService.get<any>(url, params).toPromise().then((layerInfo: LayerInfo) => {
 				const features = layerInfo.features;
 				if (features && features.length > 0) {
 					popupTable += this.getFeatureInfoPopup(layerName, features, layerInfoColumn);
@@ -996,7 +998,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 			federal: layer.type === LayerType.ANALYSIS ? 'de_car_validado_sema_numero_do2' : 'numero_do2',
 			estadual: layer.type === LayerType.ANALYSIS ? 'de_car_validado_sema_numero_do1' : 'numero_do1'
 		};
-		this.hTTPService.get(url, params)
+		this.hTTPService.get<any>(environment.reportServerUrl + url, params)
 		.subscribe(data => this.setMarkers(data, carRegisterColumn, layer, columnCarGid));
 	}
 }

@@ -4,7 +4,7 @@ import {Property} from '../models/property.model';
 
 import {Subject} from 'rxjs';
 
-import {HttpClient} from '@angular/common/http';
+import {HTTPService} from './http.service';
 
 import {environment} from '../../environments/environment';
 import {Response} from '../models/response.model';
@@ -20,15 +20,22 @@ export class SynthesisService {
     property = new Subject<Property>();
 
     constructor(
-        private http: HttpClient,
+        private httpService: HTTPService,
         private reportService: ReportService
     ) {
     }
 
     async getSynthesis(carRegister, date, formattedFilterDate, synthesisConfig) {
         const url = `${this.URL_REPORT_SERVER}/getSynthesis`;
-        const parameters = {carRegister, date, formattedFilterDate, synthesisConfig};
-        return await this.http.post(url, {params: parameters}).toPromise();
+        const params = {
+            params: {
+                carRegister,
+                date,
+                formattedFilterDate,
+                synthesisConfig
+            }
+        };
+        return await this.httpService.post(url, params).toPromise();
     }
     getNDVI(carRegister, date) {
         return this.reportService.getPointsAlerts(carRegister, date, null, 'prodes').then((response: Response) => {

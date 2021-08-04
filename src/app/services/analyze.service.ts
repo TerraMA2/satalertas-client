@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 
-import {HttpClient} from '@angular/common/http';
+import {HTTPService} from './http.service';
 
 import {environment} from '../../environments/environment';
 
@@ -12,14 +12,19 @@ export class AnalyzeService {
     urlAnalyze = environment.reportServerUrl + '/analyze';
 
     constructor(
-        private http: HttpClient
+        private httpService: HTTPService
     ) {
     }
 
     async getAllClassByType(type) {
         const url = `${this.urlAnalyze}/getAllClassByType`;
+        const params = {
+            params: {
+                type: type ? type : ''
+            }
+        };
 
-        return await this.http.get(url, {params: {type: type ? type : ''}}).toPromise();
+        return await this.httpService.get<any>(url, params).toPromise();
     }
 
 }

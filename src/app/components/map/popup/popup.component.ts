@@ -16,8 +16,8 @@ export class PopupComponent implements OnInit {
 	public linkFireSpot: string;
 
 	constructor(
-		public mapService: MapService) {
-	}
+		public mapService: MapService
+	) { }
 
 	ngOnInit() {
 	}

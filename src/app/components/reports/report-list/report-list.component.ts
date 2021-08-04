@@ -26,6 +26,7 @@ import {ReportLayer} from '../../../models/report-layer.model';
 
 import {AuthService} from 'src/app/services/auth.service';
 import {User} from '../../../models/user.model';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-report-list',
@@ -84,7 +85,7 @@ export class ReportListComponent implements OnInit {
     this.rowsPerPage = this.tableConfig.rowsPerPage;
     this.authService.user.subscribe((user) => this.loggedUser = user);
 
-    this.filters = await this.configService.getReportLayers().then((response: Response) => {
+    this.filters = await this.tableService.getReportLayers().then((response: Response) => {
       const data = response.data;
       const reportLayers = [];
       data.forEach((rl) => {
@@ -182,7 +183,7 @@ export class ReportListComponent implements OnInit {
     params['sortOrder'] = sortOrder ? sortOrder : 1;
 
     await this.hTTPService
-    .get(url, this.filterService.getParams(params))
+    .get(environment.reportServerUrl + url, {params: this.filterService.getParams(params)})
     .subscribe(async data => await this.setData(data, layer.codgroup ? layer.codgroup : layer.codgroup));
   }
 

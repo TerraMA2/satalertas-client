@@ -6,6 +6,10 @@ import {Layer} from '../models/layer.model';
 import {Util} from '../utils/util';
 import * as L from 'leaflet';
 import {LatLngBounds} from 'leaflet';
+import {environment} from '../../environments/environment';
+import {HTTPService} from './http.service';
+
+const URL_REPORT_SERVER = environment.reportServerUrl;
 
 @Injectable({
     providedIn: 'root'
@@ -36,7 +40,9 @@ export class MapService {
 
     clearMarkers = new Subject();
 
-    constructor() {
+    constructor(
+      private httpService: HTTPService
+    ) {
     }
 
     getPopupContent(data, name, infoColumns = null) {
@@ -87,6 +93,19 @@ export class MapService {
         `;
 
         return popupContent;
+    }
+
+    async getPopupInfo(gid, codGroup, filter?) {
+        const url = `${URL_REPORT_SERVER}/map/getPopupInfo`;
+        const params = {
+            params: {
+                gid,
+                codGroup,
+                filter
+            }
+        };
+
+        return await this.httpService.get<any>(url, params).toPromise();
     }
 
     formatterCpfCnpj(cpfCnpj) {
