@@ -113,7 +113,6 @@ export class MapComponent implements OnInit, AfterViewInit {
 
 	setMap() {
 		this.map = L.map('map', {maxZoom: this.mapConfig.maxZoom});
-		L.Handler.toString();
 		this.panMap(this.mapConfig.initialLatLong, this.mapConfig.initialZoom);
 		L.Marker.prototype.options.icon = L.icon({
 			iconRetinaUrl: 'assets/marker-icon-2x.png',

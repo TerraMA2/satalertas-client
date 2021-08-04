@@ -73,6 +73,10 @@
   "goBack": "Go back",
   "downloadVectors": "Download vectors",
   "alterConclusion": "Alter conclusion and Sat",
+  "zoomIn": "Zoom in",
+  "zoomOut": "Zoom out",
+  "searchCar": "Search by CAR register",
+  "fullscreen": "Fullscreen",
   "primeng": {
     "startsWith": "Starts with",
     "contains": "Contains",

@@ -38,6 +38,7 @@ import {RippleModule} from 'primeng/ripple';
 import {MessageModule} from 'primeng/message';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {ScrollTopModule} from 'primeng/scrolltop';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
 
 import {AppComponent} from './app.component';
 import {MapComponent} from './map/map.component';
@@ -85,15 +86,14 @@ import {LayersAdvancedComponent} from './settings/layers-advanced/layers-advance
 import {LayersAdvancedEditionComponent} from './settings/layers-advanced/layers-advanced-edition/layers-advanced-edition.component';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {environment} from '../../environments/environment';
-import { SynthesisCardComponent } from './synthesis/synthesis-section/synthesis-card/synthesis-card.component';
-import { SynthesisChartComponent } from './synthesis/synthesis-chart/synthesis-chart.component';
-import { SynthesisSectionComponent } from './synthesis/synthesis-section/synthesis-section.component';
-import { SynthesisChartCardComponent } from './synthesis/synthesis-chart/synthesis-chart-card/synthesis-chart-card.component';
-import { SynthesisNdviComponent } from './synthesis/synthesis-ndvi/synthesis-ndvi.component';
-import { ReportListComponent } from './reports/report-list/report-list.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { ReportsComponent } from './reports/reports.component';
-import {OverlayPanelModule} from 'primeng/overlaypanel';
+import {SynthesisCardComponent} from './synthesis/synthesis-section/synthesis-card/synthesis-card.component';
+import {SynthesisChartComponent} from './synthesis/synthesis-chart/synthesis-chart.component';
+import {SynthesisSectionComponent} from './synthesis/synthesis-section/synthesis-section.component';
+import {SynthesisChartCardComponent} from './synthesis/synthesis-chart/synthesis-chart-card/synthesis-chart-card.component';
+import {SynthesisNdviComponent} from './synthesis/synthesis-ndvi/synthesis-ndvi.component';
+import {ReportListComponent} from './reports/report-list/report-list.component';
+import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
+import {ReportsComponent} from './reports/reports.component';
 
 registerLocaleData(localePt, 'pt');
 

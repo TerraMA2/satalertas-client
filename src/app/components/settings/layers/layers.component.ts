@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { SidebarService } from '../../../services/sidebar.service';
-import { Location } from '@angular/common';
+import {Component, OnInit} from '@angular/core';
+import {SidebarService} from '../../../services/sidebar.service';
+import {Location} from '@angular/common';
 
-import { GroupViewService } from 'src/app/services/group-view.service';
-import { GroupService } from 'src/app/services/group.service';
-import { MessageService, SelectItem } from 'primeng/api';
-import { Group } from '../../../models/group.model';
+import {GroupViewService} from 'src/app/services/group-view.service';
+import {GroupService} from 'src/app/services/group.service';
+import {MessageService, SelectItem} from 'primeng/api';
+import {Group} from '../../../models/group.model';
 
 @Component({
   selector: 'app-layers',

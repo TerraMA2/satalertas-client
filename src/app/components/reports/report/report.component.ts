@@ -28,7 +28,7 @@ import {User} from '../../../models/user.model';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
-	selector: 'app-final-report',
+	selector: 'app-report',
 	templateUrl: './report.component.html',
 	styleUrls: ['./report.component.css'],
 	encapsulation: ViewEncapsulation.None,
@@ -36,7 +36,6 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 })
 
 export class ReportComponent implements OnInit, AfterViewInit {
-
 	@ViewChild('imagem2') imagem2: Chart;
 	@ViewChild('chartImg') chartImg: Chart;
 	@ViewChild('myChart0') myChart0: Chart;

@@ -56,15 +56,13 @@
 <div *ngIf="!!docBase64">
     <ngx-extended-pdf-viewer
             [base64Src]="docBase64"
-            [handTool]="false"
-            [height]="'calc(100vh - 100px)'"
-            [showFindButton]="false"
-            [showHandToolButton]="true"
-            [showSecondaryToolbarButton]="false"
-            [showSidebarButton]="false"
+            [language]="'pt-BR'"
+            [enablePrint]="false"
             [useBrowserLocale]="true"
             [enableDragAndDrop]="false"
-            backgroundColor="#ccc">
+            [textLayer]="true"
+            [height]="'calc(100vh - 100px)'"
+            [backgroundColor]="'#ccc'">
     </ngx-extended-pdf-viewer>
 </div>
 
@@ -77,27 +75,27 @@
     <ng-template pTemplate>
         <div *ngIf="loggedUser.administrator">
             <p-scrollPanel [style]="{width: '100%', height: '350px'}">
-            <br>
-            <label>Sat: </label>
-            <input [(ngModel)]="inputSat"
-                   [disabled]="!docBase64 || generatingReport"
-                   class="width-100"
-                   pInputText
-                   placeholder="Sat"
-                   type="text">
-            <br>
-            <br>
-            <label>{{ 'conclusion' | translate }}: </label>
-            <textarea
-                    [(ngModel)]="textAreaComments"
-                    [cols]="30"
-                    [disabled]="!docBase64 || generatingReport"
-                    [rows]="10"
-                    class="width-100"
-                    autoResize="autoResize"
-                    pInputTextarea>
+                <br>
+                <label>Sat: </label>
+                <input [(ngModel)]="inputSat"
+                       [disabled]="!docBase64 || generatingReport"
+                       class="width-100"
+                       pInputText
+                       placeholder="Sat"
+                       type="text">
+                <br>
+                <br>
+                <label>{{ 'conclusion' | translate }}: </label>
+                <textarea
+                        [(ngModel)]="textAreaComments"
+                        [cols]="30"
+                        [disabled]="!docBase64 || generatingReport"
+                        [rows]="10"
+                        class="width-100"
+                        autoResize="autoResize"
+                        pInputTextarea>
                 </textarea>
-            <br>
+                <br>
             </p-scrollPanel>
         </div>
     </ng-template>

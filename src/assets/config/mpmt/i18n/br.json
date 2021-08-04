@@ -73,6 +73,10 @@
   "goBack": "Voltar",
   "downloadVectors": "Baixar vetores",
   "alterConclusion": "Alterar conclusão e Sat",
+  "zoomIn": "Zoom in",
+  "zoomOut": "Zoom out",
+  "searchCar": "Buscar por registro do CAR",
+  "fullscreen": "Tela cheia",
   "primeng": {
     "startsWith": "Começa com",
     "contains": "Contém",

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 
-import {ActivatedRoute, Router, RoutesRecognized} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 import {Property} from 'src/app/models/property.model';
 
@@ -13,7 +13,6 @@ import {SidebarService} from 'src/app/services/sidebar.service';
 import {SynthesisService} from '../../services/synthesis.service';
 
 import {Response} from '../../models/response.model';
-import {filter, pairwise} from 'rxjs/operators';
 
 @Component({
 	selector: 'app-report',

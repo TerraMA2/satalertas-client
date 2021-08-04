@@ -42,19 +42,6 @@ h2 {
     margin: 15px 0;
 }
 
-.pdfViewer .page {
-    direction: ltr;
-    width: 100%;
-    height: 100%;
-    margin: 1px auto -8px;
-    position: relative;
-    overflow: visible;
-    border: 9px solid transparent;
-    background-clip: content-box;
-    border-image: unset !important;
-    background-color: #fff;
-}
-
 .toolbar {
     display: none;
     position: relative;
