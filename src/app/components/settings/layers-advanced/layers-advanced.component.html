@@ -48,6 +48,10 @@
                                 Primária
                                 <p-sortIcon field="is_primary"></p-sortIcon>
                             </th>
+                            <th pSortableColumn="is_primary">
+                                Sub Camada
+                                <p-sortIcon field="is_primary"></p-sortIcon>
+                            </th>
                             <th>Ações</th>
                         </tr>
                     </ng-template>
@@ -86,6 +90,15 @@
                                 <i
                                         [ngClass]="
                     item.is_primary
+                      ? 'pi pi-check-circle yes'
+                      : 'pi pi-minus-circle no'
+                  "
+                                ></i>
+                            </td>
+                            <td>
+                                <i
+                                        [ngClass]="
+                    item.is_sublayer
                       ? 'pi pi-check-circle yes'
                       : 'pi pi-minus-circle no'
                   "

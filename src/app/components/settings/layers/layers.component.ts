@@ -68,6 +68,36 @@ export class LayersComponent implements OnInit {
 		}
 	}
 
+<<<<<<< HEAD
+  async update() {
+    const layers = this.selectedLayers
+      .map(layerId => ({
+        id_group: this.selectedGroup.value, id_view: layerId.id
+      }));
+    this.groupViewService.update({ id_group: this.selectedGroup.value, layers })
+      .then(() => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Sucesso',
+          detail: 'Camadas do grupo atualizadas'
+        });
+      });
+  }
+  async appendLayer(param) {
+    param.forEach(layer => {
+      if (!this.groupLayersReceived.find(({ id }) => id === layer.id)) {
+        this.appendedLayers.push(layer);
+      }
+    });
+  }
+  async removeLayer(param) {
+    param.forEach(layer => {
+      if (this.groupLayersReceived.find(({ id }) => id === layer.id)) {
+        this.removedLayers.push(layer);
+      }
+    });
+  }
+=======
 	async update() {
 		const layers = this.selectedLayers
 		.map(layerId => ({
@@ -109,4 +139,5 @@ export class LayersComponent implements OnInit {
 		console.log('Camadas removidas');
 		console.log(this.removedLayers);
 	}
+>>>>>>> 039dd72d77ecc3b1f9758e5142658378572085d1
 }

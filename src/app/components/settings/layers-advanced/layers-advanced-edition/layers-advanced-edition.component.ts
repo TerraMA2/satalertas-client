@@ -64,8 +64,9 @@ export class LayersAdvancedEditionComponent implements OnInit {
 
 	removeLayer(lyr) {
 		this.mergeSubLayerData();
-		const subIdx = this.newData['sub_layers'].findIndex(({ id }) => id === lyr.id);
-		this.newData['sub_layers'].splice(subIdx, 1);
+		const filteredSublayers = this.newData['sub_layers']
+			.filter(layer => layer.id !== lyr.id)
+		this.newData['sub_layers'] = filteredSublayers;
 	}
 
 	async cancelEdition() {

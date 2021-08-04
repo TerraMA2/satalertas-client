@@ -50,7 +50,6 @@ export class ModalComponent implements OnInit {
 		if (validationMessage) {
 			this.showError(validationMessage);
 		} else {
-			// console.log(this.lines)
 			this.onClickSave.emit();
 			this.cleanInputs();
 		}
