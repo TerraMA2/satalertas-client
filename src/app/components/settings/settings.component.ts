@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {SidebarService} from '../../services/sidebar.service';
-import {Location} from '@angular/common';
-import {AuthService} from 'src/app/services/auth.service';
-import {User} from '../../models/user.model';
-import {Router} from '@angular/router';
-import {MessageService} from 'primeng/api';
+import { Component, OnInit } from '@angular/core';
+import { SidebarService } from '../../services/sidebar.service';
+import { Location } from '@angular/common';
+import { AuthService } from 'src/app/services/auth.service';
+import { User } from '../../models/user.model';
+import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 @Component({
 	selector: 'app-settings',
@@ -30,7 +30,7 @@ export class SettingsComponent implements OnInit {
 			this.loggedUser = user;
 			if (!user || !user.administrator) {
 				this.router.navigateByUrl('/map');
-				this.messageService.add({severity: 'error', summary: 'Atenção!', detail: 'Usuário não autenticado.'});
+				this.messageService.add({ severity: 'error', summary: 'Atenção!', detail: 'Usuário não autenticado.' });
 			}
 		});
 	}

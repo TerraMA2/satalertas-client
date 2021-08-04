@@ -49,17 +49,17 @@
     </form>
     <p-footer>
         <p-button (click)="onSave(validateFields())"
-                  styleClass="p-button-raised"
                   icon="pi pi-check"
                   label="Salvar"
+                  styleClass="p-button-raised"
                   type="submit">
         </p-button>
 
         <p-button
                 (click)="onClose()"
-                styleClass="p-button-secondary p-button p-component p-button-text-only p-button-raised"
                 icon="pi pi-times"
-                label="Cancelar">
+                label="Cancelar"
+                styleClass="p-button-secondary p-button p-component p-button-text-only p-button-raised">
         </p-button>
     </p-footer>
 </p-dialog>

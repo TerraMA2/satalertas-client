@@ -1,12 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
-import {AuthService} from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 
-import {SidebarItem} from 'src/app/models/sidebar-item.model';
+import { SidebarItem } from 'src/app/models/sidebar-item.model';
 
-import {LayerGroup} from 'src/app/models/layer-group.model';
+import { LayerGroup } from 'src/app/models/layer-group.model';
 
-import {SidebarService} from 'src/app/services/sidebar.service';
+import { SidebarService } from 'src/app/services/sidebar.service';
 
 @Component({
 	selector: 'app-sidebar-menu',

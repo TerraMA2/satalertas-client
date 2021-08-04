@@ -1,16 +1,16 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
-import {SidebarService} from 'src/app/services/sidebar.service';
+import { SidebarService } from 'src/app/services/sidebar.service';
 
-import {TableService} from 'src/app/services/table.service';
+import { TableService } from 'src/app/services/table.service';
 
-import {Layer} from 'src/app/models/layer.model';
+import { Layer } from 'src/app/models/layer.model';
 
-import {MapService} from '../../../../../services/map.service';
+import { MapService } from '../../../../../services/map.service';
 
-import {LayerGroup} from '../../../../../models/layer-group.model';
-import {AuthService} from '../../../../../services/auth.service';
-import {User} from '../../../../../models/user.model';
+import { LayerGroup } from '../../../../../models/layer-group.model';
+import { AuthService } from '../../../../../services/auth.service';
+import { User } from '../../../../../models/user.model';
 
 @Component({
 	selector: 'app-sidebar-layer',
@@ -118,27 +118,27 @@ export class SidebarLayerComponent implements OnInit {
 
 	exportTool() {
 		const layer = this.layer;
-		this.mapService.layerToolOpen.next({layer, toolName: 'export'});
+		this.mapService.layerToolOpen.next({ layer, toolName: 'export' });
 	}
 
 	descriptionTool() {
 		const layer = this.layer;
-		this.mapService.layerToolOpen.next({layer, toolName: 'description'});
+		this.mapService.layerToolOpen.next({ layer, toolName: 'description' });
 	}
 
 	opacityTool() {
 		const layer = this.layer;
-		this.mapService.layerToolOpen.next({layer, toolName: 'opacity'});
+		this.mapService.layerToolOpen.next({ layer, toolName: 'opacity' });
 	}
 
 	sliderTool() {
 		const layer = this.layer;
-		this.mapService.layerToolOpen.next({layer, toolName: 'slider'});
+		this.mapService.layerToolOpen.next({ layer, toolName: 'slider' });
 	}
 
 	calendarTool() {
 		const layer = this.layer;
-		this.mapService.layerToolOpen.next({layer, toolName: 'calendar'});
+		this.mapService.layerToolOpen.next({ layer, toolName: 'calendar' });
 	}
 
 	extentTool() {

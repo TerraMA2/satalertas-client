@@ -1,8 +1,8 @@
-import {GroupService} from 'src/app/services/group.service';
-import {Component, OnInit} from '@angular/core';
-import {ConfirmationService, MessageService, TreeNode} from 'primeng/api';
-import {Group} from '../../../../models/group.model';
-import {ConfigService} from '../../../../services/config.service';
+import { GroupService } from 'src/app/services/group.service';
+import { Component, OnInit } from '@angular/core';
+import { ConfirmationService, MessageService, TreeNode } from 'primeng/api';
+import { Group } from '../../../../models/group.model';
+import { ConfigService } from '../../../../services/config.service';
 
 @Component({
 	selector: 'app-group-list',
@@ -43,13 +43,13 @@ export class GroupListComponent implements OnInit {
 				const fiel = {
 					show: true,
 					disable: false,
-					label: `${field.header}`,
+					label: `${ field.header }`,
 					inputClass: 'input-group',
 					type: field.type,
 					// model: '',
 					onChange: (event) => {
 					},
-					field: `${field.field}`,
+					field: `${ field.field }`,
 					required: true
 				};
 				this.inputs.push(fiel);
@@ -84,13 +84,13 @@ export class GroupListComponent implements OnInit {
 	}
 
 	editGroup(editedGroup: Group) {
-		this.group = {...editedGroup};
+		this.group = { ...editedGroup };
 		this.dialogVisible = true;
 	}
 
 	async removeGroup(deletedGroup: Group) {
 		this.confirmationService.confirm({
-			message: `Deseja deletar o grupo ${deletedGroup.name}?`,
+			message: `Deseja deletar o grupo ${ deletedGroup.name }?`,
 			header: 'Atenção!',
 			icon: 'pi pi-exclamation-triangle',
 			accept: () => {

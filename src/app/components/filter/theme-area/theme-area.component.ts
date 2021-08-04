@@ -1,8 +1,8 @@
-import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {ConfigService} from '../../../services/config.service';
-import {FilterTheme} from '../../../models/filter-theme.model';
-import {SelectItem} from 'primeng/api';
-import {FilterService} from '../../../services/filter.service';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ConfigService } from '../../../services/config.service';
+import { FilterTheme } from '../../../models/filter-theme.model';
+import { SelectItem } from 'primeng/api';
+import { FilterService } from '../../../services/filter.service';
 
 @Component({
 	selector: 'app-theme-area',
@@ -35,7 +35,7 @@ export class ThemeAreaComponent implements OnInit, AfterViewInit {
 		this.optionField = this.configService.getFilterConfig('optionField');
 		this.options = this.optionField.options;
 		this.selectedOption = 'ALL';
-		this.onchangeSelected({value: this.selectedOption});
+		this.onchangeSelected({ value: this.selectedOption });
 	}
 
 	ngAfterViewInit() {
@@ -153,7 +153,7 @@ export class ThemeAreaComponent implements OnInit, AfterViewInit {
 
 	private addElementAll(options) {
 		const result = [];
-		result.push({gid: -1, name: 'Todos', value: 'ALL'});
+		result.push({ gid: -1, name: 'Todos', value: 'ALL' });
 
 		if (options && options.length > 0) {
 			options.forEach(option => {

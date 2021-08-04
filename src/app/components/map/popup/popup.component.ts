@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import {MapService} from '../../../services/map.service';
+import { MapService } from '../../../services/map.service';
 
 @Component({
 	selector: 'app-popup',
@@ -17,7 +17,8 @@ export class PopupComponent implements OnInit {
 
 	constructor(
 		public mapService: MapService
-	) { }
+	) {
+	}
 
 	ngOnInit() {
 	}

@@ -1,8 +1,8 @@
-import {GroupService} from 'src/app/services/group.service';
-import {GroupViewService} from '../../../services/group-view.service';
-import {SidebarService} from 'src/app/services/sidebar.service';
-import {ConfirmationService, MessageService} from 'primeng/api';
-import {Component, OnInit} from '@angular/core';
+import { GroupService } from 'src/app/services/group.service';
+import { GroupViewService } from '../../../services/group-view.service';
+import { SidebarService } from 'src/app/services/sidebar.service';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
 	selector: 'app-layers-advanced',
@@ -40,7 +40,7 @@ export class LayersAdvancedComponent implements OnInit {
 	}
 
 	joinSubLayerData(layers, subLayersIds) {
-		return layers.filter(({id}) => subLayersIds.includes(id));
+		return layers.filter(({ id }) => subLayersIds.includes(id));
 	}
 
 	async getGroupData(groupId) {
@@ -70,7 +70,7 @@ export class LayersAdvancedComponent implements OnInit {
 		/*
 		Sends the choosen layer to be edited at modal editor advanced.
 		*/
-		this.layer = {...layerToEdit};
+		this.layer = { ...layerToEdit };
 		this.availableLayers = this.groupLayers.filter((item) => item.id_view !== layerToEdit.id_view);
 		this.displayModal = true;
 	};
@@ -82,17 +82,17 @@ export class LayersAdvancedComponent implements OnInit {
 
 	async getModalEditions() {
 		this.displayModal = false;
-		const sbIdx = this.newGroupData.findIndex(({id}) => id === this.layerEdition['id']);
+		const sbIdx = this.newGroupData.findIndex(({ id }) => id === this.layerEdition['id']);
 
 		if (sbIdx >= 0) {
 			const sbLyr = this.newGroupData[sbIdx];
-			this.newGroupData[sbIdx] = {...sbLyr, ...this.layerEdition};
+			this.newGroupData[sbIdx] = { ...sbLyr, ...this.layerEdition };
 		} else {
 			this.newGroupData.push(this.layerEdition);
 		}
 		const layerToEdit = this.groupLayers.findIndex((item) => item.id === this.layerEdition['id']);
 		if (layerToEdit >= 0) {
-			this.groupLayers[layerToEdit] = {...this.layer, ...this.layerEdition};
+			this.groupLayers[layerToEdit] = { ...this.layer, ...this.layerEdition };
 		}
 		this.layerEdition = {};
 		this.edited = true;
@@ -104,9 +104,9 @@ export class LayersAdvancedComponent implements OnInit {
 			header: 'Atenção!',
 			icon: 'pi pi-exclamation-triangle',
 			accept: async () => {
-				await this.groupViewService.updateAdvanced({id_group: this.selectedGroup, editions: this.newGroupData})
+				await this.groupViewService.updateAdvanced({ id_group: this.selectedGroup, editions: this.newGroupData })
 				.then(() => {
-					this.onGroupChange({value: this.selectedGroup});
+					this.onGroupChange({ value: this.selectedGroup });
 					this.edited = false;
 					this.messageService.add({
 						severity: 'success',

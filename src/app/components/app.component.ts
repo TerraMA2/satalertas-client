@@ -1,18 +1,18 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import {Title} from '@angular/platform-browser';
+import { Title } from '@angular/platform-browser';
 
-import {ConfigService} from '../services/config.service';
+import { ConfigService } from '../services/config.service';
 
-import {AuthService} from '../services/auth.service';
+import { AuthService } from '../services/auth.service';
 
-import {environment} from 'src/environments/environment';
+import { environment } from 'src/environments/environment';
 
-import {SidebarService} from '../services/sidebar.service';
-import {PrimeNGConfig} from 'primeng/api';
-import {TranslateService} from '@ngx-translate/core';
-import {filter, pairwise} from 'rxjs/operators';
-import {Router, RoutesRecognized} from '@angular/router';
+import { SidebarService } from '../services/sidebar.service';
+import { PrimeNGConfig } from 'primeng/api';
+import { TranslateService } from '@ngx-translate/core';
+import { filter, pairwise } from 'rxjs/operators';
+import { Router, RoutesRecognized } from '@angular/router';
 
 @Component({
 	selector: 'app-root',

@@ -1,24 +1,25 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
-import {HTTPService} from './http.service';
+import { HTTPService } from './http.service';
 
-import {environment} from '../../environments/environment';
+import { environment } from '../../environments/environment';
 
 const URL_REPORT_SERVER = environment.reportServerUrl;
 
 @Injectable({
-    providedIn: 'root'
+	providedIn: 'root'
 })
 export class InfoColumnsService {
-    url = `${URL_REPORT_SERVER}/infoColumns`;
-    constructor(
-        private httpService: HTTPService
-    ) {
-    }
+	url = `${ URL_REPORT_SERVER }/infoColumns`;
 
-    async getInfoColumns(viewId?) {
-        const parameters = {viewId};
+	constructor(
+		private httpService: HTTPService
+	) {
+	}
 
-        return await this.httpService.get<any>(this.url + '/', {params: parameters}).toPromise();
-    }
+	async getInfoColumns(viewId?) {
+		const parameters = { viewId };
+
+		return await this.httpService.get<any>(this.url + '/', { params: parameters }).toPromise();
+	}
 }

@@ -15,8 +15,8 @@
 
     <div class="p-g-12 p-md-4 header-filter">
         <p-calendar #dateFilter
-                    (onClose)="onFilterClose()"
                     (keypress)="onFilterFocus($event)"
+                    (onClose)="onFilterClose()"
                     [(ngModel)]="dateInput"
                     [dateFormat]="dateField.dateFormat"
                     [firstDayOfWeek]="1"

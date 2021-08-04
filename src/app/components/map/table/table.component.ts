@@ -1,35 +1,35 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
-import {LazyLoadEvent, MessageService} from 'primeng/api';
+import { LazyLoadEvent, MessageService } from 'primeng/api';
 
-import {HTTPService} from 'src/app/services/http.service';
+import { HTTPService } from 'src/app/services/http.service';
 
-import {ConfigService} from 'src/app/services/config.service';
+import { ConfigService } from 'src/app/services/config.service';
 
-import {TableService} from 'src/app/services/table.service';
+import { TableService } from 'src/app/services/table.service';
 
-import {FilterService} from 'src/app/services/filter.service';
+import { FilterService } from 'src/app/services/filter.service';
 
-import {Layer} from '../../../models/layer.model';
+import { Layer } from '../../../models/layer.model';
 
-import {MapService} from 'src/app/services/map.service';
+import { MapService } from 'src/app/services/map.service';
 
-import {View} from '../../../models/view.model';
+import { View } from '../../../models/view.model';
 
-import {ReportService} from '../../../services/report.service';
+import { ReportService } from '../../../services/report.service';
 
-import {Response} from '../../../models/response.model';
+import { Response } from '../../../models/response.model';
 
-import {Util} from '../../../utils/util';
+import { Util } from '../../../utils/util';
 
-import {ExportService} from '../../../services/export.service';
+import { ExportService } from '../../../services/export.service';
 
-import {ReportLayer} from '../../../models/report-layer.model';
+import { ReportLayer } from '../../../models/report-layer.model';
 
-import {AuthService} from 'src/app/services/auth.service';
-import {User} from '../../../models/user.model';
-import {InfoColumnsService} from '../../../services/info-columns.service';
-import {environment} from '../../../../environments/environment';
+import { AuthService } from 'src/app/services/auth.service';
+import { User } from '../../../models/user.model';
+import { InfoColumnsService } from '../../../services/info-columns.service';
+import { environment } from '../../../../environments/environment';
 
 
 @Component({
@@ -197,7 +197,7 @@ export class TableComponent implements OnInit {
 			((layer.codgroup === 'BURNED_AREA') ||
 				(layer.codgroup === 'BURNED') ||
 				(layer.codgroup === 'CAR'));
-		const params = {view, limit, offset, countTotal};
+		const params = { view, limit, offset, countTotal };
 
 		if (this.selectedFilter) {
 			params['count'] = this.selectedFilter.count;
@@ -213,7 +213,7 @@ export class TableComponent implements OnInit {
 		params['sortOrder'] = sortOrder ? sortOrder : 1;
 
 		await this.hTTPService
-		.get<any>(environment.reportServerUrl + url, {params: this.filterService.getParams(params)})
+		.get<any>(environment.reportServerUrl + url, { params: this.filterService.getParams(params) })
 		.subscribe(async data => await this.setData(data, layer.codgroup ? layer.codgroup : layer.codgroup));
 	}
 
@@ -236,7 +236,7 @@ export class TableComponent implements OnInit {
 						const show = column ? column.show : false;
 						const alias = column ? column.alias : key;
 						if (show === true) {
-							this.columns.push({field: alias, header: alias, sortColumn: key});
+							this.columns.push({ field: alias, header: alias, sortColumn: key });
 						}
 					});
 					Object.keys(data).forEach(dataKey => {
@@ -259,7 +259,7 @@ export class TableComponent implements OnInit {
 				} else {
 					Object.keys(data[0]).forEach(key => {
 						if (key !== 'lat' && key !== 'long' && key !== 'geom' && key !== 'intersection_geom' && key !== 'has_pdf') {
-							this.columns.push({field: key, header: key, sortColumn: key});
+							this.columns.push({ field: key, header: key, sortColumn: key });
 						}
 					});
 				}

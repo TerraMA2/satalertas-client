@@ -1,24 +1,24 @@
-import {Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 
-import {ConfigService} from '../../services/config.service';
+import { ConfigService } from '../../services/config.service';
 
-import {Subscription} from 'rxjs';
+import { Subscription } from 'rxjs';
 
-import {AuthService} from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 
-import {MessageService, PrimeNGConfig} from 'primeng/api';
+import { MessageService, PrimeNGConfig } from 'primeng/api';
 
-import {FilterService} from '../../services/filter.service';
+import { FilterService } from '../../services/filter.service';
 
-import {SidebarService} from 'src/app/services/sidebar.service';
+import { SidebarService } from 'src/app/services/sidebar.service';
 
-import {MapService} from 'src/app/services/map.service';
+import { MapService } from 'src/app/services/map.service';
 
-import {environment} from 'src/environments/environment';
+import { environment } from 'src/environments/environment';
 
-import {FilterDate} from '../../models/filter-date.model';
-import {DropdownElement} from '../../models/dropdown-element.model';
-import {TranslateService} from '@ngx-translate/core';
+import { FilterDate } from '../../models/filter-date.model';
+import { DropdownElement } from '../../models/dropdown-element.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'app-header',
@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 	@Output() showHideSidebarClicked = new EventEmitter<boolean>();
 
-	@ViewChild('dateFilter', {static: true}) datePicker;
+	@ViewChild('dateFilter', { static: true }) datePicker;
 	isAdministrator: boolean;
 	loggedUserName: string;
 	isAuthenticated = false;
@@ -145,9 +145,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	}
 
 	onFilterFocus(event: KeyboardEvent) {
-			if (document.querySelector('.p-datepicker') && (event.code === 'Enter')) {
-				this.onFilterClick();
-			}
+		if (document.querySelector('.p-datepicker') && (event.code === 'Enter')) {
+			this.onFilterClick();
+		}
 	}
 
 	onTodayClick() {

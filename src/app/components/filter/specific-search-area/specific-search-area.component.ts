@@ -1,8 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import {FilterSpecificSearch} from '../../../models/filter-specific-search.model';
+import { FilterSpecificSearch } from '../../../models/filter-specific-search.model';
 
-import {Util} from '../../../utils/util';
+import { Util } from '../../../utils/util';
 
 @Component({
 	selector: 'app-specific-search-area',

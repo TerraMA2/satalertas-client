@@ -1,30 +1,30 @@
-import {AfterViewInit, Component, Inject, LOCALE_ID, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import { AfterViewInit, Component, Inject, LOCALE_ID, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import {SidebarService} from 'src/app/services/sidebar.service';
+import { SidebarService } from 'src/app/services/sidebar.service';
 
-import {ReportService} from '../../../services/report.service';
+import { ReportService } from '../../../services/report.service';
 
-import {Response} from 'src/app/models/response.model';
+import { Response } from 'src/app/models/response.model';
 
 import pdfMake from 'pdfmake/build/pdfmake';
 
 import Chart from 'chart.js';
 
 import pdfFonts from 'pdfmake/build/vfs_fonts';
-import {ExportService} from '../../../services/export.service';
+import { ExportService } from '../../../services/export.service';
 
-import {AuthService} from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 
-import {ConfirmationService, MessageService} from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
-import {Image} from '../../../models/image.model';
+import { Image } from '../../../models/image.model';
 
-import {formatNumber} from '@angular/common';
+import { formatNumber } from '@angular/common';
 
-import {User} from '../../../models/user.model';
-import {NavigationService} from '../../../services/navigation.service';
+import { User } from '../../../models/user.model';
+import { NavigationService } from '../../../services/navigation.service';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -96,7 +96,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 					const pastDeforestation = data.substring(0, data.indexOf(':'));
 					const valuePastDeforestation = formatNumber(data.substring(data.indexOf(':') + 1, data.length), 'pt-BR', '1.0-4');
 
-					pastDeforestationStr = pastDeforestationStr ? `${pastDeforestationStr}\n${pastDeforestation}: ${valuePastDeforestation}` : `${pastDeforestation}: ${valuePastDeforestation}`;
+					pastDeforestationStr = pastDeforestationStr ? `${ pastDeforestationStr }\n${ pastDeforestation }: ${ valuePastDeforestation }` : `${ pastDeforestation }: ${ valuePastDeforestation }`;
 				}
 				property.tableVegRadam.pastDeforestation = pastDeforestationStr;
 			} else {
@@ -172,7 +172,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 			this.loggedUser = user;
 			if (!user) {
 				this.router.navigateByUrl('/map');
-				this.messageService.add({severity: 'error', summary: 'Atenção!', detail: 'Usuário não autenticado.'});
+				this.messageService.add({ severity: 'error', summary: 'Atenção!', detail: 'Usuário não autenticado.' });
 			}
 		});
 		this.activatedRoute.params.subscribe(params => {
@@ -209,7 +209,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 				let count = 0;
 				for (const point of this.points) {
 					const canvas: any = document.createElement('canvas');
-					canvas.id = `myChart${count}`;
+					canvas.id = `myChart${ count }`;
 					canvas.setAttribute('width', 600);
 					canvas.setAttribute('height', 200);
 					canvas.setAttribute('style', 'display: none');
@@ -265,21 +265,21 @@ export class ReportComponent implements OnInit, AfterViewInit {
 				startingYear = (deflorestationAlerts[i].year - 1) < startingYear ? (deflorestationAlerts[i].year - 1) : startingYear;
 
 				titleDate.push({
-					text: `Alerta(${deflorestationAlerts[i].date}) - Imagem(${deflorestationAlerts[i].year - 1})`,
+					text: `Alerta(${ deflorestationAlerts[i].date }) - Imagem(${ deflorestationAlerts[i].year - 1 })`,
 					fontSize: 8,
 					style: 'body',
 					alignment: 'center'
 				});
 
 				titleDate.push({
-					text: `Alerta(${deflorestationAlerts[i].date}) - Imagem(${deflorestationAlerts[i].date})`,
+					text: `Alerta(${ deflorestationAlerts[i].date }) - Imagem(${ deflorestationAlerts[i].date })`,
 					fontSize: 8,
 					style: 'body',
 					alignment: 'center'
 				});
 
 				subTitleArea.push({
-					text: `${formatNumber(deflorestationAlerts[i].area, 'pt-BR', '1.0-4')} ha`,
+					text: `${ formatNumber(deflorestationAlerts[i].area, 'pt-BR', '1.0-4') } ha`,
 					fontSize: 8,
 					style: 'body',
 					alignment: 'center'
@@ -335,7 +335,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 						bold: true
 					},
 					{
-						text: ` Comparativo de imagens de satélite anterior à ${startingYear} e atual ${new Date().getFullYear()}.`,
+						text: ` Comparativo de imagens de satélite anterior à ${ startingYear } e atual ${ new Date().getFullYear() }.`,
 						bold: false
 					}
 				],
@@ -361,7 +361,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 			});
 			deflorestationHistoryContext.push({
 				columns: [{
-					text: `O histórico do desmatamento desde ${deflorestationHistory[0].date} pode ser visto na figura 7.`,
+					text: `O histórico do desmatamento desde ${ deflorestationHistory[0].date } pode ser visto na figura 7.`,
 					margin: [30, 0, 30, 15],
 					style: 'bodyIndentFirst'
 				}]
@@ -373,19 +373,19 @@ export class ReportComponent implements OnInit, AfterViewInit {
 					deflorestationHistory[i].date < 2017 ? 'LANDSAT_8_' :
 						'SENTINEL_2_';
 
-				let url = deflorestationHistory[i].date === 2012 ? urlGsDeforestationHistory1 : urlGsDeforestationHistory.replace(new RegExp('#{image}#', ''), `${view}${deflorestationHistory[i].date}`);
+				let url = deflorestationHistory[i].date === 2012 ? urlGsDeforestationHistory1 : urlGsDeforestationHistory.replace(new RegExp('#{image}#', ''), `${ view }${ deflorestationHistory[i].date }`);
 				url = url.replace(new RegExp('#{year}#', ''), deflorestationHistory[i].date);
 
 				deforestationData.push(
 					[
 						{
-							text: `${deflorestationHistory[i].date}`,
+							text: `${ deflorestationHistory[i].date }`,
 							style: 'body',
 							alignment: 'center'
 						},
 						this.getImageObject(await this.getBaseImageUrl(url), [117, 117], [5, 0], 'center'),
 						{
-							text: `${deflorestationHistory[i].area} ha`,
+							text: `${ deflorestationHistory[i].area } ha`,
 							style: 'body',
 							alignment: 'center'
 						}
@@ -428,7 +428,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 							bold: true
 						},
 						{
-							text: ` Histórico de desmatamento do PRODES desde ${deflorestationHistory[0].date}.`,
+							text: ` Histórico de desmatamento do PRODES desde ${ deflorestationHistory[0].date }.`,
 							bold: false
 						}
 					],
@@ -442,7 +442,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 	}
 
 	async getReportData() {
-		this.dateFilter = `${this.date[0]}/${this.date[1]}`;
+		this.dateFilter = `${ this.date[0] }/${ this.date[1] }`;
 		const startDate = new Date(this.date[0]).toLocaleDateString('pt-BR');
 		const endDate = new Date(this.date[1]).toLocaleDateString('pt-BR');
 
@@ -455,9 +455,9 @@ export class ReportComponent implements OnInit, AfterViewInit {
 		this.reportData['type'] = this.type;
 		this.reportData['date'] = this.date;
 		this.reportData['carRegister'] = this.carRegister;
-		this.reportData['formattedFilterDate'] = `${startDate} a ${endDate}`;
+		this.reportData['formattedFilterDate'] = `${ startDate } a ${ endDate }`;
 		this.reportData['currentYear'] = new Date().getFullYear();
-		this.reportData['currentDate'] = `${this.setFormatDay(today.getDate())}/${this.setFormatMonth(today.getMonth())}/${today.getFullYear()}`;
+		this.reportData['currentDate'] = `${ this.setFormatDay(today.getDate()) }/${ this.setFormatMonth(today.getMonth()) }/${ today.getFullYear() }`;
 
 		if (!this.reportData['images']) {
 			this.reportData['images'] = {};
@@ -591,7 +591,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
 						pdfMake.createPdf(docDefinitions).download(reportResp.name);
 						if (this.downloadVectors) {
-							const {vectorViews} = this.reportData;
+							const { vectorViews } = this.reportData;
 							const fileName = reportResp.name.split('.')[0];
 
 							this.exportService.getVectors(vectorViews, fileName);
@@ -599,7 +599,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 						this.generatingReport = false;
 					} else {
 						this.generatingReport = false;
-						alert(`${response.status} - ${response.message}`);
+						alert(`${ response.status } - ${ response.message }`);
 					}
 				});
 			},
@@ -612,11 +612,11 @@ export class ReportComponent implements OnInit, AfterViewInit {
 	onViewReportClicked(reportType) {
 		const register = this.carRegister;
 		if (reportType) {
-			this.router.navigateByUrl(`/reports/${reportType}/${register}`);
+			this.router.navigateByUrl(`/reports/${ reportType }/${ register }`);
 			this.docBase64 = null;
 			this.reportService.changeReportType.next();
 		} else {
-			this.router.navigateByUrl(`/synthesis/${register}`);
+			this.router.navigateByUrl(`/synthesis/${ register }`);
 		}
 	}
 
@@ -639,6 +639,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 			};
 		}
 	}
+
 	back() {
 		this.navigationService.back();
 	}

@@ -1,8 +1,8 @@
-import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FilterClass} from '../../../models/filter-class.model';
-import {ConfigService} from '../../../services/config.service';
-import {FilterAlertAnalyses} from '../../../models/filter-alert-type-analyzes.model';
-import {FilterService} from '../../../services/filter.service';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FilterClass } from '../../../models/filter-class.model';
+import { ConfigService } from '../../../services/config.service';
+import { FilterAlertAnalyses } from '../../../models/filter-alert-type-analyzes.model';
+import { FilterService } from '../../../services/filter.service';
 
 @Component({
 	selector: 'app-class-area',

@@ -1,9 +1,8 @@
-
 <p-toolbar>
     <div class="p-toolbar-group-left">
-        <p-button icon="fas fa-arrow-left"
+        <p-button (click)="back()"
+                  icon="fas fa-arrow-left"
                   label="{{ 'goBack' | translate }}"
-                  (click)="back()"
                   styleClass="p-button-raised">
         </p-button>
         &nbsp;&nbsp;
@@ -26,6 +25,7 @@
                   tooltipPosition="top">
             <img src="../../../../assets/img/ico/prodes32x32.png"/>
         </p-button>
+
         <p-button (click)="onViewReportClicked('queimada')"
                   pTooltip="{{'viewBurnedReport' | translate}}"
                   styleClass="btn btn-icon p-button-raised view-report-icon icon-margin"
@@ -33,7 +33,8 @@
             <img src="../../../../assets/img/ico/queima.ico"/>
         </p-button>
     </div>
-    <p-button label="{{ 'conclusion' | translate }}" pTooltip="{{ 'alterConclusion' | translate }}" tooltipPosition="bottom" (click)="op.toggle($event)"></p-button>
+    <p-button (click)="op.toggle($event)" label="{{ 'conclusion' | translate }}"
+              pTooltip="{{ 'alterConclusion' | translate }}" tooltipPosition="bottom"></p-button>
     <div class="p-toolbar-group-right">
         <div *ngIf="loggedUser.administrator" class="report-buttons">
             <p-button (click)="generatePdf('open')"
@@ -55,14 +56,14 @@
 <canvas height="400" id="chartImg" style="display: none" width="600"></canvas>
 <div *ngIf="!!docBase64">
     <ngx-extended-pdf-viewer
+            [backgroundColor]="'#ccc'"
             [base64Src]="docBase64"
-            [language]="'pt-BR'"
-            [enablePrint]="false"
-            [useBrowserLocale]="true"
             [enableDragAndDrop]="false"
-            [textLayer]="true"
+            [enablePrint]="false"
             [height]="'calc(100vh - 100px)'"
-            [backgroundColor]="'#ccc'">
+            [language]="'pt-BR'"
+            [textLayer]="true"
+            [useBrowserLocale]="true">
     </ngx-extended-pdf-viewer>
 </div>
 
@@ -91,8 +92,8 @@
                         [cols]="30"
                         [disabled]="!docBase64 || generatingReport"
                         [rows]="10"
-                        class="width-100"
                         autoResize="autoResize"
+                        class="width-100"
                         pInputTextarea>
                 </textarea>
                 <br>

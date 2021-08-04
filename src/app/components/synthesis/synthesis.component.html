@@ -1,8 +1,8 @@
 <p-toolbar>
     <div class="p-toolbar-group-left">
-        <p-button icon="fas fa-arrow-left"
+        <p-button (click)="back()"
+                  icon="fas fa-arrow-left"
                   label="Voltar"
-                  (click)="back()"
                   styleClass="p-button-raised">
         </p-button>
     </div>
@@ -12,23 +12,23 @@
     </div>
     <div class="p-toolbar-group-right">
         <button (click)="onViewReportClicked('deter')"
-                pTooltip="{{'viewDeterReport' | translate}}"
-                pButton
                 class="btn-icon p-button-raised view-report-icon icon-margin"
+                pButton
+                pTooltip="{{'viewDeterReport' | translate}}"
                 tooltipPosition="top">
             <img src="assets/img/ico/deter32x32.png"/>
         </button>
         <button (click)="onViewReportClicked('prodes')"
-                pTooltip="{{'viewProdesReport' | translate}}"
-                pButton
                 class="btn-icon p-button-raised view-report-icon icon-margin"
+                pButton
+                pTooltip="{{'viewProdesReport' | translate}}"
                 tooltipPosition="top">
             <img src="assets/img/ico/prodes32x32.png"/>
         </button>
         <button (click)="onViewReportClicked('queimada')"
-                pTooltip="{{'viewBurnedReport' | translate}}"
                 class="btn-icon p-button-raised view-report-icon icon-margin"
                 pButton
+                pTooltip="{{'viewBurnedReport' | translate}}"
                 tooltipPosition="top">
             <img src="assets/img/ico/queima.ico"/>
         </button>
@@ -47,8 +47,8 @@
 
             <br>
             <app-report-section [cards]="detailedVisions"
-                                [title]="titleDetailedVisions"
-                                [subtitle]="formattedFilterDate"></app-report-section>
+                                [subtitle]="formattedFilterDate"
+                                [title]="titleDetailedVisions"></app-report-section>
             <br>
             <app-report-section [cards]="deforestations"
                                 [title]="titleDeforestation"></app-report-section>
@@ -86,9 +86,10 @@
             <br/>
 
             <app-report-ndvi
-                [chartImages]="chartImages"
-                [formattedFilterDate]="formattedFilterDate"></app-report-ndvi>
+                    [chartImages]="chartImages"
+                    [formattedFilterDate]="formattedFilterDate"></app-report-ndvi>
         </div>
     </div>
-    <p-scrollTop target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="fas fa-arrow-circle-up"></p-scrollTop>
+    <p-scrollTop [threshold]="100" icon="fas fa-arrow-circle-up" styleClass="custom-scrolltop"
+                 target="parent"></p-scrollTop>
 </p-scrollPanel>

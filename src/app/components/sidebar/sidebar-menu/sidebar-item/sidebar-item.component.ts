@@ -1,10 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
-import {SidebarItem} from 'src/app/models/sidebar-item.model';
+import { SidebarItem } from 'src/app/models/sidebar-item.model';
 
-import {HTTPService} from '../../../../services/http.service';
+import { HTTPService } from '../../../../services/http.service';
 
-import {SelectItem} from 'primeng/api';
+import { SelectItem } from 'primeng/api';
 
 @Component({
 	selector: 'app-sidebar-item',

@@ -4,6 +4,7 @@
          (onRowSelect)="onRowSelect()"
          (onRowUnselect)="onRowUnselect()"
          [(selection)]="selectedProperties"
+         [autoLayout]="true"
          [columns]="selectedColumns"
          [lazy]="true"
          [loading]="isLoading"
@@ -17,7 +18,6 @@
          [scrollable]="true"
          [totalRecords]="totalRecords"
          [value]="tableData"
-         [autoLayout]="true"
          dataKey="gid"
          exportFilename="Satélites_Alertas_CAR"
          loadingIcon="fas fa-circle-notch color-black"
@@ -91,7 +91,7 @@
         </div>
     </ng-template>
 
-    <ng-template pTemplate="colgroup" let-columns>
+    <ng-template let-columns pTemplate="colgroup">
         <colgroup>
             <col *ngFor="let col of columns">
         </colgroup>
@@ -103,7 +103,8 @@
             <th style="width: 3em">
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
             </th>
-            <th *ngFor="let col of columns; trackBy: trackById" [pSortableColumn]="col.field" pReorderableColumn pResizableColumn>
+            <th *ngFor="let col of columns; trackBy: trackById" [pSortableColumn]="col.field" pReorderableColumn
+                pResizableColumn>
                 {{col.header}}
                 <p-sortIcon [field]="col.field"></p-sortIcon>
             </th>
@@ -116,19 +117,19 @@
                  let-rowData
                  pTemplate="body">
         <tr [pSelectableRow]="rowData">
-            <td style="width: 2.5em" class="ui-resizable-column">
+            <td class="ui-resizable-column" style="width: 2.5em">
                 <a [pRowToggler]="rowData">
                     <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
                 </a>
             </td>
-            <td style="width: 3em" class="ui-resizable-column">
+            <td class="ui-resizable-column" style="width: 3em">
                 <i [ngClass]="rowData.has_pdf ? 'pi pi-file-pdf' : 'pi pi-file-o'" style="font-size: 1.6em;"></i>
             </td>
-            <td style="width: 3em" class="ui-resizable-column">
+            <td class="ui-resizable-column" style="width: 3em">
                 <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
             </td>
-            <td *ngFor="let col of columns; trackBy: trackById" pTooltip="{{ rowData[col.field] }}"
-                class="ui-resizable-column"
+            <td *ngFor="let col of columns; trackBy: trackById" class="ui-resizable-column"
+                pTooltip="{{ rowData[col.field] }}"
                 style="overflow: hidden;word-break: break-all;" tooltipPosition="top">
                 {{rowData[col.field]}}
             </td>
@@ -172,10 +173,10 @@
             <td [attr.colspan]="selectedColumns.length + 4">
                 <div *ngIf="reports.length > 0" class="p-grid text-left">
                     <div *ngFor="let report of reports; trackBy: trackById" class="p-col-2">
-                        <div class="report-card"
+                        <div (click)="getReport(report)"
+                             class="report-card"
                              pTooltip="{{'downloadReport' | translate}}"
-                             tooltipPosition="top"
-                             (click)="getReport(report)">
+                             tooltipPosition="top">
                             <p>{{report.name}}</p>
                             <p>{{report.createdAt | date:'dd/MM/yyyy HH:mm:ss' }}</p>
                         </div>
@@ -194,7 +195,7 @@
         <strong>{{selectedProperties ? selectedProperties?.length : '0' }} {{'selecteds' | translate}}</strong>
     </ng-template>
 
-    <ng-template pTemplate="emptymessage" let-columns>
+    <ng-template let-columns pTemplate="emptymessage">
         <tr>
             <td [attr.colspan]="columns.length">
                 {{ 'noRecordsFound' | translate }}

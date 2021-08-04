@@ -1,9 +1,9 @@
 export class Tool {
-    constructor(
-        public title: string,
-        public name: string,
-        public icon: string
-    ) {
-    }
+	constructor(
+		public title: string,
+		public name: string,
+		public icon: string
+	) {
+	}
 }
 
