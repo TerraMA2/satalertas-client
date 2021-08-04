@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
-import {Legend} from 'src/app/models/legend.model';
+import { Legend } from 'src/app/models/legend.model';
 
 @Component({
 	selector: 'app-report-legend',
@@ -11,8 +11,7 @@ export class SynthesisLegendComponent implements OnInit {
 
 	@Input() legends: Legend[] = [];
 
-	constructor(
-	) {
+	constructor() {
 	}
 
 	ngOnInit() {

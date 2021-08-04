@@ -1,30 +1,30 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 
-import {NgForm} from '@angular/forms';
+import { NgForm } from '@angular/forms';
 
-import {FilterService} from '../../services/filter.service';
+import { FilterService } from '../../services/filter.service';
 
-import {FilterTheme} from '../../models/filter-theme.model';
+import { FilterTheme } from '../../models/filter-theme.model';
 
-import {ThemeAreaComponent} from './theme-area/theme-area.component';
+import { ThemeAreaComponent } from './theme-area/theme-area.component';
 
-import {FilterParam} from '../../models/filter-param.model';
+import { FilterParam } from '../../models/filter-param.model';
 
-import {FilterAuthorization} from '../../models/filter-authorization.model';
+import { FilterAuthorization } from '../../models/filter-authorization.model';
 
-import {AuthorizationAreaComponent} from './authorization-area/authorization-area.component';
+import { AuthorizationAreaComponent } from './authorization-area/authorization-area.component';
 
-import {AlertTypeAreaComponent} from './alert-type-area/alert-type-area.component';
+import { AlertTypeAreaComponent } from './alert-type-area/alert-type-area.component';
 
-import {SpecificSearchAreaComponent} from './specific-search-area/specific-search-area.component';
+import { SpecificSearchAreaComponent } from './specific-search-area/specific-search-area.component';
 
-import {FilterSpecificSearch} from '../../models/filter-specific-search.model';
+import { FilterSpecificSearch } from '../../models/filter-specific-search.model';
 
-import {FilterAlertType} from '../../models/filter-alert-type.model';
+import { FilterAlertType } from '../../models/filter-alert-type.model';
 
-import {FilterClass} from '../../models/filter-class.model';
+import { FilterClass } from '../../models/filter-class.model';
 
-import {ClassAreaComponent} from './class-area/class-area.component';
+import { ClassAreaComponent } from './class-area/class-area.component';
 
 @Component({
 	selector: 'app-filter',
@@ -32,7 +32,6 @@ import {ClassAreaComponent} from './class-area/class-area.component';
 	styleUrls: ['./filter.component.css']
 })
 export class FilterComponent implements OnInit, AfterViewInit {
-
 	@ViewChild('filterForm') filterForm: NgForm;
 	@ViewChild('themeAreaComponent') themeAreaComponent: ThemeAreaComponent;
 	@ViewChild('alertTypeAreaComponent') alertTypeAreaComponent: AlertTypeAreaComponent;
@@ -92,7 +91,7 @@ export class FilterComponent implements OnInit, AfterViewInit {
 		this.filterService.filterMap.next(zoomIn);
 		this.filterService.filterDashboard.next();
 		this.filterService.filterTable.next();
-		this.filterService.filterReport.next();
+		this.filterService.filterSynthesis.next();
 	}
 
 	onClearFilterClicked() {

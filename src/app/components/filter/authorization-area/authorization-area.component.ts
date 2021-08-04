@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FilterAuthorization} from '../../../models/filter-authorization.model';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FilterAuthorization } from '../../../models/filter-authorization.model';
 
 @Component({
 	selector: 'app-authorization-area',

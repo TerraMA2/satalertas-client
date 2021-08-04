@@ -1,10 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
-import {SidebarItem} from 'src/app/models/sidebar-item.model';
+import { SidebarItem } from 'src/app/models/sidebar-item.model';
 
-import {HTTPService} from '../../../../services/http.service';
+import { HTTPService } from '../../../../services/http.service';
 
-import {SelectItem} from 'primeng/api';
+import { SelectItem } from 'primeng/api';
 
 @Component({
 	selector: 'app-sidebar-item',
@@ -43,7 +43,7 @@ export class SidebarItemComponent implements OnInit {
 		//     }
 		// ];
 		// this.dropdownData = dropdownJsonExample;
-		// this.hTTPService.get(dataUrl).subscribe((data: any) => {
+		// this.httpService.get<any>(dataUrl).subscribe((data: any) => {
 		//   this.dropdownData = data;
 		// });
 		// }

@@ -1,7 +1,7 @@
-import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FilterAlertType} from '../../../models/filter-alert-type.model';
-import {ConfigService} from '../../../services/config.service';
-import {FilterAlertAnalyses} from '../../../models/filter-alert-type-analyzes.model';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FilterAlertType } from '../../../models/filter-alert-type.model';
+import { ConfigService } from '../../../services/config.service';
+import { FilterAlertAnalyses } from '../../../models/filter-alert-type-analyzes.model';
 
 @Component({
 	selector: 'app-alert-type-area',

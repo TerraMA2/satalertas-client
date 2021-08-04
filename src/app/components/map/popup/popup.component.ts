@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import {MapService} from '../../../services/map.service';
+import { MapService } from '../../../services/map.service';
 
 @Component({
 	selector: 'app-popup',
@@ -16,7 +16,8 @@ export class PopupComponent implements OnInit {
 	public linkFireSpot: string;
 
 	constructor(
-		public mapService: MapService) {
+		public mapService: MapService
+	) {
 	}
 
 	ngOnInit() {

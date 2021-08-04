@@ -1,14 +1,12 @@
-export class ConfInputsModel {
-  constructor(
-     public show: boolean,
-     public disable: boolean,
-     public label: string,
-     public inputClass: string,
-     public type: string,
-     public onChange?: any,
-     public model?: any,
-     public field?: string,
-     public name?: string,
-     public required?: boolean
-  ) { }
+export interface ConfInputsModel {
+		show: boolean,
+		disable: boolean,
+		label: string,
+		inputClass: string,
+		type: string,
+		onChange?: any,
+		model?: any,
+		field?: string,
+		name?: string,
+		required?: boolean
 }

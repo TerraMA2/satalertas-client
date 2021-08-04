@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Property} from 'src/app/models/property.model';
-import {MapService} from '../../../services/map.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { Property } from 'src/app/models/property.model';
+import { MapService } from '../../../services/map.service';
 
 @Component({
 	selector: 'app-property-data',

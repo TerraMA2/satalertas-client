@@ -1,10 +1,7 @@
-export class LayerInfoFeature {
-    constructor(
-        public geometry: object,
-        public geometryName: string,
-        public id: string,
-        public properties: object,
-        public type: string
-    ) {
-    }
+export interface LayerInfoFeature {
+		geometry: object,
+		geometryName: string,
+		id: string,
+		properties: object,
+		type: string
 }

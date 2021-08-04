@@ -1,17 +1,18 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {SynthesisCard} from '../../../../models/synthesis-card.model';
+import { Component, Input, OnInit } from '@angular/core';
+import { SynthesisCard } from '../../../../models/synthesis-card.model';
 
 @Component({
-  selector: 'app-report-card',
-  templateUrl: './synthesis-card.component.html',
-  styleUrls: ['./synthesis-card.component.css']
+	selector: 'app-report-card',
+	templateUrl: './synthesis-card.component.html',
+	styleUrls: ['./synthesis-card.component.css']
 })
 export class SynthesisCardComponent implements OnInit {
-  @Input() card: SynthesisCard;
+	@Input() card: SynthesisCard;
 
-  constructor() { }
+	constructor() {
+	}
 
-  ngOnInit(): void {
-  }
+	ngOnInit(): void {
+	}
 
 }

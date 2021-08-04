@@ -1,41 +1,51 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
-import {Subject} from 'rxjs';
+import { Subject } from 'rxjs';
 
-import {Layer} from '../models/layer.model';
+import { Layer } from '../models/layer.model';
 
-import {LayerGroup} from '../models/layer-group.model';
+import { LayerGroup } from '../models/layer-group.model';
+import { environment } from '../../environments/environment';
+import { HTTPService } from './http.service';
+
+const URL_REPORT_SERVER = environment.reportServerUrl;
 
 @Injectable({
-    providedIn: 'root'
+	providedIn: 'root'
 })
 export class SidebarService {
 
-    sidebarLayerSelect = new Subject<Layer>();
+	sidebarLayerSelect = new Subject<Layer>();
 
-    sidebarLayerDeselect = new Subject<Layer>();
+	sidebarLayerDeselect = new Subject<Layer>();
 
-    sidebarLayerSwitchSelect = new Subject<Layer[]>();
+	sidebarLayerSwitchSelect = new Subject<Layer[]>();
 
-    sidebarLayerSwitchDeselect = new Subject<Layer[]>();
+	sidebarLayerSwitchDeselect = new Subject<Layer[]>();
 
-    sidebarLayerGroupSelect = new Subject<LayerGroup>();
+	sidebarLayerGroupSelect = new Subject<LayerGroup>();
 
-    sidebarLayerGroupDeselect = new Subject<LayerGroup>();
+	sidebarLayerGroupDeselect = new Subject<LayerGroup>();
 
-    sidebarItemRadioSelect = new Subject<Layer>();
+	sidebarItemRadioSelect = new Subject<Layer>();
 
-    sidebarItemRadioDeselect = new Subject<Layer>();
+	sidebarItemRadioDeselect = new Subject<Layer>();
 
-    sidebarReload = new Subject<string>();
+	sidebarReload = new Subject<string>();
 
-    sidebarLayerShowHide = new Subject<boolean>();
+	sidebarLayerShowHide = new Subject<boolean>();
 
-    sidebarAbout = new Subject<boolean>();
+	sidebarAbout = new Subject<boolean>();
 
-    sidebarLayerGroupRadioDeselect = new Subject<LayerGroup>();
+	sidebarLayerGroupRadioDeselect = new Subject<LayerGroup>();
 
-    constructor() {
-    }
+	constructor(
+		private httpService: HTTPService
+	) {
+	}
 
+	async getSidebarLayers() {
+		const url = `${ URL_REPORT_SERVER }/view/getSidebarLayers`;
+		return await this.httpService.get<any>(url).toPromise();
+	}
 }

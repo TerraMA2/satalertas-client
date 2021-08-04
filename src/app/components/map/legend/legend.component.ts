@@ -1,8 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
-import {Layer} from 'src/app/models/layer.model';
+import { Layer } from 'src/app/models/layer.model';
 
-import {MapService} from '../../../services/map.service';
+import { MapService } from '../../../services/map.service';
 
 @Component({
 	selector: 'app-legend',

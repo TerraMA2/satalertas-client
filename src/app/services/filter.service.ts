@@ -1,74 +1,113 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
-import {Subject} from 'rxjs';
+import { Subject } from 'rxjs';
 
-import {Layer} from '../models/layer.model';
+import { Layer } from '../models/layer.model';
 
-import {Alert} from '../models/alert.model';
+import { FilterParam } from '../models/filter-param.model';
 
-import {HttpClient} from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
-import {environment} from '../../environments/environment';
-
-import {FilterParam} from '../models/filter-param.model';
+import { HTTPService } from './http.service';
 
 @Injectable({
-    providedIn: 'root'
+	providedIn: 'root'
 })
 export class FilterService {
+	urlBiome = environment.reportServerUrl + '/biome';
+	urlCity = environment.reportServerUrl + '/city';
+	urlConservationUnit = environment.reportServerUrl + '/conservationUnit';
+	urlIndigenousLand = environment.reportServerUrl + '/indigenousLand';
+	urlProjus = environment.reportServerUrl + '/projus';
+	urlAnalyze = environment.reportServerUrl + '/analyze';
 
-    urlDashboard = environment.reportServerUrl + '/dashboard';
+	filterMap = new Subject<boolean>();
+	filterTable = new Subject();
+	filterDashboard = new Subject();
 
-    filterMap = new Subject<boolean>();
-    filterTable = new Subject();
-    filterDashboard = new Subject();
+	displayFilter = new Subject();
 
-    displayFilter = new Subject();
+	filterSynthesis = new Subject<Layer>();
 
-    filterReport = new Subject<Layer>();
+	constructor(
+		private httpService: HTTPService
+	) {
+	}
 
-    constructor(
-        private http: HttpClient
-    ) {
-    }
+	getParams(value) {
+		const date = JSON.parse(localStorage.getItem('dateFilter'));
 
-    getParams(value) {
-        const date = JSON.parse(localStorage.getItem('dateFilter'));
+		const specificParameters = JSON.stringify(value);
+		const filterParam = JSON.parse(localStorage.getItem('filterList'));
 
-        const specificParameters = JSON.stringify(value);
-        const filterParam = JSON.parse(localStorage.getItem('filterList'));
+		const filterNew = new FilterParam(
+			(filterParam && filterParam.themeSelected ? filterParam.themeSelected : { value: 'ALL' }),
+			(filterParam && filterParam.alertType ? filterParam.alertType : { radioValue: 'ALL', analyses: [] }),
+			(filterParam && filterParam.autorization ? filterParam.autorization : { name: 'Todos', value: 'ALL' }),
+			(filterParam && filterParam.specificSearch ? filterParam.specificSearch : {
+				isChecked: false,
+				CarCPF: 'CAR'
+			}),
+			(filterParam && filterParam.classSearch ? filterParam.classSearch : { radioValue: 'ALL', analyses: [] })
+		);
+		if (filterNew.specificSearch.isChecked && filterNew.specificSearch.CarCPF === 'CPF') {
+			filterNew.specificSearch.inputValue = filterNew.specificSearch.inputValue ? filterNew.specificSearch.inputValue.replace(/\D/g, '') : null;
+		}
+		const filter = JSON.stringify(filterNew);
+		return { specificParameters, date, filter };
+	}
 
-        const filterNew = new FilterParam(
-            (filterParam && filterParam.themeSelected ? filterParam.themeSelected : {value: 'ALL'}),
-            (filterParam && filterParam.alertType ? filterParam.alertType : {radioValue: 'ALL', analyses: []}),
-            (filterParam && filterParam.autorization ? filterParam.autorization : {name: 'Todos', value: 'ALL'}),
-            (filterParam && filterParam.specificSearch ? filterParam.specificSearch : {
-                isChecked: false,
-                CarCPF: 'CAR'
-            }),
-            (filterParam && filterParam.classSearch ? filterParam.classSearch : {radioValue: 'ALL', analyses: []})
-        );
-        if (filterNew.specificSearch.isChecked && filterNew.specificSearch.CarCPF === 'CPF') {
-            filterNew.specificSearch.inputValue = filterNew.specificSearch.inputValue ? filterNew.specificSearch.inputValue.replace(/\D/g, '') : null;
-        }
-        const filter = JSON.stringify(filterNew);
-        return {specificParameters, date, filter};
-    }
+	getAllBiomes() {
+		return this.httpService.get<any>(this.urlBiome).toPromise();
+	}
 
-    async getAnalysisTotals(alerts: Alert [] = []) {
+	getAllCities() {
+		return this.httpService.get<any>(this.urlCity).toPromise();
+	}
 
-        const url = this.urlDashboard + '/getAnalysisTotals';
+	getAllRegions() {
+		return this.httpService.get<any>(this.urlCity + '/getAllRegions').toPromise();
+	}
 
-        const parameters = this.getParams(alerts);
+	getAllMesoregions() {
+		return this.httpService.get<any>(this.urlCity + '/getAllMesoregions').toPromise();
+	}
 
-        return await this.http.get(url, {params: parameters}).toPromise();
-    }
+	getAllImmediateRegion() {
+		return this.httpService.get<any>(this.urlCity + '/getAllImmediateRegion').toPromise();
+	}
 
-    async getDetailsAnalysisTotals(alerts: Alert [] = []) {
-        const url = this.urlDashboard + '/getDetailsAnalysisTotals';
+	getAllIntermediateRegion() {
+		return this.httpService.get<any>(this.urlCity + '/getAllIntermediateRegion').toPromise();
+	}
 
-        const parameters = this.getParams(alerts);
+	getAllPjbh() {
+		return this.httpService.get<any>(this.urlCity + '/getAllPjbh').toPromise();
+	}
 
-        return await this.http.get(url, {params: parameters}).toPromise();
-    }
+	getAllMicroregions() {
+		return this.httpService.get<any>(this.urlCity + '/getAllMicroregions').toPromise();
+	}
+
+	getAllConservationUnit() {
+		return this.httpService.get<any>(this.urlConservationUnit).toPromise();
+	}
+
+	getAllIndigenousLand() {
+		return this.httpService.get<any>(this.urlIndigenousLand).toPromise();
+	}
+
+	getAllProjus() {
+		return this.httpService.get<any>(this.urlProjus).toPromise();
+	}
+
+	async getAllClassByType(type) {
+		const url = `${ this.urlAnalyze }/getAllClassByType`;
+		const params = {
+			params: {
+				type: type ? type : ''
+			}
+		};
+		return await this.httpService.get<any>(url, params).toPromise();
+	}
 }

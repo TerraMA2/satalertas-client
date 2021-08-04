@@ -1,103 +1,79 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
-import {throwError} from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 
-import {catchError, retry} from 'rxjs/operators';
+import { catchError, retry } from 'rxjs/operators';
 
-import {environment} from '../../environments/environment';
+import { environment } from '../../environments/environment';
 
 @Injectable({
-    providedIn: 'root'
+	providedIn: 'root'
 })
 export class HTTPService {
 
-    constructor(
-        private http: HttpClient
-    ) {
-    }
+	constructor(
+		private httpClient: HttpClient
+	) {
+	}
 
-    get(url, parameters = {}) {
-        if (!url) {
-            return;
-        }
+	get<T>(url, params = {}): Observable<T> {
+		return this.httpClient.get<T>(url, params)
+		.pipe(
+			retry(1),
+			catchError(this.handleError)
+		);
+	}
 
-        const terramaUrl = environment.reportServerUrl;
-        const geoserverUrl = environment.geoserverUrl;
-        const terramaUrlProd = 'http://www.terrama2.dpi.inpe.br/mpmt';
-        const testUrl = 'http://localhost:3200';
+	post(url, params = {}) {
+		if (!url) {
+			return;
+		}
+		return this.httpClient.post(url, params).pipe(
+			retry(1),
+			catchError(this.handleError)
+		);
+	}
 
-        if (!url.includes(terramaUrl) &&
-            !url.includes(terramaUrlProd) &&
-            !url.includes(testUrl) &&
-            !url.includes(geoserverUrl) &&
-            !url.includes('https://www.satveg.cnptia.embrapa.br')) {
-            url = terramaUrl + url;
-        }
-        return this.http.get(url, {params: parameters}).pipe(
-            retry(1),
-            catchError(this.handleError)
-        );
-    }
+	put(url, params = {}) {
+		if (!url) {
+			return;
+		}
+		return this.httpClient.put(url, params).pipe(
+			retry(1),
+			catchError(this.handleError)
+		);
+	}
 
-    getBlob(url, parameters = {}) {
-        if (!url) {
-            return;
-        }
+	delete(url, params = {}) {
+		if (!url) {
+			return;
+		}
+		return this.httpClient.delete(url, params).pipe(
+			retry(1),
+			catchError(this.handleError)
+		);
+	}
 
-        const terramaUrl = environment.reportServerUrl;
-        const geoserverUrl = environment.geoserverUrl;
-        const terramaUrlProd = 'http://www.terrama2.dpi.inpe.br/mpmt';
-        const testUrl = 'http://localhost:3200';
+	postTerrama(url, parameters = {}) {
+		if (!url) {
+			return;
+		}
+		const terramaUrl = environment.terramaUrl;
+		if (!url.includes(terramaUrl)) {
+			url = terramaUrl + url;
+		}
+		return this.httpClient.post(url, {
+			params: parameters
+		}).pipe(
+			retry(0),
+			catchError(this.handleError)
+		);
+	}
 
-        if (!url.includes(terramaUrl) &&
-            !url.includes(terramaUrlProd) &&
-            !url.includes(testUrl) &&
-            !url.includes(geoserverUrl) &&
-            !url.includes('https://www.satveg.cnptia.embrapa.br')) {
-            url = terramaUrl + url;
-        }
-        return this.http.get(url, {params: parameters, responseType: 'blob'}).pipe(
-            retry(1),
-            catchError(this.handleError)
-        );
-    }
-
-    post(url, parameters = {}) {
-        if (!url) {
-            return;
-        }
-        const terramaUrl = environment.reportServerUrl;
-        if (!url.includes(terramaUrl)) {
-            url = terramaUrl + url;
-        }
-        return this.http.post(url, {
-            params: parameters
-        }).pipe(
-            retry(0),
-            catchError(this.handleError)
-        );
-    }
-
-    postTerrama(url, parameters = {}) {
-        if (!url) {
-            return;
-        }
-        const terramaUrl = environment.terramaUrl;
-        if (!url.includes(terramaUrl)) {
-            url = terramaUrl + url;
-        }
-        return this.http.post(url, {
-            params: parameters
-        }).pipe(
-            retry(0),
-            catchError(this.handleError)
-        );
-    }
-
-    private handleError(error: HttpErrorResponse) {
-        return throwError(`Error occured: ${error.message}`);
-    }
+	private handleError(error: HttpErrorResponse) {
+		return throwError(`Error occured: ${ error.message }`);
+	}
 
 }

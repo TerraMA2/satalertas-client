@@ -42,19 +42,6 @@ h2 {
     margin: 15px 0;
 }
 
-.pdfViewer .page {
-    direction: ltr;
-    width: 100%;
-    height: 100%;
-    margin: 1px auto -8px;
-    position: relative;
-    overflow: visible;
-    border: 9px solid transparent;
-    background-clip: content-box;
-    border-image: unset !important;
-    background-color: #fff;
-}
-
 .toolbar {
     display: none;
     position: relative;
@@ -128,4 +115,15 @@ body .p-dialog .p-dialog-content {
 
 .vector-button > label {
     margin-left: 2px
+}
+
+.p-overlaypanel {
+    width: calc(100vw - 616px) !important;
+    min-height: 350px !important;
+    z-index: 1001 !important;
+    transform-origin: center top !important;
+    left: calc(100vw - (100vw - 308px * 1.5)) !important;
+    --overlayArrowLeft: calc(100vw - (100vw - 560px)) !important;
+    transform: translateY(0px) !important;
+    opacity: 1 !important;
 }

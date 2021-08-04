@@ -1,7 +1,4 @@
-export class Legend {
-    constructor(
-        public title: string,
-        public url: string
-    ) {
-    }
+export interface Legend {
+		title: string,
+		url: string
 }

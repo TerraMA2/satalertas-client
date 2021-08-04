@@ -1,21 +1,23 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {SynthesisCard} from '../../../models/synthesis-card.model';
+import { Component, Input, OnInit } from '@angular/core';
+import { SynthesisCard } from '../../../models/synthesis-card.model';
 
 @Component({
-  selector: 'app-report-section',
-  templateUrl: './synthesis-section.component.html',
-  styleUrls: ['./synthesis-section.component.css']
+	selector: 'app-report-section',
+	templateUrl: './synthesis-section.component.html',
+	styleUrls: ['./synthesis-section.component.css']
 })
 export class SynthesisSectionComponent implements OnInit {
-  @Input() cards: SynthesisCard[] = [];
-  @Input() title: string;
-  @Input() subtitle: string;
-  constructor() { }
+	@Input() cards: SynthesisCard[] = [];
+	@Input() title: string;
+	@Input() subtitle: string;
 
-  ngOnInit(): void {
-  }
+	constructor() {
+	}
 
-  trackById(index, item) {
-    return item.id;
-  }
+	ngOnInit(): void {
+	}
+
+	trackById(index, item) {
+		return item.id;
+	}
 }

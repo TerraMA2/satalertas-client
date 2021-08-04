@@ -1,12 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
-import {SidebarService} from 'src/app/services/sidebar.service';
+import { SidebarService } from 'src/app/services/sidebar.service';
 
-import {Layer} from 'src/app/models/layer.model';
+import { Layer } from 'src/app/models/layer.model';
 
-import {AuthService} from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 
-import {LayerGroup} from 'src/app/models/layer-group.model';
+import { LayerGroup } from 'src/app/models/layer-group.model';
 
 @Component({
 	selector: 'app-sidebar-layer-group',

@@ -1,12 +1,8 @@
-import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {ConfigService} from '../../../services/config.service';
-import {FilterTheme} from '../../../models/filter-theme.model';
-import {BiomeService} from '../../../services/biome.service';
-import {CityService} from '../../../services/city.service';
-import {ConservationUnitService} from '../../../services/conservation-unit.service';
-import {SelectItem} from 'primeng/api';
-import {IndigenousLandService} from '../../../services/indigenous-land.service';
-import {ProjusService} from '../../../services/projus.service';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ConfigService } from '../../../services/config.service';
+import { FilterTheme } from '../../../models/filter-theme.model';
+import { SelectItem } from 'primeng/api';
+import { FilterService } from '../../../services/filter.service';
 
 @Component({
 	selector: 'app-theme-area',
@@ -30,11 +26,7 @@ export class ThemeAreaComponent implements OnInit, AfterViewInit {
 
 	constructor(
 		private configService: ConfigService,
-		private biomeService: BiomeService,
-		private cityService: CityService,
-		private conservationUnitService: ConservationUnitService,
-		private indigenousLandService: IndigenousLandService,
-		private projusService: ProjusService
+		private filterService: FilterService
 	) {
 	}
 
@@ -43,14 +35,13 @@ export class ThemeAreaComponent implements OnInit, AfterViewInit {
 		this.optionField = this.configService.getFilterConfig('optionField');
 		this.options = this.optionField.options;
 		this.selectedOption = 'ALL';
-		this.onchangeSelected({value: this.selectedOption});
+		this.onchangeSelected({ value: this.selectedOption });
 	}
 
 	ngAfterViewInit() {
 	}
 
 	onChangeOptionField(option) {
-
 		if (option.value === 'city') {
 			this.optionSelectedByFilter = new FilterTheme(undefined, 'Município', 'city');
 
@@ -115,52 +106,54 @@ export class ThemeAreaComponent implements OnInit, AfterViewInit {
 	}
 
 	private loadComboCity() {
-		this.cityService.getAllSimplified().then(result => this.optionsFilterLocalizations = result);
+		this.filterService.getAllCities().then(result => this.optionsFilterLocalizations = result);
 	}
 
 	private loadComboBiome() {
-		this.biomeService.getAllSimplified().then(result => this.optionsFilterLocalizations = result);
+		this.filterService.getAllBiomes().then(result => this.optionsFilterLocalizations = result);
 	}
 
 	private loadComboRegion() {
-		this.cityService.getAllSimplifiedRegions().then(result => this.optionsFilterLocalizations = result);
+		this.filterService.getAllRegions().then(result => this.optionsFilterLocalizations = result);
 	}
 
 	private loadComboMesoregion() {
-		this.cityService.getAllSimplifiedMesoregions().then(result => this.optionsFilterLocalizations = result);
+		this.filterService.getAllMesoregions().then(result => this.optionsFilterLocalizations = result);
 	}
 
 	private loadComboImmediateRegion() {
-		this.cityService.getAllSimplifiedImmediateRegion().then(result => this.optionsFilterLocalizations = result);
+		this.filterService.getAllImmediateRegion().then(result => this.optionsFilterLocalizations = result);
 	}
 
 	private loadComboIntermediateRegion() {
-		this.cityService.getAllSimplifiedIntermediateRegion().then(result => this.optionsFilterLocalizations = result);
+		this.filterService.getAllIntermediateRegion().then(result => this.optionsFilterLocalizations = result);
 	}
 
 	private loadComboPjbh() {
-		this.cityService.getAllSimplifiedPjbh().then(result => this.optionsFilterLocalizations = result);
+		this.filterService.getAllPjbh().then(result => this.optionsFilterLocalizations = result);
 	}
 
 	private loadComboMicroregion() {
-		this.cityService.getAllSimplifiedMicroregions().then(result => this.optionsFilterLocalizations = result);
+		this.filterService.getAllMicroregions().then(result => this.optionsFilterLocalizations = result);
 	}
 
 	private loadComboUC() {
-		this.conservationUnitService.getAllSimplified().then(result => this.optionsFilterLocalizations = this.addElementeAll(result));
+		this.filterService.getAllConservationUnit().then(result => {
+			this.optionsFilterLocalizations = this.addElementAll(result);
+		});
 	}
 
 	private loadComboTI() {
-		this.indigenousLandService.getAllSimplified().then(result => this.optionsFilterLocalizations = this.addElementeAll(result));
+		this.filterService.getAllIndigenousLand().then(result => this.optionsFilterLocalizations = this.addElementAll(result));
 	}
 
 	private loadComboProjus() {
-		this.projusService.getAllSimplified().then(result => this.optionsFilterLocalizations = this.addElementeAll(result));
+		this.filterService.getAllProjus().then(result => this.optionsFilterLocalizations = this.addElementAll(result));
 	}
 
-	private addElementeAll(options) {
+	private addElementAll(options) {
 		const result = [];
-		result.push({gid: -1, name: 'Todos', value: 'ALL'});
+		result.push({ gid: -1, name: 'Todos', value: 'ALL' });
 
 		if (options && options.length > 0) {
 			options.forEach(option => {

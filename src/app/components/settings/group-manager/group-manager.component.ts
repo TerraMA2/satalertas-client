@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {SidebarService} from '../../../services/sidebar.service';
+import { Component, OnInit } from '@angular/core';
+import { SidebarService } from '../../../services/sidebar.service';
 
 @Component({
 	selector: 'app-group-manager',
