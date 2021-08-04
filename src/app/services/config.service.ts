@@ -3,21 +3,16 @@ import {Injectable} from '@angular/core';
 import ConfigJson from '../../assets/config/config.json';
 import MPMTConfigJson from '../../assets/config/mpmt/mpmt-config.json';
 
-import {HTTPService} from './http.service';
-
 import {environment} from '../../environments/environment';
 import {Project} from '../enum/project.enum';
 
-const URL_REPORT_SERVER = environment.reportServerUrl;
 const PROJECT = environment.project;
 
 @Injectable({
     providedIn: 'root'
 })
 export class ConfigService {
-    constructor(
-        private httpService: HTTPService
-    ) {
+    constructor() {
     }
 
     getConfig(name) {
@@ -111,11 +106,5 @@ export class ConfigService {
             return appConfig[name];
         }
         return appConfig;
-    }
-
-    async getSidebarConfigurationDynamically() {
-        const url = `${URL_REPORT_SERVER}/view/getSidebarConfigDynamic`;
-
-        return await this.httpService.get<any>(url).toPromise();
     }
 }

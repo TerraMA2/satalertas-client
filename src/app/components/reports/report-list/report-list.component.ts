@@ -27,6 +27,7 @@ import {ReportLayer} from '../../../models/report-layer.model';
 import {AuthService} from 'src/app/services/auth.service';
 import {User} from '../../../models/user.model';
 import {environment} from '../../../../environments/environment';
+import {NavigationService} from '../../../services/navigation.service';
 
 @Component({
   selector: 'app-report-list',

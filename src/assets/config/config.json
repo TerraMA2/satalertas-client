@@ -17,8 +17,8 @@
         "table": "/map/getAnalysisData"
       },
       "report": {
-        "markers": "/car/getAllSimplified",
-        "table": "/car/getAllSimplified"
+        "markers": "/car",
+        "table": "/car"
       }
     },
     "locale":

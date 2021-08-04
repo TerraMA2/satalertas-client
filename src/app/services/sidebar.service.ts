@@ -5,6 +5,10 @@ import {Subject} from 'rxjs';
 import {Layer} from '../models/layer.model';
 
 import {LayerGroup} from '../models/layer-group.model';
+import {environment} from '../../environments/environment';
+import {HTTPService} from './http.service';
+
+const URL_REPORT_SERVER = environment.reportServerUrl;
 
 @Injectable({
     providedIn: 'root'
@@ -35,7 +39,12 @@ export class SidebarService {
 
     sidebarLayerGroupRadioDeselect = new Subject<LayerGroup>();
 
-    constructor() {
+    constructor(
+      private httpService: HTTPService
+    ) {
     }
-
+    async getSidebarLayers() {
+        const url = `${URL_REPORT_SERVER}/view/getSidebarLayers`;
+        return await this.httpService.get<any>(url).toPromise();
+    }
 }

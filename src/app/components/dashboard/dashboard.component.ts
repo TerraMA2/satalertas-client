@@ -19,6 +19,7 @@ import {SidebarService} from 'src/app/services/sidebar.service';
 import {LayerType} from 'src/app/enum/layer-type.enum';
 
 import {Response} from '../../models/response.model';
+import {DashboardService} from '../../services/dashboard.service';
 
 @Component({
 	selector: 'app-dashboard',
@@ -36,14 +37,15 @@ export class DashboardComponent implements OnInit {
 	constructor(
 		private configService: ConfigService,
 		private filterService: FilterService,
-		private sidebarService: SidebarService
+		private sidebarService: SidebarService,
+		private dashboardService: DashboardService
 	) {
 	}
 
 	ngOnInit() {
 		this.sidebarService.sidebarReload.next();
 		this.isLoading = true;
-		this.configService.getSidebarConfigurationDynamically().then((sidebarLayers: Response) => {
+		this.sidebarService.getSidebarLayers().then((sidebarLayers: Response) => {
 			this.sidebarLayers = sidebarLayers.data;
 
 			this.sidebarService.sidebarLayerShowHide.next(false);
@@ -116,7 +118,7 @@ export class DashboardComponent implements OnInit {
 
 		this.activeArea(alertSelected.alertsgraphics);
 
-		this.filterService.getDetailsAnalysisTotals(alertSelected.alertsgraphics).then((alertsGraphics: AlertGraphic[]) => {
+		this.dashboardService.getDetailsAnalysisTotals(alertSelected.alertsgraphics).then((alertsGraphics: AlertGraphic[]) => {
 			this.alertGraphics = alertsGraphics;
 
 			this.alertGraphics.forEach(graphic => {
@@ -144,7 +146,7 @@ export class DashboardComponent implements OnInit {
 
 		this.activeAlert(alertSelected.alertsgraphics);
 
-		this.filterService.getDetailsAnalysisTotals(alertSelected.alertsgraphics).then((alertsGraphics: AlertGraphic[]) => {
+		this.dashboardService.getDetailsAnalysisTotals(alertSelected.alertsgraphics).then((alertsGraphics: AlertGraphic[]) => {
 			this.alertGraphics = alertsGraphics;
 
 
@@ -176,7 +178,7 @@ export class DashboardComponent implements OnInit {
 			}
 		});
 
-		await this.filterService.getAnalysisTotals(listAlerts).then((alerts: Alert[]) => {
+		await this.dashboardService.getAnalysisTotals(listAlerts).then((alerts: Alert[]) => {
 			this.alertsDisplayed = alerts;
 
 			this.setAlertsGraphics();

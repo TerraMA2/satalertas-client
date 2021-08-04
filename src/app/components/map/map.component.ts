@@ -32,7 +32,6 @@ import {LayerInfo} from 'src/app/models/layer-info.model';
 
 import {LayerInfoFeature} from 'src/app/models/layer-info-feature.model';
 
-import {SelectedMarker} from 'src/app/models/selected-marker.model';
 
 import {TableService} from 'src/app/services/table.service';
 
@@ -60,7 +59,6 @@ export class MapComponent implements OnInit, AfterViewInit {
 	markerClusterGroup: L.MarkerClusterGroup;
 	selectedPrimaryLayer: Layer;
 	markerInfo: L.Marker;
-	selectedMarker: SelectedMarker;
 	tableSelectedLayer: L.TileLayer.WMS;
 	reportTable;
 	displayTable = false;

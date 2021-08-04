@@ -4,19 +4,22 @@ import {Subject} from 'rxjs';
 
 import {Layer} from '../models/layer.model';
 
-import {Alert} from '../models/alert.model';
+import {FilterParam} from '../models/filter-param.model';
 
 import {environment} from '../../environments/environment';
 
-import {FilterParam} from '../models/filter-param.model';
 import {HTTPService} from './http.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class FilterService {
-
-    urlDashboard = environment.reportServerUrl + '/dashboard';
+    urlBiome = environment.reportServerUrl + '/biome';
+    urlCity = environment.reportServerUrl + '/city';
+    urlConservationUnit = environment.reportServerUrl + '/conservationUnit';
+    urlIndigenousLand = environment.reportServerUrl + '/indigenousLand';
+    urlProjus = environment.reportServerUrl + '/projus';
+    urlAnalyze = environment.reportServerUrl + '/analyze';
 
     filterMap = new Subject<boolean>();
     filterTable = new Subject();
@@ -27,9 +30,8 @@ export class FilterService {
     filterSynthesis = new Subject<Layer>();
 
     constructor(
-        private httpService: HTTPService
-    ) {
-    }
+      private httpService: HTTPService
+    ) {}
 
     getParams(value) {
         const date = JSON.parse(localStorage.getItem('dateFilter'));
@@ -54,26 +56,57 @@ export class FilterService {
         return {specificParameters, date, filter};
     }
 
-    async getAnalysisTotals(alerts: Alert [] = []) {
-
-        const url = this.urlDashboard + '/getAnalysisTotals';
-
-        const parameters = this.getParams(alerts);
-        const params = {
-            params: parameters
-        };
-
-        return await this.httpService.get<any>(url, params).toPromise();
+    getAllBiomes() {
+        return this.httpService.get<any>(this.urlBiome).toPromise();
     }
 
-    async getDetailsAnalysisTotals(alerts: Alert [] = []) {
-        const url = this.urlDashboard + '/getDetailsAnalysisTotals';
+    getAllCities() {
+        return this.httpService.get<any>(this.urlCity).toPromise();
+    }
 
-        const parameters = this.getParams(alerts);
+    getAllRegions() {
+        return this.httpService.get<any>(this.urlCity + '/getAllRegions').toPromise();
+    }
+
+    getAllMesoregions() {
+        return this.httpService.get<any>(this.urlCity + '/getAllMesoregions').toPromise();
+    }
+
+    getAllImmediateRegion() {
+        return this.httpService.get<any>(this.urlCity + '/getAllImmediateRegion').toPromise();
+    }
+
+    getAllIntermediateRegion() {
+        return this.httpService.get<any>(this.urlCity + '/getAllIntermediateRegion').toPromise();
+    }
+
+    getAllPjbh() {
+        return this.httpService.get<any>(this.urlCity + '/getAllPjbh').toPromise();
+    }
+
+    getAllMicroregions() {
+        return this.httpService.get<any>(this.urlCity + '/getAllMicroregions').toPromise();
+    }
+
+    getAllConservationUnit() {
+        return this.httpService.get<any>(this.urlConservationUnit).toPromise();
+    }
+
+    getAllIndigenousLand() {
+        return this.httpService.get<any>(this.urlIndigenousLand).toPromise();
+    }
+
+    getAllProjus() {
+        return this.httpService.get<any>(this.urlProjus).toPromise();
+    }
+
+    async getAllClassByType(type) {
+        const url = `${this.urlAnalyze}/getAllClassByType`;
         const params = {
-            params: parameters
+            params: {
+                type: type ? type : ''
+            }
         };
-
         return await this.httpService.get<any>(url, params).toPromise();
     }
 }

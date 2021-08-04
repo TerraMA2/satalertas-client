@@ -2,7 +2,7 @@ import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@an
 import {FilterClass} from '../../../models/filter-class.model';
 import {ConfigService} from '../../../services/config.service';
 import {FilterAlertAnalyses} from '../../../models/filter-alert-type-analyzes.model';
-import {AnalyzeService} from '../../../services/analyze.service';
+import {FilterService} from '../../../services/filter.service';
 
 @Component({
 	selector: 'app-class-area',
@@ -19,7 +19,7 @@ export class ClassAreaComponent implements OnInit, AfterViewInit {
 
 	constructor(
 		private configService: ConfigService,
-		private analyzeService: AnalyzeService
+		private filterService: FilterService
 	) {
 	}
 
@@ -30,7 +30,7 @@ export class ClassAreaComponent implements OnInit, AfterViewInit {
 
 	async ngAfterViewInit() {
 		for (const analyze of this.filter.analyzes) {
-			const options = await this.analyzeService.getAllClassByType(analyze.value);
+			const options = await this.filterService.getAllClassByType(analyze.value);
 
 			this.filterClass.analyzes.push(new FilterAlertAnalyses(analyze.label, analyze.value, undefined, options));
 		}

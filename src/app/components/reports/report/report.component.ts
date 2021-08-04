@@ -24,6 +24,7 @@ import {Image} from '../../../models/image.model';
 import {formatNumber} from '@angular/common';
 
 import {User} from '../../../models/user.model';
+import {NavigationService} from '../../../services/navigation.service';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -157,6 +158,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 		private router: Router,
 		private confirmationService: ConfirmationService,
 		private exportService: ExportService,
+		private navigationService: NavigationService,
 		@Inject(LOCALE_ID) private locale: string
 	) {
 	}
@@ -630,11 +632,14 @@ export class ReportComponent implements OnInit, AfterViewInit {
 			return {
 				text: 'Imagem não encontrada.',
 				alignment: 'center',
-				color: '#ff0000',
+				color: '#591111',
 				fontSize: 9,
 				italics: true,
 				margin: [30, 60, 30, 60]
 			};
 		}
+	}
+	back() {
+		this.navigationService.back();
 	}
 }

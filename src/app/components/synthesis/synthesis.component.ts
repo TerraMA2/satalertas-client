@@ -13,6 +13,7 @@ import {SidebarService} from 'src/app/services/sidebar.service';
 import {SynthesisService} from '../../services/synthesis.service';
 
 import {Response} from '../../models/response.model';
+import {NavigationService} from '../../services/navigation.service';
 
 @Component({
 	selector: 'app-report',
@@ -60,6 +61,7 @@ export class SynthesisComponent implements OnInit {
 		private synthesisService: SynthesisService,
 		private filterService: FilterService,
 		private sidebarService: SidebarService,
+		private navigationService: NavigationService,
 		private router: Router
 	) {
 	}
@@ -104,7 +106,7 @@ export class SynthesisComponent implements OnInit {
 		});
 
 		this.synthesisService.getSynthesis(this.carRegister, date, this.formattedFilterDate, JSON.stringify(cardsConfig)).then((response: Response) => {
-			const propertyData = response.data;
+			const propertyData: Property = response.data;
 
 			this.property = propertyData;
 			this.visions = propertyData.visions;
@@ -133,5 +135,9 @@ export class SynthesisComponent implements OnInit {
 
 	trackById(index, item) {
 		return item.id;
+	}
+	
+	back() {
+		this.navigationService.back();
 	}
 }
