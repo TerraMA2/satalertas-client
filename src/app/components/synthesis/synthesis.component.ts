@@ -14,6 +14,7 @@ import { SynthesisService } from '../../services/synthesis.service';
 
 import { Response } from '../../models/response.model';
 import { NavigationService } from '../../services/navigation.service';
+import { SynthesisCard } from '../../models/synthesis-card.model';
 
 @Component({
 	selector: 'app-report',
@@ -32,10 +33,10 @@ export class SynthesisComponent implements OnInit {
 	detailedVisions;
 	legends;
 	deforestations;
-	deterHistory: [];
-	prodesHistory: [];
-	fireSpotHistory: [];
-	burnedAreaHistory: [];
+	deterHistory: SynthesisCard[] = [];
+	prodesHistory: SynthesisCard[] = [];
+	fireSpotHistory: SynthesisCard[] = [];
+	burnedAreaHistory: SynthesisCard[] = [];
 	historyDeterChartData: any;
 	historyDeterChartOptions: [];
 	historyProdesChartData: any;

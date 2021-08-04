@@ -1,4 +1,4 @@
-export class Image {
+export class ReportImage {
 	constructor(
 		public image?: any[],
 		public fit?: any[],

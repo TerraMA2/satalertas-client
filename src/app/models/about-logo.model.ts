@@ -1,10 +1,7 @@
-export class AboutLogo {
-	constructor(
-		public logo: number,
-		public link: string,
-		public description: string,
-		public height: number,
-		public width: number
-	) {
-	}
+export interface AboutLogo {
+		logo: number,
+		link: string,
+		description: string,
+		height: number,
+		width: number
 }

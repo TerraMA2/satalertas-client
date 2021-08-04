@@ -1,16 +1,6 @@
-export class ChartData {
-	constructor(
-		public labels: string[],
-		public datasets: Datasets[]
-	) {
-	}
-}
+import { Datasets } from './data-sets.model';
 
-export class Datasets {
-	constructor(
-		public data: number[],
-		public backgroundColor: string,
-		public hoverBackgroundColor: string
-	) {
-	}
+export interface ChartData {
+		labels: string[],
+		datasets: Datasets[]
 }

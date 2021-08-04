@@ -171,7 +171,7 @@
     <ng-template pTemplate="rowexpansion">
         <tr>
             <td [attr.colspan]="selectedColumns.length + 4">
-                <div *ngIf="reports.length > 0" class="p-grid text-left">
+                <div *ngIf="reports.length > 0" class="p-grid text-center">
                     <div *ngFor="let report of reports; trackBy: trackById" class="p-col-2">
                         <div (click)="getReport(report)"
                              class="report-card"

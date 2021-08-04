@@ -1,8 +1,5 @@
-export class SynthesisCard {
-	constructor(
-		public title: string,
-		public image?: string,
-		public description?: object,
-	) {
-	}
+export interface SynthesisCard {
+		title: string,
+		image?: string,
+		description?: object
 }

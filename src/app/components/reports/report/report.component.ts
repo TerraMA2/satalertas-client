@@ -19,7 +19,7 @@ import { AuthService } from 'src/app/services/auth.service';
 
 import { ConfirmationService, MessageService } from 'primeng/api';
 
-import { Image } from '../../../models/image.model';
+import { ReportImage } from '../../../models/report-image.model';
 
 import { formatNumber } from '@angular/common';
 
@@ -622,7 +622,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
 	getImageObject(image, fit, margin, alignment) {
 		if (image && image[0] && !image[0].includes('data:application/vnd.ogc.se_xml') && !image[0].includes('data:text/xml;')) {
-			return new Image(
+			return new ReportImage(
 				image,
 				fit,
 				margin,

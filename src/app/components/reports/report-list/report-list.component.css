@@ -51,4 +51,5 @@
 .report-card:hover {
     background-color: #eee;
     cursor: pointer;
+    box-shadow: unset;
 }
