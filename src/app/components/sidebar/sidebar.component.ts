@@ -1,13 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {ConfigService} from '../../services/config.service';
-import {LayerGroup} from 'src/app/models/layer-group.model';
-import {Layer} from 'src/app/models/layer.model';
-import {SidebarService} from 'src/app/services/sidebar.service';
-import {MapService} from 'src/app/services/map.service';
-import {SidebarItem} from 'src/app/models/sidebar-item.model';
-import {Response} from '../../models/response.model';
-import {GroupService} from 'src/app/services/group.service';
-import {GroupViewService} from '../../services/group-view.service';
+import { Component, OnInit } from '@angular/core';
+import { ConfigService } from '../../services/config.service';
+import { LayerGroup } from 'src/app/models/layer-group.model';
+import { Layer } from 'src/app/models/layer.model';
+import { SidebarService } from 'src/app/services/sidebar.service';
+import { MapService } from 'src/app/services/map.service';
+import { SidebarItem } from 'src/app/models/sidebar-item.model';
+import { Response } from '../../models/response.model';
+import { GroupService } from 'src/app/services/group.service';
+import { GroupViewService } from '../../services/group-view.service';
 
 @Component({
 	selector: 'app-sidebar',
@@ -73,42 +73,41 @@ export class SidebarComponent implements OnInit {
 	async getLayers(group) {
 		const children: Layer[] = [];
 		await this.groupViewService.getByGroupId(group.idGroup)
-		.then((layerGroup) => {
-			console.log('groupLayer', layerGroup);
-			layerGroup.forEach((groupLayer) => {
-				const layer = new Layer(
-					groupLayer.name.split(' ').join('_'),
-					group.cod,
-					groupLayer.name,
-					groupLayer.name,
-					groupLayer.description,
-					groupLayer.id_view,
-					groupLayer.dateColumn,
-					groupLayer.geomColumn,
-					groupLayer.areaColumn,
-					groupLayer.carRegisterColumn,
-					groupLayer.classNameColumn,
-					groupLayer.type,
-					groupLayer.showMarker,
-					groupLayer.isPrivate,
-					groupLayer.isPrimary,
-					groupLayer.isChild,
-					groupLayer.isAlert,
-					groupLayer.filter,
-					groupLayer.layerData,
-					groupLayer.legend,
-					groupLayer.popupTitle,
-					groupLayer.infoColumns,
-					groupLayer.isHidden,
-					groupLayer.isDisabled,
-					groupLayer.tools,
-					groupLayer.markerSelected,
-					groupLayer.tableOwner,
-					groupLayer.tableName
-				);
-				children.push(layer);
+			.then((layerGroup) => {
+				layerGroup.forEach((groupLayer) => {
+					const layer = new Layer(
+						groupLayer.name.split(' ').join('_'),
+						group.cod,
+						groupLayer.name,
+						groupLayer.name,
+						groupLayer.description,
+						groupLayer.id_view,
+						groupLayer.dateColumn,
+						groupLayer.geomColumn,
+						groupLayer.areaColumn,
+						groupLayer.carRegisterColumn,
+						groupLayer.classNameColumn,
+						groupLayer.type,
+						groupLayer.showMarker,
+						groupLayer.isPrivate,
+						groupLayer.isPrimary,
+						groupLayer.isChild,
+						groupLayer.isAlert,
+						groupLayer.filter,
+						groupLayer.layerData,
+						groupLayer.legend,
+						groupLayer.popupTitle,
+						groupLayer.infoColumns,
+						groupLayer.isHidden,
+						groupLayer.isDisabled,
+						groupLayer.tools,
+						groupLayer.markerSelected,
+						groupLayer.tableOwner,
+						groupLayer.tableName
+					);
+					children.push(layer);
+				});
 			});
-		});
 		return children;
 	}
 
@@ -126,6 +125,7 @@ export class SidebarComponent implements OnInit {
 					if (children) { // construindo cada camada.
 						sidebarLayer.children.forEach((sidebarLayerChild, index) => {
 							let layer; // Camada
+							console.log(sidebarLayerChild)
 							if (!sidebarLayerChild.isHidden) {
 								layer = new Layer(
 									sidebarLayerChild.cod,

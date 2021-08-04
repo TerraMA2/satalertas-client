@@ -70,7 +70,6 @@ export class LayersComponent implements OnInit {
       .map(layerId => ({
         id_group: this.selectedGroup.value, id_view: layerId.id
       }));
-    console.log('camadas: ', layers)
     this.groupViewService.update({ id_group: this.selectedGroup.value, layers })
       .then(() => {
         this.messageService.add({
@@ -81,27 +80,17 @@ export class LayersComponent implements OnInit {
       });
   }
   async appendLayer(param) {
-    console.log('Camadas recebidas via API');
-    console.log(this.groupLayersReceived);
     param.forEach(layer => {
       if (!this.groupLayersReceived.find(({ id }) => id === layer.id)) {
         this.appendedLayers.push(layer);
       }
     });
-    console.log("Camadas novas inseridas")
-    console.log(this.appendedLayers);
   }
   async removeLayer(param) {
-    // this.availableLayers.push(...param)
-    console.log('Camadas recebidas via API');
-    console.log(this.groupLayersReceived);
-    console.log('Ids recebidos');
     param.forEach(layer => {
       if (this.groupLayersReceived.find(({ id }) => id === layer.id)) {
         this.removedLayers.push(layer);
       }
     });
-    console.log("Camadas removidas")
-    console.log(this.removedLayers)
   }
 }

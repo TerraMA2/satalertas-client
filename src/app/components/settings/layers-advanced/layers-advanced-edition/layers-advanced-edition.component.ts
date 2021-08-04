@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Message, MessageService} from 'primeng/api';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Message, MessageService } from 'primeng/api';
 
 @Component({
 	selector: 'app-layers-advanced-edition',
@@ -38,7 +38,7 @@ export class LayersAdvancedEditionComponent implements OnInit {
 		}
 		if (this.newData['sub_layers']) {
 			this.newData['sub_layers'].forEach(subLayer => {
-				const subIdx = subLayers.findIndex(({id}) => id === subLayer.id);
+				const subIdx = subLayers.findIndex(({ id }) => id === subLayer.id);
 				if (subIdx > 0) {
 					subLayers[subIdx] = subLayer;
 				} else {
@@ -64,8 +64,9 @@ export class LayersAdvancedEditionComponent implements OnInit {
 
 	removeLayer(lyr) {
 		this.mergeSubLayerData();
-		const subIdx = this.newData['sub_layers'].findIndex(({id}) => id === lyr.id);
-		this.newData['sub_layers'].splice(subIdx, 1);
+		const filteredSublayers = this.newData['sub_layers']
+			.filter(layer => layer.id !== lyr.id)
+		this.newData['sub_layers'] = filteredSublayers;
 	}
 
 	async cancelEdition() {
