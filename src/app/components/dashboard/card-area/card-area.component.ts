@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import {Alert} from '../../../models/alert.model';
+import { Alert } from '../../../models/alert.model';
 
 @Component({
 	selector: 'app-card-area',

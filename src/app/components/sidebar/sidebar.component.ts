@@ -112,7 +112,7 @@ export class SidebarComponent implements OnInit {
 	}
 
 	async setSidebarLayers() { // traz todos os grupos e as camadas
-		await this.configService.getSidebarConfigurationDynamically().then((layers: Response) => {
+		await this.sidebarService.getSidebarLayers().then((layers: Response) => {
 			this.sidebarLayers = layers.data; // todas as camadas
 			this.sidebarLayerGroups = []; // grupos de camadas que aparecem no SB
 			if (this.sidebarLayers) {

@@ -1,18 +1,20 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import {Property} from 'src/app/models/property.model';
+import { Property } from 'src/app/models/property.model';
 
-import {ConfigService} from 'src/app/services/config.service';
+import { ConfigService } from 'src/app/services/config.service';
 
-import {FilterService} from 'src/app/services/filter.service';
+import { FilterService } from 'src/app/services/filter.service';
 
-import {SidebarService} from 'src/app/services/sidebar.service';
+import { SidebarService } from 'src/app/services/sidebar.service';
 
-import {SynthesisService} from '../../services/synthesis.service';
+import { SynthesisService } from '../../services/synthesis.service';
 
-import {Response} from '../../models/response.model';
+import { Response } from '../../models/response.model';
+import { NavigationService } from '../../services/navigation.service';
+import { SynthesisCard } from '../../models/synthesis-card.model';
 
 @Component({
 	selector: 'app-report',
@@ -31,10 +33,10 @@ export class SynthesisComponent implements OnInit {
 	detailedVisions;
 	legends;
 	deforestations;
-	deterHistory: [];
-	prodesHistory: [];
-	fireSpotHistory: [];
-	burnedAreaHistory: [];
+	deterHistory: SynthesisCard[] = [];
+	prodesHistory: SynthesisCard[] = [];
+	fireSpotHistory: SynthesisCard[] = [];
+	burnedAreaHistory: SynthesisCard[] = [];
 	historyDeterChartData: any;
 	historyDeterChartOptions: [];
 	historyProdesChartData: any;
@@ -52,24 +54,29 @@ export class SynthesisComponent implements OnInit {
 	titleDetailedVisions;
 	titleDeforestation;
 
+	previousUrl: string;
+
 	constructor(
 		private activatedRoute: ActivatedRoute,
 		private configService: ConfigService,
 		private synthesisService: SynthesisService,
 		private filterService: FilterService,
 		private sidebarService: SidebarService,
+		private navigationService: NavigationService,
 		private router: Router
 	) {
 	}
 
 	ngOnInit() {
-		this.filterService.filterReport.subscribe(() => {
+		this.previousUrl = localStorage.getItem('previousUrl');
+		this.filterService.filterSynthesis.subscribe(() => {
 			if (this.router.url.startsWith('/synthesis')) {
 				this.getPropertyData();
 			}
 		});
 		this.activatedRoute.params.subscribe(params => this.carRegister = params.carRegister);
 		this.sidebarService.sidebarLayerShowHide.next(false);
+		this.sidebarService.sidebarReload.next();
 
 		this.getPropertyData();
 	}
@@ -93,14 +100,14 @@ export class SynthesisComponent implements OnInit {
 		const startDate = new Date(date[0]).toLocaleDateString('pt-BR');
 		const endDate = new Date(date[1]).toLocaleDateString('pt-BR');
 
-		this.formattedFilterDate = `${startDate} - ${endDate}`;
+		this.formattedFilterDate = `${ startDate } - ${ endDate }`;
 		this.synthesisService.getNDVI(this.carRegister, date).then(data => {
 			this.chartImages = data;
 			this.isLoading = false;
 		});
 
 		this.synthesisService.getSynthesis(this.carRegister, date, this.formattedFilterDate, JSON.stringify(cardsConfig)).then((response: Response) => {
-			const propertyData = response.data;
+			const propertyData: Property = response.data;
 
 			this.property = propertyData;
 			this.visions = propertyData.visions;
@@ -121,13 +128,17 @@ export class SynthesisComponent implements OnInit {
 
 	onViewReportClicked(reportType) {
 		if (reportType === 'synthesis') {
-			this.router.navigateByUrl(`/synthesis/${this.carRegister.replace('/', '\\')}`);
+			this.router.navigateByUrl(`/synthesis/${ this.carRegister.replace('/', '\\') }`);
 		} else {
-			this.router.navigateByUrl(`/reports/${reportType}/${this.carRegister.replace('/', '\\')}`);
+			this.router.navigateByUrl(`/reports/${ reportType }/${ this.carRegister.replace('/', '\\') }`);
 		}
 	}
 
 	trackById(index, item) {
 		return item.id;
+	}
+
+	back() {
+		this.navigationService.back();
 	}
 }

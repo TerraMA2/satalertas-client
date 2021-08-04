@@ -37,12 +37,17 @@
               },
               {
                 "glob": "**/*",
-                "input": "node_modules/ng2-pdfjs-viewer/pdfjs",
-                "output": "/assets/pdfjs"
+                "input": "node_modules/ngx-extended-pdf-viewer/assets/locale",
+                "output": "/assets/locale/"
               },
               {
                 "glob": "**/*",
-                "input": "node_modules/ngx-extended-pdf-viewer/assets/",
+                "input": "node_modules/ngx-extended-pdf-viewer/assets/images",
+                "output": "/assets/images/"
+              },
+              {
+                "glob": "pdf.worker-2.9.149.min.js",
+                "input": "node_modules/ngx-extended-pdf-viewer/assets",
                 "output": "/assets/"
               }
             ],
@@ -61,7 +66,11 @@
               "node_modules/leaflet-draw/dist/leaflet.draw.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/ngx-extended-pdf-viewer/assets/pdf-2.9.149.min.js",
+              "node_modules/ngx-extended-pdf-viewer/assets/pdf.worker-2.9.149.min.js",
+              "node_modules/ngx-extended-pdf-viewer/assets/viewer-2.9.149.min.js"
+            ]
           },
           "configurations": {
             "production": {

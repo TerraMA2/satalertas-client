@@ -1,7 +1,4 @@
-export class DropdownElement {
-    constructor(
-        public label: string,
-        public value: string,
-    ) {
-    }
+export interface DropdownElement {
+		label: string,
+		value: string,
 }

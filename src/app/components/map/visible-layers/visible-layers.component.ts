@@ -1,8 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
-import {Layer} from 'src/app/models/layer.model';
+import { Layer } from 'src/app/models/layer.model';
 
-import {MapService} from 'src/app/services/map.service';
+import { MapService } from 'src/app/services/map.service';
 
 @Component({
 	selector: 'app-visible-layers',
@@ -59,9 +59,9 @@ export class VisibleLayersComponent implements OnInit {
 
 			itemDraggedToIndex += 1001;
 			draggedItemIndex += 1001;
-			items.push({item: this.draggedItem, index: draggedItemIndex});
-			items.push({item: itemDraggedTo, index: itemDraggedToIndex});
-			items.push({selectedLayers: this.selectedLayers});
+			items.push({ item: this.draggedItem, index: draggedItemIndex });
+			items.push({ item: itemDraggedTo, index: itemDraggedToIndex });
+			items.push({ selectedLayers: this.selectedLayers });
 			this.mapService.resetLayers.next(items);
 		}
 	}

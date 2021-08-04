@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 
 import * as L from 'leaflet';
 
@@ -10,41 +10,41 @@ import 'leaflet-draw';
 
 import * as Search from 'leaflet-search';
 
-import {HTTPService} from '../../services/http.service';
+import { HTTPService } from '../../services/http.service';
 
-import {ConfigService} from '../../services/config.service';
+import { ConfigService } from '../../services/config.service';
 
-import {SidebarService} from 'src/app/services/sidebar.service';
+import { SidebarService } from 'src/app/services/sidebar.service';
 
-import {MapService} from 'src/app/services/map.service';
+import { MapService } from 'src/app/services/map.service';
 
-import {LayerType} from 'src/app/enum/layer-type.enum';
+import { LayerType } from 'src/app/enum/layer-type.enum';
 
-import {Layer} from 'src/app/models/layer.model';
+import { Layer } from 'src/app/models/layer.model';
 
-import {LayerGroup} from 'src/app/models/layer-group.model';
+import { LayerGroup } from 'src/app/models/layer-group.model';
 
-import {FilterService} from '../../services/filter.service';
+import { FilterService } from '../../services/filter.service';
 
-import {PopupService} from 'src/app/services/popup.service';
+import { PopupService } from 'src/app/services/popup.service';
 
-import {LayerInfo} from 'src/app/models/layer-info.model';
+import { LayerInfo } from 'src/app/models/layer-info.model';
 
-import {LayerInfoFeature} from 'src/app/models/layer-info-feature.model';
+import { LayerInfoFeature } from 'src/app/models/layer-info-feature.model';
 
-import {SelectedMarker} from 'src/app/models/selected-marker.model';
 
-import {TableService} from 'src/app/services/table.service';
+import { TableService } from 'src/app/services/table.service';
 
-import {View} from '../../models/view.model';
+import { View } from '../../models/view.model';
 
-import {FilterUtils} from '../../utils/filter.utils';
+import { FilterUtils } from '../../utils/filter.utils';
 
-import {AuthService} from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 
-import {Response} from '../../models/response.model';
+import { Response } from '../../models/response.model';
 
-import {environment} from 'src/environments/environment';
+import { environment } from 'src/environments/environment';
+import { InfoColumnsService } from '../../services/info-columns.service';
 
 @Component({
 	selector: 'app-map',
@@ -59,7 +59,6 @@ export class MapComponent implements OnInit, AfterViewInit {
 	markerClusterGroup: L.MarkerClusterGroup;
 	selectedPrimaryLayer: Layer;
 	markerInfo: L.Marker;
-	selectedMarker: SelectedMarker;
 	tableSelectedLayer: L.TileLayer.WMS;
 	reportTable;
 	displayTable = false;
@@ -85,7 +84,8 @@ export class MapComponent implements OnInit, AfterViewInit {
 		private mapService: MapService,
 		private filterService: FilterService,
 		private linkPopupService: PopupService,
-		private authService: AuthService
+		private authService: AuthService,
+		private infoColumnsService: InfoColumnsService
 	) {
 	}
 
@@ -112,8 +112,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 	}
 
 	setMap() {
-		this.map = L.map('map', {maxZoom: this.mapConfig.maxZoom});
-		L.Handler.toString();
+		this.map = L.map('map', { maxZoom: this.mapConfig.maxZoom });
 		this.panMap(this.mapConfig.initialLatLong, this.mapConfig.initialZoom);
 		L.Marker.prototype.options.icon = L.icon({
 			iconRetinaUrl: 'assets/marker-icon-2x.png',
@@ -189,13 +188,13 @@ export class MapComponent implements OnInit, AfterViewInit {
 	}
 
 	createMarker(title, latLong, layerLabel, gid, codGroup, layer?) {
-		const marker = L.marker(latLong, {title});
+		const marker = L.marker(latLong, { title });
 		this.linkPopupService.register(marker, layerLabel, gid, codGroup, layer);
 		return marker;
 	}
 
 	setMarkersGroup() {
-		this.markerClusterGroup = L.markerClusterGroup({chunkedLoading: true, spiderfyOnMaxZoom: true});
+		this.markerClusterGroup = L.markerClusterGroup({ chunkedLoading: true, spiderfyOnMaxZoom: true });
 		this.map.addLayer(this.markerClusterGroup);
 	}
 
@@ -343,14 +342,14 @@ export class MapComponent implements OnInit, AfterViewInit {
 
 		const specificSearch = {
 			car(value) {
-				return (layer.isPrimary) ? ` de_car_validado_sema_numero_do1 = '${value}' ` : ` ${layer.tableOwner}_de_car_validado_sema_numero_do1 = '${value}' `;
+				return (layer.isPrimary) ? ` de_car_validado_sema_numero_do1 = '${ value }' ` : ` ${ layer.tableOwner }_de_car_validado_sema_numero_do1 = '${ value }' `;
 			},
 			car_federal(value) {
-				return (layer.isPrimary) ? ` de_car_validado_sema_numero_do2 = '${value}' ` : ` ${layer.tableOwner}_de_car_validado_sema_numero_do2 = '${value}' `;
+				return (layer.isPrimary) ? ` de_car_validado_sema_numero_do2 = '${ value }' ` : ` ${ layer.tableOwner }_de_car_validado_sema_numero_do2 = '${ value }' `;
 			},
 			cpf(value) {
 				const newValue = value ? value.replace(/\D/g, '') : '';
-				return (layer.isPrimary) ? ` de_car_validado_sema_cpfcnpj like '%${newValue}%' ` : ` ${layer.tableOwner}_de_car_validado_sema_cpfcnpj = '%${newValue}%'`;
+				return (layer.isPrimary) ? ` de_car_validado_sema_cpfcnpj like '%${ newValue }%' ` : ` ${ layer.tableOwner }_de_car_validado_sema_cpfcnpj = '%${ newValue }%'`;
 			}
 		};
 
@@ -389,27 +388,27 @@ export class MapComponent implements OnInit, AfterViewInit {
 			if (analyze.valueOption && analyze.valueOption.value) {
 				if ((analyze.type && analyze.type === 'deter') && (layer.codgroup === 'DETER') && (layer.cod === 'CAR_X_DETER')) {
 					cqlFilter += cqlFilter ? ' and ' : '';
-					cqlFilter += ` calculated_area_ha ${values.columnValue} `;
+					cqlFilter += ` calculated_area_ha ${ values.columnValue } `;
 				}
 
 				if ((analyze.type && analyze.type === 'deforestation') && (layer.codgroup === 'PRODES') && (layer.cod === 'CAR_X_PRODES')) {
 					cqlFilter += cqlFilter ? ' and ' : '';
-					cqlFilter += ` calculated_area_ha ${values.columnValue} `;
+					cqlFilter += ` calculated_area_ha ${ values.columnValue } `;
 				}
 
 				if ((analyze.type && analyze.type === 'burned') && (layer.codgroup === 'BURNED') && (layer.cod === 'CAR_X_FOCOS')) {
 					cqlFilter += cqlFilter ? ' and ' : '';
-					cqlFilter += ` num_car_focos ${values.columnValueFocos} `;
+					cqlFilter += ` num_car_focos ${ values.columnValueFocos } `;
 				}
 
 				if ((analyze.type && analyze.type === 'burned_area') && (layer.codgroup === 'BURNED_AREA') && (layer.cod === 'CAR_X_AREA_Q')) {
 					cqlFilter += cqlFilter ? ' and ' : '';
-					cqlFilter += ` calculated_area_ha ${values.columnValue} `;
+					cqlFilter += ` calculated_area_ha ${ values.columnValue } `;
 				}
 
 				if ((analyze.type && analyze.type === 'car_area')) {
 					cqlFilter += cqlFilter ? ' and ' : '';
-					cqlFilter += ` ${layer.filter.car.field} ${values.columnValue} `;
+					cqlFilter += ` ${ layer.filter.car.field } ${ values.columnValue } `;
 				}
 			}
 		});
@@ -422,7 +421,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 	}
 
 	getValues(analyze) {
-		const values = {columnValue: '', columnValueFocos: '', min: null, max: null};
+		const values = { columnValue: '', columnValueFocos: '', min: null, max: null };
 		if (analyze.valueOption && analyze.valueOption.value) {
 			switch (analyze.valueOption.value) {
 				case 1 :
@@ -456,8 +455,8 @@ export class MapComponent implements OnInit, AfterViewInit {
 					values.max = 9999999999;
 					break;
 				case 6:
-					values.columnValue = ` > ${analyze.valueOptionBiggerThen} `;
-					values.columnValueFocos = ` > ${analyze.valueOptionBiggerThen} `;
+					values.columnValue = ` > ${ analyze.valueOptionBiggerThen } `;
+					values.columnValueFocos = ` > ${ analyze.valueOptionBiggerThen } `;
 					values.min = analyze.valueOptionBiggerThen;
 					values.max = 9999999999;
 					break;
@@ -498,9 +497,9 @@ export class MapComponent implements OnInit, AfterViewInit {
 		const currentDateInput = JSON.parse(localStorage.getItem('dateFilter'));
 
 		if (layer.cod === 'CAR_X_FOCOS') {
-			layer.layerData.viewparams = `date1:${currentDateInput[0].substring(0, 10)};date2:${currentDateInput[1].substring(0, 10)}`;
+			layer.layerData.viewparams = `date1:${ currentDateInput[0].substring(0, 10) };date2:${ currentDateInput[1].substring(0, 10) }`;
 		} else {
-			layer.layerData.time = `${currentDateInput[0]}/${currentDateInput[1]}`;
+			layer.layerData.time = `${ currentDateInput[0] }/${ currentDateInput[1] }`;
 		}
 
 		if (layer.type === LayerType.DYNAMIC) {
@@ -601,7 +600,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 			}
 		});
 
-		new Legend({position: 'topleft'}).addTo(this.map);
+		new Legend({ position: 'topleft' }).addTo(this.map);
 
 		this.setLegendControlEvent();
 	}
@@ -623,7 +622,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 			}
 		});
 
-		new Table({position: 'topleft'}).addTo(this.map);
+		new Table({ position: 'topleft' }).addTo(this.map);
 
 		this.setTableControlEvent();
 	}
@@ -650,7 +649,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 							return div;
 						}
 					});
-					this.reportTable = new ReportTable({position: 'topright'});
+					this.reportTable = new ReportTable({ position: 'topright' });
 					this.reportTable.addTo(this.map);
 					this.setReportTableControlEvent();
 				}
@@ -702,10 +701,10 @@ export class MapComponent implements OnInit, AfterViewInit {
 					container.innerHTML = `
           <div id="coordinates" class="leaflet-control-coordinates leaflet-control-layers leaflet-latlong-icon">
           <strong>Lat:</strong>
-          ${e.latlng.lat.toFixed(4)}
+          ${ e.latlng.lat.toFixed(4) }
           &nbsp;
           <strong>Long:</strong>
-          ${e.latlng.lng.toFixed(4)}
+          ${ e.latlng.lng.toFixed(4) }
           </div>
           `;
 				});
@@ -748,7 +747,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 			}
 		});
 
-		new Info({position: 'topleft'}).addTo(this.map);
+		new Info({ position: 'topleft' }).addTo(this.map);
 
 		this.setInfoControlEvent();
 	}
@@ -783,7 +782,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 			popupContent += `<h2>Layer não encontrado.</h2>`;
 		}
 
-		const infoColumns = await this.configService.getInfoColumns().then((response: Response) => response);
+		const infoColumns = await this.infoColumnsService.getInfoColumns().then((response: Response) => response);
 
 		let popupTable = '';
 		for (const selectedLayer of this.selectedLayers) {
@@ -794,14 +793,14 @@ export class MapComponent implements OnInit, AfterViewInit {
 			let params = null;
 			let url = '';
 			if (selectedLayer.type === LayerType.ANALYSIS || selectedLayer.type === LayerType.DYNAMIC) {
-				url = `${environment.geoserverUrl}/wfs`;
+				url = `${ environment.geoserverUrl }/wfs`;
 				params = this.getWFSFeatureInfoParams(layer, event, selectedLayer.type, selectedLayer.cod);
 			} else {
-				url = `${environment.geoserverUrl}/wms`;
+				url = `${ environment.geoserverUrl }/wms`;
 				params = this.getWMSFeatureInfoParams(layer, event);
 			}
 
-			await this.hTTPService.get(url, params).toPromise().then((layerInfo: LayerInfo) => {
+			await this.hTTPService.get<any>(url, params).toPromise().then((layerInfo: LayerInfo) => {
 				const features = layerInfo.features;
 				if (features && features.length > 0) {
 					popupTable += this.getFeatureInfoPopup(layerName, features, layerInfoColumn);
@@ -818,7 +817,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 		this.clearMarkerInfo();
 
 		this.markerInfo = L.marker(latLong, {});
-		this.markerInfo.bindPopup(popupContent, {maxWidth: 500, maxHeight: 500});
+		this.markerInfo.bindPopup(popupContent, { maxWidth: 500, maxHeight: 500 });
 		this.markerInfo.addTo(this.map);
 		this.markerInfo.openPopup();
 	}
@@ -866,7 +865,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 			outputFormat: 'application/json',
 			typeNames: layer.wmsParams.layers,
 			count: 1,
-			cql_filter: `INTERSECTS(${geomColumn}, POINT(${event.latlng.lat} ${event.latlng.lng}))`
+			cql_filter: `INTERSECTS(${ geomColumn }, POINT(${ event.latlng.lat } ${ event.latlng.lng }))`
 		};
 	}
 
@@ -895,7 +894,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 			}
 		});
 
-		new RestoreMap({position: 'topleft'}).addTo(this.map);
+		new RestoreMap({ position: 'topleft' }).addTo(this.map);
 
 		this.setRestoreMapControlEvent();
 	}
@@ -920,7 +919,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 			}
 		});
 
-		new VisibleLayers({position: 'topleft'}).addTo(this.map);
+		new VisibleLayers({ position: 'topleft' }).addTo(this.map);
 
 		this.setVisibleLayersControlEvent();
 	}
@@ -990,14 +989,14 @@ export class MapComponent implements OnInit, AfterViewInit {
 				layer.tableName
 			));
 
-		const params = this.filterService.getParams({view});
+		const params = this.filterService.getParams({ view });
 
 		const columnCarGid = layer.type === LayerType.ANALYSIS ? 'de_car_validado_sema_gid' : 'gid';
 		const carRegisterColumn = {
 			federal: layer.type === LayerType.ANALYSIS ? 'de_car_validado_sema_numero_do2' : 'numero_do2',
 			estadual: layer.type === LayerType.ANALYSIS ? 'de_car_validado_sema_numero_do1' : 'numero_do1'
 		};
-		this.hTTPService.get(url, params)
+		this.hTTPService.get<any>(environment.reportServerUrl + url, params)
 		.subscribe(data => this.setMarkers(data, carRegisterColumn, layer, columnCarGid));
 	}
 }

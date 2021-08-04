@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {LineInputModel} from '../../models/line-input.model';
-import {Message, MessageService} from 'primeng/api';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { LineInputModel } from '../../models/line-input.model';
+import { Message, MessageService } from 'primeng/api';
 
 @Component({
 	selector: 'app-modal',
@@ -91,22 +91,22 @@ export class ModalComponent implements OnInit {
 				if (input.required && (this.data[input.field] === '')) {
 					numberFields++;
 					emptyFields =
-						!emptyFields ? `'${input.label}'` :
-							`${emptyFields} e '${input.label}'`;
+						!emptyFields ? `'${ input.label }'` :
+							`${ emptyFields } e '${ input.label }'`;
 				}
 			}
 		}
 		if (emptyFields) {
 			emptyFields = (numberFields > 1) ?
-				`Os campos ${emptyFields} são obrigatórios!` :
-				`O campo ${emptyFields} é obrigatório!`;
+				`Os campos ${ emptyFields } são obrigatórios!` :
+				`O campo ${ emptyFields } é obrigatório!`;
 		}
 		return emptyFields;
 	}
 
 	showError(message: string) {
 		this.clearMsgs();
-		this.msgs.push({severity: 'error', summary: 'Error Message', detail: message});
+		this.msgs.push({ severity: 'error', summary: 'Error Message', detail: message });
 	}
 
 	clearMsgs() {

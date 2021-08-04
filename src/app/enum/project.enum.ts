@@ -1,4 +1,4 @@
 export enum Project {
-    MPMT = 'mpmt',
-    TERRAMA2 = 'terrama2',
+	MPMT = 'mpmt',
+	TERRAMA2 = 'terrama2',
 }

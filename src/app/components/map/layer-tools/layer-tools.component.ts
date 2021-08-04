@@ -1,24 +1,24 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
-import {Layer} from '../../../models/layer.model';
+import { Layer } from '../../../models/layer.model';
 
-import {ConfigService} from '../../../services/config.service';
+import { ConfigService } from '../../../services/config.service';
 
-import {HTTPService} from '../../../services/http.service';
+import { HTTPService } from '../../../services/http.service';
 
-import {MapService} from '../../../services/map.service';
+import { MapService } from '../../../services/map.service';
 
-import {MessageService} from 'primeng/api';
+import { MessageService } from 'primeng/api';
 
-import {FilterService} from '../../../services/filter.service';
+import { FilterService } from '../../../services/filter.service';
 
-import {View} from '../../../models/view.model';
+import { View } from '../../../models/view.model';
 
-import {LayerType} from '../../../enum/layer-type.enum';
+import { LayerType } from '../../../enum/layer-type.enum';
 
-import {ExportService} from '../../../services/export.service';
-import {AuthService} from '../../../services/auth.service';
-import {User} from '../../../models/user.model';
+import { ExportService } from '../../../services/export.service';
+import { AuthService } from '../../../services/auth.service';
+import { User } from '../../../models/user.model';
 
 @Component({
 	selector: 'app-layer-tools',
@@ -63,13 +63,13 @@ export class LayerToolsComponent implements OnInit {
 	onOpacityChange(event) {
 		const layer = this.layer;
 		const value = Number(event.value);
-		this.mapService.layerOpactity.next({layer, value});
+		this.mapService.layerOpactity.next({ layer, value });
 	}
 
 	onSliderChange(event) {
 		const layer = this.layer;
 		const value = Number(event.value);
-		this.mapService.layerSlider.next({layer, value});
+		this.mapService.layerSlider.next({ layer, value });
 	}
 
 	async onExportClick() {

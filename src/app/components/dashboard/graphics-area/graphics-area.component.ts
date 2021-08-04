@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
-import {AlertGraphic} from '../../../models/alert-graphic.model';
+import { AlertGraphic } from '../../../models/alert-graphic.model';
 
 @Component({
 	selector: 'app-graphics-area',
@@ -9,15 +9,15 @@ import {AlertGraphic} from '../../../models/alert-graphic.model';
 })
 export class GraphicsAreaComponent implements OnInit {
 	@Input() alertGraphics: AlertGraphic [] = [];
-
+	
 	constructor() {
 	}
-
+	
 	ngOnInit() {
 	}
-
+	
 	trackById(index, item) {
 		return item.id;
 	}
-
+	
 }

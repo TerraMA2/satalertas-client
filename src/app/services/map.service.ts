@@ -1,134 +1,153 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
-import {Subject} from 'rxjs';
+import { Subject } from 'rxjs';
 
-import {Layer} from '../models/layer.model';
-import {Util} from '../utils/util';
+import { Layer } from '../models/layer.model';
+import { Util } from '../utils/util';
 import * as L from 'leaflet';
-import {LatLngBounds} from 'leaflet';
+import { LatLngBounds } from 'leaflet';
+import { environment } from '../../environments/environment';
+import { HTTPService } from './http.service';
+
+const URL_REPORT_SERVER = environment.reportServerUrl;
 
 @Injectable({
-    providedIn: 'root'
+	providedIn: 'root'
 })
 export class MapService {
 
-    resetLayers = new Subject();
+	resetLayers = new Subject();
 
-    clearMap = new Subject();
+	clearMap = new Subject();
 
-    reportTable = new Subject();
+	reportTable = new Subject();
 
-    showMarker = new Subject();
+	showMarker = new Subject();
 
-    reportTableButton = new Subject<boolean>();
+	reportTableButton = new Subject<boolean>();
 
-    layerToolOpen = new Subject<object>();
+	layerToolOpen = new Subject<object>();
 
-    layerToolClose = new Subject();
+	layerToolClose = new Subject();
 
-    legendClose = new Subject();
+	legendClose = new Subject();
 
-    layerExtent = new Subject<Layer>();
+	layerExtent = new Subject<Layer>();
 
-    layerOpactity = new Subject<object>();
+	layerOpactity = new Subject<object>();
 
-    layerSlider = new Subject<object>();
+	layerSlider = new Subject<object>();
 
-    clearMarkers = new Subject();
+	clearMarkers = new Subject();
 
-    constructor() {
-    }
+	constructor(
+		private httpService: HTTPService
+	) {
+	}
 
-    getPopupContent(data, name, infoColumns = null) {
-        let popupContent = '';
-        let popupContentBody = '';
-        Object.keys(data).forEach(key => {
-            if (key === 'lat' || key === 'long') {
-                return;
-            }
-            const column = infoColumns[key];
-            let show = true;
-            let alias;
-            if (column) {
-                alias = column.alias;
-                show = column.show === true;
-            } else {
-                alias = key;
-            }
-            if (show) {
-                if (alias === 'CPF/CNPJ') {
-                    popupContentBody += `
+	getPopupContent(data, name, infoColumns = null) {
+		let popupContent = '';
+		let popupContentBody = '';
+		Object.keys(data).forEach(key => {
+			if (key === 'lat' || key === 'long') {
+				return;
+			}
+			const column = infoColumns[key];
+			let show = true;
+			let alias;
+			if (column) {
+				alias = column.alias;
+				show = column.show === true;
+			} else {
+				alias = key;
+			}
+			if (show) {
+				if (alias === 'CPF/CNPJ') {
+					popupContentBody += `
                         <tr>
-                           <td>${alias}</td>
-                           <td>${this.formatterCpfCnpj(data[key])}</td>
+                           <td>${ alias }</td>
+                           <td>${ this.formatterCpfCnpj(data[key]) }</td>
                         </tr>`;
-                } else {
-                    popupContentBody += `
+				} else {
+					popupContentBody += `
                         <tr>
-                            <td>${alias}</td>
-                            <td>${data[key]}</td>
+                            <td>${ alias }</td>
+                            <td>${ data[key] }</td>
                         </tr>`;
-                }
-            }
-        });
+				}
+			}
+		});
 
-        popupContent += `
+		popupContent += `
             <br />
             <div class="table-responsive">
               <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th colspan="2">${name}</th>
+                        <th colspan="2">${ name }</th>
                     </tr>
                 </thead>
-                ${popupContentBody}
+                ${ popupContentBody }
               </table>
             </div>
         `;
 
-        return popupContent;
-    }
+		return popupContent;
+	}
 
-    formatterCpfCnpj(cpfCnpj) {
-        if (cpfCnpj) {
-            const listCpfCnpj = cpfCnpj.split(',');
+	async getPopupInfo(gid, codGroup, filter?) {
+		const url = `${ URL_REPORT_SERVER }/map/getPopupInfo`;
+		const params = {
+			params: {
+				gid,
+				codGroup,
+				filter
+			}
+		};
 
-            cpfCnpj = '';
-            if (listCpfCnpj.length > 0) {
-                listCpfCnpj.forEach(value => {
-                    if (!cpfCnpj) {
-                        cpfCnpj = Util.cpfCnpjMask(value);
-                    } else {
-                        cpfCnpj += `, ${Util.cpfCnpjMask(value)}`;
-                    }
-                });
-            }
-        }
+		return await this.httpService.get<any>(url, params).toPromise();
+	}
 
-        return cpfCnpj ? cpfCnpj : '';
-    }
+	formatterCpfCnpj(cpfCnpj) {
+		if (cpfCnpj) {
+			const listCpfCnpj = cpfCnpj.split(',');
 
-    getLayerById(leafletId, map: L.Map) {
-        let layer = null;
-        map.eachLayer((tileLayer: L.TileLayer.WMS) => {
-            if (leafletId === tileLayer['_leaflet_id']) {
-                layer = tileLayer;
-            }
-        });
-        return layer;
-    }
+			cpfCnpj = '';
+			if (listCpfCnpj.length > 0) {
+				listCpfCnpj.forEach(value => {
+					if (!cpfCnpj) {
+						cpfCnpj = Util.cpfCnpjMask(value);
+					} else {
+						cpfCnpj += `, ${ Util.cpfCnpjMask(value) }`;
+					}
+				});
+			}
+		}
 
-    setOpacity(layer: Layer, value: number, map: L.Map) {
-        const tileLayer: L.TileLayer.WMS = this.getLayerById(layer.leafletId, map);
-        value = value / 100;
-        tileLayer.setOpacity(value);
-    }
+		return cpfCnpj ? cpfCnpj : '';
+	}
 
-    setExtent(layer: Layer, map: L.Map) {
-        const tileLayer: L.TileLayer.WMS = this.getLayerById(layer.leafletId, map);
-        const bbox = layer.layerData.bbox;
-        const bboxArray = bbox.split(',');
-        const latLngBounds = new LatLngBounds([parseFloat(bboxArray[2]), parseFloat(bboxArray[3])], [parseFloat(bboxArray[0]), parseFloat(bboxArray[1])]);
-        map.fitBounds(latLngBounds);
-    }
+	getLayerById(leafletId, map: L.Map) {
+		let layer = null;
+		map.eachLayer((tileLayer: L.TileLayer.WMS) => {
+			if (leafletId === tileLayer['_leaflet_id']) {
+				layer = tileLayer;
+			}
+		});
+		return layer;
+	}
+
+	setOpacity(layer: Layer, value: number, map: L.Map) {
+		const tileLayer: L.TileLayer.WMS = this.getLayerById(layer.leafletId, map);
+		value = value / 100;
+		tileLayer.setOpacity(value);
+	}
+
+	setExtent(layer: Layer, map: L.Map) {
+		const tileLayer: L.TileLayer.WMS = this.getLayerById(layer.leafletId, map);
+		const bbox = layer.layerData.bbox;
+		const bboxArray = bbox.split(',');
+		const latLngBounds = new LatLngBounds([parseFloat(bboxArray[2]), parseFloat(bboxArray[3])], [parseFloat(bboxArray[0]), parseFloat(bboxArray[1])]);
+		map.fitBounds(latLngBounds);
+	}
 }

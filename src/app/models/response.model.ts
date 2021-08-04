@@ -1,8 +1,5 @@
-export class Response {
-    constructor(
-        public status: number,
-        public data: any,
-        public message: string
-    ) {
-    }
+export interface Response {
+		status: number,
+		data: any,
+		message: string
 }

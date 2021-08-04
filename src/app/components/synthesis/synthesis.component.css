@@ -98,3 +98,12 @@
     vertical-align: middle;
     margin: 0 auto
 }
+
+:host ::ng-deep .custom-scrolltop .p-scrolltop-icon {
+    font-size: 2rem;
+    color: #591111;
+}
+
+body .p-scrollpanel-content {
+    width: 70%;
+}
