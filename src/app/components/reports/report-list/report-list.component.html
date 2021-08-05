@@ -1,8 +1,11 @@
 <p-table (onHeaderCheckboxToggle)="onHeaderCheckboxToggle($event)"
          (onLazyLoad)="onLazyLoad($event)"
          (onRowExpand)="onRowExpand($event)"
+         (onRowCollapse)="onRowCollapse($event)"
          (onRowSelect)="onRowSelect()"
          (onRowUnselect)="onRowUnselect()"
+         (onSort)="onSort($event)"
+         (onPage)="onPage($event)"
          [(selection)]="selectedProperties"
          [columns]="selectedColumns"
          [lazy]="true"
@@ -13,16 +16,20 @@
          [responsive]="true"
          [rowTrackBy]="trackById"
          [rows]="selectedRowsPerPage"
+         [first]="first"
+         [sortField]="sortField"
+         [sortOrder]="sortOrder"
+         [defaultSortOrder]="defaultSortOrder"
+         [expandedRowKeys]="expandedRowKey"
          [scrollHeight]="'80vh'"
          [scrollable]="true"
          [totalRecords]="totalRecords"
          [value]="tableData"
-         [stateStorage]="'session'"
-         [stateKey]="'report-table'"
-         dataKey="gid"
-         exportFilename="Satélites_Alertas_CAR"
-         loadingIcon="fas fa-circle-notch color-black"
-         rowExpandMode="single">
+         [dataKey]="'gid'"
+         [resetPageOnSort]="false"
+         [exportFilename]="'Satélites_Alertas_CAR'"
+         [loadingIcon]="'fas fa-circle-notch color-black'"
+         [rowExpandMode]="'single'">
     <ng-template pTemplate="caption">
         <div class="p-grid p-nogutter">
 
@@ -32,6 +39,7 @@
 
                     <p-multiSelect [(ngModel)]="selectedColumns"
                                    [options]="columns"
+                                   (onChange)="onColumnsChanged($event)"
                                    [style]="{minWidth: '200px'}"
                                    defaultLabel="{{ 'selectColumns' | translate}}"
                                    optionLabel="header"
@@ -51,7 +59,7 @@
 
 
                     <p-dropdown #selectedLayer
-                                (onChange)="onFilterChange(selectedLayer)"
+                                (onChange)="onLayerChange(selectedLayer)"
                                 [(ngModel)]="selectedLayerValue"
                                 [options]="filters">
                     </p-dropdown>

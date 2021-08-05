@@ -381,6 +381,13 @@
           "label": "1000",
           "value": 1000
         }
+      ],
+      "excludedColumns": [
+        "lat",
+        "long",
+        "geom",
+        "intersection_geom",
+        "has_pdf"
       ]
     },
     "export": {
