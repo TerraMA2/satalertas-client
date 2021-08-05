@@ -49,10 +49,10 @@ export class ReportListComponent implements OnInit {
 	selectedRowsPerPage: number = this.defaultRowsPerPage;
 
 	filters: ReportLayer[];
-	selectedFilter: ReportLayer;
-	selectedFilterValue: number;
-	selectedFilterSortField: string;
-	selectedFilterLabel: string;
+	selectedLayer: ReportLayer;
+	selectedLayerValue: number;
+	selectedLayerSortField: string;
+	selectedLayerLabel: string;
 
 	showBurn = false;
 	showDeter = false;
@@ -114,14 +114,18 @@ export class ReportListComponent implements OnInit {
 		this.showDeter = true;
 		this.isLoading = true;
 		const selectedOption = this.filters[0];
-		this.selectedFilter = selectedOption;
-		this.selectedFilterValue = selectedOption.value;
-		this.selectedFilterSortField = selectedOption.sortField;
-		await this.loadTableData(selectedOption, this.selectedRowsPerPage, 0, this.selectedFilterSortField, 1);
+		this.selectedLayer = selectedOption;
+		this.selectedLayerValue = selectedOption.value;
+		this.selectedLayerSortField = selectedOption.sortField;
+		if (sessionStorage.getItem('selectedLayer')) {
+			await this.restoreState();
+		} else {
+			await this.loadTableData(selectedOption, this.selectedRowsPerPage, 0, this.selectedLayerSortField, 1);
+		}
 
 		this.tableService.clearTable.subscribe(() => this.clearTable());
 
-		this.filterService.filterTable.subscribe(() => this.tableService.loadTableData.next(this.selectedFilter));
+		this.filterService.filterTable.subscribe(() => this.tableService.loadTableData.next(this.selectedLayer));
 
 		this.tableService.loadTableData.subscribe(layer => {
 			if (layer) {
@@ -169,17 +173,17 @@ export class ReportListComponent implements OnInit {
 				(layer.codgroup === 'CAR'));
 		const params = { view, limit, offset, countTotal };
 
-		if (this.selectedFilter) {
-			params['count'] = this.selectedFilter.count;
-			params['sum'] = !this.showBurn ? this.selectedFilter.sum : false;
-			params['isDynamic'] = this.selectedFilter.isDynamic;
-			params['tableAlias'] = this.selectedFilter.tableAlias;
-			params['sumAlias'] = this.selectedFilter.sumAlias;
-			params['countAlias'] = this.selectedFilter.countAlias;
-			params['sumField'] = this.selectedFilter.sumField;
+		if (this.selectedLayer) {
+			params['count'] = this.selectedLayer.count;
+			params['sum'] = !this.showBurn ? this.selectedLayer.sum : false;
+			params['isDynamic'] = this.selectedLayer.isDynamic;
+			params['tableAlias'] = this.selectedLayer.tableAlias;
+			params['sumAlias'] = this.selectedLayer.sumAlias;
+			params['countAlias'] = this.selectedLayer.countAlias;
+			params['sumField'] = this.selectedLayer.sumField;
 		}
 
-		params['sortField'] = sortField ? sortField : this.selectedFilter && this.selectedFilter.sortField ? this.selectedFilter.sortField : undefined;
+		params['sortField'] = sortField ? sortField : this.selectedLayer && this.selectedLayer.sortField ? this.selectedLayer.sortField : undefined;
 		params['sortOrder'] = sortOrder ? sortOrder : 1;
 
 		await this.hTTPService
@@ -222,7 +226,7 @@ export class ReportListComponent implements OnInit {
 	}
 
 	onLazyLoad(event: LazyLoadEvent) {
-		this.loadTableData(this.selectedFilter,
+		this.loadTableData(this.selectedLayer,
 			event.rows,
 			event.first,
 			this.getSortField(event.sortField),
@@ -241,7 +245,7 @@ export class ReportListComponent implements OnInit {
 	}
 
 	onRowsPerPageChange(event) {
-		this.loadTableData(this.selectedFilter, this.selectedRowsPerPage, 0);
+		this.loadTableData(this.selectedLayer, this.selectedRowsPerPage, 0);
 	}
 
 	async onRowExpand(event) {
@@ -253,9 +257,11 @@ export class ReportListComponent implements OnInit {
 
 	onFilterChange(filter) {
 		const selectedOption = filter.selectedOption;
-		this.selectedFilter = selectedOption;
-		this.selectedFilterLabel = selectedOption.label;
+		this.selectedLayer = selectedOption;
+		this.selectedLayerValue = selectedOption.value;
+		this.selectedLayerLabel = selectedOption.label;
 		this.loadTableData(selectedOption, this.selectedRowsPerPage, 0, selectedOption.sortField, 1);
+		this.saveState();
 	}
 
 	trackById(index, item) {
@@ -264,13 +270,13 @@ export class ReportListComponent implements OnInit {
 
 	clearTable() {
 		this.tableData = undefined;
-		this.selectedFilterValue = undefined;
+		this.selectedLayerValue = undefined;
 		this.selectedColumns = undefined;
 		this.selectedRowsPerPage = this.defaultRowsPerPage;
 		this.totalRecords = 0;
 		this.columns = [];
-		this.selectedFilter = null;
-		this.selectedFilterSortField = null;
+		this.selectedLayer = null;
+		this.selectedLayerSortField = null;
 		this.showBurn = false;
 		this.showProdes = false;
 		this.showDeter = false;
@@ -292,7 +298,7 @@ export class ReportListComponent implements OnInit {
 			return;
 		}
 
-		const layer = this.selectedFilter;
+		const layer = this.selectedLayer;
 
 		const view = new View(
 			layer.value,
@@ -353,4 +359,21 @@ export class ReportListComponent implements OnInit {
 	getRegister(data) {
 		return data['gid'];
 	}
+
+	saveState() {
+		sessionStorage.setItem('selectedLayer', JSON.stringify(this.selectedLayer));
+	}
+
+	restoreState() {
+		this.selectedLayer = JSON.parse(sessionStorage.getItem('selectedLayer'));
+		const reportTable = JSON.parse(sessionStorage.getItem('report-table'));
+		if (reportTable) {
+			this.selectedColumns = reportTable.columnOrder;
+			this.selectedRowsPerPage = reportTable.rows;
+		}
+		if (this.selectedLayer) {
+			this.onFilterChange({selectedOption: this.selectedLayer});
+		}
+	}
+
 }

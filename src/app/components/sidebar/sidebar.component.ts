@@ -125,7 +125,7 @@ export class SidebarComponent implements OnInit {
 					if (children) { // construindo cada camada.
 						sidebarLayer.children.forEach((sidebarLayerChild, index) => {
 							let layer; // Camada
-							console.log(sidebarLayerChild)
+							// console.log(sidebarLayerChild)
 							if (!sidebarLayerChild.isHidden) {
 								layer = new Layer(
 									sidebarLayerChild.cod,

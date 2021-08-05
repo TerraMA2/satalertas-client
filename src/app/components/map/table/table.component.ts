@@ -54,7 +54,6 @@ export class TableComponent implements OnInit {
 	selectedProperties;
 
 	selectedLayer: ReportLayer;
-	selectedLayerLabel: string;
 	selectedLayerValue: number;
 
 	isLoading = false;
@@ -302,7 +301,6 @@ export class TableComponent implements OnInit {
 
 	onSelectedLayerChange(layer) {
 		this.selectedLayer = layer.selectedOption;
-		this.selectedLayerLabel = this.selectedLayer.label;
 		this.loadTableData(layer.selectedOption, this.selectedRowsPerPage, 0);
 	}
 
@@ -339,7 +337,6 @@ export class TableComponent implements OnInit {
 		this.columns = [];
 		this.tableReportActive = false;
 		this.selectedLayer = null;
-		this.selectedLayerLabel = null;
 		this.selectedLayerValue = null;
 		this.selectedFilter = null;
 		this.selectedFilterSortField = null;
