@@ -147,8 +147,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
 	};
 	downloadVectors = false;
 
-	previousUrl: string;
-
 	constructor(
 		private activatedRoute: ActivatedRoute,
 		private sidebarService: SidebarService,
@@ -164,14 +162,13 @@ export class ReportComponent implements OnInit, AfterViewInit {
 	}
 
 	async ngOnInit() {
-		this.previousUrl = localStorage.getItem('previousUrl');
 		this.inputSat = '';
 		this.textAreaComments = '';
 
 		this.authService.user.subscribe(user => {
 			this.loggedUser = user;
 			if (!user) {
-				this.router.navigateByUrl('/map');
+				this.navigationService.back();
 				this.messageService.add({ severity: 'error', summary: 'Atenção!', detail: 'Usuário não autenticado.' });
 			}
 		});
@@ -193,7 +190,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 	}
 
 	async ngAfterViewInit() {
-		this.filter = localStorage.getItem('filterList');
+		this.filter = localStorage.getItem('filterState');
 		this.date = JSON.parse(localStorage.getItem('dateFilter'));
 
 		if (this.type === 'prodes') {

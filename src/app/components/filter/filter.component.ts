@@ -42,7 +42,6 @@ export class FilterComponent implements OnInit, AfterViewInit {
 	authorizationDisable: boolean;
 
 	filterParam: FilterParam;
-	filterLabel: string;
 	displayFilter = false;
 
 	constructor(
@@ -52,7 +51,6 @@ export class FilterComponent implements OnInit, AfterViewInit {
 
 	ngOnInit() {
 		this.authorizationDisable = true;
-
 		this.filterParam = new FilterParam(
 			new FilterTheme(),
 			new FilterAlertType('ALL'),
@@ -69,9 +67,20 @@ export class FilterComponent implements OnInit, AfterViewInit {
 	}
 
 	updateFilter() {
-		localStorage.removeItem('filterList');
+		localStorage.removeItem('filterState');
+		localStorage.setItem('filterState', JSON.stringify(this.filterParam));
+	}
 
-		localStorage.setItem('filterList', JSON.stringify(this.filterParam));
+	getFilter() {
+		const filterState: FilterParam = JSON.parse(localStorage.getItem('filterState'));
+		if(filterState) {
+			this.filterParam = filterState;
+			this.filterService.changeAlertType.next(filterState.alertType);
+			this.filterService.changeTheme.next(filterState.themeSelected);
+			this.filterService.changeAuthorization.next(filterState.autorization);
+			this.filterService.changeSpecificSearch.next(filterState.specificSearch);
+			this.filterService.changeClass.next(filterState.classSearch);
+		}
 	}
 
 	onDialogHide() {
@@ -79,6 +88,7 @@ export class FilterComponent implements OnInit, AfterViewInit {
 	}
 
 	onDisplayFilter() {
+		this.getFilter();
 		this.displayFilter = !this.displayFilter;
 	}
 
@@ -129,7 +139,6 @@ export class FilterComponent implements OnInit, AfterViewInit {
 
 	cleanOthers() {
 		this.themeAreaComponent.clearAll();
-		// this.authorizationAreaComponent.clearAll();
 		this.alertTypeAreaComponent.clearAll();
 		this.classAreaComponent.clearAll();
 	}

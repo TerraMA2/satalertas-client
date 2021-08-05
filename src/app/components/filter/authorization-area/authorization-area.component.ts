@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FilterAuthorization } from '../../../models/filter-authorization.model';
+import { FilterService } from '../../../services/filter.service';
 
 @Component({
 	selector: 'app-authorization-area',
@@ -9,24 +10,30 @@ import { FilterAuthorization } from '../../../models/filter-authorization.model'
 export class AuthorizationAreaComponent implements OnInit {
 
 	@Input() disable;
-	@Output() onchangeAuthorization: EventEmitter<FilterAuthorization> = new EventEmitter<FilterAuthorization>();
+	@Output() onChangeAuthorization: EventEmitter<FilterAuthorization> = new EventEmitter<FilterAuthorization>();
 	authorizations: FilterAuthorization[] = [];
 	authorization = 'ALL';
 
-	constructor() {
+	constructor(
+		private filterService: FilterService
+	) {
 	}
 
 	ngOnInit() {
+		this.filterService.changeAuthorization.subscribe(value => {
+			this.authorizations = [];
+			this.authorizations.push(value)
+		})
 		this.authorizations.push(new FilterAuthorization('Todos', 'ALL'));
 		this.authorization = 'ALL';
 	}
 
 	onChange(event) {
-		this.onchangeAuthorization.emit(event);
+		this.onChangeAuthorization.emit(event);
 	}
 
 	public clearAll() {
 		this.authorization = 'ALL';
-		this.onchangeAuthorization.emit(new FilterAuthorization('Todos', 'ALL'));
+		this.onChangeAuthorization.emit(new FilterAuthorization('Todos', 'ALL'));
 	}
 }

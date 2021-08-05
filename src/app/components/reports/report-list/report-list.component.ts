@@ -28,6 +28,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { User } from '../../../models/user.model';
 import { environment } from '../../../../environments/environment';
 import { TableState } from '../../../models/table-state.model';
+import { Router } from '@angular/router';
+import { NavigationService } from '../../../services/navigation.service';
 
 @Component({
 	selector: 'app-report-list',
@@ -83,7 +85,9 @@ export class ReportListComponent implements OnInit {
 		private reportService: ReportService,
 		private messageService: MessageService,
 		private exportService: ExportService,
-		private authService: AuthService
+		private authService: AuthService,
+		private router: Router,
+		private navigationService: NavigationService
 	) {
 	}
 
@@ -92,7 +96,14 @@ export class ReportListComponent implements OnInit {
 		this.formats = this.configService.getMapConfig('export').formats;
 		this.excludedColumns = this.tableConfig.excludedColumns;
 		this.rowsPerPage = this.tableConfig.rowsPerPage;
-		this.authService.user.subscribe((user) => this.loggedUser = user);
+		this.authService.user.subscribe(user => {
+			this.loggedUser = user;
+			if (!user) {
+				this.navigationService.back();
+				this.router.navigateByUrl('/map');
+				this.messageService.add({ severity: 'error', summary: 'Atenção!', detail: 'Usuário não autenticado.' });
+			}
+		});
 
 		this.filters = await this.tableService.getReportLayers().then((response: Response) => {
 			const data = response.data;

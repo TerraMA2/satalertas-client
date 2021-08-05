@@ -54,8 +54,6 @@ export class SynthesisComponent implements OnInit {
 	titleDetailedVisions;
 	titleDeforestation;
 
-	previousUrl: string;
-
 	constructor(
 		private activatedRoute: ActivatedRoute,
 		private configService: ConfigService,
@@ -68,7 +66,6 @@ export class SynthesisComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.previousUrl = localStorage.getItem('previousUrl');
 		this.filterService.filterSynthesis.subscribe(() => {
 			if (this.router.url.startsWith('/synthesis')) {
 				this.getPropertyData();

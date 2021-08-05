@@ -466,7 +466,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 	}
 
 	setCqlFilter(layer) {
-		const filter = JSON.parse(localStorage.getItem('filterList'));
+		const filter = JSON.parse(localStorage.getItem('filterState'));
 
 		if (!filter || (filter.alertType.radioValue === 'ALL') && (filter.autorization.value === 'ALL') &&
 			!filter.specificSearch.isChecked && !filter.themeSelected.type) {

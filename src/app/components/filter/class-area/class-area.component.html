@@ -24,7 +24,7 @@
         <div *ngFor="let analyze of filterClass.analyzes; trackBy: trackById">
             <div class="p-grid">
                 <div [ngClass]="{'p-col-6': false, 'p-col-12 form-padding': true }">
-                    <h3 class="form-margin">{{analyze.label}}</h3>
+                    <h3 class="form-margin">{{ analyze.label | translate }}</h3>
                     <p-dropdown
                             (onChange)="onChange($event)"
                             [(ngModel)]="analyze.valueOption"

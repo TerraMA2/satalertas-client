@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { User } from '../../models/user.model';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { NavigationService } from '../../services/navigation.service';
 
 @Component({
 	selector: 'app-settings',
@@ -20,7 +21,8 @@ export class SettingsComponent implements OnInit {
 		private location: Location,
 		private authService: AuthService,
 		private router: Router,
-		private messageService: MessageService
+		private messageService: MessageService,
+		private navigationService: NavigationService
 	) {
 	}
 
@@ -29,7 +31,7 @@ export class SettingsComponent implements OnInit {
 		this.authService.user.subscribe(user => {
 			this.loggedUser = user;
 			if (!user || !user.administrator) {
-				this.router.navigateByUrl('/map');
+				this.navigationService.back();
 				this.messageService.add({ severity: 'error', summary: 'Atenção!', detail: 'Usuário não autenticado.' });
 			}
 		});
