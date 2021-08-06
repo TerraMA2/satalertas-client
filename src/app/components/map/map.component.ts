@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 
 import * as L from 'leaflet';
 
@@ -32,7 +32,6 @@ import { LayerInfo } from 'src/app/models/layer-info.model';
 
 import { LayerInfoFeature } from 'src/app/models/layer-info-feature.model';
 
-
 import { TableService } from 'src/app/services/table.service';
 
 import { View } from '../../models/view.model';
@@ -44,7 +43,9 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Response } from '../../models/response.model';
 
 import { environment } from 'src/environments/environment';
+
 import { InfoColumnsService } from '../../services/info-columns.service';
+import { MapState } from '../../models/map-state.model';
 
 @Component({
 	selector: 'app-map',
@@ -52,7 +53,7 @@ import { InfoColumnsService } from '../../services/info-columns.service';
 	styleUrls: ['./map.component.css']
 })
 
-export class MapComponent implements OnInit, AfterViewInit {
+export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 	selectedLayers: Layer[] = [];
 	layerTool: Layer;
 	toolSelected: string;
@@ -92,7 +93,6 @@ export class MapComponent implements OnInit, AfterViewInit {
 	ngOnInit() {
 		this.mapConfig = this.configService.getMapConfig();
 		this.tableConfig = this.configService.getMapConfig('table');
-
 		this.sidebarService.sidebarLayerShowHide.next(true);
 		this.sidebarService.sidebarReload.next();
 	}
@@ -102,6 +102,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 		this.setControls();
 		this.setBaseLayers();
 		this.setOverlayEvents();
+		this.restoreState();
 		this.authService.user.subscribe(user => {
 			if (user) {
 				this.mapService.reportTableButton.next(true);
@@ -109,6 +110,10 @@ export class MapComponent implements OnInit, AfterViewInit {
 				this.mapService.reportTableButton.next(false);
 			}
 		});
+	}
+
+	ngOnDestroy() {
+		this.saveState();
 	}
 
 	setMap() {
@@ -194,7 +199,11 @@ export class MapComponent implements OnInit, AfterViewInit {
 	}
 
 	setMarkersGroup() {
-		this.markerClusterGroup = L.markerClusterGroup({ chunkedLoading: true, spiderfyOnMaxZoom: true });
+		this.markerClusterGroup = L.markerClusterGroup(
+			{
+				chunkedLoading: true,
+				animate: false
+			});
 		this.map.addLayer(this.markerClusterGroup);
 	}
 
@@ -676,6 +685,31 @@ export class MapComponent implements OnInit, AfterViewInit {
 			this.map.removeControl(this.reportTable);
 		}
 		this.reportTable = null;
+	}
+
+	saveState() {
+		const mapState: MapState = {
+			selectedBaseLayer: this.selectedBaseLayer,
+			selectedLayers: this.selectedLayers,
+			primaryLayer: this.selectedPrimaryLayer,
+			zoom: this.map.getZoom(),
+			center: this.map.getCenter()
+		}
+		localStorage.setItem('mapState', JSON.stringify(mapState));
+	}
+	restoreState() {
+		const mapState: MapState = JSON.parse(localStorage.getItem('mapState'));
+		if (mapState) {
+			this.selectedLayers = mapState.selectedLayers;
+			this.selectedBaseLayer = mapState.selectedBaseLayer;
+			this.selectedPrimaryLayer = mapState.primaryLayer;
+			const center = mapState.center;
+			this.map.setView(center, mapState.zoom);
+			this.selectedLayers.forEach(layer => this.sidebarService.sidebarLayerSelect.next(layer));
+			this.sidebarService.sidebarLayerSwitchSelect.next(this.selectedLayers);
+			this.sidebarService.sidebarItemRadioSelect.next(this.selectedPrimaryLayer);
+			localStorage.removeItem('mapState');
+		}
 	}
 
 	setSearchControl() {
