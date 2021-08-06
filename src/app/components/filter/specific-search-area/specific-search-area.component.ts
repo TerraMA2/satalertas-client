@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FilterSpecificSearch } from '../../../models/filter-specific-search.model';
 
 import { Util } from '../../../utils/util';
+import { FilterService } from '../../../services/filter.service';
 
 @Component({
 	selector: 'app-specific-search-area',
@@ -11,14 +12,17 @@ import { Util } from '../../../utils/util';
 })
 export class SpecificSearchAreaComponent implements OnInit {
 	@Input() disable;
-	@Output() onchangeAuthorization: EventEmitter<FilterSpecificSearch> = new EventEmitter<FilterSpecificSearch>();
+	@Output() onChangeSpecificSearch: EventEmitter<FilterSpecificSearch> = new EventEmitter<FilterSpecificSearch>();
 	maxlength = '18';
 	specificSearchFilter: FilterSpecificSearch;
 
-	constructor() {
+	constructor(
+		private filterService: FilterService
+	) {
 	}
 
 	ngOnInit() {
+		this.filterService.changeSpecificSearch.subscribe(value => this.specificSearchFilter = value);
 		this.specificSearchFilter = new FilterSpecificSearch(false, 'CAR', undefined);
 	}
 
@@ -26,7 +30,7 @@ export class SpecificSearchAreaComponent implements OnInit {
 		this.maxlength = this.specificSearchFilter.CarCPF === 'CPF' ? '18' : '100';
 
 		this.specificSearchFilter.inputValue = null;
-		this.onchangeAuthorization.emit(this.specificSearchFilter);
+		this.onChangeSpecificSearch.emit(this.specificSearchFilter);
 	}
 
 	onChangeInput(event) {
@@ -36,7 +40,7 @@ export class SpecificSearchAreaComponent implements OnInit {
 			this.specificSearchFilter.inputValue = Util.cpfCnpjMask(event);
 		}
 
-		this.onchangeAuthorization.emit(this.specificSearchFilter);
+		this.onChangeSpecificSearch.emit(this.specificSearchFilter);
 	}
 
 	public clearAll() {

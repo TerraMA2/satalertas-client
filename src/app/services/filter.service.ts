@@ -9,6 +9,11 @@ import { FilterParam } from '../models/filter-param.model';
 import { environment } from '../../environments/environment';
 
 import { HTTPService } from './http.service';
+import { FilterAlertType } from '../models/filter-alert-type.model';
+import { FilterTheme } from '../models/filter-theme.model';
+import { FilterAuthorization } from '../models/filter-authorization.model';
+import { FilterSpecificSearch } from '../models/filter-specific-search.model';
+import { FilterClass } from '../models/filter-class.model';
 
 @Injectable({
 	providedIn: 'root'
@@ -24,6 +29,11 @@ export class FilterService {
 	filterMap = new Subject<boolean>();
 	filterTable = new Subject();
 	filterDashboard = new Subject();
+	changeAlertType = new Subject<FilterAlertType>()
+	changeTheme = new Subject<FilterTheme>()
+	changeAuthorization = new Subject<FilterAuthorization>()
+	changeSpecificSearch = new Subject<FilterSpecificSearch>()
+	changeClass = new Subject<FilterClass>()
 
 	displayFilter = new Subject();
 
@@ -38,7 +48,7 @@ export class FilterService {
 		const date = JSON.parse(localStorage.getItem('dateFilter'));
 
 		const specificParameters = JSON.stringify(value);
-		const filterParam = JSON.parse(localStorage.getItem('filterList'));
+		const filterParam = JSON.parse(localStorage.getItem('filterState'));
 
 		const filterNew = new FilterParam(
 			(filterParam && filterParam.themeSelected ? filterParam.themeSelected : { value: 'ALL' }),

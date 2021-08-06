@@ -193,6 +193,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 		RippleModule,
 		MessageModule,
 		ScrollTopModule,
+		OverlayPanelModule,
 		TranslateModule.forRoot({
 			loader: {
 				provide: TranslateLoader,
@@ -200,7 +201,6 @@ export function HttpLoaderFactory(http: HttpClient) {
 				deps: [HttpClient]
 			}
 		}),
-		OverlayPanelModule,
 	],
 	providers: [
 		TreeDragDropService,

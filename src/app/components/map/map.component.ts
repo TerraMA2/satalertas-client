@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 
 import * as L from 'leaflet';
 
@@ -32,7 +32,6 @@ import { LayerInfo } from 'src/app/models/layer-info.model';
 
 import { LayerInfoFeature } from 'src/app/models/layer-info-feature.model';
 
-
 import { TableService } from 'src/app/services/table.service';
 
 import { View } from '../../models/view.model';
@@ -44,7 +43,10 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Response } from '../../models/response.model';
 
 import { environment } from 'src/environments/environment';
+
 import { InfoColumnsService } from '../../services/info-columns.service';
+
+import { MapState } from '../../models/map-state.model';
 
 @Component({
 	selector: 'app-map',
@@ -52,7 +54,7 @@ import { InfoColumnsService } from '../../services/info-columns.service';
 	styleUrls: ['./map.component.css']
 })
 
-export class MapComponent implements OnInit, AfterViewInit {
+export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 	selectedLayers: Layer[] = [];
 	layerTool: Layer;
 	toolSelected: string;
@@ -92,16 +94,16 @@ export class MapComponent implements OnInit, AfterViewInit {
 	ngOnInit() {
 		this.mapConfig = this.configService.getMapConfig();
 		this.tableConfig = this.configService.getMapConfig('table');
-
 		this.sidebarService.sidebarLayerShowHide.next(true);
 		this.sidebarService.sidebarReload.next();
 	}
 
-	ngAfterViewInit() {
+	async ngAfterViewInit() {
 		this.setMap();
 		this.setControls();
 		this.setBaseLayers();
 		this.setOverlayEvents();
+		// await this.restoreState();
 		this.authService.user.subscribe(user => {
 			if (user) {
 				this.mapService.reportTableButton.next(true);
@@ -109,6 +111,10 @@ export class MapComponent implements OnInit, AfterViewInit {
 				this.mapService.reportTableButton.next(false);
 			}
 		});
+	}
+
+	ngOnDestroy() {
+		// this.saveState();
 	}
 
 	setMap() {
@@ -143,6 +149,10 @@ export class MapComponent implements OnInit, AfterViewInit {
 	}
 
 	setBaseLayers() {
+		const mapState: MapState = JSON.parse(localStorage.getItem('mapState'));
+		if (mapState) {
+			this.selectedBaseLayer = mapState.selectedBaseLayer;
+		}
 		this.mapConfig.baselayers.forEach(baseLayerData => {
 			const baseLayer = this.getLayer(baseLayerData);
 			const baseLayerName = baseLayerData.name;
@@ -194,7 +204,11 @@ export class MapComponent implements OnInit, AfterViewInit {
 	}
 
 	setMarkersGroup() {
-		this.markerClusterGroup = L.markerClusterGroup({ chunkedLoading: true, spiderfyOnMaxZoom: true });
+		this.markerClusterGroup = L.markerClusterGroup(
+			{
+				chunkedLoading: true,
+				animate: false
+			});
 		this.map.addLayer(this.markerClusterGroup);
 	}
 
@@ -293,7 +307,6 @@ export class MapComponent implements OnInit, AfterViewInit {
 			this.selectedPrimaryLayer = layer;
 			this.zoomIn = false;
 			this.clearMarkerInfo();
-			layer.markerSelected = true;
 			this.updateMarkers(layer);
 		});
 
@@ -301,7 +314,6 @@ export class MapComponent implements OnInit, AfterViewInit {
 			if (this.selectedPrimaryLayer && this.selectedPrimaryLayer.value === layer.value) {
 				this.selectedPrimaryLayer = null;
 			}
-			layer.markerSelected = false;
 			this.clearMarkerInfo();
 		});
 
@@ -466,7 +478,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 	}
 
 	setCqlFilter(layer) {
-		const filter = JSON.parse(localStorage.getItem('filterList'));
+		const filter = JSON.parse(localStorage.getItem('filterState'));
 
 		if (!filter || (filter.alertType.radioValue === 'ALL') && (filter.autorization.value === 'ALL') &&
 			!filter.specificSearch.isChecked && !filter.themeSelected.type) {
@@ -676,6 +688,35 @@ export class MapComponent implements OnInit, AfterViewInit {
 			this.map.removeControl(this.reportTable);
 		}
 		this.reportTable = null;
+	}
+
+	saveState() {
+		const mapState: MapState = {
+			selectedBaseLayer: this.selectedBaseLayer,
+			selectedLayers: this.selectedLayers,
+			primaryLayer: this.selectedPrimaryLayer,
+			zoom: this.map.getZoom(),
+			center: this.map.getCenter()
+		}
+		localStorage.setItem('mapState', JSON.stringify(mapState));
+	}
+
+	async restoreState() {
+		const mapState: MapState = JSON.parse(localStorage.getItem('mapState'));
+		if (mapState) {
+			const center = mapState.center;
+			const zoom = mapState.zoom;
+			const selectedLayers = mapState.selectedLayers;
+			const selectedPrimaryLayer = mapState.primaryLayer;
+			await this.sidebarService.sidebarLayerSwitchSelect.next(selectedLayers);
+			for (const layer of selectedLayers) {
+				await this.sidebarService.sidebarLayerSelect.next(layer);
+			}
+			await this.sidebarService.sidebarItemRadioSelect.next(selectedPrimaryLayer);
+			this.selectedPrimaryLayer = selectedPrimaryLayer;
+			this.map.setView(center, zoom);
+			localStorage.removeItem('mapState');
+		}
 	}
 
 	setSearchControl() {
@@ -950,9 +991,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 
 	updateLayers() {
 		this.selectedLayers.forEach(layer => {
-			if (layer.markerSelected) {
-				this.updateMarkers(layer);
-			}
+			this.updateMarkers(layer);
 
 			this.addLayer(layer, false);
 		});
@@ -996,7 +1035,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 			federal: layer.type === LayerType.ANALYSIS ? 'de_car_validado_sema_numero_do2' : 'numero_do2',
 			estadual: layer.type === LayerType.ANALYSIS ? 'de_car_validado_sema_numero_do1' : 'numero_do1'
 		};
-		this.hTTPService.get<any>(environment.reportServerUrl + url, params)
+		this.hTTPService.get<any>(environment.reportServerUrl + url, {params})
 		.subscribe(data => this.setMarkers(data, carRegisterColumn, layer, columnCarGid));
 	}
 }

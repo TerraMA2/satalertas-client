@@ -1,6 +1,6 @@
 <div class="p-fluid">
     <div class="p-field">
-        <h3 class="form-margin">{{optionField.label}}</h3>
+        <h3 class="form-margin">{{optionField.label | translate}}</h3>
         <p-dropdown
                 (onChange)="onChangeOptionField($event)"
                 [(ngModel)]="selectedOption"
@@ -15,13 +15,13 @@
     </div>
     <div *ngIf="optionSelectedByFilter.label" class="p-field">
         <p-dropdown
-                (onChange)="onchangeSelected($event)"
+                (onChange)="onChangeSelected($event)"
                 [(ngModel)]="optionSelectedByFilter.value"
                 [autoDisplayFirst]="false"
                 [disabled]="false"
                 [name]="optionSelectedByFilter.type"
                 [options]="optionsFilterLocalizations"
-                [placeholder]="optionSelectedByFilter.label"
+                [placeholder]="optionSelectedByFilter.label | translate"
                 [showClear]="true"
                 filter="true"
                 optionLabel="name"

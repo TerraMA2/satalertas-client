@@ -17,7 +17,6 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 const routes: Routes = [
 	{ path: '', component: DashboardComponent },
 	{ path: 'map', component: MapComponent, data: { reuseRoute: true } },
-	{ path: 'synthesis', component: SynthesisComponent },
 	{ path: 'synthesis/:carRegister', component: SynthesisComponent },
 	{
 		path: 'reports', component: ReportsComponent,
@@ -39,7 +38,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-	imports: [RouterModule.forRoot(routes)],
+	imports: [RouterModule.forRoot(routes, {
+		onSameUrlNavigation: 'reload'
+	})],
 	exports: [RouterModule]
 })
 export class AppRoutingModule {

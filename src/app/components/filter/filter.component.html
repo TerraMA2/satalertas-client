@@ -10,7 +10,7 @@
         <div class="p-col-12 form-padding">
             <app-theme-area
                 #themeAreaComponent
-                (onchangeOptionSelected)="onUpdateFilterTheme($event)"
+                (onChangeThemeSelected)="onUpdateFilterTheme($event)"
                 [disable]="filterParam.specificSearch.isChecked">
             </app-theme-area>
         </div>
@@ -18,7 +18,7 @@
         <div class="p-col-12 form-padding">
             <app-alert-type-area
                 #alertTypeAreaComponent
-                (onchangeAlertType)="onUpdateAlertType($event)"
+                (onChangeAlertType)="onUpdateAlertType($event)"
                 [disable]="filterParam.specificSearch.isChecked">
             </app-alert-type-area>
         </div>
@@ -34,7 +34,7 @@
         <div *ngIf="false" class="p-col-12 form-padding">
             <app-authorization-area
                 #authorizationAreaComponent
-                (onchangeAuthorization)="onUpdateAuthorization($event)"
+                (onChangeAuthorization)="onUpdateAuthorization($event)"
                 [disable]="authorizationDisable">
             </app-authorization-area>
         </div>
@@ -42,7 +42,7 @@
         <div class="p-col-12 form-padding">
             <app-specific-search-area
                 #specificSearchAreaComponent
-                (onchangeAuthorization)="onUpdateSpacificSearch($event)">
+                (onChangeSpecificSearch)="onUpdateSpacificSearch($event)">
             </app-specific-search-area>
         </div>
     </div>

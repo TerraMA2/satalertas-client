@@ -381,6 +381,13 @@
           "label": "1000",
           "value": 1000
         }
+      ],
+      "excludedColumns": [
+        "lat",
+        "long",
+        "geom",
+        "intersection_geom",
+        "has_pdf"
       ]
     },
     "export": {
@@ -429,7 +436,7 @@
           "value": "car_area"
         }
       ],
-      "optionsFocos": [
+      "fireSpotOptions": [
         {
           "label": "< 10",
           "value": 1
@@ -485,7 +492,7 @@
     "classSearch": {
       "analyzes": [
         {
-          "label": "Classes DETER",
+          "label": "deterClasses",
           "value": "deter"
         }
       ]
@@ -526,7 +533,7 @@
       "numberOfMonths": 2
     },
     "optionField": {
-      "label": "Tema: ",
+      "label": "theme",
       "name": "localization",
       "options": [
         {

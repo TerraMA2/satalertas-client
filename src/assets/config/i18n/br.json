@@ -73,6 +73,8 @@
   "zoomOut": "Zoom out",
   "searchCar": "Buscar por registro do CAR",
   "fullscreen": "Tela cheia",
+  "deterClasses": "Classes DETER",
+  "theme": "Tema: ",
   "primeng": {
     "startsWith": "Começa com",
     "contains": "Contém",

@@ -12,7 +12,7 @@ import { FilterService } from '../../../services/filter.service';
 export class ThemeAreaComponent implements OnInit, AfterViewInit {
 
 	@Input() disable;
-	@Output() onchangeOptionSelected: EventEmitter<FilterTheme> = new EventEmitter<FilterTheme>();
+	@Output() onChangeThemeSelected: EventEmitter<FilterTheme> = new EventEmitter<FilterTheme>();
 
 	optionSelectedByFilter: FilterTheme;
 
@@ -35,7 +35,11 @@ export class ThemeAreaComponent implements OnInit, AfterViewInit {
 		this.optionField = this.configService.getFilterConfig('optionField');
 		this.options = this.optionField.options;
 		this.selectedOption = 'ALL';
-		this.onchangeSelected({ value: this.selectedOption });
+		this.onChangeSelected({ value: this.selectedOption });
+		this.filterService.changeTheme.subscribe(theme => {
+			this.onChangeOptionField({ value: theme.type });
+			this.onChangeSelected(theme);
+		});
 	}
 
 	ngAfterViewInit() {
@@ -94,14 +98,14 @@ export class ThemeAreaComponent implements OnInit, AfterViewInit {
 		}
 	}
 
-	onchangeSelected(event) {
+	onChangeSelected(event) {
 		this.optionSelectedByFilter.value = event.value;
-		this.onchangeOptionSelected.emit(this.optionSelectedByFilter);
+		this.onChangeThemeSelected.emit(this.optionSelectedByFilter);
 	}
 
 	public clearAll() {
 		this.optionSelectedByFilter = new FilterTheme('ALL');
-		this.onchangeOptionSelected.emit(this.optionSelectedByFilter);
+		this.onChangeThemeSelected.emit(this.optionSelectedByFilter);
 		this.selectedOption = 'ALL';
 	}
 
@@ -162,7 +166,7 @@ export class ThemeAreaComponent implements OnInit, AfterViewInit {
 		}
 
 		this.optionSelectedByFilter.value = result[0];
-		this.onchangeSelected(this.optionSelectedByFilter);
+		this.onChangeSelected(this.optionSelectedByFilter);
 
 		return result;
 	}
