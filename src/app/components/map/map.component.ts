@@ -45,6 +45,7 @@ import { Response } from '../../models/response.model';
 import { environment } from 'src/environments/environment';
 
 import { InfoColumnsService } from '../../services/info-columns.service';
+
 import { MapState } from '../../models/map-state.model';
 
 @Component({
@@ -97,12 +98,12 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 		this.sidebarService.sidebarReload.next();
 	}
 
-	ngAfterViewInit() {
+	async ngAfterViewInit() {
 		this.setMap();
 		this.setControls();
 		this.setBaseLayers();
 		this.setOverlayEvents();
-		this.restoreState();
+		// await this.restoreState();
 		this.authService.user.subscribe(user => {
 			if (user) {
 				this.mapService.reportTableButton.next(true);
@@ -113,7 +114,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 	}
 
 	ngOnDestroy() {
-		this.saveState();
+		// this.saveState();
 	}
 
 	setMap() {
@@ -148,6 +149,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 	}
 
 	setBaseLayers() {
+		const mapState: MapState = JSON.parse(localStorage.getItem('mapState'));
+		if (mapState) {
+			this.selectedBaseLayer = mapState.selectedBaseLayer;
+		}
 		this.mapConfig.baselayers.forEach(baseLayerData => {
 			const baseLayer = this.getLayer(baseLayerData);
 			const baseLayerName = baseLayerData.name;
@@ -302,7 +307,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 			this.selectedPrimaryLayer = layer;
 			this.zoomIn = false;
 			this.clearMarkerInfo();
-			layer.markerSelected = true;
 			this.updateMarkers(layer);
 		});
 
@@ -310,7 +314,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 			if (this.selectedPrimaryLayer && this.selectedPrimaryLayer.value === layer.value) {
 				this.selectedPrimaryLayer = null;
 			}
-			layer.markerSelected = false;
 			this.clearMarkerInfo();
 		});
 
@@ -697,17 +700,21 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 		}
 		localStorage.setItem('mapState', JSON.stringify(mapState));
 	}
-	restoreState() {
+
+	async restoreState() {
 		const mapState: MapState = JSON.parse(localStorage.getItem('mapState'));
 		if (mapState) {
-			this.selectedLayers = mapState.selectedLayers;
-			this.selectedBaseLayer = mapState.selectedBaseLayer;
-			this.selectedPrimaryLayer = mapState.primaryLayer;
 			const center = mapState.center;
-			this.map.setView(center, mapState.zoom);
-			this.selectedLayers.forEach(layer => this.sidebarService.sidebarLayerSelect.next(layer));
-			this.sidebarService.sidebarLayerSwitchSelect.next(this.selectedLayers);
-			this.sidebarService.sidebarItemRadioSelect.next(this.selectedPrimaryLayer);
+			const zoom = mapState.zoom;
+			const selectedLayers = mapState.selectedLayers;
+			const selectedPrimaryLayer = mapState.primaryLayer;
+			await this.sidebarService.sidebarLayerSwitchSelect.next(selectedLayers);
+			for (const layer of selectedLayers) {
+				await this.sidebarService.sidebarLayerSelect.next(layer);
+			}
+			await this.sidebarService.sidebarItemRadioSelect.next(selectedPrimaryLayer);
+			this.selectedPrimaryLayer = selectedPrimaryLayer;
+			this.map.setView(center, zoom);
 			localStorage.removeItem('mapState');
 		}
 	}
@@ -984,9 +991,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	updateLayers() {
 		this.selectedLayers.forEach(layer => {
-			if (layer.markerSelected) {
-				this.updateMarkers(layer);
-			}
+			this.updateMarkers(layer);
 
 			this.addLayer(layer, false);
 		});
