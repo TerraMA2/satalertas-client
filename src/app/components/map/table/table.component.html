@@ -147,7 +147,7 @@
             </td>
             <td *ngIf="tableReportActive">
                 <button *ngIf="tableReportActive && showDeter"
-                        class="btn ui-button-raised view-report-icon"
+                        class="p-button-raised view-report-icon"
                         pButton
                         pTooltip="{{ 'viewDeterReport' | translate }}"
                         routerLink="/reports/deter/{{getRegister(rowData)}}"
@@ -155,7 +155,7 @@
                     <img src="assets/img/ico/deter32x32.png"/>
                 </button>
                 <button *ngIf="tableReportActive && showProdes"
-                        class="btn ui-button-raised view-report-icon icon-margin"
+                        class="p-button-raised view-report-icon icon-margin"
                         pButton
                         pTooltip="{{ 'viewDeterReport' | translate }}"
                         routerLink="/reports/prodes/{{getRegister(rowData)}}"
@@ -163,14 +163,14 @@
                     <img src="assets/img/ico/prodes32x32.png"/>
                 </button>
                 <button *ngIf="tableReportActive && showBurn"
-                        class="btn ui-button-raised view-report-icon icon-margin"
+                        class="p-button-raised view-report-icon icon-margin"
                         pButton
                         pTooltip="{{ 'viewBurnedReport' | translate }}"
                         routerLink="/reports/queimada/{{getRegister(rowData)}}"
                         tooltipPosition="top">
                     <img src="assets/img/ico/queima.ico"/>
                 </button>
-                <button class="btn ui-button-raised view-report-icon icon-margin"
+                <button class="p-button-raised view-report-icon icon-margin"
                         pButton
                         pTooltip="{{ 'viewSynthesis' | translate }}"
                         routerLink="/synthesis/{{getRegister(rowData)}}">

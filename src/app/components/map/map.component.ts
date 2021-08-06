@@ -996,7 +996,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 			federal: layer.type === LayerType.ANALYSIS ? 'de_car_validado_sema_numero_do2' : 'numero_do2',
 			estadual: layer.type === LayerType.ANALYSIS ? 'de_car_validado_sema_numero_do1' : 'numero_do1'
 		};
-		this.hTTPService.get<any>(environment.reportServerUrl + url, params)
+		this.hTTPService.get<any>(environment.reportServerUrl + url, {params})
 		.subscribe(data => this.setMarkers(data, carRegisterColumn, layer, columnCarGid));
 	}
 }
