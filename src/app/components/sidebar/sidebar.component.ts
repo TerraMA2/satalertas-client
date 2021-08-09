@@ -188,7 +188,7 @@ export class SidebarComponent implements OnInit {
 		});
 
 		await this.groupService.getAll().then((groups) => {
-			if (!groups) {
+			if (!groups || Object.keys(groups).length) {
 				return;
 			}
 			groups.forEach(async (groupLyr) => {
