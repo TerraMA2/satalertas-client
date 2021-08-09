@@ -12,7 +12,7 @@ import { FilterService } from './filter.service';
 })
 export class DashboardService {
 
-	urlDashboard = environment.reportServerUrl + '/dashboard';
+	urlDashboard = environment.serverUrl + '/dashboard';
 
 	constructor(
 		private httpService: HTTPService,

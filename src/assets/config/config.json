@@ -86,6 +86,13 @@
         "value": ""
       },
       {
+        "icon": "fas fa-file-invoice",
+        "label": "reportButton",
+        "link": "/reports",
+        "method": "",
+        "value": ""
+      },
+      {
         "separator": "true"
       }
     ]

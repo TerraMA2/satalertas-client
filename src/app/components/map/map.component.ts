@@ -50,13 +50,11 @@ export class MapComponent implements OnInit, AfterViewInit {
 	selectedPrimaryLayer: Layer;
 	markerInfo: L.Marker;
 	tableSelectedLayer: L.TileLayer.WMS;
-	reportTable;
 	displayTable = false;
 	displayLegend = false;
 	displayInfo = false;
 	displayVisibleLayers = false;
 	displayLayerTools = false;
-	tableReportActive = false;
 	selectedBaseLayer: string;
 	isLoading = false;
 	private map: L.Map;
@@ -90,13 +88,6 @@ export class MapComponent implements OnInit, AfterViewInit {
 		this.setControls();
 		this.setBaseLayers();
 		this.setEvents();
-		this.authService.user.subscribe(user => {
-			if (user) {
-				this.mapService.reportTableButton.next(true);
-			} else {
-				this.mapService.reportTableButton.next(false);
-			}
-		});
 	}
 
 	setMap() {
@@ -123,7 +114,6 @@ export class MapComponent implements OnInit, AfterViewInit {
 		this.setCoordinatesControl();
 		this.setScaleControl();
 		this.setTableControl();
-		this.setReportTableControl();
 		this.setInfoControl();
 		this.setRestoreMapControl();
 		this.setVisibleLayersControl();
@@ -184,7 +174,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 			estadual: layer.type === LayerType.ANALYSIS ? 'de_car_validado_sema_numero_do1' : 'numero_do1'
 		};
 
-		this.hTTPService.get<any>(environment.reportServerUrl + url, {params})
+		this.hTTPService.get<any>(environment.serverUrl + url, {params})
 		.subscribe(data => this.setMarkers(data, carRegisterColumn, layer, columnCarGid));
 	}
 
@@ -252,50 +242,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 		L.DomEvent.on(L.DomUtil.get('tableBtn'), 'click dblclick', L.DomEvent.stopPropagation);
 		document.querySelector('#tableBtn').addEventListener('click', () => {
 			this.displayTable = true;
-			this.clearReportTable();
 		});
-	}
-
-	setReportTableControl() {
-		this.mapService.reportTableButton.subscribe(isAuthenticated => {
-			if (isAuthenticated) {
-				if (!this.reportTable) {
-					const ReportTable = this.mapService.getReportTableControl();
-					this.reportTable = new ReportTable({ position: 'topright' });
-					this.reportTable.addTo(this.map);
-					this.setReportTableControlEvent();
-				}
-			} else {
-				this.removeReportButton();
-			}
-		});
-	}
-
-	setReportTableControlEvent() {
-		L.DomEvent.on(L.DomUtil.get('reportTableBtn'), 'click dblclick', L.DomEvent.stopPropagation);
-		document.querySelector('#reportTableBtn').addEventListener('click', () => {
-			this.tableService.clearTable.next();
-			this.displayTable = true;
-			this.tableReportActive = true;
-			this.tableService.loadReportTableData.next();
-		});
-	}
-
-	clearReportTable() {
-		if (this.tableReportActive) {
-			this.tableService.clearTable.next();
-			this.tableReportActive = false;
-			this.tableSelectedLayer = null;
-		}
-	}
-
-	removeReportButton() {
-		this.displayTable = false;
-		this.clearReportTable();
-		if (this.reportTable) {
-			this.map.removeControl(this.reportTable);
-		}
-		this.reportTable = null;
 	}
 
 	setSearchControl() {
@@ -517,11 +464,6 @@ export class MapComponent implements OnInit, AfterViewInit {
 			this.displayLegend = false;
 		});
 
-		this.mapService.reportTable.subscribe(() => {
-			this.displayTable = true;
-			this.tableReportActive = true;
-		});
-
 		this.mapService.clearMap.subscribe(() => this.clearMap());
 
 		this.mapService.clearMarkers.subscribe(() => {
@@ -612,7 +554,6 @@ export class MapComponent implements OnInit, AfterViewInit {
 	onHideTable() {
 		this.displayTable = false;
 		this.tableService.clearTable.next();
-		this.tableReportActive = false;
 		this.tableSelectedLayer = null;
 	}
 

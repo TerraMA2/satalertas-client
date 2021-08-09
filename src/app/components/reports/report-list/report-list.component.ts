@@ -56,7 +56,7 @@ export class ReportListComponent implements OnInit {
 	defaultRowsPerPage = 20;
 	selectedRowsPerPage: number = this.defaultRowsPerPage;
 
-	filters: ReportLayer[];
+	reportLayers: ReportLayer[];
 	selectedLayer: ReportLayer;
 	selectedLayerValue: number;
 	selectedLayerSortField: string;
@@ -104,7 +104,7 @@ export class ReportListComponent implements OnInit {
 		this.rowsPerPage = this.tableConfig.rowsPerPage;
 		this.activatedRoute.data.subscribe(data => this.loggedUser = data['user']);
 
-		this.filters = await this.tableService.getReportLayers().then((response: Response) => {
+		this.reportLayers = await this.tableService.getReportLayers().then((response: Response) => {
 			const data = response.data;
 			const reportLayers = [];
 			data.forEach((rl) => {
@@ -132,7 +132,7 @@ export class ReportListComponent implements OnInit {
 		this.showProdes = true;
 		this.showDeter = true;
 		this.isLoading = true;
-		const selectedOption = this.filters[0];
+		const selectedOption = this.reportLayers[0];
 		this.selectedLayer = selectedOption;
 		this.selectedLayerValue = selectedOption.value;
 		this.selectedLayerSortField = selectedOption.sortField;
@@ -207,7 +207,7 @@ export class ReportListComponent implements OnInit {
 		params['sortOrder'] = sortOrder ? sortOrder : 1;
 
 		await this.hTTPService
-		.get(environment.reportServerUrl + url, { params: this.filterService.getParams(params) })
+		.get(environment.serverUrl + url, { params: this.filterService.getParams(params) })
 		.subscribe(async data => await this.setData(data));
 	}
 

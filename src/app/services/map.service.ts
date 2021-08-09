@@ -16,7 +16,7 @@ import { Response } from '../models/response.model';
 import { LayerInfo } from '../models/layer-info.model';
 import { InfoColumnsService } from './info-columns.service';
 
-const URL_REPORT_SERVER = environment.reportServerUrl;
+const URL_REPORT_SERVER = environment.serverUrl;
 
 @Injectable({
 	providedIn: 'root'
@@ -28,8 +28,6 @@ export class MapService {
 	clearMap = new Subject();
 
 	reportTable = new Subject();
-
-	reportTableButton = new Subject<boolean>();
 
 	layerToolOpen = new Subject<object>();
 

@@ -26,12 +26,6 @@
     background-color: #c0c0c0;
 }
 
-:host ::ng-deep .leaflet-report-table-icon {
-    padding: 2px 10px;
-    width: unset;
-    height: unset;
-}
-
 :host ::ng-deep .leaflet-latlong-icon {
     padding: 4px 10px;
     width: unset;

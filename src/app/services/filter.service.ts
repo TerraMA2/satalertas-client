@@ -19,12 +19,12 @@ import { FilterClass } from '../models/filter-class.model';
 	providedIn: 'root'
 })
 export class FilterService {
-	urlBiome = environment.reportServerUrl + '/biome';
-	urlCity = environment.reportServerUrl + '/city';
-	urlConservationUnit = environment.reportServerUrl + '/conservationUnit';
-	urlIndigenousLand = environment.reportServerUrl + '/indigenousLand';
-	urlProjus = environment.reportServerUrl + '/projus';
-	urlAnalyze = environment.reportServerUrl + '/analyze';
+	urlBiome = environment.serverUrl + '/biome';
+	urlCity = environment.serverUrl + '/city';
+	urlConservationUnit = environment.serverUrl + '/conservationUnit';
+	urlIndigenousLand = environment.serverUrl + '/indigenousLand';
+	urlProjus = environment.serverUrl + '/projus';
+	urlAnalyze = environment.serverUrl + '/analyze';
 
 	filterMap = new Subject<boolean>();
 	filterTable = new Subject();

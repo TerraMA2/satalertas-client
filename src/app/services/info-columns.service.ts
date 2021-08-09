@@ -4,7 +4,7 @@ import { HTTPService } from './http.service';
 
 import { environment } from '../../environments/environment';
 
-const URL_REPORT_SERVER = environment.reportServerUrl;
+const URL_REPORT_SERVER = environment.serverUrl;
 
 @Injectable({
 	providedIn: 'root'

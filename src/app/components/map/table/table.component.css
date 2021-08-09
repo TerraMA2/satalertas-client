@@ -3,10 +3,6 @@
     top: 0;
 }
 
-.report-history-item {
-    margin: 15px;
-}
-
 :host ::ng-deep .btn {
     background-color: #ffffff !important;
 }

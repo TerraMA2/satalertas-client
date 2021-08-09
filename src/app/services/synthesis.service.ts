@@ -15,7 +15,7 @@ import { ReportService } from './report.service';
 })
 export class SynthesisService {
 
-	URL_REPORT_SERVER = environment.reportServerUrl + '/synthesis';
+	URL_REPORT_SERVER = environment.serverUrl + '/synthesis';
 
 	property = new Subject<Property>();
 

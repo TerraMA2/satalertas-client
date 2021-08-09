@@ -13,7 +13,7 @@ import { environment } from '../../environments/environment';
 })
 export class ReportService {
 
-	URL_REPORT_SERVER = environment.reportServerUrl + '/report';
+	URL_REPORT_SERVER = environment.serverUrl + '/report';
 
 	property = new Subject<Property>();
 

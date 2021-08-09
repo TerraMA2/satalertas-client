@@ -8,7 +8,7 @@ import { LayerGroup } from '../models/layer-group.model';
 import { environment } from '../../environments/environment';
 import { HTTPService } from './http.service';
 
-const URL_REPORT_SERVER = environment.reportServerUrl;
+const URL_REPORT_SERVER = environment.serverUrl;
 
 @Injectable({
 	providedIn: 'root'
