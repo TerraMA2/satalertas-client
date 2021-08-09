@@ -44,8 +44,10 @@ export class ClassAreaComponent implements OnInit, AfterViewInit {
 	}
 
 	public clearAll() {
-		this.filterClass = new FilterClass('ALL', this.filterClass.analyzes);
-		this.onChangeClassFilter.emit(this.filterClass);
+		if (this.filterClass) {
+			this.filterClass = new FilterClass('ALL', this.filterClass.analyzes);
+			this.onChangeClassFilter.emit(this.filterClass);
+		}
 	}
 
 	checkValid() {
