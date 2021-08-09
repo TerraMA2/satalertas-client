@@ -94,6 +94,7 @@ import { SynthesisNdviComponent } from './synthesis/synthesis-ndvi/synthesis-ndv
 import { ReportListComponent } from './reports/report-list/report-list.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ReportsComponent } from './reports/reports.component';
+import { AuthGuard } from './auth/auth.guard';
 
 registerLocaleData(localePt, 'pt');
 
@@ -205,7 +206,8 @@ export function HttpLoaderFactory(http: HttpClient) {
 	providers: [
 		TreeDragDropService,
 		Title,
-		MessageService
+		MessageService,
+		AuthGuard
 	],
 	bootstrap: [AppComponent]
 })

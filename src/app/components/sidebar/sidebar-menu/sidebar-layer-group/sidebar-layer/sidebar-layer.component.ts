@@ -34,7 +34,6 @@ export class SidebarLayerComponent implements OnInit {
 	@Input() displayChild = false;
 
 	isSelected = false;
-	loggedUser: User = null;
 	disableTool = {};
 
 	constructor(

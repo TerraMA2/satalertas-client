@@ -25,10 +25,15 @@ import { ExportService } from '../../../services/export.service';
 import { ReportLayer } from '../../../models/report-layer.model';
 
 import { AuthService } from 'src/app/services/auth.service';
+
 import { User } from '../../../models/user.model';
+
 import { environment } from '../../../../environments/environment';
+
 import { TableState } from '../../../models/table-state.model';
-import { Router } from '@angular/router';
+
+import { ActivatedRoute, Router } from '@angular/router';
+
 import { NavigationService } from '../../../services/navigation.service';
 
 @Component({
@@ -87,7 +92,8 @@ export class ReportListComponent implements OnInit {
 		private exportService: ExportService,
 		private authService: AuthService,
 		private router: Router,
-		private navigationService: NavigationService
+		private navigationService: NavigationService,
+		private activatedRoute: ActivatedRoute
 	) {
 	}
 
@@ -96,14 +102,7 @@ export class ReportListComponent implements OnInit {
 		this.formats = this.configService.getMapConfig('export').formats;
 		this.excludedColumns = this.tableConfig.excludedColumns;
 		this.rowsPerPage = this.tableConfig.rowsPerPage;
-		this.authService.user.subscribe(user => {
-			this.loggedUser = user;
-			if (!user) {
-				this.navigationService.back();
-				this.router.navigateByUrl('/map');
-				this.messageService.add({ severity: 'error', summary: 'Atenção!', detail: 'Usuário não autenticado.' });
-			}
-		});
+		this.activatedRoute.data.subscribe(data => this.loggedUser = data['user']);
 
 		this.filters = await this.tableService.getReportLayers().then((response: Response) => {
 			const data = response.data;
@@ -373,7 +372,7 @@ export class ReportListComponent implements OnInit {
 		params['fileFormats'] = selectedFormats.toString();
 		params['selectedGids'] = selectedGids.toString();
 
-		await this.exportService.export(params, selectedFormats, layer.tableName);
+		await this.exportService.export({params}, selectedFormats, layer.tableName);
 
 		this.isLoading = false;
 	}

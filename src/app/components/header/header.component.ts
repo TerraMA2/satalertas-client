@@ -19,6 +19,7 @@ import { environment } from 'src/environments/environment';
 import { FilterDate } from '../../models/filter-date.model';
 import { DropdownElement } from '../../models/dropdown-element.model';
 import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-header',
@@ -55,7 +56,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		private sidebarService: SidebarService,
 		private mapService: MapService,
 		private translateService: TranslateService,
-		private config: PrimeNGConfig
+		private config: PrimeNGConfig,
+		private router: Router
 	) {
 	}
 
@@ -134,6 +136,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		);
 		this.sidebarService.sidebarReload.next();
 		this.mapService.clearMap.next();
+		this.router.navigateByUrl('/');
 	}
 
 	ngOnDestroy() {
