@@ -16,8 +16,6 @@ import { SidebarService } from './sidebar.service';
 
 import { environment } from 'src/environments/environment';
 
-import { MapService } from './map.service';
-
 @Injectable({
 	providedIn: 'root'
 })
@@ -31,8 +29,7 @@ export class AuthService {
 	constructor(
 		private hTTPService: HTTPService,
 		private configService: ConfigService,
-		private sidebarService: SidebarService,
-		private mapService: MapService
+		private sidebarService: SidebarService
 	) {
 	}
 
@@ -71,7 +68,6 @@ export class AuthService {
 
 		if (loadedUser.token) {
 			this.user.next(loadedUser);
-			this.mapService.reportTableButton.next(true);
 			const expirationDuration =
 				new Date(userData.tokenExpirationDate).getTime() -
 				new Date().getTime();
@@ -81,7 +77,6 @@ export class AuthService {
 
 	logout() {
 		this.user.next(null);
-		this.mapService.reportTableButton.next(false);
 		localStorage.removeItem('userData');
 		if (this.tokenExpirationTimer) {
 			clearTimeout(this.tokenExpirationTimer);
@@ -114,7 +109,6 @@ export class AuthService {
 			loggedUser.token,
 			expirationDate);
 		this.user.next(user);
-		this.mapService.reportTableButton.next(true);
 		this.autoLogout(expiresIn * 1000);
 		localStorage.setItem('userData', JSON.stringify(user));
 	}

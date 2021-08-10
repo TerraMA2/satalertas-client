@@ -25,10 +25,15 @@ import { ExportService } from '../../../services/export.service';
 import { ReportLayer } from '../../../models/report-layer.model';
 
 import { AuthService } from 'src/app/services/auth.service';
+
 import { User } from '../../../models/user.model';
+
 import { environment } from '../../../../environments/environment';
+
 import { TableState } from '../../../models/table-state.model';
-import { Router } from '@angular/router';
+
+import { ActivatedRoute, Router } from '@angular/router';
+
 import { NavigationService } from '../../../services/navigation.service';
 
 @Component({
@@ -51,7 +56,7 @@ export class ReportListComponent implements OnInit {
 	defaultRowsPerPage = 20;
 	selectedRowsPerPage: number = this.defaultRowsPerPage;
 
-	filters: ReportLayer[];
+	reportLayers: ReportLayer[];
 	selectedLayer: ReportLayer;
 	selectedLayerValue: number;
 	selectedLayerSortField: string;
@@ -87,7 +92,8 @@ export class ReportListComponent implements OnInit {
 		private exportService: ExportService,
 		private authService: AuthService,
 		private router: Router,
-		private navigationService: NavigationService
+		private navigationService: NavigationService,
+		private activatedRoute: ActivatedRoute
 	) {
 	}
 
@@ -96,16 +102,9 @@ export class ReportListComponent implements OnInit {
 		this.formats = this.configService.getMapConfig('export').formats;
 		this.excludedColumns = this.tableConfig.excludedColumns;
 		this.rowsPerPage = this.tableConfig.rowsPerPage;
-		this.authService.user.subscribe(user => {
-			this.loggedUser = user;
-			if (!user) {
-				this.navigationService.back();
-				this.router.navigateByUrl('/map');
-				this.messageService.add({ severity: 'error', summary: 'Atenção!', detail: 'Usuário não autenticado.' });
-			}
-		});
+		this.activatedRoute.data.subscribe(data => this.loggedUser = data['user']);
 
-		this.filters = await this.tableService.getReportLayers().then((response: Response) => {
+		this.reportLayers = await this.tableService.getReportLayers().then((response: Response) => {
 			const data = response.data;
 			const reportLayers = [];
 			data.forEach((rl) => {
@@ -133,7 +132,7 @@ export class ReportListComponent implements OnInit {
 		this.showProdes = true;
 		this.showDeter = true;
 		this.isLoading = true;
-		const selectedOption = this.filters[0];
+		const selectedOption = this.reportLayers[0];
 		this.selectedLayer = selectedOption;
 		this.selectedLayerValue = selectedOption.value;
 		this.selectedLayerSortField = selectedOption.sortField;
@@ -208,7 +207,7 @@ export class ReportListComponent implements OnInit {
 		params['sortOrder'] = sortOrder ? sortOrder : 1;
 
 		await this.hTTPService
-		.get(environment.reportServerUrl + url, { params: this.filterService.getParams(params) })
+		.get(environment.serverUrl + url, { params: this.filterService.getParams(params) })
 		.subscribe(async data => await this.setData(data));
 	}
 
@@ -373,7 +372,7 @@ export class ReportListComponent implements OnInit {
 		params['fileFormats'] = selectedFormats.toString();
 		params['selectedGids'] = selectedGids.toString();
 
-		await this.exportService.export(params, selectedFormats, layer.tableName);
+		await this.exportService.export({params}, selectedFormats, layer.tableName);
 
 		this.isLoading = false;
 	}

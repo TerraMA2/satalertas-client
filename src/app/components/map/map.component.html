@@ -10,11 +10,10 @@
            [dismissible]="false"
            [modal]="false"
            [showCloseIcon]="true"
-           [style]="{width: 'inherit', left: 'unset', height: tableReportActive ? '90vh' : '65vh'  }"
+           [style]="{ width: 'inherit', left: 'unset', height: '65vh' }"
            position="bottom">
 
-    <app-table [selectedLayers]="selectedLayers"
-               [tableReportActive]="tableReportActive">
+    <app-table [selectedLayers]="selectedLayers">
     </app-table>
 
 </p-sidebar>

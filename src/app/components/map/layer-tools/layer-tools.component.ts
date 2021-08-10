@@ -104,7 +104,7 @@ export class LayerToolsComponent implements OnInit {
 		const params = this.filterService.getParams(view);
 		params['fileFormats'] = selectedFormats.toString();
 
-		await this.exportService.export(params, selectedFormats, tableName);
+		await this.exportService.export({params}, selectedFormats, tableName);
 
 		this.isExportLoading = false;
 	}

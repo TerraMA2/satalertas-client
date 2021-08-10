@@ -13,6 +13,7 @@ import pdfMake from 'pdfmake/build/pdfmake';
 import Chart from 'chart.js';
 
 import pdfFonts from 'pdfmake/build/vfs_fonts';
+
 import { ExportService } from '../../../services/export.service';
 
 import { AuthService } from 'src/app/services/auth.service';
@@ -24,6 +25,7 @@ import { ReportImage } from '../../../models/report-image.model';
 import { formatNumber } from '@angular/common';
 
 import { User } from '../../../models/user.model';
+
 import { NavigationService } from '../../../services/navigation.service';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -165,13 +167,8 @@ export class ReportComponent implements OnInit, AfterViewInit {
 		this.inputSat = '';
 		this.textAreaComments = '';
 
-		this.authService.user.subscribe(user => {
-			this.loggedUser = user;
-			if (!user) {
-				this.navigationService.back();
-				this.messageService.add({ severity: 'error', summary: 'Atenção!', detail: 'Usuário não autenticado.' });
-			}
-		});
+		this.activatedRoute.data.subscribe(data => this.loggedUser = data['user']);
+
 		this.activatedRoute.params.subscribe(params => {
 			this.carRegister = params.carRegister;
 			this.type = params.type;

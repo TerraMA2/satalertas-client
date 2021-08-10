@@ -10,7 +10,6 @@ import { MapService } from '../../../../../services/map.service';
 
 import { LayerGroup } from '../../../../../models/layer-group.model';
 import { AuthService } from '../../../../../services/auth.service';
-import { User } from '../../../../../models/user.model';
 
 @Component({
 	selector: 'app-sidebar-layer',
@@ -34,7 +33,6 @@ export class SidebarLayerComponent implements OnInit {
 	@Input() displayChild = false;
 
 	isSelected = false;
-	loggedUser: User = null;
 	disableTool = {};
 
 	constructor(

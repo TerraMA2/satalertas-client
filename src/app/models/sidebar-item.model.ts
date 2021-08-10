@@ -6,7 +6,8 @@ export class SidebarItem {
 		public dataUrl?: string,
 		public value?: number,
 		public icon?: string,
-		public separator?: boolean
+		public separator?: boolean,
+		public auth?: boolean
 	) {
 	}
 }

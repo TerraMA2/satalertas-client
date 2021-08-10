@@ -19,7 +19,7 @@ export class ExportService {
 	}
 
 	async export(params, selectedFormats, fileName) {
-		const url = `${ environment.reportServerUrl }/export/get`;
+		const url = `${ environment.serverUrl }/export/get`;
 
 		await this.httpService.post(url, { params }).toPromise().then((response: Response) => {
 			if (response.status === 200) {

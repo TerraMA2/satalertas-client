@@ -33,8 +33,12 @@
             <img src="assets/img/ico/queima.ico"/>
         </p-button>
     </div>
-    <p-button (click)="op.toggle($event)" label="{{ 'conclusion' | translate }}"
-              pTooltip="{{ 'alterConclusion' | translate }}" tooltipPosition="bottom"></p-button>
+    <p-button *ngIf="loggedUser.administrator"
+              (click)="op.toggle($event)"
+              label="{{ 'conclusion' | translate }}"
+              pTooltip="{{ 'alterConclusion' | translate }}"
+              tooltipPosition="bottom">
+    </p-button>
     <div class="p-toolbar-group-right">
         <div *ngIf="loggedUser.administrator" class="report-buttons">
             <p-button (click)="generatePdf('open')"

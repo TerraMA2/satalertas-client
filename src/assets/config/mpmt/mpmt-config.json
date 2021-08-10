@@ -174,21 +174,24 @@
         "label": "dashboard",
         "link": "/",
         "method": "",
-        "value": ""
+        "value": "",
+        "auth": false
       },
       {
         "icon": "fas fa-map",
         "label": "map",
         "link": "/map",
         "method": "",
-        "value": ""
+        "value": "",
+        "auth": false
       },
       {
         "icon": "fas fa-file-invoice",
         "label": "reportButton",
         "link": "/reports",
         "method": "",
-        "value": ""
+        "value": "",
+        "auth": true
       },
       {
         "separator": "true"

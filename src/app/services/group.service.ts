@@ -6,7 +6,7 @@ import { environment } from '../../environments/environment';
 	providedIn: 'root'
 })
 export class GroupService {
-	URL_REPORT_SERVER = environment.reportServerUrl;
+	URL_REPORT_SERVER = environment.serverUrl;
 	url = `${ this.URL_REPORT_SERVER }/group`;
 
 	constructor(private httpService: HTTPService) {
