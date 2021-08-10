@@ -16,8 +16,6 @@ import { SidebarService } from './sidebar.service';
 
 import { environment } from 'src/environments/environment';
 
-import { MapService } from './map.service';
-
 @Injectable({
 	providedIn: 'root'
 })

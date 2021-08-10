@@ -155,6 +155,233 @@ export class MapService {
 		map.fitBounds(latLngBounds);
 	}
 
+	getMap(maxZoom) {
+		return L.map('map', { maxZoom });
+	}
+
+	panMap(map, latLng, zoom) {
+		map.setView(latLng, zoom);
+	}
+
+	getLayer(layerData) {
+		layerData.crs = L.CRS.EPSG4326;
+		return L.tileLayer.wms(layerData.url, layerData);
+	}
+
+	getMarkersGroup() {
+		return L.markerClusterGroup(
+			{
+				chunkedLoading: true,
+				animate: false
+			});
+	}
+	
+	// Controls
+	
+	getCustomControl(options) {
+		const { id, title, icon, classes, listener, method } = options;
+		return L.Control.extend({
+			onAdd: event => {
+				const div = L.DomUtil.create('div');
+				if (listener) {
+					event.addEventListener(listener, e => {
+						div.innerHTML = `
+		          <div id="${id}" class="leaflet-control-layers ${classes ? classes : ''}" title="${title}">
+		          	${ this[method](e) }
+		          </div>`;
+					})
+				} else {
+					div.innerHTML = `
+	          <div id="${id}" class="leaflet-control-layers leaflet-custom-icon ${classes ? classes : ''}" title="${title}">
+	            <a><i class='fas ${icon}'></i></a>
+	          </div>`;
+				}
+				return div;
+			}
+		});
+	}
+
+	getLayerControl(layers) {
+		return L.control.layers(
+			{}, {},
+			layers
+		);
+	}
+
+	getFullScreenControl(options) {
+		return L.control.fullscreen(options);
+	}
+
+	getScaleControl(options) {
+		return L.control.scale(options);
+	}
+
+	getLegendControl() {
+		return this.getCustomControl({
+			id: 'legendBtn',
+			title: 'Legendas',
+			icon: 'fa-th-list'
+		});
+	}
+
+	getTableControl() {
+		return this.getCustomControl({
+			id: 'tableBtn',
+			title: 'Tabela',
+			icon: 'fa-table'
+		});
+	}
+	
+	getRestoreMapControl() {
+		return this.getCustomControl({
+			id: 'restoreMapBtn',
+			title: 'Restaurar mapa',
+			icon: 'fa-crosshairs'
+		});
+	}
+	
+	getVisibleLayersControl() {
+		return this.getCustomControl({
+			id: 'visibleLayersBtn',
+			title: 'Layers visíveis',
+			icon: 'fa-list'
+		});
+	}
+
+	getCoordinatesControl() {
+		return this.getCustomControl({
+			id: 'coordinates',
+			title: '',
+			icon: '',
+			classes: 'leaflet-control-coordinates leaflet-latlong-icon',
+			listener: 'mousemove',
+			method: 'getCoordinates'
+		});
+	}
+	
+	getCoordinates(e) {
+		return `
+			<strong>Lat:</strong>
+		  ${ e.latlng.lat.toFixed(4) }
+		  &nbsp;
+		  <strong>Long:</strong>
+		  ${ e.latlng.lng.toFixed(4) }
+		`
+	}
+
+	getInfoControl() {
+		return this.getCustomControl({
+			id: 'infoBtn',
+			title: 'Informação',
+			icon: 'fa-info'
+		});
+	}
+
+	async getFeatureInfo(selectedLayers, map, latLong, layerPoint, markerInfo) {
+		let popupContent = `<div class="popup-container-feature-info">`;
+
+		if (selectedLayers.length === 0) {
+			popupContent += `<h2>Layer não encontrado.</h2>`;
+		}
+
+		const infoColumns = await this.infoColumnsService.getInfoColumns().then((response: Response) => response);
+
+		let popupTable = '';
+		for (const selectedLayer of selectedLayers) {
+			const layerInfoColumn = infoColumns[selectedLayer.codgroup];
+			const layer = this.getLayer(selectedLayer.layerData);
+			const layerName = selectedLayer.label;
+
+			let params = null;
+			let url = '';
+			if (selectedLayer.type === LayerType.ANALYSIS || selectedLayer.type === LayerType.DYNAMIC) {
+				url = `${ environment.geoserverUrl }/wfs`;
+				params = this.getWFSFeatureInfoParams(layer, latLong, selectedLayer.type, selectedLayer.cod);
+			} else {
+				url = `${ environment.geoserverUrl }/wms`;
+				params = this.getWMSFeatureInfoParams(layer, latLong, layerPoint, map);
+			}
+
+			await this.hTTPService.get<any>(url, params).toPromise().then((layerInfo: LayerInfo) => {
+				const features = layerInfo.features;
+				if (features && features.length > 0) {
+					popupTable += this.getFeatureInfoPopup(layerName, features, layerInfoColumn);
+				}
+			});
+		}
+		if (!popupTable) {
+			popupTable = 'Nenhuma informação foi encontrada.';
+		}
+		popupContent += popupTable;
+
+		popupContent += `</div>`;
+
+		markerInfo.bindPopup(popupContent, { maxWidth: 500, maxHeight: 500 });
+		markerInfo.addTo(map);
+		markerInfo.openPopup();
+	}
+
+	getWMSFeatureInfoParams(layer: L.TileLayer.WMS, latLng, layerPoint, map) {
+		const containerPoint = map.layerPointToContainerPoint(layerPoint);
+		const bbox = map.getBounds().toBBoxString();
+		const mapSize = map.getSize();
+		const width = mapSize.x;
+		const height = mapSize.y;
+		const x = Math.round(containerPoint.x);
+		const y = Math.round(containerPoint.y);
+		return {
+			request: 'GetFeatureInfo',
+			service: 'WMS',
+			srs: 'EPSG:4674',
+			styles: layer.wmsParams.styles,
+			transparent: layer.wmsParams.transparent,
+			version: layer.wmsParams.version,
+			format: layer.wmsParams.format,
+			bbox,
+			height,
+			width,
+			layers: layer.wmsParams.layers,
+			query_layers: layer.wmsParams.layers,
+			info_format: 'application/json',
+			x,
+			y
+		};
+	}
+
+	getWFSFeatureInfoParams(layer: L.TileLayer.WMS, latLng, layerType, layerCod) {
+		let geomColumn = 'intersection_geom';
+		if (layerType === LayerType.DYNAMIC) {
+			geomColumn = 'geom';
+			if (layerCod === 'FOCOS') {
+				geomColumn = 'geomatria';
+			}
+		}
+		return {
+			request: 'GetFeature',
+			service: 'WFS',
+			srs: 'EPSG:4674',
+			version: '2.0',
+			outputFormat: 'application/json',
+			typeNames: layer.wmsParams.layers,
+			count: 1,
+			cql_filter: `INTERSECTS(${ geomColumn }, POINT(${ latLng.lat } ${ latLng.lng }))`
+		};
+	}
+
+	getFeatureInfoPopup(layerName: string, features: LayerInfoFeature[], infoColumns = null) {
+		let popupContent = '';
+		if (features) {
+			features.forEach(feature => {
+				const properties = feature.properties;
+				if (properties) {
+					popupContent += this.getPopupContent(properties, layerName, infoColumns);
+				}
+			});
+		}
+		return popupContent;
+	}
+
+	// Filter
 	setFilter(layer) {
 		if (layer.type !== LayerType.ANALYSIS && layer.type !== LayerType.DYNAMIC) {
 			return layer;
@@ -335,244 +562,5 @@ export class MapService {
 			}
 		}
 		return values;
-	}
-
-	getMap(maxZoom) {
-		return L.map('map', { maxZoom });
-	}
-
-	panMap(map, latLng, zoom) {
-		map.setView(latLng, zoom);
-	}
-
-	getLayer(layerData) {
-		layerData.crs = L.CRS.EPSG4326;
-		return L.tileLayer.wms(layerData.url, layerData);
-	}
-
-	getMarkersGroup() {
-		return L.markerClusterGroup(
-			{
-				chunkedLoading: true,
-				animate: false
-			});
-	}
-
-	getLayerControl(layers) {
-		return L.control.layers(
-			{}, {},
-			layers
-		);
-	}
-
-	getFullScreenControl(options) {
-		return L.control.fullscreen(options);
-	}
-
-	getScaleControl(options) {
-		return L.control.scale(options);
-	}
-
-	getLegendControl() {
-		return L.Control.extend({
-			onAdd: () => {
-				const div = L.DomUtil.create('div');
-				div.innerHTML = `
-          <div id="legendBtn" class="leaflet-control-layers leaflet-custom-icon leaflet-legend" title="Legendas">
-            <a><i class='fas fa-th-list'></i></a>
-          </div>`;
-				return div;
-			}
-		});
-	}
-
-	getTableControl() {
-		return L.Control.extend({
-			onAdd: () => {
-				const div = L.DomUtil.create('div');
-				div.innerHTML = `
-          <div id="tableBtn" class="leaflet-control-layers leaflet-custom-icon" title="Tabela">
-            <a><i class='fas fa-table'></i></a>
-          </div>`;
-				return div;
-			}
-		});
-	}
-
-	getReportTableControl() {
-		return L.Control.extend({
-			onAdd: () => {
-				const div = L.DomUtil.create('div');
-				div.innerHTML = `
-                <div id="reportTableBtn" class="leaflet-control-layers leaflet-custom-icon leaflet-report-table-icon" title="Relatórios">
-                  <a><i class='fas fa-file-alt'></i> Relatórios</a>
-                </div>`;
-				return div;
-			}
-		});
-	}
-
-	getCoordinatesControl() {
-		return L.Control.extend({
-			onAdd: map => {
-				const container = L.DomUtil.create('div');
-				map.addEventListener('mousemove', e => {
-					container.innerHTML = `
-          <div id="coordinates" class="leaflet-control-coordinates leaflet-control-layers leaflet-latlong-icon">
-          <strong>Lat:</strong>
-          ${ e.latlng.lat.toFixed(4) }
-          &nbsp;
-          <strong>Long:</strong>
-          ${ e.latlng.lng.toFixed(4) }
-          </div>
-          `;
-				});
-				L.DomEvent.disableClickPropagation(container);
-				return container;
-			}
-		});
-	}
-
-	getInfoControl() {
-		return L.Control.extend({
-			onAdd: () => {
-				const div = L.DomUtil.create('div');
-				div.innerHTML = `
-          <div id="infoBtn" class="leaflet-control-layers leaflet-custom-icon leaflet-info" title="Informação">
-            <a><i class='fas fa-info'></i></a>
-          </div>`;
-				return div;
-			}
-		});
-	}
-
-	async getFeatureInfo(selectedLayers, map, latLong, layerPoint, markerInfo) {
-		let popupContent = `<div class="popup-container-feature-info">`;
-
-		if (selectedLayers.length === 0) {
-			popupContent += `<h2>Layer não encontrado.</h2>`;
-		}
-
-		const infoColumns = await this.infoColumnsService.getInfoColumns().then((response: Response) => response);
-
-		let popupTable = '';
-		for (const selectedLayer of selectedLayers) {
-			const layerInfoColumn = infoColumns[selectedLayer.codgroup];
-			const layer = this.getLayer(selectedLayer.layerData);
-			const layerName = selectedLayer.label;
-
-			let params = null;
-			let url = '';
-			if (selectedLayer.type === LayerType.ANALYSIS || selectedLayer.type === LayerType.DYNAMIC) {
-				url = `${ environment.geoserverUrl }/wfs`;
-				params = this.getWFSFeatureInfoParams(layer, latLong, selectedLayer.type, selectedLayer.cod);
-			} else {
-				url = `${ environment.geoserverUrl }/wms`;
-				params = this.getWMSFeatureInfoParams(layer, latLong, layerPoint, map);
-			}
-
-			await this.hTTPService.get<any>(url, params).toPromise().then((layerInfo: LayerInfo) => {
-				const features = layerInfo.features;
-				if (features && features.length > 0) {
-					popupTable += this.getFeatureInfoPopup(layerName, features, layerInfoColumn);
-				}
-			});
-		}
-		if (!popupTable) {
-			popupTable = 'Nenhuma informação foi encontrada.';
-		}
-		popupContent += popupTable;
-
-		popupContent += `</div>`;
-
-		markerInfo.bindPopup(popupContent, { maxWidth: 500, maxHeight: 500 });
-		markerInfo.addTo(map);
-		markerInfo.openPopup();
-	}
-
-	getWMSFeatureInfoParams(layer: L.TileLayer.WMS, latLng, layerPoint, map) {
-		const containerPoint = map.layerPointToContainerPoint(layerPoint);
-		const bbox = map.getBounds().toBBoxString();
-		const mapSize = map.getSize();
-		const width = mapSize.x;
-		const height = mapSize.y;
-		const x = Math.round(containerPoint.x);
-		const y = Math.round(containerPoint.y);
-		return {
-			request: 'GetFeatureInfo',
-			service: 'WMS',
-			srs: 'EPSG:4674',
-			styles: layer.wmsParams.styles,
-			transparent: layer.wmsParams.transparent,
-			version: layer.wmsParams.version,
-			format: layer.wmsParams.format,
-			bbox,
-			height,
-			width,
-			layers: layer.wmsParams.layers,
-			query_layers: layer.wmsParams.layers,
-			info_format: 'application/json',
-			x,
-			y
-		};
-	}
-
-	getWFSFeatureInfoParams(layer: L.TileLayer.WMS, latLng, layerType, layerCod) {
-		let geomColumn = 'intersection_geom';
-		if (layerType === LayerType.DYNAMIC) {
-			geomColumn = 'geom';
-			if (layerCod === 'FOCOS') {
-				geomColumn = 'geomatria';
-			}
-		}
-		return {
-			request: 'GetFeature',
-			service: 'WFS',
-			srs: 'EPSG:4674',
-			version: '2.0',
-			outputFormat: 'application/json',
-			typeNames: layer.wmsParams.layers,
-			count: 1,
-			cql_filter: `INTERSECTS(${ geomColumn }, POINT(${ latLng.lat } ${ latLng.lng }))`
-		};
-	}
-
-	getFeatureInfoPopup(layerName: string, features: LayerInfoFeature[], infoColumns = null) {
-		let popupContent = '';
-		if (features) {
-			features.forEach(feature => {
-				const properties = feature.properties;
-				if (properties) {
-					popupContent += this.getPopupContent(properties, layerName, infoColumns);
-				}
-			});
-		}
-		return popupContent;
-	}
-
-	getRestoreMapControl() {
-		return L.Control.extend({
-			onAdd: () => {
-				const div = L.DomUtil.create('div');
-				div.innerHTML = `
-                  <div id="restoreMapBtn" class="leaflet-control-layers leaflet-custom-icon leaflet-restore-map" title="Restaurar mapa">
-                    <a><i class='fas fa-crosshairs'></i></a>
-                  </div>`;
-				return div;
-			}
-		});
-	}
-
-	getVisibleLayersControl() {
-		return L.Control.extend({
-			onAdd: () => {
-				const div = L.DomUtil.create('div');
-				div.innerHTML = `
-            <div id="visibleLayersBtn" class="leaflet-control-layers leaflet-custom-icon" title="Layers visíveis">
-              <a><i class='fas fa-list'></i></a>
-            </div>`;
-				return div;
-			}
-		});
 	}
 }

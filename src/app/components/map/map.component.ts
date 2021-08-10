@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 
 import * as L from 'leaflet';
 
@@ -30,11 +30,10 @@ import { TableService } from 'src/app/services/table.service';
 
 import { View } from '../../models/view.model';
 
-import { AuthService } from 'src/app/services/auth.service';
-
 import { environment } from 'src/environments/environment';
 
 import { PopupService } from '../../services/popup.service';
+import { runCommand } from '@angular/cli/models/command-runner';
 
 @Component({
 	selector: 'app-map',
@@ -71,8 +70,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 		private tableService: TableService,
 		private mapService: MapService,
 		private filterService: FilterService,
-		private popupService: PopupService,
-		private authService: AuthService
+		private popupService: PopupService
 	) {
 	}
 
@@ -367,7 +365,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 			L.DomEvent.on(L.DomUtil.get('visibleLayersBtn'), 'dblclick', L.DomEvent.stopPropagation);
 		});
 	}
-
+	
 	setOpacity(layer: Layer, value: number) {
 		this.mapService.setOpacity(layer, value, this.map);
 	}

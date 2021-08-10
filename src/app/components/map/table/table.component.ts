@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { LazyLoadEvent, MessageService } from 'primeng/api';
+import { LazyLoadEvent } from 'primeng/api';
 
 import { HTTPService } from 'src/app/services/http.service';
 
@@ -12,15 +12,7 @@ import { FilterService } from 'src/app/services/filter.service';
 
 import { Layer } from '../../../models/layer.model';
 
-import { MapService } from 'src/app/services/map.service';
-
 import { View } from '../../../models/view.model';
-
-import { ExportService } from '../../../services/export.service';
-
-import { AuthService } from 'src/app/services/auth.service';
-
-import { User } from '../../../models/user.model';
 
 import { environment } from '../../../../environments/environment';
 import { InfoColumnsService } from '../../../services/info-columns.service';
