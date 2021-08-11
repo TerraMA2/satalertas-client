@@ -113,15 +113,15 @@ export class LayersAdvancedComponent implements OnInit {
 		subLayers.forEach(subLayer => {
 			const editedLayer = this.groupLayers.find((layer) => layer.id === subLayer.id);
 			const newLayerData = this.newGroupData.find((layer) => layer.id === subLayer.id)
-			if (!editedLayer["is_sublayer"]) {
-				editedLayer["is_sublayer"] = true;
-				editedLayer["is_primary"] = false;
-				editedLayer["sub_layers"] = null;
+			if (!editedLayer['is_sublayer']) {
+				editedLayer['is_sublayer'] = true;
+				editedLayer['is_primary'] = false;
+				editedLayer['sub_layers'] = null;
 			};
 			if (newLayerData) {
 				newLayerData['is_primary'] = false;
 				newLayerData['is_sublayer'] = true;
-				newLayerData["sub_layers"] = null;
+				newLayerData['sub_layers'] = null;
 			} else {
 				this.newGroupData.push({
 					id: subLayer.id,
@@ -136,10 +136,10 @@ export class LayersAdvancedComponent implements OnInit {
 	async getModalEditions() {
 		this.displayModal = false;
 		if (this.layerEdition.hasOwnProperty('is_sublayer')) {
-			if (this.layerEdition["is_sublayer"] == false) {
+			if (this.layerEdition['is_sublayer'] == false) {
 				this.setLayerAsPrimary(this.layerEdition['id'])
 			}
-			const subLayersIds = this.layerEdition["sub_layers"];
+			const subLayersIds = this.layerEdition['sub_layers'];
 			if (subLayersIds) {
 				this.setLayersAsSubLayer(subLayersIds);
 			}

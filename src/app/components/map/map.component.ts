@@ -365,7 +365,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 			L.DomEvent.on(L.DomUtil.get('visibleLayersBtn'), 'dblclick', L.DomEvent.stopPropagation);
 		});
 	}
-	
+
 	setOpacity(layer: Layer, value: number) {
 		this.mapService.setOpacity(layer, value, this.map);
 	}

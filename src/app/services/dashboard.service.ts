@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 
-import { Alert } from '../models/alert.model';
-
 import { environment } from '../../environments/environment';
 
 import { HTTPService } from './http.service';
+
 import { FilterService } from './filter.service';
+
+import { Analysis } from '../models/analysis.model';
 
 @Injectable({
 	providedIn: 'root'
@@ -20,10 +21,10 @@ export class DashboardService {
 	) {
 	}
 
-	async getAnalysisTotals(alerts: Alert [] = []) {
-		const url = this.urlDashboard + '/getAnalysisTotals';
+	async getAnalysis() {
+		const url = this.urlDashboard + '/getAnalysis';
 
-		const parameters = this.filterService.getParams(alerts);
+		const parameters = this.filterService.getParams();
 		const params = {
 			params: parameters
 		};
@@ -31,10 +32,10 @@ export class DashboardService {
 		return await this.httpService.get<any>(url, params).toPromise();
 	}
 
-	async getDetailsAnalysisTotals(alerts: Alert [] = []) {
-		const url = this.urlDashboard + '/getDetailsAnalysisTotals';
+	async getAnalysisCharts(analysis: Analysis [] = []) {
+		const url = this.urlDashboard + '/getAnalysisCharts';
 
-		const parameters = this.filterService.getParams(alerts);
+		const parameters = this.filterService.getParams(analysis);
 		const params = {
 			params: parameters
 		};

@@ -44,7 +44,7 @@ export class FilterService {
 	) {
 	}
 
-	getParams(value) {
+	getParams(value= {}) {
 		const date = JSON.parse(localStorage.getItem('dateFilter'));
 
 		const specificParameters = JSON.stringify(value);

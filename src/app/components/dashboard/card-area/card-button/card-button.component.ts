@@ -1,15 +1,15 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Alert } from '../../../../models/alert.model';
+import { Analysis } from '../../../../models/analysis.model';
 
 @Component({
 	selector: 'app-card-button',
 	templateUrl: './card-button.component.html',
 	styleUrls: ['./card-button.component.css']
 })
-export class CardButtonComponent implements OnInit {
+export class CardButtonComponent {
 
-	@Input() alert: Alert;
+	@Input() analysis: Analysis;
 
 	@Input() labelArea: string;
 
@@ -21,13 +21,8 @@ export class CardButtonComponent implements OnInit {
 
 	@Input() unitOfMeasurement: string;
 
-	@Output() alertClick: EventEmitter<Alert> = new EventEmitter<Alert>();
+	@Output() alertClick: EventEmitter<Analysis> = new EventEmitter<Analysis>();
 
-	@Output() areaClick: EventEmitter<Alert> = new EventEmitter<Alert>();
+	@Output() areaClick: EventEmitter<Analysis> = new EventEmitter<Analysis>();
 
-	constructor() {
-	}
-
-	ngOnInit() {
-	}
 }

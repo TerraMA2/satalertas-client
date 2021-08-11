@@ -182,8 +182,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
 			});
 		});
 
-		this.sidebarService.sidebarLayerShowHide.next(false);
-		this.sidebarService.sidebarReload.next();
 	}
 
 	async ngAfterViewInit() {
