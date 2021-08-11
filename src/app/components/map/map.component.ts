@@ -33,7 +33,6 @@ import { View } from '../../models/view.model';
 import { environment } from 'src/environments/environment';
 
 import { PopupService } from '../../services/popup.service';
-import { runCommand } from '@angular/cli/models/command-runner';
 
 @Component({
 	selector: 'app-map',
@@ -136,9 +135,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 				baseLayer.addTo(this.map);
 			}
 		});
-		this.map.on('baselayerchange', layer => {
-			this.selectedBaseLayer = layer['name'];
-		});
+		this.map.on('baselayerchange', layer => this.selectedBaseLayer = layer['name']);
 	}
 
 	setMarkersGroup() {
@@ -238,9 +235,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 
 	setTableControlEvent() {
 		L.DomEvent.on(L.DomUtil.get('tableBtn'), 'click dblclick', L.DomEvent.stopPropagation);
-		document.querySelector('#tableBtn').addEventListener('click', () => {
-			this.displayTable = true;
-		});
+		document.querySelector('#tableBtn').addEventListener('click', () => this.displayTable = true);
 	}
 
 	setSearchControl() {
@@ -415,16 +410,13 @@ export class MapComponent implements OnInit, AfterViewInit {
 				return;
 			}
 			this.map.eachLayer((mapLayer: L.TileLayer.WMS) => {
-
 				if (mapLayer.options.layers === layerData.layers) {
 					zindex = mapLayer.options.zIndex;
 					mapLayer.removeFrom(this.map);
 				}
-
 				if (mapLayer.options.zIndex > zindex) {
 					mapLayer.setZIndex((mapLayer.options.zIndex - 1));
 				}
-
 			});
 		}
 	}
@@ -440,9 +432,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 			this.mapService.setOpacity(layerObject['layer'], layerObject['value'], this.map);
 		});
 
-		this.mapService.layerExtent.subscribe(layer => {
-			this.mapService.setExtent(layer, this.map);
-		});
+		this.mapService.layerExtent.subscribe(layer => this.mapService.setExtent(layer, this.map));
 
 		this.mapService.layerToolOpen.subscribe((toolClicked) => {
 			this.displayLayerTools = true;
@@ -458,15 +448,11 @@ export class MapComponent implements OnInit, AfterViewInit {
 			}
 		});
 
-		this.mapService.legendClose.subscribe(() => {
-			this.displayLegend = false;
-		});
+		this.mapService.legendClose.subscribe(() => this.displayLegend = false);
 
 		this.mapService.clearMap.subscribe(() => this.clearMap());
 
-		this.mapService.clearMarkers.subscribe(() => {
-			this.markerClusterGroup.clearLayers();
-		});
+		this.mapService.clearMarkers.subscribe(() => this.markerClusterGroup.clearLayers());
 
 		this.mapService.resetLayers.subscribe(items => {
 			const draggedItemFrom = items[0].item;
@@ -510,12 +496,11 @@ export class MapComponent implements OnInit, AfterViewInit {
 			this.clearMarkerInfo();
 			const layers = itemSelected.children;
 			this.sidebarService.sidebarLayerSwitchSelect.next(layers);
-			layers.forEach((layer: Layer) => {
-				if (!layer.isDisabled && !layer.isHidden) {
-					const layerExists = this.selectedLayers.find(selectedLayer => selectedLayer.value === layer.value);
-					if (!layerExists) {
-						this.addLayer(layer, true);
-					}
+			layers.filter(layer => !layer.isDisabled && !layer.isHidden)
+						.forEach((layer: Layer) => {
+				const layerExists = this.selectedLayers.find(selectedLayer => selectedLayer.value === layer.value);
+				if (!layerExists) {
+					this.addLayer(layer, true);
 				}
 			});
 		});

@@ -1,7 +1,7 @@
 export class FilterSpecificSearch {
 	constructor(
 		public isChecked: boolean,
-		public CarCPF?: string,
+		public carCPF?: string,
 		public inputValue?: string
 	) {
 	}

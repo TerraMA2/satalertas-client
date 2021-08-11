@@ -3,14 +3,15 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FilterSpecificSearch } from '../../../models/filter-specific-search.model';
 
 import { Util } from '../../../utils/util';
+
 import { FilterService } from '../../../services/filter.service';
 
 @Component({
-	selector: 'app-specific-search-area',
-	templateUrl: './specific-search-area.component.html',
-	styleUrls: ['./specific-search-area.component.css']
+	selector: 'app-specific-search',
+	templateUrl: './specific-search.component.html',
+	styleUrls: ['./specific-search.component.css']
 })
-export class SpecificSearchAreaComponent implements OnInit {
+export class SpecificSearchComponent implements OnInit {
 	@Input() disable;
 	@Output() onChangeSpecificSearch: EventEmitter<FilterSpecificSearch> = new EventEmitter<FilterSpecificSearch>();
 	maxlength = '18';
@@ -27,14 +28,14 @@ export class SpecificSearchAreaComponent implements OnInit {
 	}
 
 	onChange(event) {
-		this.maxlength = this.specificSearchFilter.CarCPF === 'CPF' ? '18' : '100';
+		this.maxlength = this.specificSearchFilter.carCPF === 'CPF' ? '18' : '100';
 
 		this.specificSearchFilter.inputValue = null;
 		this.onChangeSpecificSearch.emit(this.specificSearchFilter);
 	}
 
 	onChangeInput(event) {
-		if (this.specificSearchFilter.CarCPF === 'CPF') {
+		if (this.specificSearchFilter.carCPF === 'CPF') {
 			const eCpfCnpj = document.getElementById('inputValue');
 			eCpfCnpj['value'] = Util.cpfCnpjMask(event);
 			this.specificSearchFilter.inputValue = Util.cpfCnpjMask(event);

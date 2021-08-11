@@ -15,6 +15,7 @@ import { Layer } from '../../../models/layer.model';
 import { View } from '../../../models/view.model';
 
 import { environment } from '../../../../environments/environment';
+
 import { InfoColumnsService } from '../../../services/info-columns.service';
 
 
@@ -118,20 +119,19 @@ export class TableComponent implements OnInit {
 		.subscribe(async data => await this.setData(data, layer.codgroup ? layer.codgroup : layer.codgroup));
 	}
 
-	async setData(data, group) {
-		if (data) {
+	async setData(tableData, group) {
+		if (tableData) {
 			this.selectedColumns = [];
 			this.columns = [];
 			this.totalRecords = 0;
-			if (Array.isArray(data)) {
-				this.totalRecords = data.pop();
+			if (Array.isArray(tableData)) {
+				this.totalRecords = tableData.pop();
 			} else {
-				data = [];
+				tableData = [];
 			}
-			if (data.length > 0) {
+			if (tableData.length > 0) {
 				const infoColumns = await this.infoColumnsService.getInfoColumns().then((response: Response) => response);
-				const changedData = [];
-				Object.keys(data[0]).forEach(key => {
+				Object.keys(tableData[0]).forEach(key => {
 					const column = infoColumns && infoColumns[group] ? infoColumns[group][key] : '';
 					const show = column ? column.show : false;
 					const alias = column ? column.alias : key;
@@ -139,28 +139,24 @@ export class TableComponent implements OnInit {
 						this.columns.push({ field: alias, header: alias, sortColumn: key });
 					}
 				});
-				Object.keys(data).forEach(dataKey => {
-					const dataValue = data[dataKey];
+				this.tableData = tableData.map(row => {
 					const changedRow = [];
-					Object.entries(dataValue).forEach(e => {
-						const key = e[0];
-						if (key !== 'lat' && key !== 'long') {
-							const value = e[1];
+					Object.entries(row)
+						.filter(cell => cell[0] !== 'lat' && cell[0] !== 'long')
+						.forEach(cell => {
+							const key = cell[0];
+							const value = cell[1];
 							if (infoColumns[group][key] && infoColumns[group][key].alias && infoColumns[group][key].alias !== undefined) {
 								changedRow[infoColumns[group][key].alias] = value;
 							} else {
 								changedRow[key] = value;
 							}
-						}
-					});
-					changedData.push(changedRow);
+						});
+					return changedRow;
 				});
-				data = changedData;
 			}
 
 			this.selectedColumns = this.columns;
-
-			this.tableData = data;
 
 			this.rowsPerPage = this.rowsPerPage.filter((row) => row.value !== this.totalRecords);
 

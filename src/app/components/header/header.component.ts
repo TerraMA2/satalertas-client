@@ -17,8 +17,11 @@ import { MapService } from 'src/app/services/map.service';
 import { environment } from 'src/environments/environment';
 
 import { FilterDate } from '../../models/filter-date.model';
+
 import { DropdownElement } from '../../models/dropdown-element.model';
+
 import { TranslateService } from '@ngx-translate/core';
+
 import { Router } from '@angular/router';
 
 @Component({

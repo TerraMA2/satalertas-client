@@ -1,15 +1,19 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
 import { FilterAlertType } from '../../../models/filter-alert-type.model';
+
 import { ConfigService } from '../../../services/config.service';
+
 import { FilterAlertAnalyses } from '../../../models/filter-alert-type-analyzes.model';
+
 import { FilterService } from '../../../services/filter.service';
 
 @Component({
-	selector: 'app-alert-type-area',
-	templateUrl: './alert-type-area.component.html',
-	styleUrls: ['./alert-type-area.component.css']
+	selector: 'app-alert-type',
+	templateUrl: './alert-type.component.html',
+	styleUrls: ['./alert-type.component.css']
 })
-export class AlertTypeAreaComponent implements OnInit, AfterViewInit {
+export class AlertTypeComponent implements OnInit, AfterViewInit {
 	@Input() disable;
 	@Output() onChangeAlertType: EventEmitter<FilterAlertType> = new EventEmitter<FilterAlertType>();
 	alertType: FilterAlertType;
@@ -41,7 +45,7 @@ export class AlertTypeAreaComponent implements OnInit, AfterViewInit {
 		this.onChangeAlertType.emit(result);
 	}
 
-	onChangeAnalyzeOption(option) {
+	onChangeAnalyzeOption() {
 		this.alertType.analyzes.forEach(analyze => {
 			if (analyze.valueOption && analyze.valueOption['value'] && (analyze.valueOption['value'] !== 6)) {
 				analyze.valueOptionBiggerThen = undefined;
@@ -67,8 +71,12 @@ export class AlertTypeAreaComponent implements OnInit, AfterViewInit {
 			(this.alertType.analyzes.length > 0);
 	}
 
-	isCustomSelected(analisys) {
-		return analisys.valueOption && analisys.valueOption.value && analisys.valueOption.value === 6;
+	isCustomSelected(analysis) {
+		return analysis.valueOption && analysis.valueOption.value && analysis.valueOption.value === 6;
+	}
+
+	onAllClicked() {
+		this.alertType.analyzes.forEach(analysis => analysis.valueOption = undefined);
 	}
 
 	trackById(index, item) {

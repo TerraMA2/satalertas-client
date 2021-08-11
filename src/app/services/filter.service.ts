@@ -9,10 +9,15 @@ import { FilterParam } from '../models/filter-param.model';
 import { environment } from '../../environments/environment';
 
 import { HTTPService } from './http.service';
+
 import { FilterAlertType } from '../models/filter-alert-type.model';
+
 import { FilterTheme } from '../models/filter-theme.model';
+
 import { FilterAuthorization } from '../models/filter-authorization.model';
+
 import { FilterSpecificSearch } from '../models/filter-specific-search.model';
+
 import { FilterClass } from '../models/filter-class.model';
 
 @Injectable({
@@ -53,14 +58,14 @@ export class FilterService {
 		const filterNew = new FilterParam(
 			(filterParam && filterParam.themeSelected ? filterParam.themeSelected : { value: 'ALL' }),
 			(filterParam && filterParam.alertType ? filterParam.alertType : { radioValue: 'ALL', analyses: [] }),
-			(filterParam && filterParam.autorization ? filterParam.autorization : { name: 'Todos', value: 'ALL' }),
+			(filterParam && filterParam.authorization ? filterParam.authorization : { name: 'Todos', value: 'ALL' }),
 			(filterParam && filterParam.specificSearch ? filterParam.specificSearch : {
 				isChecked: false,
-				CarCPF: 'CAR'
+				carCPF: 'CAR'
 			}),
 			(filterParam && filterParam.classSearch ? filterParam.classSearch : { radioValue: 'ALL', analyses: [] })
 		);
-		if (filterNew.specificSearch.isChecked && filterNew.specificSearch.CarCPF === 'CPF') {
+		if (filterNew.specificSearch.isChecked && filterNew.specificSearch.carCPF === 'CPF') {
 			filterNew.specificSearch.inputValue = filterNew.specificSearch.inputValue ? filterNew.specificSearch.inputValue.replace(/\D/g, '') : null;
 		}
 		const filter = JSON.stringify(filterNew);

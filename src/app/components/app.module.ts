@@ -63,15 +63,15 @@ import { VisibleLayersComponent } from './map/visible-layers/visible-layers.comp
 import { PopupComponent } from './map/popup/popup.component';
 import { CardAreaComponent } from './dashboard/card-area/card-area.component';
 import { CardButtonComponent } from './dashboard/card-area/card-button/card-button.component';
-import { ThemeAreaComponent } from './filter/theme-area/theme-area.component';
-import { AlertTypeAreaComponent } from './filter/alert-type-area/alert-type-area.component';
-import { AuthorizationAreaComponent } from './filter/authorization-area/authorization-area.component';
-import { SpecificSearchAreaComponent } from './filter/specific-search-area/specific-search-area.component';
-import { FooterFilterAreaComponent } from './filter/footer-filter-area/footer-filter-area.component';
+import { ThemeComponent } from './filter/theme/theme.component';
+import { AlertTypeComponent } from './filter/alert-type/alert-type.component';
+import { AuthorizationComponent } from './filter/authorization/authorization.component';
+import { SpecificSearchComponent } from './filter/specific-search/specific-search.component';
+import { FooterFilterComponent } from './filter/footer-filter/footer-filter.component';
 import { ReportComponent } from './reports/report/report.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MessagesModule } from 'primeng/messages';
-import { ClassAreaComponent } from './filter/class-area/class-area.component';
+import { ClassComponent } from './filter/class/class.component';
 import { ListboxModule } from 'primeng/listbox';
 import { LayerToolsComponent } from './map/layer-tools/layer-tools.component';
 import { SliderModule } from 'primeng/slider';
@@ -129,14 +129,14 @@ export function HttpLoaderFactory(http: HttpClient) {
 		ChartsAreaComponent,
 		CardAreaComponent,
 		CardButtonComponent,
-		ThemeAreaComponent,
-		AlertTypeAreaComponent,
-		AuthorizationAreaComponent,
-		SpecificSearchAreaComponent,
-		FooterFilterAreaComponent,
+		ThemeComponent,
+		AlertTypeComponent,
+		AuthorizationComponent,
+		SpecificSearchComponent,
+		FooterFilterComponent,
 		SidebarItemComponent,
 		ReportComponent,
-		ClassAreaComponent,
+		ClassComponent,
 		LayerToolsComponent,
 		SettingsComponent,
 		GroupManagerComponent,

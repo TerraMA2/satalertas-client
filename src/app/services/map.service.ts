@@ -407,7 +407,7 @@ export class MapService {
 	setCqlFilter(layer) {
 		const filter: FilterParam = JSON.parse(localStorage.getItem('filterState'));
 
-		if (!filter || (filter.alertType.radioValue === 'ALL') && (filter.autorization.value === 'ALL') &&
+		if (!filter || (filter.alertType.radioValue === 'ALL') && (filter.authorization.value === 'ALL') &&
 			!filter.specificSearch.isChecked && !filter.themeSelected.type) {
 			if (layer.layerData.cql_filter) {
 				delete layer.layerData.cql_filter;
@@ -452,7 +452,7 @@ export class MapService {
 			}
 		};
 
-		layer.layerData.cql_filter = specificSearch[filter.specificSearch.CarCPF.toLowerCase()](filter.specificSearch.inputValue);
+		layer.layerData.cql_filter = specificSearch[filter.specificSearch.carCPF.toLowerCase()](filter.specificSearch.inputValue);
 
 		return layer;
 	}

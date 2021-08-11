@@ -4,6 +4,7 @@
         <div class="p-field-checkbox">
             <p-radioButton [(ngModel)]="alertType.radioValue"
                            [disabled]="disable"
+                           (click)="onAllClicked()"
                            inputId="preopt1"
                            value="ALL">
             </p-radioButton>
@@ -26,7 +27,7 @@
             <div class="p-grid">
                 <div [ngClass]="{'p-col-6': isCustomSelected(analyze), 'p-col-12 form-padding': !isCustomSelected(analyze) }">
                     <p-dropdown
-                            (onChange)="onChangeAnalyzeOption($event)"
+                            (onChange)="onChangeAnalyzeOption()"
                             [(ngModel)]="analyze.valueOption"
                             [autoDisplayFirst]="false"
                             [disabled]="false"

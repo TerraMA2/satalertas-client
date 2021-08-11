@@ -1,13 +1,15 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
 import { FilterAuthorization } from '../../../models/filter-authorization.model';
+
 import { FilterService } from '../../../services/filter.service';
 
 @Component({
-	selector: 'app-authorization-area',
-	templateUrl: './authorization-area.component.html',
-	styleUrls: ['./authorization-area.component.css']
+	selector: 'app-authorization',
+	templateUrl: './authorization.component.html',
+	styleUrls: ['./authorization.component.css']
 })
-export class AuthorizationAreaComponent implements OnInit {
+export class AuthorizationComponent implements OnInit {
 
 	@Input() disable;
 	@Output() onChangeAuthorization: EventEmitter<FilterAuthorization> = new EventEmitter<FilterAuthorization>();
