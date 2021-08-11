@@ -199,7 +199,9 @@ export class MapComponent implements OnInit, AfterViewInit {
 
 	updateLayers() {
 		this.selectedLayers.forEach(layer => {
-			this.updateMarkers(layer);
+			if (this.selectedPrimaryLayer) {
+				this.updateMarkers(layer);
+			}
 			this.addLayer(layer, false);
 		});
 	}
@@ -474,6 +476,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 		});
 
 		this.filterService.filterMap.subscribe((zoomIn: boolean) => {
+			this.clearMarkerInfo();
 			this.zoomIn = zoomIn;
 			this.clearLayers();
 			this.updateLayers();
