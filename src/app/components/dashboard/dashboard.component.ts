@@ -2,24 +2,15 @@ import { Component, OnInit } from '@angular/core';
 
 import { ConfigService } from '../../services/config.service';
 
-import { Alert } from '../../models/alert.model';
-
-import { AlertGraphic } from '../../models/alert-graphic.model';
+import { AnalysisChart } from '../../models/analysis-chart.model';
 
 import { FilterService } from '../../services/filter.service';
 
-import { LayerGroup } from '../../models/layer-group.model';
-
-import { Layer } from '../../models/layer.model';
-
-import { ParamAlert } from '../../models/param-alert.model';
-
 import { SidebarService } from 'src/app/services/sidebar.service';
 
-import { LayerType } from 'src/app/enum/layer-type.enum';
-
-import { Response } from '../../models/response.model';
 import { DashboardService } from '../../services/dashboard.service';
+
+import { Analysis } from '../../models/analysis.model';
 
 @Component({
 	selector: 'app-dashboard',
@@ -28,10 +19,8 @@ import { DashboardService } from '../../services/dashboard.service';
 })
 
 export class DashboardComponent implements OnInit {
-
-	alertsDisplayed: Alert [] = [];
-	alertGraphics: any [] = [];
-	sidebarLayers: LayerGroup[];
+	analysisList: Analysis[]
+	analysisCharts: AnalysisChart [] = [];
 	isLoading = false;
 
 	constructor(
@@ -43,194 +32,79 @@ export class DashboardComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.sidebarService.sidebarReload.next();
 		this.isLoading = true;
-		this.sidebarService.getSidebarLayers().then((sidebarLayers: Response) => {
-			this.sidebarLayers = sidebarLayers.data;
+		this.getAnalysis();
+		this.setEvents();
+		this.sidebarService.sidebarReload.next();
+		this.sidebarService.sidebarLayerShowHide.next(false);
+	}
 
-			this.sidebarService.sidebarLayerShowHide.next(false);
-
-			this.setOverlayEvents();
-			this.getGraphicLayers();
+	getAnalysis() {
+		this.dashboardService.getAnalysis().then((analysis: Analysis[]) => {
+			if (!analysis) {
+				this.isLoading = false;
+				return;
+			}
+			this.analysisList = analysis;
+			this.setActiveArea();
 			this.isLoading = false;
 		});
 	}
 
-	setOverlayEvents() {
-		this.filterService.filterDashboard.subscribe(() => {
-			this.alertsDisplayed = [];
-			this.getGraphicLayers();
-		});
+	setEvents() {
+		this.filterService.filterDashboard.subscribe(() => this.getAnalysis());
 	}
 
-	setAlertsGraphics() {
-		if (this.alertsDisplayed && this.alertsDisplayed.length > 0) {
-			this.alertsDisplayed.forEach((alert: Alert) => {
-				if (this.sidebarLayers && this.sidebarLayers.length > 0) {
-					this.sidebarLayers.forEach(group => {
-						if (group.cod === alert.codgroup) {
-							alert.alertsgraphics = this.getAlerts(group.children);
-						}
-					});
-				}
-			});
-		}
+	setActiveArea() {
+		const analysis = this.analysisList.find((a: Analysis) => a.activearea)
+		this.areaClick(analysis);
 	}
 
-	setactivearea() {
-		this.alertsDisplayed.forEach(alert => {
-			if (alert.activearea) {
-				this.areaClick(alert);
+	areaClick(analysisSelected) {
+		this.activeArea(analysisSelected.analysischarts);
+		this.analysisClick(analysisSelected, false);
+	}
+
+	alertClick(analysisSelected) {
+		this.activeAlert(analysisSelected.analysischarts);
+		this.analysisClick(analysisSelected, true);
+	}
+
+	analysisClick(analysisSelected, isAlert = false) {
+		this.clearActive();
+
+		this.dashboardService.getAnalysisCharts(analysisSelected.analysischarts).then((analysisChart: AnalysisChart[]) => {
+			this.analysisCharts = analysisChart;
+
+			analysisSelected.activealert = isAlert;
+			analysisSelected.activearea = !isAlert;
+
+			if (this.analysisCharts && this.analysisCharts.length > 0) {
+				this.analysisCharts[0].active = true;
 			}
 		});
 	}
 
-	getidviewAlert(group: LayerGroup) {
-		const alert = new Alert(
-			0,
-			'',
-			group.cod,
-			group.label,
-			0,
-			0,
-			group.cod === 'DETER',
-			group.cod === 'DETER',
-			false,
-			[],
-			true,
-			true,
-			group.tableOwner,
-			group.tableName);
-
-		group.children.forEach((view: Layer) => {
-			if (view.isPrimary && view.type === LayerType.ANALYSIS) {
-				alert.cod = view.cod;
-				alert.idview = view.value;
-				alert.tableOwner = view.tableOwner;
-				alert.tableName = view.tableName;
-			}
-		});
-		return alert;
-	}
-
-	areaClick(alertSelected) {
-		this.cleanActive();
-
-		this.activeArea(alertSelected.alertsgraphics);
-
-		this.dashboardService.getDetailsAnalysisTotals(alertSelected.alertsgraphics).then((alertsGraphics: AlertGraphic[]) => {
-			this.alertGraphics = alertsGraphics;
-
-			this.alertGraphics.forEach(graphic => {
-				graphic.graphics[0].data.datasets[0].label = graphic.codGroup === 'BURNED' ? 'Quantidade de alertas de focos por CAR' : 'Área (ha) de alertas por CAR';
-				graphic.graphics[1].data.datasets[0].label = graphic.codGroup === 'BURNED' ? 'Quantidade de alertas de focos por Bioma' : 'Área (ha) de alertas por classe';
-
-				graphic.graphics[0].data.datasets[0].backgroundColor = '#591111';
-				graphic.graphics[1].data.datasets[0].backgroundColor = '#591111';
-
-				graphic.graphics[0].data.datasets[0].hoverBackgroundColor = '#874847';
-				graphic.graphics[1].data.datasets[0].hoverBackgroundColor = '#874847';
-			});
-
-			alertSelected.activearea = true;
-			alertSelected.activealert = false;
-
-			if (this.alertGraphics && this.alertGraphics.length > 0) {
-				this.alertGraphics[0].active = true;
-			}
-		});
-	}
-
-	alertClick(alertSelected) {
-		this.cleanActive();
-
-		this.activeAlert(alertSelected.alertsgraphics);
-
-		this.dashboardService.getDetailsAnalysisTotals(alertSelected.alertsgraphics).then((alertsGraphics: AlertGraphic[]) => {
-			this.alertGraphics = alertsGraphics;
-
-
-			this.alertGraphics.forEach(graphic => {
-				graphic.graphics[0].data.datasets[0].label = graphic.codGroup === 'BURNED' ? 'Quantidade de alertas de focos por CAR' : 'Quantidade de alertas por CAR';
-				graphic.graphics[1].data.datasets[0].label = graphic.codGroup === 'BURNED' ? 'Quantidade de alertas de focos por Bioma' : 'Quantidade de alertas por classe';
-
-				graphic.graphics[0].data.datasets[0].backgroundColor = '#591111';
-				graphic.graphics[1].data.datasets[0].backgroundColor = '#591111';
-
-				graphic.graphics[0].data.datasets[0].hoverBackgroundColor = '#874847';
-				graphic.graphics[1].data.datasets[0].hoverBackgroundColor = '#874847';
-			});
-			alertSelected.activealert = true;
-			alertSelected.activearea = false;
-
-			if (this.alertGraphics && this.alertGraphics.length > 0) {
-				this.alertGraphics[0].active = true;
-			}
-		});
-	}
-
-	private async getGraphicLayers() {
-		const listAlerts: Alert[] = [];
-
-		this.sidebarLayers.forEach((group: LayerGroup) => {
-			if (group && group.view_graph) {
-				listAlerts.push(this.getidviewAlert(group));
-			}
-		});
-
-		await this.dashboardService.getAnalysisTotals(listAlerts).then((alerts: Alert[]) => {
-			this.alertsDisplayed = alerts;
-
-			this.setAlertsGraphics();
-
-			this.setactivearea();
-		});
-	}
-
-	private cleanActive() {
-		if (this.alertsDisplayed && this.alertsDisplayed.length > 0) {
-			this.alertsDisplayed.forEach(groupLayer => {
-				groupLayer.activealert = false;
-				groupLayer.activearea = false;
+	private clearActive() {
+		if (this.analysisList && this.analysisList.length > 0) {
+			this.analysisList.forEach((analysis: Analysis) => {
+				analysis.activealert = false;
+				analysis.activearea = false;
 			});
 		}
 
-		this.alertGraphics = [];
+		this.analysisCharts = [];
 	}
 
-	private activeArea(alertsgraphics) {
-		if (alertsgraphics && alertsgraphics.length > 0) {
-			alertsgraphics.forEach(alert => {
-				alert.activearea = true;
-			});
+	private activeArea(analysisCharts) {
+		if (analysisCharts && analysisCharts.length > 0) {
+			analysisCharts.forEach(analysisChart => analysisChart.activearea = true);
 		}
 	}
 
-	private activeAlert(alertsgraphics) {
-		if (alertsgraphics && alertsgraphics.length > 0) {
-			alertsgraphics.forEach(alert => {
-				alert.activearea = false;
-			});
+	private activeAlert(analysisCharts) {
+		if (analysisCharts && analysisCharts.length > 0) {
+			analysisCharts.forEach(analysisChart => analysisChart.activearea = false);
 		}
-	}
-
-	private getAlerts(layers) {
-		const listAlert: ParamAlert[] = [];
-
-		layers.forEach(layer => {
-			listAlert.push(new ParamAlert(
-				layer.value,
-				layer.cod,
-				layer.codgroup,
-				layer.label,
-				true,
-				layer.isPrimary,
-				layer.type === LayerType.ANALYSIS,
-				layer.tableOwner,
-				layer.tableName)
-			);
-		});
-
-		return listAlert;
 	}
 }

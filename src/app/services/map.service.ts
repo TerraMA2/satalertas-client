@@ -175,9 +175,9 @@ export class MapService {
 				animate: false
 			});
 	}
-	
+
 	// Controls
-	
+
 	getCustomControl(options) {
 		const { id, title, icon, classes, listener, method } = options;
 		return L.Control.extend({
@@ -231,7 +231,7 @@ export class MapService {
 			icon: 'fa-table'
 		});
 	}
-	
+
 	getRestoreMapControl() {
 		return this.getCustomControl({
 			id: 'restoreMapBtn',
@@ -239,7 +239,7 @@ export class MapService {
 			icon: 'fa-crosshairs'
 		});
 	}
-	
+
 	getVisibleLayersControl() {
 		return this.getCustomControl({
 			id: 'visibleLayersBtn',
@@ -258,7 +258,7 @@ export class MapService {
 			method: 'getCoordinates'
 		});
 	}
-	
+
 	getCoordinates(e) {
 		return `
 			<strong>Lat:</strong>

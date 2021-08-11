@@ -61,7 +61,6 @@ import { SidebarFooterComponent } from './sidebar/sidebar-footer/sidebar-footer.
 import { SidebarLayerComponent } from './sidebar/sidebar-menu/sidebar-layer-group/sidebar-layer/sidebar-layer.component';
 import { VisibleLayersComponent } from './map/visible-layers/visible-layers.component';
 import { PopupComponent } from './map/popup/popup.component';
-import { GraphicsAreaComponent } from './dashboard/graphics-area/graphics-area.component';
 import { CardAreaComponent } from './dashboard/card-area/card-area.component';
 import { CardButtonComponent } from './dashboard/card-area/card-button/card-button.component';
 import { ThemeAreaComponent } from './filter/theme-area/theme-area.component';
@@ -95,6 +94,7 @@ import { ReportListComponent } from './reports/report-list/report-list.component
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ReportsComponent } from './reports/reports.component';
 import { AuthGuard } from './auth/auth.guard';
+import { ChartsAreaComponent } from './dashboard/charts-area/charts-area.component';
 
 registerLocaleData(localePt, 'pt');
 
@@ -126,7 +126,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 		SidebarLayerComponent,
 		VisibleLayersComponent,
 		PopupComponent,
-		GraphicsAreaComponent,
+		ChartsAreaComponent,
 		CardAreaComponent,
 		CardButtonComponent,
 		ThemeAreaComponent,

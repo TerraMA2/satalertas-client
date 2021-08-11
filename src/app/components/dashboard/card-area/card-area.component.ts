@@ -1,62 +1,52 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Alert } from '../../../models/alert.model';
+import { Analysis } from '../../../models/analysis.model';
 
 @Component({
 	selector: 'app-card-area',
 	templateUrl: './card-area.component.html',
 	styleUrls: ['./card-area.component.css']
 })
-export class CardAreaComponent implements OnInit {
+export class CardAreaComponent {
 
-	@Input() alertsDisplayed: Alert [] = [];
+	@Input() analysisList: Analysis[] = [];
 
-	@Output() alertClick: EventEmitter<Alert> = new EventEmitter<Alert>();
+	@Output() alertClick: EventEmitter<Analysis> = new EventEmitter<Analysis>();
 
-	@Output() areaClick: EventEmitter<Alert> = new EventEmitter<Alert>();
+	@Output() areaClick: EventEmitter<Analysis> = new EventEmitter<Analysis>();
 
-	constructor() {
-	}
-
-	ngOnInit() {
-	}
-
-	getLabelArea(alert: Alert) {
-		let label: string;
-
-		if (this.isBurnedArea(alert.codgroup)) {
+	getLabelArea(analysis: Analysis) {
+		let label = 'area';
+		if (this.isBurnedArea(analysis.codgroup)) {
 			label = 'scar';
-		} else if (this.isFocus(alert.codgroup)) {
+		} else if (this.isFireSpot(analysis.codgroup)) {
 			label = 'fireSpots';
-		} else {
-			label = 'area';
 		}
-
 		return label;
 	}
 
-	getUnitOfMeasurement(alert: Alert) {
-		return (this.isFocus(alert.codgroup) ? '' : 'ha');
+	getUnitOfMeasurement(analysis: Analysis) {
+		return (this.isFireSpot(analysis.codgroup) ? '' : 'ha');
 	}
 
 	getLabelNumCars() {
 		return 'alerts';
 	}
 
-	getValueArea(alert: Alert) {
-		return alert.value2;
+	getValueArea(analysis: Analysis) {
+		return analysis.area;
 	}
 
-	getValueNumCars(alert: Alert) {
-		return alert.value1;
+	getValueNumCars(analysis: Analysis) {
+		return analysis.alert;
 	}
 
-	isFocus(codgroup) {
-		return codgroup === 'BURNED';
+	isFireSpot(codGroup) {
+		return codGroup === 'BURNED';
 	}
 
-	isBurnedArea(codgroup) {
-		return codgroup === 'BURNED_AREA';
+	isBurnedArea(codGroup) {
+		return codGroup === 'BURNED_AREA';
 	}
 
 	trackById(index, item) {

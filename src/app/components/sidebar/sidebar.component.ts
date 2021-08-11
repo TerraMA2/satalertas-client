@@ -27,7 +27,7 @@ export class SidebarComponent implements OnInit {
 
 	logoPath: string;
 	logoLink: string;
-	
+
 	isAuthenticated = false;
 
 	constructor(

@@ -1,17 +1,17 @@
 <div class="p-grid box">
-    <p-card *ngFor="let alert of alertsDisplayed; trackBy: trackById"
+    <p-card *ngFor="let analysis of analysisList; trackBy: trackById"
             [style]="{borderRadius: '18px'}"
             class="box-card p-col-12 p-md-3"
-            header="{{alert.label}}">
+            header="{{analysis.label}}">
 
         <app-card-button (alertClick)="alertClick.emit($event)"
                          (areaClick)="areaClick.emit($event)"
-                         [alert]="alert"
-                         [labelArea]="getLabelArea(alert) | translate"
+                         [analysis]="analysis"
+                         [labelArea]="getLabelArea(analysis) | translate"
                          [labelNumCars]="getLabelNumCars() | translate"
-                         [unitOfMeasurement]="getUnitOfMeasurement(alert)"
-                         [valueArea]="getValueArea(alert)"
-                         [valueNumCars]="getValueNumCars(alert)">
+                         [unitOfMeasurement]="getUnitOfMeasurement(analysis)"
+                         [valueArea]="getValueArea(analysis)"
+                         [valueNumCars]="getValueNumCars(analysis)">
         </app-card-button>
     </p-card>
 </div>
