@@ -13,7 +13,9 @@ import { SidebarService } from 'src/app/services/sidebar.service';
 import { SynthesisService } from '../../services/synthesis.service';
 
 import { Response } from '../../models/response.model';
+
 import { NavigationService } from '../../services/navigation.service';
+
 import { SynthesisCard } from '../../models/synthesis-card.model';
 
 @Component({
