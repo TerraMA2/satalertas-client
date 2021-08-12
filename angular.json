@@ -14,6 +14,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": [
+              "pdfmake/build/pdfmake",
               "leaflet-search",
               "chart.js"
             ],

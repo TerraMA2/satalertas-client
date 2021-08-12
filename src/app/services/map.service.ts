@@ -289,20 +289,19 @@ export class MapService {
 		let popupTable = '';
 		for (const selectedLayer of selectedLayers) {
 			const layerInfoColumn = infoColumns[selectedLayer.codgroup];
-			const layer = this.getLayer(selectedLayer.layerData);
 			const layerName = selectedLayer.label;
 
 			let params = null;
 			let url = '';
 			if (selectedLayer.type === LayerType.ANALYSIS || selectedLayer.type === LayerType.DYNAMIC) {
 				url = `${ environment.geoserverUrl }/wfs`;
-				params = this.getWFSFeatureInfoParams(layer, latLong, selectedLayer.type, selectedLayer.cod);
+				params = this.getWFSFeatureInfoParams(selectedLayer, latLong);
 			} else {
 				url = `${ environment.geoserverUrl }/wms`;
-				params = this.getWMSFeatureInfoParams(layer, latLong, layerPoint, map);
+				params = this.getWMSFeatureInfoParams(selectedLayer, latLong, layerPoint, map);
 			}
 
-			await this.hTTPService.get<any>(url, params).toPromise().then((layerInfo: LayerInfo) => {
+			await this.hTTPService.get<any>(url, {params}).toPromise().then((layerInfo: LayerInfo) => {
 				const features = layerInfo.features;
 				if (features && features.length > 0) {
 					popupTable += this.getFeatureInfoPopup(layerName, features, layerInfoColumn);
@@ -321,7 +320,7 @@ export class MapService {
 		markerInfo.openPopup();
 	}
 
-	getWMSFeatureInfoParams(layer: L.TileLayer.WMS, latLng, layerPoint, map) {
+	getWMSFeatureInfoParams(layer: Layer, latLng, layerPoint, map) {
 		const containerPoint = map.layerPointToContainerPoint(layerPoint);
 		const bbox = map.getBounds().toBBoxString();
 		const mapSize = map.getSize();
@@ -329,32 +328,39 @@ export class MapService {
 		const height = mapSize.y;
 		const x = Math.round(containerPoint.x);
 		const y = Math.round(containerPoint.y);
+		const layerParams = this.getLayer(layer.layerData).wmsParams;
 		return {
 			request: 'GetFeatureInfo',
 			service: 'WMS',
 			srs: 'EPSG:4674',
-			styles: layer.wmsParams.styles,
-			transparent: layer.wmsParams.transparent,
-			version: layer.wmsParams.version,
-			format: layer.wmsParams.format,
+			styles: layerParams.styles,
+			transparent: layerParams.transparent,
+			version: layerParams.version,
+			format: layerParams.format,
 			bbox,
 			height,
 			width,
-			layers: layer.wmsParams.layers,
-			query_layers: layer.wmsParams.layers,
+			layers: layerParams.layers,
+			query_layers: layerParams.layers,
 			info_format: 'application/json',
 			x,
 			y
 		};
 	}
 
-	getWFSFeatureInfoParams(layer: L.TileLayer.WMS, latLng, layerType, layerCod) {
+	getWFSFeatureInfoParams(layer: Layer, latLng) {
 		let geomColumn = 'intersection_geom';
-		if (layerType === LayerType.DYNAMIC) {
+		if (layer.type === LayerType.DYNAMIC) {
 			geomColumn = 'geom';
-			if (layerCod === 'FOCOS') {
+			if (layer.cod === 'FOCOS') {
 				geomColumn = 'geomatria';
 			}
+		}
+		const layerParams = this.getLayer(layer.layerData).wmsParams;
+		let layerName = layerParams.layers;
+		const filter = layer.filter;
+		if (filter) {
+			layerName = filter['default']['view'];
 		}
 		return {
 			request: 'GetFeature',
@@ -362,7 +368,7 @@ export class MapService {
 			srs: 'EPSG:4674',
 			version: '2.0',
 			outputFormat: 'application/json',
-			typeNames: layer.wmsParams.layers,
+			typeNames: layerName,
 			count: 1,
 			cql_filter: `INTERSECTS(${ geomColumn }, POINT(${ latLng.lat } ${ latLng.lng }))`
 		};
@@ -407,7 +413,7 @@ export class MapService {
 	setCqlFilter(layer) {
 		const filter: FilterParam = JSON.parse(localStorage.getItem('filterState'));
 
-		if (!filter || (filter.alertType.radioValue === 'ALL') && (filter.autorization.value === 'ALL') &&
+		if (!filter || (filter.alertType.radioValue === 'ALL') && (filter.authorization.value === 'ALL') &&
 			!filter.specificSearch.isChecked && !filter.themeSelected.type) {
 			if (layer.layerData.cql_filter) {
 				delete layer.layerData.cql_filter;
@@ -452,7 +458,7 @@ export class MapService {
 			}
 		};
 
-		layer.layerData.cql_filter = specificSearch[filter.specificSearch.CarCPF.toLowerCase()](filter.specificSearch.inputValue);
+		layer.layerData.cql_filter = specificSearch[filter.specificSearch.carCPF.toLowerCase()](filter.specificSearch.inputValue);
 
 		return layer;
 	}

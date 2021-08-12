@@ -4,6 +4,7 @@
         <div class="p-field-checkbox">
             <p-radioButton [(ngModel)]="filterClass.radioValue"
                            [disabled]="disable"
+                           (click)="onAllClicked()"
                            inputId="preopt1"
                            name="CLASS_ALL"
                            value="ALL">

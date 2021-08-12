@@ -17,8 +17,6 @@ export class TableService {
 
 	unloadTableData = new Subject<Layer>();
 
-	loadReportTableData = new Subject();
-
 	clearTable = new Subject();
 
 	constructor(

@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { SidebarService } from 'src/app/services/sidebar.service';
+
 import { ConfigService } from '../../services/config.service';
+
 import { AboutOfferings } from '../../models/about-offerings.model';
 
 @Component({

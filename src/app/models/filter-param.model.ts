@@ -8,7 +8,7 @@ export class FilterParam {
 	constructor(
 		public themeSelected: FilterTheme,
 		public alertType: FilterAlertType,
-		public autorization: FilterAuthorization,
+		public authorization: FilterAuthorization,
 		public specificSearch: FilterSpecificSearch,
 		public classSearch?: FilterClass
 	) {

@@ -6,17 +6,17 @@ import { FilterService } from '../../services/filter.service';
 
 import { FilterTheme } from '../../models/filter-theme.model';
 
-import { ThemeAreaComponent } from './theme-area/theme-area.component';
+import { ThemeComponent } from './theme/theme.component';
 
 import { FilterParam } from '../../models/filter-param.model';
 
 import { FilterAuthorization } from '../../models/filter-authorization.model';
 
-import { AuthorizationAreaComponent } from './authorization-area/authorization-area.component';
+import { AuthorizationComponent } from './authorization/authorization.component';
 
-import { AlertTypeAreaComponent } from './alert-type-area/alert-type-area.component';
+import { AlertTypeComponent } from './alert-type/alert-type.component';
 
-import { SpecificSearchAreaComponent } from './specific-search-area/specific-search-area.component';
+import { SpecificSearchComponent } from './specific-search/specific-search.component';
 
 import { FilterSpecificSearch } from '../../models/filter-specific-search.model';
 
@@ -24,7 +24,7 @@ import { FilterAlertType } from '../../models/filter-alert-type.model';
 
 import { FilterClass } from '../../models/filter-class.model';
 
-import { ClassAreaComponent } from './class-area/class-area.component';
+import { ClassComponent } from './class/class.component';
 
 @Component({
 	selector: 'app-filter',
@@ -33,11 +33,11 @@ import { ClassAreaComponent } from './class-area/class-area.component';
 })
 export class FilterComponent implements OnInit, AfterViewInit {
 	@ViewChild('filterForm') filterForm: NgForm;
-	@ViewChild('themeAreaComponent') themeAreaComponent: ThemeAreaComponent;
-	@ViewChild('alertTypeAreaComponent') alertTypeAreaComponent: AlertTypeAreaComponent;
-	@ViewChild('authorizationAreaComponent') authorizationAreaComponent: AuthorizationAreaComponent;
-	@ViewChild('specificSearchAreaComponent') specificSearchAreaComponent: SpecificSearchAreaComponent;
-	@ViewChild('classAreaComponent') classAreaComponent: ClassAreaComponent;
+	@ViewChild('themeAreaComponent') themeAreaComponent: ThemeComponent;
+	@ViewChild('alertTypeAreaComponent') alertTypeAreaComponent: AlertTypeComponent;
+	@ViewChild('authorizationAreaComponent') authorizationAreaComponent: AuthorizationComponent;
+	@ViewChild('specificSearchAreaComponent') specificSearchAreaComponent: SpecificSearchComponent;
+	@ViewChild('classAreaComponent') classAreaComponent: ClassComponent;
 
 	authorizationDisable: boolean;
 
@@ -66,18 +66,18 @@ export class FilterComponent implements OnInit, AfterViewInit {
 		this.filterService.displayFilter.subscribe(() => this.onDisplayFilter());
 	}
 
-	updateFilter() {
+	saveFilterState() {
 		localStorage.removeItem('filterState');
 		localStorage.setItem('filterState', JSON.stringify(this.filterParam));
 	}
 
-	getFilter() {
+	restoreFilterState() {
 		const filterState: FilterParam = JSON.parse(localStorage.getItem('filterState'));
 		if(filterState) {
 			this.filterParam = filterState;
 			this.filterService.changeAlertType.next(filterState.alertType);
 			this.filterService.changeTheme.next(filterState.themeSelected);
-			this.filterService.changeAuthorization.next(filterState.autorization);
+			this.filterService.changeAuthorization.next(filterState.authorization);
 			this.filterService.changeSpecificSearch.next(filterState.specificSearch);
 			this.filterService.changeClass.next(filterState.classSearch);
 		}
@@ -88,7 +88,7 @@ export class FilterComponent implements OnInit, AfterViewInit {
 	}
 
 	onDisplayFilter() {
-		this.getFilter();
+		this.restoreFilterState();
 		this.displayFilter = !this.displayFilter;
 	}
 
@@ -97,7 +97,7 @@ export class FilterComponent implements OnInit, AfterViewInit {
 	}
 
 	onFilterClicked(zoomIn: boolean) {
-		this.updateFilter();
+		this.saveFilterState();
 		this.filterService.filterMap.next(zoomIn);
 		this.filterService.filterDashboard.next();
 		this.filterService.filterTable.next();
@@ -107,7 +107,7 @@ export class FilterComponent implements OnInit, AfterViewInit {
 	onClearFilterClicked() {
 		this.authorizationDisable = true;
 
-		this.cleanOthers();
+		this.clearOthers();
 		this.specificSearchAreaComponent.clearAll();
 
 		this.onFilterClicked(false);
@@ -126,18 +126,18 @@ export class FilterComponent implements OnInit, AfterViewInit {
 	}
 
 	onUpdateAuthorization(authorization: FilterAuthorization) {
-		this.filterParam.autorization = authorization;
+		this.filterParam.authorization = authorization;
 	}
 
-	onUpdateSpacificSearch(spacificSearch: FilterSpecificSearch) {
-		if (spacificSearch) {
-			this.cleanOthers();
+	onUpdateSpecificSearch(specificSearch: FilterSpecificSearch) {
+		if (specificSearch) {
+			this.clearOthers();
 		}
 
-		this.filterParam.specificSearch = spacificSearch;
+		this.filterParam.specificSearch = specificSearch;
 	}
 
-	cleanOthers() {
+	clearOthers() {
 		this.themeAreaComponent.clearAll();
 		this.alertTypeAreaComponent.clearAll();
 		this.classAreaComponent.clearAll();

@@ -9,9 +9,10 @@ import { AuthService } from '../services/auth.service';
 import { environment } from 'src/environments/environment';
 
 import { SidebarService } from '../services/sidebar.service';
+
 import { PrimeNGConfig } from 'primeng/api';
+
 import { TranslateService } from '@ngx-translate/core';
-import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-root',
