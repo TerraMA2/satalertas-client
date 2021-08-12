@@ -4,7 +4,7 @@
                 'sidebar-item-body': !sidebarItem.separator
             }"
      [routerLinkActiveOptions]="{exact: true}"
-     [routerLinkActive]="[!sidebarItem.dataUrl ? 'sidebar-item-body-active' : '']"
+     [routerLinkActive]="[!sidebarItem.dataUrl ? 'active' : '']"
      [routerLink]="!sidebarItem.dataUrl ? sidebarItem.link : ''"
      class="p-align-center">
 

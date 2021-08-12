@@ -8,27 +8,27 @@
         &nbsp;&nbsp;
         <p-button (click)="onViewReportClicked('')"
                   pTooltip="{{ 'viewSynthesis' | translate }}"
-                  styleClass="btn btn-icon p-button-raised view-report-icon icon-margin synthesis-link"
+                  styleClass="p-button-raised p-button-outlined p-button-secondary view-report-icon icon-margin synthesis-link"
                   tooltipPosition="top">
             <span class="fas fa-file-invoice synthesis-icon"></span>
         </p-button>
         &nbsp;&nbsp;
         <p-button (click)="onViewReportClicked('deter')"
                   pTooltip="{{'viewDeterReport' | translate}}"
-                  styleClass="btn btn-icon p-button-raised view-report-icon"
+                  styleClass="p-button-raised p-button-outlined p-button-secondary view-report-icon"
                   tooltipPosition="top">
             <img src="assets/img/ico/deter32x32.png"/>
         </p-button>
         <p-button (click)="onViewReportClicked('prodes')"
                   pTooltip="{{'viewProdesReport' | translate}}"
-                  styleClass="btn btn-icon p-button-raised view-report-icon icon-margin"
+                  styleClass="p-button-raised p-button-outlined p-button-secondary view-report-icon icon-margin"
                   tooltipPosition="top">
             <img src="assets/img/ico/prodes32x32.png"/>
         </p-button>
 
         <p-button (click)="onViewReportClicked('queimada')"
                   pTooltip="{{'viewBurnedReport' | translate}}"
-                  styleClass="btn btn-icon p-button-raised view-report-icon icon-margin"
+                  styleClass="p-button-raised p-button-outlined p-button-secondary view-report-icon icon-margin"
                   tooltipPosition="top">
             <img src="assets/img/ico/queima.ico"/>
         </p-button>
@@ -67,11 +67,15 @@
             [height]="'calc(100vh - 100px)'"
             [language]="'pt-BR'"
             [textLayer]="true"
-            [useBrowserLocale]="true">
+            [useBrowserLocale]="true"
+            [showDownloadButton]="false"
+            [showBookmarkButton]="false"
+            [showOpenFileButton]="false"
+            [showPrintButton]="false">
     </ngx-extended-pdf-viewer>
 </div>
 
-<div *ngIf="!docBase64" class="final-report-loading">
+<div *ngIf="!docBase64" class="report-loading">
     <p-progressSpinner animationDuration="1s" strokeWidth="6"></p-progressSpinner>
 </div>
 <p-confirmDialog [baseZIndex]="10000" [style]="{width: '25vw'}"></p-confirmDialog>

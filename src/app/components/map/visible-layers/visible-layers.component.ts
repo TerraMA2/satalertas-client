@@ -57,8 +57,8 @@ export class VisibleLayersComponent implements OnInit {
 
 			const items = [];
 
-			itemDraggedToIndex += 1001;
-			draggedItemIndex += 1001;
+			itemDraggedToIndex += 1000;
+			draggedItemIndex += 1000;
 			items.push({ item: this.draggedItem, index: draggedItemIndex });
 			items.push({ item: itemDraggedTo, index: itemDraggedToIndex });
 			items.push({ selectedLayers: this.selectedLayers });
