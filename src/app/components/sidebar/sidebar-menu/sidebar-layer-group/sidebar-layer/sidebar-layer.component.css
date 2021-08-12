@@ -7,12 +7,12 @@
 }
 
 .sidebar-layer-tools i {
-    color: black;
+    color: var(--text-color);
     margin: 4px;
 }
 
 .sidebar-layer-tools i:hover {
-    color: #591111;
+    color: var(--primary-color);
     text-shadow: 0 0 1px black;
 }
 
@@ -48,7 +48,7 @@
 }
 
 .sidebar-layer-alert a {
-    color: black;
+    color: var(--text-color);
     font-size: 20px;
 }
 

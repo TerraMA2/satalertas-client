@@ -12,56 +12,11 @@
     text-align: center;
 }
 
-::-webkit-scrollbar {
-    width: 9px;
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: #591111;
-    border-radius: 5px;
-}
-
-:host ::ng-deep .btn {
-    background-color: #ffffff !important;
-}
-
-.btn:hover {
-    background-color: #CBC5C7 !important;
-}
-
-.btn:active {
-    background-color: #591111 !important;
-}
-
-.icon-margin {
-    margin-left: 5px !important;
-}
-
-.view-report-icon {
-    vertical-align: middle;
-    width: 32px;
-    height: 32px;
-    padding: 0;
-}
-
-.btn-icon {
-    background-color: #ffffff !important;
-}
-
-.btn-icon:hover {
-    background-color: #CBC5C7 !important;
-}
-
-.btn-icon:active {
-    background-color: #591111 !important;
-}
-
 icon-margin {
     margin: unset;
     margin-left: 5px !important;
 }
 
 .synthesis-link {
-    color: #591111;
     margin: 10px 10px;
 }

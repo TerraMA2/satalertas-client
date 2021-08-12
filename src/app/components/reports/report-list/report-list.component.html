@@ -16,6 +16,7 @@
          [responsive]="true"
          [rowTrackBy]="trackById"
          [rows]="selectedRowsPerPage"
+         [rowHover]="true"
          [first]="first"
          [sortField]="sortField"
          [sortOrder]="sortOrder"
@@ -89,7 +90,7 @@
                             iconPos="left"
                             label="{{'export' | translate}}"
                             pTooltip="{{ 'exportSelected' | translate }}"
-                            styleClass="ui-button-raised"
+                            styleClass="p-button-raised"
                             tooltipPosition="left">
                     </p-button>
 
@@ -144,7 +145,7 @@
             </td>
             <td class="ui-resizable-column">
                 <button *ngIf="showDeter"
-                        class="btn ui-button-raised view-report-icon"
+                        class="p-button-raised p-button-outlined p-button-secondary view-report-icon"
                         pButton
                         pTooltip="{{ 'viewDeterReport' | translate }}"
                         routerLink="/reports/deter/{{getRegister(rowData)}}"
@@ -152,7 +153,7 @@
                     <img src="assets/img/ico/deter32x32.png"/>
                 </button>
                 <button *ngIf="showProdes"
-                        class="btn ui-button-raised view-report-icon icon-margin"
+                        class="p-button-raised p-button-outlined p-button-secondary view-report-icon icon-margin"
                         pButton
                         pTooltip="{{ 'viewProdesReport' | translate }}"
                         routerLink="/reports/prodes/{{getRegister(rowData)}}"
@@ -160,14 +161,14 @@
                     <img src="assets/img/ico/prodes32x32.png"/>
                 </button>
                 <button *ngIf="showBurn"
-                        class="btn ui-button-raised view-report-icon icon-margin"
+                        class="p-button-raised p-button-outlined p-button-secondary view-report-icon icon-margin"
                         pButton
                         pTooltip="{{ 'viewBurnedReport' | translate }}"
                         routerLink="/reports/queimada/{{getRegister(rowData)}}"
                         tooltipPosition="top">
                     <img src="assets/img/ico/queima.ico"/>
                 </button>
-                <button class="btn ui-button-raised view-report-icon icon-margin"
+                <button class="p-button-raised p-button-outlined p-button-secondary view-report-icon icon-margin"
                         pButton
                         pTooltip="{{ 'viewSynthesis' | translate }}"
                         routerLink="/synthesis/{{getRegister(rowData)}}">

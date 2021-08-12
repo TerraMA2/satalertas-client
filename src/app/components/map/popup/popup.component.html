@@ -17,7 +17,7 @@
         </table>
     </div>
     <div class="link-container">
-        <button class="btn btn-icon p-button-raised view-report-icon icon-margin"
+        <button class="p-button-raised p-button-secondary view-report-icon icon-margin"
                 pButton
                 pTooltip="{{'viewSynthesis' | translate}}"
                 routerLink="{{ linkSynthesis }}"
@@ -25,7 +25,7 @@
             <span class="fas fa-file-invoice synthesis-link"></span>
         </button>
         <div *ngIf="linkDETER">
-            <button class="btn btn-icon p-button-raised view-report-icon icon-margin"
+            <button class="p-button-raised p-button-secondary view-report-icon icon-margin"
                     pButton
                     pTooltip="{{'viewDeterReport' | translate}}"
                     routerLink="{{ linkDETER }}"
@@ -34,7 +34,7 @@
             </button>
         </div>
         <div *ngIf="linkPRODES">
-            <p-button class="p-button-raised view-report-icon icon-margin"
+            <p-button class="p-button-raised p-button-secondary view-report-icon icon-margin"
                pTooltip="{{'viewProdesReport' | translate}}"
                routerLink="{{ linkPRODES }}"
                tooltipPosition="top">
@@ -42,7 +42,7 @@
             </p-button>
         </div>
         <div *ngIf="linkFireSpot">
-            <p-button class="p-button-raised view-report-icon icon-margin"
+            <p-button class="p-button-raised p-button-secondary view-report-icon icon-margin"
                pTooltip="{{'viewBurnedReport' | translate}}"
                routerLink="{{ linkFireSpot }}"
                tooltipPosition="top">

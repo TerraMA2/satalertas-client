@@ -21,7 +21,7 @@
     </div>
 </div>
 <div [ngClass]="{show: isLayerGroupOpened, hide: !isLayerGroupOpened}"
-     class="collapse border-left-right">
+     class="collapse">
 
     <app-sidebar-layer *ngFor="let layer of sidebarLayers; trackBy: trackById"
                        [displayChild]="true"

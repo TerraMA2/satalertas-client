@@ -12,21 +12,21 @@
     </div>
     <div class="p-toolbar-group-right">
         <button (click)="onViewReportClicked('deter')"
-                class="btn-icon p-button-raised view-report-icon icon-margin"
+                class="p-button-raised p-button-outlined p-button-secondary view-report-icon icon-margin"
                 pButton
                 pTooltip="{{'viewDeterReport' | translate}}"
                 tooltipPosition="top">
             <img src="assets/img/ico/deter32x32.png"/>
         </button>
         <button (click)="onViewReportClicked('prodes')"
-                class="btn-icon p-button-raised view-report-icon icon-margin"
+                class="p-button-raised p-button-outlined p-button-secondary view-report-icon icon-margin"
                 pButton
                 pTooltip="{{'viewProdesReport' | translate}}"
                 tooltipPosition="top">
             <img src="assets/img/ico/prodes32x32.png"/>
         </button>
         <button (click)="onViewReportClicked('queimada')"
-                class="btn-icon p-button-raised view-report-icon icon-margin"
+                class="p-button-raised p-button-outlined p-button-secondary view-report-icon icon-margin"
                 pButton
                 pTooltip="{{'viewBurnedReport' | translate}}"
                 tooltipPosition="top">
@@ -90,6 +90,5 @@
                     [formattedFilterDate]="formattedFilterDate"></app-report-ndvi>
         </div>
     </div>
-    <p-scrollTop [threshold]="100" icon="fas fa-arrow-circle-up" styleClass="custom-scrolltop"
-                 target="parent"></p-scrollTop>
+    <p-scrollTop [threshold]="100" icon="fas fa-arrow-circle-up" target="parent" [style]="{bottom: '40px'}"></p-scrollTop>
 </p-scrollPanel>

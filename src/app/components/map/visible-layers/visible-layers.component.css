@@ -7,7 +7,7 @@
     background-color: #fefefe;
     transition: background-color 500ms ease-in-out;
     font-weight: bold;
-    color: #5f5f5f;
+    color: var(--text-color);
     margin-bottom: 5px;
     border-radius: 5px;
     box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
@@ -15,7 +15,7 @@
 
 .visible-layers-item:hover {
     background-color: #eee;
-    color: #777;
+    color: var(--text-color);
 }
 
 .visible-layers-item > i {

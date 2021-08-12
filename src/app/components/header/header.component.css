@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: #591111;
+    background: var(--primary-color);
     width: 100%;
     top: 0;
     left: 0;
@@ -63,10 +63,6 @@
 
 .button-filter {
     margin: 15% 0 15% 2%;
-}
-
-.background-color-white {
-    background-color: #fff;
 }
 
 :host ::ng-deep .hide-button {

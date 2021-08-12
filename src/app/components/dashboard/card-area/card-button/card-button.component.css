@@ -1,24 +1,16 @@
 .btn-alert {
     height: 4rem;
     width: 100%;
-    font-size: 1.1em;
+    font-size: 1.1rem;
     display: inline-grid;
     border-radius: 18px;
-    background-color: #f4f4f4;
     border: none;
-    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .15);
-    color: #591111;
+    box-shadow: 0 2px 3px 0 #ccc;
     cursor: pointer;
 }
 
 .btn-alert:first-of-type {
     margin-bottom: 20px;
-}
-
-.p-card-active {
-    background-color: #591111;
-    color: white;
-    opacity: 1;
 }
 
 .btn-alert-title {
