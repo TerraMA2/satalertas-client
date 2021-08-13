@@ -36,7 +36,8 @@ export class Layer {
 		public markerSelected?: boolean,
 		public tableOwner?: string,
 		public tableName?: string,
-		public leafletId?: number
+		public subLayers?: [],
+		public leafletId?: number,
 	) {
 	}
 }
