@@ -3,5 +3,5 @@ export interface Group {
 	name?: string;
 	code?: string;
 	active_area?: boolean;
-	view_graph?: boolean;
+	dashboard?: boolean;
 }
