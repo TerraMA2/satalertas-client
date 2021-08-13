@@ -17,7 +17,9 @@ import { View } from '../../../models/view.model';
 import { LayerType } from '../../../enum/layer-type.enum';
 
 import { ExportService } from '../../../services/export.service';
+
 import { AuthService } from '../../../services/auth.service';
+
 import { User } from '../../../models/user.model';
 
 @Component({
@@ -104,7 +106,7 @@ export class LayerToolsComponent implements OnInit {
 		const params = this.filterService.getParams(view);
 		params['fileFormats'] = selectedFormats.toString();
 
-		await this.exportService.export(params, selectedFormats, tableName);
+		await this.exportService.export({params}, selectedFormats, tableName);
 
 		this.isExportLoading = false;
 	}

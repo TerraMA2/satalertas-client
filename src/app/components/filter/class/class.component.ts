@@ -1,15 +1,19 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
 import { FilterClass } from '../../../models/filter-class.model';
+
 import { ConfigService } from '../../../services/config.service';
+
 import { FilterAlertAnalyses } from '../../../models/filter-alert-type-analyzes.model';
+
 import { FilterService } from '../../../services/filter.service';
 
 @Component({
-	selector: 'app-class-area',
-	templateUrl: './class-area.component.html',
-	styleUrls: ['./class-area.component.css']
+	selector: 'app-class',
+	templateUrl: './class.component.html',
+	styleUrls: ['./class.component.css']
 })
-export class ClassAreaComponent implements OnInit, AfterViewInit {
+export class ClassComponent implements OnInit, AfterViewInit {
 
 	@Input() disable;
 	@Output() onChangeClassFilter: EventEmitter<FilterClass> = new EventEmitter<FilterClass>();
@@ -24,6 +28,7 @@ export class ClassAreaComponent implements OnInit, AfterViewInit {
 	}
 
 	ngOnInit() {
+		this.filterService.changeClass.subscribe(value => this.filterClass = value);
 		this.filterClass = new FilterClass('ALL', []);
 		this.filter = this.configService.getFilterConfig('classSearch');
 	}
@@ -43,8 +48,14 @@ export class ClassAreaComponent implements OnInit, AfterViewInit {
 	}
 
 	public clearAll() {
-		this.filterClass = new FilterClass('ALL', this.filterClass.analyzes);
-		this.onChangeClassFilter.emit(this.filterClass);
+		if (this.filterClass) {
+			this.filterClass = new FilterClass('ALL', this.filterClass.analyzes);
+			this.onChangeClassFilter.emit(this.filterClass);
+		}
+	}
+
+	onAllClicked() {
+		this.filterClass.analyzes.forEach(analysis => analysis.valueOption = undefined);
 	}
 
 	checkValid() {

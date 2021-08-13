@@ -12,48 +12,11 @@
     text-align: center;
 }
 
-.link {
-    font-size: 1.17em;
-    font-weight: bold;
-}
-
-::-webkit-scrollbar {
-    width: 9px;
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: #591111;
-    border-radius: 5px;
-}
-
-:host ::ng-deep .btn {
-    background-color: #ffffff !important;
-}
-
-.btn:hover {
-    background-color: #CBC5C7 !important;
-}
-
-.btn:active {
-    background-color: #591111 !important;
-}
-
-.icon-margin {
+icon-margin {
+    margin: unset;
     margin-left: 5px !important;
 }
 
-.synthesis-icon {
-    color: #591111;
-    margin: 10px 8px;
-}
-
-.report-button {
-    text-align: center;
-    width: 200px;
-    height: 70px;
-}
-
 .synthesis-link {
-    font-size: 20px;
-    color: #591111;
+    margin: 10px 10px;
 }

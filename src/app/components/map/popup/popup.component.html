@@ -17,39 +17,37 @@
         </table>
     </div>
     <div class="link-container">
-        <a class="btn btn-icon p-button-raised view-report-icon icon-margin synthesis-link"
-           pTooltip="{{'viewSynthesis' | translate}}"
-
-           routerLink="{{ linkSynthesis }}"
-           tooltipPosition="top">
-            <span class="fas fa-file-invoice synthesis-icon"></span>
-        </a>
+        <button class="p-button-raised p-button-secondary view-report-icon icon-margin"
+                pButton
+                pTooltip="{{'viewSynthesis' | translate}}"
+                routerLink="{{ linkSynthesis }}"
+                tooltipPosition="top">
+            <span class="fas fa-file-invoice synthesis-link"></span>
+        </button>
         <div *ngIf="linkDETER">
-            <a class="btn btn-icon p-button-raised view-report-icon icon-margin"
-               pTooltip="{{'viewDeterReport' | translate}}"
-
-               routerLink="{{ linkDETER }}"
-               tooltipPosition="top">
+            <button class="p-button-raised p-button-secondary view-report-icon icon-margin"
+                    pButton
+                    pTooltip="{{'viewDeterReport' | translate}}"
+                    routerLink="{{ linkDETER }}"
+                    tooltipPosition="top">
                 <img src="assets/img/ico/deter32x32.png"/>
-            </a>
+            </button>
         </div>
         <div *ngIf="linkPRODES">
-            <a class="btn btn-icon p-button-raised view-report-icon icon-margin"
+            <p-button class="p-button-raised p-button-secondary view-report-icon icon-margin"
                pTooltip="{{'viewProdesReport' | translate}}"
-
                routerLink="{{ linkPRODES }}"
                tooltipPosition="top">
                 <img src="assets/img/ico/prodes32x32.png"/>
-            </a>
+            </p-button>
         </div>
         <div *ngIf="linkFireSpot">
-            <a class="btn btn-icon p-button-raised view-report-icon icon-margin"
+            <p-button class="p-button-raised p-button-secondary view-report-icon icon-margin"
                pTooltip="{{'viewBurnedReport' | translate}}"
-
                routerLink="{{ linkFireSpot }}"
                tooltipPosition="top">
                 <img src="assets/img/ico/queima.ico"/>
-            </a>
+            </p-button>
         </div>
     </div>
 </div>

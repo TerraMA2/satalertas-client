@@ -10,7 +10,6 @@ import { MapService } from '../../../../../services/map.service';
 
 import { LayerGroup } from '../../../../../models/layer-group.model';
 import { AuthService } from '../../../../../services/auth.service';
-import { User } from '../../../../../models/user.model';
 
 @Component({
 	selector: 'app-sidebar-layer',
@@ -34,7 +33,6 @@ export class SidebarLayerComponent implements OnInit {
 	@Input() displayChild = false;
 
 	isSelected = false;
-	loggedUser: User = null;
 	disableTool = {};
 
 	constructor(
@@ -63,7 +61,7 @@ export class SidebarLayerComponent implements OnInit {
 
 		this.sidebarService.sidebarLayerGroupRadioDeselect.subscribe((layerGroup: LayerGroup) => {
 			layerGroup.children.forEach((layer: Layer) => {
-				if (layer.value === this.layer.value && this.layer.showMarker) {
+				if (layer.value === this.layer.value && this.layer.isPrimary) {
 					this.mapService.clearMarkers.next();
 					this.showMarkerRadio = null;
 				}
@@ -97,7 +95,7 @@ export class SidebarLayerComponent implements OnInit {
 	deselectItem() {
 		this.sidebarService.sidebarLayerDeselect.next(this.layer);
 		this.tableService.unloadTableData.next(this.layer);
-		if (this.layer.showMarker && this.showMarkerRadio) {
+		if (this.layer.isPrimary && this.showMarkerRadio) {
 			this.sidebarService.sidebarItemRadioDeselect.next(this.layer);
 			this.showMarkerRadio = null;
 		}

@@ -86,6 +86,13 @@
         "value": ""
       },
       {
+        "icon": "fas fa-file-invoice",
+        "label": "reportButton",
+        "link": "/reports",
+        "method": "",
+        "value": ""
+      },
+      {
         "separator": "true"
       }
     ]
@@ -260,6 +267,13 @@
           "label": "1000",
           "value": 1000
         }
+      ],
+      "excludedColumns": [
+        "lat",
+        "long",
+        "geom",
+        "intersection_geom",
+        "has_pdf"
       ]
     },
     "export": {
@@ -288,27 +302,27 @@
     "alertType": {
       "analyzes": [
         {
-          "label": "Análise DETER",
+          "label": "deterAnalysis",
           "value": "deter"
         },
         {
-          "label": "Análise PRODES",
+          "label": "prodesAnalysis",
           "value": "deforestation"
         },
         {
-          "label": "Análise FOCOS",
+          "label": "fireSpotAnalysis",
           "value": "burned"
         },
         {
-          "label": "Análise Área Queimada",
+          "label": "burnedAreaAnalysis",
           "value": "burned_area"
         },
         {
-          "label": "Área do Imóvel CAR",
+          "label": "carArea",
           "value": "car_area"
         }
       ],
-      "optionsFocos": [
+      "fireSpotOptions": [
         {
           "label": "< 10",
           "value": 1
@@ -364,7 +378,7 @@
     "classSearch": {
       "analyzes": [
         {
-          "label": "Classes DETER",
+          "label": "deterClasses",
           "value": "deter"
         }
       ]

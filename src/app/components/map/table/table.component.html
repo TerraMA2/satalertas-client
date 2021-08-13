@@ -1,9 +1,4 @@
-<br/>
-<p-table (onHeaderCheckboxToggle)="onHeaderCheckboxToggle($event)"
-         (onLazyLoad)="onLazyLoad($event)"
-         (onRowExpand)="onRowExpand($event)"
-         (onRowSelect)="onRowSelect()"
-         (onRowUnselect)="onRowUnselect()"
+<p-table (onLazyLoad)="onLazyLoad($event)"
          [(selection)]="selectedProperties"
          [columns]="selectedColumns"
          [lazy]="true"
@@ -14,15 +9,11 @@
          [responsive]="true"
          [rowTrackBy]="trackById"
          [rows]="selectedRowsPerPage"
-         [scrollHeight]="tableReportActive ? '68vh' : '42vh'"
+         [scrollHeight]="'45vh'"
          [scrollable]="true"
          [totalRecords]="totalRecords"
          [value]="tableData"
-         dataKey="gid"
-         exportFilename="Satélites_Alertas_CAR"
-         loadingIcon="fas fa-circle-notch color-black"
-         responsive="true"
-         rowExpandMode="single">
+         [loadingIcon]="'fas fa-circle-notch color-black'">
     <ng-template pTemplate="caption">
         <div class="p-grid p-nogutter">
 
@@ -51,160 +42,44 @@
 
                     <p-dropdown #selectedLayersDropdown
                                 (onChange)="onSelectedLayerChange(selectedLayersDropdown)"
-                                *ngIf="!tableReportActive"
                                 [(ngModel)]="selectedLayerValue"
                                 [options]="selectedLayers"
                                 [style]="{minWidth: '200px'}"
                                 placeholder="Layers">
                     </p-dropdown>
 
-                    &nbsp;&nbsp;
-
-                    <p-dropdown #selectedFilter
-                                (onChange)="onFilterChange(selectedFilter)"
-                                *ngIf="tableReportActive"
-                                [(ngModel)]="selectedFilterValue"
-                                [options]="filters">
-                    </p-dropdown>
-
                 </div>
-            </div>
-
-            <div class="p-col-12 p-md-6 p-col-nogutter">
-
-                <div class="float-right">
-
-                    <p-multiSelect *ngIf="tableReportActive"
-                                   [(ngModel)]="selectedFormats"
-                                   [disabled]="isExportDisabled || isLoading"
-                                   [filter]="false"
-                                   [options]="formats"
-                                   [style]="{minWidth: '16rem'}"
-                                   defaultLabel="{{'selectFormat' | translate}}"
-                                   maxSelectedLabels="4">
-                    </p-multiSelect>
-
-                    &nbsp;&nbsp;
-
-                    <p-button
-                            (click)="onExportClick()"
-                            *ngIf="tableReportActive"
-                            [disabled]="isExportDisabled || isLoading"
-                            icon="fas fa-save"
-                            iconPos="left"
-                            label="{{'export' | translate}}"
-                            pTooltip="{{ 'exportSelected' | translate }}"
-                            styleClass="ui-button-raised"
-                            tooltipPosition="top">
-                    </p-button>
-
-                </div>
-
             </div>
 
         </div>
     </ng-template>
 
-    <ng-template let-columns pTemplate="header">
+    <ng-template let-columns
+                 pTemplate="header">
         <tr>
-            <th *ngIf="tableReportActive"
-                style="width: 2.5em"></th>
-            <th *ngIf="tableReportActive"
-                style="width: 3.2em"></th>
-            <th *ngIf="tableReportActive" style="width: 3.2em">
-                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-            </th>
             <th *ngFor="let col of columns; trackBy: trackById" [pSortableColumn]="col.field" pReorderableColumn>
                 {{col.header}}
                 <p-sortIcon [field]="col.field"></p-sortIcon>
             </th>
-            <th *ngIf="tableReportActive"></th>
         </tr>
     </ng-template>
 
     <ng-template let-columns="columns"
-                 let-expanded="expanded"
                  let-rowData
                  pTemplate="body">
         <tr [pSelectableRow]="rowData">
-            <td *ngIf="tableReportActive"
-                style="width: 2.5em">
-                <a [pRowToggler]="rowData">
-                    <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
-                </a>
-            </td>
-            <td *ngIf="tableReportActive"
-                style="width: 3.2em">
-                <i [ngClass]="rowData.has_pdf ? 'pi pi-file-pdf' : 'pi pi-file-o'" style="font-size: 1.6em;"></i>
-            </td>
-            <td *ngIf="tableReportActive"
-                style="width:3em">
-                <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
-            </td>
             <td *ngFor="let col of columns; trackBy: trackById" pTooltip="{{ rowData[col.field] }}"
                 style="overflow: hidden;word-break: break-all;" tooltipPosition="top">
                 {{rowData[col.field]}}
             </td>
-            <td *ngIf="tableReportActive">
-                <button *ngIf="tableReportActive && showDeter"
-                        class="btn ui-button-raised view-report-icon"
-                        pButton
-                        pTooltip="{{ 'viewDeterReport' | translate }}"
-                        routerLink="/reports/deter/{{getRegister(rowData)}}"
-                        tooltipPosition="top">
-                    <img src="assets/img/ico/deter32x32.png"/>
-                </button>
-                <button *ngIf="tableReportActive && showProdes"
-                        class="btn ui-button-raised view-report-icon icon-margin"
-                        pButton
-                        pTooltip="{{ 'viewDeterReport' | translate }}"
-                        routerLink="/reports/prodes/{{getRegister(rowData)}}"
-                        tooltipPosition="top">
-                    <img src="assets/img/ico/prodes32x32.png"/>
-                </button>
-                <button *ngIf="tableReportActive && showBurn"
-                        class="btn ui-button-raised view-report-icon icon-margin"
-                        pButton
-                        pTooltip="{{ 'viewBurnedReport' | translate }}"
-                        routerLink="/reports/queimada/{{getRegister(rowData)}}"
-                        tooltipPosition="top">
-                    <img src="assets/img/ico/queima.ico"/>
-                </button>
-                <button class="btn ui-button-raised view-report-icon icon-margin"
-                        pButton
-                        pTooltip="{{ 'viewSynthesis' | translate }}"
-                        routerLink="/synthesis/{{getRegister(rowData)}}">
-                    <i class="fa fa-file-invoice synthesis-link"></i>
-                </button>
-            </td>
         </tr>
     </ng-template>
 
-    <ng-template pTemplate="rowexpansion">
-        <tr>
-            <td [attr.colspan]="selectedColumns.length + 4">
-                <div *ngIf="reports.length > 0" class="p-grid text-left">
-                    <div *ngFor="let report of reports; trackBy: trackById" class="p-col">
-                        <p-button (click)="getReport(report)"
-                                  [label]="report.name"
-                                  pTooltip="{{'downloadReport' | translate}}"
-                                  styleClass="report-history-item ui-button-raised report-button"
-                                  tooltipPosition="top">
-                            {{report.createdAt | date:'dd/MM/yyyy HH:mm:ss' }}
-                        </p-button>
-                    </div>
-                </div>
-                <div *ngIf="reports.length === 0" class="p-grid text-center">
-                    <h4 class="p-col text-center">{{ 'noReportFound' | translate}}</h4>
-                </div>
-            </td>
-        </tr>
-    </ng-template>
-
-    <ng-template let-state pTemplate="paginatorright">
+    <ng-template let-state
+                 pTemplate="paginatorright">
         <strong>{{state.totalRecords | number:'1.0-4':'pt' }} {{'registers' | translate}}</strong>
         &nbsp;
-        <strong *ngIf="tableReportActive">{{selectedProperties ? selectedProperties?.length : '0' }} {{'selecteds' | translate}}</strong>
+        <strong>{{selectedProperties ? selectedProperties?.length : '0' }} {{'selecteds' | translate}}</strong>
     </ng-template>
 
 </p-table>

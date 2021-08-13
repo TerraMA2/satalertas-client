@@ -13,7 +13,7 @@ import { environment } from '../../environments/environment';
 })
 export class ReportService {
 
-	URL_REPORT_SERVER = environment.reportServerUrl + '/report';
+	URL_REPORT_SERVER = environment.serverUrl + '/report';
 
 	property = new Subject<Property>();
 
@@ -76,11 +76,11 @@ export class ReportService {
 		return await this.httpService.post(url, params).toPromise();
 	}
 
-	async getReportsByCARCod(carCode) {
+	async getReportsByCARCod(carGid) {
 		const url = this.URL_REPORT_SERVER + '/getReportsByCARCod';
 		const params = {
 			params: {
-				carCode
+				carGid
 			}
 		};
 

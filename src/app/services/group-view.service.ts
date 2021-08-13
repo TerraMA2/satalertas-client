@@ -10,7 +10,7 @@ import { HTTPService } from './http.service';
 
 export class GroupViewService {
 
-	url = environment.reportServerUrl + '/groupView';
+	url = environment.serverUrl + '/groupView';
 
 	constructor(
 		private httpService: HTTPService

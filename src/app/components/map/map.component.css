@@ -1,5 +1,5 @@
 .map {
-    z-index: 1001;
+    z-index: 1000;
 }
 
 .loading-map {
@@ -24,12 +24,6 @@
 
 :host ::ng-deep .leaflet-custom-icon-selected {
     background-color: #c0c0c0;
-}
-
-:host ::ng-deep .leaflet-report-table-icon {
-    padding: 2px 10px;
-    width: unset;
-    height: unset;
 }
 
 :host ::ng-deep .leaflet-latlong-icon {

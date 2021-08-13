@@ -13,7 +13,9 @@ import { SidebarService } from 'src/app/services/sidebar.service';
 import { SynthesisService } from '../../services/synthesis.service';
 
 import { Response } from '../../models/response.model';
+
 import { NavigationService } from '../../services/navigation.service';
+
 import { SynthesisCard } from '../../models/synthesis-card.model';
 
 @Component({
@@ -54,8 +56,6 @@ export class SynthesisComponent implements OnInit {
 	titleDetailedVisions;
 	titleDeforestation;
 
-	previousUrl: string;
-
 	constructor(
 		private activatedRoute: ActivatedRoute,
 		private configService: ConfigService,
@@ -68,7 +68,6 @@ export class SynthesisComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.previousUrl = localStorage.getItem('previousUrl');
 		this.filterService.filterSynthesis.subscribe(() => {
 			if (this.router.url.startsWith('/synthesis')) {
 				this.getPropertyData();

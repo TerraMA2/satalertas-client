@@ -35,30 +35,15 @@
     background-color: #eee;
 }
 
-:host ::ng-deep .sidebar-layer-group-body.active,
-:host ::ng-deep .sidebar-layer-body.active {
-    background-color: #591111;
-    color: #fff;
-}
-
-:host ::ng-deep .sidebar-layer-group-body.active:hover,
-:host ::ng-deep .sidebar-layer-body.active:hover {
-    background-color: #591111;
-    color: #fff;
-}
-
 :host ::ng-deep .sidebar-layer-group-body.active a,
 :host ::ng-deep .sidebar-layer-group-body.active i,
 :host ::ng-deep .sidebar-layer-body.active a,
-:host ::ng-deep .sidebar-layer-body.active i {
-    color: #fff;
-}
-
+:host ::ng-deep .sidebar-layer-body.active i,
 :host ::ng-deep .sidebar-layer-group-body.active:hover a,
 :host ::ng-deep .sidebar-layer-group-body.active:hover i,
 :host ::ng-deep .sidebar-layer-body.active:hover a,
 :host ::ng-deep .sidebar-layer-body.active:hover i {
-    color: #eee;
+    color: var(--active-text);
 }
 
 :host ::ng-deep .sidebar-layer-group-body a,
@@ -66,7 +51,7 @@
 :host ::ng-deep .sidebar-layer-body a,
 :host ::ng-deep .sidebar-layer-body .sidebar-layer-group-arrow {
     margin-left: 5px;
-    color: #5f5f5f;
+    color: var(--text-color);
     font-weight: bold;
     text-decoration: none;
 }
@@ -75,7 +60,7 @@
 :host ::ng-deep .sidebar-layer-group-body:hover i,
 :host ::ng-deep .sidebar-layer-body:hover a,
 :host ::ng-deep .sidebar-layer-body:hover i {
-    color: #591111;
+    color: var(--primary-color);
 }
 
 :host ::ng-deep .sidebar-layer-body {

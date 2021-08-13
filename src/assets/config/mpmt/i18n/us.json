@@ -77,6 +77,8 @@
   "zoomOut": "Zoom out",
   "searchCar": "Search by CAR register",
   "fullscreen": "Fullscreen",
+  "deterClasses": "DETER classes",
+  "theme": "Theme: ",
   "primeng": {
     "startsWith": "Starts with",
     "contains": "Contains",

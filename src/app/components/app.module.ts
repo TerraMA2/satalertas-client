@@ -61,18 +61,17 @@ import { SidebarFooterComponent } from './sidebar/sidebar-footer/sidebar-footer.
 import { SidebarLayerComponent } from './sidebar/sidebar-menu/sidebar-layer-group/sidebar-layer/sidebar-layer.component';
 import { VisibleLayersComponent } from './map/visible-layers/visible-layers.component';
 import { PopupComponent } from './map/popup/popup.component';
-import { GraphicsAreaComponent } from './dashboard/graphics-area/graphics-area.component';
 import { CardAreaComponent } from './dashboard/card-area/card-area.component';
 import { CardButtonComponent } from './dashboard/card-area/card-button/card-button.component';
-import { ThemeAreaComponent } from './filter/theme-area/theme-area.component';
-import { AlertTypeAreaComponent } from './filter/alert-type-area/alert-type-area.component';
-import { AuthorizationAreaComponent } from './filter/authorization-area/authorization-area.component';
-import { SpecificSearchAreaComponent } from './filter/specific-search-area/specific-search-area.component';
-import { FooterFilterAreaComponent } from './filter/footer-filter-area/footer-filter-area.component';
+import { ThemeComponent } from './filter/theme/theme.component';
+import { AlertTypeComponent } from './filter/alert-type/alert-type.component';
+import { AuthorizationComponent } from './filter/authorization/authorization.component';
+import { SpecificSearchComponent } from './filter/specific-search/specific-search.component';
+import { FooterFilterComponent } from './filter/footer-filter/footer-filter.component';
 import { ReportComponent } from './reports/report/report.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MessagesModule } from 'primeng/messages';
-import { ClassAreaComponent } from './filter/class-area/class-area.component';
+import { ClassComponent } from './filter/class/class.component';
 import { ListboxModule } from 'primeng/listbox';
 import { LayerToolsComponent } from './map/layer-tools/layer-tools.component';
 import { SliderModule } from 'primeng/slider';
@@ -94,6 +93,8 @@ import { SynthesisNdviComponent } from './synthesis/synthesis-ndvi/synthesis-ndv
 import { ReportListComponent } from './reports/report-list/report-list.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ReportsComponent } from './reports/reports.component';
+import { AuthGuard } from './auth/auth.guard';
+import { ChartsAreaComponent } from './dashboard/charts-area/charts-area.component';
 
 registerLocaleData(localePt, 'pt');
 
@@ -125,17 +126,17 @@ export function HttpLoaderFactory(http: HttpClient) {
 		SidebarLayerComponent,
 		VisibleLayersComponent,
 		PopupComponent,
-		GraphicsAreaComponent,
+		ChartsAreaComponent,
 		CardAreaComponent,
 		CardButtonComponent,
-		ThemeAreaComponent,
-		AlertTypeAreaComponent,
-		AuthorizationAreaComponent,
-		SpecificSearchAreaComponent,
-		FooterFilterAreaComponent,
+		ThemeComponent,
+		AlertTypeComponent,
+		AuthorizationComponent,
+		SpecificSearchComponent,
+		FooterFilterComponent,
 		SidebarItemComponent,
 		ReportComponent,
-		ClassAreaComponent,
+		ClassComponent,
 		LayerToolsComponent,
 		SettingsComponent,
 		GroupManagerComponent,
@@ -193,6 +194,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 		RippleModule,
 		MessageModule,
 		ScrollTopModule,
+		OverlayPanelModule,
 		TranslateModule.forRoot({
 			loader: {
 				provide: TranslateLoader,
@@ -200,12 +202,12 @@ export function HttpLoaderFactory(http: HttpClient) {
 				deps: [HttpClient]
 			}
 		}),
-		OverlayPanelModule,
 	],
 	providers: [
 		TreeDragDropService,
 		Title,
-		MessageService
+		MessageService,
+		AuthGuard
 	],
 	bootstrap: [AppComponent]
 })

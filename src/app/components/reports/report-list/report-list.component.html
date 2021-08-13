@@ -1,10 +1,12 @@
 <p-table (onHeaderCheckboxToggle)="onHeaderCheckboxToggle($event)"
          (onLazyLoad)="onLazyLoad($event)"
          (onRowExpand)="onRowExpand($event)"
+         (onRowCollapse)="onRowCollapse($event)"
          (onRowSelect)="onRowSelect()"
          (onRowUnselect)="onRowUnselect()"
+         (onSort)="onSort($event)"
+         (onPage)="onPage($event)"
          [(selection)]="selectedProperties"
-         [autoLayout]="true"
          [columns]="selectedColumns"
          [lazy]="true"
          [loading]="isLoading"
@@ -14,14 +16,21 @@
          [responsive]="true"
          [rowTrackBy]="trackById"
          [rows]="selectedRowsPerPage"
+         [rowHover]="true"
+         [first]="first"
+         [sortField]="sortField"
+         [sortOrder]="sortOrder"
+         [defaultSortOrder]="defaultSortOrder"
+         [expandedRowKeys]="expandedRowKey"
          [scrollHeight]="'80vh'"
          [scrollable]="true"
          [totalRecords]="totalRecords"
          [value]="tableData"
-         dataKey="gid"
-         exportFilename="Satélites_Alertas_CAR"
-         loadingIcon="fas fa-circle-notch color-black"
-         rowExpandMode="single">
+         [dataKey]="'gid'"
+         [resetPageOnSort]="false"
+         [exportFilename]="'Satélites_Alertas_CAR'"
+         [loadingIcon]="'fas fa-circle-notch color-black'"
+         [rowExpandMode]="'single'">
     <ng-template pTemplate="caption">
         <div class="p-grid p-nogutter">
 
@@ -31,6 +40,7 @@
 
                     <p-multiSelect [(ngModel)]="selectedColumns"
                                    [options]="columns"
+                                   (onChange)="onColumnsChanged($event)"
                                    [style]="{minWidth: '200px'}"
                                    defaultLabel="{{ 'selectColumns' | translate}}"
                                    optionLabel="header"
@@ -49,10 +59,10 @@
                     &nbsp;&nbsp;
 
 
-                    <p-dropdown #selectedFilter
-                                (onChange)="onFilterChange(selectedFilter)"
-                                [(ngModel)]="selectedFilterValue"
-                                [options]="filters">
+                    <p-dropdown #selectedLayer
+                                (onChange)="onLayerChange(selectedLayer)"
+                                [(ngModel)]="selectedLayerValue"
+                                [options]="reportLayers">
                     </p-dropdown>
 
                 </div>
@@ -80,7 +90,7 @@
                             iconPos="left"
                             label="{{'export' | translate}}"
                             pTooltip="{{ 'exportSelected' | translate }}"
-                            styleClass="ui-button-raised"
+                            styleClass="p-button-raised"
                             tooltipPosition="left">
                     </p-button>
 
@@ -135,7 +145,7 @@
             </td>
             <td class="ui-resizable-column">
                 <button *ngIf="showDeter"
-                        class="btn ui-button-raised view-report-icon"
+                        class="p-button-raised p-button-outlined p-button-secondary view-report-icon"
                         pButton
                         pTooltip="{{ 'viewDeterReport' | translate }}"
                         routerLink="/reports/deter/{{getRegister(rowData)}}"
@@ -143,22 +153,22 @@
                     <img src="assets/img/ico/deter32x32.png"/>
                 </button>
                 <button *ngIf="showProdes"
-                        class="btn ui-button-raised view-report-icon icon-margin"
+                        class="p-button-raised p-button-outlined p-button-secondary view-report-icon icon-margin"
                         pButton
-                        pTooltip="{{ 'viewDeterReport' | translate }}"
+                        pTooltip="{{ 'viewProdesReport' | translate }}"
                         routerLink="/reports/prodes/{{getRegister(rowData)}}"
                         tooltipPosition="top">
                     <img src="assets/img/ico/prodes32x32.png"/>
                 </button>
                 <button *ngIf="showBurn"
-                        class="btn ui-button-raised view-report-icon icon-margin"
+                        class="p-button-raised p-button-outlined p-button-secondary view-report-icon icon-margin"
                         pButton
                         pTooltip="{{ 'viewBurnedReport' | translate }}"
                         routerLink="/reports/queimada/{{getRegister(rowData)}}"
                         tooltipPosition="top">
                     <img src="assets/img/ico/queima.ico"/>
                 </button>
-                <button class="btn ui-button-raised view-report-icon icon-margin"
+                <button class="p-button-raised p-button-outlined p-button-secondary view-report-icon icon-margin"
                         pButton
                         pTooltip="{{ 'viewSynthesis' | translate }}"
                         routerLink="/synthesis/{{getRegister(rowData)}}">

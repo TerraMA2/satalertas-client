@@ -13,6 +13,7 @@ import pdfMake from 'pdfmake/build/pdfmake';
 import Chart from 'chart.js';
 
 import pdfFonts from 'pdfmake/build/vfs_fonts';
+
 import { ExportService } from '../../../services/export.service';
 
 import { AuthService } from 'src/app/services/auth.service';
@@ -24,6 +25,7 @@ import { ReportImage } from '../../../models/report-image.model';
 import { formatNumber } from '@angular/common';
 
 import { User } from '../../../models/user.model';
+
 import { NavigationService } from '../../../services/navigation.service';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -147,8 +149,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
 	};
 	downloadVectors = false;
 
-	previousUrl: string;
-
 	constructor(
 		private activatedRoute: ActivatedRoute,
 		private sidebarService: SidebarService,
@@ -164,17 +164,11 @@ export class ReportComponent implements OnInit, AfterViewInit {
 	}
 
 	async ngOnInit() {
-		this.previousUrl = localStorage.getItem('previousUrl');
 		this.inputSat = '';
 		this.textAreaComments = '';
 
-		this.authService.user.subscribe(user => {
-			this.loggedUser = user;
-			if (!user) {
-				this.router.navigateByUrl('/map');
-				this.messageService.add({ severity: 'error', summary: 'Atenção!', detail: 'Usuário não autenticado.' });
-			}
-		});
+		this.activatedRoute.data.subscribe(data => this.loggedUser = data['user']);
+
 		this.activatedRoute.params.subscribe(params => {
 			this.carRegister = params.carRegister;
 			this.type = params.type;
@@ -188,12 +182,10 @@ export class ReportComponent implements OnInit, AfterViewInit {
 			});
 		});
 
-		this.sidebarService.sidebarLayerShowHide.next(false);
-		this.sidebarService.sidebarReload.next();
 	}
 
 	async ngAfterViewInit() {
-		this.filter = localStorage.getItem('filterList');
+		this.filter = localStorage.getItem('filterState');
 		this.date = JSON.parse(localStorage.getItem('dateFilter'));
 
 		if (this.type === 'prodes') {
@@ -451,6 +443,14 @@ export class ReportComponent implements OnInit, AfterViewInit {
 		const today = new Date();
 
 		this.reportData = await this.reportService.getReportCarData(this.carRegister, this.date, this.filter, this.type).then((response: Response) => response.data);
+		if (!this.reportData) {
+			this.messageService.add({
+				severity: 'error',
+				summary: 'Error',
+				detail: 'Não foi possível carregar o relatório'
+			});
+			return;
+		}
 		await this.formatValueLocate[this.type](this.reportData);
 		this.reportData['type'] = this.type;
 		this.reportData['date'] = this.date;
@@ -599,7 +599,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
 						this.generatingReport = false;
 					} else {
 						this.generatingReport = false;
-						alert(`${ response.status } - ${ response.message }`);
 					}
 				});
 			},

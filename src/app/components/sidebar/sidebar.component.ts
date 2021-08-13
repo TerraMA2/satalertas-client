@@ -8,6 +8,7 @@ import { SidebarItem } from 'src/app/models/sidebar-item.model';
 import { Response } from '../../models/response.model';
 import { GroupService } from 'src/app/services/group.service';
 import { GroupViewService } from '../../services/group-view.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
 	selector: 'app-sidebar',
@@ -27,12 +28,15 @@ export class SidebarComponent implements OnInit {
 	logoPath: string;
 	logoLink: string;
 
+	isAuthenticated = false;
+
 	constructor(
 		private configService: ConfigService,
 		private sidebarService: SidebarService,
 		private mapService: MapService,
 		private groupService: GroupService,
-		private groupViewService: GroupViewService
+		private groupViewService: GroupViewService,
+		private authService: AuthService
 	) {
 	}
 
@@ -40,6 +44,7 @@ export class SidebarComponent implements OnInit {
 		this.sidebarConfig = this.configService.getSidebarConfig();
 		this.logoPath = this.sidebarConfig.logoPath;
 		this.logoLink = this.sidebarConfig.logoLink;
+		this.authService.user.subscribe(user => this.isAuthenticated = !!user);
 		// this.setItems();
 		this.sidebarService.sidebarReload.subscribe((type) => {
 			if (type === 'settings') {
@@ -65,6 +70,9 @@ export class SidebarComponent implements OnInit {
 		}
 		this.sidebarItems = [];
 		this.sidebarConfig.sidebarItems.forEach(sbItem => {
+			if (sbItem.auth && !this.isAuthenticated) {
+				return;
+			}
 			const sidebarItem = this.getSidebarItem(sbItem);
 			this.sidebarItems.push(sidebarItem);
 		});
@@ -184,7 +192,7 @@ export class SidebarComponent implements OnInit {
 		});
 
 		await this.groupService.getAll().then((groups) => {
-			if (!groups) {
+			if (!groups || Object.keys(groups).length === 0) {
 				return;
 			}
 			groups.forEach(async (groupLyr) => {
@@ -212,7 +220,8 @@ export class SidebarComponent implements OnInit {
 			sidebarItem.dataUrl,
 			sidebarItem.value,
 			sidebarItem.icon,
-			sidebarItem.separator
+			sidebarItem.separator,
+			sidebarItem.auth
 		);
 	}
 
