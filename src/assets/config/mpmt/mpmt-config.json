@@ -213,7 +213,7 @@
         "type": "boolean"
       },
       {
-        "field": "view_graph",
+        "field": "dashboard",
         "header": "Exibir no Dashboard",
         "type": "boolean"
       }

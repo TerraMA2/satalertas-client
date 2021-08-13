@@ -131,7 +131,7 @@ export class SidebarComponent implements OnInit {
                         sidebarLayer.parent,
                         sidebarLayer.isPrivate,
                         sidebarLayer.icon,
-                        sidebarLayer.view_graph,
+                        sidebarLayer.dashboard,
                         sidebarLayer.activeArea,
                         layerChildren,
                         sidebarLayer.tableOwner
