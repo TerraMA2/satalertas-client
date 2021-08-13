@@ -24,39 +24,38 @@ export class LayersAdvancedEditionComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		this.mergeSubLayerData();
 	};
 
 	setBooleanField(field, value) {
-		this.newData[`${ field }`] = value;
+		this.newData[`${field}`] = value;
 		this.submit = true;
 	}
 
 	mergeSubLayerData() {
 		let subLayers = [];
-		if (this.data['sub_layers']) {
-			subLayers = [...this.data['sub_layers']];
+		if (this.data['subLayers']) {
+			subLayers = [...this.data['subLayers']];
 		}
-		if (this.newData['sub_layers']) {
-			this.newData['sub_layers'].forEach(subLayer => {
+		if (this.newData['subLayers']) {
+			this.newData['subLayers'].forEach(subLayer => {
 				const subIdx = subLayers.findIndex(({ id }) => id === subLayer.id);
 				if (subIdx > 0) {
-					subLayers[subIdx] = subLayer;
+					Object.assign(subLayers[subIdx], subLayer);
 				} else {
 					subLayers.push(subLayer);
 				}
 			});
 		}
-		this.newData['sub_layers'] = subLayers;
+		this.newData['subLayers'] = subLayers;
 	}
 
 	pushLayer(lyr) {
 		this.mergeSubLayerData();
-		const subLayers = this.newData['sub_layers'];
-		const subIdx = subLayers.find((sbLyr, index) => {
-			return sbLyr.id === lyr.id || index;
-		});
+		const subLayers = this.newData['subLayers'];
+		const subIdx = subLayers.findIndex(({ id }) => id === lyr.id);
 		if (subIdx > 0) {
-			subLayers[subIdx] = lyr;
+			Object.assign(subLayers[subIdx], lyr);
 		} else {
 			subLayers.push(lyr);
 		}
@@ -64,9 +63,9 @@ export class LayersAdvancedEditionComponent implements OnInit {
 
 	removeLayer(lyr) {
 		this.mergeSubLayerData();
-		const filteredSublayers = this.newData['sub_layers']
+		const filteredSublayers = this.newData['subLayers']
 			.filter(layer => layer.id !== lyr.id)
-		this.newData['sub_layers'] = filteredSublayers;
+		this.newData['subLayers'] = filteredSublayers;
 	}
 
 	async cancelEdition() {
