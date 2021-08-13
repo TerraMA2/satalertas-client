@@ -47,11 +47,6 @@ export class LayersAdvancedComponent implements OnInit {
 		if (groupId) {
 			await this.groupViewService.getByGroupId(groupId)
 				.then((data) => {
-					data.forEach((item) => {
-						if (item.sub_layers) {
-							item.sub_layers = this.joinSubLayerData(data, item.sub_layers);
-						}
-					});
 					this.groupLayers = data;
 				});
 		} else {
@@ -72,8 +67,8 @@ export class LayersAdvancedComponent implements OnInit {
 		*/
 		this.layer = { ...layerToEdit };
 		this.availableLayers = this.groupLayers.filter((item) =>
-			item.id_view !== layerToEdit.id_view && !item.is_primary
-		);
+			item.viewId !== layerToEdit.viewId)
+			.filter(item => !item.isPrimary);
 		this.displayModal = true;
 	};
 
@@ -84,28 +79,30 @@ export class LayersAdvancedComponent implements OnInit {
 
 	setLayerAsPrimary(id) {
 		this.groupLayers.forEach((layer) => {
-			let subLayers = layer['sub_layers'] || [];
+			let subLayers = layer['subLayers'] || [];
 			const sbIdx = subLayers.findIndex(({ id: idx }) => idx === id);
 			const newLayerData = this.newGroupData.find((newData) => newData.id === layer.id)
 			if (sbIdx >= 0) {
 				subLayers = subLayers.filter((item) => item.id !== id)
 				if (newLayerData) {
-					newLayerData['sub_layers'] = subLayers;
+					newLayerData['subLayers'] = subLayers;
 				} else {
-					this.newGroupData.push({ id: layer.id, sub_layers: subLayers })
+					this.newGroupData.push({
+						id: layer.id, subLayers: subLayers, isSublayer: false
+					})
 				}
 			}
 			if (layer.id === id) {
-				layer['is_primary'] = true;
-				layer['is_sublayer'] = false;
+				layer['isPrimary'] = true;
+				layer['isSublayer'] = false;
 			}
 		})
 		const layerToEdit = this.newGroupData.find((layer) => layer.id === id)
 		if (layerToEdit) {
-			layerToEdit['is_primary'] = true;
-			layerToEdit['is_sublayer'] = false;
+			layerToEdit['isPrimary'] = true;
+			layerToEdit['isSublayer'] = false;
 		} else {
-			this.newGroupData.push({ id, is_primary: true, is_sublayer: false })
+			this.newGroupData.push({ id, isPrimary: true, isSublayer: false })
 		}
 	}
 
@@ -113,21 +110,17 @@ export class LayersAdvancedComponent implements OnInit {
 		subLayers.forEach(subLayer => {
 			const editedLayer = this.groupLayers.find((layer) => layer.id === subLayer.id);
 			const newLayerData = this.newGroupData.find((layer) => layer.id === subLayer.id)
-			if (!editedLayer['is_sublayer']) {
-				editedLayer['is_sublayer'] = true;
-				editedLayer['is_primary'] = false;
-				editedLayer['sub_layers'] = null;
+			const subLayerParams = {
+				isSublayer: true, isPrimary: false, subLayers: null,
+			}
+			if (!editedLayer["isSublayer"]) {
+				Object.assign(editedLayer, subLayerParams)
 			};
 			if (newLayerData) {
-				newLayerData['is_primary'] = false;
-				newLayerData['is_sublayer'] = true;
-				newLayerData['sub_layers'] = null;
+				Object.assign(newLayerData, subLayerParams)
 			} else {
 				this.newGroupData.push({
-					id: subLayer.id,
-					is_sublayer: true,
-					is_primary: false,
-					sub_layers: null,
+					id: subLayer.id, ...subLayerParams
 				})
 			}
 		})
@@ -135,11 +128,12 @@ export class LayersAdvancedComponent implements OnInit {
 
 	async getModalEditions() {
 		this.displayModal = false;
-		if (this.layerEdition.hasOwnProperty('is_sublayer')) {
-			if (this.layerEdition['is_sublayer'] == false) {
+		if (this.layerEdition.hasOwnProperty('isPrimary') ||
+			this.layerEdition.hasOwnProperty('subLayers')) {
+			if (this.layerEdition["isPrimary"]) {
 				this.setLayerAsPrimary(this.layerEdition['id'])
 			}
-			const subLayersIds = this.layerEdition['sub_layers'];
+			const subLayersIds = this.layerEdition["subLayers"];
 			if (subLayersIds) {
 				this.setLayersAsSubLayer(subLayersIds);
 			}
@@ -167,7 +161,7 @@ export class LayersAdvancedComponent implements OnInit {
 			icon: 'pi pi-exclamation-triangle',
 			accept: async () => {
 				await this.groupViewService.updateAdvanced({
-					id_group: this.selectedGroup,
+					groupId: this.selectedGroup,
 					editions: this.newGroupData
 				})
 					.then(() => {

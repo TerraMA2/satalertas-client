@@ -80,40 +80,44 @@ export class SidebarComponent implements OnInit {
 
 	async getLayers(group) {
 		const children: Layer[] = [];
-		await this.groupViewService.getByGroupId(group.idGroup)
+		await this.groupViewService.getByGroupId(group.groupId)
 			.then((layerGroup) => {
 				layerGroup.forEach((groupLayer) => {
-					const layer = new Layer(
-						groupLayer.name.split(' ').join('_'),
-						group.cod,
-						groupLayer.name,
-						groupLayer.name,
-						groupLayer.description,
-						groupLayer.id_view,
-						groupLayer.dateColumn,
-						groupLayer.geomColumn,
-						groupLayer.areaColumn,
-						groupLayer.carRegisterColumn,
-						groupLayer.classNameColumn,
-						groupLayer.type,
-						groupLayer.showMarker,
-						groupLayer.isPrivate,
-						groupLayer.isPrimary,
-						groupLayer.isChild,
-						groupLayer.isAlert,
-						groupLayer.filter,
-						groupLayer.layerData,
-						groupLayer.legend,
-						groupLayer.popupTitle,
-						groupLayer.infoColumns,
-						groupLayer.isHidden,
-						groupLayer.isDisabled,
-						groupLayer.tools,
-						groupLayer.markerSelected,
-						groupLayer.tableOwner,
-						groupLayer.tableName
-					);
-					children.push(layer);
+					if (!groupLayer.is_sublayer) {
+						const layer = new Layer(
+							groupLayer.name.split(' ').join('_'),
+							group.cod,
+							groupLayer.name,
+							groupLayer.name,
+							groupLayer.description,
+							groupLayer.viewId,
+							groupLayer.dateColumn,
+							groupLayer.geomColumn,
+							groupLayer.areaColumn,
+							groupLayer.carRegisterColumn,
+							groupLayer.classNameColumn,
+							groupLayer.type,
+							groupLayer.showMarker,
+							groupLayer.is_private,
+							groupLayer.is_primary,
+							groupLayer.is_sublayer,
+							groupLayer.isAlert,
+							groupLayer.filter,
+							groupLayer.layerData,
+							groupLayer.legend,
+							groupLayer.popupTitle,
+							groupLayer.infoColumns,
+							groupLayer.isHidden,
+							groupLayer.isDisabled,
+							groupLayer.tools,
+							groupLayer.markerSelected,
+							groupLayer.tableOwner,
+							groupLayer.tableName,
+							groupLayer.sub_layers,
+						);
+						children.push(layer);
+
+					}
 				});
 			});
 		return children;
@@ -177,7 +181,7 @@ export class SidebarComponent implements OnInit {
 						sidebarLayer.parent,
 						sidebarLayer.isPrivate,
 						sidebarLayer.icon,
-						sidebarLayer.view_graph,
+						sidebarLayer.dashboard,
 						sidebarLayer.activeArea,
 						layerChildren,
 						sidebarLayer.tableOwner
@@ -199,7 +203,7 @@ export class SidebarComponent implements OnInit {
 					true, // Ver possibilidade de remover
 					false, // Mostrar se estiver logado
 					'',
-					groupLyr.view_graph,
+					groupLyr.dashboard,
 					false,
 				);
 				layerGroup.children = await this.getLayers(layerGroup);

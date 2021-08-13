@@ -1,163 +1,156 @@
 <p-toast></p-toast>
 <div class="card">
-    <app-settings-toolbar></app-settings-toolbar>
-    <div class="p-grid">
-        <div class="p-col-12">
-            <div class="p-field">
-                <div class="card">
-                    <h2>Gerenciador de Camadas Avançado</h2>
-                    <p-toolbar class="p-mb-4">
-                        <p-dropdown
-                                (onChange)="onGroupChange($event)"
-                                [(ngModel)]="selectedGroup"
-                                [filter]="true"
-                                [options]="groups"
-                                [showClear]="true"
-                                class="p-mb-2"
-                                filterBy="label"
-                                optionLabel="name"
-                                optionValue="id"
-                                placeholder="Selecione um grupo"
-                        ></p-dropdown>
-                    </p-toolbar>
-                </div>
-            </div>
-            <div>
-                <p-table
-                        [scrollable]="true"
-                        [value]="groupLayers"
-                        dataKey="id"
-                        scrollHeight="400px"
-                >
-                    <ng-template pTemplate="header">
-                        <tr>
-                            <th style="width: 3rem"></th>
-                            <th pSortableColumn="name">
-                                Nome
-                                <p-sortIcon field="name"></p-sortIcon>
-                            </th>
-                            <th pSortableColumn="description">
-                                Descrição
-                                <p-sortIcon field="description"></p-sortIcon>
-                            </th>
-                            <th pSortableColumn="private">
-                                Privada
-                                <p-sortIcon field="private"></p-sortIcon>
-                            </th>
-                            <th pSortableColumn="is_primary">
-                                Primária
-                                <p-sortIcon field="is_primary"></p-sortIcon>
-                            </th>
-                            <th pSortableColumn="is_primary">
-                                Sub Camada
-                                <p-sortIcon field="is_primary"></p-sortIcon>
-                            </th>
-                            <th>Ações</th>
-                        </tr>
-                    </ng-template>
-                    <ng-template
-                        let-expanded="expanded"
-                        let-item
-                        pTemplate="body"
-                    >
-                        <tr>
-                            <td style="width: 3rem">
-                                <p-button
-                                        [icon]="
+  <app-settings-toolbar></app-settings-toolbar>
+  <div class="p-grid">
+    <div class="p-col-12">
+      <div class="p-field">
+        <div class="card">
+          <h2>Gerenciador de Camadas Avançado</h2>
+          <p-toolbar class="p-mb-4">
+            <p-dropdown
+              (onChange)="onGroupChange($event)"
+              [(ngModel)]="selectedGroup"
+              [filter]="true"
+              [options]="groups"
+              [showClear]="true"
+              class="p-mb-2"
+              filterBy="label"
+              optionLabel="name"
+              optionValue="id"
+              placeholder="Selecione um grupo"
+            ></p-dropdown>
+          </p-toolbar>
+        </div>
+      </div>
+      <div>
+        <p-table
+          [scrollable]="true"
+          [value]="groupLayers"
+          dataKey="id"
+          scrollHeight="400px"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 3rem"></th>
+              <th pSortableColumn="name">
+                Nome
+                <p-sortIcon field="name"></p-sortIcon>
+              </th>
+              <th pSortableColumn="description">
+                Descrição
+                <p-sortIcon field="description"></p-sortIcon>
+              </th>
+              <th pSortableColumn="private">
+                Privada
+                <p-sortIcon field="private"></p-sortIcon>
+              </th>
+              <th pSortableColumn="isPrimary">
+                Primária
+                <p-sortIcon field="isPrimary"></p-sortIcon>
+              </th>
+              <th pSortableColumn="isPrimary">
+                Sub Camada
+                <p-sortIcon field="isPrimary"></p-sortIcon>
+              </th>
+              <th>Ações</th>
+            </tr>
+          </ng-template>
+          <ng-template let-expanded="expanded" let-item pTemplate="body">
+            <tr>
+              <td style="width: 3rem">
+                <p-button
+                  [icon]="
                     expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'
                   "
-                                        [pRowToggler]="item"
-                                        pRipple
-                                        styleClass="p-button-text p-button-rounded p-button-plain"
-                                ></p-button>
-                            </td>
-                            <td>
-                                {{ item.name ? item.name : item.view ? item.view.name : null }}
-                            </td>
-                            <td>
-                                {{ item.description || (item.view && item.view.description) }}
-                            </td>
-                            <td>
-                                <i
-                                        [ngClass]="
-                    item.private || (item.view && item.view.private)
+                  [pRowToggler]="item"
+                  pRipple
+                  styleClass="p-button-text p-button-rounded p-button-plain"
+                ></p-button>
+              </td>
+              <td>
+                {{ item.name }}
+              </td>
+              <td>
+                {{ item.description }}
+              </td>
+              <td>
+                <i
+                  [ngClass]="
+                    item.private
                       ? 'pi pi-check-circle'
                       : 'pi pi-minus-circle no'
                   "
-                                ></i>
-                            </td>
-                            <td>
-                                <i
-                                        [ngClass]="
-                    item.is_primary
+                ></i>
+              </td>
+              <td>
+                <i
+                  [ngClass]="
+                    item.isPrimary
                       ? 'pi pi-check-circle yes'
                       : 'pi pi-minus-circle no'
                   "
-                                ></i>
-                            </td>
-                            <td>
-                                <i
-                                        [ngClass]="
-                    item.is_sublayer
+                ></i>
+              </td>
+              <td>
+                <i
+                  [ngClass]="
+                    item.isSublayer
                       ? 'pi pi-check-circle yes'
                       : 'pi pi-minus-circle no'
                   "
-                                ></i>
-                            </td>
-                            <td>
-                                <p-button
-
-                                        (click)="editLayer(item)"
-                                        icon="pi pi-pencil"
-                                        styleClass="p-button-rounded p-mr-2"
-                                ></p-button>
-                            </td>
-                        </tr>
-                    </ng-template>
-                    <ng-template let-item pTemplate="rowexpansion">
-                        <ng-template [ngIf]="item.sub_layers">
-                            <tr>
-                                <td colspan='6'>
-                                    <div class="p-p-1">
-                                        <p-table [value]='item.sub_layers' dataKey='id'>
-                                            <ng-template pTemplate='header'>
-                            <tr>
-                                <th>Nome</th>
-                                <th>Descrição</th>
-                            </tr>
-                        </ng-template>
-                        <ng-template let-subLayer pTemplate='body'>
-                            <tr>
-                                <td>{{ subLayer.name ? subLayer.name : subLayer.view ? subLayer.view.name : null }}</td>
-                                <td>{{ subLayer.description ? subLayer.description : subLayer.view ? subLayer.view.description : null }}</td>
-                            </tr>
-
-                        </ng-template>
-                </p-table>
-            </div>
-            </td>
+                ></i>
+              </td>
+              <td>
+                <p-button
+                  (click)="editLayer(item)"
+                  icon="pi pi-pencil"
+                  styleClass="p-button-rounded p-mr-2"
+                ></p-button>
+              </td>
             </tr>
+          </ng-template>
+          <ng-template let-item pTemplate="rowexpansion">
+            <ng-template [ngIf]="item.subLayers">
+              <tr>
+                <td colspan="6">
+                  <div class="p-p-1">
+                    <p-table [value]="item.subLayers" dataKey="id">
+                      <ng-template pTemplate="header">
+                        <tr>
+                          <th>Nome</th>
+                          <th>Descrição</th>
+                        </tr>
+                      </ng-template>
+                      <ng-template let-subLayer pTemplate="body">
+                        <tr>
+                          <td>{{ subLayer.name }}</td>
+                          <td>{{ subLayer.description }}</td>
+                        </tr>
+                      </ng-template>
+                    </p-table>
+                  </div>
+                </td>
+              </tr>
             </ng-template>
-            </ng-template>
-            </p-table>
-        </div>
+          </ng-template>
+        </p-table>
+      </div>
     </div>
-</div>
-<p-footer>
+  </div>
+  <p-footer>
     <p-button
-            (click)='saveGroupEdition()'
-            [disabled]='!edited'
-            icon="pi pi-check"
-            label="Salvar"
-            styleClass="p-button-raised"
+      (click)="saveGroupEdition()"
+      [disabled]="!edited"
+      icon="pi pi-check"
+      label="Salvar"
+      styleClass="p-button-raised"
     ></p-button>
     <p-button
-            (click)="cancelGroupEdition()"
-            [disabled]='!edited'
-            icon="pi pi-times"
-
-            label="Cancelar"
-            styleClass="
+      (click)="cancelGroupEdition()"
+      [disabled]="!edited"
+      icon="pi pi-times"
+      label="Cancelar"
+      styleClass="
                   p-button-secondary
                   p-button
                   p-component
@@ -165,14 +158,14 @@
                   p-button-raised
             "
     ></p-button>
-</p-footer>
+  </p-footer>
 </div>
 <app-layers-advanced-edition
-        (onClickCancel)="cancelModalEdition()"
-        (onClickSave)="getModalEditions()"
-        [(data)]="layer"
-        [(newData)]="layerEdition"
-        [displayModal]="displayModal"
-        [layers]="availableLayers"
+  (onClickCancel)="cancelModalEdition()"
+  (onClickSave)="getModalEditions()"
+  [(data)]="layer"
+  [(newData)]="layerEdition"
+  [displayModal]="displayModal"
+  [layers]="availableLayers"
 ></app-layers-advanced-edition>
-<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>

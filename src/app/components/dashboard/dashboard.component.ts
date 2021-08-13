@@ -20,7 +20,7 @@ import { Analysis } from '../../models/analysis.model';
 
 export class DashboardComponent implements OnInit {
 	analysisList: Analysis[]
-	analysisCharts: AnalysisChart [] = [];
+	analysisCharts: AnalysisChart[] = [];
 	isLoading = false;
 
 	constructor(
@@ -73,16 +73,17 @@ export class DashboardComponent implements OnInit {
 	analysisClick(analysisSelected, isAlert = false) {
 		this.clearActive();
 
-		this.dashboardService.getAnalysisCharts(analysisSelected.analysischarts).then((analysisChart: AnalysisChart[]) => {
-			this.analysisCharts = analysisChart;
+		this.dashboardService.getAnalysisCharts(analysisSelected.analysischarts)
+			.then((analysisChart: AnalysisChart[]) => {
+				this.analysisCharts = analysisChart;
 
-			analysisSelected.activealert = isAlert;
-			analysisSelected.activearea = !isAlert;
+				analysisSelected.activealert = isAlert;
+				analysisSelected.activearea = !isAlert;
 
-			if (this.analysisCharts && this.analysisCharts.length > 0) {
-				this.analysisCharts[0].active = true;
-			}
-		});
+				if (this.analysisCharts && this.analysisCharts.length > 0) {
+					this.analysisCharts[0].active = true;
+				}
+			});
 	}
 
 	private clearActive() {

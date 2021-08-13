@@ -13,8 +13,8 @@
       <div class="p-field p-col-12 p-md-6">
         <label for="name">Nome: </label>
         <input
-          *ngIf="data['view']"
-          [(ngModel)]="data['view']['name']"
+          *ngIf="data['name']"
+          [(ngModel)]="data['name']"
           autofocus
           disabled
           id="name"
@@ -39,9 +39,7 @@
         <input
           [(ngModel)]="newData['description']"
           [placeholder]="
-            data['description'] ||
-            (data['view'] && data['view']['description']) ||
-            ' '
+            data['description'] 
           "
           id="description"
           name="description"
@@ -53,8 +51,8 @@
       <div class="p-formgroup-inline">
         <div class="p-field-checkbox">
           <p-checkbox
-            (onChange)="setBooleanField('is_primary', $event.checked)"
-            [ngModel]="data['is_primary']"
+            (onChange)="setBooleanField('isPrimary', $event.checked)"
+            [ngModel]="data['isPrimary']"
             binary="true"
             name="is-primary"
           ></p-checkbox>
@@ -71,8 +69,8 @@
         </div>
         <div class="p-field-checkbox">
           <p-checkbox
-            (onChange)="setBooleanField('is_sublayer', $event.checked)"
-            [ngModel]="data['is_sublayer']"
+            (onChange)="setBooleanField('isSublayer', $event.checked)"
+            [ngModel]="data['isSublayer']"
             binary="true"
             name="is-sublayer"
           ></p-checkbox>
@@ -81,14 +79,14 @@
       </div>
     </p-toolbar>
     <div class="card">
-      <ng-template [ngIf]="data['is_primary'] || newData['is_primary']">
+      <ng-template [ngIf]="data['isPrimary']">
         <p-table
           #dt
           (onRowSelect)="pushLayer($event.data)"
           (onRowUnselect)="removeLayer($event.data)"
           [globalFilterFields]="['name', 'description']"
           [scrollable]="true"
-          [selection]="newData['sub_layers'] || data['sub_layers']"
+          [selection]="data['subLayers']"
           [value]="layers"
           dataKey="id"
           scrollHeight="200px"
@@ -100,7 +98,7 @@
             <span class="p-input-icon-left">
               <i class="pi pi-search"></i>
               <input
-                (input)="dt.filterGlobal($event.targed.value, 'contains')"
+                (input)="dt.filterGlobal($event.target.value, 'contains')"
                 pInputText
                 placeholder="Filtro Global"
                 type="text"
@@ -124,7 +122,7 @@
                   (input)="
                     dt.filter(
                       $event.target.value,
-                      'name || view && view.name',
+                      'name',
                       'contains'
                     )
                   "
@@ -139,7 +137,7 @@
                   (input)="
                     dt.filter(
                       $event.target.value,
-                      'description || view && view.description',
+                      'description',
                       'contains'
                     )
                   "
@@ -153,9 +151,9 @@
           </ng-template>
           <ng-template let-item let-rowIndex="rowIndex" pTemplate="body">
             <tr [pSelectableRowIndex]="rowIndex" [pSelectableRow]="item">
-              <td>{{ item.name || (item.view && item.view.name) }}</td>
+              <td>{{ item.name }}</td>
               <td>
-                {{ item.description || (item.view && item.view.description) }}
+                {{ item.description }}
               </td>
             </tr>
           </ng-template>

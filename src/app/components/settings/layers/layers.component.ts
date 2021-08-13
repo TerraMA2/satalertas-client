@@ -58,7 +58,7 @@ export class LayersComponent implements OnInit {
 			this.groupViewService.getAvailableLayers(group.value).then((availableGroupViews) => {
 				if (availableGroupViews && Array.isArray(availableGroupViews) && availableGroupViews.length > 0) {
 					this.availableLayers = availableGroupViews;
-					// this.availableLayers = availableGroupViews.map((availableGroupView) => ({name: availableGroupView.name, id_view: availableGroupView.id}));
+					// this.availableLayers = availableGroupViews.map((availableGroupView) => ({name: availableGroupView.name, viewId: availableGroupView.id}));
 				}
 				return [];
 			});
@@ -71,9 +71,9 @@ export class LayersComponent implements OnInit {
   async update() {
     const layers = this.selectedLayers
       .map(layerId => ({
-        id_group: this.selectedGroup.value, id_view: layerId.id
+        groupId: this.selectedGroup.value, viewId: layerId.id
       }));
-    this.groupViewService.update({ id_group: this.selectedGroup.value, layers })
+    this.groupViewService.update({ groupId: this.selectedGroup.value, layers })
       .then(() => {
         this.messageService.add({
           severity: 'success',

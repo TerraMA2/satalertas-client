@@ -30,8 +30,10 @@ export class GroupViewService {
 	}
 
 	async getByGroupId(groupId) {
-		const parameters = { id_group: groupId };
-		return await this.httpService.get<any>(this.url + '/getByIdGroup', { params: parameters }).toPromise();
+		const parameters = { groupId };
+		return await this.httpService.get<any>(this.url + '/getByGroupId',
+			{ params: parameters }
+		).toPromise();
 	}
 
 	add(params) {
@@ -39,7 +41,9 @@ export class GroupViewService {
 	}
 
 	async getAvailableLayers(groupId) {
-		const parameters = { id_group: groupId };
-		return await this.httpService.get<any>(this.url + '/getNotBelongingToTheGroup', { params: parameters }).toPromise();
+		const parameters = { groupId };
+		return await this.httpService.get<any>(this.url + '/getAvailableLayers',
+			{ params: parameters }
+		).toPromise();
 	}
 }

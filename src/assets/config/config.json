@@ -102,7 +102,7 @@
       {"field": "name", "header": "Nome", "type": "text"},
       {"field": "code", "header": "Código", "type": "text"},
       {"field": "active_area", "header": "Selecionado", "type": "boolean"},
-      {"field": "view_graph", "header": "Exibir no Dashboard", "type": "boolean"}
+      {"field": "dashboard", "header": "Exibir no Dashboard", "type": "boolean"}
     ]
   },
   "sidebarSettings": {

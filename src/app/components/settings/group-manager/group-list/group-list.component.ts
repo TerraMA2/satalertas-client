@@ -66,9 +66,7 @@ export class GroupListComponent implements OnInit {
 
 	async getAllGroups() {
 		await this.groupService.getAll().then(res => {
-			if (res.length > 0) {
 				this.groups = res;
-			}
 		});
 	}
 
