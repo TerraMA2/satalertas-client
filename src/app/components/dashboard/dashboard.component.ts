@@ -173,7 +173,7 @@ export class DashboardComponent implements OnInit {
 		const listAlerts: Alert[] = [];
 
 		this.sidebarLayers.forEach((group: LayerGroup) => {
-			if (group && group.view_graph) {
+			if (group && group.dashboard) {
 				listAlerts.push(this.getidviewAlert(group));
 			}
 		});
