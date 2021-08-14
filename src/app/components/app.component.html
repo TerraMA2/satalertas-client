@@ -1,11 +1,11 @@
 <div class="p-grid p-nogutter">
 
     <app-sidebar [ngClass]="{'hide-sidebar': displaySidebar === false}"
-                 class="p-col-10 p-md-4 p-lg-3 no-padding p-justify-between sidebar">
+                 class="p-col-10 p-md-4 p-lg-3 p-xl-2 no-padding p-justify-between sidebar">
     </app-sidebar>
 
     <div [ngClass]="{
-                    'p-col-2 p-md-8 p-lg-9 no-padding': displaySidebar === true,
+                    'p-col-2 p-md-8 p-lg-9 p-xl-10 no-padding': displaySidebar === true,
                     'p-col-12 no-padding': displaySidebar === false
                   }">
 

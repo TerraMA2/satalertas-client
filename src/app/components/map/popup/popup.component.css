@@ -12,7 +12,7 @@
     text-align: center;
 }
 
-icon-margin {
+.icon-margin {
     margin: unset;
     margin-left: 5px !important;
 }
