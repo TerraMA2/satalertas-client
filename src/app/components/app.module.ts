@@ -95,6 +95,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { ReportsComponent } from './reports/reports.component';
 import { AuthGuard } from './auth/auth.guard';
 import { ChartsAreaComponent } from './dashboard/charts-area/charts-area.component';
+import { StyleClassModule } from 'primeng/styleclass';
 
 registerLocaleData(localePt, 'pt');
 
@@ -202,6 +203,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 				deps: [HttpClient]
 			}
 		}),
+		StyleClassModule,
 	],
 	providers: [
 		TreeDragDropService,

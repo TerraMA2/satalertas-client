@@ -1,19 +1,22 @@
 <div class="p-col-12 header p-nogutter">
-    <i (click)="showHideSidebar()" class="fas fa-bars header-icon sidebar-icon"></i>
+    <div>
+        <i (click)="showHideSidebar()" class="fas fa-bars header-icon sidebar-icon"></i>
+
+        &nbsp;&nbsp;
+
+        <span class="header-title">{{ headerTitle | translate}}</span>
+    </div>
 
     &nbsp;&nbsp;
 
-    <span class="header-title">{{ headerTitle | translate}}</span>
+    <button pButton
+            (click)="showFilter()"
+            icon="fas fa-filter"
+            label="{{'headerFilterButton' | translate}}"
+            class="button-filter p-button-raised p-button-secondary">
+    </button>
 
-    &nbsp;&nbsp;
-
-    <p-button (click)="showFilter()"
-              icon="fas fa-filter"
-              label="{{'headerFilterButton' | translate}}"
-              styleClass="p-button-raised p-button-secondary button-filter">
-    </p-button>
-
-    <div class="p-g-12 p-md-4 header-filter">
+    <div class="header-filter">
         <p-calendar #dateFilter
                     (keypress)="onFilterFocus($event)"
                     (onClose)="onFilterClose()"
@@ -114,4 +117,10 @@
 
     </p-dialog>
 
+    <div class="arrow arrow-position"
+         pStyleClass="@parent"
+         toggleClass="header-height">
+        <i class="fas fa-sort-up"></i>
+        <i class="fas fa-sort-down"></i>
+    </div>
 </div>
