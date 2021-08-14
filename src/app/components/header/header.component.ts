@@ -51,6 +51,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	private userSub: Subscription;
 	private filterConfig;
 
+	expanded = false;
+
 	constructor(
 		private configService: ConfigService,
 		private authService: AuthService,

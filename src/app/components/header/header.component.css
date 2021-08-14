@@ -1,90 +1,242 @@
-.header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: var(--primary-color);
-    width: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
-    position: relative;
-    height: 50px;
-    font-size: 1rem;
-    color: #eee;
-    font-weight: bold;
-}
+/*.header {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: space-between;*/
+/*    background: var(--primary-color);*/
+/*    width: 100%;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*    right: 0;*/
+/*    position: relative;*/
+/*    height: 50px;*/
+/*    font-size: 1rem;*/
+/*    color: #eee;*/
+/*    font-weight: bold;*/
+/*}*/
 
-.header-filter {
-    margin: 10% 0 10% 0;
-    float: right;
-}
+@media only screen and (max-width: 1024px) {
+    .button-filter {
+        width: 100%;
+    }
 
-.header-right {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: auto;
-    float: right;
-}
+    .header {
+        display: flex;
+        flex-direction: column;
+        background: var(--primary-color);
+        width: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        position: relative;
+        font-size: .85rem;
+        color: #eee;
+        font-weight: bold;
+    }
 
-.header-icon {
-    font-size: 1rem;
-    cursor: pointer;
-    color: #eee;
-    font-weight: bold;
-}
+    ::ng-deep .p-calendar {
+        width: 100% !important;
+    }
 
-.sidebar-icon {
-    font-size: 1.5rem;
-}
+    .header-filter {
+        width: 100%;
+        margin-bottom: 5px;
+    }
 
-.header-icon:hover {
-    color: #ccc;
-}
+    .header-height {
+        height: 50px;
+    }
 
-.date-footer {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 5px;
-}
+    .arrow {
+        text-align: center;
+        width: 30px;
+        height: 20px;
+        left: calc(100vw / 2 - 15px);
+        cursor: pointer;
+        top: 175px;
+        position: absolute;
+        background-color: #fff;
+        z-index: 1002;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+    .arrow > i {
+        font-size: 1rem;
+        color: #000;
+    }
 
-.date-button {
-    display: inline-flex;
-    margin: 10px 0;
-}
+    .arrow > .fa-sort-down {
+        display: none;
+    }
 
-.date-button-today {
-    float: left;
-}
+    .arrow > .fa-sort-up {
+        display: inline;
+    }
 
-.button-right {
-    float: right;
-}
+    .header-height > .arrow-position {
+        top: 50px;
+    }
 
-.button-filter {
-    margin: 15% 0 15% 2%;
-}
+    .header-height > .arrow-position > .fa-sort-down {
+        display: inline;
+    }
 
-:host ::ng-deep .hide-button {
-    display: none;
-}
+    .header-height > .arrow-position > .fa-sort-up {
+        display: none;
+    }
 
-.flag-container {
-    display: flex;
-}
+    .header-right {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-.flag {
-    background: url('src/assets/img/flags_responsive.png') no-repeat;
-    background-size: 100%;
-    vertical-align: middle;
-    width: 30px;
-    margin-right: 5px;
-}
+    .header-icon {
+        font-size: 1rem;
+        cursor: pointer;
+        color: #eee;
+        font-weight: bold;
+    }
 
-.flag-br {
-    background-position: 0 11.983471%;
-}
+    .sidebar-icon {
+        font-size: 1.5rem;
+    }
 
-.flag-us {
-    background-position: 0 93.38843%;
+    .header-icon:hover {
+        color: #ccc;
+    }
+
+    .date-footer {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 5px;
+    }
+
+    .date-button {
+        display: inline-flex;
+        margin: 10px 0;
+    }
+
+    .date-button-today {
+        float: left;
+    }
+
+    :host ::ng-deep .hide-button {
+        display: none;
+    }
+
+    .flag-container {
+        display: flex;
+        width: 100%;
+    }
+
+    .flag {
+        background: url('src/assets/img/flags_responsive.png') no-repeat;
+        background-size: 100%;
+        vertical-align: middle;
+        width: 30px;
+        margin-right: 5px;
+    }
+
+    .flag-br {
+        background-position: 0 11.983471%;
+    }
+
+    .flag-us {
+        background-position: 0 93.38843%;
+    }
+}
+@media only screen and (min-width: 1024px) {
+    .arrow {
+        display: none;
+    }
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: var(--primary-color);
+        width: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        position: relative;
+        font-size: 1rem;
+        height: 50px;
+        color: #eee;
+        font-weight: bold;
+    }
+
+    .header-filter {
+        margin: 0 10px;
+        float: right;
+    }
+
+    .header-right {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: auto;
+        float: right;
+    }
+
+    .header-icon {
+        font-size: 1rem;
+        cursor: pointer;
+        color: #eee;
+        font-weight: bold;
+    }
+
+    .sidebar-icon {
+        font-size: 1.5rem;
+    }
+
+    .header-icon:hover {
+        color: #ccc;
+    }
+
+    .date-footer {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 5px;
+    }
+
+    .date-button {
+        display: inline-flex;
+        margin: 10px 0;
+    }
+
+    .date-button-today {
+        float: left;
+    }
+
+    .button-right {
+        float: right;
+    }
+
+    .button-filter {
+        margin: 15% 0 15% 2%;
+    }
+
+    :host ::ng-deep .hide-button {
+        display: none;
+    }
+
+    .flag-container {
+        display: flex;
+    }
+
+    .flag {
+        background: url('src/assets/img/flags_responsive.png') no-repeat;
+        background-size: 100%;
+        vertical-align: middle;
+        width: 30px;
+        margin-right: 5px;
+    }
+
+    .flag-br {
+        background-position: 0 11.983471%;
+    }
+
+    .flag-us {
+        background-position: 0 93.38843%;
+    }
 }
