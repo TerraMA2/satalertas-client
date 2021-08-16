@@ -3,11 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  project: 'mpmt',
-  serverUrl: 'http://localhost:3200',
-  terramaUrl: 'http://localhost:36000',
-  geoserverUrl: 'http://localhost:8080/geoserver'
+  production: window['__env'].production,
+  project: window['__env'].project,
+  serverUrl: window['__env'].serverUrl,
+  terramaUrl: window['__env'].terramaUrl,
+  geoserverUrl: window['__env'].geoserverUrl
 };
 
 /*
