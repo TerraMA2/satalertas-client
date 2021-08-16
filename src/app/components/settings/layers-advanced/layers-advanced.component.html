@@ -58,14 +58,16 @@
           <ng-template let-expanded="expanded" let-item pTemplate="body">
             <tr>
               <td style="width: 3rem">
-                <p-button
-                  [icon]="
-                    expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'
-                  "
-                  [pRowToggler]="item"
-                  pRipple
-                  styleClass="p-button-text p-button-rounded p-button-plain"
-                ></p-button>
+                <ng-template [ngIf]="item.subLayers">
+                  <p-button
+                    [icon]="
+                      expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'
+                    "
+                    [pRowToggler]="item"
+                    pRipple
+                    styleClass="p-button-text p-button-rounded p-button-plain"
+                  ></p-button>
+                </ng-template>
               </td>
               <td>
                 {{ item.name }}

@@ -79,7 +79,7 @@
       </div>
     </p-toolbar>
     <div class="card">
-      <ng-template [ngIf]="data['isPrimary']">
+      <ng-template [ngIf]="data['isPrimary'] || newData['isPrimary']">
         <p-table
           #dt
           (onRowSelect)="pushLayer($event.data)"
