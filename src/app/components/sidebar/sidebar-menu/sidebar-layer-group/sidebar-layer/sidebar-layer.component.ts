@@ -73,7 +73,6 @@ export class SidebarLayerComponent implements OnInit {
 
 		this.isSelected = this.layer.isDisabled ? null : this.parentSwitchChecked;
 		if(this.isSubLayer) {
-			console.log(this.layer)
 		}
 	}
 

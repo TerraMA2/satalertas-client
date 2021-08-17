@@ -30,9 +30,6 @@ export class LayersAdvancedEditionComponent implements OnInit {
 	setBooleanField(field, value) {
 		this.newData[`${field}`] = value;
 		this.submit = true;
-		console.log("setado: ", field)
-		console.log("newData: ", this.newData)
-		console.log("data: ", this.data)
 	}
 
 	mergeSubLayerData() {
