@@ -46,7 +46,6 @@ export class SidebarComponent implements OnInit {
 		this.logoPath = this.sidebarConfig.logoPath;
 		this.logoLink = this.sidebarConfig.logoLink;
 		this.authService.user.subscribe(user => this.isAuthenticated = !!user);
-		// this.setItems();
 		this.sidebarService.sidebarReload.subscribe((type) => {
 			if (type === 'settings') {
 				this.sidebarConfig = this.configService.getSidebarSettingsConfig();
@@ -125,7 +124,6 @@ export class SidebarComponent implements OnInit {
 									sidebarLayerChild.tableOwner,
 									sidebarLayerChild.tableName
 								);
-								// console.log('>>: ', sidebarLayerChild)
 								layer.name = sidebarLayerChild["label"];
 								layer.shortName = sidebarLayerChild["shortLabel"];
 								layer.isSublayer = sidebarLayerChild["isChild"];
@@ -134,18 +132,19 @@ export class SidebarComponent implements OnInit {
 						});
 					}
 					// monta o grupo de camadas
-					const layerGroup = new LayerGroup(
-						'',
-						sidebarLayer.cod,
-						sidebarLayer.label,
-						sidebarLayer.parent,
-						sidebarLayer.isPrivate,
-						sidebarLayer.icon,
-						sidebarLayer.dashboard,
-						sidebarLayer.activeArea,
-						layerChildren,
-						sidebarLayer.tableOwner
-					);
+					let layerGroup: LayerGroup = {
+						id: '',
+						code: sidebarLayer["cod"],
+						name: sidebarLayer["label"],
+						parent: sidebarLayer["parent"], // tirar
+						isPrivate: sidebarLayer["is_private"], // tirar
+						icon: sidebarLayer["icon"], // tirar
+						dashboard: sidebarLayer["view_graph"],
+						activeArea: sidebarLayer["active_area"], // Ver possibilidade de remover
+						children: layerChildren,
+						tableOwner: sidebarLayer["tableOwner"], // remover
+						tableName: sidebarLayer["tableName"], 
+					};
 					this.sidebarLayerGroups.push(layerGroup); // insere o grupo na lista
 				});
 			}
@@ -156,18 +155,10 @@ export class SidebarComponent implements OnInit {
 				return;
 			}
 			groups.forEach(async (groupLyr) => {
-				const layerGroup = new LayerGroup(
-					groupLyr.id,
-					groupLyr.code,
-					groupLyr.name,
-					true, // Ver possibilidade de remover
-					false, // Mostrar se estiver logado
-					'',
-					groupLyr.dashboard,
-					false,
-				);
-				layerGroup.children = await this.groupViewService.getByGroupId(layerGroup.groupId)
-				this.sidebarLayerGroups.push(layerGroup);
+				groupLyr.parent = true;
+				groupLyr.isPrivate = false;
+				groupLyr.children = await this.groupViewService.getByGroupId(groupLyr.id)
+				this.sidebarLayerGroups.push(groupLyr);
 			});
 		});
 	}
