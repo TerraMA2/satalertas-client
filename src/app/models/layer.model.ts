@@ -37,6 +37,7 @@ export class Layer {
 		public tableOwner?: string,
 		public tableName?: string,
 		public subLayers?: [],
+		public layerId?: number, 
 		public leafletId?: number,
 	) {
 	}

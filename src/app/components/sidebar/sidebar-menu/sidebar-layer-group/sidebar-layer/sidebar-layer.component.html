@@ -1,52 +1,75 @@
-<div *ngIf="displayChild"
-     [ngClass]="{
-                    'sidebar-layer-alert': layer.isAlert === true,
-                    'sidebar-layer-margin': layer.isChild === true,
-                    'sidebar-layer-disabled': layer.isDisabled === true
-                }"
-     class="sidebar-layer-content">
-    <div (click)="onChildClicked()"
-         class="sidebar-layer-label">
+<div
+  [ngClass]="{
+    'sidebar-layer-alert': layer.isAlert === true,
+    'sidebar-layer-margin': layer.isChild === true,
+    'sidebar-layer-disabled': layer.isDisabled === true
+  }"
+  class="sidebar-layer-content"
+>
+  <div *ngIf="layer.isPrimary" (click)="toggleLayers()">
+    <i
+      [ngClass]="{
+        'fa-chevron-down': showSublayers,
+        'fa-chevron-right': !showSublayers
+      }"
+      class="fas sidebar-layer-group-arrow"
+    >
+    </i>
+  </div>
+  <div (click)="onChildClicked()" class="sidebar-layer-label">
+    <a> {{ layer.shortLabel }} </a>
+  </div>
+  <div class="sidebar-layer-switch">
+    <p-radioButton
+      (onClick)="onChildRadioClicked()"
+      *ngIf="layer.isPrimary && displayControls"
+      [(ngModel)]="showMarkerRadio"
+      [value]="layer.label"
+      name="primary"
+    >
+    </p-radioButton>
 
-        <a> kkk {{layer.shortLabel }} </a>
-
-    </div>
-
-    <div class="sidebar-layer-switch">
-
-        <p-radioButton (onClick)="onChildRadioClicked()"
-                       *ngIf="layer.isPrimary && displayControls"
-                       [(ngModel)]="showMarkerRadio"
-                       [value]="layer.label"
-                       name="primary">
-        </p-radioButton>
-
-        <p-inputSwitch (onChange)="onChildSwitchChanged($event)"
-                       *ngIf="displayControls"
-                       [(ngModel)]="isSelected"
-                       [disabled]="layer.isDisabled"
-                       [style]="{'margin-left': '8px'}">
-        </p-inputSwitch>
-
-    </div>
+    <p-inputSwitch
+      (onChange)="onChildSwitchChanged($event)"
+      *ngIf="displayControls"
+      [(ngModel)]="isSelected"
+      [disabled]="layer.isDisabled"
+      [style]="{ 'margin-left': '8px' }"
+    >
+    </p-inputSwitch>
+  </div>
 </div>
-<div *ngIf="layer.tools && displayControls"
-     [ngClass]="{
-                    'show': isToolsOpened && isLayerGroupOpened,
-                    'hide': !isToolsOpened || !isLayerGroupOpened,
-                    'sidebar-layer-margin': layer.isChild === true
-                }"
-     class="sidebar-layer-tools">
-
-    <div *ngFor="let tool of layer.tools; trackBy: trackById">
-        <i (click)="onToolClicked(tool.name)"
-           *ngIf="!disableTool[tool.name]"
-           class="{{tool.icon}}"
-           pTooltip="{{tool.title}}"
-           tooltipPosition="top">
-        </i>
-    </div>
-
+<div
+  *ngIf="layer.tools && displayControls"
+  [ngClass]="{
+    show: isToolsOpened && isLayerGroupOpened,
+    hide: !isToolsOpened || !isLayerGroupOpened,
+    'sidebar-layer-margin': layer.isChild === true
+  }"
+  class="sidebar-layer-tools"
+>
+  <div *ngFor="let tool of layer.tools; trackBy: trackById">
+    <i
+      (click)="onToolClicked(tool.name)"
+      *ngIf="!disableTool[tool.name]"
+      class="{{ tool.icon }}"
+      pTooltip="{{ tool.title }}"
+      tooltipPosition="top"
+    >
+    </i>
+  </div>
 </div>
-
-
+<div
+  *ngIf="isLayerGroupOpened"
+  [ngClass]="{ show: showSublayers, hide: !showSublayers }"
+  class="collapse"
+>
+  <app-sidebar-layer
+    *ngFor="let layer of layer.subLayers; trackBy: trackById"
+    [layer]="layer"
+    [isLayerGroupOpened]="isLayerGroupOpened"
+    [isSubLayer]="true"
+    class="sidebar-layer-body p-dir-col p-align-stretch"
+  >
+  </app-sidebar-layer>
+</div>

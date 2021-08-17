@@ -24,7 +24,6 @@
      class="collapse">
 
     <app-sidebar-layer *ngFor="let layer of sidebarLayers; trackBy: trackById"
-                       [displayChild]="true"
                        [isLayerGroupOpened]="isLayerGroupOpened"
                        [layer]="layer"
                        [parentSwitchChecked]="switchChecked"

@@ -98,9 +98,9 @@ export class SidebarComponent implements OnInit {
 							groupLayer.classNameColumn,
 							groupLayer.type,
 							groupLayer.showMarker,
-							groupLayer.is_private,
-							groupLayer.is_primary,
-							groupLayer.is_sublayer,
+							groupLayer.isPrivate,
+							groupLayer.isPrimary,
+							groupLayer.isSublayer,
 							groupLayer.isAlert,
 							groupLayer.filter,
 							groupLayer.layerData,
@@ -113,16 +113,18 @@ export class SidebarComponent implements OnInit {
 							groupLayer.markerSelected,
 							groupLayer.tableOwner,
 							groupLayer.tableName,
-							groupLayer.sub_layers,
+							groupLayer.subLayers,
+							groupLayer.id
 						);
 						children.push(layer);
-
 					}
 				});
 			});
-		return children;
+		const primaryLayers = children.filter((item) => item.isPrimary)
+		this.makeSublayers(primaryLayers, children)
+		return children.filter(child => !child.isChild);
 	}
-
+	
 	async setSidebarLayers() { // traz todos os grupos e as camadas
 		await this.sidebarService.getSidebarLayers().then((layers: Response) => {
 			this.sidebarLayers = layers.data; // todas as camadas
@@ -225,4 +227,13 @@ export class SidebarComponent implements OnInit {
 		);
 	}
 
+	makeSublayers(primaryLayers, groupLayers) {
+		primaryLayers.forEach((layer) => {
+			const viewsIds = layer.subLayers.map(({id}) => id)
+			const sLayers = groupLayers.filter((item) => {
+				return viewsIds.includes(item.layerId)
+			} )
+			layer.subLayers = sLayers;
+		})
+	}
 }
