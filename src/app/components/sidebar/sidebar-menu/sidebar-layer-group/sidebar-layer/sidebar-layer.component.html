@@ -1,7 +1,7 @@
 <div
   [ngClass]="{
     'sidebar-layer-alert': layer.isAlert === true,
-    'sidebar-layer-margin': layer.isChild === true,
+    'sidebar-layer-margin': layer.isSublayer === true,
     'sidebar-layer-disabled': layer.isDisabled === true
   }"
   class="sidebar-layer-content"
@@ -17,14 +17,14 @@
     </i>
   </div>
   <div (click)="onChildClicked()" class="sidebar-layer-label">
-    <a> {{ layer.shortLabel }} </a>
+    <a> {{ layer.shortName }} </a>
   </div>
   <div class="sidebar-layer-switch">
     <p-radioButton
       (onClick)="onChildRadioClicked()"
       *ngIf="layer.isPrimary && displayControls"
       [(ngModel)]="showMarkerRadio"
-      [value]="layer.label"
+      [value]="layer.name"
       name="primary"
     >
     </p-radioButton>
@@ -44,7 +44,7 @@
   [ngClass]="{
     show: isToolsOpened && isLayerGroupOpened,
     hide: !isToolsOpened || !isLayerGroupOpened,
-    'sidebar-layer-margin': layer.isChild === true
+    'sidebar-layer-margin': layer.isSublayer === true
   }"
   class="sidebar-layer-tools"
 >

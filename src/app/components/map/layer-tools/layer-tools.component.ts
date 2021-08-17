@@ -94,9 +94,9 @@ export class LayerToolsComponent implements OnInit {
 		const tableName = layer.tableName;
 
 		const view = new View(
-			layer.value,
-			layer.cod,
-			layer.codgroup,
+			layer.viewId,
+			layer.code,
+			layer.groupCode,
 			(layer.type === LayerType.ANALYSIS),
 			layer.isPrimary,
 			layer.tableOwner,

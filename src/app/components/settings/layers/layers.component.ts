@@ -49,7 +49,8 @@ export class LayersComponent implements OnInit {
 		if (group) {
 			await this.groupViewService.getByGroupId(group.value)
 			.then((retorno) =>
-				retorno.filter(layer => layer.view || layer.name)
+			//refatorar
+				retorno.filter(layer => layer["view"] || layer.name)
 			)
 			.then(layers => {
 				this.selectedLayers = layers;

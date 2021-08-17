@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 
 import { HTTPService } from './http.service';
+import { Layer } from 'src/app/models/layer.model';
 
 @Injectable({
 	providedIn: 'root'
@@ -31,7 +32,7 @@ export class GroupViewService {
 
 	async getByGroupId(groupId) {
 		const parameters = { groupId };
-		return await this.httpService.get<any>(this.url + '/getByGroupId',
+		return await this.httpService.get<Layer[]>(this.url + '/getByGroupId',
 			{ params: parameters }
 		).toPromise();
 	}

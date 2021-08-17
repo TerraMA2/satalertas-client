@@ -41,13 +41,13 @@ export class VisibleLayersComponent implements OnInit {
 
 	drop(event) {
 		if (this.draggedItem) {
-			let draggedItemIndex = this.selectedLayers.findIndex(child => child.label === this.draggedItem.label);
+			let draggedItemIndex = this.selectedLayers.findIndex(child => child.name === this.draggedItem.name);
 
 			const itemDraggedToLabel = event.target.innerText;
-			let itemDraggedToIndex = this.selectedLayers.findIndex(child => child.label === itemDraggedToLabel);
+			let itemDraggedToIndex = this.selectedLayers.findIndex(child => child.name === itemDraggedToLabel);
 			const itemDraggedTo = this.selectedLayers[itemDraggedToIndex];
 
-			this.selectedLayers = this.selectedLayers.filter((child) => child.label !== this.draggedItem.label);
+			this.selectedLayers = this.selectedLayers.filter((child) => child.name !== this.draggedItem.name);
 
 			this.selectedLayers = [
 				...this.selectedLayers.slice(0, itemDraggedToIndex),

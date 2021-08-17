@@ -36,8 +36,8 @@ export class PopupService {
 		if (layer) {
 			const view = new View(
 				layer.value,
-				layer.cod,
-				layer.codgroup,
+				layer.code,
+				layer.groupCode,
 				(layer.type === LayerType.ANALYSIS),
 				layer.isPrimary,
 				layer.tableOwner,

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ConfigService } from '../../services/config.service';
 import { LayerGroup } from 'src/app/models/layer-group.model';
 import { Layer } from 'src/app/models/layer.model';
+import { LayerInt } from 'src/app/models/layer-class.model';
 import { SidebarService } from 'src/app/services/sidebar.service';
 import { MapService } from 'src/app/services/map.service';
 import { SidebarItem } from 'src/app/models/sidebar-item.model';
@@ -77,53 +78,6 @@ export class SidebarComponent implements OnInit {
 			this.sidebarItems.push(sidebarItem);
 		});
 	}
-
-	async getLayers(group) {
-		const children: Layer[] = [];
-		await this.groupViewService.getByGroupId(group.groupId)
-			.then((layerGroup) => {
-				layerGroup.forEach((groupLayer) => {
-					if (!groupLayer.is_sublayer) {
-						const layer = new Layer(
-							groupLayer.name.split(' ').join('_'),
-							group.cod,
-							groupLayer.name,
-							groupLayer.name,
-							groupLayer.description,
-							groupLayer.viewId,
-							groupLayer.dateColumn,
-							groupLayer.geomColumn,
-							groupLayer.areaColumn,
-							groupLayer.carRegisterColumn,
-							groupLayer.classNameColumn,
-							groupLayer.type,
-							groupLayer.showMarker,
-							groupLayer.isPrivate,
-							groupLayer.isPrimary,
-							groupLayer.isSublayer,
-							groupLayer.isAlert,
-							groupLayer.filter,
-							groupLayer.layerData,
-							groupLayer.legend,
-							groupLayer.popupTitle,
-							groupLayer.infoColumns,
-							groupLayer.isHidden,
-							groupLayer.isDisabled,
-							groupLayer.tools,
-							groupLayer.markerSelected,
-							groupLayer.tableOwner,
-							groupLayer.tableName,
-							groupLayer.subLayers,
-							groupLayer.id
-						);
-						children.push(layer);
-					}
-				});
-			});
-		const primaryLayers = children.filter((item) => item.isPrimary)
-		this.makeSublayers(primaryLayers, children)
-		return children.filter(child => !child.isChild);
-	}
 	
 	async setSidebarLayers() { // traz todos os grupos e as camadas
 		await this.sidebarService.getSidebarLayers().then((layers: Response) => {
@@ -137,17 +91,17 @@ export class SidebarComponent implements OnInit {
 						children = sidebarLayer.children;
 					}
 					if (children) { // construindo cada camada.
-						sidebarLayer.children.forEach((sidebarLayerChild, index) => {
+						sidebarLayer.children.forEach(sidebarLayerChild => {
 							let layer; // Camada
 							// console.log(sidebarLayerChild)
 							if (!sidebarLayerChild.isHidden) {
-								layer = new Layer(
-									sidebarLayerChild.cod,
-									sidebarLayerChild.codgroup,
-									sidebarLayerChild.label,
-									sidebarLayerChild.shortLabel,
+								layer = new LayerInt(
+									sidebarLayerChild["cod"],
+									sidebarLayerChild.groupCode,
+									sidebarLayerChild.name,
+									sidebarLayerChild.shortName,
 									sidebarLayerChild.description,
-									sidebarLayerChild.value,
+									sidebarLayerChild.viewId,
 									sidebarLayerChild.dateColumn,
 									sidebarLayerChild.geomColumn,
 									sidebarLayerChild.areaColumn,
@@ -157,7 +111,7 @@ export class SidebarComponent implements OnInit {
 									sidebarLayerChild.showMarker,
 									sidebarLayerChild.isPrivate,
 									sidebarLayerChild.isPrimary,
-									sidebarLayerChild.isChild,
+									sidebarLayerChild.isSublayer,
 									sidebarLayerChild.isAlert,
 									sidebarLayerChild.filter,
 									sidebarLayerChild.layerData,
@@ -171,6 +125,10 @@ export class SidebarComponent implements OnInit {
 									sidebarLayerChild.tableOwner,
 									sidebarLayerChild.tableName
 								);
+								// console.log('>>: ', sidebarLayerChild)
+								layer.name = sidebarLayerChild["label"];
+								layer.shortName = sidebarLayerChild["shortLabel"];
+								layer.isSublayer = sidebarLayerChild["isChild"];
 								layerChildren.push(layer); // monta a camada
 							}
 						});
@@ -200,7 +158,7 @@ export class SidebarComponent implements OnInit {
 			groups.forEach(async (groupLyr) => {
 				const layerGroup = new LayerGroup(
 					groupLyr.id,
-					groupLyr.cod,
+					groupLyr.code,
 					groupLyr.name,
 					true, // Ver possibilidade de remover
 					false, // Mostrar se estiver logado
@@ -208,7 +166,7 @@ export class SidebarComponent implements OnInit {
 					groupLyr.dashboard,
 					false,
 				);
-				layerGroup.children = await this.getLayers(layerGroup);
+				layerGroup.children = await this.groupViewService.getByGroupId(layerGroup.groupId)
 				this.sidebarLayerGroups.push(layerGroup);
 			});
 		});
@@ -225,15 +183,5 @@ export class SidebarComponent implements OnInit {
 			sidebarItem.separator,
 			sidebarItem.auth
 		);
-	}
-
-	makeSublayers(primaryLayers, groupLayers) {
-		primaryLayers.forEach((layer) => {
-			const viewsIds = layer.subLayers.map(({id}) => id)
-			const sLayers = groupLayers.filter((item) => {
-				return viewsIds.includes(item.layerId)
-			} )
-			layer.subLayers = sLayers;
-		})
 	}
 }

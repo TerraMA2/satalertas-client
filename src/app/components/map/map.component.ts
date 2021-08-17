@@ -152,9 +152,9 @@ export class MapComponent implements OnInit, AfterViewInit {
 
 		const view = JSON.stringify(
 			new View(
-				layer.value,
-				layer.cod,
-				layer.codgroup,
+				layer.viewId,
+				layer.code,
+				layer.groupCode,
 				(layer.type === LayerType.ANALYSIS),
 				layer.isPrimary,
 				layer.tableOwner,
@@ -179,7 +179,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 		data.forEach(markerData => {
 			const popupTitle = markerData[carRegister.estadual] ? markerData[carRegister.estadual] : markerData[carRegister.federal];
 			const layerLabel = 'Descrição do CAR';
-			const codGroup = layer.codgroup;
+			const codGroup = layer.groupCode;
 			const marker = this.createMarker(popupTitle, [markerData.lat, markerData.long], layerLabel, markerData[columnCarGid], codGroup, layer);
 
 			if (marker) {
@@ -376,7 +376,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 	addLayer(layer, addLayer) {
 		let layerToAdd = null;
 		if (layer && layer.layerData) {
-			const hasLayer = this.selectedLayers.some(selectedLayer => selectedLayer.value === layer.value);
+			const hasLayer = this.selectedLayers.some(selectedLayer => selectedLayer.viewId === layer.viewId);
 			if (addLayer && !hasLayer) {
 				this.selectedLayers.push(layer);
 			}
@@ -400,7 +400,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 	removeLayer(layer, deselectLayer) {
 		if (layer) {
 			if (deselectLayer) {
-				this.selectedLayers.splice(this.selectedLayers.findIndex(selectedLayer => selectedLayer.value === layer.value), 1);
+				this.selectedLayers.splice(this.selectedLayers.findIndex(selectedLayer => selectedLayer.viewId === layer.viewId), 1);
 			}
 			if (layer instanceof L.TileLayer.WMS) {
 				layer.removeFrom(this.map);
@@ -443,7 +443,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 		});
 
 		this.mapService.layerToolClose.subscribe((layer: Layer) => {
-			if (this.layerTool && layer.value === this.layerTool.value) {
+			if (this.layerTool && layer.viewId === this.layerTool.viewId) {
 				this.displayLayerTools = false;
 				this.layerTool = null;
 				this.toolSelected = null;
@@ -489,7 +489,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 
 		this.sidebarService.sidebarLayerDeselect.subscribe((itemDeselected: Layer) => {
 			this.clearMarkerInfo();
-			if (this.selectedPrimaryLayer && this.selectedPrimaryLayer.value === itemDeselected.value) {
+			if (this.selectedPrimaryLayer && this.selectedPrimaryLayer.viewId === itemDeselected.viewId) {
 				this.markerClusterGroup.clearLayers();
 			}
 			this.removeLayer(itemDeselected, true);
@@ -501,7 +501,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 			this.sidebarService.sidebarLayerSwitchSelect.next(layers);
 			layers.filter(layer => !layer.isDisabled && !layer.isHidden)
 						.forEach((layer: Layer) => {
-				const layerExists = this.selectedLayers.find(selectedLayer => selectedLayer.value === layer.value);
+				const layerExists = this.selectedLayers.find(selectedLayer => selectedLayer.viewId === layer.viewId);
 				if (!layerExists) {
 					this.addLayer(layer, true);
 				}
@@ -526,7 +526,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 		});
 
 		this.sidebarService.sidebarItemRadioDeselect.subscribe((layer: Layer) => {
-			if (this.selectedPrimaryLayer && this.selectedPrimaryLayer.value === layer.value) {
+			if (this.selectedPrimaryLayer && this.selectedPrimaryLayer.viewId === layer.viewId) {
 				this.selectedPrimaryLayer = null;
 			}
 			this.clearMarkerInfo();

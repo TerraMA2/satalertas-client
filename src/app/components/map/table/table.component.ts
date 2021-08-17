@@ -73,7 +73,7 @@ export class TableComponent implements OnInit {
 		});
 
 		this.tableService.unloadTableData.subscribe((layer: Layer) => {
-			if (layer && layer.value === this.selectedLayerValue) {
+			if (layer && layer.viewId === this.selectedLayerValue) {
 				this.clearTable();
 			}
 		});
@@ -100,8 +100,8 @@ export class TableComponent implements OnInit {
 		const view = JSON.stringify(
 			new View(
 				layer.value,
-				layer.cod,
-				layer.codgroup ? layer.codgroup : layer.codgroup,
+				layer.code,
+				layer.groupCode ? layer.groupCode : layer.groupCode,
 				layer.isDynamic ? layer.isDynamic : layer.type === 'analysis',
 				layer.isPrimary === undefined ? true : layer.isPrimary,
 				layer.tableOwner ? layer.tableOwner : layer.tableOwner,
@@ -116,7 +116,7 @@ export class TableComponent implements OnInit {
 
 		await this.hTTPService
 		.get<any>(environment.serverUrl + url, { params: this.filterService.getParams(params) })
-		.subscribe(async data => await this.setData(data, layer.codgroup ? layer.codgroup : layer.codgroup));
+		.subscribe(async data => await this.setData(data, layer.groupCode ? layer.groupCode : layer.groupCode));
 	}
 
 	async setData(tableData, group) {

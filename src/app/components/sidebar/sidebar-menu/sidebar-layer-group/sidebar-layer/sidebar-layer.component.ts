@@ -64,7 +64,7 @@ export class SidebarLayerComponent implements OnInit {
 
 		this.sidebarService.sidebarLayerGroupRadioDeselect.subscribe((layerGroup: LayerGroup) => {
 			layerGroup.children.forEach((layer: Layer) => {
-				if (layer.value === this.layer.value && this.layer.isPrimary) {
+				if (layer.viewId === this.layer.viewId && this.layer.isPrimary) {
 					this.mapService.clearMarkers.next();
 					this.showMarkerRadio = null;
 				}
@@ -156,7 +156,7 @@ export class SidebarLayerComponent implements OnInit {
 
 	private changeState(children: Layer[], selected) {
 		children.forEach((layer: Layer) => {
-			if (layer.value === this.layer.value) {
+			if (layer.viewId === this.layer.viewId) {
 				this.isSelected = selected;
 			}
 			if(layer.isPrimary) {
