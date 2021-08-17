@@ -65,22 +65,15 @@ export class SidebarComponent implements OnInit {
 	}
 
 	setSidebarItems() {
-		if (!this.sidebarConfig.sidebarItems) {
-			return;
+		if (this.sidebarConfig.sidebarItems) {
+			this.sidebarItems = this.sidebarConfig.sidebarItems
+				.filter(sbItem => sbItem.auth && !this.isAuthenticated);
 		}
-		this.sidebarItems = [];
-		this.sidebarConfig.sidebarItems.forEach(sbItem => {
-			if (sbItem.auth && !this.isAuthenticated) {
-				return;
-			}
-			const sidebarItem = this.getSidebarItem(sbItem);
-			this.sidebarItems.push(sidebarItem);
-		});
 	}
-	
+
 	async setSidebarLayers() { // traz todos os grupos e as camadas
-		await this.sidebarService.getSidebarLayers().then((layers: Response) => {
-			this.sidebarLayers = layers.data; // todas as camadas
+		await this.sidebarService.getSidebarLayers().then((response: Response) => {
+			this.sidebarLayers = response.data; // todas as camadas
 			this.sidebarLayerGroups = []; // grupos de camadas que aparecem no SB
 			if (this.sidebarLayers) {
 				this.sidebarLayers.forEach(sidebarLayer => {
@@ -143,7 +136,7 @@ export class SidebarComponent implements OnInit {
 						activeArea: sidebarLayer["active_area"], // Ver possibilidade de remover
 						children: layerChildren,
 						tableOwner: sidebarLayer["tableOwner"], // remover
-						tableName: sidebarLayer["tableName"], 
+						tableName: sidebarLayer["tableName"],
 					};
 					this.sidebarLayerGroups.push(layerGroup); // insere o grupo na lista
 				});
@@ -161,18 +154,5 @@ export class SidebarComponent implements OnInit {
 				this.sidebarLayerGroups.push(groupLyr);
 			});
 		});
-	}
-
-	getSidebarItem(sidebarItem) {
-		return new SidebarItem(
-			sidebarItem.label,
-			sidebarItem.link,
-			sidebarItem.method,
-			sidebarItem.dataUrl,
-			sidebarItem.value,
-			sidebarItem.icon,
-			sidebarItem.separator,
-			sidebarItem.auth
-		);
 	}
 }
