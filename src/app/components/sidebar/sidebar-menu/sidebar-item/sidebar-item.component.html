@@ -4,8 +4,8 @@
                 'sidebar-item-body': !sidebarItem.separator
             }"
      [routerLinkActiveOptions]="{exact: true}"
-     [routerLinkActive]="[!sidebarItem.dataUrl ? 'active' : '']"
-     [routerLink]="!sidebarItem.dataUrl ? sidebarItem.link : ''"
+     [routerLinkActive]="['active']"
+     [routerLink]="sidebarItem.link"
      class="p-align-center">
 
     <i *ngIf="!sidebarItem.separator"
@@ -15,16 +15,17 @@
     <div *ngIf="!sidebarItem.separator"
          class="sidebar-item-label">
 
-        <a *ngIf="!sidebarItem.dataUrl">
+        <!-- <a *ngIf="!sidebarItem.dataUrl"> -->
+        <a>
             {{sidebarItem.label | translate }}
         </a>
 
-        <p-dropdown *ngIf="sidebarItem.dataUrl"
+        <!-- <p-dropdown *ngIf="sidebarItem.dataUrl"
                     [(ngModel)]="selectedDropdownItem"
                     [options]="dropdownData"
                     [placeholder]="sidebarItem.label"
                     [style]="{'width': '250px'}">
-        </p-dropdown>
+        </p-dropdown> -->
 
     </div>
 </div>

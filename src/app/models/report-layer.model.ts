@@ -1,6 +1,6 @@
 export class ReportLayer {
 	constructor(
-		public codgroup: string,
+		public groupCode: string,
 		public count: boolean,
 		public countAlias: string,
 		public isDynamic: boolean,

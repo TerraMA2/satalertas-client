@@ -352,7 +352,7 @@ export class MapService {
 		let geomColumn = 'intersection_geom';
 		if (layer.type === LayerType.DYNAMIC) {
 			geomColumn = 'geom';
-			if (layer.cod === 'FOCOS') {
+			if (layer.code === 'FOCOS') {
 				geomColumn = 'geomatria';
 			}
 		}
@@ -395,7 +395,7 @@ export class MapService {
 
 		const currentDateInput = JSON.parse(localStorage.getItem('dateFilter'));
 
-		if (layer.cod === 'CAR_X_FOCOS') {
+		if (layer.code === 'CAR_X_FOCOS') {
 			layer.layerData.viewparams = `date1:${ currentDateInput[0].substring(0, 10) };date2:${ currentDateInput[1].substring(0, 10) }`;
 		} else {
 			layer.layerData.time = `${ currentDateInput[0] }/${ currentDateInput[1] }`;
@@ -491,22 +491,22 @@ export class MapService {
 			const values = this.getValues(analyze);
 
 			if (analyze.valueOption && analyze.valueOption.value) {
-				if ((analyze.type && analyze.type === 'deter') && (layer.codgroup === 'DETER') && (layer.cod === 'CAR_X_DETER')) {
+				if ((analyze.type && analyze.type === 'deter') && (layer.groupCode === 'DETER') && (layer.code === 'CAR_X_DETER')) {
 					cqlFilter += cqlFilter ? ' and ' : '';
 					cqlFilter += ` calculated_area_ha ${ values.columnValue } `;
 				}
 
-				if ((analyze.type && analyze.type === 'deforestation') && (layer.codgroup === 'PRODES') && (layer.cod === 'CAR_X_PRODES')) {
+				if ((analyze.type && analyze.type === 'deforestation') && (layer.groupCode === 'PRODES') && (layer.code === 'CAR_X_PRODES')) {
 					cqlFilter += cqlFilter ? ' and ' : '';
 					cqlFilter += ` calculated_area_ha ${ values.columnValue } `;
 				}
 
-				if ((analyze.type && analyze.type === 'burned') && (layer.codgroup === 'BURNED') && (layer.cod === 'CAR_X_FOCOS')) {
+				if ((analyze.type && analyze.type === 'burned') && (layer.groupCode === 'BURNED') && (layer.code === 'CAR_X_FOCOS')) {
 					cqlFilter += cqlFilter ? ' and ' : '';
 					cqlFilter += ` num_car_focos ${ values.columnValueFocos } `;
 				}
 
-				if ((analyze.type && analyze.type === 'burned_area') && (layer.codgroup === 'BURNED_AREA') && (layer.cod === 'CAR_X_AREA_Q')) {
+				if ((analyze.type && analyze.type === 'burned_area') && (layer.groupCode === 'BURNED_AREA') && (layer.code === 'CAR_X_AREA_Q')) {
 					cqlFilter += cqlFilter ? ' and ' : '';
 					cqlFilter += ` calculated_area_ha ${ values.columnValue } `;
 				}

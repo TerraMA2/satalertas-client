@@ -1,6 +1,7 @@
 import { HTTPService } from './http.service';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
+import { LayerGroup } from 'src/app/models/layer-group.model';
 
 @Injectable({
 	providedIn: 'root'
@@ -13,7 +14,7 @@ export class GroupService {
 	}
 
 	async getAll() {
-		return await this.httpService.get<any>(this.url)
+		return await this.httpService.get<LayerGroup[]>(this.url)
 		.toPromise()
 		.then(res => res);
 	};

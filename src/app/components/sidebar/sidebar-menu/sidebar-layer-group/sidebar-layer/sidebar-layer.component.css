@@ -65,3 +65,22 @@
     -webkit-box-shadow: none;
     box-shadow: none
 }
+
+.collapse.show {
+    max-height: 100%;
+    visibility: visible;
+}
+
+.collapse.hide {
+    max-height: 0;
+    visibility: hidden;
+}
+
+:host ::ng-deep .sidebar-layer-body {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 0 6px;
+    background-color: #fff;
+    transition: background-color 500ms ease-in-out;
+}

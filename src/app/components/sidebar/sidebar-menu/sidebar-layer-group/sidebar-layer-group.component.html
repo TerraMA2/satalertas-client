@@ -9,7 +9,7 @@
         <i [ngClass]="{'fa-chevron-down': isLayerGroupOpened, 'fa-chevron-right': !isLayerGroupOpened}"
            class="fas sidebar-layer-group-arrow">
         </i>
-        <a>{{sidebarLayerGroup.label }}</a>
+        <a>{{ sidebarLayerGroup.name }}</a>
 
     </div>
 
@@ -24,7 +24,6 @@
      class="collapse">
 
     <app-sidebar-layer *ngFor="let layer of sidebarLayers; trackBy: trackById"
-                       [displayChild]="true"
                        [isLayerGroupOpened]="isLayerGroupOpened"
                        [layer]="layer"
                        [parentSwitchChecked]="switchChecked"

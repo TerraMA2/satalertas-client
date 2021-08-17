@@ -113,7 +113,7 @@ export class LayersAdvancedComponent implements OnInit {
 			const subLayerParams = {
 				isSublayer: true, isPrimary: false, subLayers: null,
 			}
-			if (!editedLayer["isSublayer"]) {
+			if (editedLayer || !editedLayer["isSublayer"]) {
 				Object.assign(editedLayer, subLayerParams)
 			};
 			if (newLayerData) {

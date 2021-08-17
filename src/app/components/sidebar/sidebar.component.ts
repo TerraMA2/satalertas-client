@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ConfigService } from '../../services/config.service';
 import { LayerGroup } from 'src/app/models/layer-group.model';
 import { Layer } from 'src/app/models/layer.model';
+import { LayerInt } from 'src/app/models/layer-class.model';
 import { SidebarService } from 'src/app/services/sidebar.service';
 import { MapService } from 'src/app/services/map.service';
 import { SidebarItem } from 'src/app/models/sidebar-item.model';
@@ -45,7 +46,6 @@ export class SidebarComponent implements OnInit {
 		this.logoPath = this.sidebarConfig.logoPath;
 		this.logoLink = this.sidebarConfig.logoLink;
 		this.authService.user.subscribe(user => this.isAuthenticated = !!user);
-		// this.setItems();
 		this.sidebarService.sidebarReload.subscribe((type) => {
 			if (type === 'settings') {
 				this.sidebarConfig = this.configService.getSidebarSettingsConfig();
@@ -65,67 +65,15 @@ export class SidebarComponent implements OnInit {
 	}
 
 	setSidebarItems() {
-		if (!this.sidebarConfig.sidebarItems) {
-			return;
+		if (this.sidebarConfig.sidebarItems) {
+			this.sidebarItems = this.sidebarConfig.sidebarItems
+				.filter(sbItem => sbItem.auth && !this.isAuthenticated);
 		}
-		this.sidebarItems = [];
-		this.sidebarConfig.sidebarItems.forEach(sbItem => {
-			if (sbItem.auth && !this.isAuthenticated) {
-				return;
-			}
-			const sidebarItem = this.getSidebarItem(sbItem);
-			this.sidebarItems.push(sidebarItem);
-		});
-	}
-
-	async getLayers(group) {
-		const children: Layer[] = [];
-		await this.groupViewService.getByGroupId(group.groupId)
-			.then((layerGroup) => {
-				layerGroup.forEach((groupLayer) => {
-					if (!groupLayer.is_sublayer) {
-						const layer = new Layer(
-							groupLayer.name.split(' ').join('_'),
-							group.cod,
-							groupLayer.name,
-							groupLayer.name,
-							groupLayer.description,
-							groupLayer.viewId,
-							groupLayer.dateColumn,
-							groupLayer.geomColumn,
-							groupLayer.areaColumn,
-							groupLayer.carRegisterColumn,
-							groupLayer.classNameColumn,
-							groupLayer.type,
-							groupLayer.showMarker,
-							groupLayer.is_private,
-							groupLayer.is_primary,
-							groupLayer.is_sublayer,
-							groupLayer.isAlert,
-							groupLayer.filter,
-							groupLayer.layerData,
-							groupLayer.legend,
-							groupLayer.popupTitle,
-							groupLayer.infoColumns,
-							groupLayer.isHidden,
-							groupLayer.isDisabled,
-							groupLayer.tools,
-							groupLayer.markerSelected,
-							groupLayer.tableOwner,
-							groupLayer.tableName,
-							groupLayer.sub_layers,
-						);
-						children.push(layer);
-
-					}
-				});
-			});
-		return children;
 	}
 
 	async setSidebarLayers() { // traz todos os grupos e as camadas
-		await this.sidebarService.getSidebarLayers().then((layers: Response) => {
-			this.sidebarLayers = layers.data; // todas as camadas
+		await this.sidebarService.getSidebarLayers().then((response: Response) => {
+			this.sidebarLayers = response.data; // todas as camadas
 			this.sidebarLayerGroups = []; // grupos de camadas que aparecem no SB
 			if (this.sidebarLayers) {
 				this.sidebarLayers.forEach(sidebarLayer => {
@@ -135,17 +83,16 @@ export class SidebarComponent implements OnInit {
 						children = sidebarLayer.children;
 					}
 					if (children) { // construindo cada camada.
-						sidebarLayer.children.forEach((sidebarLayerChild, index) => {
+						sidebarLayer.children.forEach(sidebarLayerChild => {
 							let layer; // Camada
-							// console.log(sidebarLayerChild)
 							if (!sidebarLayerChild.isHidden) {
-								layer = new Layer(
-									sidebarLayerChild.cod,
-									sidebarLayerChild.codgroup,
-									sidebarLayerChild.label,
-									sidebarLayerChild.shortLabel,
+								layer = new LayerInt(
+									sidebarLayerChild["cod"],
+									sidebarLayerChild.groupCode,
+									sidebarLayerChild.name,
+									sidebarLayerChild.shortName,
 									sidebarLayerChild.description,
-									sidebarLayerChild.value,
+									sidebarLayerChild.viewId,
 									sidebarLayerChild.dateColumn,
 									sidebarLayerChild.geomColumn,
 									sidebarLayerChild.areaColumn,
@@ -155,7 +102,7 @@ export class SidebarComponent implements OnInit {
 									sidebarLayerChild.showMarker,
 									sidebarLayerChild.isPrivate,
 									sidebarLayerChild.isPrimary,
-									sidebarLayerChild.isChild,
+									sidebarLayerChild.isSublayer,
 									sidebarLayerChild.isAlert,
 									sidebarLayerChild.filter,
 									sidebarLayerChild.layerData,
@@ -169,23 +116,27 @@ export class SidebarComponent implements OnInit {
 									sidebarLayerChild.tableOwner,
 									sidebarLayerChild.tableName
 								);
+								layer.name = sidebarLayerChild["label"];
+								layer.shortName = sidebarLayerChild["shortLabel"];
+								layer.isSublayer = sidebarLayerChild["isChild"];
 								layerChildren.push(layer); // monta a camada
 							}
 						});
 					}
 					// monta o grupo de camadas
-					const layerGroup = new LayerGroup(
-						'',
-						sidebarLayer.cod,
-						sidebarLayer.label,
-						sidebarLayer.parent,
-						sidebarLayer.isPrivate,
-						sidebarLayer.icon,
-						sidebarLayer.dashboard,
-						sidebarLayer.activeArea,
-						layerChildren,
-						sidebarLayer.tableOwner
-					);
+					let layerGroup: LayerGroup = {
+						id: '',
+						code: sidebarLayer["cod"],
+						name: sidebarLayer["label"],
+						parent: sidebarLayer["parent"], // tirar
+						isPrivate: sidebarLayer["is_private"], // tirar
+						icon: sidebarLayer["icon"], // tirar
+						dashboard: sidebarLayer["view_graph"],
+						activeArea: sidebarLayer["active_area"], // Ver possibilidade de remover
+						children: layerChildren,
+						tableOwner: sidebarLayer["tableOwner"], // remover
+						tableName: sidebarLayer["tableName"],
+					};
 					this.sidebarLayerGroups.push(layerGroup); // insere o grupo na lista
 				});
 			}
@@ -196,33 +147,11 @@ export class SidebarComponent implements OnInit {
 				return;
 			}
 			groups.forEach(async (groupLyr) => {
-				const layerGroup = new LayerGroup(
-					groupLyr.id,
-					groupLyr.cod,
-					groupLyr.name,
-					true, // Ver possibilidade de remover
-					false, // Mostrar se estiver logado
-					'',
-					groupLyr.dashboard,
-					false,
-				);
-				layerGroup.children = await this.getLayers(layerGroup);
-				this.sidebarLayerGroups.push(layerGroup);
+				groupLyr.parent = true;
+				groupLyr.isPrivate = false;
+				groupLyr.children = await this.groupViewService.getByGroupId(groupLyr.id)
+				this.sidebarLayerGroups.push(groupLyr);
 			});
 		});
 	}
-
-	getSidebarItem(sidebarItem) {
-		return new SidebarItem(
-			sidebarItem.label,
-			sidebarItem.link,
-			sidebarItem.method,
-			sidebarItem.dataUrl,
-			sidebarItem.value,
-			sidebarItem.icon,
-			sidebarItem.separator,
-			sidebarItem.auth
-		);
-	}
-
 }

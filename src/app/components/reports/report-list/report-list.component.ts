@@ -169,8 +169,8 @@ export class ReportListComponent implements OnInit {
 		const view = JSON.stringify(
 			new View(
 				layer.value,
-				layer.cod,
-				layer.codgroup ? layer.codgroup : layer.codgroup,
+				layer.code,
+				layer.groupCode ? layer.groupCode : layer.groupCode,
 				layer.isDynamic ? layer.isDynamic : layer.type === 'analysis',
 				layer.isPrimary === undefined ? true : layer.isPrimary,
 				layer.tableOwner ? layer.tableOwner : layer.tableOwner,
@@ -179,15 +179,15 @@ export class ReportListComponent implements OnInit {
 		);
 
 		this.showDeter =
-			((layer.codgroup === 'DETER') ||
-				(layer.codgroup === 'CAR'));
+			((layer.groupCode === 'DETER') ||
+				(layer.groupCode === 'CAR'));
 		this.showProdes =
-			((layer.codgroup === 'PRODES') ||
-				(layer.codgroup === 'CAR'));
+			((layer.groupCode === 'PRODES') ||
+				(layer.groupCode === 'CAR'));
 		this.showBurn =
-			((layer.codgroup === 'BURNED_AREA') ||
-				(layer.codgroup === 'BURNED') ||
-				(layer.codgroup === 'CAR'));
+			((layer.groupCode === 'BURNED_AREA') ||
+				(layer.groupCode === 'BURNED') ||
+				(layer.groupCode === 'CAR'));
 		const params = { view, limit, offset, countTotal };
 
 		if (this.selectedLayer) {
@@ -354,8 +354,8 @@ export class ReportListComponent implements OnInit {
 		const view = new View(
 			layer.value,
 			layer.label.toUpperCase().replace(' ', '_'),
-			layer.codgroup,
-			layer.codgroup !== 'CAR',
+			layer.groupCode,
+			layer.groupCode !== 'CAR',
 			true,
 			layer.tableName,
 			layer.tableName
