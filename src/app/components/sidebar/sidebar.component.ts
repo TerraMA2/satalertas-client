@@ -66,8 +66,12 @@ export class SidebarComponent implements OnInit {
 
 	setSidebarItems() {
 		if (this.sidebarConfig.sidebarItems) {
-			this.sidebarItems = this.sidebarConfig.sidebarItems
-				.filter(sbItem => sbItem.auth && !this.isAuthenticated);
+			const sbItems = this.sidebarConfig.sidebarItems;
+			if(this.isAuthenticated) {
+				this.sidebarItems = sbItems;
+			} else {
+				this.sidebarItems = sbItems.filter(({auth}) => !auth );
+			}
 		}
 	}
 
