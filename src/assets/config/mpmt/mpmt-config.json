@@ -162,7 +162,7 @@
     ]
   },
   "auth": {
-    "url": "/api/login",
+    "url": "/auth/login",
     "expiresIn": "86400"
   },
   "sidebar": {

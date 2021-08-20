@@ -73,7 +73,7 @@ export class HTTPService {
 	}
 
 	private handleError(error: HttpErrorResponse) {
-		return throwError(`Error occured: ${ error.message }`);
+		return throwError(`Error occured: ${ error }`);
 	}
 
 }
