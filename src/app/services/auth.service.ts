@@ -35,10 +35,12 @@ export class AuthService {
 
 	login(params) {
 		const authConfig = this.configService.getAuthConfig();
-		return this.hTTPService.postTerrama(authConfig.url, params)
+		return this.hTTPService.post(environment.serverUrl + authConfig.url, {params})
 		.pipe(
 			catchError(this.handleError),
-			tap(resData => this.handleAuthentication(resData['user']))
+			tap(resData => {
+				this.handleAuthentication(resData['data']);
+			})
 		);
 	}
 
