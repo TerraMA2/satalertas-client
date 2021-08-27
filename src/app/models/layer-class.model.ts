@@ -38,8 +38,8 @@ export class LayerInt {
 		public tableOwner?: string,
 		public tableName?: string,
 		public subLayers?: Layer[],
-		public id?: number, 
-		public leafletId?: number,
+		public id?: number,
+		public leafletId?: number
 	) {
 	}
 }

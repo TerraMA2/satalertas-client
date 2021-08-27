@@ -3,6 +3,16 @@ import { SynthesisCard } from './synthesis-card.model';
 
 export interface Property {
 		gid: string,
+		titleDeter: string,
+		titleProdes: string,
+		titleFireSpot: string,
+		titleBurnedArea: string,
+		titleDetailedVisions: string,
+		titleDeforestation: string,
+		historyDeterChartOptions: [],
+		historyProdesChartOptions: [],
+		historyFireSpotChartOptions: [],
+		historyBurnedChartOptions: [],
 		register: string,
 		federalregister: string,
 		area: string,
