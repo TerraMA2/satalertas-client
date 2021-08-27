@@ -82,19 +82,6 @@ export class SynthesisComponent implements OnInit {
 
 	getPropertyData() {
 		this.isLoading = true;
-		const synthesisConfig = this.configService.getSynthesisConfig();
-		const cardsConfig = synthesisConfig.cards;
-		this.titleDeter = cardsConfig.histories.titleDeter;
-		this.titleProdes = cardsConfig.histories.titleProdes;
-		this.titleFireSpot = cardsConfig.histories.titleFireSpot;
-		this.titleBurnedArea = cardsConfig.histories.titleBurnedArea;
-		this.titleDetailedVisions = cardsConfig.detailedVisions.title;
-		this.titleDeforestation = cardsConfig.deforestation.title;
-		const chartsConfig = synthesisConfig.charts;
-		this.historyDeterChartOptions = chartsConfig.deter;
-		this.historyProdesChartOptions = chartsConfig.prodes;
-		this.historyFireSpotChartOptions = chartsConfig.fireSpot;
-		this.historyBurnedChartOptions = chartsConfig.burnedArea;
 		const date = JSON.parse(localStorage.getItem('dateFilter'));
 		const startDate = new Date(date[0]).toLocaleDateString('pt-BR');
 		const endDate = new Date(date[1]).toLocaleDateString('pt-BR');
@@ -105,8 +92,19 @@ export class SynthesisComponent implements OnInit {
 			this.isLoading = false;
 		});
 
-		this.synthesisService.getSynthesis(this.carRegister, date, this.formattedFilterDate, JSON.stringify(cardsConfig)).then((response: Response) => {
+		this.synthesisService.getSynthesis(this.carRegister, date, this.formattedFilterDate).then((response: Response) => {
 			const propertyData: Property = response.data;
+
+			this.titleDeter = propertyData.titleDeter;
+			this.titleProdes = propertyData.titleProdes;
+			this.titleFireSpot = propertyData.titleFireSpot;
+			this.titleBurnedArea = propertyData.titleBurnedArea;
+			this.titleDetailedVisions = propertyData.titleDetailedVisions;
+			this.titleDeforestation = propertyData.titleDeforestation;
+			this.historyDeterChartOptions = propertyData.historyDeterChartOptions;
+			this.historyProdesChartOptions = propertyData.historyProdesChartOptions;
+			this.historyFireSpotChartOptions = propertyData.historyFireSpotChartOptions;
+			this.historyBurnedChartOptions = propertyData.historyBurnedChartOptions;
 
 			this.property = propertyData;
 			this.visions = propertyData.visions;
@@ -117,6 +115,7 @@ export class SynthesisComponent implements OnInit {
 			this.prodesHistory = propertyData.prodesHistory;
 			this.fireSpotHistory = propertyData.fireSpotHistory;
 			this.burnedAreaHistory = propertyData.burnedAreaHistory;
+
 			this.historyDeterChartData = this.synthesisService.getChart(this.deterHistory, 'DETER');
 			this.historyProdesChartData = this.synthesisService.getChart(this.prodesHistory, 'PRODES');
 			this.burningFireSpotChartData = this.synthesisService.getChart(this.fireSpotHistory, 'Focos');
