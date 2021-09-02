@@ -56,22 +56,6 @@ export class HTTPService {
 		);
 	}
 
-	postTerrama(url, parameters = {}) {
-		if (!url) {
-			return;
-		}
-		const terramaUrl = environment.terramaUrl;
-		if (!url.includes(terramaUrl)) {
-			url = terramaUrl + url;
-		}
-		return this.httpClient.post(url, {
-			params: parameters
-		}).pipe(
-			retry(0),
-			catchError(this.handleError)
-		);
-	}
-
 	private handleError(error: HttpErrorResponse) {
 		return throwError(`Error occured: ${ error }`);
 	}
