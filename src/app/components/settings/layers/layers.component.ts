@@ -14,13 +14,14 @@ import { Group } from '../../../models/group.model';
 
 export class LayersComponent implements OnInit {
 	groups: SelectItem[];
-
 	selectedGroup;
 	availableLayers;
 	selectedLayers;
 	groupLayersReceived = [];
 	appendedLayers = [];
 	removedLayers = [];
+	groupOwner;
+	saveEdition: boolean = false;
 
 	constructor(
 		private sidebarService: SidebarService,
@@ -48,14 +49,14 @@ export class LayersComponent implements OnInit {
 		const group = event.value;
 		if (group) {
 			await this.groupViewService.getByGroupId(group.value)
-			.then((retorno) =>
-			//refatorar
-				retorno.filter(layer => layer["view"] || layer.name)
-			)
-			.then(layers => {
-				this.selectedLayers = layers;
-				this.groupLayersReceived = [...layers];
-			});
+				.then((retorno) =>
+					//refatorar
+					retorno.filter(layer => layer.name)
+				)
+				.then(layers => {
+					this.selectedLayers = layers;
+					this.groupLayersReceived = [...layers];
+				});
 			this.groupViewService.getAvailableLayers(group.value).then((availableGroupViews) => {
 				if (availableGroupViews && Array.isArray(availableGroupViews) && availableGroupViews.length > 0) {
 					this.availableLayers = availableGroupViews;
@@ -69,32 +70,50 @@ export class LayersComponent implements OnInit {
 		}
 	}
 
-  async update() {
-    const layers = this.selectedLayers
-      .map(layerId => ({
-        groupId: this.selectedGroup.value, viewId: layerId.id
-      }));
-    this.groupViewService.update({ groupId: this.selectedGroup.value, layers })
-      .then(() => {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Sucesso',
-          detail: 'Camadas do grupo atualizadas'
-        });
-      });
-  }
-  async appendLayer(param) {
-    param.forEach(layer => {
-      if (!this.groupLayersReceived.find(({ id }) => id === layer.id)) {
-        this.appendedLayers.push(layer);
-      }
-    });
-  }
-  async removeLayer(param) {
-    param.forEach(layer => {
-      if (this.groupLayersReceived.find(({ id }) => id === layer.id)) {
-        this.removedLayers.push(layer);
-      }
-    });
-  }
+	async save() {
+		const layers = this.selectedLayers
+			.map(layerId => ({
+				groupId: this.selectedGroup.value, viewId: layerId.id
+			}));
+		const params = {
+			groupId: this.selectedGroup.value,
+			layers
+		};
+		if (this.groupOwner["id"]) {
+			params['groupOwner'] = this.groupOwner["id"];
+		}
+		this.groupViewService.update(params)
+			.then(() => {
+				this.messageService.add({
+					severity: 'success',
+					summary: 'Sucesso',
+					detail: 'Camadas do grupo atualizadas'
+				});
+				this.saveEdition = false;
+			});
+	}
+	async appendLayer(param) {
+		param.forEach(layer => {
+			if (!this.groupLayersReceived.find(({ id }) => id === layer.id)) {
+				this.appendedLayers.push(layer);
+			}
+		});
+		this.saveEdition = true;
+	}
+	async removeLayer(param) {
+		param.forEach(layer => {
+			if (this.groupLayersReceived.find(({ id }) => id === layer.id)) {
+				this.removedLayers.push(layer);
+			}
+		});
+		this.saveEdition = true;
+	}
+
+	setGroupOwner(event) {
+		if (!event.value) {
+			this.groupOwner = {}
+		} else {
+			this.saveEdition = true;
+		}
+	}
 }
