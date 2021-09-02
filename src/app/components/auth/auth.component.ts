@@ -11,6 +11,7 @@ import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { SidebarService } from 'src/app/services/sidebar.service';
+import { Response } from '../../models/response.model';
 
 @Component({
 	selector: 'app-auth',
@@ -54,12 +55,12 @@ export class AuthComponent implements OnInit, OnDestroy {
 
 		this.authSub = this.authService
 		.login(form.value)
-		.subscribe(response => {
-				const error = response['error'];
-				const message = response['message'];
-				const user = response['user'];
+		.subscribe((response: Response) => {
+				const status = response.status;
+				const message = response.message;
+				const user = response.data;
 
-				if (error) {
+				if (status === 500) {
 					this.messageService.add({ severity: 'error', summary: 'Login', detail: message });
 					this.isLoading = false;
 					return false;

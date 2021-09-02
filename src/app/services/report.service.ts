@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 
-import { Property } from '../models/property.model';
-
 import { Subject } from 'rxjs';
 
 import { HTTPService } from './http.service';
@@ -12,10 +10,7 @@ import { environment } from '../../environments/environment';
 	providedIn: 'root'
 })
 export class ReportService {
-
 	URL_REPORT_SERVER = environment.serverUrl + '/report';
-
-	property = new Subject<Property>();
 
 	changeReportType = new Subject();
 

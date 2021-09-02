@@ -27,17 +27,16 @@ export class SynthesisService {
 	) {
 	}
 
-	async getSynthesis(carRegister, date, formattedFilterDate, synthesisConfig) {
+	async getSynthesis(carRegister, date, formattedFilterDate) {
 		const url = `${ this.URL_REPORT_SERVER }/getSynthesis`;
 		const params = {
 			params: {
 				carRegister,
 				date,
-				formattedFilterDate,
-				synthesisConfig
+				formattedFilterDate
 			}
 		};
-		return await this.httpService.post(url, params).toPromise();
+		return await this.httpService.get(url, params).toPromise();
 	}
 
 	getNDVI(carRegister, date) {
@@ -59,18 +58,22 @@ export class SynthesisService {
 	getChart(chartData, legends) {
 		const years = [];
 		const values = [];
-		chartData.forEach(data => {
-			const value = Number(data.value);
-			const year = data.year;
-			years.push(year);
-			values.push(value);
-		});
+		if (chartData) {
+			chartData.forEach(data => {
+				const value = parseFloat(data.value);
+				const year = data.year;
+				years.push(year);
+				values.push(value);
+			});
+		}
 		return this.getChartJson(legends, years, values);
 	}
 
 	getPerPropertyChart(chartData, propertyArea, label) {
-		const chartDataPerProperty = chartData.map(data => [propertyArea, data.value]);
-		return chartDataPerProperty.map(data => this.getChartJson(null, ['Área imóvel', label], data));
+		if (chartData) {
+			const chartDataPerProperty = chartData.map(data => [propertyArea, parseFloat(data.value)]);
+			return chartDataPerProperty.map(data => this.getChartJson(null, ['Área imóvel', label], data));
+		}
 	}
 
 	private getChartJson(legends: string | string[], labels: string | string[], data) {
