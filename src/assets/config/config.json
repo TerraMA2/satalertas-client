@@ -111,6 +111,13 @@
     "sidebarItems": [
       {
         "icon": "pi pi-list",
+        "label": "Registros",
+        "link": "/settings/info-columns",
+        "method": "",
+        "value": ""
+      },
+      {
+        "icon": "pi pi-list",
         "label": "Grupos",
         "link": "/settings/groups",
         "method": "",

@@ -99,12 +99,12 @@ export class MapService {
 		return popupContent;
 	}
 
-	async getPopupInfo(gid, codGroup, filter?) {
+	async getPopupInfo(gid, groupCode, filter?) {
 		const url = `${ URL_REPORT_SERVER }/map/getPopupInfo`;
 		const params = {
 			params: {
 				gid,
-				codGroup,
+				groupCode,
 				filter
 			}
 		};
@@ -287,8 +287,9 @@ export class MapService {
 		const infoColumns = await this.infoColumnsService.getInfoColumns().then((response: Response) => response);
 
 		let popupTable = '';
+		const viewIdList = selectedLayers.map(({viewId}) => viewId )
 		for (const selectedLayer of selectedLayers) {
-			const layerInfoColumn = infoColumns[selectedLayer.codgroup];
+			const layerInfoColumn = infoColumns[selectedLayer.groupCode];
 			const layerName = selectedLayer.label;
 
 			let params = null;

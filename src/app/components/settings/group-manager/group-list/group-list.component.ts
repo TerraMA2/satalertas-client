@@ -35,6 +35,7 @@ export class GroupListComponent implements OnInit {
 
 	async ngOnInit() {
 		this.cols = this.configService.getSettingsConfig('groupsColumns');
+		
 		await this.groupService.getAll().then(res => {
 			if (res.length > 0) {
 				this.groups = res;

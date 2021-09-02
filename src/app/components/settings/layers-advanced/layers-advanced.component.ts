@@ -15,7 +15,7 @@ export class LayersAdvancedComponent implements OnInit {
 	selectedGroup;
 	groupLayers;
 	availableLayers;
-	codGroups;
+	groupCodes;
 	newGroupData = [];
 	newDataLayer;
 	displayModal = false;

@@ -179,8 +179,8 @@ export class MapComponent implements OnInit, AfterViewInit {
 		data.forEach(markerData => {
 			const popupTitle = markerData[carRegister.estadual] ? markerData[carRegister.estadual] : markerData[carRegister.federal];
 			const layerLabel = 'Descrição do CAR';
-			const codGroup = layer.groupCode;
-			const marker = this.createMarker(popupTitle, [markerData.lat, markerData.long], layerLabel, markerData[columnCarGid], codGroup, layer);
+			const groupCode = layer.groupCode;
+			const marker = this.createMarker(popupTitle, [markerData.lat, markerData.long], layerLabel, markerData[columnCarGid], groupCode, layer);
 
 			if (marker) {
 				this.markerClusterGroup.addLayer(marker);
@@ -310,9 +310,9 @@ export class MapComponent implements OnInit, AfterViewInit {
 		});
 	}
 
-	createMarker(title, latLong, layerLabel, gid, codGroup, layer?) {
+	createMarker(title, latLong, layerLabel, gid, groupCode, layer?) {
 		const marker = L.marker(latLong, { title });
-		this.popupService.register(marker, layerLabel, gid, codGroup, layer);
+		this.popupService.register(marker, layerLabel, gid, groupCode, layer);
 		return marker;
 	}
 
