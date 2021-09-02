@@ -1,5 +1,6 @@
 export interface Response {
 		status: number,
 		data: any,
-		message: string
+		message: string,
+		columns: any
 }

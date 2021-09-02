@@ -96,6 +96,7 @@ import { ReportsComponent } from './reports/reports.component';
 import { AuthGuard } from './auth/auth.guard';
 import { ChartsAreaComponent } from './dashboard/charts-area/charts-area.component';
 import { StyleClassModule } from 'primeng/styleclass';
+import { InfoColumnsComponent } from './settings/info-columns/info-columns.component';
 
 registerLocaleData(localePt, 'pt');
 
@@ -154,7 +155,8 @@ export function HttpLoaderFactory(http: HttpClient) {
 		SynthesisNdviComponent,
 		ReportsComponent,
 		ReportListComponent,
-		PageNotFoundComponent
+		PageNotFoundComponent,
+  	InfoColumnsComponent,
 	],
 	imports: [
 		BrowserModule,

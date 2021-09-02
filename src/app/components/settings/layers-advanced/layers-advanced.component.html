@@ -36,6 +36,10 @@
                 Nome
                 <p-sortIcon field="name"></p-sortIcon>
               </th>
+              <th pSortableColumn="shortName">
+                Alias
+                <p-sortIcon field="shortName"></p-sortIcon>
+              </th>
               <th pSortableColumn="description">
                 Descrição
                 <p-sortIcon field="description"></p-sortIcon>
@@ -71,6 +75,9 @@
               </td>
               <td>
                 {{ item.name }}
+              </td>
+              <td>
+                {{ item.shortName }}
               </td>
               <td>
                 {{ item.description }}

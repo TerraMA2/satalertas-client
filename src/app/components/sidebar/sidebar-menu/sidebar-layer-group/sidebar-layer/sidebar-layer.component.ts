@@ -154,11 +154,14 @@ export class SidebarLayerComponent implements OnInit {
 	}
 
 	private changeState(children: Layer[], selected) {
-		children.forEach((layer: Layer) => {
+		children && children.forEach((layer: Layer) => {
 			if (layer.viewId === this.layer.viewId) {
 				this.isSelected = selected;
 			}
-			if(layer.isPrimary) {
+			if (layer.id === this.layer.id) {
+				this.isSelected = selected;
+			}
+			if(layer.isPrimary && layer.subLayers != undefined) {
 				this.changeState(layer.subLayers, selected)
 			}
 		});

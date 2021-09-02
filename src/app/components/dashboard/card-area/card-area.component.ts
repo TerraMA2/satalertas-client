@@ -17,16 +17,16 @@ export class CardAreaComponent {
 
 	getLabelArea(analysis: Analysis) {
 		let label = 'area';
-		if (this.isBurnedArea(analysis.codgroup)) {
+		if (this.isBurnedArea(analysis.groupCode)) {
 			label = 'scar';
-		} else if (this.isFireSpot(analysis.codgroup)) {
+		} else if (this.isFireSpot(analysis.groupCode)) {
 			label = 'fireSpots';
 		}
 		return label;
 	}
 
 	getUnitOfMeasurement(analysis: Analysis) {
-		return (this.isFireSpot(analysis.codgroup) ? '' : 'ha');
+		return (this.isFireSpot(analysis.groupCode) ? '' : 'ha');
 	}
 
 	getLabelNumCars() {
@@ -41,12 +41,12 @@ export class CardAreaComponent {
 		return analysis.alert;
 	}
 
-	isFireSpot(codGroup) {
-		return codGroup === 'BURNED';
+	isFireSpot(groupCode) {
+		return groupCode === 'BURNED';
 	}
 
-	isBurnedArea(codGroup) {
-		return codGroup === 'BURNED_AREA';
+	isBurnedArea(groupCode) {
+		return groupCode === 'BURNED_AREA';
 	}
 
 	trackById(index, item) {

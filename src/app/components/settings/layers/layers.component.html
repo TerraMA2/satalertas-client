@@ -41,12 +41,27 @@
                     </ng-template>
                 </p-pickList>
             </div>
-            <div class="p-field p-text-right container-lg">
+            <div class="p-field p-d-flex container-lg">
                 <ng-template [ngIf]="selectedGroup">
+                    <div class="container p-d-inline">
+                        <h2 class="container p-d-inline">Camada Principal</h2>
+                        <p-dropdown
+                                (onChange)="setGroupOwner($event)"
+                                [(ngModel)]="groupOwner"
+                                [filter]="true"
+                                [options]="selectedLayers"
+                                [showClear]="true"
+                                filterBy="name"
+                                optionLabel="name"
+                                placeholder="Selecione uma camada"
+                        >
+                        </p-dropdown>
+                    </div>
                     <div>
-                        <p-button
-                                (click)="update()"
+                        <p-button class="container p-d-inline"
+                                (click)="save()"
                                 label="Salvar"
+                                [disabled]='!saveEdition'
                                 styleClass="p-button-raised p-button-success"
                         ></p-button>
                     </div>

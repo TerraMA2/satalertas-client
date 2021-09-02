@@ -27,11 +27,11 @@ export class PopupService {
 	) {
 	}
 
-	register(marker: L.Marker, layerLabel: string, gid, codGroup, layer?): void {
-		marker.on('click', $event => this.popup($event.target, layerLabel, gid, codGroup, layer));
+	register(marker: L.Marker, layerLabel: string, gid, groupCode, layer?): void {
+		marker.on('click', $event => this.popup($event.target, layerLabel, gid, groupCode, layer));
 	}
 
-	async popup(marker: L.Marker, layerLabel: string, gid, codGroup, layer?) {
+	async popup(marker: L.Marker, layerLabel: string, gid, groupCode, layer?) {
 		let filter = null;
 		if (layer) {
 			const view = new View(
@@ -45,13 +45,13 @@ export class PopupService {
 			);
 			filter = JSON.stringify(this.filterService.getParams(view));
 		}
-		const data = await this.mapService.getPopupInfo(gid, codGroup, filter).then(response => response);
+		const data = await this.mapService.getPopupInfo(gid, groupCode, filter).then(response => response);
 		const reportLink = '/reports/';
 		const linkSynthesis = '/synthesis/' + gid;
 		let linkDETER = reportLink + 'deter/' + gid;
 		let linkPRODES = reportLink + 'prodes/' + gid;
 		let linkFireSpot = reportLink + 'queimada/' + gid;
-		switch (codGroup) {
+		switch (groupCode) {
 			case 'DETER':
 				layerLabel += ' - DETER';
 				linkPRODES = '';

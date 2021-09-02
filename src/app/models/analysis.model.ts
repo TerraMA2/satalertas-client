@@ -3,7 +3,7 @@ import { AnalysisChart } from './analysis-chart.model';
 export interface Analysis {
 		idview: number,
 		cod: string,
-		codgroup: string,
+		groupCode: string,
 		label: string,
 		alert: number,
 		area: number,
