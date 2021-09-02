@@ -107,7 +107,7 @@ export class ReportListComponent implements OnInit {
 		this.reportLayers = await this.tableService.getReportLayers().then((response: Response) => {
 			const data = response.data;
 			return data.map(reportLayer => new ReportLayer(
-				reportLayer['cod_group'],
+				reportLayer['groupCode'],
 				reportLayer['count'],
 				reportLayer['count_alias'],
 				reportLayer['is_dynamic'],

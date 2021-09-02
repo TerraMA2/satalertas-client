@@ -10,7 +10,7 @@ import { Layer } from './layer.model';
 export class LayerInt {
 	constructor(
 		public cod: string, // label em maiúsculo, espaços substiuido por underscore
-		public codgroup: string, // cogido do grupo
+		public groupCode: string, // cogido do grupo
 		public name: string,
 		public shortName: string,
 		public description: string,
