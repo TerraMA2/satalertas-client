@@ -45,29 +45,29 @@ export class ReportListComponent implements OnInit {
 	tableData: any[] = [];
 	columns: any[] = [];
 	selectedColumns: any[] = [];
-
+	
 	selectedProperties;
-
+	
 	isLoading = false;
-
+	
 	totalRecords = 0;
-
+	
 	rowsPerPage: any[];
 	defaultRowsPerPage = 20;
 	selectedRowsPerPage: number = this.defaultRowsPerPage;
-
+	
 	reportLayers: ReportLayer[];
 	selectedLayer: ReportLayer;
 	selectedLayerValue: number;
 	selectedLayerSortField: string;
 	selectedLayerLabel: string;
-
+	
 	showBurn = false;
 	showDeter = false;
 	showProdes = false;
-
+	
 	isExportDisabled = true;
-
+	
 	reports = [];
 	formats;
 	selectedFormats: [];
@@ -80,7 +80,7 @@ export class ReportListComponent implements OnInit {
 	private tableConfig;
 	private columnOrder: [];
 	private excludedColumns: string[];
-
+	
 	constructor(
 		private hTTPService: HTTPService,
 		private configService: ConfigService,
@@ -96,14 +96,14 @@ export class ReportListComponent implements OnInit {
 		private activatedRoute: ActivatedRoute
 	) {
 	}
-
+	
 	async ngOnInit() {
 		this.tableConfig = this.configService.getMapConfig('table');
 		this.formats = this.configService.getMapConfig('export').formats;
 		this.excludedColumns = this.tableConfig.excludedColumns;
 		this.rowsPerPage = this.tableConfig.rowsPerPage;
 		this.activatedRoute.data.subscribe(data => this.loggedUser = data['user']);
-
+		
 		this.reportLayers = await this.tableService.getReportLayers().then((response: Response) => {
 			const data = response.data;
 			return data.map(reportLayer => new ReportLayer(
@@ -123,7 +123,7 @@ export class ReportListComponent implements OnInit {
 				reportLayer['value']
 			));
 		});
-
+		
 		this.showBurn = true;
 		this.showProdes = true;
 		this.showDeter = true;
@@ -139,11 +139,11 @@ export class ReportListComponent implements OnInit {
 			await this.loadTableData(selectedOption, this.selectedRowsPerPage, 0, this.selectedLayerSortField, 1);
 			await this.saveState();
 		}
-
+		
 		this.tableService.clearTable.subscribe(() => this.clearTable());
-
+		
 		this.filterService.filterTable.subscribe(() => this.tableService.loadTableData.next(this.selectedLayer));
-
+		
 		this.tableService.loadTableData.subscribe(layer => {
 			if (layer) {
 				this.isLoading = true;
@@ -151,7 +151,7 @@ export class ReportListComponent implements OnInit {
 			}
 		});
 	}
-
+	
 	async loadTableData(layer,
 	                    limit: number,
 	                    offset: number,
@@ -162,10 +162,10 @@ export class ReportListComponent implements OnInit {
 			return;
 		}
 		this.isLoading = true;
-
+		
 		const url = this.configService.getAppConfig('layerUrls')[layer.type]['table'];
 		const countTotal = true;
-
+		
 		const view = JSON.stringify(
 			new View(
 				layer.value,
@@ -177,7 +177,7 @@ export class ReportListComponent implements OnInit {
 				layer.tableName ? layer.tableName : layer.tableName
 			)
 		);
-
+		
 		this.showDeter =
 			((layer.groupCode === 'DETER') ||
 				(layer.groupCode === 'CAR'));
@@ -189,7 +189,7 @@ export class ReportListComponent implements OnInit {
 				(layer.groupCode === 'BURNED') ||
 				(layer.groupCode === 'CAR'));
 		const params = { view, limit, offset, countTotal };
-
+		
 		if (this.selectedLayer) {
 			params['count'] = this.selectedLayer.count;
 			params['sum'] = !this.showBurn ? this.selectedLayer.sum : false;
@@ -202,58 +202,59 @@ export class ReportListComponent implements OnInit {
 		params['sortField'] = sortField ? sortField : this.selectedLayer && this.selectedLayer.sortField ? this.selectedLayer.sortField : undefined;
 		params['sortOrder'] = sortOrder ? sortOrder : 1;
 
-		await this.hTTPService
+		this.hTTPService
 		.get(environment.serverUrl + url, { params: this.filterService.getParams(params) })
-		.subscribe(async data => await this.setData(data));
+		.toPromise().then(async (response: Response) => {
+			const data = response.data;
+				await this.setData(data);
+		});
 	}
 
 	filterColumns(key) {
-		if (this.excludedColumns.includes(key)) {
-			return false;
-		}
-		return true;
+		return !this.excludedColumns.includes(key);
 	}
 
 	async setData(data) {
-		if (data) {
-			this.selectedColumns = [];
-			this.columns = [];
-			this.totalRecords = 0;
-			if (Array.isArray(data)) {
-				this.totalRecords = data.pop();
-			} else {
-				data = [];
-			}
-			if (data.length > 0) {
-				this.columns = Object.keys(data[0])
-					.filter(key => this.filterColumns(key))
-					.map(key => {
-						return {
-							field: key,
-							header: key,
-							sortColumn: key
-						}
-					});
-			}
-			this.selectedColumns = this.columns;
-			if (this.columnOrder && this.columnOrder.length > 0) {
-				this.selectedColumns = this.columnOrder;
-			}
+		if (!data) {
+			this.tableData = [];
+		}
+		this.selectedColumns = [];
+		this.columns = [];
+		this.totalRecords = 0;
+		if (Array.isArray(data)) {
+			this.totalRecords = data.pop();
+		} else {
+			data = [];
+		}
+		if (data.length > 0) {
+			this.columns = Object.keys(data[0])
+			.filter(key => this.filterColumns(key))
+			.map(key => {
+				return {
+					field: key,
+					header: key,
+					sortColumn: key
+				};
+			});
+		}
+		this.selectedColumns = this.columns;
+		if (this.columnOrder && this.columnOrder.length > 0) {
+			this.selectedColumns = this.columnOrder;
+		}
 
-			this.tableData = data;
+		this.tableData = data;
 
-			this.rowsPerPage = this.rowsPerPage.filter((row) => row.value !== this.totalRecords);
+		this.rowsPerPage = this.rowsPerPage.filter((row) => row.value !== this.totalRecords);
 
-			if (this.totalRecords > 1000) {
-				this.rowsPerPage.push({
-					label: this.totalRecords,
-					value: this.totalRecords
-				});
-			}
+		if (this.totalRecords > 1000) {
+			this.rowsPerPage.push({
+				label: this.totalRecords,
+				value: this.totalRecords
+			});
 		}
 		this.isLoading = false;
 	}
-
+	
 	getSortField(sortField) {
 		if (!sortField) {
 			return '';
@@ -261,19 +262,19 @@ export class ReportListComponent implements OnInit {
 		const column = this.selectedColumns.find(selectedColumn => sortField === selectedColumn['field']);
 		return column['sortColumn'];
 	}
-
+	
 	async onRowsPerPageChange(event) {
 		await this.loadTableData(this.selectedLayer, this.selectedRowsPerPage, 0);
 		this.saveState();
 	}
-
+	
 	onRowExpand(event) {
 		const gid = event.data.gid;
 		this.expandedRowKey = { [gid]: true };
 		this.reportService.getReportsByCARCod(gid).then((response: Response) => this.reports = (response.status === 200) ? response.data : []);
 		this.saveState();
 	}
-
+	
 	onLazyLoad(event: LazyLoadEvent) {
 		this.loadTableData(this.selectedLayer,
 			this.selectedRowsPerPage ? this.selectedRowsPerPage : event.rows,
@@ -282,24 +283,24 @@ export class ReportListComponent implements OnInit {
 			this.sortOrder ? this.sortOrder : event.sortOrder
 		);
 	}
-
+	
 	onSort(event) {
 		this.sortField = event.field;
 		this.sortOrder = event.order;
 		this.saveState();
 	}
-
+	
 	onPage(event) {
 		this.first = event.first;
 		this.saveState();
 	}
-
+	
 	onRowCollapse(event) {
 		const gid = event.data.gid;
 		this.expandedRowKey = { [gid]: false };
 		this.saveState();
 	}
-
+	
 	onLayerChange(event) {
 		const selectedOption = event.selectedOption;
 		this.selectedLayer = selectedOption;
@@ -309,16 +310,16 @@ export class ReportListComponent implements OnInit {
 		this.loadTableData(selectedOption, this.selectedRowsPerPage, 0, selectedOption.sortField, 1);
 		this.saveState();
 	}
-
+	
 	onColumnsChanged(event) {
 		this.columnOrder = event.value;
 		this.saveState();
 	}
-
+	
 	trackById(index, item) {
 		return item.field;
 	}
-
+	
 	clearTable() {
 		this.tableData = undefined;
 		this.selectedLayerValue = undefined;
@@ -333,12 +334,12 @@ export class ReportListComponent implements OnInit {
 		this.showDeter = false;
 		this.isLoading = false;
 	}
-
+	
 	async onExportClick() {
 		const selectedFormats = this.selectedFormats;
-
+		
 		this.isLoading = true;
-
+		
 		if (!selectedFormats || selectedFormats.length === 0) {
 			this.messageService.add({
 				severity: 'error',
@@ -348,9 +349,9 @@ export class ReportListComponent implements OnInit {
 			this.isLoading = false;
 			return;
 		}
-
+		
 		const layer = this.selectedLayer;
-
+		
 		const view = new View(
 			layer.value,
 			layer.label.toUpperCase().replace(' ', '_'),
@@ -360,20 +361,20 @@ export class ReportListComponent implements OnInit {
 			layer.tableName,
 			layer.tableName
 		);
-
+		
 		const params = this.filterService.getParams(view);
 		const selectedProperties = this.selectedProperties;
-
+		
 		const selectedGids = selectedProperties.map(selectedProperty => selectedProperty.gid);
-
+		
 		params['fileFormats'] = selectedFormats.toString();
 		params['selectedGids'] = selectedGids.toString();
-
-		await this.exportService.export({params}, selectedFormats, layer.tableName);
-
+		
+		await this.exportService.export(params, selectedFormats, layer.tableName);
+		
 		this.isLoading = false;
 	}
-
+	
 	getReport(report) {
 		this.isLoading = true;
 		this.reportService.getReportById(report.id).then((response: Response) => {
@@ -382,19 +383,19 @@ export class ReportListComponent implements OnInit {
 			this.isLoading = false;
 		});
 	}
-
+	
 	onRowSelect() {
 		if (this.loggedUser && this.loggedUser.administrator) {
 			this.isExportDisabled = false;
 		}
 	}
-
+	
 	onRowUnselect() {
 		if (this.selectedProperties.length === 0 || !this.loggedUser || this.loggedUser.administrator) {
 			this.isExportDisabled = true;
 		}
 	}
-
+	
 	onHeaderCheckboxToggle(event) {
 		const checked = event.checked;
 		if (checked && this.isExportDisabled && this.loggedUser && this.loggedUser.administrator) {
@@ -403,11 +404,11 @@ export class ReportListComponent implements OnInit {
 			this.isExportDisabled = true;
 		}
 	}
-
+	
 	getRegister(data) {
 		return data['gid'];
 	}
-
+	
 	saveState() {
 		const tableState: TableState = {
 			selectedLayer: this.selectedLayer,
@@ -420,7 +421,7 @@ export class ReportListComponent implements OnInit {
 		};
 		localStorage.setItem('tableState', JSON.stringify(tableState));
 	}
-
+	
 	restoreState() {
 		const tableState: TableState = JSON.parse(localStorage.getItem('tableState'));
 		this.selectedRowsPerPage = tableState.rows;
@@ -435,5 +436,5 @@ export class ReportListComponent implements OnInit {
 			this.loadTableData(this.selectedLayer, this.selectedRowsPerPage, 0, this.selectedLayer.sortField, 1);
 		}
 	}
-
+	
 }

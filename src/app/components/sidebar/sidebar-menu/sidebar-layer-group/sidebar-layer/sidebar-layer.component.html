@@ -48,7 +48,7 @@
   }"
   class="sidebar-layer-tools"
 >
-  <div *ngFor="let tool of layer.tools; trackBy: trackById">
+  <div *ngFor="let tool of layer.tools">
     <i
       (click)="onToolClicked(tool.name)"
       *ngIf="!disableTool[tool.name]"

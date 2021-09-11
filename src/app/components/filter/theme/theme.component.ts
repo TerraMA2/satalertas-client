@@ -7,6 +7,7 @@ import { FilterTheme } from '../../../models/filter-theme.model';
 import { SelectItem } from 'primeng/api';
 
 import { FilterService } from '../../../services/filter.service';
+import { Response } from '../../../models/response.model';
 
 @Component({
 	selector: 'app-theme',
@@ -85,11 +86,11 @@ export class ThemeComponent implements OnInit {
 				break;
 			case 'ti':
 				this.optionSelectedByFilter = new FilterTheme(undefined, 'Terra indígena', 'ti');
-				this.loadComboTI();
+				this.loadComboIL();
 				break;
 			case 'uc':
 				this.optionSelectedByFilter = new FilterTheme(undefined, 'Unidade de conservação', 'uc');
-				this.loadComboUC();
+				this.loadComboCU();
 				break;
 			case 'projus':
 				this.optionSelectedByFilter = new FilterTheme(undefined, 'Projus Bacias', 'projus');
@@ -112,47 +113,47 @@ export class ThemeComponent implements OnInit {
 	}
 
 	private loadComboCity() {
-		this.filterService.getAllCities().then(result => this.optionsFilterLocalizations = result);
+		this.filterService.getCities().then((response: Response) => this.optionsFilterLocalizations = response.data);
 	}
 
 	private loadComboBiome() {
-		this.filterService.getAllBiomes().then(result => this.optionsFilterLocalizations = result);
+		this.filterService.getBiomes().then((response: Response) => this.optionsFilterLocalizations = response.data);
 	}
 
 	private loadComboRegion() {
-		this.filterService.getAllRegions().then(result => this.optionsFilterLocalizations = result);
+		this.filterService.getRegions().then((response: Response) => this.optionsFilterLocalizations = response.data);
 	}
 
 	private loadComboMesoregion() {
-		this.filterService.getAllMesoregions().then(result => this.optionsFilterLocalizations = result);
+		this.filterService.getMesoregions().then((response: Response) => this.optionsFilterLocalizations = response.data);
 	}
 
 	private loadComboImmediateRegion() {
-		this.filterService.getAllImmediateRegion().then(result => this.optionsFilterLocalizations = result);
+		this.filterService.getImmediateRegion().then((response: Response) => this.optionsFilterLocalizations = response.data);
 	}
 
 	private loadComboIntermediateRegion() {
-		this.filterService.getAllIntermediateRegion().then(result => this.optionsFilterLocalizations = result);
+		this.filterService.getIntermediateRegion().then((response: Response) => this.optionsFilterLocalizations = response.data);
 	}
 
 	private loadComboPjbh() {
-		this.filterService.getAllPjbh().then(result => this.optionsFilterLocalizations = result);
+		this.filterService.getPjbh().then((response: Response) => this.optionsFilterLocalizations = response.data);
 	}
 
 	private loadComboMicroregion() {
-		this.filterService.getAllMicroregions().then(result => this.optionsFilterLocalizations = result);
+		this.filterService.getMicroregions().then((response: Response) => this.optionsFilterLocalizations = response.data);
 	}
 
-	private loadComboUC() {
-		this.filterService.getAllConservationUnit().then(result => this.optionsFilterLocalizations = this.addElementAll(result));
+	private loadComboCU() {
+		this.filterService.getConservationUnit().then((response: Response) => this.optionsFilterLocalizations = this.addElementAll(response.data));
 	}
 
-	private loadComboTI() {
-		this.filterService.getAllIndigenousLand().then(result => this.optionsFilterLocalizations = this.addElementAll(result));
+	private loadComboIL() {
+		this.filterService.getIndigenousLand().then((response: Response) => this.optionsFilterLocalizations = this.addElementAll(response.data));
 	}
 
 	private loadComboProjus() {
-		this.filterService.getAllProjus().then(result => this.optionsFilterLocalizations = this.addElementAll(result));
+		this.filterService.getProjus().then((response: Response) => this.optionsFilterLocalizations = this.addElementAll(response.data));
 	}
 
 	private addElementAll(options) {

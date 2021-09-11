@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { FilterClass } from '../../../models/filter-class.model';
 
@@ -13,7 +13,7 @@ import { FilterService } from '../../../services/filter.service';
 	templateUrl: './class.component.html',
 	styleUrls: ['./class.component.css']
 })
-export class ClassComponent implements OnInit, AfterViewInit {
+export class ClassComponent implements OnInit {
 
 	@Input() disable;
 	@Output() onChangeClassFilter: EventEmitter<FilterClass> = new EventEmitter<FilterClass>();
@@ -33,17 +33,16 @@ export class ClassComponent implements OnInit, AfterViewInit {
 		this.filter = this.configService.getFilterConfig('classSearch');
 	}
 
-	async ngAfterViewInit() {
+	async onSelectedClicked() {
+		this.filterClass.analyzes = [];
 		for (const analyze of this.filter.analyzes) {
-			const options = await this.filterService.getAllClassByType(analyze.value);
-
-			this.filterClass.analyzes.push(new FilterAlertAnalyses(analyze.label, analyze.value, undefined, options));
+			const options = await this.filterService.getClasses(analyze.value);
+			this.filterClass.analyzes.push(new FilterAlertAnalyses(analyze.label, analyze.value, undefined, options.data));
 		}
 	}
 
 	onChange(event) {
 		const result = this.filterClass.radioValue !== 'ALL' ? this.filterClass : undefined;
-
 		this.onChangeClassFilter.emit(result);
 	}
 

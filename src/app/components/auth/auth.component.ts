@@ -60,7 +60,7 @@ export class AuthComponent implements OnInit, OnDestroy {
 				const message = response.message;
 				const user = response.data;
 
-				if (status === 500) {
+				if (status !== 200) {
 					this.messageService.add({ severity: 'error', summary: 'Login', detail: message });
 					this.isLoading = false;
 					return false;

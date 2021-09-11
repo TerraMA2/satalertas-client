@@ -20,16 +20,18 @@ import { FilterSpecificSearch } from '../models/filter-specific-search.model';
 
 import { FilterClass } from '../models/filter-class.model';
 
+import { Response } from '../models/response.model';
+
 @Injectable({
 	providedIn: 'root'
 })
 export class FilterService {
-	urlBiome = environment.serverUrl + '/biome';
-	urlCity = environment.serverUrl + '/city';
-	urlConservationUnit = environment.serverUrl + '/conservationUnit';
-	urlIndigenousLand = environment.serverUrl + '/indigenousLand';
-	urlProjus = environment.serverUrl + '/projus';
-	urlAnalyze = environment.serverUrl + '/analyze';
+	biomeUrl = environment.serverUrl + '/biome';
+	cityUrl = environment.serverUrl + '/city';
+	conservationUnitUrl = environment.serverUrl + '/conservationUnit';
+	indigenousLandUrl = environment.serverUrl + '/indigenousLand';
+	projusUrl = environment.serverUrl + '/projus';
+	classUrl = environment.serverUrl + '/class';
 
 	filterMap = new Subject<boolean>();
 	filterTable = new Subject();
@@ -72,57 +74,57 @@ export class FilterService {
 		return { specificParameters, date, filter };
 	}
 
-	getAllBiomes() {
-		return this.httpService.get<any>(this.urlBiome).toPromise();
+	getBiomes() {
+		return this.httpService.get<Response>(this.biomeUrl).toPromise();
 	}
 
-	getAllCities() {
-		return this.httpService.get<any>(this.urlCity).toPromise();
+	getCities() {
+		return this.httpService.get<Response>(this.cityUrl).toPromise();
 	}
 
-	getAllRegions() {
-		return this.httpService.get<any>(this.urlCity + '/getAllRegions').toPromise();
+	getRegions() {
+		return this.httpService.get<Response>(this.cityUrl + '/getRegions').toPromise();
 	}
 
-	getAllMesoregions() {
-		return this.httpService.get<any>(this.urlCity + '/getAllMesoregions').toPromise();
+	getMesoregions() {
+		return this.httpService.get<Response>(this.cityUrl + '/getMesoregions').toPromise();
 	}
 
-	getAllImmediateRegion() {
-		return this.httpService.get<any>(this.urlCity + '/getAllImmediateRegion').toPromise();
+	getImmediateRegion() {
+		return this.httpService.get<Response>(this.cityUrl + '/getImmediateRegion').toPromise();
 	}
 
-	getAllIntermediateRegion() {
-		return this.httpService.get<any>(this.urlCity + '/getAllIntermediateRegion').toPromise();
+	getIntermediateRegion() {
+		return this.httpService.get<Response>(this.cityUrl + '/getIntermediateRegion').toPromise();
 	}
 
-	getAllPjbh() {
-		return this.httpService.get<any>(this.urlCity + '/getAllPjbh').toPromise();
+	getPjbh() {
+		return this.httpService.get<Response>(this.cityUrl + '/getPjbh').toPromise();
 	}
 
-	getAllMicroregions() {
-		return this.httpService.get<any>(this.urlCity + '/getAllMicroregions').toPromise();
+	getMicroregions() {
+		return this.httpService.get<Response>(this.cityUrl + '/getMicroregions').toPromise();
 	}
 
-	getAllConservationUnit() {
-		return this.httpService.get<any>(this.urlConservationUnit).toPromise();
+	getConservationUnit() {
+		return this.httpService.get<Response>(this.conservationUnitUrl).toPromise();
 	}
 
-	getAllIndigenousLand() {
-		return this.httpService.get<any>(this.urlIndigenousLand).toPromise();
+	getIndigenousLand() {
+		return this.httpService.get<Response>(this.indigenousLandUrl).toPromise();
 	}
 
-	getAllProjus() {
-		return this.httpService.get<any>(this.urlProjus).toPromise();
+	getProjus() {
+		return this.httpService.get<Response>(this.projusUrl).toPromise();
 	}
 
-	async getAllClassByType(type) {
-		const url = `${ this.urlAnalyze }/getAllClassByType`;
+	async getClasses(type) {
+		const url = `${ this.classUrl }`;
 		const params = {
 			params: {
 				type: type ? type : ''
 			}
 		};
-		return await this.httpService.get<any>(url, params).toPromise();
+		return await this.httpService.get<Response>(url, params).toPromise();
 	}
 }

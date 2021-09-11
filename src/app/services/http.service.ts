@@ -20,10 +20,6 @@ export class HTTPService {
 
 	get<T>(url, params = {}): Observable<T> {
 		return this.httpClient.get<T>(url, params)
-		.pipe(
-			retry(1),
-			catchError(this.handleError)
-		);
 	}
 
 	post(url, params = {}) {

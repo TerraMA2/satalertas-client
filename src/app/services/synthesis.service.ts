@@ -28,7 +28,7 @@ export class SynthesisService {
 	}
 
 	async getSynthesis(carRegister, date, formattedFilterDate) {
-		const url = `${ this.URL_REPORT_SERVER }/getSynthesis`;
+		const url = `${ this.URL_REPORT_SERVER }`;
 		const params = {
 			params: {
 				carRegister,

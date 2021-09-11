@@ -153,7 +153,8 @@ export class SidebarComponent implements OnInit {
 			groups.forEach(async (groupLyr) => {
 				groupLyr.parent = true;
 				groupLyr.isPrivate = false;
-				groupLyr.children = await this.groupViewService.getByGroupId(groupLyr.id)
+				const groupViews = await this.groupViewService.getByGroupId(groupLyr.id)
+				groupLyr.children = groupViews.data;
 				this.sidebarLayerGroups.push(groupLyr);
 			});
 		});

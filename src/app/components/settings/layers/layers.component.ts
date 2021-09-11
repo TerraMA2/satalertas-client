@@ -6,6 +6,7 @@ import { GroupViewService } from 'src/app/services/group-view.service';
 import { GroupService } from 'src/app/services/group.service';
 import { MessageService, SelectItem } from 'primeng/api';
 import { Group } from '../../../models/group.model';
+import { Response } from '../../../models/response.model';
 
 @Component({
 	selector: 'app-layers',
@@ -34,7 +35,7 @@ export class LayersComponent implements OnInit {
 
 	async ngOnInit() {
 		this.sidebarService.sidebarReload.next('settings');
-		this.getAllGroups();
+		await this.getAllGroups();
 	}
 
 	async getAllGroups() {
@@ -49,15 +50,17 @@ export class LayersComponent implements OnInit {
 		const group = event.value;
 		if (group) {
 			await this.groupViewService.getByGroupId(group.value)
-				.then((retorno) =>
-					//refatorar
-					retorno.filter(layer => layer.name)
+				.then((response: Response) => {
+						let groupViews = response.data;
+						if (groupViews) {
+							groupViews = groupViews.filter(layer => layer.name);
+							this.selectedLayers = groupViews;
+							this.groupLayersReceived = [...groupViews];
+						}
+					}
 				)
-				.then(layers => {
-					this.selectedLayers = layers;
-					this.groupLayersReceived = [...layers];
-				});
-			this.groupViewService.getAvailableLayers(group.value).then((availableGroupViews) => {
+			this.groupViewService.getAvailableLayers(group.value).then((response: Response) => {
+				const availableGroupViews = response.data;
 				if (availableGroupViews && Array.isArray(availableGroupViews) && availableGroupViews.length > 0) {
 					this.availableLayers = availableGroupViews;
 					// this.availableLayers = availableGroupViews.map((availableGroupView) => ({name: availableGroupView.name, viewId: availableGroupView.id}));

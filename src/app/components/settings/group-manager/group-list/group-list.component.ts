@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ConfirmationService, MessageService, TreeNode } from 'primeng/api';
 import { Group } from '../../../../models/group.model';
 import { ConfigService } from '../../../../services/config.service';
+import { Response } from '../../../../models/response.model';
 
 @Component({
 	selector: 'app-group-list',
@@ -35,10 +36,10 @@ export class GroupListComponent implements OnInit {
 
 	async ngOnInit() {
 		this.cols = this.configService.getSettingsConfig('groupsColumns');
-		
-		await this.groupService.getAll().then(res => {
-			if (res.length > 0) {
-				this.groups = res;
+
+		await this.groupService.getAll().then((groups) => {
+			if (groups.length > 0) {
+				this.groups = groups;
 			}
 			for (const field of this.cols) {
 				const fiel = {
@@ -66,8 +67,8 @@ export class GroupListComponent implements OnInit {
 	}
 
 	async getAllGroups() {
-		await this.groupService.getAll().then(res => {
-				this.groups = res;
+		await this.groupService.getAll().then((groups) => {
+				this.groups = groups;
 		});
 	}
 

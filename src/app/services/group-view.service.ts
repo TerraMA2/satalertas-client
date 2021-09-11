@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 
 import { HTTPService } from './http.service';
 import { Layer } from 'src/app/models/layer.model';
+import { Response } from '../models/response.model';
 
 @Injectable({
 	providedIn: 'root'
@@ -19,7 +20,7 @@ export class GroupViewService {
 	}
 
 	getAll() {
-		return this.httpService.get<any>(this.url + '/').toPromise();
+		return this.httpService.get<Response>(this.url + '/').toPromise();
 	}
 
 	update(params) {
@@ -32,7 +33,7 @@ export class GroupViewService {
 
 	async getByGroupId(groupId) {
 		const parameters = { groupId };
-		return await this.httpService.get<Layer[]>(this.url + '/getByGroupId',
+		return await this.httpService.get<Response>(this.url + '/getByGroupId',
 			{ params: parameters }
 		).toPromise();
 	}
@@ -43,7 +44,7 @@ export class GroupViewService {
 
 	async getAvailableLayers(groupId) {
 		const parameters = { groupId };
-		return await this.httpService.get<any>(this.url + '/getAvailableLayers',
+		return await this.httpService.get<Response>(this.url + '/getAvailableLayers',
 			{ params: parameters }
 		).toPromise();
 	}

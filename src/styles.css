@@ -3,6 +3,7 @@
 :root {
     --text-color:#495057;
     --text-color-secondary:#6c757d;
+    --text-color-white:#fff;
     --primary-color:#5D131C;
     --secondary-color:#fff;
     --shadow-color:unset;
@@ -1020,7 +1021,7 @@ p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
     border-radius: 0;
 }
 .p-listbox .p-listbox-list .p-listbox-item.p-highlight {
-    color: var(--text-color);
+    color: var(--text-color-white);
     background: var(--background-light);
 }
 .p-listbox .p-listbox-list .p-listbox-item:focus {

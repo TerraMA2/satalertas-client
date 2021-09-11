@@ -8,6 +8,8 @@ import { FilterService } from './filter.service';
 
 import { Analysis } from '../models/analysis.model';
 
+import { Response } from '../models/response.model';
+
 @Injectable({
 	providedIn: 'root'
 })
@@ -29,7 +31,7 @@ export class DashboardService {
 			params: parameters
 		};
 
-		return await this.httpService.get<any>(url, params).toPromise();
+		return await this.httpService.get<Response>(url, params).toPromise();
 	}
 
 	async getAnalysisCharts(analysis: Analysis [] = []) {
@@ -40,6 +42,6 @@ export class DashboardService {
 			params: parameters
 		};
 
-		return await this.httpService.get<any>(url, params).toPromise();
+		return await this.httpService.get<Response>(url, params).toPromise();
 	}
 }

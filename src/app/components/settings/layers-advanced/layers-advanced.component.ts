@@ -3,6 +3,7 @@ import { GroupViewService } from '../../../services/group-view.service';
 import { SidebarService } from 'src/app/services/sidebar.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Component, OnInit } from '@angular/core';
+import { Response } from '../../../models/response.model';
 
 @Component({
 	selector: 'app-layers-advanced',
@@ -46,8 +47,8 @@ export class LayersAdvancedComponent implements OnInit {
 	async getGroupData(groupId) {
 		if (groupId) {
 			await this.groupViewService.getByGroupId(groupId)
-				.then((data) => {
-					this.groupLayers = data;
+				.then((response: Response) => {
+					this.groupLayers = response.data;
 				});
 		} else {
 			this.groupLayers = [];
@@ -57,7 +58,7 @@ export class LayersAdvancedComponent implements OnInit {
 	async onGroupChange(event) {
 		const group = event.value;
 		this.selectedGroup = group;
-		this.getGroupData(group);
+		await this.getGroupData(group);
 		this.clearNewData();
 	}
 
@@ -88,7 +89,7 @@ export class LayersAdvancedComponent implements OnInit {
 					newLayerData['subLayers'] = subLayers;
 				} else {
 					this.newGroupData.push({
-						id: layer.id, subLayers: subLayers, isSublayer: false
+						id: layer.id, subLayers, isSublayer: false
 					})
 				}
 			}
@@ -113,7 +114,7 @@ export class LayersAdvancedComponent implements OnInit {
 			const subLayerParams = {
 				isSublayer: true, isPrimary: false, subLayers: null,
 			}
-			if (editedLayer || !editedLayer["isSublayer"]) {
+			if (editedLayer || !editedLayer['isSublayer']) {
 				Object.assign(editedLayer, subLayerParams)
 			};
 			if (newLayerData) {
@@ -130,10 +131,10 @@ export class LayersAdvancedComponent implements OnInit {
 		this.displayModal = false;
 		if (this.layerEdition.hasOwnProperty('isPrimary') ||
 			this.layerEdition.hasOwnProperty('subLayers')) {
-			if (this.layerEdition["isPrimary"]) {
+			if (this.layerEdition['isPrimary']) {
 				this.setLayerAsPrimary(this.layerEdition['id'])
 			}
-			const subLayersIds = this.layerEdition["subLayers"];
+			const subLayersIds = this.layerEdition['subLayers'];
 			if (subLayersIds) {
 				this.setLayersAsSubLayer(subLayersIds);
 			}
@@ -163,8 +164,7 @@ export class LayersAdvancedComponent implements OnInit {
 				await this.groupViewService.updateAdvanced({
 					groupId: this.selectedGroup,
 					editions: this.newGroupData
-				})
-					.then(() => {
+				}).then(() => {
 						this.onGroupChange({ value: this.selectedGroup });
 						this.edited = false;
 						this.messageService.add({

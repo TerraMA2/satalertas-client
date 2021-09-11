@@ -15,6 +15,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { SidebarService } from './sidebar.service';
 
 import { environment } from 'src/environments/environment';
+import { Response } from '../models/response.model';
 
 @Injectable({
 	providedIn: 'root'
@@ -38,9 +39,7 @@ export class AuthService {
 		return this.hTTPService.post(environment.serverUrl + authConfig.url, {params})
 		.pipe(
 			catchError(this.handleError),
-			tap(resData => {
-				this.handleAuthentication(resData['data']);
-			})
+			tap((response: Response) => this.handleAuthentication(response.data))
 		);
 	}
 
