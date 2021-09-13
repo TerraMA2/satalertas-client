@@ -35,7 +35,7 @@ export class InfoColumnsComponent implements OnInit {
       this.columnTypes = data;
     })
     this.infoColumnsService.getAllTest().then(response => {
-      this.cols = response.columns;
+      this.cols = response.data.tableInfocolumns.filter(({ hide }) => !hide);
     })
   }
 
