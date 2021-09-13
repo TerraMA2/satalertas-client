@@ -33,6 +33,7 @@ import { View } from '../../models/view.model';
 import { environment } from 'src/environments/environment';
 
 import { PopupService } from '../../services/popup.service';
+import { Response } from '../../models/response.model';
 
 @Component({
 	selector: 'app-map',
@@ -170,7 +171,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 		};
 
 		this.hTTPService.get<any>(environment.serverUrl + url, {params})
-		.subscribe(data => this.setMarkers(data, carRegisterColumn, layer, columnCarGid));
+		.subscribe((response: Response) => this.setMarkers(response.data, carRegisterColumn, layer, columnCarGid));
 	}
 
 	async setMarkers(data, carRegister, layer, columnCarGid) {

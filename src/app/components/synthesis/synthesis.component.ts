@@ -92,7 +92,7 @@ export class SynthesisComponent implements OnInit {
 			this.isLoading = false;
 		});
 
-		this.synthesisService.getSynthesis(this.carRegister, date, this.formattedFilterDate).then((response: Response) => {
+		this.synthesisService.getSynthesis(this.carRegister, date).then((response: Response) => {
 			const propertyData: Property = response.data;
 
 			this.titleDeter = propertyData.titleDeter;

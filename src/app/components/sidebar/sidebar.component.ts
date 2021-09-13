@@ -133,10 +133,10 @@ export class SidebarComponent implements OnInit {
 						code: sidebarLayer["cod"],
 						name: sidebarLayer["label"],
 						parent: sidebarLayer["parent"], // tirar
-						isPrivate: sidebarLayer["is_private"], // tirar
+						isPrivate: sidebarLayer["isPrivate"], // tirar
 						icon: sidebarLayer["icon"], // tirar
-						dashboard: sidebarLayer["view_graph"],
-						activeArea: sidebarLayer["active_area"], // Ver possibilidade de remover
+						dashboard: sidebarLayer["viewGraph"],
+						activeArea: sidebarLayer["activeArea"], // Ver possibilidade de remover
 						children: layerChildren,
 						tableOwner: sidebarLayer["tableOwner"], // remover
 						tableName: sidebarLayer["tableName"],

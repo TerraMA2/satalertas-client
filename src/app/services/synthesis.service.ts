@@ -27,16 +27,15 @@ export class SynthesisService {
 	) {
 	}
 
-	async getSynthesis(carRegister, date, formattedFilterDate) {
+	async getSynthesis(carRegister, date) {
 		const url = `${ this.URL_REPORT_SERVER }`;
 		const params = {
 			params: {
 				carRegister,
-				date,
-				formattedFilterDate
+				date
 			}
 		};
-		return await this.httpService.get(url, params).toPromise();
+		return await this.httpService.get<Response>(url, params).toPromise();
 	}
 
 	getNDVI(carRegister, date) {

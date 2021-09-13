@@ -205,7 +205,7 @@ export class ReportListComponent implements OnInit {
 		this.hTTPService
 		.get(environment.serverUrl + url, { params: this.filterService.getParams(params) })
 		.toPromise().then(async (response: Response) => {
-			const data = response.data;
+				const data = response.data;
 				await this.setData(data);
 		});
 	}

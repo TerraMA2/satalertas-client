@@ -45,7 +45,7 @@ export class PopupService {
 			);
 			filter = JSON.stringify(this.filterService.getParams(view));
 		}
-		const data = await this.mapService.getPopupInfo(gid, groupCode, filter).then(response => response);
+		const data = await this.mapService.getPopupInfo(gid, groupCode, filter).then(response => response.data);
 		const reportLink = '/reports/';
 		const linkSynthesis = '/synthesis/' + gid;
 		let linkDETER = reportLink + 'deter/' + gid;
