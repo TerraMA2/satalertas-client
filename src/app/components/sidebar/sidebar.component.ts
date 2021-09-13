@@ -91,7 +91,7 @@ export class SidebarComponent implements OnInit {
 							let layer; // Camada
 							if (!sidebarLayerChild.isHidden) {
 								layer = new LayerInt(
-									sidebarLayerChild["cod"],
+									sidebarLayerChild['cod'],
 									sidebarLayerChild.groupCode,
 									sidebarLayerChild.name,
 									sidebarLayerChild.shortName,
@@ -120,26 +120,26 @@ export class SidebarComponent implements OnInit {
 									sidebarLayerChild.tableOwner,
 									sidebarLayerChild.tableName
 								);
-								layer.name = sidebarLayerChild["label"];
-								layer.shortName = sidebarLayerChild["shortLabel"];
-								layer.isSublayer = sidebarLayerChild["isChild"];
+								layer.name = sidebarLayerChild['label'];
+								layer.shortName = sidebarLayerChild['shortLabel'];
+								layer.isSublayer = sidebarLayerChild['isChild'];
 								layerChildren.push(layer); // monta a camada
 							}
 						});
 					}
 					// monta o grupo de camadas
-					let layerGroup: LayerGroup = {
+					const layerGroup: LayerGroup = {
 						id: '',
-						code: sidebarLayer["cod"],
-						name: sidebarLayer["label"],
-						parent: sidebarLayer["parent"], // tirar
-						isPrivate: sidebarLayer["isPrivate"], // tirar
-						icon: sidebarLayer["icon"], // tirar
-						dashboard: sidebarLayer["viewGraph"],
-						activeArea: sidebarLayer["activeArea"], // Ver possibilidade de remover
+						code: sidebarLayer['cod'],
+						name: sidebarLayer['label'],
+						parent: sidebarLayer['parent'], // tirar
+						isPrivate: sidebarLayer['isPrivate'], // tirar
+						icon: sidebarLayer['icon'], // tirar
+						dashboard: sidebarLayer['viewGraph'],
+						activeArea: sidebarLayer['activeArea'], // Ver possibilidade de remover
 						children: layerChildren,
-						tableOwner: sidebarLayer["tableOwner"], // remover
-						tableName: sidebarLayer["tableName"],
+						tableOwner: sidebarLayer['tableOwner'], // remover
+						tableName: sidebarLayer['tableName'],
 					};
 					this.sidebarLayerGroups.push(layerGroup); // insere o grupo na lista
 				});

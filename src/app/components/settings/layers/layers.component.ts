@@ -22,7 +22,7 @@ export class LayersComponent implements OnInit {
 	appendedLayers = [];
 	removedLayers = [];
 	groupOwner;
-	saveEdition: boolean = false;
+	saveEdition = false;
 
 	constructor(
 		private sidebarService: SidebarService,
@@ -82,8 +82,8 @@ export class LayersComponent implements OnInit {
 			groupId: this.selectedGroup.value,
 			layers
 		};
-		if (this.groupOwner["id"]) {
-			params['groupOwner'] = this.groupOwner["id"];
+		if (this.groupOwner['id']) {
+			params['groupOwner'] = this.groupOwner['id'];
 		}
 		this.groupViewService.update(params)
 			.then(() => {

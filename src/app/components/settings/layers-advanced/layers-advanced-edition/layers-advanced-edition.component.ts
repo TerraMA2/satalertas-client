@@ -63,18 +63,17 @@ export class LayersAdvancedEditionComponent implements OnInit {
 
 	removeLayer(lyr) {
 		this.mergeSubLayerData();
-		const filteredSublayers = this.newData['subLayers']
-			.filter(layer => layer.id !== lyr.id)
-		this.newData['subLayers'] = filteredSublayers;
+		this.newData['subLayers'] = this.newData['subLayers']
+		.filter(layer => layer.id !== lyr.id);
 	}
 
-	async cancelEdition() {
+	cancelEdition() {
 		this.cleanData();
 		this.displayModal = false;
 		this.onClickCancel.emit();
 	};
 
-	async sendEdition() {
+	sendEdition() {
 		this.newData['id'] = this.data['id'];
 		this.submit = true;
 		this.cleanData();
@@ -82,7 +81,7 @@ export class LayersAdvancedEditionComponent implements OnInit {
 		this.onClickSave.emit();
 	};
 
-	async cleanData() {
+	cleanData() {
 		this.newData = {};
 		this.data = {};
 	}

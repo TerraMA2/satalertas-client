@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 
 import { HTTPService } from './http.service';
-import { Layer } from 'src/app/models/layer.model';
 import { Response } from '../models/response.model';
 
 @Injectable({

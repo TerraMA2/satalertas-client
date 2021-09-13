@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { ConfirmationService, MessageService, TreeNode } from 'primeng/api';
 import { Group } from '../../../../models/group.model';
 import { ConfigService } from '../../../../services/config.service';
-import { Response } from '../../../../models/response.model';
 
 @Component({
 	selector: 'app-group-list',

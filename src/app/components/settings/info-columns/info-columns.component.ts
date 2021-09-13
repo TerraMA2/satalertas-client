@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { InfoColumnsService } from 'src/app/services/info-columns.service';
+import { Response } from '../../../models/response.model';
 
 @Component({
   selector: 'app-info-columns',
@@ -16,10 +17,10 @@ export class InfoColumnsComponent implements OnInit {
   tables: any[];
   selectedTable: any;
   clonedColumn = {};
-  showModal: boolean = false;
+  showModal = false;
   rowInputs = [];
   columnTypes = [];
-  sendEditions: boolean = false;
+  sendEditions = false;
   editions = [];
 
   constructor(
@@ -46,10 +47,10 @@ export class InfoColumnsComponent implements OnInit {
     if (event.value) {
       const { value: { name, id } } = event;
       this.infoColumnsService.getTableColumns(id)
-        .then(response => {
-          this.cols = response.columns.filter(({ hide }) => !hide);
+        .then((response: Response) => {
+          this.cols = response.data.columns.filter(({ hide }) => !hide);
           this.fieldsToFilter = this.cols.map(({ columnName }) => columnName)
-          this.tableFields = response.data
+          this.tableFields = response.data.data
         })
     } else {
       this.tableFields = [];
@@ -68,7 +69,7 @@ export class InfoColumnsComponent implements OnInit {
       this.tableFields[columnPosition] = this.clonedColumn[column.id];
       delete this.clonedColumn[column.id]
       this.editions = this.editions.filter(edition => edition.id !== column.id)
-      if (this.editions.length = 0) {
+      if (this.editions.length === 0) {
         this.sendEditions = false;
       }
     }
@@ -79,7 +80,7 @@ export class InfoColumnsComponent implements OnInit {
       this.messageService.add({
         severity: 'success',
         summary: 'Sucesso',
-        detail: "Produto atualizado"
+        detail: 'Produto atualizado'
       });
       this.sendEditions = false;
       this.clonedColumn = {};

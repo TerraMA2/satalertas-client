@@ -34,7 +34,7 @@ export class SidebarLayerComponent implements OnInit {
 
 	isSelected = false;
 	disableTool = {};
-	showSublayers: boolean = true;
+	showSublayers = true;
 	@Input() isSubLayer = false;
 
 
