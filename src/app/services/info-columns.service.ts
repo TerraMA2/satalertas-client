@@ -22,10 +22,11 @@ export class InfoColumnsService {
 		return await this.httpService.get<any>(this.url + '/', { params: parameters }).toPromise();
 	}
 	async getAllTest() {
-		return this.httpService.get<any>('../../assets/mocking/mockingData.json')
+		return this.httpService.get<Response>(this.url + '/getInfocolumnsByTableName?tableName=infocolumn_columns_list')
 			.toPromise()
-			// .then(res => res.data)
-			.then(data => { return data; });
+			.then(data => {
+				return data;
+			});
 	}
 	async getTableNames() {
 		return this.httpService.get<Response>(this.url + '/getAllTables')
@@ -51,10 +52,10 @@ export class InfoColumnsService {
 	}
 	async getTableInfoColumns(tableName) {
 		const parameters = { tableName };
-		return this.httpService.get<Response>(this.url + '/getTableInfoColumns', {params: parameters})
-		.toPromise()
-		// .then(res => res.data)
-		.then(response => { return response.data; });
+		return this.httpService.get<Response>(this.url + '/getTableInfoColumns', { params: parameters })
+			.toPromise()
+			// .then(res => res.data)
+			.then(response => { return response.data; });
 	}
 	async sendInfocolumnsEditions(editions) {
 		// const parameters = { editions }

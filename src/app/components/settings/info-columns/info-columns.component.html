@@ -57,7 +57,7 @@
         <th *ngFor="let col of columns">
           <p-columnFilter *ngIf="col.columnName"
             type="text"
-            [field]="col.columnName"
+            [field]="col.nameCamel"
             [placeholder]="col.alias"
           ></p-columnFilter>
         </th>
@@ -83,7 +83,7 @@
                   <div class="p-text-center">
                     <i
                       [ngClass]="
-                        rowData[col.columnName]
+                        rowData[col.nameCamel]
                           ? 'pi pi-check-circle yes'
                           : 'pi pi-minus-circle no'
                       "
@@ -93,7 +93,7 @@
                 <ng-template pTemplate="input">
                   <div class="p-text-center">
                     <p-inputSwitch
-                      [(ngModel)]="rowData[col.columnName]"
+                      [(ngModel)]="rowData[col.nameCamel]"
                       [disabled]="col.disableEditing"
                     ></p-inputSwitch>
                   </div>
@@ -104,19 +104,19 @@
               <p-cellEditor>
                 <ng-template pTemplate="output">
                   <div>
-                    {{ rowData[col.columnName] }}
+                    {{ rowData[col.nameCamel] }}
                   </div>
                 </ng-template>
                 <ng-template pTemplate="input">
                   <p-dropdown
                     optionValue="type"
                     showClear="true"
-                    [(ngModel)]="rowData[col.columnName]"
+                    [(ngModel)]="rowData[col.nameCamel]"
                     [options]="columnTypes"
                     [placeholder]="col.alias"
                     [filter]="true"
                     [disabled]="col.disableEditing"
-                  >
+                    >
                     <ng-template let-itemData pTemplate="item">
                       <div class="item-data">
                         <div [pTooltip]="itemData.description">
@@ -132,14 +132,14 @@
               <p-cellEditor>
                 <ng-template pTemplate="output">
                   <div>
-                    {{ rowData[col.columnName] }}
+                    {{ rowData[col.nameCamel] }}
                   </div>
                 </ng-template>
                 <ng-template pTemplate="input">
                   <input
                     type="text"
                     pInputText
-                    [(ngModel)]="rowData[col.columnName]"
+                    [(ngModel)]="rowData[col.nameCamel]"
                     [disabled]="col.disableEditing"
                   />
                 </ng-template>
