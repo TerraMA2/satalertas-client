@@ -1,7 +1,7 @@
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { registerLocaleData } from '@angular/common';
 
@@ -97,6 +97,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { ChartsAreaComponent } from './dashboard/charts-area/charts-area.component';
 import { StyleClassModule } from 'primeng/styleclass';
 import { InfoColumnsComponent } from './settings/info-columns/info-columns.component';
+import { HttpInterceptorService } from '../services/http-interceptor.service';
 
 registerLocaleData(localePt, 'pt');
 
@@ -156,7 +157,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 		ReportsComponent,
 		ReportListComponent,
 		PageNotFoundComponent,
-  	InfoColumnsComponent,
+		InfoColumnsComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -211,7 +212,8 @@ export function HttpLoaderFactory(http: HttpClient) {
 		TreeDragDropService,
 		Title,
 		MessageService,
-		AuthGuard
+		AuthGuard,
+		{ provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }
 	],
 	bootstrap: [AppComponent]
 })

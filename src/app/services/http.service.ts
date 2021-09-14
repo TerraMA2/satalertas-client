@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
-import { Observable, throwError } from 'rxjs';
-
-import { catchError, retry } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
@@ -24,34 +22,21 @@ export class HTTPService {
 		if (!url) {
 			return;
 		}
-		return this.httpClient.post(url, params).pipe(
-			retry(1),
-			catchError(this.handleError)
-		);
+		return this.httpClient.post(url, params);
 	}
 
 	put(url, params = {}) {
 		if (!url) {
 			return;
 		}
-		return this.httpClient.put(url, params).pipe(
-			retry(1),
-			catchError(this.handleError)
-		);
+		return this.httpClient.put(url, params);
 	}
 
 	delete(url, params = {}) {
 		if (!url) {
 			return;
 		}
-		return this.httpClient.delete(url, params).pipe(
-			retry(1),
-			catchError(this.handleError)
-		);
-	}
-
-	private handleError(error: HttpErrorResponse) {
-		return throwError(`Error occured: ${ error }`);
+		return this.httpClient.delete(url, params);
 	}
 
 }
