@@ -4,17 +4,16 @@ import { HTTPService } from './http.service';
 
 import { ConfigService } from './config.service';
 
-import { BehaviorSubject, throwError } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 import { User } from '../models/user.model';
 
-import { catchError, tap } from 'rxjs/operators';
-
-import { HttpErrorResponse } from '@angular/common/http';
+import { tap } from 'rxjs/operators';
 
 import { SidebarService } from './sidebar.service';
 
 import { environment } from 'src/environments/environment';
+
 import { Response } from '../models/response.model';
 
 @Injectable({
@@ -36,28 +35,17 @@ export class AuthService {
 
 	login(params) {
 		const authConfig = this.configService.getAuthConfig();
-		return this.hTTPService.post(environment.serverUrl + authConfig.url, {params})
-		.pipe(
-			catchError(this.handleError),
-			tap((response: Response) => this.handleAuthentication(response.data))
-		);
+		return this.hTTPService.post<Response>(environment.serverUrl + authConfig.url, {params})
+		.pipe(tap((response: Response) => this.handleAuthentication(response.data)));
 	}
 
 	autoLogin() {
-		const userData: {
-			id: number;
-			name: string;
-			email: string;
-			username: string;
-			administrator: boolean;
-			tokenCode: string;
-			tokenExpirationDate: string;
-		} = JSON.parse(localStorage.getItem('userData'));
+		const userData: User = JSON.parse(localStorage.getItem('userData'));
 		if (!userData) {
 			return;
 		}
 
-		const loadedUser = new User(
+		const user = new User(
 			userData.id,
 			userData.name,
 			userData.email,
@@ -67,11 +55,9 @@ export class AuthService {
 			new Date(userData.tokenExpirationDate)
 		);
 
-		if (loadedUser.token) {
-			this.user.next(loadedUser);
-			const expirationDuration =
-				new Date(userData.tokenExpirationDate).getTime() -
-				new Date().getTime();
+		if (user.token) {
+			this.user.next(user);
+			const expirationDuration = new Date(userData.tokenExpirationDate).getTime() - new Date().getTime();
 			this.autoLogout(expirationDuration);
 		}
 	}
@@ -100,7 +86,7 @@ export class AuthService {
 		if (!environment.production) {
 			expiresIn = 31536000;
 		}
-		const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+		const expiration = expiresIn * 1000;
 		const user = new User(
 			loggedUser.id,
 			loggedUser.name,
@@ -108,14 +94,9 @@ export class AuthService {
 			loggedUser.username,
 			loggedUser.administrator,
 			loggedUser.token,
-			expirationDate);
+			new Date(new Date().getTime() + expiration));
 		this.user.next(user);
-		this.autoLogout(expiresIn * 1000);
+		this.autoLogout(expiration);
 		localStorage.setItem('userData', JSON.stringify(user));
 	}
-
-	private handleError(error: HttpErrorResponse) {
-		return throwError(`Error occured: ${ error.message }`);
-	}
-
 }

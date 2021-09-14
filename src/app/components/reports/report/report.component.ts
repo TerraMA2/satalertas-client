@@ -443,14 +443,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
 		const today = new Date();
 
 		this.reportData = await this.reportService.getReportCarData(this.carRegister, this.date, this.filter, this.type).then((response: Response) => response.data);
-		if (!this.reportData) {
-			this.messageService.add({
-				severity: 'error',
-				summary: 'Error',
-				detail: 'Não foi possível carregar o relatório'
-			});
-			return;
-		}
 		await this.formatValueLocate[this.type](this.reportData);
 		this.reportData['type'] = this.type;
 		this.reportData['date'] = this.date;

@@ -7,6 +7,7 @@ import { FilterTheme } from '../../../models/filter-theme.model';
 import { SelectItem } from 'primeng/api';
 
 import { FilterService } from '../../../services/filter.service';
+
 import { Response } from '../../../models/response.model';
 
 @Component({
@@ -86,11 +87,11 @@ export class ThemeComponent implements OnInit {
 				break;
 			case 'ti':
 				this.optionSelectedByFilter = new FilterTheme(undefined, 'Terra indígena', 'ti');
-				this.loadComboIL();
+				this.loadComboIndigenousLand();
 				break;
 			case 'uc':
 				this.optionSelectedByFilter = new FilterTheme(undefined, 'Unidade de conservação', 'uc');
-				this.loadComboCU();
+				this.loadComboConservationUnit();
 				break;
 			case 'projus':
 				this.optionSelectedByFilter = new FilterTheme(undefined, 'Projus Bacias', 'projus');
@@ -144,11 +145,11 @@ export class ThemeComponent implements OnInit {
 		this.filterService.getMicroregions().then((response: Response) => this.optionsFilterLocalizations = response.data);
 	}
 
-	private loadComboCU() {
+	private loadComboConservationUnit() {
 		this.filterService.getConservationUnit().then((response: Response) => this.optionsFilterLocalizations = this.addElementAll(response.data));
 	}
 
-	private loadComboIL() {
+	private loadComboIndigenousLand() {
 		this.filterService.getIndigenousLand().then((response: Response) => this.optionsFilterLocalizations = this.addElementAll(response.data));
 	}
 

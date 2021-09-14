@@ -21,7 +21,7 @@ export class ExportService {
 	async export(params, selectedFormats, fileName) {
 		const url = `${ environment.serverUrl }/export`;
 
-		await this.httpService.post(url, {params}).toPromise().then((response: Response) => {
+		return await this.httpService.post<Response>(url, {params}).toPromise().then((response: Response) => {
 			if (response.status === 200) {
 				const responseData = response.data;
 				const fileType = Util.getMimeType(selectedFormats);

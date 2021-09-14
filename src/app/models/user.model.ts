@@ -5,8 +5,8 @@ export class User {
 		public email: string,
 		public username: string,
 		public administrator: boolean,
-		private tokenCode: string,
-		private tokenExpirationDate: Date
+		public tokenCode: string,
+		public tokenExpirationDate: Date
 	) {
 	}
 

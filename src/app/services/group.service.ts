@@ -22,13 +22,13 @@ export class GroupService {
 
 	async getCodGroups() {
 		const codUrl = `${ this.url }/getCodGroups`;
-		return await this.httpService.get<any>(codUrl)
+		return await this.httpService.get<Response>(codUrl)
 		.toPromise()
 		.then((response: Response) => response.data);
 	}
 
 	async createNewGroup(params) {
-		return await this.httpService.post(this.url, { ...params }).toPromise()
+		return await this.httpService.post<Response>(this.url, { ...params }).toPromise()
 		.then((response: Response) => response.data);
 	}
 
