@@ -154,7 +154,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
 		private sidebarService: SidebarService,
 		private reportService: ReportService,
 		private authService: AuthService,
-		private messageService: MessageService,
 		private router: Router,
 		private confirmationService: ConfirmationService,
 		private exportService: ExportService,
@@ -555,8 +554,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 				this.reportData.property['sat'] = this.inputSat;
 				this.reportData.property['comments'] = this.textAreaComments;
 				this.reportService.generatePdf(this.reportData).then((response: Response) => {
-					const reportResp = (response.status === 200) ? response.data : {};
-					if (response.status === 200) {
+						const reportResp = response.data;
 						const document = reportResp.document;
 						const docDefinitions = document.docDefinitions;
 						docDefinitions.footer = (pagenumber, pageCount) => {
@@ -589,9 +587,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
 							this.exportService.getVectors(vectorViews, fileName);
 						}
 						this.generatingReport = false;
-					} else {
-						this.generatingReport = false;
-					}
 				});
 			},
 			reject: () => {

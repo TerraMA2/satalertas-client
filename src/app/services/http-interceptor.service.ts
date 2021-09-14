@@ -44,7 +44,7 @@ export class HttpInterceptorService implements HttpInterceptor {
 				if (!environment.production) {
 					console.log(error);
 				}
-				this.messageService.add({ severity: 'error', summary: 'Erro', detail: message });
+				this.messageService.add({ severity: 'error', summary: '', detail: message });
 				return throwError(response);
 			})
 		)

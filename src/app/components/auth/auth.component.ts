@@ -57,25 +57,19 @@ export class AuthComponent implements OnInit, OnDestroy {
 		this.authSub = this.authService
 		.login(form.value)
 		.subscribe((response: Response) => {
-				const status = response.status;
-				const message = response.message;
 				const user = response.data;
+				const message = response.message;
 
-				if (status !== 200) {
-					this.messageService.add({ severity: 'error', summary: 'Login', detail: message });
-					this.isLoading = false;
-					return false;
-				}
 				if (user) {
 					this.authService.user.next(user);
-					this.messageService.add({ severity: 'success', summary: 'Login', detail: message });
+					this.messageService.add({ severity: 'success', summary: '', detail: message });
 					this.closeLoginClicked.emit(false);
 					this.sidebarService.sidebarReload.next();
 				}
 				this.isLoading = false;
 			},
 			errorMessage => {
-				this.messageService.add({ severity: 'error', summary: 'Login falhou', detail: errorMessage });
+				this.messageService.add({ severity: 'error', summary: '', detail: errorMessage });
 				this.isLoading = false;
 			});
 	}
