@@ -104,7 +104,7 @@ export class ReportListComponent implements OnInit {
 		this.rowsPerPage = this.tableConfig.rowsPerPage;
 		this.activatedRoute.data.subscribe(data => this.loggedUser = data['user']);
 
-		this.reportLayers = await this.tableService.getReportLayers().then((response: Response) => {
+		this.reportLayers = await this.tableService.getReportLayers().toPromise().then((response: Response) => {
 			const data = response.data;
 			return data.map(reportLayer => new ReportLayer(
 				reportLayer['groupCode'],
@@ -152,7 +152,7 @@ export class ReportListComponent implements OnInit {
 		});
 	}
 
-	async loadTableData(layer,
+	loadTableData(layer,
 	                    limit: number,
 	                    offset: number,
 	                    sortField?: string,
@@ -202,19 +202,15 @@ export class ReportListComponent implements OnInit {
 		params['sortField'] = sortField ? sortField : this.selectedLayer && this.selectedLayer.sortField ? this.selectedLayer.sortField : undefined;
 		params['sortOrder'] = sortOrder ? sortOrder : 1;
 
-		this.hTTPService
-		.get(environment.serverUrl + url, { params: this.filterService.getParams(params) })
-		.toPromise().then(async (response: Response) => {
-				const data = response.data;
-				await this.setData(data);
-		});
+		this.hTTPService.get<Response>(environment.serverUrl + url, { params: this.filterService.getParams(params) })
+										.toPromise().then(({data}) => this.setData(data));
 	}
 
 	filterColumns(key) {
 		return !this.excludedColumns.includes(key);
 	}
 
-	async setData(data) {
+	setData(data) {
 		if (!data) {
 			this.tableData = [];
 		}
@@ -263,15 +259,15 @@ export class ReportListComponent implements OnInit {
 		return column['sortColumn'];
 	}
 
-	async onRowsPerPageChange(event) {
-		await this.loadTableData(this.selectedLayer, this.selectedRowsPerPage, 0);
+	onRowsPerPageChange(event) {
+		this.loadTableData(this.selectedLayer, this.selectedRowsPerPage, 0);
 		this.saveState();
 	}
 
 	onRowExpand(event) {
 		const gid = event.data.gid;
 		this.expandedRowKey = { [gid]: true };
-		this.reportService.getReportsByCARCod(gid).then((response: Response) => this.reports = (response.status === 200) ? response.data : []);
+		this.reportService.getReportsByCARCod(gid).toPromise().then((response: Response) => this.reports = (response.status === 200) ? response.data : []);
 		this.saveState();
 	}
 
@@ -370,18 +366,18 @@ export class ReportListComponent implements OnInit {
 		params['fileFormats'] = selectedFormats.toString();
 		params['selectedGids'] = selectedGids.toString();
 
-		await this.exportService.export(params, selectedFormats, layer.tableName);
+		await this.exportService.export(params, selectedFormats, layer.tableName).catch(error => this.isLoading = false);
 
 		this.isLoading = false;
 	}
 
 	getReport(report) {
 		this.isLoading = true;
-		this.reportService.getReportById(report.id).then((response: Response) => {
+		this.reportService.getReportById(report.id).toPromise().then((response: Response) => {
 			const reportResp = (response.status === 200) ? response.data : {};
 			window.open(window.URL.createObjectURL(Util.base64toBlob(reportResp.base64, 'application/pdf')));
 			this.isLoading = false;
-		});
+		}).catch(error => this.isLoading = false);
 	}
 
 	onRowSelect() {

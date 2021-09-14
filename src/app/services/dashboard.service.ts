@@ -34,7 +34,7 @@ export class DashboardService {
 		return await this.httpService.get<Response>(url, params).toPromise();
 	}
 
-	async getAnalysisCharts(analysis: Analysis [] = []) {
+	getAnalysisCharts(analysis: Analysis [] = []) {
 		const url = this.urlDashboard + '/getAnalysisCharts';
 
 		const parameters = this.filterService.getParams(analysis);
@@ -42,6 +42,6 @@ export class DashboardService {
 			params: parameters
 		};
 
-		return await this.httpService.get<Response>(url, params).toPromise();
+		return this.httpService.get<Response>(url, params).toPromise();
 	}
 }

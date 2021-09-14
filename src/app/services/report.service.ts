@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 import { HTTPService } from './http.service';
 
 import { environment } from '../../environments/environment';
+import { Response } from '../models/response.model';
 
 @Injectable({
 	providedIn: 'root'
@@ -31,7 +32,7 @@ export class ReportService {
 			}
 		};
 
-		return await this.httpService.get<any>(url, params).toPromise();
+		return await this.httpService.get<Response>(url, params).toPromise();
 	}
 
 	async getPointsAlerts(carRegister, date, filter, type) {
@@ -46,7 +47,7 @@ export class ReportService {
 			}
 		};
 
-		return await this.httpService.get<any>(url, params).toPromise();
+		return await this.httpService.get<Response>(url, params).toPromise();
 	}
 
 	async createPdf(reportData) {
@@ -56,7 +57,7 @@ export class ReportService {
 				reportData
 			}
 		};
-		return await this.httpService.post(url, params).toPromise();
+		return await this.httpService.post<Response>(url, params).toPromise();
 	}
 
 
@@ -68,10 +69,10 @@ export class ReportService {
 			}
 		};
 
-		return await this.httpService.post(url, params).toPromise();
+		return await this.httpService.post<Response>(url, params).toPromise();
 	}
 
-	async getReportsByCARCod(carGid) {
+	getReportsByCARCod(carGid): Observable<Response> {
 		const url = this.URL_REPORT_SERVER + '/getReportsByCARCod';
 		const params = {
 			params: {
@@ -79,16 +80,16 @@ export class ReportService {
 			}
 		};
 
-		return await this.httpService.get<any>(url, params).toPromise();
+		return this.httpService.get<Response>(url, params);
 	}
 
-	async getReportById(id) {
+	getReportById(id): Observable<Response> {
 		const url = this.URL_REPORT_SERVER;
 		const params = {
 			params: {
 				id
 			}
 		};
-		return await this.httpService.get<any>(url, params).toPromise();
+		return this.httpService.get<Response>(url, params);
 	}
 }

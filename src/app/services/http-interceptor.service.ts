@@ -1,11 +1,17 @@
-import {Injectable} from '@angular/core';
-import {HttpEvent, HttpHandler, HttpInterceptor,HttpRequest,HttpResponse,HttpErrorResponse} from '@angular/common/http';
-import {Observable, throwError} from 'rxjs';
+import { Injectable } from '@angular/core';
+import {
+	HttpEvent,
+	HttpHandler,
+	HttpInterceptor,
+	HttpRequest,
+	HttpErrorResponse, HttpStatusCode
+} from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { Response } from '../models/response.model';
-import { Event } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { Event } from '@angular/router';
+import { Response } from '../models/response.model';
 
 @Injectable()
 export class HttpInterceptorService implements HttpInterceptor {
@@ -14,28 +20,31 @@ export class HttpInterceptorService implements HttpInterceptor {
 		private messageService: MessageService
 	) {}
 
-	intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+	intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<Response>> {
 		return next.handle(req).pipe(
 			retry(1),
 			catchError((errorResponse: HttpErrorResponse) => {
-				let status = errorResponse.status;
-				const statusText = errorResponse.statusText;
 				const error = errorResponse.error;
-				const message = errorResponse.message;
-				let errorMessage = `${status} - ${statusText} - ${message}`;
+				let response: Response;
+				let message = '';
 				if (error instanceof Event) {
-					status = null;
-					errorMessage = message;
+					message = 'Erro na conexão com o servidor';
+					response = {
+						status: null,
+						data: null,
+						message: errorResponse.message
+					};
+				} else {
+					message = error.message;
+					response = error;
+					if (response.status === HttpStatusCode.InternalServerError) {
+						message = 'Erro no servidor';
+					}
 				}
 				if (!environment.production) {
-					console.log(errorResponse);
+					console.log(error);
 				}
-				const response: Response = {
-					status,
-					data: null,
-					message: errorMessage
-				}
-				this.messageService.add({ severity: 'error', summary: 'Erro de acesso', detail: `Ocorreu um erro ao acessar o servidor` });
+				this.messageService.add({ severity: 'error', summary: 'Erro', detail: message });
 				return throwError(response);
 			})
 		)

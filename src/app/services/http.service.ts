@@ -15,28 +15,31 @@ export class HTTPService {
 	}
 
 	get<T>(url, params = {}): Observable<T> {
-		return this.httpClient.get<T>(url, params)
-	}
-
-	post(url, params = {}) {
 		if (!url) {
 			return;
 		}
-		return this.httpClient.post(url, params);
+		return this.httpClient.get<T>(url, params);
 	}
 
-	put(url, params = {}) {
+	post<T>(url, params = {}): Observable<T> {
 		if (!url) {
 			return;
 		}
-		return this.httpClient.put(url, params);
+		return this.httpClient.post<T>(url, params);
 	}
 
-	delete(url, params = {}) {
+	put<T>(url, params = {}): Observable<T> {
 		if (!url) {
 			return;
 		}
-		return this.httpClient.delete(url, params);
+		return this.httpClient.put<T>(url, params);
+	}
+
+	delete<T>(url, params = {}): Observable<T> {
+		if (!url) {
+			return;
+		}
+		return this.httpClient.delete<T>(url, params);
 	}
 
 }

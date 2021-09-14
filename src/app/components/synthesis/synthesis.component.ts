@@ -87,11 +87,6 @@ export class SynthesisComponent implements OnInit {
 		const endDate = new Date(date[1]).toLocaleDateString('pt-BR');
 
 		this.formattedFilterDate = `${ startDate } - ${ endDate }`;
-		this.synthesisService.getNDVI(this.carRegister, date).then(data => {
-			this.chartImages = data;
-			this.isLoading = false;
-		});
-
 		this.synthesisService.getSynthesis(this.carRegister, date).then((response: Response) => {
 			const propertyData: Property = response.data;
 
@@ -122,6 +117,11 @@ export class SynthesisComponent implements OnInit {
 			this.burnedAreasChartData = this.synthesisService.getChart(this.burnedAreaHistory, 'Áreas Queimadas');
 			this.burnedAreasPerPropertyChartDatas = this.synthesisService.getPerPropertyChart(this.burnedAreaHistory, propertyData.area, 'Áreas Queimadas');
 		});
+
+		this.synthesisService.getNDVI(this.carRegister, date).then(data => {
+			this.chartImages = data;
+			this.isLoading = false;
+		}).catch(error => this.isLoading = false);
 	}
 
 	onViewReportClicked(reportType) {
