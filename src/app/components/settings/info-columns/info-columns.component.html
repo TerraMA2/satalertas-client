@@ -1,4 +1,3 @@
-<p-toast></p-toast>
 <p-scrollPanel [style]="{ width: '100%', height: 'calc(100vh - 50px)' }">
     <app-settings-toolbar></app-settings-toolbar>
     <div class="p-grid">
@@ -10,8 +9,9 @@
                         #dt1
                         [columns]="cols"
                         [value]="tableFields"
-                        [reorderableColumns]="true"
                         dataKey="id"
+                        [responsiveLayout]="'stack'"
+                        [autoLayout]="true"
                         [globalFilterFields]="fieldsToFilter"
                         editMode="row"
                     >
@@ -51,7 +51,6 @@
                                         *ngFor="let col of columns"
                                         [pTooltip]="col.description"
                                         showDelay="1000"
-                                        pReorderableColumn
                                 >
                                     {{ col.alias }}
                                 </th>

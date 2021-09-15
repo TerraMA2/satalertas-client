@@ -135,7 +135,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.messageService.add(
 			{
 				severity: 'success',
-				summary: 'Logout',
+				summary: '',
 				detail: 'Logout realizado com successo!'
 			}
 		);

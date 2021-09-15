@@ -1,4 +1,3 @@
-<p-toast></p-toast>
 <div class="card">
   <p-toolbar styleClass="p-mb-4">
     <ng-template pTemplate="left">
@@ -20,6 +19,8 @@
   [rowHover]="true"
   [rows]="5"
   [value]="groups"
+  [responsiveLayout]="'stack'"
+  [autoLayout]="true"
   class="p-d-flex"
   selectionMode="checkbox"
 >

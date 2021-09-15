@@ -82,7 +82,7 @@ export class LayerToolsComponent implements OnInit {
 		if (!selectedFormats || selectedFormats.length === 0) {
 			this.messageService.add({
 				severity: 'error',
-				summary: 'Exportação',
+				summary: '',
 				detail: 'Selecione ao menos 1 formato.'
 			});
 			this.isExportLoading = false;

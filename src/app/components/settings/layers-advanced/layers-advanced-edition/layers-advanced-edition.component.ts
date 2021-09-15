@@ -1,11 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Message, MessageService } from 'primeng/api';
 
 @Component({
 	selector: 'app-layers-advanced-edition',
 	templateUrl: './layers-advanced-edition.component.html',
-	styleUrls: ['./layers-advanced-edition.component.css'],
-	providers: [MessageService]
+	styleUrls: ['./layers-advanced-edition.component.css']
 })
 export class LayersAdvancedEditionComponent implements OnInit {
 	@Input() header: string;
@@ -17,10 +15,9 @@ export class LayersAdvancedEditionComponent implements OnInit {
 	@Input() layers;
 	@Input() newData = {};
 	subLayers;
-	msgs: Message[] = [];
 	submit = false;
 
-	constructor(private messageService: MessageService) {
+	constructor() {
 	}
 
 	ngOnInit(): void {

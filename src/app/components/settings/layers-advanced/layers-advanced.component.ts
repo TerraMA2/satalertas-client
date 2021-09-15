@@ -9,7 +9,7 @@ import { Response } from '../../../models/response.model';
 	selector: 'app-layers-advanced',
 	templateUrl: './layers-advanced.component.html',
 	styleUrls: ['./layers-advanced.component.css'],
-	providers: [MessageService, ConfirmationService]
+	providers: [ConfirmationService]
 })
 export class LayersAdvancedComponent implements OnInit {
 	groups;
@@ -169,7 +169,7 @@ export class LayersAdvancedComponent implements OnInit {
 						this.edited = false;
 						this.messageService.add({
 							severity: 'success',
-							summary: 'Sucesso',
+							summary: '',
 							detail: 'Edições Salvas',
 							life: 3000
 						});
@@ -190,7 +190,7 @@ export class LayersAdvancedComponent implements OnInit {
 						this.edited = false;
 						this.messageService.add({
 							severity: 'success',
-							summary: 'Sucesso',
+							summary: '',
 							detail: 'Edições desfeitas',
 							life: 3000
 						});

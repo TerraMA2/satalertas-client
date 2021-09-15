@@ -267,7 +267,7 @@ export class ReportListComponent implements OnInit {
 	onRowExpand(event) {
 		const gid = event.data.gid;
 		this.expandedRowKey = { [gid]: true };
-		this.reportService.getReportsByCARCod(gid).toPromise().then((response: Response) => this.reports = (response.status === 200) ? response.data : []);
+		this.reportService.getReportsByCARCod(gid).toPromise().then((response: Response) => this.reports = response.data);
 		this.saveState();
 	}
 
@@ -339,7 +339,7 @@ export class ReportListComponent implements OnInit {
 		if (!selectedFormats || selectedFormats.length === 0) {
 			this.messageService.add({
 				severity: 'error',
-				summary: 'Exportação',
+				summary: '',
 				detail: 'Selecione ao menos 1 formato.'
 			});
 			this.isLoading = false;
@@ -374,7 +374,7 @@ export class ReportListComponent implements OnInit {
 	getReport(report) {
 		this.isLoading = true;
 		this.reportService.getReportById(report.id).toPromise().then((response: Response) => {
-			const reportResp = (response.status === 200) ? response.data : {};
+			const reportResp = response.data;
 			window.open(window.URL.createObjectURL(Util.base64toBlob(reportResp.base64, 'application/pdf')));
 			this.isLoading = false;
 		}).catch(error => this.isLoading = false);

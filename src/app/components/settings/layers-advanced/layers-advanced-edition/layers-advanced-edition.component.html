@@ -39,7 +39,7 @@
         <input
           [(ngModel)]="newData['description']"
           [placeholder]="
-            data['description'] 
+            data['description']
           "
           id="description"
           name="description"
@@ -78,16 +78,17 @@
         </div>
       </div>
     </p-toolbar>
-    <div class="card">
+    <div class="card width-100">
       <ng-template [ngIf]="data['isPrimary'] || newData['isPrimary']">
         <p-table
           #dt
           (onRowSelect)="pushLayer($event.data)"
           (onRowUnselect)="removeLayer($event.data)"
           [globalFilterFields]="['name', 'description']"
-          [scrollable]="true"
           [selection]="data['subLayers']"
           [value]="layers"
+          [responsiveLayout]="'stack'"
+          [autoLayout]="true"
           dataKey="id"
           scrollHeight="200px"
           selectionMode="multiple"
