@@ -1,6 +1,7 @@
 <p-toolbar>
     <div class="p-toolbar-group-left">
         <p-button (click)="back()"
+                  pRipple
                   icon="fas fa-arrow-left"
                   label="Voltar"
                   styleClass="p-button-raised">
@@ -14,6 +15,7 @@
         <button (click)="onViewReportClicked('deter')"
                 class="p-button-raised p-button-outlined p-button-secondary view-report-icon icon-margin"
                 pButton
+                pRipple
                 pTooltip="{{'viewDeterReport' | translate}}"
                 tooltipPosition="top">
             <img src="assets/img/ico/deter32x32.png"/>
@@ -21,6 +23,7 @@
         <button (click)="onViewReportClicked('prodes')"
                 class="p-button-raised p-button-outlined p-button-secondary view-report-icon icon-margin"
                 pButton
+                pRipple
                 pTooltip="{{'viewProdesReport' | translate}}"
                 tooltipPosition="top">
             <img src="assets/img/ico/prodes32x32.png"/>
@@ -28,6 +31,7 @@
         <button (click)="onViewReportClicked('queimada')"
                 class="p-button-raised p-button-outlined p-button-secondary view-report-icon icon-margin"
                 pButton
+                pRipple
                 pTooltip="{{'viewBurnedReport' | translate}}"
                 tooltipPosition="top">
             <img src="assets/img/ico/queima.ico"/>

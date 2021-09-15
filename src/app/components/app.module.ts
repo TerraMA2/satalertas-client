@@ -98,6 +98,7 @@ import { ChartsAreaComponent } from './dashboard/charts-area/charts-area.compone
 import { StyleClassModule } from 'primeng/styleclass';
 import { InfoColumnsComponent } from './settings/info-columns/info-columns.component';
 import { HttpInterceptorService } from '../services/http-interceptor.service';
+import { SkeletonModule } from 'primeng/skeleton';
 
 registerLocaleData(localePt, 'pt');
 
@@ -207,6 +208,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 			}
 		}),
 		StyleClassModule,
+		SkeletonModule
 	],
 	providers: [
 		TreeDragDropService,
