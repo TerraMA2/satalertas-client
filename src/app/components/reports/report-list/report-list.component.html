@@ -82,6 +82,7 @@
                     &nbsp;&nbsp;
 
                     <p-button
+                            pRipple
                             (click)="onExportClick()"
                             [disabled]="isExportDisabled || isLoading"
                             icon="fas fa-save"
@@ -145,6 +146,7 @@
                     <button *ngIf="showDeter"
                             class="p-button-raised p-button-outlined p-button-secondary view-report-icon"
                             pButton
+                            pRipple
                             pTooltip="{{ 'viewDeterReport' | translate }}"
                             routerLink="/reports/deter/{{getRegister(rowData)}}"
                             tooltipPosition="top">
@@ -153,6 +155,7 @@
                     <button *ngIf="showProdes"
                             class="p-button-raised p-button-outlined p-button-secondary view-report-icon icon-margin"
                             pButton
+                            pRipple
                             pTooltip="{{ 'viewProdesReport' | translate }}"
                             routerLink="/reports/prodes/{{getRegister(rowData)}}"
                             tooltipPosition="top">
@@ -161,6 +164,7 @@
                     <button *ngIf="showBurn"
                             class="p-button-raised p-button-outlined p-button-secondary view-report-icon icon-margin"
                             pButton
+                            pRipple
                             pTooltip="{{ 'viewBurnedReport' | translate }}"
                             routerLink="/reports/queimada/{{getRegister(rowData)}}"
                             tooltipPosition="top">
@@ -168,6 +172,7 @@
                     </button>
                     <button class="p-button-raised p-button-outlined p-button-secondary view-report-icon icon-margin"
                             pButton
+                            pRipple
                             pTooltip="{{ 'viewSynthesis' | translate }}"
                             routerLink="/synthesis/{{getRegister(rowData)}}">
                         <i class="fa fa-file-invoice synthesis-link"></i>
@@ -182,7 +187,8 @@
             <td [attr.colspan]="selectedColumns.length + 4">
                 <div *ngIf="reports.length > 0" class="p-grid text-center">
                     <div *ngFor="let report of reports; trackBy: trackById" class="p-sm-4 p-md-2">
-                        <div (click)="getReport(report)"
+                        <div pRipple
+                             (click)="getReport(report)"
                              class="report-card"
                              pTooltip="{{'downloadReport' | translate}}"
                              tooltipPosition="top">

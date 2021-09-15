@@ -31,6 +31,7 @@ export class AppComponent implements OnInit {
 		private sidebarService: SidebarService,
 		private config: PrimeNGConfig,
 		private translateService: TranslateService,
+		private primengConfig: PrimeNGConfig
 	) {
 		this.translateService.setDefaultLang(this.configService.getAppConfig('locale').defaultLanguage);
 		this.translateService.get('primeng').subscribe(res => this.config.setTranslation(res));
@@ -38,6 +39,7 @@ export class AppComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		this.primengConfig.ripple = true;
 		this.authService.autoLogin();
 
 		if (environment.production) {

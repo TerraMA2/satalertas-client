@@ -10,6 +10,7 @@
     &nbsp;&nbsp;
 
     <button pButton
+            pRipple
             (click)="showFilter()"
             icon="fas fa-filter"
             label="{{'headerFilterButton' | translate}}"
@@ -40,10 +41,12 @@
                     yearRange="1998:2100">
             <p-footer class="date-footer">
                 <p-button (click)="onTodayClick()"
+                          pRipple
                           label="{{ 'primeng.today' | translate }}"
                           styleClass="date-button date-button-today p-button-raised">
                 </p-button>
                 <p-button (click)="onFilterClick()"
+                          pRipple
                           [disabled]="(dateInput && !dateInput[1] && dateInput[1] === null)"
                           label="{{ 'calendarFilterButton' | translate}}"
                           styleClass="date-button button-right p-button-raised">
@@ -77,6 +80,7 @@
 
         <ng-template #login>
             <p-button (click)="onLoginClick()"
+                      pRipple
                       icon="fa fa-sign-in-alt"
                       label="{{'login' | translate}}"
                       styleClass="p-button-raised p-button-secondary">
@@ -89,11 +93,13 @@
 
             <div *ngIf="isAdministrator">
                 <p-button icon="pi pi-cog"
+                          pRipple
                           routerLink="/settings/groups">
                 </p-button>
             </div>
 
             <p-button (click)="onLogoutClick()"
+                      pRipple
                       icon="fa fa-sign-in-alt"
                       label="{{'logout' | translate}}"
                       styleClass="p-button-raised p-button-secondary">

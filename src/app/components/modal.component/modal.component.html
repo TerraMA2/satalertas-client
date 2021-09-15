@@ -50,12 +50,14 @@
     <p-footer>
         <p-button (click)="onSave(validateFields())"
                   icon="pi pi-check"
+                  pRipple
                   label="Salvar"
                   styleClass="p-button-raised"
                   type="submit">
         </p-button>
 
         <p-button
+                pRipple
                 (click)="onClose()"
                 icon="pi pi-times"
                 label="Cancelar"

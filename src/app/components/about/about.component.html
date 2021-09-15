@@ -43,7 +43,9 @@
             <p> {{ 'terralibVersion' | translate }}: {{ terralibVersion }}</p>
         </div>
         <br>
-        <p-button (click)="closeAbout()" label="{{ 'close' | translate}}"
+        <p-button (click)="closeAbout()"
+                  label="{{ 'close' | translate}}"
+                  pRipple
                   styleClass="p-button-raised p-button-secondary width-100">
         </p-button>
     </div>
