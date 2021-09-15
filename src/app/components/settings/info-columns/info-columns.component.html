@@ -9,8 +9,9 @@
                         #dt1
                         [columns]="cols"
                         [value]="tableFields"
-                        [reorderableColumns]="true"
                         dataKey="id"
+                        [responsiveLayout]="'stack'"
+                        [autoLayout]="true"
                         [globalFilterFields]="fieldsToFilter"
                         editMode="row"
                     >
@@ -50,7 +51,6 @@
                                         *ngFor="let col of columns"
                                         [pTooltip]="col.description"
                                         showDelay="1000"
-                                        pReorderableColumn
                                 >
                                     {{ col.alias }}
                                 </th>

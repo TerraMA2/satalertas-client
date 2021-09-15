@@ -4,15 +4,14 @@
          [lazy]="true"
          [loading]="isLoading"
          [paginator]="true"
-         [reorderableColumns]="true"
-         [resizableColumns]="true"
          [responsive]="true"
          [rowTrackBy]="trackById"
          [rows]="selectedRowsPerPage"
-         [scrollHeight]="'45vh'"
-         [scrollable]="true"
+         [scrollHeight]="'50vh'"
          [totalRecords]="totalRecords"
          [value]="tableData"
+         [autoLayout]="true"
+         [responsiveLayout]="'stack'"
          [loadingIcon]="'fas fa-circle-notch color-black'">
     <ng-template pTemplate="caption">
         <div class="p-grid p-nogutter">
@@ -58,7 +57,7 @@
     <ng-template let-columns
                  pTemplate="header">
         <tr>
-            <th *ngFor="let col of columns; trackBy: trackById" [pSortableColumn]="col.field" pReorderableColumn>
+            <th *ngFor="let col of columns; trackBy: trackById" [pSortableColumn]="col.field">
                 {{col.header}}
                 <p-sortIcon [field]="col.field"></p-sortIcon>
             </th>

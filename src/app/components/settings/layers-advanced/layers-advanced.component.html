@@ -25,6 +25,8 @@
         <p-table
           [scrollable]="true"
           [value]="groupLayers"
+          [responsiveLayout]="'stack'"
+          [autoLayout]="true"
           dataKey="id"
           scrollHeight="400px"
         >
@@ -122,7 +124,7 @@
               <tr>
                 <td colspan="6">
                   <div class="p-p-1">
-                    <p-table [value]="item.subLayers" dataKey="id">
+                    <p-table [value]="item.subLayers" [responsiveLayout]="'stack'" [autoLayout]="true" dataKey="id">
                       <ng-template pTemplate="header">
                         <tr>
                           <th>Nome</th>

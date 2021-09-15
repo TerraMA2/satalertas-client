@@ -10,7 +10,7 @@ import { Response } from 'src/app/models/response.model';
 
 import pdfMake from 'pdfmake/build/pdfmake';
 
-import Chart from 'chart.js';
+import { Chart } from 'chart.js'
 
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 
@@ -18,7 +18,7 @@ import { ExportService } from '../../../services/export.service';
 
 import { AuthService } from 'src/app/services/auth.service';
 
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService } from 'primeng/api';
 
 import { ReportImage } from '../../../models/report-image.model';
 
@@ -39,22 +39,6 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 })
 
 export class ReportComponent implements OnInit, AfterViewInit {
-	@ViewChild('imagem2') imagem2: Chart;
-	@ViewChild('chartImg') chartImg: Chart;
-	@ViewChild('myChart0') myChart0: Chart;
-	@ViewChild('myChart1') myChart1: Chart;
-	@ViewChild('myChart2') myChart2: Chart;
-	@ViewChild('myChart3') myChart3: Chart;
-	@ViewChild('myChart4') myChart4: Chart;
-	@ViewChild('myChart5') myChart5: Chart;
-	@ViewChild('myChart6') myChart6: Chart;
-	@ViewChild('myChart7') myChart7: Chart;
-	@ViewChild('myChart8') myChart8: Chart;
-	@ViewChild('myChart9') myChart9: Chart;
-	@ViewChild('myChart10') myChart10: Chart;
-	@ViewChild('myChart11') myChart11: Chart;
-	@ViewChild('myChart12') myChart12: Chart;
-	@ViewChild('myChart13') myChart13: Chart;
 	reportData;
 	carRegister: string;
 	chartImages = [];
@@ -200,9 +184,9 @@ export class ReportComponent implements OnInit, AfterViewInit {
 				let count = 0;
 				for (const point of this.points) {
 					const canvas: any = document.createElement('canvas');
-					canvas.id = `myChart${ count }`;
+					canvas.id = `ndviChart${ count }`;
 					canvas.setAttribute('width', 600);
-					canvas.setAttribute('height', 200);
+					canvas.setAttribute('height', 250);
 					canvas.setAttribute('style', 'display: none');
 
 					document.body.appendChild(canvas);
@@ -210,27 +194,19 @@ export class ReportComponent implements OnInit, AfterViewInit {
 					const ctx: any = canvas.getContext('2d');
 					const options = point.options;
 
-					const myChart = new Chart(ctx, options);
+					const ndviChart = new Chart(ctx, options);
 
-					myChart.update({
-						duration: 0,
-						lazy: false,
-						easing: 'easeOutBounce'
-					});
+					ndviChart.update('resize');
+					ndviChart.render();
+					ndviChart.stop();
 
-					myChart.render();
-
-					myChart.stop();
-
-					const ndviChart = this.getImageObject(myChart && myChart.toBase64Image() ? [myChart.toBase64Image()] : null, [500, 500], [10, 0], 'center');
+					const ndviChartImage = this.getImageObject(ndviChart && ndviChart.toBase64Image() ? [ndviChart.toBase64Image()] : null, [500, 500], [10, 0], 'center');
 					const geoserverImage = this.getImageObject(await this.getBaseImageUrl(point.url), [200, 200], [10, 70], 'center');
 
-					const chartImage = {
-						geoserverImageNdvi: geoserverImage,
-						myChart: ndviChart
-					};
-
-					this.chartImages.push(chartImage);
+					this.chartImages.push({
+						geoserverImage,
+						ndviChartImage
+					});
 					++count;
 				}
 			}
