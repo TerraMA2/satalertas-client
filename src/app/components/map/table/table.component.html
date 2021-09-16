@@ -23,7 +23,7 @@
                     <p-multiSelect [(ngModel)]="selectedColumns"
                                    [options]="columns"
                                    [style]="{minWidth: '200px'}"
-                                   defaultLabel="{{ 'selectColumns' | translate}}"
+                                   defaultLabel="{{ 'Select columns' | translate}}"
                                    optionLabel="header"
                                    selectedItemsLabel="{0} columns selected">
                     </p-multiSelect>
@@ -79,7 +79,7 @@
                  pTemplate="paginatorright">
         <strong>{{state.totalRecords | number:'1.0-4':'pt' }} {{'registers' | translate}}</strong>
         &nbsp;
-        <strong>{{selectedProperties ? selectedProperties?.length : '0' }} {{'selecteds' | translate}}</strong>
+        <strong>{{selectedProperties ? selectedProperties?.length : '0' }} {{'Selecteds' | translate}}</strong>
     </ng-template>
 
 </p-table>

@@ -1,38 +1,33 @@
 <p-toolbar>
     <div class="p-toolbar-group-left">
         <p-button (click)="back()"
-                  pRipple
                   icon="fas fa-arrow-left"
-                  label="{{ 'goBack' | translate }}"
+                  label="{{ 'Go back' | translate }}"
                   styleClass="p-button-raised">
         </p-button>
         &nbsp;&nbsp;
         <p-button (click)="onViewReportClicked('')"
-                  pRipple
-                  pTooltip="{{ 'viewSynthesis' | translate }}"
+                  pTooltip="{{ 'View synthesis' | translate }}"
                   styleClass="p-button-raised p-button-outlined p-button-secondary view-report-icon icon-margin synthesis-link"
                   tooltipPosition="top">
             <span class="fas fa-file-invoice synthesis-icon"></span>
         </p-button>
         &nbsp;&nbsp;
         <p-button (click)="onViewReportClicked('deter')"
-                  pRipple
-                  pTooltip="{{'viewDeterReport' | translate}}"
+                  pTooltip="{{'View DETER report' | translate}}"
                   styleClass="p-button-raised p-button-outlined p-button-secondary view-report-icon"
                   tooltipPosition="top">
             <img src="assets/img/ico/deter32x32.png"/>
         </p-button>
         <p-button (click)="onViewReportClicked('prodes')"
-                  pRipple
-                  pTooltip="{{'viewProdesReport' | translate}}"
+                  pTooltip="{{'View PRODES report' | translate}}"
                   styleClass="p-button-raised p-button-outlined p-button-secondary view-report-icon icon-margin"
                   tooltipPosition="top">
             <img src="assets/img/ico/prodes32x32.png"/>
         </p-button>
 
         <p-button (click)="onViewReportClicked('queimada')"
-                  pRipple
-                  pTooltip="{{'viewBurnedReport' | translate}}"
+                  pTooltip="{{'View burn report' | translate}}"
                   styleClass="p-button-raised p-button-outlined p-button-secondary view-report-icon icon-margin"
                   tooltipPosition="top">
             <img src="assets/img/ico/queima.ico"/>
@@ -41,8 +36,8 @@
     <p-button *ngIf="loggedUser.administrator"
               pRipple
               (click)="op.toggle($event)"
-              label="{{ 'conclusion' | translate }}"
-              pTooltip="{{ 'alterConclusion' | translate }}"
+              label="{{ 'Conclusion' | translate }}"
+              pTooltip="{{ 'Alter conclusion and Sat' | translate }}"
               tooltipPosition="bottom">
     </p-button>
     <div class="p-toolbar-group-right">
@@ -51,14 +46,14 @@
                       pRipple
                       [disabled]="!docBase64 || generatingReport"
                       icon="fas fa-download p-button-raised"
-                      label="{{'generateReport' | translate}}">
+                      label="{{'Generate Report' | translate}}">
             </p-button>
             <div class="vector-button">
                 <p-inputSwitch [(ngModel)]="downloadVectors"
                                [disabled]="!docBase64 || generatingReport"
                                id="getVectors">
                 </p-inputSwitch>
-                <label for="getVectors">{{'downloadVectors' | translate}}</label>
+                <label for="getVectors">{{'Download vectors' | translate}}</label>
             </div>
         </div>
     </div>
@@ -99,7 +94,7 @@
                        type="text">
                 <br>
                 <br>
-                <label>{{ 'conclusion' | translate }}: </label>
+                <label>{{ 'Conclusion' | translate }}: </label>
                 <textarea
                         [(ngModel)]="textAreaComments"
                         [cols]="30"

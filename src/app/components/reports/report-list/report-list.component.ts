@@ -203,7 +203,7 @@ export class ReportListComponent implements OnInit {
 		params['sortOrder'] = sortOrder ? sortOrder : 1;
 
 		this.hTTPService.get<Response>(environment.serverUrl + url, { params: this.filterService.getParams(params) })
-										.toPromise().then(({data}) => this.setData(data));
+										.toPromise().then(({data}) => this.setData(data)).catch(error => this.isLoading = false);
 	}
 
 	filterColumns(key) {

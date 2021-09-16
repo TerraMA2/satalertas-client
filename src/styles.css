@@ -2122,7 +2122,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
     text-align: left;
     border: 1px solid #e9ecef;
     border-width: 0 0 1px 0;
-    padding: .8rem .8rem;
+    padding: 0.1rem .5rem;
 }
 .p-datatable .p-datatable-tbody > tr > td .p-row-toggler,
 .p-datatable .p-datatable-tbody > tr > td .p-row-editor-init,

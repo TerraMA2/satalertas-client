@@ -19,8 +19,7 @@
     <div class="link-container">
         <button class="p-button-raised p-button-secondary view-report-icon icon-margin"
                 pButton
-                pRipple
-                pTooltip="{{'viewSynthesis' | translate}}"
+                pTooltip="{{'View synthesis' | translate}}"
                 routerLink="{{ linkSynthesis }}"
                 tooltipPosition="top">
             <span class="fas fa-file-invoice synthesis-link"></span>
@@ -28,8 +27,7 @@
         <div *ngIf="linkDETER">
             <button class="p-button-raised p-button-secondary view-report-icon icon-margin"
                     pButton
-                    pRipple
-                    pTooltip="{{'viewDeterReport' | translate}}"
+                    pTooltip="{{'View DETER report' | translate}}"
                     routerLink="{{ linkDETER }}"
                     tooltipPosition="top">
                 <img src="assets/img/ico/deter32x32.png"/>
@@ -37,8 +35,7 @@
         </div>
         <div *ngIf="linkPRODES">
             <p-button class="p-button-raised p-button-secondary view-report-icon icon-margin"
-                      pRipple
-                      pTooltip="{{'viewProdesReport' | translate}}"
+                      pTooltip="{{'View PRODES report' | translate}}"
                       routerLink="{{ linkPRODES }}"
                       tooltipPosition="top">
                 <img src="assets/img/ico/prodes32x32.png"/>
@@ -46,8 +43,7 @@
         </div>
         <div *ngIf="linkFireSpot">
             <p-button class="p-button-raised p-button-secondary view-report-icon icon-margin"
-                      pRipple
-                      pTooltip="{{'viewBurnedReport' | translate}}"
+                      pTooltip="{{'View burn report' | translate}}"
                       routerLink="{{ linkFireSpot }}"
                       tooltipPosition="top">
                 <img src="assets/img/ico/queima.ico"/>

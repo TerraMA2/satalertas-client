@@ -21,7 +21,6 @@
   [value]="groups"
   [responsiveLayout]="'stack'"
   [autoLayout]="true"
-  class="p-d-flex"
   selectionMode="checkbox"
 >
   <ng-template pTemplate="caption">
@@ -108,7 +107,6 @@
     </tr>
   </ng-template>
 </p-table>
-
 <app-modal
   (onClickCancel)="cancelGroupEdition()"
   (onClickSave)="saveGroup()"

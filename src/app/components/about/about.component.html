@@ -2,7 +2,7 @@
           [contentStyle]="{'width': '50vw','max-height':'75vh'}"
           autoZIndex="false"
           baseZIndex="1001"
-          header="{{'about' | translate}}"
+          header="{{'About' | translate}}"
           position="center"
           resizable="false">
     <div class="about-padding">
@@ -39,12 +39,12 @@
         <br>
         <br>
         <div class="p-col-12 text-right">
-            <p> {{ 'terrama2Version' | translate }}: {{ terrama2Version }}</p>
-            <p> {{ 'terralibVersion' | translate }}: {{ terralibVersion }}</p>
+            <p> {{ 'TerraMA² version' | translate }}: {{ terrama2Version }}</p>
+            <p> {{ 'Terralib version' | translate }}: {{ terralibVersion }}</p>
         </div>
         <br>
         <p-button (click)="closeAbout()"
-                  label="{{ 'close' | translate}}"
+                  label="{{ 'Close' | translate}}"
                   pRipple
                   styleClass="p-button-raised p-button-secondary width-100">
         </p-button>
