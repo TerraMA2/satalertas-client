@@ -40,7 +40,7 @@
                                    [options]="columns"
                                    (onChange)="onColumnsChanged($event)"
                                    [style]="{minWidth: '200px'}"
-                                   defaultLabel="{{ 'selectColumns' | translate}}"
+                                   defaultLabel="{{ 'Select columns' | translate}}"
                                    optionLabel="header"
                                    selectedItemsLabel="{0} columns selected">
                     </p-multiSelect>
@@ -75,7 +75,7 @@
                                    [filter]="false"
                                    [options]="formats"
                                    [style]="{minWidth: '16rem'}"
-                                   defaultLabel="{{'selectFormat' | translate}}"
+                                   defaultLabel="{{'Select a format' | translate}}"
                                    maxSelectedLabels="4">
                     </p-multiSelect>
 
@@ -87,8 +87,8 @@
                             [disabled]="isExportDisabled || isLoading"
                             icon="fas fa-save"
                             iconPos="left"
-                            label="{{'export' | translate}}"
-                            pTooltip="{{ 'exportSelected' | translate }}"
+                            label="{{'Export' | translate}}"
+                            pTooltip="{{ 'Export selected' | translate }}"
                             styleClass="p-button-raised"
                             tooltipPosition="left">
                     </p-button>
@@ -147,7 +147,7 @@
                             class="p-button-raised p-button-outlined p-button-secondary view-report-icon"
                             pButton
                             pRipple
-                            pTooltip="{{ 'viewDeterReport' | translate }}"
+                            pTooltip="{{ 'View DETER report' | translate }}"
                             routerLink="/reports/deter/{{getRegister(rowData)}}"
                             tooltipPosition="top">
                         <img src="assets/img/ico/deter32x32.png"/>
@@ -156,7 +156,7 @@
                             class="p-button-raised p-button-outlined p-button-secondary view-report-icon icon-margin"
                             pButton
                             pRipple
-                            pTooltip="{{ 'viewProdesReport' | translate }}"
+                            pTooltip="{{ 'View PRODES report' | translate }}"
                             routerLink="/reports/prodes/{{getRegister(rowData)}}"
                             tooltipPosition="top">
                         <img src="assets/img/ico/prodes32x32.png"/>
@@ -165,7 +165,7 @@
                             class="p-button-raised p-button-outlined p-button-secondary view-report-icon icon-margin"
                             pButton
                             pRipple
-                            pTooltip="{{ 'viewBurnedReport' | translate }}"
+                            pTooltip="{{ 'View burn report' | translate }}"
                             routerLink="/reports/queimada/{{getRegister(rowData)}}"
                             tooltipPosition="top">
                         <img src="assets/img/ico/queima.ico"/>
@@ -173,7 +173,7 @@
                     <button class="p-button-raised p-button-outlined p-button-secondary view-report-icon icon-margin"
                             pButton
                             pRipple
-                            pTooltip="{{ 'viewSynthesis' | translate }}"
+                            pTooltip="{{ 'View synthesis' | translate }}"
                             routerLink="/synthesis/{{getRegister(rowData)}}">
                         <i class="fa fa-file-invoice synthesis-link"></i>
                     </button>
@@ -190,7 +190,7 @@
                         <div pRipple
                              (click)="getReport(report)"
                              class="report-card"
-                             pTooltip="{{'downloadReport' | translate}}"
+                             pTooltip="{{'Download report' | translate}}"
                              tooltipPosition="top">
                             <p>{{report.name}}</p>
                             <p>{{report.createdAt | date:'dd/MM/yyyy HH:mm:ss' }}</p>
@@ -198,7 +198,7 @@
                     </div>
                 </div>
                 <div *ngIf="reports.length === 0" class="p-grid text-center">
-                    <h4 class="p-col text-center">{{ 'noReportFound' | translate}}</h4>
+                    <h4 class="p-col text-center">{{ 'No reports were found' | translate}}</h4>
                 </div>
             </td>
         </tr>
@@ -207,13 +207,13 @@
     <ng-template let-state pTemplate="paginatorright">
         <strong>{{state.totalRecords | number:'1.0-4':'pt' }} {{'registers' | translate}}</strong>
         &nbsp;
-        <strong>{{selectedProperties ? selectedProperties?.length : '0' }} {{'selecteds' | translate}}</strong>
+        <strong>{{selectedProperties ? selectedProperties?.length : '0' }} {{'Selecteds' | translate}}</strong>
     </ng-template>
 
     <ng-template let-columns pTemplate="emptymessage">
         <tr>
             <td [attr.colspan]="columns.length">
-                {{ 'noRecordsFound' | translate }}
+                {{ 'No records found' | translate }}
             </td>
         </tr>
     </ng-template>

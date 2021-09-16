@@ -13,7 +13,7 @@
             pRipple
             (click)="showFilter()"
             icon="fas fa-filter"
-            label="{{'headerFilterButton' | translate}}"
+            label="{{'Filter' | translate}}"
             class="button-filter p-button-raised p-button-secondary">
     </button>
 
@@ -48,7 +48,7 @@
                 <p-button (click)="onFilterClick()"
                           pRipple
                           [disabled]="(dateInput && !dateInput[1] && dateInput[1] === null)"
-                          label="{{ 'calendarFilterButton' | translate}}"
+                          label="{{ 'Filter' | translate}}"
                           styleClass="date-button button-right p-button-raised">
                 </p-button>
             </p-footer>
@@ -61,7 +61,7 @@
                     [options]="languages"
                     [style]="{width: '75px'}"
                     optionLabel="label"
-                    placeholder="{{ 'selectLanguage' | translate }}">
+                    placeholder="{{ 'Select a language' | translate }}">
             <ng-template pTemplate="selectedItem">
                 <div *ngIf="selectedLanguage" class="flag-container">
                     <img [class]="'flag flag-' + selectedLanguage.value" src="assets/img/flag_placeholder.png"/>
@@ -82,7 +82,7 @@
             <p-button (click)="onLoginClick()"
                       pRipple
                       icon="fa fa-sign-in-alt"
-                      label="{{'login' | translate}}"
+                      label="{{'Login' | translate}}"
                       styleClass="p-button-raised p-button-secondary">
             </p-button>
         </ng-template>
@@ -101,7 +101,7 @@
             <p-button (click)="onLogoutClick()"
                       pRipple
                       icon="fa fa-sign-in-alt"
-                      label="{{'logout' | translate}}"
+                      label="{{'Logout' | translate}}"
                       styleClass="p-button-raised p-button-secondary">
             </p-button>
         </ng-template>

@@ -12,39 +12,40 @@ import { environment } from '../../environments/environment';
 import { MessageService } from 'primeng/api';
 import { Event } from '@angular/router';
 import { Response } from '../models/response.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class HttpInterceptorService implements HttpInterceptor {
 
 	constructor(
-		private messageService: MessageService
+		private messageService: MessageService,
+		private translateService: TranslateService,
 	) {}
 
 	intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<Response>> {
 		return next.handle(req).pipe(
 			retry(1),
-			catchError((errorResponse: HttpErrorResponse) => {
-				const error = errorResponse.error;
+			catchError((httpErrorResponse: HttpErrorResponse) => {
+				const error = httpErrorResponse.error;
 				let response: Response;
 				let message = '';
 				if (error instanceof Event) {
-					message = 'Erro na conexão com o servidor';
+					message = 'Server connection error';
 					response = {
 						status: null,
 						data: null,
-						message: errorResponse.message
+						message: httpErrorResponse.message
 					};
 				} else {
 					message = error.message;
 					response = error;
 					if (response.status === HttpStatusCode.InternalServerError) {
-						message = 'Erro no servidor';
+						message = 'Server error';
 					}
 				}
-				if (!environment.production) {
-					console.log(error);
-				}
-				this.messageService.add({ severity: 'error', summary: '', detail: message });
+				this.translateService.get(message).subscribe(translatedString => {
+					this.messageService.add({ severity: 'error', summary: '', detail: translatedString });
+				});
 				return throwError(response);
 			})
 		)
