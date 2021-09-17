@@ -88,8 +88,9 @@
             &nbsp;&nbsp;
 
             <div *ngIf="isAdministrator">
-                <p-button icon="pi pi-cog"
-                          routerLink="/settings/groups">
+                <p-button
+                    [icon]="showIcon"
+                    (onClick)="settingsInOut()">
                 </p-button>
             </div>
 

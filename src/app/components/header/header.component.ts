@@ -50,6 +50,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	languages: DropdownElement[];
 	private userSub: Subscription;
 	private filterConfig;
+	settings: boolean = false;
+	showIcon: string = 'pi pi-cog';
 
 	expanded = false;
 
@@ -220,5 +222,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		const language = event.value;
 		this.translateService.use(language.value);
 		this.translateService.get('primeng').subscribe(res => this.config.setTranslation(res));
+	}
+
+	settingsInOut() {
+		if (this.settings) {
+			this.router.navigateByUrl('/map')
+			this.settings = false;
+			this.showIcon = 'pi pi-cog'
+		} else {
+			this.router.navigateByUrl('/settings/groups')
+			this.settings = true;
+			this.showIcon = 'fas fa-door-open'
+		}
 	}
 }
