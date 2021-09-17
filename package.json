@@ -27,6 +27,7 @@
     "browserslist": "^4.16.8",
     "chart.js": "~3.5.1",
     "leaflet": "~1.7.1",
+    "leaflet-control-boxzoom": "^1.5.0",
     "leaflet-draw": "^1.0.4",
     "leaflet-search": "^2.9.11",
     "leaflet.fullscreen": "=1.6.0",

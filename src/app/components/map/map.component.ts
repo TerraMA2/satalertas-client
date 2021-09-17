@@ -8,6 +8,8 @@ import 'leaflet.fullscreen';
 
 import 'leaflet-draw';
 
+import 'leaflet-control-boxzoom';
+
 import * as Search from 'leaflet-search';
 
 import { HTTPService } from '../../services/http.service';
@@ -35,6 +37,8 @@ import { environment } from 'src/environments/environment';
 import { PopupService } from '../../services/popup.service';
 
 import { Response } from '../../models/response.model';
+import { UTM } from '../../utils/utm';
+import { SearchService } from '../../services/search.service';
 
 @Component({
 	selector: 'app-map',
@@ -71,7 +75,8 @@ export class MapComponent implements OnInit, AfterViewInit {
 		private tableService: TableService,
 		private mapService: MapService,
 		private filterService: FilterService,
-		private popupService: PopupService
+		private popupService: PopupService,
+		private searchService: SearchService
 	) {
 	}
 
@@ -116,6 +121,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 		this.setInfoControl();
 		this.setRestoreMapControl();
 		this.setVisibleLayersControl();
+		this.setZoomBoxControl();
 		this.setMarkersGroup();
 	}
 
@@ -280,6 +286,14 @@ export class MapComponent implements OnInit, AfterViewInit {
 		});
 
 		this.map.addLayer(editableLayers);
+	}
+
+	setZoomBoxControl() {
+		const zoomBoxOptions = this.mapConfig.controls.zoomBox;
+		if (!zoomBoxOptions) {
+			return;
+		}
+		L.Control.boxzoom(zoomBoxOptions).addTo(this.map);
 	}
 
 	setInfoControl() {

@@ -192,6 +192,14 @@
             "showLength": true
           }
         }
+      },
+      "zoomBox": {
+        "position": "topleft",
+        "divClasses": "leaflet-control-layers leaflet-custom-icon",
+        "iconClasses": "fas fa-vector-square",
+        "title": "Box zoom",
+        "keepOn": true,
+        "enableShiftDrag": true
       }
     },
     "baselayers": [
