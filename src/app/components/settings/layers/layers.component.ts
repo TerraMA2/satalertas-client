@@ -49,7 +49,8 @@ export class LayersComponent implements OnInit {
 	async onChangeOptionField(event) {
 		const group = event.value;
 		if (group) {
-			await this.groupViewService.getByGroupId(group.value)
+			
+			await this.groupViewService.getByGroupId({groupId: group.value})
 				.then((response: Response) => {
 						let groupViews = response.data;
 						if (groupViews) {
