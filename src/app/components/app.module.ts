@@ -97,13 +97,15 @@ import { AuthGuard } from './auth/auth.guard';
 import { ChartsAreaComponent } from './dashboard/charts-area/charts-area.component';
 import { StyleClassModule } from 'primeng/styleclass';
 import { InfoColumnsComponent } from './settings/info-columns/info-columns.component';
+import { SubLayerTableComponent } from './settings/layers-advanced/layer-table/sub-layer-table/sub-layer-table.component';
+import { LayerTableComponent } from './settings/layers-advanced/layer-table/layer-table.component';
 
 registerLocaleData(localePt, 'pt');
 
 const project = environment.project;
 
 export function HttpLoaderFactory(http: HttpClient) {
-	return new TranslateHttpLoader(http, `./assets/config/${ project ? project + '/' : '' }i18n/`, '.json');
+	return new TranslateHttpLoader(http, `./assets/config/${project ? project + '/' : ''}i18n/`, '.json');
 }
 
 @NgModule({
@@ -156,7 +158,9 @@ export function HttpLoaderFactory(http: HttpClient) {
 		ReportsComponent,
 		ReportListComponent,
 		PageNotFoundComponent,
-  	InfoColumnsComponent,
+		InfoColumnsComponent,
+		SubLayerTableComponent,
+		LayerTableComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -205,7 +209,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 				deps: [HttpClient]
 			}
 		}),
-		StyleClassModule,
+		StyleClassModule
 	],
 	providers: [
 		TreeDragDropService,
@@ -213,7 +217,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 		MessageService,
 		AuthGuard
 	],
-	bootstrap: [AppComponent]
+	bootstrap: [AppComponent],
 })
 export class AppModule {
 }
