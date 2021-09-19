@@ -1,88 +1,108 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Message, MessageService } from 'primeng/api';
+import { Component, Input, OnInit } from '@angular/core';
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
 	selector: 'app-layers-advanced-edition',
 	templateUrl: './layers-advanced-edition.component.html',
-	styleUrls: ['./layers-advanced-edition.component.css'],
-	providers: [MessageService]
 })
 export class LayersAdvancedEditionComponent implements OnInit {
 	@Input() header: string;
-	@Input() data = {};
-	@Input() displayModal: boolean;
-	@Output() onHideModal: EventEmitter<Event> = new EventEmitter<Event>();
-	@Output() onClickCancel: EventEmitter<Event> = new EventEmitter<Event>();
-	@Output() onClickSave: EventEmitter<Event> = new EventEmitter<Event>();
-	@Input() layers;
-	@Input() newData = {};
-	subLayers;
-	msgs: Message[] = [];
-	submit = false;
+	@Input() layer;
+	@Input() columns;
+	displayModal: boolean;
+	availableLayers;
+	newData = {};
+	subLayers = [];
+	groupedFields: Object[] = [];
+	tableFields = ['name', 'description']
+	edited: boolean = false;
 
-	constructor(private messageService: MessageService) {
+	constructor(
+		private settingsService: SettingsService,
+	) {
 	}
 
 	ngOnInit(): void {
-		this.mergeSubLayerData();
+		this.settingsService.openLayersAdvancedModal.subscribe((data) => {
+			const { layer, availableLayers } = data;
+			this.layer = { ...layer };
+			this.availableLayers = availableLayers;
+			this.displayModal = true;
+			this.groupColumnsByType();
+			this.mergeSubLayerData(availableLayers);
+			layer['subLayers'] && this.mergeSubLayerData(layer['subLayers']);
+		})
 	};
+	groupColumnsByType() {
+		this.groupedFields = this.columns.reduce((acc, column) => {
+			const groupField = acc.find(fields => fields.type === column["primaryType"])
+			if (!groupField) {
+				acc.push({
+					type: column["primaryType"],
+					columns: [column]
+				});
+			} else {
+				groupField.columns.push(column)
+			}
+			return acc;
+		}, []);
+	}
 
 	setBooleanField(field, value) {
 		this.newData[`${field}`] = value;
-		this.submit = true;
+		this.edited = true;
 	}
 
-	mergeSubLayerData() {
-		let subLayers = [];
-		if (this.data['subLayers']) {
-			subLayers = [...this.data['subLayers']];
-		}
-		if (this.newData['subLayers']) {
-			this.newData['subLayers'].forEach(subLayer => {
-				const subIdx = subLayers.findIndex(({ id }) => id === subLayer.id);
-				if (subIdx > 0) {
-					Object.assign(subLayers[subIdx], subLayer);
-				} else {
-					subLayers.push(subLayer);
-				}
-			});
-		}
-		this.newData['subLayers'] = subLayers;
+	mergeSubLayerData(receivedSubLayers: any[]) {
+		receivedSubLayers.forEach(availableLayer => {
+			const subIdx = this.subLayers.findIndex(({ id }) => id === availableLayer.id);
+			if (subIdx < 0) {
+				this.subLayers.push(availableLayer);
+			} else {
+				Object.assign(this.subLayers[subIdx], availableLayer);
+			}
+		})
 	}
 
 	pushLayer(lyr) {
-		this.mergeSubLayerData();
-		const subLayers = this.newData['subLayers'];
-		const subIdx = subLayers.findIndex(({ id }) => id === lyr.id);
-		if (subIdx > 0) {
+		let subLayers = [];
+		if (this.newData['subLayers']) {
+			subLayers = this.newData['subLayers'];
+		}
+		let subIdx = subLayers.findIndex(({ id }) => id === lyr.id);
+		if (subIdx >= 0) {
 			Object.assign(subLayers[subIdx], lyr);
 		} else {
 			subLayers.push(lyr);
 		}
+		this.newData['subLayers'] = subLayers
+		this.edited = true;
 	}
 
 	removeLayer(lyr) {
-		this.mergeSubLayerData();
 		this.newData['subLayers'] = this.newData['subLayers']
-		.filter(layer => layer.id !== lyr.id);
+			.filter(layer => layer.id !== lyr.id);
+		this.edited = true;
 	}
 
 	cancelEdition() {
-		this.cleanData();
-		this.displayModal = false;
-		this.onClickCancel.emit();
+		this.edited = false;
+		this.clearData();
 	};
 
 	sendEdition() {
-		this.newData['id'] = this.data['id'];
-		this.submit = true;
-		this.cleanData();
-		this.displayModal = false;
-		this.onClickSave.emit();
+		this.newData['id'] = this.layer['id'];
+		if(this.edited) {
+			this.settingsService.getLayersAdvancedModalEditions.next(this.newData);
+		}
+		this.clearData();
 	};
-
-	cleanData() {
+	
+	clearData() {
 		this.newData = {};
-		this.data = {};
+		this.availableLayers = {}
+		this.layer = {};
+		this.edited = false;
+		this.displayModal = false;
 	}
 }

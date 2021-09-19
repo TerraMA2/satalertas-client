@@ -3,189 +3,144 @@
   [baseZIndex]="10000"
   [closable]="false"
   [draggable]="false"
-  [header]="header"
+  header="Edição de camadas avançado"
   [modal]="true"
   [resizable]="false"
   [style]="{ width: '70vw' }"
 >
-  <div class="p-fluid container-modal p-formgrid p-grid">
-    <p-toolbar styleClass="p-mb-4">
-      <div class="p-field p-col-12 p-md-6">
-        <label for="name">Nome: </label>
-        <input
-          *ngIf="data['name']"
-          [(ngModel)]="data['name']"
-          autofocus
-          disabled
-          id="name"
-          pInputText
-          required
-          type="text"
-        />
+  <div class="p-fluid">
+    <ng-container
+      *ngFor="let colGroup of groupedFields"
+      [ngSwitch]="colGroup.type"
+    >
+      <div *ngSwitchCase="'string'">
+        <ng-container *ngFor="let col of colGroup['columns']">
+          <div class="p-field p-col-12">
+            <label [for]="col.nameCamel">{{ col.alias }}: </label>
+            <input
+              *ngIf="layer[col.nameCamel]"
+              [(ngModel)]="layer[col.nameCamel]"
+              [disabled]="col.disableEditing"
+              [id]="col.nameCamel"
+              pInputText
+              required
+              type="text"
+            />
+          </div>
+        </ng-container>
       </div>
-      <div class="p-field p-col-12">
-        <label for="alias">Alias: </label>
-        <input
-          [(ngModel)]="newData['shortName']"
-          [placeholder]="data['shortName']"
-          autofocus
-          id="alias"
-          name="alias"
-          pInputText
-          required
-          type="text"
-        />
-        <label for="alias">Descrição: </label>
-        <input
-          [(ngModel)]="newData['description']"
-          [placeholder]="
-            data['description'] 
-          "
-          id="description"
-          name="description"
-          pInputText
-          required
-          type="text"
-        />
-      </div>
-      <div class="p-formgroup-inline">
-        <div class="p-field-checkbox">
-          <p-checkbox
-            (onChange)="setBooleanField('isPrimary', $event.checked)"
-            [ngModel]="data['isPrimary']"
-            binary="true"
-            name="is-primary"
-          ></p-checkbox>
-          <label for="is-primary">Camada Primária</label>
-        </div>
-        <div class="p-field-checkbox">
-          <p-checkbox
-            (onChange)="setBooleanField('private', $event.checked)"
-            [ngModel]="data['private']"
-            binary="true"
-            name="is-private"
-          ></p-checkbox>
-          <label for="is-private">Camada Privada</label>
-        </div>
-        <div class="p-field-checkbox">
-          <p-checkbox
-            (onChange)="setBooleanField('isSublayer', $event.checked)"
-            [ngModel]="data['isSublayer']"
-            binary="true"
-            name="is-sublayer"
-          ></p-checkbox>
-          <label for="is-sublayer">Sub Camada</label>
+      <div *ngSwitchCase="'boolean'">
+        <div class="p-formgroup-inline">
+          <ng-container *ngFor="let col of colGroup['columns']">
+            <div class="p-field-checkbox">
+              <p-checkbox
+                (onChange)="setBooleanField(col.nameCamel, $event.checked)"
+                [ngModel]="layer[col.nameCamel]"
+                [binary]="true"
+                [name]="col.nameCamel"
+                [disabled]="col.disableEditing"
+              ></p-checkbox>
+              <label for="col.nameCamel">{{ col.alias }}</label>
+            </div>
+          </ng-container>
         </div>
       </div>
-    </p-toolbar>
-    <div class="card">
-      <ng-template [ngIf]="data['isPrimary'] || newData['isPrimary']">
-        <p-table
-          #dt
-          (onRowSelect)="pushLayer($event.data)"
-          (onRowUnselect)="removeLayer($event.data)"
-          [globalFilterFields]="['name', 'description']"
-          [scrollable]="true"
-          [selection]="data['subLayers']"
-          [value]="layers"
-          dataKey="id"
-          scrollHeight="200px"
-          selectionMode="multiple"
-          styleClass="p-datatable-sm"
-        >
-          <ng-template pTemplate="caption">
-            Lista de Camadas do Grupo
-            <span class="p-input-icon-left">
-              <i class="pi pi-search"></i>
-              <input
-                (input)="dt.filterGlobal($event.target.value, 'contains')"
-                pInputText
-                placeholder="Filtro Global"
-                type="text"
-              />
-            </span>
-          </ng-template>
-          <ng-template pTemplate="header">
-            <tr>
-              <th pSortableColumn="name">
-                Nome
-                <p-sortIcon field="name"></p-sortIcon>
-              </th>
-              <th pSortableColumn="description">
-                Descrição
-                <p-sortIcon field="description"></p-sortIcon>
-              </th>
-            </tr>
-            <tr>
-              <th>
-                <input
-                  (input)="
-                    dt.filter(
-                      $event.target.value,
-                      'name',
-                      'contains'
-                    )
-                  "
-                  class="p-column-filter"
-                  pInputText
-                  placeholder="Filtrar"
-                  type="text"
-                />
-              </th>
-              <th>
-                <input
-                  (input)="
-                    dt.filter(
-                      $event.target.value,
-                      'description',
-                      'contains'
-                    )
-                  "
-                  class="p-column-filter"
-                  pInputText
-                  placeholder="Filtrar"
-                  type="text"
-                />
-              </th>
-            </tr>
-          </ng-template>
-          <ng-template let-item let-rowIndex="rowIndex" pTemplate="body">
-            <tr [pSelectableRowIndex]="rowIndex" [pSelectableRow]="item">
-              <td>{{ item.name }}</td>
-              <td>
-                {{ item.description }}
-              </td>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="emptymessage">
-            <tr>
-              <td colspan="6">Nenhuma camada encontrada.</td>
-            </tr>
-          </ng-template>
-        </p-table>
-      </ng-template>
-    </div>
+      <div *ngSwitchCase="'ARRAY'">
+        <ng-container *ngFor="let col of colGroup['columns']">
+          <div class="card">
+            <p-table
+              *ngIf="layer['isPrimary'] || newData['isPrimary']"
+              #dt
+              (onRowSelect)="pushLayer($event.data)"
+              (onRowUnselect)="removeLayer($event.data)"
+              [globalFilterFields]="tableFields"
+              [scrollable]="true"
+              [selection]="layer['subLayers']"
+              [value]="subLayers"
+              dataKey="id"
+              scrollHeight="200px"
+              selectionMode="multiple"
+              styleClass="p-datatable-sm"
+            >
+              <ng-template pTemplate="caption">
+                Lista de Camadas do Grupo
+                <span class="p-input-icon-left">
+                  <i class="pi pi-search"></i>
+                  <input
+                    (input)="dt.filterGlobal($event.target.value, 'contains')"
+                    pInputText
+                    placeholder="Filtro Global"
+                    type="text"
+                  />
+                </span>
+              </ng-template>
+              <ng-template pTemplate="header">
+                <tr>
+                  <ng-container *ngFor="let field of tableFields">
+                    <th [pSortableColumn]="field">
+                      {{ field }}
+                      <p-sortIcon [field]="field"></p-sortIcon>
+                    </th>
+                  </ng-container>
+                </tr>
+                <tr>
+                  <ng-container *ngFor="let field of tableFields">
+                    <th>
+                      <input
+                        (input)="
+                          dt.filter($event.target.value, field, 'contains')
+                        "
+                        class="p-column-filter"
+                        pInputText
+                        placeholder="Filtrar"
+                        type="text"
+                      />
+                    </th>
+                  </ng-container>
+                </tr>
+              </ng-template>
+              <ng-template
+                let-item
+                let-rowIndex="rowIndex"
+                pTemplate="body"
+                *ngFor="let field of tableFields"
+                >
+                <tr [pSelectableRowIndex]="rowIndex" [pSelectableRow]="item">
+                  <td *ngFor="let field of tableFields">{{ item[field] }}</td>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="emptymessage">
+                <tr>
+                  <td colspan="6">Nenhuma camada encontrada.</td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
   </div>
 
-    <p-footer>
-        <p-button
-                (click)="sendEdition()"
-                icon="pi pi-check"
-                label="Ok"
-                styleClass="p-button-raised"
-        ></p-button>
+  <p-footer>
+    <p-button
+      (click)="sendEdition()"
+      icon="pi pi-check"
+      label="Ok"
+      styleClass="p-button-raised"
+      [disabled]="!edited"
+    ></p-button>
 
-        <p-button
-                (click)="cancelEdition()"
-                icon="pi pi-times"
-                label="Cancelar"
-                styleClass="
+    <p-button
+      (click)="cancelEdition()"
+      icon="pi pi-times"
+      label="Cancelar"
+      styleClass="
           p-button-secondary
           p-button
           p-component
           p-button-text-only
           p-button-raised
         "
-        ></p-button>
-    </p-footer>
+    ></p-button>
+  </p-footer>
 </p-dialog>
