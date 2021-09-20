@@ -1,14 +1,15 @@
 import { GroupService } from 'src/app/services/group.service';
+import { SettingsService } from 'src/app/services/settings.service';
 import { GroupViewService } from '../../../services/group-view.service';
 import { SidebarService } from 'src/app/services/sidebar.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Component, OnInit } from '@angular/core';
 import { Response } from '../../../models/response.model';
+import { InfoColumnsService } from 'src/app/services/info-columns.service';
 
 @Component({
 	selector: 'app-layers-advanced',
 	templateUrl: './layers-advanced.component.html',
-	styleUrls: ['./layers-advanced.component.css'],
 	providers: [ConfirmationService]
 })
 export class LayersAdvancedComponent implements OnInit {
@@ -23,6 +24,7 @@ export class LayersAdvancedComponent implements OnInit {
 	layer = {};
 	layerEdition = {};
 	edited: boolean;
+	columns = [];
 
 	constructor(
 		private sidebarService: SidebarService,
@@ -30,11 +32,27 @@ export class LayersAdvancedComponent implements OnInit {
 		private messageService: MessageService,
 		private groupService: GroupService,
 		private confirmationService: ConfirmationService,
+		private settingsService: SettingsService,
+		private infoColumnsService: InfoColumnsService,
 	) {
 	}
 
 	async ngOnInit() {
 		this.sidebarService.sidebarReload.next('settings');
+		this.infoColumnsService.getByTableName('layers-advanced-edition')
+			.then(({ data }) => {
+				this.columns = data.tableInfocolumns
+			})
+		this.settingsService.openLayersAdvancedModal.subscribe((data) => {
+			const { layer, availableLayers } = data;
+			this.layer = { ...layer };
+			this.availableLayers = availableLayers;
+			this.displayModal = true;
+		});
+		this.settingsService.getLayersAdvancedModalEditions.subscribe(data => {
+			this.displayModal = false;
+			this.getModalEditions(data)
+		})
 		this.groupService.getAll().then((data) => {
 			this.groups = data;
 		});
@@ -46,7 +64,11 @@ export class LayersAdvancedComponent implements OnInit {
 
 	async getGroupData(groupId) {
 		if (groupId) {
-			await this.groupViewService.getByGroupId(groupId)
+			const params = {
+				groupId,
+				listSublayers: true
+			}
+			await this.groupViewService.getByGroupId(params)
 				.then((response: Response) => {
 					this.groupLayers = response.data;
 				});
@@ -62,61 +84,53 @@ export class LayersAdvancedComponent implements OnInit {
 		this.clearNewData();
 	}
 
-	editLayer(layerToEdit) {
-		/*
-		Sends the choosen layer to be edited at modal editor advanced.
-		*/
-		this.layer = { ...layerToEdit };
-		this.availableLayers = this.groupLayers.filter((item) =>
-			item.viewId !== layerToEdit.viewId)
-			.filter(item => !item.isPrimary);
-		this.displayModal = true;
-	};
-
 	async cancelModalEdition() {
 		this.displayModal = false;
 		this.clearNewData();
 	};
 
-	setLayerAsPrimary(id) {
-		this.groupLayers.forEach((layer) => {
-			let subLayers = layer['subLayers'] || [];
-			const sbIdx = subLayers.findIndex(({ id: idx }) => idx === id);
-			const newLayerData = this.newGroupData.find((newData) => newData.id === layer.id)
-			if (sbIdx >= 0) {
-				subLayers = subLayers.filter((item) => item.id !== id)
-				if (newLayerData) {
-					newLayerData['subLayers'] = subLayers;
-				} else {
-					this.newGroupData.push({
-						id: layer.id, subLayers, isSublayer: false
-					})
-				}
-			}
-			if (layer.id === id) {
-				layer['isPrimary'] = true;
-				layer['isSublayer'] = false;
-			}
-		})
-		const layerToEdit = this.newGroupData.find((layer) => layer.id === id)
-		if (layerToEdit) {
-			layerToEdit['isPrimary'] = true;
-			layerToEdit['isSublayer'] = false;
+	async getModalEditions(edition) {
+		this.displayModal = false;
+		let indexToEdit = this.newGroupData.findIndex(({ id }) => id === edition['id']);
+		if (indexToEdit >= 0) {
+			const sbLyr = this.newGroupData[indexToEdit];
+			this.newGroupData[indexToEdit] = { ...sbLyr, ...edition };
 		} else {
-			this.newGroupData.push({ id, isPrimary: true, isSublayer: false })
+			this.newGroupData.push(edition);
 		}
+		if (edition.hasOwnProperty('isSublayer')) {
+			if (edition['isSublayer']) {
+				this.setLayersAsSubLayer([edition]);
+			} else {
+				this.removeFromSublayers(edition.id)
+			}
+		}
+		if (edition['subLayers'] && (edition['subLayers'].length > 0)) {
+			this.setLayersAsSubLayer(edition['subLayers']);
+		}
+		if (edition.hasOwnProperty('isPrimary') && edition['isPrimary']) {
+			this.setLayerAsPrimary(edition['id'])
+		}
+		this.edited = true;
+	}
+
+	setLayerAsPrimary(id) {
+		const editedLayer = this.groupLayers.find(layer => layer.id === id);
+		editedLayer['isPrimary'] = true;
+		editedLayer['isSublayer'] = false;
+		this.removeFromSublayers(id);
 	}
 
 	setLayersAsSubLayer(subLayers) {
 		subLayers.forEach(subLayer => {
-			const editedLayer = this.groupLayers.find((layer) => layer.id === subLayer.id);
-			const newLayerData = this.newGroupData.find((layer) => layer.id === subLayer.id)
 			const subLayerParams = {
 				isSublayer: true, isPrimary: false, subLayers: null,
 			}
+			const editedLayer = this.groupLayers.find((layer) => layer.id === subLayer.id);
 			if (editedLayer || !editedLayer['isSublayer']) {
 				Object.assign(editedLayer, subLayerParams)
 			};
+			const newLayerData = this.newGroupData.find((layer) => layer.id === subLayer.id)
 			if (newLayerData) {
 				Object.assign(newLayerData, subLayerParams)
 			} else {
@@ -127,32 +141,22 @@ export class LayersAdvancedComponent implements OnInit {
 		})
 	}
 
-	async getModalEditions() {
-		this.displayModal = false;
-		if (this.layerEdition.hasOwnProperty('isPrimary') ||
-			this.layerEdition.hasOwnProperty('subLayers')) {
-			if (this.layerEdition['isPrimary']) {
-				this.setLayerAsPrimary(this.layerEdition['id'])
-			}
-			const subLayersIds = this.layerEdition['subLayers'];
-			if (subLayersIds) {
-				this.setLayersAsSubLayer(subLayersIds);
-			}
-		}
-		const sbIdx = this.newGroupData.findIndex(({ id }) => id === this.layerEdition['id']);
-
-		if (sbIdx >= 0) {
-			const sbLyr = this.newGroupData[sbIdx];
-			this.newGroupData[sbIdx] = { ...sbLyr, ...this.layerEdition };
-		} else {
-			this.newGroupData.push(this.layerEdition);
-		}
-		const layerToEdit = this.groupLayers.findIndex((item) => item.id === this.layerEdition['id']);
-		if (layerToEdit >= 0) {
-			this.groupLayers[layerToEdit] = { ...this.layer, ...this.layerEdition };
-		}
-		this.layerEdition = {};
-		this.edited = true;
+	removeFromSublayers(id) {
+		this.groupLayers.filter(layer => layer.isPrimary && layer.subLayers)
+			.forEach(primaryLayer => {
+				const hasLayer = primaryLayer.subLayers.some(subLayer => subLayer.id === id)
+				if (hasLayer) {
+					primaryLayer.subLayers = primaryLayer
+						.subLayers.filter(subLayer => subLayer.id !== id)
+					const hasThisLayer = this.newGroupData
+						.findIndex(subLayer => subLayer.id === primaryLayer.id)
+					if (hasThisLayer >= 0) {
+						this.newGroupData[hasThisLayer]["subLayers"] = primaryLayer.subLayers;
+					} else {
+						this.newGroupData.push({ id: primaryLayer.id, subLayers: primaryLayer.subLayers })
+					}
+				}
+			});
 	}
 
 	async saveGroupEdition() {
@@ -165,15 +169,15 @@ export class LayersAdvancedComponent implements OnInit {
 					groupId: this.selectedGroup,
 					editions: this.newGroupData
 				}).then(() => {
-						this.onGroupChange({ value: this.selectedGroup });
-						this.edited = false;
-						this.messageService.add({
-							severity: 'success',
-							summary: '',
-							detail: 'Edições Salvas',
-							life: 3000
-						});
+					this.onGroupChange({ value: this.selectedGroup });
+					this.edited = false;
+					this.messageService.add({
+						severity: 'success',
+						summary: 'Sucesso',
+						detail: 'Edições Salvas',
+						life: 3000
 					});
+				});
 			}
 		});
 	}
@@ -201,6 +205,5 @@ export class LayersAdvancedComponent implements OnInit {
 
 	clearNewData() {
 		this.newGroupData = [];
-		this.layerEdition = {};
 	}
 }

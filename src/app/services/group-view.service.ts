@@ -30,8 +30,8 @@ export class GroupViewService {
 		return this.httpService.put(this.url + '/advanced', { params }).toPromise();
 	}
 
-	async getByGroupId(groupId) {
-		const parameters = { groupId };
+	async getByGroupId(parameters) {
+		// const parameters = { groupId };
 		return await this.httpService.get<Response>(this.url + '/getByGroupId',
 			{ params: parameters }
 		).toPromise();

@@ -1,12 +1,14 @@
 <p-toolbar>
     <div class="p-toolbar-group-left">
         <p-button (click)="back()"
+                  pRipple
                   icon="fas fa-arrow-left"
                   label="{{ 'Go back' | translate }}"
                   styleClass="p-button-raised">
         </p-button>
         &nbsp;&nbsp;
         <p-button (click)="onViewReportClicked('')"
+                  pRipple
                   pTooltip="{{ 'View synthesis' | translate }}"
                   styleClass="p-button-raised p-button-outlined p-button-secondary view-report-icon icon-margin synthesis-link"
                   tooltipPosition="top">
@@ -14,12 +16,14 @@
         </p-button>
         &nbsp;&nbsp;
         <p-button (click)="onViewReportClicked('deter')"
+                  pRipple
                   pTooltip="{{'View DETER report' | translate}}"
                   styleClass="p-button-raised p-button-outlined p-button-secondary view-report-icon"
                   tooltipPosition="top">
             <img src="assets/img/ico/deter32x32.png"/>
         </p-button>
         <p-button (click)="onViewReportClicked('prodes')"
+                  pRipple
                   pTooltip="{{'View PRODES report' | translate}}"
                   styleClass="p-button-raised p-button-outlined p-button-secondary view-report-icon icon-margin"
                   tooltipPosition="top">
@@ -27,6 +31,7 @@
         </p-button>
 
         <p-button (click)="onViewReportClicked('queimada')"
+                  pRipple
                   pTooltip="{{'View burn report' | translate}}"
                   styleClass="p-button-raised p-button-outlined p-button-secondary view-report-icon icon-margin"
                   tooltipPosition="top">
