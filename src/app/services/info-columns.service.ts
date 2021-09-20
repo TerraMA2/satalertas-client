@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HTTPService } from './http.service';
 import { environment } from '../../environments/environment';
 import { Response } from '../models/response.model'
+import { Observable } from 'rxjs';
 
 const URL_REPORT_SERVER = environment.serverUrl;
 
@@ -16,10 +17,10 @@ export class InfoColumnsService {
 	) {
 	}
 
-	async getInfoColumns(viewId?) {
+	getInfoColumns(viewId?): Observable<Response> {
 		const parameters = { viewId };
 
-		return await this.httpService.get<any>(this.url + '/', { params: parameters }).toPromise();
+		return this.httpService.get<Response>(this.url + '/', { params: parameters });
 	}
 	async getByTableName(tableName) {
 		return this.httpService.get<Response>(this.url + `/getByTableName?tableName=${tableName}`)

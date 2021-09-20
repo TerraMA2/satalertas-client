@@ -16,11 +16,11 @@ export class CardAreaComponent {
 	@Output() areaClick: EventEmitter<Analysis> = new EventEmitter<Analysis>();
 
 	getLabelArea(analysis: Analysis) {
-		let label = 'area';
+		let label = 'Area';
 		if (this.isBurnedArea(analysis.groupCode)) {
-			label = 'scar';
+			label = 'Scar';
 		} else if (this.isFireSpot(analysis.groupCode)) {
-			label = 'fireSpots';
+			label = 'Fire Spots';
 		}
 		return label;
 	}
@@ -30,7 +30,7 @@ export class CardAreaComponent {
 	}
 
 	getLabelNumCars() {
-		return 'alerts';
+		return 'Alerts';
 	}
 
 	getValueArea(analysis: Analysis) {

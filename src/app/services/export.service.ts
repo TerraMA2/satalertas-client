@@ -21,17 +21,15 @@ export class ExportService {
 	async export(params, selectedFormats, fileName) {
 		const url = `${ environment.serverUrl }/export`;
 
-		await this.httpService.post(url, {params}).toPromise().then((response: Response) => {
-			if (response.status === 200) {
-				const responseData = response.data;
-				const fileType = Util.getMimeType(selectedFormats);
-				const downloadURL = window.URL.createObjectURL(Util.base64toBlob(responseData, fileType['mimeType']));
+		return await this.httpService.post<Response>(url, {params}).toPromise().then((response: Response) => {
+			const responseData = response.data;
+			const fileType = Util.getMimeType(selectedFormats);
+			const downloadURL = window.URL.createObjectURL(Util.base64toBlob(responseData, fileType['mimeType']));
 
-				const linkTag = document.createElement('a');
-				linkTag.setAttribute('download', `${ fileName }.${ fileType['format'] }`);
-				linkTag.setAttribute('href', downloadURL);
-				linkTag.click();
-			}
+			const linkTag = document.createElement('a');
+			linkTag.setAttribute('download', `${ fileName }.${ fileType['format'] }`);
+			linkTag.setAttribute('href', downloadURL);
+			linkTag.click();
 		});
 	}
 

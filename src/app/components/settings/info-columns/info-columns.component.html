@@ -1,4 +1,3 @@
-<p-toast></p-toast>
 <p-scrollPanel [style]="{ width: '100%', height: 'calc(100vh - 50px)' }">
   <div class="p-grid">
     <div class="p-col-12">
@@ -9,6 +8,8 @@
             #dt1
             [columns]="cols"
             [value]="tableFields"
+            [responsiveLayout]="'stack'"
+            [autoLayout]="true"
             [reorderableColumns]="true"
             dataKey="id"
             [globalFilterFields]="fieldsToFilter"
@@ -35,6 +36,7 @@
                     placeholder="Procurar palava chave"
                   />
                   <p-button
+                    pRipple
                     label="Limpar"
                     class="p-button-outlined"
                     icon="pi pi-filter-slash"
@@ -201,6 +203,7 @@
           </p-table>
           <ng-container styleClass="p-field p-d-flex container-lg">
             <p-button
+              pRipple
               class="container p-d-inline"
               label="Salvar"
               (click)="saveEditions()"

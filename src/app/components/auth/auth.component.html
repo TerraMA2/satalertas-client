@@ -7,13 +7,13 @@
         </div>
 
         <div *ngIf="!isLoading">
-            <h2>{{'login' | translate}}</h2>
+            <h2>{{'Login' | translate}}</h2>
             <hr>
             <br>
             <form #loginForm="ngForm" (ngSubmit)="onLoginClicked(loginForm)">
                 <div class="p-inputgroup">
                     <span class="p-inputgroup-addon"><i class="fas fa-user"></i></span>
-                    <input name="userName" ngModel pInputText placeholder="{{'user' | translate}}" size="30"
+                    <input name="userName" ngModel pInputText placeholder="{{'User' | translate}}" size="30"
                            type="text"/>
                 </div>
 
@@ -27,7 +27,8 @@
 
                 <br/><br/>
 
-                <p-button label="{{'login' | translate}}"
+                <p-button label="{{'Login' | translate}}"
+                          pRipple
                           styleClass="p-button-raised width-100"
                           type="submit">
                 </p-button>
@@ -35,7 +36,8 @@
                 <br/><br/>
 
                 <p-button (click)="onCloseLoginClick()"
-                          label="{{'close' | translate}}"
+                          pRipple
+                          label="{{'Close' | translate}}"
                           styleClass="p-button-secondary width-100 p-button-raised">
                 </p-button>
             </form>

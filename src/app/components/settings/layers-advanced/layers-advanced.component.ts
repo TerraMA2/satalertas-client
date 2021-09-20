@@ -11,7 +11,7 @@ import { InfoColumnsService } from 'src/app/services/info-columns.service';
 	selector: 'app-layers-advanced',
 	templateUrl: './layers-advanced.component.html',
 	styleUrls: ['./layers-advanced.component.css'],
-	providers: [MessageService, ConfirmationService]
+	providers: [ConfirmationService]
 })
 export class LayersAdvancedComponent implements OnInit {
 	groups;
@@ -195,7 +195,7 @@ export class LayersAdvancedComponent implements OnInit {
 						this.edited = false;
 						this.messageService.add({
 							severity: 'success',
-							summary: 'Sucesso',
+							summary: '',
 							detail: 'Edições desfeitas',
 							life: 3000
 						});

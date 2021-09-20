@@ -1,21 +1,24 @@
 <div class="p-grid p-justify-between">
     <div>
         <p-button (click)="onFilterClicked.emit($event)"
-                label="{{ 'primeng.apply' | translate}}"
-                styleClass="p-button-raised"
+                  pRipple
+                  label="{{ 'primeng.apply' | translate}}"
+                  styleClass="p-button-raised"
         >
         </p-button>
 
         <p-button (click)="onClearFilterClicked.emit($event)"
-                label="{{ 'removeFilters' | translate}}"
-                styleClass="p-button-secondary p-button-raised"
+                  label="{{ 'Remove Filters' | translate}}"
+                  pRipple
+                  styleClass="p-button-secondary p-button-raised"
         >
         </p-button>
     </div>
     <div>
         <p-button (click)="onCloseClicked.emit($event)"
-                label="{{ 'close' | translate}}"
-                styleClass="p-button-secondary p-button-raised"
+                  pRipple
+                  label="{{ 'Close' | translate}}"
+                  styleClass="p-button-secondary p-button-raised"
         >
         </p-button>
     </div>

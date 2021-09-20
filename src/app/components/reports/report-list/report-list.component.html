@@ -11,9 +11,6 @@
          [lazy]="true"
          [loading]="isLoading"
          [paginator]="true"
-         [reorderableColumns]="true"
-         [resizableColumns]="true"
-         [responsive]="true"
          [rowTrackBy]="trackById"
          [rows]="selectedRowsPerPage"
          [rowHover]="true"
@@ -22,14 +19,15 @@
          [sortOrder]="sortOrder"
          [defaultSortOrder]="defaultSortOrder"
          [expandedRowKeys]="expandedRowKey"
-         [scrollHeight]="'80vh'"
-         [scrollable]="true"
+         [scrollHeight]="'85vh'"
          [totalRecords]="totalRecords"
          [value]="tableData"
          [dataKey]="'gid'"
          [resetPageOnSort]="false"
          [exportFilename]="'Satélites_Alertas_CAR'"
          [loadingIcon]="'fas fa-circle-notch color-black'"
+         [autoLayout]="true"
+         [responsiveLayout]="'stack'"
          [rowExpandMode]="'single'">
     <ng-template pTemplate="caption">
         <div class="p-grid p-nogutter">
@@ -42,7 +40,7 @@
                                    [options]="columns"
                                    (onChange)="onColumnsChanged($event)"
                                    [style]="{minWidth: '200px'}"
-                                   defaultLabel="{{ 'selectColumns' | translate}}"
+                                   defaultLabel="{{ 'Select columns' | translate}}"
                                    optionLabel="header"
                                    selectedItemsLabel="{0} columns selected">
                     </p-multiSelect>
@@ -77,19 +75,20 @@
                                    [filter]="false"
                                    [options]="formats"
                                    [style]="{minWidth: '16rem'}"
-                                   defaultLabel="{{'selectFormat' | translate}}"
+                                   defaultLabel="{{'Select a format' | translate}}"
                                    maxSelectedLabels="4">
                     </p-multiSelect>
 
                     &nbsp;&nbsp;
 
                     <p-button
+                            pRipple
                             (click)="onExportClick()"
                             [disabled]="isExportDisabled || isLoading"
                             icon="fas fa-save"
                             iconPos="left"
-                            label="{{'export' | translate}}"
-                            pTooltip="{{ 'exportSelected' | translate }}"
+                            label="{{'Export' | translate}}"
+                            pTooltip="{{ 'Export selected' | translate }}"
                             styleClass="p-button-raised"
                             tooltipPosition="left">
                     </p-button>
@@ -108,13 +107,12 @@
     </ng-template>
     <ng-template let-columns pTemplate="header">
         <tr>
-            <th style="width: 2.5em"></th>
-            <th style="width: 3em"></th>
-            <th style="width: 3em">
+            <th></th>
+            <th></th>
+            <th>
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
             </th>
-            <th *ngFor="let col of columns; trackBy: trackById" [pSortableColumn]="col.field" pReorderableColumn
-                pResizableColumn>
+            <th *ngFor="let col of columns; trackBy: trackById" [pSortableColumn]="col.field">
                 {{col.header}}
                 <p-sortIcon [field]="col.field"></p-sortIcon>
             </th>
@@ -127,53 +125,59 @@
                  let-rowData
                  pTemplate="body">
         <tr [pSelectableRow]="rowData">
-            <td class="ui-resizable-column" style="width: 2.5em">
+            <td>
                 <a [pRowToggler]="rowData">
                     <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
                 </a>
             </td>
-            <td class="ui-resizable-column" style="width: 3em">
+            <td>
                 <i [ngClass]="rowData.has_pdf ? 'pi pi-file-pdf' : 'pi pi-file-o'" style="font-size: 1.6em;"></i>
             </td>
-            <td class="ui-resizable-column" style="width: 3em">
+            <td>
                 <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
             </td>
-            <td *ngFor="let col of columns; trackBy: trackById" class="ui-resizable-column"
+            <td *ngFor="let col of columns; trackBy: trackById"
                 pTooltip="{{ rowData[col.field] }}"
                 style="overflow: hidden;word-break: break-all;" tooltipPosition="top">
                 {{rowData[col.field]}}
             </td>
-            <td class="ui-resizable-column">
-                <button *ngIf="showDeter"
-                        class="p-button-raised p-button-outlined p-button-secondary view-report-icon"
-                        pButton
-                        pTooltip="{{ 'viewDeterReport' | translate }}"
-                        routerLink="/reports/deter/{{getRegister(rowData)}}"
-                        tooltipPosition="top">
-                    <img src="assets/img/ico/deter32x32.png"/>
-                </button>
-                <button *ngIf="showProdes"
-                        class="p-button-raised p-button-outlined p-button-secondary view-report-icon icon-margin"
-                        pButton
-                        pTooltip="{{ 'viewProdesReport' | translate }}"
-                        routerLink="/reports/prodes/{{getRegister(rowData)}}"
-                        tooltipPosition="top">
-                    <img src="assets/img/ico/prodes32x32.png"/>
-                </button>
-                <button *ngIf="showBurn"
-                        class="p-button-raised p-button-outlined p-button-secondary view-report-icon icon-margin"
-                        pButton
-                        pTooltip="{{ 'viewBurnedReport' | translate }}"
-                        routerLink="/reports/queimada/{{getRegister(rowData)}}"
-                        tooltipPosition="top">
-                    <img src="assets/img/ico/queima.ico"/>
-                </button>
-                <button class="p-button-raised p-button-outlined p-button-secondary view-report-icon icon-margin"
-                        pButton
-                        pTooltip="{{ 'viewSynthesis' | translate }}"
-                        routerLink="/synthesis/{{getRegister(rowData)}}">
-                    <i class="fa fa-file-invoice synthesis-link"></i>
-                </button>
+            <td>
+                <div class="report-icons">
+                    <button *ngIf="showDeter"
+                            class="p-button-raised p-button-outlined p-button-secondary view-report-icon"
+                            pButton
+                            pRipple
+                            pTooltip="{{ 'View DETER report' | translate }}"
+                            routerLink="/reports/deter/{{getRegister(rowData)}}"
+                            tooltipPosition="top">
+                        <img src="assets/img/ico/deter32x32.png"/>
+                    </button>
+                    <button *ngIf="showProdes"
+                            class="p-button-raised p-button-outlined p-button-secondary view-report-icon icon-margin"
+                            pButton
+                            pRipple
+                            pTooltip="{{ 'View PRODES report' | translate }}"
+                            routerLink="/reports/prodes/{{getRegister(rowData)}}"
+                            tooltipPosition="top">
+                        <img src="assets/img/ico/prodes32x32.png"/>
+                    </button>
+                    <button *ngIf="showBurn"
+                            class="p-button-raised p-button-outlined p-button-secondary view-report-icon icon-margin"
+                            pButton
+                            pRipple
+                            pTooltip="{{ 'View burn report' | translate }}"
+                            routerLink="/reports/queimada/{{getRegister(rowData)}}"
+                            tooltipPosition="top">
+                        <img src="assets/img/ico/queima.ico"/>
+                    </button>
+                    <button class="p-button-raised p-button-outlined p-button-secondary view-report-icon icon-margin"
+                            pButton
+                            pRipple
+                            pTooltip="{{ 'View synthesis' | translate }}"
+                            routerLink="/synthesis/{{getRegister(rowData)}}">
+                        <i class="fa fa-file-invoice synthesis-link"></i>
+                    </button>
+                </div>
             </td>
         </tr>
     </ng-template>
@@ -182,10 +186,11 @@
         <tr>
             <td [attr.colspan]="selectedColumns.length + 4">
                 <div *ngIf="reports.length > 0" class="p-grid text-center">
-                    <div *ngFor="let report of reports; trackBy: trackById" class="p-col-2">
-                        <div (click)="getReport(report)"
+                    <div *ngFor="let report of reports; trackBy: trackById" class="p-sm-4 p-md-2">
+                        <div pRipple
+                             (click)="getReport(report)"
                              class="report-card"
-                             pTooltip="{{'downloadReport' | translate}}"
+                             pTooltip="{{'Download report' | translate}}"
                              tooltipPosition="top">
                             <p>{{report.name}}</p>
                             <p>{{report.createdAt | date:'dd/MM/yyyy HH:mm:ss' }}</p>
@@ -193,7 +198,7 @@
                     </div>
                 </div>
                 <div *ngIf="reports.length === 0" class="p-grid text-center">
-                    <h4 class="p-col text-center">{{ 'noReportFound' | translate}}</h4>
+                    <h4 class="p-col text-center">{{ 'No reports were found' | translate}}</h4>
                 </div>
             </td>
         </tr>
@@ -202,13 +207,13 @@
     <ng-template let-state pTemplate="paginatorright">
         <strong>{{state.totalRecords | number:'1.0-4':'pt' }} {{'registers' | translate}}</strong>
         &nbsp;
-        <strong>{{selectedProperties ? selectedProperties?.length : '0' }} {{'selecteds' | translate}}</strong>
+        <strong>{{selectedProperties ? selectedProperties?.length : '0' }} {{'Selecteds' | translate}}</strong>
     </ng-template>
 
     <ng-template let-columns pTemplate="emptymessage">
         <tr>
             <td [attr.colspan]="columns.length">
-                {{ 'noRecordsFound' | translate }}
+                {{ 'No records found' | translate }}
             </td>
         </tr>
     </ng-template>

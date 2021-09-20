@@ -118,13 +118,13 @@ export class FilterService {
 		return this.httpService.get<Response>(this.projusUrl).toPromise();
 	}
 
-	async getClasses(type) {
+	getClasses(type) {
 		const url = `${ this.classUrl }`;
 		const params = {
 			params: {
 				type: type ? type : ''
 			}
 		};
-		return await this.httpService.get<Response>(url, params).toPromise();
+		return this.httpService.get<Response>(url, params).toPromise();
 	}
 }

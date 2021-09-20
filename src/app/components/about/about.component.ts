@@ -39,10 +39,6 @@ export class AboutComponent implements OnInit {
 		this.terralibVersion = aboutConfig.terralibVersion;
 	}
 
-	onHide() {
-		this.sidebarService.sidebarAbout.next(false);
-	}
-
 	closeAbout() {
 		this.sidebarService.sidebarAbout.next(false);
 	}

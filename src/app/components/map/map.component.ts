@@ -33,6 +33,7 @@ import { View } from '../../models/view.model';
 import { environment } from 'src/environments/environment';
 
 import { PopupService } from '../../services/popup.service';
+
 import { Response } from '../../models/response.model';
 
 @Component({
@@ -170,7 +171,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 			estadual: layer.type === LayerType.ANALYSIS ? 'de_car_validado_sema_numero_do1' : 'numero_do1'
 		};
 
-		this.hTTPService.get<any>(environment.serverUrl + url, {params})
+		this.hTTPService.get<Response>(environment.serverUrl + url, {params})
 		.subscribe((response: Response) => this.setMarkers(response.data, carRegisterColumn, layer, columnCarGid));
 	}
 

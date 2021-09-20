@@ -90,7 +90,7 @@ export class LayersComponent implements OnInit {
 			.then(() => {
 				this.messageService.add({
 					severity: 'success',
-					summary: 'Sucesso',
+					summary: '',
 					detail: 'Camadas do grupo atualizadas'
 				});
 				this.saveEdition = false;

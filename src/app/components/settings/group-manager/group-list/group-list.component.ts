@@ -8,7 +8,7 @@ import { ConfigService } from '../../../../services/config.service';
 	selector: 'app-group-list',
 	templateUrl: './group-list.component.html',
 	styleUrls: ['./group-list.component.css'],
-	providers: [MessageService, ConfirmationService]
+	providers: [ConfirmationService]
 })
 
 export class GroupListComponent implements OnInit {
@@ -100,7 +100,7 @@ export class GroupListComponent implements OnInit {
 				.then(() => {
 					this.messageService.add({
 						severity: 'success',
-						summary: 'Sucesso',
+						summary: '',
 						detail: 'Grupo deletado',
 						life: 3000
 					});
@@ -124,7 +124,7 @@ export class GroupListComponent implements OnInit {
 		}
 		this.messageService.add({
 			severity: 'success',
-			summary: 'Sucesso',
+			summary: '',
 			detail: 'Grupo salvo',
 			life: 3000
 		});

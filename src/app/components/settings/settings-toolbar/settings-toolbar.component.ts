@@ -9,8 +9,6 @@ import { Router } from '@angular/router';
 export class SettingsToolbarComponent implements OnInit {
 
 	constructor(
-		// private sidebarService: SidebarService,
-		// private location: Location,
 		private router: Router
 	) {
 	}
@@ -20,8 +18,6 @@ export class SettingsToolbarComponent implements OnInit {
 
 	backClicked() {
 		this.router.navigateByUrl('/map');
-		// this.location.back();
-		// this.sidebarService.sidebarReload.next();
 	}
 
 }

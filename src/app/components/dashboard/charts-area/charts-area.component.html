@@ -3,7 +3,7 @@
         <p-accordionTab *ngFor="let analysisChart of analysisCharts; trackBy: trackById"
                         [disabled]="analysisChart.isEmpty"
                         [selected]="analysisChart.active && !analysisChart.isEmpty"
-                        header="{{ 'chart' | translate}} {{analysisChart.label}}">
+                        header="{{ 'Chart' | translate}} {{analysisChart.label}}">
 
             <div class="p-grid">
                 <p-card class="p-md-6">

@@ -43,7 +43,7 @@ export class SidebarItemComponent implements OnInit {
 		//     }
 		// ];
 		// this.dropdownData = dropdownJsonExample;
-		// this.httpService.get<any>(dataUrl).subscribe((data: any) => {
+		// this.httpService.get<Response>(dataUrl).subscribe((data: any) => {
 		//   this.dropdownData = data;
 		// });
 		// }

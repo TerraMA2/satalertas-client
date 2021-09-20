@@ -6,7 +6,6 @@ import { Response } from '../../../models/response.model';
 @Component({
   selector: 'app-info-columns',
   templateUrl: './info-columns.component.html',
-  providers: [MessageService],
   styleUrls: ['./info-columns.component.css']
 })
 export class InfoColumnsComponent implements OnInit {
@@ -79,7 +78,7 @@ export class InfoColumnsComponent implements OnInit {
     this.infoColumnsService.sendInfocolumnsEditions(this.editions).then(() => {
       this.messageService.add({
         severity: 'success',
-        summary: 'Sucesso',
+        summary: '',
         detail: 'Produto atualizado'
       });
       this.sendEditions = false;

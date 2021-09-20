@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
-import { Observable, throwError } from 'rxjs';
-
-import { catchError, retry } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
@@ -17,41 +15,31 @@ export class HTTPService {
 	}
 
 	get<T>(url, params = {}): Observable<T> {
-		return this.httpClient.get<T>(url, params)
-	}
-
-	post(url, params = {}) {
 		if (!url) {
 			return;
 		}
-		return this.httpClient.post(url, params).pipe(
-			retry(1),
-			catchError(this.handleError)
-		);
+		return this.httpClient.get<T>(url, params);
 	}
 
-	put(url, params = {}) {
+	post<T>(url, params = {}): Observable<T> {
 		if (!url) {
 			return;
 		}
-		return this.httpClient.put(url, params).pipe(
-			retry(1),
-			catchError(this.handleError)
-		);
+		return this.httpClient.post<T>(url, params);
 	}
 
-	delete(url, params = {}) {
+	put<T>(url, params = {}): Observable<T> {
 		if (!url) {
 			return;
 		}
-		return this.httpClient.delete(url, params).pipe(
-			retry(1),
-			catchError(this.handleError)
-		);
+		return this.httpClient.put<T>(url, params);
 	}
 
-	private handleError(error: HttpErrorResponse) {
-		return throwError(`Error occured: ${ error }`);
+	delete<T>(url, params = {}): Observable<T> {
+		if (!url) {
+			return;
+		}
+		return this.httpClient.delete<T>(url, params);
 	}
 
 }

@@ -38,7 +38,7 @@ export class GroupViewService {
 	}
 
 	add(params) {
-		return this.httpService.post(this.url + '/', { params }).toPromise();
+		return this.httpService.post<Response>(this.url + '/', { params }).toPromise();
 	}
 
 	async getAvailableLayers(groupId) {

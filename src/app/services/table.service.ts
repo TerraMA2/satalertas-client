@@ -3,8 +3,12 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { Layer } from '../models/layer.model';
+
 import { environment } from '../../environments/environment';
+
 import { HTTPService } from './http.service';
+
+import { Response } from '../models/response.model';
 
 const URL_REPORT_SERVER = environment.serverUrl;
 
@@ -24,9 +28,9 @@ export class TableService {
 	) {
 	}
 
-	async getReportLayers() {
+	getReportLayers() {
 		const url = `${ URL_REPORT_SERVER }/view/getReportLayers`;
 
-		return await this.httpService.get<any>(url).toPromise();
+		return this.httpService.get<Response>(url);
 	}
 }

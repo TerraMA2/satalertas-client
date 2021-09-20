@@ -19,7 +19,8 @@
     <div class="link-container">
         <button class="p-button-raised p-button-secondary view-report-icon icon-margin"
                 pButton
-                pTooltip="{{'viewSynthesis' | translate}}"
+                pRipple
+                pTooltip="{{'View synthesis' | translate}}"
                 routerLink="{{ linkSynthesis }}"
                 tooltipPosition="top">
             <span class="fas fa-file-invoice synthesis-link"></span>
@@ -27,7 +28,8 @@
         <div *ngIf="linkDETER">
             <button class="p-button-raised p-button-secondary view-report-icon icon-margin"
                     pButton
-                    pTooltip="{{'viewDeterReport' | translate}}"
+                    pRipple
+                    pTooltip="{{'View DETER report' | translate}}"
                     routerLink="{{ linkDETER }}"
                     tooltipPosition="top">
                 <img src="assets/img/ico/deter32x32.png"/>
@@ -35,17 +37,19 @@
         </div>
         <div *ngIf="linkPRODES">
             <p-button class="p-button-raised p-button-secondary view-report-icon icon-margin"
-               pTooltip="{{'viewProdesReport' | translate}}"
-               routerLink="{{ linkPRODES }}"
-               tooltipPosition="top">
+                      pRipple
+                      pTooltip="{{'View PRODES report' | translate}}"
+                      routerLink="{{ linkPRODES }}"
+                      tooltipPosition="top">
                 <img src="assets/img/ico/prodes32x32.png"/>
             </p-button>
         </div>
         <div *ngIf="linkFireSpot">
             <p-button class="p-button-raised p-button-secondary view-report-icon icon-margin"
-               pTooltip="{{'viewBurnedReport' | translate}}"
-               routerLink="{{ linkFireSpot }}"
-               tooltipPosition="top">
+                      pRipple
+                      pTooltip="{{'View burn report' | translate}}"
+                      routerLink="{{ linkFireSpot }}"
+                      tooltipPosition="top">
                 <img src="assets/img/ico/queima.ico"/>
             </p-button>
         </div>

@@ -1,12 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { LineInputModel } from '../../models/line-input.model';
-import { Message, MessageService } from 'primeng/api';
+import { Message } from 'primeng/api';
 
 @Component({
 	selector: 'app-modal',
 	templateUrl: './modal.component.html',
-	styleUrls: ['./modal.component.css'],
-	providers: [MessageService]
+	styleUrls: ['./modal.component.css']
 })
 export class ModalComponent implements OnInit {
 	@Input() displayModal: boolean;
@@ -23,7 +22,7 @@ export class ModalComponent implements OnInit {
 
 	msgs: Message[] = [];
 
-	constructor(private messageService: MessageService) {
+	constructor() {
 	}
 
 	ngOnInit() {
@@ -106,7 +105,7 @@ export class ModalComponent implements OnInit {
 
 	showError(message: string) {
 		this.clearMsgs();
-		this.msgs.push({ severity: 'error', summary: 'Error Message', detail: message });
+		this.msgs.push({ severity: 'error', summary: '', detail: message });
 	}
 
 	clearMsgs() {

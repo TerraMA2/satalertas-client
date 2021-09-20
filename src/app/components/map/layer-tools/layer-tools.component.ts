@@ -82,7 +82,7 @@ export class LayerToolsComponent implements OnInit {
 		if (!selectedFormats || selectedFormats.length === 0) {
 			this.messageService.add({
 				severity: 'error',
-				summary: 'Exportação',
+				summary: '',
 				detail: 'Selecione ao menos 1 formato.'
 			});
 			this.isExportLoading = false;
@@ -106,7 +106,7 @@ export class LayerToolsComponent implements OnInit {
 		const params = this.filterService.getParams(view);
 		params['fileFormats'] = selectedFormats.toString();
 
-		await this.exportService.export(params, selectedFormats, tableName);
+		await this.exportService.export(params, selectedFormats, tableName).catch(error => this.isExportLoading = false);
 
 		this.isExportLoading = false;
 	}

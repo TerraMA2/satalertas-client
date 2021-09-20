@@ -17,6 +17,7 @@
     text-align: center;
     box-shadow: #ccc 1px 2px;
     padding: 10px;
+    word-break: break-all;
     border-radius: 5px;
 }
 
@@ -28,4 +29,9 @@
     background-color: #eee;
     cursor: pointer;
     box-shadow: unset;
+}
+
+.report-icons {
+    display:  flex;
+    padding: 25px !important;
 }

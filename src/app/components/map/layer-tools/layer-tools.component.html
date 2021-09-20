@@ -10,7 +10,7 @@
 
     <p-accordion [multiple]="true" [style]="{'min-width': '300px'}">
         <p-accordionTab [selected]="toolSelected === 'description'"
-                        header="{{'description' | translate}}">
+                        header="{{'Description' | translate}}">
             <div style="max-width: 500px">
                 {{layer?.description }}
             </div>
@@ -18,7 +18,7 @@
 
         <p-accordionTab *ngIf="loggedUser && loggedUser.administrator"
                         [selected]="toolSelected === 'export'"
-                        header="{{'exportation' | translate}}">
+                        header="{{'Exportation' | translate}}">
             <p-listbox [(ngModel)]="selectedFormats"
                        [options]="formats"
                        checkbox="checkbox"
@@ -27,18 +27,22 @@
             <br>
             <div class="p-grid p-align-center p-justify-end p-nogutter">
                 <div *ngIf="isExportLoading">
-                    <p-progressSpinner [style]="{width: '25px', height: '25px'}" animationDuration="1s"
+                    <p-progressSpinner [style]="{width: '25px', height: '25px'}"
+                                       animationDuration="1s"
                                        strokeWidth="6"></p-progressSpinner>
                 </div>
                 &nbsp;
-                <p-button (click)="onExportClick()" [disabled]="isExportLoading" label="{{'export' | translate}}"
+                <p-button (click)="onExportClick()"
+                          [disabled]="isExportLoading"
+                          label="{{'Export' | translate}}"
+                          pRipple
                           styleClass="p-button-raised"
                 ></p-button>
             </div>
         </p-accordionTab>
 
         <p-accordionTab [selected]="toolSelected === 'opacity'"
-                        header="{{'opacity' | translate}}">
+                        header="{{'Opacity' | translate}}">
             <p-slider (onChange)="onOpacityChange($event)" [(ngModel)]="opacity" [animate]="true"></p-slider>
             <br/>
             <strong>{{opacity }} %</strong>

@@ -1,7 +1,7 @@
 {
   "app": {
-    "pageTitle": "pageTitle",
-    "headerTitle": "headerTitle",
+    "pageTitle": "TerraMA² | SatAlertas: Integrated Environmental Degradation Monitoring System",
+    "headerTitle": "SatAlertas: Integrated Environmental Degradation Monitoring System",
     "hasLogin": true,
     "layerUrls": {
       "static": {
@@ -36,15 +36,15 @@
     }
   },
   "about": {
-    "title": "headerTitle",
+    "title": "SatAlertas: Integrated Environmental Degradation Monitoring System",
     "version": "2.0.0-dev",
     "date": "13/04/2021",
     "description": "aboutDescription",
-    "terrama2Version": "4.1.1",
-    "terralibVersion": "5.4.5",
+    "TerraMA² version": "4.1.1",
+    "Terralib version": "5.4.5",
     "offerings": [
       {
-        "title": "partnerships",
+        "title": "Partnerships",
         "companies": [
           [
             {
@@ -104,7 +104,7 @@
         ]
       },
       {
-        "title": "technologicalBase",
+        "title": "Technological Base",
         "companies": [
           [
             {
@@ -118,7 +118,7 @@
         ]
       },
       {
-        "title": "database",
+        "title": "Enviromental Database",
         "companies": [
           [
             {
@@ -146,7 +146,7 @@
         ]
       },
       {
-        "title": "financialSupport",
+        "title": "Financial Support",
         "companies": [
           [
             {
@@ -171,7 +171,7 @@
     "sidebarItems": [
       {
         "icon": "fas fa-chart-line",
-        "label": "dashboard",
+        "label": "Dashboard",
         "link": "/",
         "method": "",
         "value": "",
@@ -179,7 +179,7 @@
       },
       {
         "icon": "fas fa-map",
-        "label": "map",
+        "label": "Map",
         "link": "/map",
         "method": "",
         "value": "",
@@ -187,7 +187,7 @@
       },
       {
         "icon": "fas fa-file-invoice",
-        "label": "reportButton",
+        "label": "Reports",
         "link": "/reports",
         "method": "",
         "value": "",
@@ -426,23 +426,23 @@
     "alertType": {
       "analyzes": [
         {
-          "label": "deterAnalysis",
+          "label": "DETER Analysis",
           "value": "deter"
         },
         {
-          "label": "prodesAnalysis",
+          "label": "PRODES Analysis",
           "value": "deforestation"
         },
         {
-          "label": "fireSpotAnalysis",
+          "label": "Fire Spot Analysis",
           "value": "burned"
         },
         {
-          "label": "burnedAreaAnalysis",
+          "label": "Burned Area Analysis",
           "value": "burned_area"
         },
         {
-          "label": "carArea",
+          "label": "CAR Area",
           "value": "car_area"
         }
       ],
@@ -502,7 +502,7 @@
     "classSearch": {
       "analyzes": [
         {
-          "label": "deterClasses",
+          "label": "DETER classes",
           "value": "deter"
         }
       ]
@@ -543,7 +543,7 @@
       "numberOfMonths": 2
     },
     "optionField": {
-      "label": "theme",
+      "label": "Theme: ",
       "name": "localization",
       "options": [
         {

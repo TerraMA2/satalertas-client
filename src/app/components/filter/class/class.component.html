@@ -1,5 +1,5 @@
 <div *ngIf="checkValid()">
-    <h3 class="form-margin">{{"class" | translate}}</h3>
+    <h3 class="form-margin">{{"Class" | translate}}</h3>
     <div class="p-formgroup-inline">
         <div class="p-field-checkbox">
             <p-radioButton [(ngModel)]="filterClass.radioValue"
@@ -9,7 +9,7 @@
                            name="CLASS_ALL"
                            value="ALL">
             </p-radioButton>
-            <label>{{'all' | translate}}</label>
+            <label>{{'All' | translate}}</label>
         </div>
         <div class="p-field-checkbox">
             <p-radioButton [(ngModel)]="filterClass.radioValue"
@@ -19,7 +19,7 @@
                            (onClick)="onSelectedClicked()"
                            value="SELECTION">
             </p-radioButton>
-            <label>{{'selected' | translate}}</label>
+            <label>{{'Selected' | translate}}</label>
         </div>
     </div>
     <div *ngIf="checkAnalyzesValid()">
@@ -37,7 +37,7 @@
                             [showClear]="true"
                             filter="true"
                             optionLabel="name"
-                            placeholder="{{ 'all' | translate}}"
+                            placeholder="{{ 'All' | translate}}"
                             styleClass="width-100">
                     </p-dropdown>
                 </div>

@@ -31,18 +31,22 @@ export class AppComponent implements OnInit {
 		private sidebarService: SidebarService,
 		private config: PrimeNGConfig,
 		private translateService: TranslateService,
+		private primengConfig: PrimeNGConfig
 	) {
-		this.translateService.setDefaultLang(this.configService.getAppConfig('locale').defaultLanguage);
+		const appConfig = this.configService.getAppConfig()
+		this.translateService.setDefaultLang(appConfig.locale.defaultLanguage);
 		this.translateService.get('primeng').subscribe(res => this.config.setTranslation(res));
-		this.translateService.get('pageTitle').subscribe((res) => this.titleService.setTitle(res));
+		this.translateService.get(appConfig.pageTitle).subscribe((res) => this.titleService.setTitle(res));
 	}
 
 	ngOnInit() {
+		this.primengConfig.ripple = true;
 		this.authService.autoLogin();
 
 		if (environment.production) {
 			localStorage.removeItem('dateFilter');
 			localStorage.removeItem('filterState');
+			localStorage.removeItem('tableState');
 		}
 		this.sidebarService.sidebarAbout.subscribe(show => this.displayAbout = show);
 	}

@@ -1,4 +1,5 @@
 <button pButton
+        pRipple
         (click)="areaClick.emit(analysis) "
         [ngClass]="{'active': analysis.activearea}"
         class="p-button-raised p-button-secondary btn-alert"
@@ -9,6 +10,7 @@
 </button>
 
 <button pButton
+        pRipple
         (click)="alertClick.emit(analysis)"
         [ngClass]="{'active': analysis.activealert}"
         class="p-button-raised p-button-secondary btn-alert"

@@ -11,6 +11,7 @@ import { SidebarService } from 'src/app/services/sidebar.service';
 import { DashboardService } from '../../services/dashboard.service';
 
 import { Analysis } from '../../models/analysis.model';
+
 import { Response } from '../../models/response.model';
 
 @Component({
@@ -42,14 +43,10 @@ export class DashboardComponent implements OnInit {
 
 	getAnalysis() {
 		this.dashboardService.getAnalysis().then((response: Response) => {
-			if (response.status !== 200){
-				this.isLoading = false;
-				return;
-			}
 			this.analysisList = response.data;
 			this.setActiveArea();
 			this.isLoading = false;
-		});
+		}).catch((error: Response) => this.isLoading = false);
 	}
 
 	setEvents() {
@@ -88,7 +85,7 @@ export class DashboardComponent implements OnInit {
 	}
 
 	private clearActive() {
-		if (this.analysisList && this.analysisList.length > 0) {
+		if (this.analysisList) {
 			this.analysisList.forEach((analysis: Analysis) => {
 				analysis.activealert = false;
 				analysis.activearea = false;
@@ -99,13 +96,13 @@ export class DashboardComponent implements OnInit {
 	}
 
 	private activeArea(analysisCharts) {
-		if (analysisCharts && analysisCharts.length > 0) {
+		if (analysisCharts) {
 			analysisCharts.forEach(analysisChart => analysisChart.activearea = true);
 		}
 	}
 
 	private activeAlert(analysisCharts) {
-		if (analysisCharts && analysisCharts.length > 0) {
+		if (analysisCharts) {
 			analysisCharts.forEach(analysisChart => analysisChart.activearea = false);
 		}
 	}

@@ -109,7 +109,7 @@ export class MapService {
 			}
 		};
 
-		return await this.hTTPService.get<any>(url, params).toPromise();
+		return await this.hTTPService.get<Response>(url, params).toPromise();
 	}
 
 	formatterCpfCnpj(cpfCnpj) {
@@ -284,7 +284,7 @@ export class MapService {
 			popupContent += `<h2>Layer não encontrado.</h2>`;
 		}
 
-		const infoColumns = await this.infoColumnsService.getInfoColumns().then((response: Response) => response);
+		const infoColumns = await this.infoColumnsService.getInfoColumns().toPromise().then((response: Response) => response);
 
 		let popupTable = '';
 		const viewIdList = selectedLayers.map(({viewId}) => viewId )
@@ -302,7 +302,7 @@ export class MapService {
 				params = this.getWMSFeatureInfoParams(selectedLayer, latLong, layerPoint, map);
 			}
 
-			await this.hTTPService.get<any>(url, {params}).toPromise().then((layerInfo: LayerInfo) => {
+			await this.hTTPService.get(url, {params}).toPromise().then((layerInfo: LayerInfo) => {
 				const features = layerInfo.features;
 				if (features && features.length > 0) {
 					popupTable += this.getFeatureInfoPopup(layerName, features, layerInfoColumn);
