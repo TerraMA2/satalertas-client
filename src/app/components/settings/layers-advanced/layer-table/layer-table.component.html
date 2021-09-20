@@ -1,0 +1,79 @@
+<p-table
+  [scrollable]="true"
+  [value]="layers"
+  dataKey="id"
+  scrollHeight="400px"
+  [columns]="columns"
+  *ngIf="columns.length > 0"
+>
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th style="width: 3rem"></th>
+      <ng-container *ngFor="let col of columns">
+        <ng-container *ngIf="!col['hide']">
+          <th [pSortableColumn]="col.nameCamel">
+            {{ col.alias }}
+            <p-sortIcon field="col.nameCamel"></p-sortIcon>
+          </th>
+        </ng-container>
+      </ng-container>
+      <th>Ações</th>
+    </tr>
+  </ng-template>
+  <ng-template
+    pTemplate="body"
+    let-expanded="expanded"
+    let-item
+    let-columns="columns"
+  >
+    <tr>
+      <td style="width: 3rem">
+        <p-button
+          *ngIf="item.subLayers"
+          [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+          [pRowToggler]="item"
+          pRipple
+          styleClass="p-button-text p-button-rounded p-button-plain"
+        ></p-button>
+      </td>
+      <ng-container *ngFor="let col of columns">
+        <ng-container *ngIf="!col.hide" [ngSwitch]="col.primaryType">
+          <td>
+            <div *ngSwitchCase="'boolean'">
+              <i
+                [ngClass]="
+                  item[col.nameCamel]
+                    ? 'pi pi-check-circle yes'
+                    : 'pi pi-minus-circle no'
+                "
+              ></i>
+            </div>
+            <div *ngSwitchDefault>
+              {{ item[col.nameCamel] }}
+            </div>
+          </td>
+        </ng-container>
+      </ng-container>
+      <td>
+        <p-button
+          pRipple
+          (click)="editLayer(item)"
+          icon="pi pi-pencil"
+          styleClass="p-button-rounded p-mr-2"
+        ></p-button>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template let-item pTemplate="rowexpansion">
+    <ng-template [ngIf]="item.subLayers">
+      <tr>
+        <td [attr.colspan]="columns.length + 2">
+          <div class="p-p-1">
+            <app-sub-layer-table [subLayers]="item.subLayers">
+            </app-sub-layer-table>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </ng-template>
+</p-table>

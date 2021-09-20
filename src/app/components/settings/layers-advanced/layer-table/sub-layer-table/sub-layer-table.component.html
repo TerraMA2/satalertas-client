@@ -1,0 +1,16 @@
+<div class="p-p-1">
+  <p-table [value]="subLayers" dataKey="id">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Nome</th>
+        <th>Descrição</th>
+      </tr>
+    </ng-template>
+    <ng-template let-subLayer pTemplate="body">
+      <tr>
+        <td>{{ subLayer.name }}</td>
+        <td>{{ subLayer.description }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

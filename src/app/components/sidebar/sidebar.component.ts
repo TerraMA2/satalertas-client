@@ -151,7 +151,7 @@ export class SidebarComponent implements OnInit {
 			groups.forEach(async (groupLyr) => {
 				groupLyr.parent = true;
 				groupLyr.isPrivate = false;
-				const groupViews = await this.groupViewService.getByGroupId(groupLyr.id)
+				const groupViews = await this.groupViewService.getByGroupId({groupId: groupLyr.id})
 				groupLyr.children = groupViews.data;
 				this.sidebarLayerGroups.push(groupLyr);
 			});

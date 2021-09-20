@@ -1,211 +1,218 @@
 <p-scrollPanel [style]="{ width: '100%', height: 'calc(100vh - 50px)' }">
-    <app-settings-toolbar></app-settings-toolbar>
-    <div class="p-grid">
-        <div class="p-col-12">
-            <div class="p-field">
-                <div class="container-lg">
-                    <h2>Gerenciador de Atributos</h2>
-                    <p-table
-                        #dt1
-                        [columns]="cols"
-                        [value]="tableFields"
-                        dataKey="id"
-                        [responsiveLayout]="'stack'"
-                        [autoLayout]="true"
-                        [globalFilterFields]="fieldsToFilter"
-                        editMode="row"
-                    >
-                        <ng-template pTemplate="caption">
-                            <div class="p-d-flex">
-                                <p-dropdown
-                                        [options]="tables"
-                                        [(ngModel)]="selectedTable"
-                                        [showClear]="true"
-                                        [filter]="true"
-                                        placeholder="Selecione uma tabela"
-                                        optionLabel="tableName"
-                                        filterBy="tableName"
-                                        (onChange)="onChangeOptionField($event)"
-                                ></p-dropdown>
-                                <span class="p-input-icon-left p-ml-auto">
-          <i class="pi pi-search"></i>
-          <input
-                  pInputText
-                  type="text"
-                  (input)="dt1.filterGlobal($event.target.value, 'contains')"
-                  placeholder="Procurar palava chave"
-          />
-          <p-button
-                  pRipple
-                  label="Limpar"
-                  class="p-button-outlined"
-                  icon="pi pi-filter-slash"
-                  (click)="clear(dt1)"
-          ></p-button>
-        </span>
-                            </div>
+  <div class="p-grid">
+    <div class="p-col-12">
+      <div class="p-field">
+        <div class="container-lg">
+          <h2>Gerenciador de Atributos</h2>
+          <p-table
+            #dt1
+            [columns]="cols"
+            [value]="tableFields"
+            [responsiveLayout]="'stack'"
+            [autoLayout]="true"
+            [reorderableColumns]="true"
+            dataKey="id"
+            [globalFilterFields]="fieldsToFilter"
+            editMode="row"
+          >
+            <ng-template pTemplate="caption">
+              <div class="p-d-flex">
+                <p-dropdown
+                  [options]="tables"
+                  [(ngModel)]="selectedTable"
+                  [showClear]="true"
+                  [filter]="true"
+                  placeholder="Selecione uma tabela"
+                  optionLabel="tableName"
+                  filterBy="tableName"
+                  (onChange)="onChangeOptionField($event)"
+                ></p-dropdown>
+                <span class="p-input-icon-left p-ml-auto">
+                  <i class="pi pi-search"></i>
+                  <input
+                    pInputText
+                    type="text"
+                    (input)="dt1.filterGlobal($event.target.value, 'contains')"
+                    placeholder="Procurar palava chave"
+                  />
+                  <p-button
+                    pRipple
+                    label="Limpar"
+                    class="p-button-outlined"
+                    icon="pi pi-filter-slash"
+                    (click)="clear(dt1)"
+                  ></p-button>
+                </span>
+              </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+              <tr>
+                <th style="width: 3rem"></th>
+                <th
+                  *ngFor="let col of columns"
+                  [pTooltip]="col.description"
+                  showDelay="1000"
+                  pReorderableColumn
+                >
+                  {{ col.alias }}
+                </th>
+                <th style="width: 8rem"></th>
+              </tr>
+              <tr>
+                <th style="width: 3rem"></th>
+                <th *ngFor="let col of columns">
+                  <p-columnFilter
+                    *ngIf="col.columnName"
+                    type="text"
+                    [field]="col.nameCamel"
+                    [placeholder]="col.alias"
+                  ></p-columnFilter>
+                </th>
+                <th style="width: 8rem"></th>
+              </tr>
+            </ng-template>
+            <ng-template
+              pTemplate="body"
+              let-rowData
+              let-columns="columns"
+              let-ri="rowIndex"
+              let-editing="editing"
+            >
+              <tr [pEditableRow]="rowData" [pReorderableRow]="ri">
+                <td>
+                  <span class="pi pi-bars" pReorderableRowHandle></span>
+                </td>
+                <td *ngFor="let col of columns">
+                  <ng-container [ngSwitch]="col.primaryType">
+                    <div *ngSwitchCase="'boolean'">
+                      <p-cellEditor>
+                        <ng-template pTemplate="output">
+                          <div class="p-text-center">
+                            <i
+                              [ngClass]="
+                                rowData[col.nameCamel]
+                                  ? 'pi pi-check-circle yes'
+                                  : 'pi pi-minus-circle no'
+                              "
+                            ></i>
+                          </div>
                         </ng-template>
-                        <ng-template pTemplate="header" let-columns>
-                            <tr>
-                                <th style="width:3rem"></th>
-                                <th
-                                        *ngFor="let col of columns"
-                                        [pTooltip]="col.description"
-                                        showDelay="1000"
-                                >
-                                    {{ col.alias }}
-                                </th>
-                                <th style="width: 8rem"></th>
-                            </tr>
-                            <tr>
-                                <th style="width:3rem"></th>
-                                <th *ngFor="let col of columns">
-                                    <p-columnFilter *ngIf="col.columnName"
-                                                    type="text"
-                                                    [field]="col.nameCamel"
-                                                    [placeholder]="col.alias"
-                                    ></p-columnFilter>
-                                </th>
-                                <th style="width: 8rem"></th>
-                            </tr>
+                        <ng-template pTemplate="input">
+                          <div class="p-text-center">
+                            <p-inputSwitch
+                              [(ngModel)]="rowData[col.nameCamel]"
+                              [disabled]="col.disableEditing"
+                            ></p-inputSwitch>
+                          </div>
                         </ng-template>
-                        <ng-template
-                                pTemplate="body"
-                                let-rowData
-                                let-columns="columns"
-                                let-ri="rowIndex"
-                                let-editing="editing"
-                        >
-                            <tr [pEditableRow]="rowData" [pReorderableRow]="ri">
-                                <td>
-                                    <span class="pi pi-bars" pReorderableRowHandle></span>
-                                </td>
-                                <td *ngFor="let col of columns">
-                                    <ng-container [ngSwitch]="col.primaryType">
-                                        <div *ngSwitchCase="'boolean'">
-                                            <p-cellEditor>
-                                                <ng-template pTemplate="output">
-                                                    <div class="p-text-center">
-                                                        <i
-                                                                [ngClass]="
-                        rowData[col.nameCamel]
-                          ? 'pi pi-check-circle yes'
-                          : 'pi pi-minus-circle no'
-                      "
-                                                        ></i>
-                                                    </div>
-                                                </ng-template>
-                                                <ng-template pTemplate="input">
-                                                    <div class="p-text-center">
-                                                        <p-inputSwitch
-                                                                [(ngModel)]="rowData[col.nameCamel]"
-                                                                [disabled]="col.disableEditing"
-                                                        ></p-inputSwitch>
-                                                    </div>
-                                                </ng-template>
-                                            </p-cellEditor>
-                                        </div>
-                                        <div *ngSwitchCase="'type'">
-                                            <p-cellEditor>
-                                                <ng-template pTemplate="output">
-                                                    <div>
-                                                        {{ rowData[col.nameCamel] }}
-                                                    </div>
-                                                </ng-template>
-                                                <ng-template pTemplate="input">
-                                                    <p-dropdown
-                                                            optionValue="type"
-                                                            showClear="true"
-                                                            [(ngModel)]="rowData[col.nameCamel]"
-                                                            [options]="columnTypes"
-                                                            [placeholder]="col.alias"
-                                                            [filter]="true"
-                                                            [disabled]="col.disableEditing"
-                                                    >
-                                                        <ng-template let-itemData pTemplate="item">
-                                                            <div class="item-data">
-                                                                <div [pTooltip]="itemData.description">
-                                                                    {{ itemData.label || itemData.type }}
-                                                                </div>
-                                                            </div>
-                                                        </ng-template>
-                                                    </p-dropdown>
-                                                </ng-template>
-                                            </p-cellEditor>
-                                        </div>
-                                        <div *ngSwitchDefault>
-                                            <p-cellEditor>
-                                                <ng-template pTemplate="output">
-                                                    <div>
-                                                        {{ rowData[col.nameCamel] }}
-                                                    </div>
-                                                </ng-template>
-                                                <ng-template pTemplate="input">
-                                                    <input
-                                                            type="text"
-                                                            pInputText
-                                                            [(ngModel)]="rowData[col.nameCamel]"
-                                                            [disabled]="col.disableEditing"
-                                                    />
-                                                </ng-template>
-                                            </p-cellEditor>
-                                        </div>
-                                    </ng-container>
-                                </td>
-                                <td style="text-align: center" *ngIf="rowData['id']">
-                                    <button
-                                            *ngIf="!editing"
-                                            pInitEditableRow
-                                            pButton
-                                            pRipple
-                                            type="button"
-                                            icon="pi pi-pencil"
-                                            (click)="onRowEditInit(rowData)"
-                                            class="p-button-rounded p-button-text"
-                                    ></button>
-                                    <button
-                                            *ngIf="editing"
-                                            pButton
-                                            pRipple
-                                            type="button"
-                                            pSaveEditableRow
-                                            icon="pi pi-check"
-                                            (click)="onRowEditSave(rowData)"
-                                            class="p-button-rounded p-button-text p-button-success p-mr-2"
-                                    ></button>
-                                    <button
-                                            *ngIf="editing"
-                                            pButton
-                                            pRipple
-                                            type="button"
-                                            pCancelEditableRow
-                                            icon="pi pi-times"
-                                            (click)="onRowEditCancel(rowData, ri)"
-                                            class="p-button-rounded p-button-text p-button-danger"
-                                    ></button>
-                                </td>
-                            </tr>
+                      </p-cellEditor>
+                    </div>
+                    <div *ngSwitchCase="'type'">
+                      <p-cellEditor>
+                        <ng-template pTemplate="output">
+                          <div>
+                            {{ rowData[col.nameCamel] }}
+                          </div>
                         </ng-template>
-                        <ng-template pTemplate="emptymessage">
-                            <tr>
-                                <td [attr.colspan]="cols ? cols.length : 1" class="p-text-center">
-                                    Nenhum dado encontrado
-                                </td>
-                            </tr>
+                        <ng-template pTemplate="input">
+                          <p-dropdown
+                            optionValue="type"
+                            showClear="true"
+                            [(ngModel)]="rowData[col.nameCamel]"
+                            [options]="columnTypes"
+                            [placeholder]="col.alias"
+                            [filter]="true"
+                            [disabled]="col.disableEditing"
+                          >
+                            <ng-template let-itemData pTemplate="item">
+                              <div class="item-data">
+                                <div [pTooltip]="itemData.description">
+                                  {{ itemData.label || itemData.type }}
+                                </div>
+                              </div>
+                            </ng-template>
+                          </p-dropdown>
                         </ng-template>
-                    </p-table>
-                    <ng-container styleClass='p-field p-d-flex container-lg'>
-                        <p-button
-                                pRipple
-                                class="container p-d-inline"
-                                label="Salvar"
-                                (click)="saveEditions()"
-                                [disabled]="!sendEditions"
-                                styleClass="p-button-raised p-button-success"
-                        ></p-button>
-                    </ng-container>
-                </div>
-            </div>
+                      </p-cellEditor>
+                    </div>
+                    <div *ngSwitchDefault>
+                      <p-cellEditor>
+                        <ng-template pTemplate="output">
+                          <div>
+                            {{ rowData[col.nameCamel] }}
+                          </div>
+                        </ng-template>
+                        <ng-template pTemplate="input">
+                          <input
+                            type="text"
+                            pInputText
+                            [(ngModel)]="rowData[col.nameCamel]"
+                            [disabled]="col.disableEditing"
+                          />
+                        </ng-template>
+                      </p-cellEditor>
+                    </div>
+                  </ng-container>
+                </td>
+                <td style="text-align: center" *ngIf="rowData['id']">
+                  <button
+                    *ngIf="!editing"
+                    pInitEditableRow
+                    pButton
+                    pRipple
+                    type="button"
+                    icon="pi pi-pencil"
+                    (click)="onRowEditInit(rowData)"
+                    class="p-button-rounded p-button-text"
+                  ></button>
+                  <button
+                    *ngIf="editing"
+                    pButton
+                    pRipple
+                    type="button"
+                    pSaveEditableRow
+                    icon="pi pi-check"
+                    (click)="onRowEditSave(rowData)"
+                    class="
+                      p-button-rounded p-button-text p-button-success p-mr-2
+                    "
+                  ></button>
+                  <button
+                    *ngIf="editing"
+                    pButton
+                    pRipple
+                    type="button"
+                    pCancelEditableRow
+                    icon="pi pi-times"
+                    (click)="onRowEditCancel(rowData, ri)"
+                    class="p-button-rounded p-button-text p-button-danger"
+                  ></button>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+              <tr>
+                <td
+                  [attr.colspan]="cols ? cols.length : 1"
+                  class="p-text-center"
+                >
+                  Nenhum dado encontrado
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+          <ng-container styleClass="p-field p-d-flex container-lg">
+            <p-button
+              pRipple
+              class="container p-d-inline"
+              label="Salvar"
+              (click)="saveEditions()"
+              [disabled]="!sendEditions"
+              styleClass="p-button-raised p-button-success"
+            ></p-button>
+          </ng-container>
         </div>
+      </div>
     </div>
+  </div>
 </p-scrollPanel>

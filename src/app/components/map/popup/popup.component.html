@@ -19,6 +19,7 @@
     <div class="link-container">
         <button class="p-button-raised p-button-secondary view-report-icon icon-margin"
                 pButton
+                pRipple
                 pTooltip="{{'View synthesis' | translate}}"
                 routerLink="{{ linkSynthesis }}"
                 tooltipPosition="top">
@@ -27,6 +28,7 @@
         <div *ngIf="linkDETER">
             <button class="p-button-raised p-button-secondary view-report-icon icon-margin"
                     pButton
+                    pRipple
                     pTooltip="{{'View DETER report' | translate}}"
                     routerLink="{{ linkDETER }}"
                     tooltipPosition="top">
@@ -35,6 +37,7 @@
         </div>
         <div *ngIf="linkPRODES">
             <p-button class="p-button-raised p-button-secondary view-report-icon icon-margin"
+                      pRipple
                       pTooltip="{{'View PRODES report' | translate}}"
                       routerLink="{{ linkPRODES }}"
                       tooltipPosition="top">
@@ -43,6 +46,7 @@
         </div>
         <div *ngIf="linkFireSpot">
             <p-button class="p-button-raised p-button-secondary view-report-icon icon-margin"
+                      pRipple
                       pTooltip="{{'View burn report' | translate}}"
                       routerLink="{{ linkFireSpot }}"
                       tooltipPosition="top">

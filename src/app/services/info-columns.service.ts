@@ -22,8 +22,8 @@ export class InfoColumnsService {
 
 		return this.httpService.get<Response>(this.url + '/', { params: parameters });
 	}
-	async getAllTest() {
-		return this.httpService.get<Response>(this.url + '/getInfocolumnsByTableName?tableName=infocolumn_columns_list')
+	async getByTableName(tableName) {
+		return this.httpService.get<Response>(this.url + `/getByTableName?tableName=${tableName}`)
 			.toPromise()
 			.then(data => {
 				return data;

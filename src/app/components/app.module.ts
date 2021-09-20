@@ -97,6 +97,8 @@ import { AuthGuard } from './auth/auth.guard';
 import { ChartsAreaComponent } from './dashboard/charts-area/charts-area.component';
 import { StyleClassModule } from 'primeng/styleclass';
 import { InfoColumnsComponent } from './settings/info-columns/info-columns.component';
+import { SubLayerTableComponent } from './settings/layers-advanced/layer-table/sub-layer-table/sub-layer-table.component';
+import { LayerTableComponent } from './settings/layers-advanced/layer-table/layer-table.component';
 import { HttpInterceptorService } from '../services/http-interceptor.service';
 import { SkeletonModule } from 'primeng/skeleton';
 
@@ -105,7 +107,7 @@ registerLocaleData(localePt, 'pt');
 const project = environment.project;
 
 export function HttpLoaderFactory(http: HttpClient) {
-	return new TranslateHttpLoader(http, `./assets/config/${ project ? project + '/' : '' }i18n/`, '.json');
+	return new TranslateHttpLoader(http, `./assets/config/${project ? project + '/' : ''}i18n/`, '.json');
 }
 
 @NgModule({
@@ -159,6 +161,8 @@ export function HttpLoaderFactory(http: HttpClient) {
 		ReportListComponent,
 		PageNotFoundComponent,
 		InfoColumnsComponent,
+		SubLayerTableComponent,
+		LayerTableComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -217,7 +221,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 		AuthGuard,
 		{ provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }
 	],
-	bootstrap: [AppComponent]
+	bootstrap: [AppComponent],
 })
 export class AppModule {
 }
