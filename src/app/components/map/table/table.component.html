@@ -12,11 +12,12 @@
          [value]="tableData"
          [autoLayout]="true"
          [responsiveLayout]="'stack'"
+         [style]="{width: '100%'}"
          [loadingIcon]="'fas fa-circle-notch color-black'">
     <ng-template pTemplate="caption">
         <div class="p-grid p-nogutter">
 
-            <div class="p-col-12 p-md-6 p-col-nogutter">
+            <div class="p-col-12 p-col-nogutter">
 
                 <div class="float-left">
 
@@ -56,6 +57,11 @@
 
     <ng-template let-columns
                  pTemplate="header">
+        <tr *ngIf="selectedLayer && columns && columns.length === 0">
+            <th [attr.colspan]="columns.length">
+                Nenhum registro encontrado
+            </th>
+        </tr>
         <tr>
             <th *ngFor="let col of columns; trackBy: trackById" [pSortableColumn]="col.field">
                 {{col.header}}
@@ -80,6 +86,14 @@
         <strong>{{state.totalRecords | number:'1.0-4':'pt' }} {{'registers' | translate}}</strong>
         &nbsp;
         <strong>{{selectedProperties ? selectedProperties?.length : '0' }} {{'Selecteds' | translate}}</strong>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <th *ngIf="!selectedLayer">
+                Selecione uma camada
+            </th>
+        </tr>
     </ng-template>
 
 </p-table>

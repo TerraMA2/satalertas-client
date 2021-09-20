@@ -35,6 +35,8 @@ import { TableState } from '../../../models/table-state.model';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { NavigationService } from '../../../services/navigation.service';
+import { SidebarService } from '../../../services/sidebar.service';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
 	selector: 'app-report-list',
@@ -81,6 +83,8 @@ export class ReportListComponent implements OnInit {
 	private columnOrder: [];
 	private excludedColumns: string[];
 
+	isMobile = false;
+
 	constructor(
 		private hTTPService: HTTPService,
 		private configService: ConfigService,
@@ -91,9 +95,11 @@ export class ReportListComponent implements OnInit {
 		private messageService: MessageService,
 		private exportService: ExportService,
 		private authService: AuthService,
+		private sidebarService: SidebarService,
 		private router: Router,
 		private navigationService: NavigationService,
-		private activatedRoute: ActivatedRoute
+		private activatedRoute: ActivatedRoute,
+		private deviceDetectorService: DeviceDetectorService
 	) {
 	}
 
@@ -150,6 +156,10 @@ export class ReportListComponent implements OnInit {
 				this.loadTableData(layer, this.selectedRowsPerPage, 0);
 			}
 		});
+		this.isMobile = this.deviceDetectorService.isMobile();
+		if (this.isMobile) {
+			this.sidebarService.sidebarShowHide.next(false);
+		}
 	}
 
 	loadTableData(layer,
@@ -412,8 +422,7 @@ export class ReportListComponent implements OnInit {
 			rows: this.selectedRowsPerPage,
 			sortField: this.sortField,
 			sortOrder: this.sortOrder,
-			columnOrder: this.columnOrder,
-			expandedRowKey: this.expandedRowKey
+			columnOrder: this.columnOrder
 		};
 		localStorage.setItem('tableState', JSON.stringify(tableState));
 	}
@@ -424,7 +433,6 @@ export class ReportListComponent implements OnInit {
 		this.sortField = tableState.sortField;
 		this.sortOrder = tableState.sortOrder;
 		this.columnOrder = tableState.columnOrder;
-		this.expandedRowKey = tableState.expandedRowKey;
 		this.selectedLayer = tableState.selectedLayer;
 		this.selectedLayerValue = this.selectedLayer.value;
 		this.first = tableState.first;

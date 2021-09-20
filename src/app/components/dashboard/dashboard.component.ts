@@ -13,6 +13,7 @@ import { DashboardService } from '../../services/dashboard.service';
 import { Analysis } from '../../models/analysis.model';
 
 import { Response } from '../../models/response.model';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
 	selector: 'app-dashboard',
@@ -25,11 +26,14 @@ export class DashboardComponent implements OnInit {
 	analysisCharts: AnalysisChart[] = [];
 	isLoading = false;
 
+	isMobile = false;
+
 	constructor(
 		private configService: ConfigService,
 		private filterService: FilterService,
 		private sidebarService: SidebarService,
-		private dashboardService: DashboardService
+		private dashboardService: DashboardService,
+		private deviceDetectorService: DeviceDetectorService
 	) {
 	}
 
@@ -39,6 +43,10 @@ export class DashboardComponent implements OnInit {
 		this.setEvents();
 		this.sidebarService.sidebarReload.next();
 		this.sidebarService.sidebarLayerShowHide.next(false);
+		this.isMobile = this.deviceDetectorService.isMobile();
+		if (this.isMobile) {
+			this.sidebarService.sidebarShowHide.next(false);
+		}
 	}
 
 	getAnalysis() {

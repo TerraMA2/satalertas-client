@@ -151,7 +151,7 @@
         "position": "topleft",
         "collapsed": false,
         "autoZIndex": false,
-        "hideSingleBase": false
+        "hideSingleBase": true
       },
       "search": {
         "propertyName": "title",

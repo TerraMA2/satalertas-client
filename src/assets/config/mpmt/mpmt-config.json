@@ -1,5 +1,6 @@
 {
   "app": {
+    "state": "MT",
     "pageTitle": "TerraMA² | SatAlertas: Integrated Environmental Degradation Monitoring System",
     "headerTitle": "SatAlertas: Integrated Environmental Degradation Monitoring System",
     "hasLogin": true,
@@ -257,10 +258,6 @@
     ]
   },
   "map": {
-    "initialLatLong": [
-      -14.5463,
-      -52.7941
-    ],
     "initialZoom": 6,
     "maxZoom": 18,
     "controls": {
@@ -268,7 +265,7 @@
         "position": "topleft",
         "collapsed": false,
         "autoZIndex": false,
-        "hideSingleBase": false
+        "hideSingleBase": true
       },
       "search": {
         "propertyName": "title",

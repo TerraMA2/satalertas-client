@@ -39,6 +39,7 @@ import { MessageModule } from 'primeng/message';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ScrollTopModule } from 'primeng/scrolltop';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { SpeedDialModule } from 'primeng/speeddial';
 
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
@@ -100,7 +101,6 @@ import { InfoColumnsComponent } from './settings/info-columns/info-columns.compo
 import { SubLayerTableComponent } from './settings/layers-advanced/layer-table/sub-layer-table/sub-layer-table.component';
 import { LayerTableComponent } from './settings/layers-advanced/layer-table/layer-table.component';
 import { HttpInterceptorService } from '../services/http-interceptor.service';
-import { SkeletonModule } from 'primeng/skeleton';
 
 registerLocaleData(localePt, 'pt');
 
@@ -212,7 +212,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 			}
 		}),
 		StyleClassModule,
-		SkeletonModule
+		SpeedDialModule
 	],
 	providers: [
 		TreeDragDropService,

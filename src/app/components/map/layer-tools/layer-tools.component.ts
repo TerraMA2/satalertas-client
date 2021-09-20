@@ -22,6 +22,8 @@ import { AuthService } from '../../../services/auth.service';
 
 import { User } from '../../../models/user.model';
 
+import { DeviceDetectorService } from 'ngx-device-detector';
+
 @Component({
 	selector: 'app-layer-tools',
 	templateUrl: './layer-tools.component.html',
@@ -44,6 +46,8 @@ export class LayerToolsComponent implements OnInit {
 	disableTool = [];
 	loggedUser: User = null;
 
+	isMobile = false;
+
 	constructor(
 		private configService: ConfigService,
 		private mapService: MapService,
@@ -51,15 +55,15 @@ export class LayerToolsComponent implements OnInit {
 		private messageService: MessageService,
 		private filterService: FilterService,
 		private exportService: ExportService,
-		private authService: AuthService
+		private authService: AuthService,
+		private deviceDetectorService: DeviceDetectorService,
 	) {
 	}
 
 	ngOnInit() {
+		this.isMobile = this.deviceDetectorService.isMobile();
 		this.formats = this.configService.getMapConfig('export').formats;
-		this.authService.user.subscribe((user) => {
-			this.loggedUser = user;
-		});
+		this.authService.user.subscribe((user) => this.loggedUser = user);
 	}
 
 	onOpacityChange(event) {
