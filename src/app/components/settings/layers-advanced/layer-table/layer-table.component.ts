@@ -4,6 +4,7 @@ import { SettingsService } from 'src/app/services/settings.service';
 @Component({
   selector: 'app-layer-table',
   templateUrl: './layer-table.component.html',
+  styleUrls: [ './layer-table.component.css']
 })
 
 export class LayerTableComponent {

@@ -10,7 +10,6 @@ import { InfoColumnsService } from 'src/app/services/info-columns.service';
 @Component({
 	selector: 'app-layers-advanced',
 	templateUrl: './layers-advanced.component.html',
-	styleUrls: ['./layers-advanced.component.css'],
 	providers: [ConfirmationService]
 })
 export class LayersAdvancedComponent implements OnInit {
