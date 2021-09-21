@@ -56,18 +56,24 @@ export class PopupService {
 		switch (groupCode) {
 			case 'DETER':
 				layerLabel += ' - DETER';
-				linkPRODES = '';
-				linkFireSpot = '';
+				linkPRODES = undefined;
+				linkFireSpot = undefined;
 				break;
 			case 'PRODES':
 				layerLabel += ' - PRODES';
-				linkDETER = '';
-				linkFireSpot = '';
+				linkDETER = undefined;
+				linkFireSpot = undefined;
 				break;
 			case 'BURNED':
 				layerLabel += ' - FOCOS';
-				linkDETER = '';
-				linkPRODES = '';
+				linkDETER = undefined;
+				linkPRODES = undefined;
+				break;
+			default:
+				layerLabel += '';
+				linkDETER = undefined;
+				linkPRODES = undefined;
+				linkFireSpot = undefined;
 				break;
 		}
 

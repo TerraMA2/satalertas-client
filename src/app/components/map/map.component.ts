@@ -118,8 +118,8 @@ export class MapComponent implements OnInit, AfterViewInit {
 		this.setLayerControl();
 		this.setFullScreenControl();
 		this.setDrawControl();
-		this.setSearchControl();
 		if (!this.isMobile) {
+			this.setSearchControl();
 			this.setLegendControl();
 			this.setTableControl();
 			this.setVisibleLayersControl();
