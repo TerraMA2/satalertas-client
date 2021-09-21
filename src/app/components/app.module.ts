@@ -101,6 +101,7 @@ import { InfoColumnsComponent } from './settings/info-columns/info-columns.compo
 import { SubLayerTableComponent } from './settings/layers-advanced/layer-table/sub-layer-table/sub-layer-table.component';
 import { LayerTableComponent } from './settings/layers-advanced/layer-table/layer-table.component';
 import { HttpInterceptorService } from '../services/http-interceptor.service';
+import { SearchComponent } from './map/search/search.component';
 
 registerLocaleData(localePt, 'pt');
 
@@ -163,6 +164,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 		InfoColumnsComponent,
 		SubLayerTableComponent,
 		LayerTableComponent,
+  SearchComponent,
 	],
 	imports: [
 		BrowserModule,

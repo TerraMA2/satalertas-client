@@ -10,8 +10,6 @@ import 'leaflet-draw';
 
 import 'leaflet-control-boxzoom';
 
-import * as Search from 'leaflet-search';
-
 import { HTTPService } from '../../services/http.service';
 
 import { ConfigService } from '../../services/config.service';
@@ -58,7 +56,6 @@ export class MapComponent implements OnInit, AfterViewInit {
 	tableSelectedLayer: L.TileLayer.WMS;
 	displayTable = false;
 	displayLegend = false;
-	// displayInfo = false;
 	displayVisibleLayers = false;
 	displayLayerTools = false;
 	displaySearch = false;
@@ -240,25 +237,24 @@ export class MapComponent implements OnInit, AfterViewInit {
 	}
 
 	setSearchControl() {
-		const searchOptions = this.mapConfig.controls.search;
-		searchOptions.moveToLocation = latlng => {
-			this.markerClusterGroup.eachLayer((marker: L.Marker) => {
-				if (marker.getLatLng().equals(latlng)) {
-					this.mapService.panMap(this.map, latlng, 18);
-					marker.fire('click');
-				}
-			});
-		};
-		searchOptions.marker = L.circleMarker([0, 0], this.mapConfig.controls.search.marker);
-		this.searchControl = new Search(searchOptions);
-		this.map.addControl(this.searchControl);
+		const Search = this.mapService.getSearchControl();
+		new Search({ position: 'topleft' }).addTo(this.map);
+		this.setSearchControlEvent();
+	}
+
+	setSearchControlEvent() {
+		L.DomEvent.on(L.DomUtil.get('searchBtn'), 'click dblclick', L.DomEvent.stopPropagation);
+		document.querySelector('#searchBtn').addEventListener('click', () => {
+			if (this.isMobile) {
+				this.sidebarService.sidebarShowHide.next(false);
+			}
+			this.displaySearch = true;
+		});
 	}
 
 	setCoordinatesControl() {
 		const Coordinates = this.mapService.getCoordinatesControl();
-		new Coordinates({
-			position: 'bottomright'
-		}).addTo(this.map);
+		new Coordinates({position: 'bottomright'}).addTo(this.map);
 	}
 
 	setDrawControl() {
@@ -288,8 +284,6 @@ export class MapComponent implements OnInit, AfterViewInit {
 	}
 
 	setInfoControl() {
-		// const Info = this.mapService.getInfoControl();
-		// new Info({ position: 'topleft' }).addTo(this.map);
 		this.setInfoControlEvent();
 	}
 
@@ -335,25 +329,6 @@ export class MapComponent implements OnInit, AfterViewInit {
 
 	setInfoControlEvent() {
 		this.map.on('contextmenu', (event: L.LeafletMouseEvent) => this.getFeatureInfo(event))
-		// L.DomEvent.on(L.DomUtil.get('infoBtn'), 'dblclick click', L.DomEvent.stopPropagation);
-		// document.querySelector('#infoBtn').addEventListener('click', () => {
-		// 	if (this.displayInfo === false) {
-		// 		this.displayInfo = true;
-		// 		document.querySelector('#infoBtn').classList.add('leaflet-custom-icon-selected');
-		// 		document.querySelector('#map').classList.remove('cursor-grab');
-		// 		document.querySelector('#map').classList.add('cursor-help');
-		// 		this.map.on('click', (event: L.LeafletMouseEvent) => this.getFeatureInfo(event));
-		// 	} else {
-		// 		if (this.markerInfo) {
-		// 			this.markerInfo.remove();
-		// 		}
-		// 		this.displayInfo = false;
-		// 		document.querySelector('#infoBtn').classList.remove('leaflet-custom-icon-selected');
-		// 		document.querySelector('#map').classList.remove('cursor-help');
-		// 		document.querySelector('#map').classList.add('cursor-grab');
-		// 		this.map.off('click');
-		// 	}
-		// });
 	}
 
 	createMarker(title, latLong, layerLabel, gid, groupCode, layer?) {
@@ -475,9 +450,9 @@ export class MapComponent implements OnInit, AfterViewInit {
 	}
 
 	setEvents() {
-		this.mapService.layerOpactity.subscribe((layerObject) => {
-			this.mapService.setOpacity(layerObject['layer'], layerObject['value'], this.map);
-		});
+		this.mapService.searchClose.subscribe(() => this.displaySearch = false);
+		this.mapService.setMapPosition.subscribe(latLng => this.mapService.panMap(this.map, latLng, 6));
+		this.mapService.layerOpactity.subscribe((layerObject) => this.mapService.setOpacity(layerObject['layer'], layerObject['value'], this.map));
 
 		this.mapService.layerExtent.subscribe(layer => this.mapService.setExtent(layer, this.map));
 

@@ -153,22 +153,6 @@
         "autoZIndex": false,
         "hideSingleBase": true
       },
-      "search": {
-        "propertyName": "title",
-        "position": "topleft",
-        "zoom": 12,
-        "minLength": 1,
-        "hideMarkerOnCollapse": true,
-        "textErr": "Nenhum imóvel foi encontrado",
-        "textCancel": "Cancelar",
-        "textPlaceholder": "Buscar por registro do CAR",
-        "marker": {
-          "radius": 10,
-          "weight": 3,
-          "stroke": true,
-          "fill": true
-        }
-      },
       "fullscreen": {
         "zoomInTitle": "+ zoom",
         "zoomOutTitle": "- zoom",

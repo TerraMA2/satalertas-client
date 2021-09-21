@@ -19,8 +19,6 @@ export class SearchService {
 	_E5 = Math.pow(this._E, 5);
 
 	M1 = 1 - this.E / 4 - 3 * this.E2 / 64 - 5 * this.E3 / 256;
-	M2 = 3 * this.E / 8 + 3 * this.E2 / 32 + 45 * this.E3 / 1024;
-	M3 = 15 * this.E2 / 256 + 45 * this.E3 / 1024;
 	M4 = 35 * this.E3 / 3072;
 
 	P2 = 3 / 2 * this._E - 27 / 32 * this._E3 + 269 / 512 * this._E5;
@@ -35,38 +33,45 @@ export class SearchService {
 	constructor() {
 	}
 
-	utmToLatLng(easting, northing, zoneNum, zoneLetter, northern, strict) {
-		strict = strict !== undefined ? strict : true;
-
-		if (!zoneLetter && northern === undefined) {
-			throw new Error('either zoneLetter or northern needs to be set');
-		} else if (zoneLetter && northern !== undefined) {
-			throw new Error('set either zoneLetter or northern, but not both');
+	utmToLatLng(east, north, zone): number[] {
+		if (!zone) {
+			throw new Error('Invalid zone value');
 		}
 
-		if (strict) {
-			if (easting < 100000 || 1000000 <= easting) {
-				throw new RangeError('easting out of range (must be between 100 000 m and 999 999 m)');
-			}
-			if (northing < 0 || northing > 10000000) {
-				throw new RangeError('northing out of range (must be between 0 m and 10 000 000 m)');
-			}
+		if (!north) {
+			throw new Error('Invalid north value');
+		}
+
+		if (!east) {
+			throw new Error('Invalid east value');
+		}
+
+		const [zoneNum, zoneLetter] = zone.match(/[a-z]+|[^a-z]+/gi);
+		if (!zoneLetter || !zoneNum) {
+			throw new Error('Invalid zone value');
+		}
+
+		if (east < 100000 || 1000000 <= east) {
+			throw new RangeError('East value out of range (must be between 100 000 m and 999 999 m)');
+		}
+		if (north < 0 || north > 10000000) {
+			throw new RangeError('North value out of range (must be between 0 m and 10 000 000 m)');
 		}
 		if (zoneNum < 1 || zoneNum > 60) {
-			throw new RangeError('zone number out of range (must be between 1 and 60)');
+			throw new RangeError('Zone number out of range (must be between 1 and 60)');
 		}
+		let northern;
 		if (zoneLetter) {
-			zoneLetter = zoneLetter.toUpperCase();
 			if (zoneLetter.length !== 1 || this.ZONE_LETTERS.indexOf(zoneLetter) === -1) {
-				throw new RangeError('zone letter out of range (must be between C and X)');
+				throw new RangeError('Zone letter out of range (must be between C and X)');
 			}
 			northern = zoneLetter >= 'N';
 		}
 
-		const x = easting - 500000;
-		let y = northing;
+		const x = east - 500000;
+		let y = northern;
 
-		if (!northern) {
+		if (!north) {
 			y -= 1e7;
 		}
 
@@ -112,119 +117,43 @@ export class SearchService {
 			d3 / 6 * (1 + 2 * pTan2 + c) +
 			d5 / 120 * (5 - 2 * c + 28 * pTan2 - 3 * c2 + 8 * this.E_P2 + 24 * pTan4)) / pCos;
 
-		return {
-			latitude: this.toDegrees(latitude),
-			longitude: this.toDegrees(longitude) + this.zoneNumberToCentralLongitude(zoneNum)
-		};
+		return [this.toDegrees(Number(latitude)), this.toDegrees(Number(longitude)) + this.zoneNumberToCentralLongitude(Number(zoneNum))]
 	}
 
-	utmFromLatLng(latitude, longitude, forceZoneNum) {
-		if (latitude > 84 || latitude < -80) {
-			throw new RangeError('latitude out of range (must be between 80 deg S and 84 deg N)');
+	dMSToLatLng(degrees, minutes, seconds): number {
+		if (!Number(degrees)) {
+			throw new Error('Invalid degree');
 		}
-		if (longitude > 180 || longitude < -180) {
-			throw new RangeError('longitude out of range (must be between 180 deg W and 180 deg E)');
+		if (!Number(minutes)) {
+			throw new Error('Invalid minutes');
 		}
-
-		const latRad = this.toRadians(latitude);
-		const latSin = Math.sin(latRad);
-		const latCos = Math.cos(latRad);
-
-		const latTan = Math.tan(latRad);
-		const latTan2 = Math.pow(latTan, 2);
-		const latTan4 = Math.pow(latTan, 4);
-
-		let zoneNum;
-
-		if (forceZoneNum === undefined) {
-			zoneNum = this.latLonToZoneNumber(latitude, longitude);
-		} else {
-			zoneNum = forceZoneNum;
+		if (!Number(seconds)) {
+			throw new Error('Invalid seconds');
 		}
-
-		const zoneLetter = this.latitudeToZoneLetter(latitude);
-
-		const lonRad = this.toRadians(longitude);
-		const centralLon = this.zoneNumberToCentralLongitude(zoneNum);
-		const centralLonRad = this.toRadians(centralLon);
-
-		const n = this.R / Math.sqrt(1 - this.E * latSin * latSin);
-		const c = this.E_P2 * latCos * latCos;
-
-		const a = latCos * (lonRad - centralLonRad);
-		const a2 = Math.pow(a, 2);
-		const a3 = Math.pow(a, 3);
-		const a4 = Math.pow(a, 4);
-		const a5 = Math.pow(a, 5);
-		const a6 = Math.pow(a, 6);
-
-		const m = this.R * (this.M1 * latRad -
-			this.M2 * Math.sin(2 * latRad) +
-			this.M3 * Math.sin(4 * latRad) -
-			this.M4 * Math.sin(6 * latRad));
-		const easting = this.K0 * n * (a +
-			a3 / 6 * (1 - latTan2 + c) +
-			a5 / 120 * (5 - 18 * latTan2 + latTan4 + 72 * c - 58 * this.E_P2)) + 500000;
-		let northing = this.K0 * (m + n * latTan * (a2 / 2 +
-			a4 / 24 * (5 - latTan2 + 9 * c + 4 * c * c) +
-			a6 / 720 * (61 - 58 * latTan2 + latTan4 + 600 * c - 330 * this.E_P2)));
-		if (latitude < 0) {
-			northing += 1e7;
-		}
-
-		return {
-			easting,
-			northing,
-			zoneNum,
-			zoneLetter
-		};
+		return Number(degrees) + (Number(minutes / 60)) + (Number(seconds / 3600));
 	}
 
-	GMSToLatLng(gms) {
-		// convert formula:  DD = d + (min/60) + (sec/3600)
+	private zoneNumberToCentralLongitude(zoneNum): number {
+		return (Number(zoneNum) - 1) * 6 - 180 + 3;
 	}
 
-	private latitudeToZoneLetter(latitude) {
-		if (-80 <= latitude && latitude <= 84) {
-			return this.ZONE_LETTERS[Math.floor((latitude + 80) / 8)];
-		} else {
-			return null;
+	private toDegrees(rad): number {
+		return Number(rad) / Math.PI * 180;
+	}
+
+	validateLatLng(latitude, longitude) {
+		if (!Number(latitude)) {
+			return 'Invalid latitude';
 		}
-	}
-
-	private latLonToZoneNumber(latitude, longitude) {
-		if (56 <= latitude && latitude < 64 && 3 <= longitude && longitude < 12) {
-			return 32;
+		if (!Number(longitude)) {
+			return 'Invalid longitude';
 		}
-
-		if (72 <= latitude && latitude <= 84 && longitude >= 0) {
-			if (longitude < 9) {
-				return 31;
-			}
-			if (longitude < 21) {
-				return 33;
-			}
-			if (longitude < 33) {
-				return 35;
-			}
-			if (longitude < 42) {
-				return 37;
-			}
+		if (latitude < -90 || latitude > 90) {
+			return 'Invalid latitude';
+		} else if (longitude < -180 || longitude > 180) {
+			return 'Invalid longitude';
 		}
-
-		return Math.floor((longitude + 180) / 6) + 1;
-	}
-
-	private zoneNumberToCentralLongitude(zoneNum) {
-		return (zoneNum - 1) * 6 - 180 + 3;
-	}
-
-	private toDegrees(rad) {
-		return rad / Math.PI * 180;
-	}
-
-	private toRadians(deg) {
-		return deg * Math.PI / 180;
+		return true;
 	}
 
 }
