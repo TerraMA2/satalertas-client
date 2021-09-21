@@ -31,6 +31,8 @@ export class SidebarService {
 
 	sidebarReload = new Subject<string>();
 
+	sidebarShowHide = new Subject<boolean>();
+
 	sidebarLayerShowHide = new Subject<boolean>();
 
 	sidebarAbout = new Subject<boolean>();

@@ -13,6 +13,7 @@ import { SidebarService } from '../services/sidebar.service';
 import { PrimeNGConfig } from 'primeng/api';
 
 import { TranslateService } from '@ngx-translate/core';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
 	selector: 'app-root',
@@ -23,6 +24,7 @@ export class AppComponent implements OnInit {
 
 	displayAbout = false;
 	displaySidebar = true;
+	isMobile = false;
 
 	constructor(
 		private configService: ConfigService,
@@ -31,7 +33,8 @@ export class AppComponent implements OnInit {
 		private sidebarService: SidebarService,
 		private config: PrimeNGConfig,
 		private translateService: TranslateService,
-		private primengConfig: PrimeNGConfig
+		private primengConfig: PrimeNGConfig,
+		private deviceDetectorService: DeviceDetectorService
 	) {
 		const appConfig = this.configService.getAppConfig()
 		this.translateService.setDefaultLang(appConfig.locale.defaultLanguage);
@@ -40,6 +43,11 @@ export class AppComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		this.isMobile = this.deviceDetectorService.isMobile();
+		if (this.isMobile) {
+			this.displaySidebar = false;
+		}
+		this.sidebarService.sidebarShowHide.subscribe(show => this.displaySidebar = show)
 		this.primengConfig.ripple = true;
 		this.authService.autoLogin();
 

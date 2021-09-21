@@ -26,6 +26,10 @@ import { FilterClass } from '../../models/filter-class.model';
 
 import { ClassComponent } from './class/class.component';
 
+import { DeviceDetectorService } from 'ngx-device-detector';
+
+import { SidebarService } from '../../services/sidebar.service';
+
 @Component({
 	selector: 'app-filter',
 	templateUrl: './filter.component.html',
@@ -43,13 +47,17 @@ export class FilterComponent implements OnInit, AfterViewInit {
 
 	filterParam: FilterParam;
 	displayFilter = false;
+	isMobile = false;
 
 	constructor(
-		private filterService: FilterService
+		private filterService: FilterService,
+		private deviceDetectorService: DeviceDetectorService,
+		private sidebarService: SidebarService
 	) {
 	}
 
 	ngOnInit() {
+		this.isMobile = this.deviceDetectorService.isMobile();
 		this.authorizationDisable = true;
 		this.filterParam = new FilterParam(
 			new FilterTheme(),
@@ -88,6 +96,9 @@ export class FilterComponent implements OnInit, AfterViewInit {
 	}
 
 	onDisplayFilter() {
+		if (this.isMobile) {
+			this.sidebarService.sidebarShowHide.next(false);
+		}
 		this.restoreFilterState();
 		this.displayFilter = !this.displayFilter;
 	}

@@ -2,11 +2,12 @@
         (onHide)="onLayerToolHide()"
         [(visible)]="displayLayerTools"
         [blockScroll]="true"
-        [style]="{top: '60px', left: '410px' }"
+        [style]="isMobile ? {bottom: '0'} : {top: '60px', left: '410px'}"
+        [breakpoints]="{'1024px' : '100%'}"
+        [position]="isMobile ? 'bottom' : 'top-left'"
         autoZIndex="false"
         baseZIndex="1001"
-        header="{{layer?.shortName }}"
-        position="top-left">
+        header="{{layer?.shortName }}">
 
     <p-accordion [multiple]="true" [style]="{'min-width': '300px'}">
         <p-accordionTab [selected]="toolSelected === 'description'"

@@ -3,17 +3,29 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { Layer } from '../models/layer.model';
+
 import { Util } from '../utils/util';
+
 import * as L from 'leaflet';
+
 import { LatLngBounds } from 'leaflet';
+
 import { environment } from '../../environments/environment';
+
 import { HTTPService } from './http.service';
+
 import { LayerType } from '../enum/layer-type.enum';
+
 import { FilterParam } from '../models/filter-param.model';
+
 import { FilterUtils } from '../utils/filter.utils';
+
 import { LayerInfoFeature } from '../models/layer-info-feature.model';
+
 import { Response } from '../models/response.model';
+
 import { LayerInfo } from '../models/layer-info.model';
+
 import { InfoColumnsService } from './info-columns.service';
 
 const URL_REPORT_SERVER = environment.serverUrl;
@@ -42,6 +54,10 @@ export class MapService {
 	layerSlider = new Subject<object>();
 
 	clearMarkers = new Subject();
+
+	setMapPosition = new Subject<number[]>();
+
+	searchClose = new Subject();
 
 	constructor(
 		private hTTPService: HTTPService,
@@ -232,6 +248,14 @@ export class MapService {
 		});
 	}
 
+	getSearchControl() {
+		return this.getCustomControl({
+			id: 'searchBtn',
+			title: 'Busca',
+			icon: 'fa-search'
+		});
+	}
+
 	getRestoreMapControl() {
 		return this.getCustomControl({
 			id: 'restoreMapBtn',
@@ -267,14 +291,6 @@ export class MapService {
 		  <strong>Long:</strong>
 		  ${ e.latlng.lng.toFixed(4) }
 		`
-	}
-
-	getInfoControl() {
-		return this.getCustomControl({
-			id: 'infoBtn',
-			title: 'Informação',
-			icon: 'fa-info'
-		});
 	}
 
 	async getFeatureInfo(selectedLayers, map, latLong, layerPoint, markerInfo) {

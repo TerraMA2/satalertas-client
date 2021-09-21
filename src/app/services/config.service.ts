@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import ConfigJson from '../../assets/config/config.json';
 import MPMTConfigJson from '../../assets/config/mpmt/mpmt-config.json';
-
+import CoordsJson from '../../assets/config/state-coords.json';
 import { environment } from '../../environments/environment';
 import { Project } from '../enum/project.enum';
 
@@ -36,7 +36,9 @@ export class ConfigService {
 		}
 		return configJson;
 	}
-
+	getCoordsJson(key) {
+		return CoordsJson[key];
+	}
 	getAppConfig(name = '') {
 		const appConfig = this.getConfig('app');
 		if (name) {

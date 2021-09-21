@@ -151,23 +151,7 @@
         "position": "topleft",
         "collapsed": false,
         "autoZIndex": false,
-        "hideSingleBase": false
-      },
-      "search": {
-        "propertyName": "title",
-        "position": "topleft",
-        "zoom": 12,
-        "minLength": 1,
-        "hideMarkerOnCollapse": true,
-        "textErr": "Nenhum imóvel foi encontrado",
-        "textCancel": "Cancelar",
-        "textPlaceholder": "Buscar por registro do CAR",
-        "marker": {
-          "radius": 10,
-          "weight": 3,
-          "stroke": true,
-          "fill": true
-        }
+        "hideSingleBase": true
       },
       "fullscreen": {
         "zoomInTitle": "+ zoom",
@@ -192,6 +176,14 @@
             "showLength": true
           }
         }
+      },
+      "zoomBox": {
+        "position": "topleft",
+        "divClasses": "leaflet-control-layers leaflet-custom-icon",
+        "iconClasses": "fas fa-vector-square",
+        "title": "Box zoom",
+        "keepOn": true,
+        "enableShiftDrag": true
       }
     },
     "baselayers": [

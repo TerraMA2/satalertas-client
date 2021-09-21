@@ -24,6 +24,8 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { Router } from '@angular/router';
 
+import { DeviceDetectorService } from 'ngx-device-detector';
+
 @Component({
 	selector: 'app-header',
 	templateUrl: './header.component.html',
@@ -50,10 +52,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	languages: DropdownElement[];
 	private userSub: Subscription;
 	private filterConfig;
-	settings: boolean = false;
-	showIcon: string = 'pi pi-cog';
+	settings = false;
+	showIcon = 'pi pi-cog';
 
 	expanded = false;
+
+	isMobile = false;
 
 	constructor(
 		private configService: ConfigService,
@@ -64,11 +68,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		private mapService: MapService,
 		private translateService: TranslateService,
 		private config: PrimeNGConfig,
-		private router: Router
+		private router: Router,
+		private deviceDetectorService: DeviceDetectorService
 	) {
 	}
 
 	ngOnInit() {
+		this.isMobile = this.deviceDetectorService.isMobile();
 		this.appConfig = this.configService.getAppConfig();
 		const locale = this.appConfig.locale;
 		this.languages = locale.languages;

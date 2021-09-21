@@ -6,6 +6,5 @@ export interface TableState {
 	rows: number,
 	sortField: string,
 	sortOrder: number,
-	columnOrder: [],
-	expandedRowKey: object,
+	columnOrder: []
 }

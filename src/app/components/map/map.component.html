@@ -11,7 +11,7 @@
            [modal]="false"
            [showCloseIcon]="true"
            [style]="{ width: 'inherit', left: 'unset', height: '65vh' }"
-           position="bottom">
+           [position]="'bottom'">
 
     <app-table [selectedLayers]="selectedLayers">
     </app-table>
@@ -26,7 +26,19 @@
             [selectedLayers]="selectedLayers">
 </app-legend>
 
+<app-search [displaySearch]="displaySearch">
+</app-search>
+
 <app-layer-tools [displayLayerTools]="displayLayerTools"
                  [layer]="layerTool"
                  [toolSelected]="toolSelected">
 </app-layer-tools>
+
+<p-speedDial *ngIf="isMobile"
+             [model]="speedDialItems"
+             [radius]="180"
+             [direction]="'up-left'"
+             [showIcon]="'fas fa-tools'"
+             [type]="'quarter-circle'"
+             [style]="{bottom: '60px',right: '20px','z-index': 1002}">
+</p-speedDial>

@@ -9,7 +9,8 @@
 
     &nbsp;&nbsp;
 
-    <button pButton
+    <button *ngIf="!isMobile"
+            pButton
             pRipple
             (click)="showFilter()"
             icon="fas fa-filter"
@@ -36,9 +37,11 @@
                     [showOnFocus]="true"
                     [showTime]="dateField.showTime"
                     [yearNavigator]="true"
-                    clearButtonStyleClass="hide-button"
-                    todayButtonStyleClass="hide-button"
-                    yearRange="1998:2100">
+                    [touchUI]="isMobile"
+                    [clearButtonStyleClass]="'hide-button'"
+                    [todayButtonStyleClass]="'hide-button'"
+                    [inputStyle]="{'text-align': 'center'}"
+                    [yearRange]="'1998:2100'">
             <p-footer class="date-footer">
                 <p-button (click)="onTodayClick()"
                           pRipple
@@ -94,7 +97,6 @@
             <div *ngIf="isAdministrator">
                 <p-button
                     [icon]="showIcon"
-                    pRipple
                     (onClick)="settingsInOut()">
                 </p-button>
             </div>
@@ -116,6 +118,9 @@
             [modal]="true"
             [resizable]="false"
             [showHeader]="false"
+            [style]="isMobile ? {bottom: '0'} : ''"
+            [breakpoints]="{'1024px' : '100%'}"
+            [position]="isMobile ? 'bottom' : 'center'"
             autoZIndex="false"
             baseZIndex="1001">
         <app-auth (closeLoginClicked)="onCloseLoginClick($event)"

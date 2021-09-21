@@ -2,8 +2,10 @@
           [contentStyle]="{'width': '50vw','max-height':'75vh'}"
           autoZIndex="false"
           baseZIndex="1001"
+          [style]="isMobile ? {bottom: '0'} : ''"
+          [breakpoints]="{'1024px' : '100%'}"
+          [position]="isMobile ? 'bottom' : 'center'"
           header="{{'About' | translate}}"
-          position="center"
           resizable="false">
     <div class="about-padding">
         <div class="p-col-12">
