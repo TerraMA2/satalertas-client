@@ -1,25 +1,30 @@
 <div class="popup-container">
+    <div class="p-inputgroup">
+        <input pInputText #coordinates class="text-center" type="text" value="{{ latLong }}" readonly>
+        <button class="p-element p-button p-component" (click)="copyLatLong(coordinates)">
+            <i class="fas fa-copy"></i>
+        </button>
+    </div>
     <div class="table-container">
         <table class="table table-hover">
             <thead>
-            <tr>
-                <th colspan="2">{{ layerLabel }}</th>
-            </tr>
+                <tr>
+                    <th colspan="2">{{ layerLabel }}</th>
+                </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let data of tableData">
-                <td>{{ data.key }}</td>
-                <td *ngIf="!data.type">{{ data.value }}</td>
-                <td *ngIf="data.type == 'decimal'">{{ data.value | number:'1.0-4':'pt' }}</td>
-                <td *ngIf="data.type == 'cpf'">{{ formatCPFCNPJ(data.value) }}</td>
-            </tr>
+                <tr *ngFor="let data of tableData">
+                    <td>{{ data.key }}</td>
+                    <td *ngIf="!data.type">{{ data.value }}</td>
+                    <td *ngIf="data.type == 'decimal'">{{ data.value | number:'1.0-4':'pt' }}</td>
+                    <td *ngIf="data.type == 'cpf'">{{ formatCPFCNPJ(data.value) }}</td>
+                </tr>
             </tbody>
         </table>
     </div>
     <div class="link-container">
         <button class="p-button-raised p-button-secondary view-report-icon icon-margin"
                 pButton
-                pRipple
                 pTooltip="{{'View synthesis' | translate}}"
                 routerLink="{{ linkSynthesis }}"
                 tooltipPosition="top">
@@ -28,7 +33,6 @@
         <div *ngIf="linkDETER">
             <button class="p-button-raised p-button-secondary view-report-icon icon-margin"
                     pButton
-                    pRipple
                     pTooltip="{{'View DETER report' | translate}}"
                     routerLink="{{ linkDETER }}"
                     tooltipPosition="top">
@@ -37,7 +41,6 @@
         </div>
         <div *ngIf="linkPRODES">
             <p-button class="p-button-raised p-button-secondary view-report-icon icon-margin"
-                      pRipple
                       pTooltip="{{'View PRODES report' | translate}}"
                       routerLink="{{ linkPRODES }}"
                       tooltipPosition="top">
@@ -46,7 +49,6 @@
         </div>
         <div *ngIf="linkFireSpot">
             <p-button class="p-button-raised p-button-secondary view-report-icon icon-margin"
-                      pRipple
                       pTooltip="{{'View burn report' | translate}}"
                       routerLink="{{ linkFireSpot }}"
                       tooltipPosition="top">

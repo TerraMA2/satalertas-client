@@ -67,7 +67,6 @@ export class MapComponent implements OnInit, AfterViewInit {
 	private tableConfig;
 	private zoomIn = false;
 	private layerControl: L.Control.Layers;
-	private searchControl;
 	isMobile = false;
 	constructor(
 		private hTTPService: HTTPService,
@@ -172,9 +171,6 @@ export class MapComponent implements OnInit, AfterViewInit {
 				this.markerClusterGroup.addLayer(marker);
 			}
 		});
-
-		this.searchControl.setLayer(this.markerClusterGroup);
-		this.searchControl.options.layer = this.markerClusterGroup;
 
 		const bounds = this.markerClusterGroup.getBounds();
 
