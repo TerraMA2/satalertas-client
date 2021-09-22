@@ -37,7 +37,7 @@ export class MapService {
 
 	resetLayers = new Subject();
 
-	clearMap = new Subject();
+	clearMap = new Subject<void>();
 
 	reportTable = new Subject();
 
@@ -45,7 +45,7 @@ export class MapService {
 
 	layerToolClose = new Subject();
 
-	legendClose = new Subject();
+	legendClose = new Subject<void>();
 
 	layerExtent = new Subject<Layer>();
 
@@ -53,11 +53,11 @@ export class MapService {
 
 	layerSlider = new Subject<object>();
 
-	clearMarkers = new Subject();
+	clearMarkers = new Subject<void>();
 
 	setMapPosition = new Subject<number[]>();
 
-	searchClose = new Subject();
+	searchClose = new Subject<void>();
 
 	constructor(
 		private hTTPService: HTTPService,
@@ -108,7 +108,7 @@ export class MapService {
 		popupContent += `
 						<h4 class="text-left">Coordenadas</h4>
 						<div class="p-inputgroup">
-	            <input id="coordinates" class="p-inputtext p-component p-element text-center" type="text" value="${lat}, ${lng}" readonly>
+	            <input id="coordinates" class="p-inputtext p-component p-element text-center p-inputtext-sm" type="text" value="${lat}, ${lng}" readonly>
 	            <button class="p-element p-button p-component"
 	            				onClick="document.querySelector('#coordinates').select();document.execCommand('copy');document.querySelector('#coordinates').setSelectionRange(0, 0);">
 	              <i class="fas fa-copy"></i>

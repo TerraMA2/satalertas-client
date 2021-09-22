@@ -147,7 +147,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				detail: 'Logout realizado com successo!'
 			}
 		);
-		this.sidebarService.sidebarReload.next();
+		this.sidebarService.sidebarReload.next('default');
 		this.mapService.clearMap.next();
 		this.router.navigateByUrl('/');
 	}
@@ -212,7 +212,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	onFilterClick() {
 		localStorage.setItem('dateFilter', JSON.stringify(this.dateInput));
 
-		this.filterService.filterMap.next();
+		this.filterService.filterMap.next(false);
 		this.filterService.filterTable.next();
 		this.filterService.filterSynthesis.next();
 		this.filterService.filterDashboard.next();

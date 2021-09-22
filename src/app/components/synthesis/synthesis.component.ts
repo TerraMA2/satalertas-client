@@ -75,7 +75,7 @@ export class SynthesisComponent implements OnInit {
 		});
 		this.activatedRoute.params.subscribe(params => this.carRegister = params.carRegister);
 		this.sidebarService.sidebarLayerShowHide.next(false);
-		this.sidebarService.sidebarReload.next();
+		this.sidebarService.sidebarReload.next('default');
 
 		this.getPropertyData();
 	}

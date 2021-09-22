@@ -41,7 +41,7 @@ export class DashboardComponent implements OnInit {
 		this.isLoading = true;
 		this.getAnalysis();
 		this.setEvents();
-		this.sidebarService.sidebarReload.next();
+		this.sidebarService.sidebarReload.next('default');
 		this.sidebarService.sidebarLayerShowHide.next(false);
 		this.isMobile = this.deviceDetectorService.isMobile();
 		if (this.isMobile) {

@@ -15,7 +15,7 @@ export class PageNotFoundComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.sidebarService.sidebarLayerShowHide.next(false);
-		this.sidebarService.sidebarReload.next();
+		this.sidebarService.sidebarReload.next('default');
 	}
 
 }

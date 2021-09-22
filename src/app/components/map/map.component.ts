@@ -86,7 +86,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 		this.mapConfig = this.configService.getMapConfig();
 		this.tableConfig = this.configService.getMapConfig('table');
 		this.sidebarService.sidebarLayerShowHide.next(true);
-		this.sidebarService.sidebarReload.next();
+		this.sidebarService.sidebarReload.next('default');
 		this.setSpeedDial();
 	}
 

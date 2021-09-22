@@ -108,7 +108,7 @@ registerLocaleData(localePt, 'pt');
 const project = environment.project;
 
 export function HttpLoaderFactory(http: HttpClient) {
-	return new TranslateHttpLoader(http, `./assets/config/${project ? project + '/' : ''}i18n/`, '.json');
+	return new TranslateHttpLoader(http, `./assets/config/${ project ? project + '/' : '' }i18n/`, '.json');
 }
 
 @NgModule({
@@ -164,7 +164,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 		InfoColumnsComponent,
 		SubLayerTableComponent,
 		LayerTableComponent,
-  SearchComponent,
+		SearchComponent
 	],
 	imports: [
 		BrowserModule,
@@ -223,7 +223,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 		AuthGuard,
 		{ provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }
 	],
-	bootstrap: [AppComponent],
+	bootstrap: [AppComponent]
 })
 export class AppModule {
 }
