@@ -28,8 +28,6 @@ import { AuthService } from 'src/app/services/auth.service';
 
 import { User } from '../../../models/user.model';
 
-import { environment } from '../../../../environments/environment';
-
 import { TableState } from '../../../models/table-state.model';
 
 import { ActivatedRoute, Router } from '@angular/router';
@@ -110,7 +108,7 @@ export class ReportListComponent implements OnInit {
 		this.rowsPerPage = this.tableConfig.rowsPerPage;
 		this.activatedRoute.data.subscribe(data => this.loggedUser = data['user']);
 
-		this.reportLayers = await this.tableService.getReportLayers().toPromise().then((response: Response) => {
+		this.reportLayers = await this.tableService.getReportLayers().then((response: Response) => {
 			const data = response.data;
 			return data.map(reportLayer => new ReportLayer(
 				reportLayer['groupCode'],
@@ -212,8 +210,11 @@ export class ReportListComponent implements OnInit {
 		params['sortField'] = sortField ? sortField : this.selectedLayer && this.selectedLayer.sortField ? this.selectedLayer.sortField : undefined;
 		params['sortOrder'] = sortOrder ? sortOrder : 1;
 
-		this.hTTPService.get<Response>(environment.serverUrl + url, { params: this.filterService.getParams(params) })
-										.toPromise().then(({data}) => this.setData(data)).catch(error => this.isLoading = false);
+		this.reportService.getReportTableData(url, { params: this.filterService.getParams(params) })
+			.then(({data}) => {
+				this.setData(data);
+			})
+			.catch(error => this.isLoading = false);
 	}
 
 	filterColumns(key) {
@@ -277,7 +278,7 @@ export class ReportListComponent implements OnInit {
 	onRowExpand(event) {
 		const gid = event.data.gid;
 		this.expandedRowKey = { [gid]: true };
-		this.reportService.getReportsByCARCod(gid).toPromise().then((response: Response) => this.reports = response.data);
+		this.reportService.getReportsByCARCod(gid).then((response: Response) => this.reports = response.data);
 		this.saveState();
 	}
 
@@ -383,7 +384,7 @@ export class ReportListComponent implements OnInit {
 
 	getReport(report) {
 		this.isLoading = true;
-		this.reportService.getReportById(report.id).toPromise().then((response: Response) => {
+		this.reportService.getReportById(report.id).then((response: Response) => {
 			const reportResp = response.data;
 			window.open(window.URL.createObjectURL(Util.base64toBlob(reportResp.base64, 'application/pdf')));
 			this.isLoading = false;

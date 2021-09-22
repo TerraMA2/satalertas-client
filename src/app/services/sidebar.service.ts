@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { lastValueFrom, Subject } from 'rxjs';
 import { Layer } from '../models/layer.model';
 import { LayerGroup } from '../models/layer-group.model';
 import { environment } from '../../environments/environment';
 import { HTTPService } from './http.service';
-import { Response } from '../models/response.model'
+import { Response } from '../models/response.model';
 
 const URL_REPORT_SERVER = environment.serverUrl;
 
@@ -46,6 +46,6 @@ export class SidebarService {
 
 	async getSidebarLayers() {
 		const url = `${ URL_REPORT_SERVER }/view/getSidebarLayers`;
-		return await this.httpService.get<Response>(url).toPromise();
+		return lastValueFrom(await this.httpService.get<Response>(url));
 	}
 }

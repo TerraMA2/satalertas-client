@@ -9,6 +9,7 @@ import { FilterService } from './filter.service';
 import { Analysis } from '../models/analysis.model';
 
 import { Response } from '../models/response.model';
+import { lastValueFrom } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
@@ -31,7 +32,7 @@ export class DashboardService {
 			params: parameters
 		};
 
-		return await this.httpService.get<Response>(url, params).toPromise();
+		return lastValueFrom(await this.httpService.get<Response>(url, params));
 	}
 
 	getAnalysisCharts(analysis: Analysis [] = []) {
@@ -42,6 +43,6 @@ export class DashboardService {
 			params: parameters
 		};
 
-		return this.httpService.get<Response>(url, params).toPromise();
+		return lastValueFrom(this.httpService.get<Response>(url, params));
 	}
 }

@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 
-import { Subject } from 'rxjs';
+import { lastValueFrom, Subject } from 'rxjs';
 
 import { Layer } from '../models/layer.model';
 
 import { Util } from '../utils/util';
 
 import * as L from 'leaflet';
-
 import { LatLng, LatLngBounds } from 'leaflet';
 
 import { environment } from '../../environments/environment';
@@ -140,7 +139,7 @@ export class MapService {
 			}
 		};
 
-		return await this.hTTPService.get<Response>(url, params).toPromise();
+		return lastValueFrom(await this.hTTPService.get<Response>(url, params));
 	}
 
 	formatterCpfCnpj(cpfCnpj) {
@@ -315,7 +314,7 @@ export class MapService {
 			popupContent += `<h2>Layer não encontrado.</h2>`;
 		}
 
-		const infoColumns = await this.infoColumnsService.getInfoColumns().toPromise().then((response: Response) => response.data);
+		const infoColumns = await this.infoColumnsService.getInfoColumns().then((response: Response) => response.data);
 
 		let popupTable = '';
 		const viewIdList = selectedLayers.map(({viewId}) => viewId )
@@ -333,7 +332,7 @@ export class MapService {
 				params = this.getWMSFeatureInfoParams(selectedLayer, latLong, layerPoint, map);
 			}
 
-			await this.hTTPService.get(url, {params}).toPromise().then((layerInfo: LayerInfo) => {
+			lastValueFrom(await this.hTTPService.get(url, {params})).then((layerInfo: LayerInfo) => {
 				const features = layerInfo.features;
 				if (features && features.length > 0) {
 					popupTable += this.getFeatureInfoPopup(layerName, features, layerInfoColumn, latLong);

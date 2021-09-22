@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Subject } from 'rxjs';
-
-import { Layer } from '../models/layer.model';
+import { lastValueFrom, Subject } from 'rxjs';
 
 import { FilterParam } from '../models/filter-param.model';
 
@@ -75,47 +73,47 @@ export class FilterService {
 	}
 
 	getBiomes() {
-		return this.httpService.get<Response>(this.biomeUrl).toPromise();
+		return lastValueFrom(this.httpService.get<Response>(this.biomeUrl));
 	}
 
 	getCities() {
-		return this.httpService.get<Response>(this.cityUrl).toPromise();
+		return lastValueFrom(this.httpService.get<Response>(this.cityUrl));
 	}
 
 	getRegions() {
-		return this.httpService.get<Response>(this.cityUrl + '/getRegions').toPromise();
+		return lastValueFrom(this.httpService.get<Response>(this.cityUrl + '/getRegions'));
 	}
 
 	getMesoregions() {
-		return this.httpService.get<Response>(this.cityUrl + '/getMesoregions').toPromise();
+		return lastValueFrom(this.httpService.get<Response>(this.cityUrl + '/getMesoregions'));
 	}
 
 	getImmediateRegion() {
-		return this.httpService.get<Response>(this.cityUrl + '/getImmediateRegion').toPromise();
+		return lastValueFrom(this.httpService.get<Response>(this.cityUrl + '/getImmediateRegion'));
 	}
 
 	getIntermediateRegion() {
-		return this.httpService.get<Response>(this.cityUrl + '/getIntermediateRegion').toPromise();
+		return lastValueFrom(this.httpService.get<Response>(this.cityUrl + '/getIntermediateRegion'));
 	}
 
 	getPjbh() {
-		return this.httpService.get<Response>(this.cityUrl + '/getPjbh').toPromise();
+		return lastValueFrom(this.httpService.get<Response>(this.cityUrl + '/getPjbh'));
 	}
 
 	getMicroregions() {
-		return this.httpService.get<Response>(this.cityUrl + '/getMicroregions').toPromise();
+		return lastValueFrom(this.httpService.get<Response>(this.cityUrl + '/getMicroregions'));
 	}
 
 	getConservationUnit() {
-		return this.httpService.get<Response>(this.conservationUnitUrl).toPromise();
+		return lastValueFrom(this.httpService.get<Response>(this.conservationUnitUrl));
 	}
 
 	getIndigenousLand() {
-		return this.httpService.get<Response>(this.indigenousLandUrl).toPromise();
+		return lastValueFrom(this.httpService.get<Response>(this.indigenousLandUrl));
 	}
 
 	getProjus() {
-		return this.httpService.get<Response>(this.projusUrl).toPromise();
+		return lastValueFrom(this.httpService.get<Response>(this.projusUrl));
 	}
 
 	getClasses(type) {
@@ -125,6 +123,6 @@ export class FilterService {
 				type: type ? type : ''
 			}
 		};
-		return this.httpService.get<Response>(url, params).toPromise();
+		return lastValueFrom(this.httpService.get<Response>(url, params));
 	}
 }

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Inject, LOCALE_ID, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, Inject, LOCALE_ID, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -10,7 +10,7 @@ import { Response } from 'src/app/models/response.model';
 
 import pdfMake from 'pdfmake/build/pdfmake';
 
-import { Chart } from 'chart.js'
+import { Chart } from 'chart.js';
 
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 
