@@ -6,16 +6,16 @@
     </h2>
     <hr>
     <br>
-    <div class="p-grid">
-        <div *ngFor="let chartImage of chartImages; trackBy: trackById; let i = index" class="p-col-12 p-md-12">
+    <div class="grid">
+        <div *ngFor="let chartImage of chartImages; trackBy: trackById; let i = index" class="col-12 md:col-12">
             <div class="card text-center">
                 <p-card class="p-card-shadow">
-                    <div class="p-grid p-align-center p-justify-center">
+                    <div class="grid align-items-center justify-content-center">
                         <img src="{{chartImage.geoserverImageNdvi}}"/>
                     </div>
                     <br>
-                    <div class="p-grid p-align-center p-justify-center">
-                        <p-chart [data]="chartImage.chartData" [options]="chartImage.chartOptions" class="width-100"
+                    <div class="grid align-items-center justify-content-center">
+                        <p-chart [data]="chartImage.chartData" [options]="chartImage.chartOptions" class="w-full"
                                  type="line"></p-chart>
                     </div>
                     <br>

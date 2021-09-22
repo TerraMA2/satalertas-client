@@ -14,7 +14,7 @@
              class="p-fluid container-modal">
             {{line.label}}
             <div *ngFor="let input of line.inputs; trackBy: trackById; let i = index"
-                 class="p-field">
+                 class="field">
                 <ng-template [ngIf]="input.type === 'text'">
                     <label [for]="'input'+i" [ngClass]="input.inputClass">{{input.label}}</label>
                     <input (change)="onChange('input'+i, i, j)"
@@ -31,7 +31,7 @@
                            type="text"/>
                 </ng-template>
                 <ng-template [ngIf]="input.type === 'boolean'">
-                    <div class="p-field-checkbox">
+                    <div class="field-checkbox">
                         <p-checkbox
                                 (onChange)="onChange('input'+i, i, j, true, $event.checked)"
                                 [(ngModel)]="data[input.field]"

@@ -1,6 +1,6 @@
-<div class="p-grid">
-    <div class="p-col-12">
-        <div class="p-field-checkbox">
+<div class="grid">
+    <div class="col-12">
+        <div class="field-checkbox">
             <p-checkbox
                     (onChange)="onChange($event)"
                     [(ngModel)]="specificSearchFilter.isChecked"
@@ -11,9 +11,9 @@
             <label>{{ 'Specific search' | translate}}</label>
         </div>
     </div>
-    <div *ngIf="specificSearchFilter.isChecked" class="p-col-12">
-        <div class="p-formgroup-inline">
-            <div class="p-field-radiobutton">
+    <div *ngIf="specificSearchFilter.isChecked" class="col-12">
+        <div class="formgroup-inline">
+            <div class="field-radiobutton">
                 <p-radioButton
                         (ngModelChange)="onChange($event)"
                         [(ngModel)]="specificSearchFilter.carCPF"
@@ -23,7 +23,7 @@
                 </p-radioButton>
                 <label>{{ 'State CAR' | translate}}</label>
             </div>
-            <div class="p-field-radiobutton">
+            <div class="field-radiobutton">
                 <p-radioButton
                         (ngModelChange)="onChange($event)"
                         [(ngModel)]="specificSearchFilter.carCPF"
@@ -33,7 +33,7 @@
                 </p-radioButton>
                 <label>{{ 'CAR Federal' | translate}}</label>
             </div>
-            <div class="p-field-radiobutton">
+            <div class="field-radiobutton">
                 <p-radioButton
                         (ngModelChange)="onChange($event)"
                         [(ngModel)]="specificSearchFilter.carCPF"
@@ -45,12 +45,12 @@
             </div>
         </div>
 
-        <div class="p-field">
+        <div class="field">
             <input (ngModelChange)="onChangeInput($event)"
                    [(ngModel)]="specificSearchFilter.inputValue"
                    [maxlength]="maxlength"
                    [name]="'specificValueInput'"
-                   class="width-100"
+                   class="w-full"
                    id="inputValue"
                    pInputText
                    placeholder="{{'Type the value' | translate}}"

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { MapService } from '../../../services/map.service';
 
+import { MessageService } from 'primeng/api';
+
 @Component({
 	selector: 'app-popup',
 	templateUrl: './popup.component.html',
@@ -14,9 +16,11 @@ export class PopupComponent implements OnInit {
 	public linkDETER: string;
 	public linkPRODES: string;
 	public linkFireSpot: string;
+	public latLong: string;
 
 	constructor(
-		public mapService: MapService
+		public mapService: MapService,
+		public messageService: MessageService
 	) {
 	}
 
@@ -25,5 +29,9 @@ export class PopupComponent implements OnInit {
 
 	formatCPFCNPJ(data) {
 		return this.mapService.formatterCpfCnpj(data);
+	}
+	copyLatLong(coordinates) {
+		this.mapService.copyCoordinatesToClipboard(coordinates);
+		this.messageService.add({severity: 'success', data: '', detail: 'Coordenadas copiadas!'})
 	}
 }

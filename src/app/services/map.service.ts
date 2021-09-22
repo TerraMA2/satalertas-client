@@ -8,7 +8,7 @@ import { Util } from '../utils/util';
 
 import * as L from 'leaflet';
 
-import { LatLngBounds } from 'leaflet';
+import { LatLng, LatLngBounds } from 'leaflet';
 
 import { environment } from '../../environments/environment';
 
@@ -37,7 +37,7 @@ export class MapService {
 
 	resetLayers = new Subject();
 
-	clearMap = new Subject();
+	clearMap = new Subject<void>();
 
 	reportTable = new Subject();
 
@@ -45,7 +45,7 @@ export class MapService {
 
 	layerToolClose = new Subject();
 
-	legendClose = new Subject();
+	legendClose = new Subject<void>();
 
 	layerExtent = new Subject<Layer>();
 
@@ -53,11 +53,11 @@ export class MapService {
 
 	layerSlider = new Subject<object>();
 
-	clearMarkers = new Subject();
+	clearMarkers = new Subject<void>();
 
 	setMapPosition = new Subject<number[]>();
 
-	searchClose = new Subject();
+	searchClose = new Subject<void>();
 
 	constructor(
 		private hTTPService: HTTPService,
@@ -65,7 +65,13 @@ export class MapService {
 	) {
 	}
 
-	getPopupContent(data, name, infoColumns = null) {
+	copyCoordinatesToClipboard(inputElement) {
+		inputElement.select();
+		document.execCommand('copy');
+		inputElement.setSelectionRange(0, 0);
+	}
+
+	getPopupContent(data, name, infoColumns = null, latLong: LatLng) {
 		let popupContent = '';
 		let popupContentBody = '';
 		Object.keys(data).forEach(key => {
@@ -98,7 +104,16 @@ export class MapService {
 			}
 		});
 
+		const {lat, lng} = latLong;
 		popupContent += `
+						<h4 class="text-left">Coordenadas</h4>
+						<div class="p-inputgroup">
+	            <input id="coordinates" class="p-inputtext p-component p-element text-center p-inputtext-sm" type="text" value="${lat}, ${lng}" readonly>
+	            <button class="p-element p-button p-component"
+	            				onClick="document.querySelector('#coordinates').select();document.execCommand('copy');document.querySelector('#coordinates').setSelectionRange(0, 0);">
+	              <i class="fas fa-copy"></i>
+							</button>
+	          </div>
             <br />
             <div class="table-responsive">
               <table class="table table-hover">
@@ -293,20 +308,20 @@ export class MapService {
 		`
 	}
 
-	async getFeatureInfo(selectedLayers, map, latLong, layerPoint, markerInfo) {
+	async getFeatureInfo(selectedLayers, map, latLong: LatLng, layerPoint, markerInfo) {
 		let popupContent = `<div class="popup-container-feature-info">`;
 
 		if (selectedLayers.length === 0) {
 			popupContent += `<h2>Layer não encontrado.</h2>`;
 		}
 
-		const infoColumns = await this.infoColumnsService.getInfoColumns().toPromise().then((response: Response) => response);
+		const infoColumns = await this.infoColumnsService.getInfoColumns().toPromise().then((response: Response) => response.data);
 
 		let popupTable = '';
 		const viewIdList = selectedLayers.map(({viewId}) => viewId )
 		for (const selectedLayer of selectedLayers) {
 			const layerInfoColumn = infoColumns[selectedLayer.groupCode];
-			const layerName = selectedLayer.label;
+			const layerName = selectedLayer.name;
 
 			let params = null;
 			let url = '';
@@ -321,7 +336,7 @@ export class MapService {
 			await this.hTTPService.get(url, {params}).toPromise().then((layerInfo: LayerInfo) => {
 				const features = layerInfo.features;
 				if (features && features.length > 0) {
-					popupTable += this.getFeatureInfoPopup(layerName, features, layerInfoColumn);
+					popupTable += this.getFeatureInfoPopup(layerName, features, layerInfoColumn, latLong);
 				}
 			});
 		}
@@ -391,13 +406,13 @@ export class MapService {
 		};
 	}
 
-	getFeatureInfoPopup(layerName: string, features: LayerInfoFeature[], infoColumns = null) {
+	getFeatureInfoPopup(layerName: string, features: LayerInfoFeature[], infoColumns = null, latLong: LatLng) {
 		let popupContent = '';
 		if (features) {
 			features.forEach(feature => {
 				const properties = feature.properties;
 				if (properties) {
-					popupContent += this.getPopupContent(properties, layerName, infoColumns);
+					popupContent += this.getPopupContent(properties, layerName, infoColumns, latLong);
 				}
 			});
 		}

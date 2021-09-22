@@ -21,7 +21,7 @@ export class TableService {
 
 	unloadTableData = new Subject<Layer>();
 
-	clearTable = new Subject();
+	clearTable = new Subject<void>();
 
 	constructor(
 		private httpService: HTTPService

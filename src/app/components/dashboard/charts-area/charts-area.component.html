@@ -1,16 +1,16 @@
 <div [style]="{width: '100%', height: 'calc(100vh - 50px)'}">
-    <p-accordion [multiple]="true" class="p-col-12">
+    <p-accordion [multiple]="true" class="col-12">
         <p-accordionTab *ngFor="let analysisChart of analysisCharts; trackBy: trackById"
                         [disabled]="analysisChart.isEmpty"
                         [selected]="analysisChart.active && !analysisChart.isEmpty"
                         header="{{ 'Chart' | translate}} {{analysisChart.label}}">
 
-            <div class="p-grid">
-                <p-card class="p-md-6">
+            <div class="grid">
+                <p-card class="md:col-6">
                     <p-chart [data]="analysisChart.charts[0]['data']" height="350px" type="bar"></p-chart>
                 </p-card>
 
-                <p-card class="p-md-6">
+                <p-card class="md:col-6">
                     <p-chart [data]="analysisChart.charts[1]['data']" height="350px" type="bar"></p-chart>
                 </p-card>
             </div>

@@ -1,7 +1,7 @@
-<div class="p-grid box">
+<div class="grid box">
     <p-card *ngFor="let analysis of analysisList; trackBy: trackById"
             [style]="{borderRadius: '18px'}"
-            class="box-card p-col-12 p-md-3"
+            class="box-card col-12 md:col-3"
             header="{{analysis.label}}">
 
         <app-card-button (alertClick)="alertClick.emit($event)"

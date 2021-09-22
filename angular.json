@@ -19,7 +19,6 @@
           "options": {
             "allowedCommonJsDependencies": [
               "pdfmake/build/pdfmake",
-              "leaflet-search",
               "chart.js"
             ],
             "outputPath": "dist/satalertas-client",
@@ -67,14 +66,14 @@
               "node_modules/leaflet.fullscreen/Control.FullScreen.css",
               "node_modules/leaflet.markercluster/dist/MarkerCluster.css",
               "node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css",
-              "node_modules/leaflet-search/dist/leaflet-search.min.css",
               "node_modules/leaflet-draw/dist/leaflet.draw.css",
               "src/styles.css"
             ],
             "scripts": [
               "node_modules/ngx-extended-pdf-viewer/assets/pdf-2.10.556.min.js",
               "node_modules/ngx-extended-pdf-viewer/assets/pdf.worker-2.10.556.min.js",
-              "node_modules/ngx-extended-pdf-viewer/assets/viewer-2.10.556.min.js"
+              "node_modules/ngx-extended-pdf-viewer/assets/viewer-2.10.556.min.js",
+              "node_modules/screenfull/dist/screenfull.js"
             ]
           },
           "configurations": {

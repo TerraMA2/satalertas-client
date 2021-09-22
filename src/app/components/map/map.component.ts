@@ -67,7 +67,6 @@ export class MapComponent implements OnInit, AfterViewInit {
 	private tableConfig;
 	private zoomIn = false;
 	private layerControl: L.Control.Layers;
-	private searchControl;
 	isMobile = false;
 	constructor(
 		private hTTPService: HTTPService,
@@ -87,7 +86,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 		this.mapConfig = this.configService.getMapConfig();
 		this.tableConfig = this.configService.getMapConfig('table');
 		this.sidebarService.sidebarLayerShowHide.next(true);
-		this.sidebarService.sidebarReload.next();
+		this.sidebarService.sidebarReload.next('default');
 		this.setSpeedDial();
 	}
 
@@ -119,8 +118,8 @@ export class MapComponent implements OnInit, AfterViewInit {
 		this.setLayerControl();
 		this.setFullScreenControl();
 		this.setDrawControl();
-		this.setSearchControl();
 		if (!this.isMobile) {
+			this.setSearchControl();
 			this.setLegendControl();
 			this.setTableControl();
 			this.setVisibleLayersControl();
@@ -172,9 +171,6 @@ export class MapComponent implements OnInit, AfterViewInit {
 				this.markerClusterGroup.addLayer(marker);
 			}
 		});
-
-		this.searchControl.setLayer(this.markerClusterGroup);
-		this.searchControl.options.layer = this.markerClusterGroup;
 
 		const bounds = this.markerClusterGroup.getBounds();
 

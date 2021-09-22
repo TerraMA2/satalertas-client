@@ -1,11 +1,11 @@
 <div class="card">
-  <p-toolbar styleClass="p-mb-4">
+  <p-toolbar styleClass="mb-4">
     <ng-template pTemplate="left">
       <p-button
         (click)="startNewGroup()"
         icon="pi pi-plus"
         label="Novo Grupo"
-        styleClass="p-mr-2"
+        styleClass="mr-2"
       ></p-button>
     </ng-template>
   </p-toolbar>
@@ -24,8 +24,8 @@
   selectionMode="checkbox"
 >
   <ng-template pTemplate="caption">
-    <div class="p-d-flex p-ai-center p-jc-between">
-      <h3 class="p-m-0">Gerenciar Grupos</h3>
+    <div class="flex align-items-center justify-content-between">
+      <h3 class="m-0">Gerenciar Grupos</h3>
       <span class="p-input-icon-left">
         <i class="pi pi-search"></i>
         <input
@@ -42,17 +42,17 @@
   <ng-template let-columns pTemplate="header">
     <tr>
       <th *ngFor="let col of columns">
-        <div class="p-d-flex p-ai-center p-jc-between">
+        <div class="flex align-items-center justify-content-between">
           <div
             [pSortableColumn]="col.field"
-            class="p-ai-center p-jc-between p-p-2"
+            class="align-items-center justify-content-between p-2"
           >
             {{ col.header }}
           </div>
           <p-sortIcon [field]="col.field"></p-sortIcon>
         </div>
       </th>
-      <th class="p-text-center" rowspan="2">Ações</th>
+      <th class="text-center" rowspan="2">Ações</th>
     </tr>
     <tr>
       <th *ngFor="let col of columns">
@@ -69,12 +69,12 @@
   </ng-template>
   <ng-template let-columns="columns" let-rowData pTemplate="body">
     <tr>
-      <td *ngFor="let col of columns" class="p-text-truncate">
+      <td *ngFor="let col of columns" class="text-truncate">
         <ng-template [ngIf]="col.type === 'text'">
           {{ rowData[col.field] }}
         </ng-template>
         <ng-template [ngIf]="col.type === 'boolean'">
-          <div class="p-text-center">
+          <div class="text-center">
             <i
               [ngClass]="
                 rowData[col.field]
@@ -86,7 +86,7 @@
         </ng-template>
       </td>
       <td>
-        <div class="p-text-center">
+        <div class="text-center">
           <p-button
             (click)="removeGroup(rowData)"
             icon="pi pi-trash"

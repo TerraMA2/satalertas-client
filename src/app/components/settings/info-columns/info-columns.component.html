@@ -1,7 +1,7 @@
 <p-scrollPanel [style]="{ width: '100%', height: 'calc(100vh - 50px)' }">
-  <div class="p-grid">
-    <div class="p-col-12">
-      <div class="p-field">
+  <div class="grid">
+    <div class="col-12">
+      <div class="field">
         <div class="container-lg">
           <h2>Gerenciador de Atributos</h2>
           <p-table
@@ -16,7 +16,7 @@
             editMode="row"
           >
             <ng-template pTemplate="caption">
-              <div class="p-d-flex">
+              <div class="flex">
                 <p-dropdown
                   [options]="tables"
                   [(ngModel)]="selectedTable"
@@ -87,7 +87,7 @@
                     <div *ngSwitchCase="'boolean'">
                       <p-cellEditor>
                         <ng-template pTemplate="output">
-                          <div class="p-text-center">
+                          <div class="text-center">
                             <i
                               [ngClass]="
                                 rowData[col.nameCamel]
@@ -98,7 +98,7 @@
                           </div>
                         </ng-template>
                         <ng-template pTemplate="input">
-                          <div class="p-text-center">
+                          <div class="text-center">
                             <p-inputSwitch
                               [(ngModel)]="rowData[col.nameCamel]"
                               [disabled]="col.disableEditing"
@@ -194,17 +194,17 @@
               <tr>
                 <td
                   [attr.colspan]="cols ? cols.length : 1"
-                  class="p-text-center"
+                  class="text-center"
                 >
                   Nenhum dado encontrado
                 </td>
               </tr>
             </ng-template>
           </p-table>
-          <ng-container styleClass="p-field p-d-flex container-lg">
+          <ng-container styleClass="field flex container-lg">
             <p-button
               pRipple
-              class="container p-d-inline"
+              class="container inline"
               label="Salvar"
               (click)="saveEditions()"
               [disabled]="!sendEditions"

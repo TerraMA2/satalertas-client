@@ -1,7 +1,7 @@
 <p-scrollPanel [style]="{ width: '100%', height: 'calc(100vh - 50px)' }">
-    <div class="p-grid">
-        <div class="p-col-12">
-            <div class="p-field">
+    <div class="grid">
+        <div class="col-12">
+            <div class="field">
                 <div class="container-lg">
                     <h2>Gerenciador de Camadas</h2>
                     <p-dropdown
@@ -17,7 +17,7 @@
                     </p-dropdown>
                 </div>
             </div>
-            <div class="p-field">
+            <div class="field">
                 <p-pickList
                         (onMoveAllToSource)="removeLayer($event.items)"
                         (onMoveAllToTarget)="appendLayer($event.items)"
@@ -40,10 +40,10 @@
                     </ng-template>
                 </p-pickList>
             </div>
-            <div class="p-field p-d-flex container-lg">
+            <div class="field flex container-lg">
                 <ng-template [ngIf]="selectedGroup">
-                    <div class="container p-d-inline">
-                        <h2 class="container p-d-inline">Camada Principal</h2>
+                    <div class="container inline">
+                        <h2 class="container inline">Camada Principal</h2>
                         <p-dropdown
                                 (onChange)="setGroupOwner($event)"
                                 [(ngModel)]="groupOwner"
@@ -57,7 +57,7 @@
                         </p-dropdown>
                     </div>
                     <div>
-                        <p-button class="container p-d-inline"
+                        <p-button class="container inline"
                                   pRipple
                                   (click)="save()"
                                   label="Salvar"

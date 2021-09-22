@@ -34,17 +34,17 @@ export class FilterService {
 	classUrl = environment.serverUrl + '/class';
 
 	filterMap = new Subject<boolean>();
-	filterTable = new Subject();
-	filterDashboard = new Subject();
+	filterTable = new Subject<void>();
+	filterDashboard = new Subject<void>();
 	changeAlertType = new Subject<FilterAlertType>()
 	changeTheme = new Subject<FilterTheme>()
 	changeAuthorization = new Subject<FilterAuthorization>()
 	changeSpecificSearch = new Subject<FilterSpecificSearch>()
 	changeClass = new Subject<FilterClass>()
 
-	displayFilter = new Subject();
+	displayFilter = new Subject<void>();
 
-	filterSynthesis = new Subject<Layer>();
+	filterSynthesis = new Subject<void>();
 
 	constructor(
 		private httpService: HTTPService

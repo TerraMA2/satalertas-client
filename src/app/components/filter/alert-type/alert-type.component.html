@@ -1,7 +1,7 @@
 <div *ngIf="checkAlertTypeValid()">
     <h3 class="form-margin">{{ 'alertType' | translate }}</h3>
-    <div class="p-formgroup-inline">
-        <div class="p-field-checkbox">
+    <div class="formgroup-inline">
+        <div class="field-checkbox">
             <p-radioButton [(ngModel)]="alertType.radioValue"
                            [disabled]="disable"
                            (click)="onAllClicked()"
@@ -10,7 +10,7 @@
             </p-radioButton>
             <label>{{ 'All' | translate }}</label>
         </div>
-        <div class="p-field-checkbox">
+        <div class="field-checkbox">
             <p-radioButton [(ngModel)]="alertType.radioValue"
                            [disabled]="disable"
                            inputId="preopt2"
@@ -24,8 +24,8 @@
     <div *ngIf="checkAnalyzesValid()">
         <div *ngFor="let analyze of alertType.analyzes; trackBy: trackById">
             <h3 class="form-margin">{{analyze.label | translate}}</h3>
-            <div class="p-grid">
-                <div [ngClass]="{'p-col-6': isCustomSelected(analyze), 'p-col-12 form-padding': !isCustomSelected(analyze) }">
+            <div class="grid">
+                <div [ngClass]="{'col-6': isCustomSelected(analyze), 'col-12 form-padding': !isCustomSelected(analyze) }">
                     <p-dropdown
                             (onChange)="onChangeAnalyzeOption()"
                             [(ngModel)]="analyze.valueOption"
@@ -37,19 +37,19 @@
                             filter="true"
                             optionLabel="label"
                             scrollHeight="100px"
-                            styleClass="width-100">
+                            styleClass="w-full">
                     </p-dropdown>
                 </div>
                 <div *ngIf="isCustomSelected(analyze)"
                      [ngClass]="{
-                                    'p-col-6': isCustomSelected(analyze),
-                                    'p-col-12 form-padding': !isCustomSelected(analyze)
+                                    'col-6': isCustomSelected(analyze),
+                                    'col-12 form-padding': !isCustomSelected(analyze)
                                 }">
                     <input (ngModelChange)="onChange()"
                            *ngIf="isCustomSelected(analyze)"
                            [(ngModel)]="analyze.valueOptionBiggerThen"
                            [name]="'specificValueInput'"
-                           class="width-100"
+                           class="w-full"
                            pInputText
                            placeholder="{{ 'Type the value' | translate}}"
                            type="text">

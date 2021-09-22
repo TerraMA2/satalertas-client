@@ -1,7 +1,7 @@
 <div *ngIf="checkValid()">
     <h3 class="form-margin">{{"Class" | translate}}</h3>
-    <div class="p-formgroup-inline">
-        <div class="p-field-checkbox">
+    <div class="formgroup-inline">
+        <div class="field-checkbox">
             <p-radioButton [(ngModel)]="filterClass.radioValue"
                            [disabled]="disable"
                            (click)="onAllClicked()"
@@ -11,7 +11,7 @@
             </p-radioButton>
             <label>{{'All' | translate}}</label>
         </div>
-        <div class="p-field-checkbox">
+        <div class="field-checkbox">
             <p-radioButton [(ngModel)]="filterClass.radioValue"
                            [disabled]="disable"
                            inputId="preopt2"
@@ -24,8 +24,8 @@
     </div>
     <div *ngIf="checkAnalyzesValid()">
         <div *ngFor="let analyze of filterClass.analyzes; trackBy: trackById">
-            <div class="p-grid">
-                <div [ngClass]="{'p-col-6': false, 'p-col-12 form-padding': true }">
+            <div class="grid">
+                <div [ngClass]="{'col-6': false, 'col-12 form-padding': true }">
                     <h3 class="form-margin">{{ analyze.label | translate }}</h3>
                     <p-dropdown
                             (onChange)="onChange($event)"
@@ -38,7 +38,7 @@
                             filter="true"
                             optionLabel="name"
                             placeholder="{{ 'All' | translate}}"
-                            styleClass="width-100">
+                            styleClass="w-full">
                     </p-dropdown>
                 </div>
             </div>
@@ -47,8 +47,8 @@
     <!--    <div *ngIf="checkAnalyzesValid()" >-->
     <!--        <div *ngFor="let analyze of filterClass.analyzes; trackBy: trackById">-->
     <!--            <h3 class="form-margin">{{analyze.label}}</h3>-->
-    <!--            <div class="p-grid">-->
-    <!--                <div class="p-col-12 form-padding">-->
+    <!--            <div class="grid">-->
+    <!--                <div class="col-12 form-padding">-->
     <!--                    <p-dropdown-->
     <!--                            [options]="analyze.options"-->
     <!--                            [(ngModel)]="analyze.valueOption"-->
@@ -59,7 +59,7 @@
     <!--                            [disabled]="false"-->
     <!--                            (onChange)="onChange($event)"-->
     <!--                            filter="true"-->
-    <!--                            styleClass="width-100"-->
+    <!--                            styleClass="w-full"-->
     <!--                            scrollHeight="100px">-->
     <!--                    </p-dropdown>-->
     <!--                </div>-->
