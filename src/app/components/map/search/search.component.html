@@ -9,30 +9,30 @@
         header="{{'Search' | translate}}">
 
     <h3>{{ 'Coordinates' | translate }}</h3>
-    <div class="p-formgroup-inline">
-        <div class="p-field">
+    <div class="formgroup-inline">
+        <div class="field">
             <input class="p-inputtext-sm" type="text" pInputText [(ngModel)]="coordinatesDegreesLatitude">
             <label>&nbsp;º</label>
         </div>
-        <div class="p-field">
+        <div class="field">
             <input class="p-inputtext-sm" type="text" pInputText [(ngModel)]="coordinatesMinutesLatitude">
             <label>&nbsp;'</label>
         </div>
-        <div class="p-field">
+        <div class="field">
             <input class="p-inputtext-sm" type="text" pInputText [(ngModel)]="coordinatesSecondsLatitude">
             <label>&nbsp;''</label>
         </div>
     </div>
-    <div class="p-formgroup-inline">
-        <div class="p-field">
+    <div class="formgroup-inline">
+        <div class="field">
             <input class="p-inputtext-sm" type="text" pInputText [(ngModel)]="coordinatesDegreesLongitude">
             <label>&nbsp;º</label>
         </div>
-        <div class="p-field">
+        <div class="field">
             <input class="p-inputtext-sm" type="text" pInputText [(ngModel)]="coordinatesMinutesLongitude">
             <label>&nbsp;'</label>
         </div>
-        <div class="p-field">
+        <div class="field">
             <input class="p-inputtext-sm" type="text" pInputText [(ngModel)]="coordinatesSecondsLongitude">
             <label>&nbsp;''</label>
         </div>
@@ -42,12 +42,12 @@
     <hr>
 
     <h3>{{ 'Decimal degrees' | translate }}</h3>
-    <div class="p-formgroup-inline">
-        <div class="p-field">
+    <div class="formgroup-inline">
+        <div class="field">
             <label>{{ 'Latitude' | translate }}</label>
             <input class="p-inputtext-sm" type="text" pInputText [(ngModel)]="decimalDegreesLatitude">
         </div>
-        <div class="p-field">
+        <div class="field">
             <label>{{ 'Longitude' | translate }}</label>
             <input class="p-inputtext-sm" type="text" pInputText [(ngModel)]="decimalDegreesLongitude">
         </div>
@@ -58,16 +58,16 @@
     <hr>
 
     <h3>{{ 'UTM Coordinates' | translate }}</h3>
-    <div class="p-formgroup-inline">
-        <div class="p-field">
+    <div class="formgroup-inline">
+        <div class="field">
             <label>{{ 'East' | translate }}</label>
             <input type="text" class="p-inputtext-sm" pInputText [(ngModel)]="uTMCoordinatesEast">
         </div>
-        <div class="p-field">
+        <div class="field">
             <label>{{ 'North' | translate }}</label>
             <input type="text" class="p-inputtext-sm" pInputText [(ngModel)]="uTMCoordinatesNorth">
         </div>
-        <div class="p-field">
+        <div class="field">
             <label>{{ 'Zone' | translate }}</label>
             <input type="text" class="p-inputtext-sm" pInputText [(ngModel)]="uTMCoordinatesZone">
         </div>

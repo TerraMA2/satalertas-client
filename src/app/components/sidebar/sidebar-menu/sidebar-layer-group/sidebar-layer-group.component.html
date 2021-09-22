@@ -1,5 +1,5 @@
 <div [ngClass]="{'active': isLayerGroupOpened }"
-     class="sidebar-layer-group-body p-align-center">
+     class="sidebar-layer-group-body align-items-center">
 
     <i [class]="sidebarLayerGroup.icon"></i>
 
@@ -27,7 +27,7 @@
                        [isLayerGroupOpened]="isLayerGroupOpened"
                        [layer]="layer"
                        [parentSwitchChecked]="switchChecked"
-                       class="sidebar-layer-body p-dir-col p-align-stretch">
+                       class="sidebar-layer-body flex-column p-align-stretch">
     </app-sidebar-layer>
 
 </div>

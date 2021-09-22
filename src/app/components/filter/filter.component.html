@@ -7,8 +7,8 @@
           autoZIndex="false"
           baseZIndex="1001">
 
-    <div class="p-grid">
-        <div class="p-col-12 form-padding">
+    <div class="grid">
+        <div class="col-12 form-padding">
             <app-theme
                 #themeAreaComponent
                 (onChangeThemeSelected)="onUpdateFilterTheme($event)"
@@ -16,7 +16,7 @@
             </app-theme>
         </div>
 
-        <div class="p-col-12 form-padding">
+        <div class="col-12 form-padding">
             <app-alert-type
                 #alertTypeAreaComponent
                 (onChangeAlertType)="onUpdateAlertType($event)"
@@ -24,7 +24,7 @@
             </app-alert-type>
         </div>
 
-        <div class="p-col-12 form-padding">
+        <div class="col-12 form-padding">
             <app-class
                 #classAreaComponent
                 (onChangeClassFilter)="onUpdateClassFilter($event)"
@@ -32,7 +32,7 @@
             </app-class>
         </div>
 
-        <div *ngIf="false" class="p-col-12 form-padding">
+        <div *ngIf="false" class="col-12 form-padding">
             <app-authorization
                 #authorizationAreaComponent
                 (onChangeAuthorization)="onUpdateAuthorization($event)"
@@ -40,7 +40,7 @@
             </app-authorization>
         </div>
         <br/>
-        <div class="p-col-12 form-padding">
+        <div class="col-12 form-padding">
             <app-specific-search
                 #specificSearchAreaComponent
                 (onChangeSpecificSearch)="onUpdateSpecificSearch($event)">
@@ -48,7 +48,7 @@
         </div>
     </div>
 
-    <p-footer class="p-col-12 form-padding">
+    <p-footer class="col-12 form-padding">
         <app-footer-filter
                 (onClearFilterClicked)="onClearFilterClicked()"
                 (onCloseClicked)="onCloseClicked()"
