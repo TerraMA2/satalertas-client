@@ -80,7 +80,6 @@
 
         <ng-template #login>
             <p-button (click)="onLoginClick()"
-                      pRipple
                       icon="fa fa-sign-in-alt"
                       label="{{'Login' | translate}}"
                       styleClass="p-button-raised p-button-secondary">
@@ -93,8 +92,7 @@
 
             <div *ngIf="isAdministrator">
                 <p-button
-                    [icon]="showIcon"
-                    pRipple
+                    [icon]="settings? 'fas fa-door-open': 'pi pi-cog'"
                     (onClick)="settingsInOut()">
                 </p-button>
             </div>
