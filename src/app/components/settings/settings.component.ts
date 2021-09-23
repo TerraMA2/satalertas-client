@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SidebarService } from '../../services/sidebar.service';
 import { User } from '../../models/user.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NavigationService } from '../../services/navigation.service';
+import { SettingsService } from '../../services/settings.service';
 
 @Component({
 	selector: 'app-settings',
@@ -16,19 +16,19 @@ export class SettingsComponent implements OnInit, OnDestroy {
 	constructor(
 		private sidebarService: SidebarService,
 		private router: Router,
-		private navigationService: NavigationService,
-		private activatedRoute: ActivatedRoute
+		private activatedRoute: ActivatedRoute,
+		private settingService: SettingsService
 	) {
 	}
 
 	ngOnInit(): void {
 		this.activatedRoute.data.subscribe(data => this.loggedUser = data['user']);
 		this.sidebarService.sidebarReload.next('settings');
-		this.navigationService.settingsIn.next(true)
+		this.settingService.settingsIn.next(true)
 	}
 
 	ngOnDestroy() {
-		this.navigationService.settingsIn.next(false);
+		this.settingService.settingsIn.next(false);
 	}
 
 }

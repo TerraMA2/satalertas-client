@@ -511,11 +511,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 	}
 
 	async getBaseImageUrl(url: string) {
-		return await this.getBase64ImageFromUrl(url).then(result => {
-			const baseImageAux = [];
-			baseImageAux.push(result);
-			return baseImageAux;
-		}).catch(err => console.error(err));
+		return await this.getBase64ImageFromUrl(url).then(result => [result]).catch(err => console.error(err));
 	}
 
 	async generatePdf(action = 'open') {

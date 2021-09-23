@@ -13,9 +13,9 @@ export class LayersAdvancedEditionComponent implements OnInit {
 	availableLayers;
 	newData = {};
 	subLayers = [];
-	groupedFields: Object[] = [];
+	groupedFields: object[] = [];
 	tableFields = ['name', 'description']
-	edited: boolean = false;
+	edited = false;
 
 	constructor(
 		private settingsService: SettingsService,
@@ -30,15 +30,17 @@ export class LayersAdvancedEditionComponent implements OnInit {
 			this.displayModal = true;
 			this.groupColumnsByType();
 			this.mergeSubLayerData(availableLayers);
-			layer['subLayers'] && this.mergeSubLayerData(layer['subLayers']);
+			if (layer['subLayers']) {
+				this.mergeSubLayerData(layer['subLayers']);
+			}
 		})
 	};
 	groupColumnsByType() {
 		this.groupedFields = this.columns.reduce((acc, column) => {
-			const groupField = acc.find(fields => fields.type === column["primaryType"])
+			const groupField = acc.find(fields => fields.type === column['primaryType'])
 			if (!groupField) {
 				acc.push({
-					type: column["primaryType"],
+					type: column['primaryType'],
 					columns: [column]
 				});
 			} else {
@@ -69,7 +71,7 @@ export class LayersAdvancedEditionComponent implements OnInit {
 		if (this.newData['subLayers']) {
 			subLayers = this.newData['subLayers'];
 		}
-		let subIdx = subLayers.findIndex(({ id }) => id === lyr.id);
+		const subIdx = subLayers.findIndex(({ id }) => id === lyr.id);
 		if (subIdx >= 0) {
 			Object.assign(subLayers[subIdx], lyr);
 		} else {
@@ -97,7 +99,7 @@ export class LayersAdvancedEditionComponent implements OnInit {
 		}
 		this.clearData();
 	};
-	
+
 	clearData() {
 		this.newData = {};
 		this.availableLayers = {}

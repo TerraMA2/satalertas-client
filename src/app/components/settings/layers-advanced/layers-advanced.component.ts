@@ -91,7 +91,7 @@ export class LayersAdvancedComponent implements OnInit {
 
 	async getModalEditions(edition) {
 		this.displayModal = false;
-		let indexToEdit = this.newGroupData.findIndex(({ id }) => id === edition['id']);
+		const indexToEdit = this.newGroupData.findIndex(({ id }) => id === edition['id']);
 		if (indexToEdit >= 0) {
 			const sbLyr = this.newGroupData[indexToEdit];
 			this.newGroupData[indexToEdit] = { ...sbLyr, ...edition };
@@ -151,7 +151,7 @@ export class LayersAdvancedComponent implements OnInit {
 					const hasThisLayer = this.newGroupData
 						.findIndex(subLayer => subLayer.id === primaryLayer.id)
 					if (hasThisLayer >= 0) {
-						this.newGroupData[hasThisLayer]["subLayers"] = primaryLayer.subLayers;
+						this.newGroupData[hasThisLayer]['subLayers'] = primaryLayer.subLayers;
 					} else {
 						this.newGroupData.push({ id: primaryLayer.id, subLayers: primaryLayer.subLayers })
 					}
