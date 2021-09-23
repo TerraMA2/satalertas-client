@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Subject } from 'rxjs';
+import { lastValueFrom, Subject } from 'rxjs';
 
 import { Layer } from '../models/layer.model';
 
@@ -30,7 +30,11 @@ export class TableService {
 
 	getReportLayers() {
 		const url = `${ URL_REPORT_SERVER }/view/getReportLayers`;
+		return lastValueFrom(this.httpService.get<Response>(url));
+	}
 
-		return this.httpService.get<Response>(url);
+	getTableData(url, params) {
+		this.httpService.get<Response>(URL_REPORT_SERVER + url, params)
+		return lastValueFrom(this.httpService.get<Response>(url));
 	}
 }

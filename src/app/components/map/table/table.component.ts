@@ -14,8 +14,6 @@ import { Layer } from '../../../models/layer.model';
 
 import { View } from '../../../models/view.model';
 
-import { environment } from '../../../../environments/environment';
-
 import { InfoColumnsService } from '../../../services/info-columns.service';
 import { Response } from '../../../models/response.model';
 
@@ -115,11 +113,9 @@ export class TableComponent implements OnInit {
 		params['sortField'] = sortField ? sortField : undefined;
 		params['sortOrder'] = sortOrder ? sortOrder : 1;
 
-		this.hTTPService
-			.get<Response>(environment.serverUrl + url, { params: this.filterService.getParams(params) })
-			.toPromise()
-			.then((response: Response) => this.setData(response.data, layer.groupCode ? layer.groupCode : layer.groupCode))
-			.catch(error => this.isLoading = false);
+		this.tableService.getTableData(url, { params: this.filterService.getParams(params) })
+											.then((response: Response) => this.setData(response.data, layer.groupCode ? layer.groupCode : layer.groupCode))
+											.catch(error => this.isLoading = false);
 	}
 
 	async setData(tableData, group) {
@@ -133,7 +129,7 @@ export class TableComponent implements OnInit {
 				tableData = [];
 			}
 			if (tableData.length > 0) {
-				const infoColumns = await this.infoColumnsService.getInfoColumns().toPromise().then((response: Response) => response.data);
+				const infoColumns = await this.infoColumnsService.getInfoColumns().then((response: Response) => response.data);
 				Object.keys(tableData[0]).forEach(key => {
 					const column = infoColumns && infoColumns[group] ? infoColumns[group][key] : '';
 					const show = column ? column.show : false;

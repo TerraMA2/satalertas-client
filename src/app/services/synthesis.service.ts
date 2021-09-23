@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Property } from '../models/property.model';
 
-import { Subject } from 'rxjs';
+import { lastValueFrom, Subject } from 'rxjs';
 
 import { HTTPService } from './http.service';
 
@@ -35,7 +35,7 @@ export class SynthesisService {
 				date
 			}
 		};
-		return await this.httpService.get<Response>(url, params).toPromise();
+		return lastValueFrom(await this.httpService.get<Response>(url, params));
 	}
 
 	getNDVI(carRegister, date) {

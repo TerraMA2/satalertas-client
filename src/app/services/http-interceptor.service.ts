@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import {
+	HttpErrorResponse,
 	HttpEvent,
 	HttpHandler,
 	HttpInterceptor,
 	HttpRequest,
-	HttpErrorResponse, HttpStatusCode
+	HttpStatusCode
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { environment } from '../../environments/environment';
 import { MessageService } from 'primeng/api';
 import { Event } from '@angular/router';
 import { Response } from '../models/response.model';

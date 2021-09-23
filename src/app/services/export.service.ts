@@ -7,6 +7,7 @@ import { HTTPService } from './http.service';
 import { Response } from '../models/response.model';
 
 import { Util } from '../utils/util';
+import { lastValueFrom } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
@@ -21,7 +22,7 @@ export class ExportService {
 	async export(params, selectedFormats, fileName) {
 		const url = `${ environment.serverUrl }/export`;
 
-		return await this.httpService.post<Response>(url, {params}).toPromise().then((response: Response) => {
+		return lastValueFrom(await this.httpService.post<Response>(url, {params})).then((response: Response) => {
 			const responseData = response.data;
 			const fileType = Util.getMimeType(selectedFormats);
 			const downloadURL = window.URL.createObjectURL(Util.base64toBlob(responseData, fileType['mimeType']));

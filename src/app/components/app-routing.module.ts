@@ -14,7 +14,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { GroupManagerComponent } from './settings/group-manager/group-manager.component';
 import { ReportListComponent } from './reports/report-list/report-list.component';
 import { AuthGuard } from './auth/auth.guard';
-import { InfoColumnsComponent } from './settings/info-columns/info-columns.component'
+import { InfoColumnsComponent } from './settings/info-columns/info-columns.component';
 
 const routes: Routes = [
 	{ path: '', component: DashboardComponent },
