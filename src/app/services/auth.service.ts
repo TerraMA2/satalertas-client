@@ -4,11 +4,9 @@ import { HTTPService } from './http.service';
 
 import { ConfigService } from './config.service';
 
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, lastValueFrom, Subject } from 'rxjs';
 
 import { User } from '../models/user.model';
-
-import { tap } from 'rxjs/operators';
 
 import { SidebarService } from './sidebar.service';
 
@@ -20,9 +18,6 @@ import { Response } from '../models/response.model';
 	providedIn: 'root'
 })
 export class AuthService {
-
-	authConfig;
-
 	user = new BehaviorSubject<User>(null);
 	private tokenExpirationTimer: any;
 
@@ -35,8 +30,7 @@ export class AuthService {
 
 	login(params) {
 		const authConfig = this.configService.getAuthConfig();
-		return this.hTTPService.post<Response>(environment.serverUrl + authConfig.url, {params})
-		.pipe(tap((response: Response) => this.handleAuthentication(response.data)));
+		return lastValueFrom(this.hTTPService.post<Response>(environment.serverUrl + authConfig.url, {params}));
 	}
 
 	autoLogin() {
@@ -77,7 +71,7 @@ export class AuthService {
 		this.sidebarService.sidebarReload.next('default');
 	}
 
-	private handleAuthentication(loggedUser) {
+	public handleAuthentication(loggedUser) {
 		if (!loggedUser) {
 			return false;
 		}
@@ -98,5 +92,6 @@ export class AuthService {
 		this.user.next(user);
 		this.autoLogout(expiration);
 		localStorage.setItem('userData', JSON.stringify(user));
+		return user;
 	}
 }

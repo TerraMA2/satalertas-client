@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -8,8 +8,6 @@ import { MessageService } from 'primeng/api';
 
 import { NgForm } from '@angular/forms';
 
-import { Subscription } from 'rxjs';
-
 import { Response } from '../../models/response.model';
 
 @Component({
@@ -17,7 +15,7 @@ import { Response } from '../../models/response.model';
 	templateUrl: './auth.component.html',
 	styleUrls: ['./auth.component.css']
 })
-export class AuthComponent implements OnInit, OnDestroy {
+export class AuthComponent implements OnInit {
 
 	@Input() displayLogin;
 
@@ -26,8 +24,6 @@ export class AuthComponent implements OnInit, OnDestroy {
 	authConfig;
 
 	isLoading = false;
-
-	private authSub: Subscription;
 
 	constructor(
 		private configService: ConfigService,
@@ -51,10 +47,8 @@ export class AuthComponent implements OnInit, OnDestroy {
 
 		this.isLoading = true;
 
-		this.authSub = this.authService
-		.login(form.value)
-		.subscribe((response: Response) => {
-				const user = response.data;
+		this.authService.login(form.value).then((response: Response) => {
+				const user = this.authService.handleAuthentication(response.data);
 				const message = response.message;
 				if (user) {
 					this.authService.user.next(user);
@@ -66,10 +60,6 @@ export class AuthComponent implements OnInit, OnDestroy {
 			() => {
 				this.isLoading = false;
 			});
-	}
-
-	ngOnDestroy() {
-		this.authSub.unsubscribe();
 	}
 
 }

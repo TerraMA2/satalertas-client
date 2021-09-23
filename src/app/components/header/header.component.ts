@@ -2,8 +2,6 @@ import { Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@
 
 import { ConfigService } from '../../services/config.service';
 
-import { Subscription } from 'rxjs';
-
 import { AuthService } from 'src/app/services/auth.service';
 
 import { MessageService, PrimeNGConfig } from 'primeng/api';
@@ -23,16 +21,21 @@ import { DropdownElement } from '../../models/dropdown-element.model';
 import { TranslateService } from '@ngx-translate/core';
 
 import { Router } from '@angular/router';
+
 import { NavigationService } from 'src/app/services/navigation.service';
 
 import { DeviceDetectorService } from 'ngx-device-detector';
+
+import { SettingsService } from '../../services/settings.service';
+
+import { User } from '../../models/user.model';
 
 @Component({
 	selector: 'app-header',
 	templateUrl: './header.component.html',
 	styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit {
 
 	@Output() showHideSidebarClicked = new EventEmitter<boolean>();
 
@@ -51,9 +54,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	appConfig;
 	selectedLanguage: DropdownElement;
 	languages: DropdownElement[];
-	private userSub: Subscription;
 	private filterConfig;
-	settings: boolean = false;
+	settings = false;
 	expanded = false;
 
 	isMobile = false;
@@ -69,7 +71,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		private config: PrimeNGConfig,
 		private router: Router,
 		private navigationService: NavigationService,
-		private deviceDetectorService: DeviceDetectorService
+		private deviceDetectorService: DeviceDetectorService,
+		private settingService: SettingsService
 	) {
 	}
 
@@ -84,14 +87,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.headerTitle = this.appConfig.headerTitle;
 		this.hasLogin = this.appConfig.hasLogin;
 
-		this.userSub = this.authService.user.subscribe(user => {
+		this.authService.user.subscribe((user: User) => {
 			if (user) {
 				this.isAdministrator = user.administrator;
 				this.isAuthenticated = true;
 				this.loggedUserName = user.username;
 			}
 		});
-		this.navigationService.settingsIn.subscribe((data) => {
+		this.settingService.settingsIn.subscribe((data) => {
 			this.settings = data;
 		})
 	}
@@ -153,10 +156,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.sidebarService.sidebarReload.next('default');
 		this.mapService.clearMap.next();
 		this.router.navigateByUrl('/');
-	}
-
-	ngOnDestroy() {
-		this.userSub.unsubscribe();
 	}
 
 	onFilterClose() {
