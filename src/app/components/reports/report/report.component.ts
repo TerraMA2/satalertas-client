@@ -101,7 +101,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 					data.area = formatNumber(data.area, 'pt-BR', '1.0-4');
 				}
 			}
-			for (const data of property.deflorestationHistory) {
+			for (const data of property.deforestationHistory) {
 				data.area = formatNumber(data.area, 'pt-BR', '1.0-4');
 			}
 			for (const data of property.tableData) {
@@ -215,45 +215,45 @@ export class ReportComponent implements OnInit, AfterViewInit {
 		await this.getReportData();
 	}
 
-	async getContextDeflorestationAlerts(deflorestationAlerts) {
-		const deflorestationAlertsContext = [];
-		const deflorestationAlertsCount = deflorestationAlerts.length;
+	async getContextDeflorestationAlerts(deforestationAlerts) {
+		const deforestationAlertsContext = [];
+		const deforestationAlertsCount = deforestationAlerts.length;
 
-		if (deflorestationAlerts && deflorestationAlertsCount > 0) {
+		if (deforestationAlerts && deforestationAlertsCount > 0) {
 			let images = [];
 			let titleDate = [];
 			let subTitleArea = [];
 			let startingYear = new Date().getFullYear();
 
-			for (let i = 0; i < deflorestationAlertsCount; ++i) {
-				images.push(this.getImageObject(await this.getBaseImageUrl(deflorestationAlerts[i].urlGsImageBefore), [225, 225], [0, 0, 0, 0], 'left'));
-				images.push(this.getImageObject(await this.getBaseImageUrl(deflorestationAlerts[i].urlGsImageCurrent), [225, 225], [13, 0, 0, 0], 'rigth'));
+			for (let i = 0; i < deforestationAlertsCount; ++i) {
+				images.push(this.getImageObject(await this.getBaseImageUrl(deforestationAlerts[i].urlGsImageBefore), [225, 225], [0, 0, 0, 0], 'left'));
+				images.push(this.getImageObject(await this.getBaseImageUrl(deforestationAlerts[i].urlGsImageCurrent), [225, 225], [13, 0, 0, 0], 'rigth'));
 
-				startingYear = (deflorestationAlerts[i].year - 1) < startingYear ? (deflorestationAlerts[i].year - 1) : startingYear;
+				startingYear = (deforestationAlerts[i].year - 1) < startingYear ? (deforestationAlerts[i].year - 1) : startingYear;
 
 				titleDate.push({
-					text: `Alerta(${ deflorestationAlerts[i].date }) - Imagem(${ deflorestationAlerts[i].year - 1 })`,
+					text: `Alerta(${ deforestationAlerts[i].date }) - Imagem(${ deforestationAlerts[i].year - 1 })`,
 					fontSize: 8,
 					style: 'body',
 					alignment: 'center'
 				});
 
 				titleDate.push({
-					text: `Alerta(${ deflorestationAlerts[i].date }) - Imagem(${ deflorestationAlerts[i].date })`,
+					text: `Alerta(${ deforestationAlerts[i].date }) - Imagem(${ deforestationAlerts[i].date })`,
 					fontSize: 8,
 					style: 'body',
 					alignment: 'center'
 				});
 
 				subTitleArea.push({
-					text: `${ formatNumber(deflorestationAlerts[i].area, 'pt-BR', '1.0-4') } ha`,
+					text: `${ formatNumber(deforestationAlerts[i].area, 'pt-BR', '1.0-4') } ha`,
 					fontSize: 8,
 					style: 'body',
 					alignment: 'center'
 				});
 
 				if (i === 0) {
-					deflorestationAlertsContext.push(
+					deforestationAlertsContext.push(
 						{
 							text: `Na  figura 3, a seguir, será  representado  o detalhamento  dos  alertas.`,
 							alignment: 'right',
@@ -262,14 +262,14 @@ export class ReportComponent implements OnInit, AfterViewInit {
 						}
 					);
 				} else {
-					deflorestationAlertsContext.push(
+					deforestationAlertsContext.push(
 						{
 							text: '',
 							pageBreak: 'after'
 						}
 					);
 				}
-				deflorestationAlertsContext.push(
+				deforestationAlertsContext.push(
 					{
 						columns: titleDate,
 						margin: [30, 0, 30, 0]
@@ -280,7 +280,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 					},
 					{
 						columns: [
-							this.getImageObject(await this.getBaseImageUrl(deflorestationAlerts[i].urlGsImagePlanetCurrentAndCar), [420, 420], [0, 0], 'center')
+							this.getImageObject(await this.getBaseImageUrl(deforestationAlerts[i].urlGsImagePlanetCurrentAndCar), [420, 420], [0, 0], 'center')
 						],
 						margin: [30, 5, 30, 0]
 					},
@@ -295,7 +295,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 				subTitleArea = [];
 			}
 
-			deflorestationAlertsContext.push({
+			deforestationAlertsContext.push({
 				text: [
 					{
 						text: 'Figura 3. ',
@@ -311,48 +311,48 @@ export class ReportComponent implements OnInit, AfterViewInit {
 				fontSize: 9
 			});
 		}
-		return deflorestationAlertsContext;
+		return deforestationAlertsContext;
 	}
 
-	async getContextDesflorestationHistory(deflorestationHistory, urlGsDeforestationHistory, urlGsDeforestationHistory1) {
-		const deflorestationHistoryContext = [];
-		const deflorestationHistoryCount = deflorestationHistory.length;
+	async getContextDeforestationHistory(deforestationHistory, urlGsDeforestationHistory, urlGsDeforestationHistory1) {
+		const deforestationHistoryContext = [];
+		const deforestationHistoryCount = deforestationHistory.length;
 
-		if (deflorestationHistory && deflorestationHistoryCount > 0) {
+		if (deforestationHistory && deforestationHistoryCount > 0) {
 			const deforestationData = [];
 			const deforestationColumns = [];
 
-			deflorestationHistoryContext.push({
+			deforestationHistoryContext.push({
 				text: '',
 				pageBreak: 'after'
 			});
-			deflorestationHistoryContext.push({
+			deforestationHistoryContext.push({
 				columns: [{
-					text: `O histórico do desmatamento desde ${ deflorestationHistory[0].date } pode ser visto na figura 7.`,
+					text: `O histórico do desmatamento desde ${ deforestationHistory[0].date } pode ser visto na figura 7.`,
 					margin: [30, 0, 30, 15],
 					style: 'bodyIndentFirst'
 				}]
 			});
 			let count = 1;
-			for (let i = 0; i < deflorestationHistoryCount; ++i) {
+			for (let i = 0; i < deforestationHistoryCount; ++i) {
 				count += 1;
-				const view = deflorestationHistory[i].date < 2013 ? 'LANDSAT_5_' :
-					deflorestationHistory[i].date < 2017 ? 'LANDSAT_8_' :
+				const view = deforestationHistory[i].date < 2013 ? 'LANDSAT_5_' :
+					deforestationHistory[i].date < 2017 ? 'LANDSAT_8_' :
 						'SENTINEL_2_';
 
-				let url = deflorestationHistory[i].date === 2012 ? urlGsDeforestationHistory1 : urlGsDeforestationHistory.replace(new RegExp('#{image}#', ''), `${ view }${ deflorestationHistory[i].date }`);
-				url = url.replace(new RegExp('#{year}#', ''), deflorestationHistory[i].date);
+				let url = deforestationHistory[i].date === 2012 ? urlGsDeforestationHistory1 : urlGsDeforestationHistory.replace(new RegExp('#{image}#', ''), `${ view }${ deforestationHistory[i].date }`);
+				url = url.replace(new RegExp('#{year}#', ''), deforestationHistory[i].date);
 
 				deforestationData.push(
 					[
 						{
-							text: `${ deflorestationHistory[i].date }`,
+							text: `${ deforestationHistory[i].date }`,
 							style: 'body',
 							alignment: 'center'
 						},
 						this.getImageObject(await this.getBaseImageUrl(url), [117, 117], [5, 0], 'center'),
 						{
-							text: `${ deflorestationHistory[i].area } ha`,
+							text: `${ deforestationHistory[i].area } ha`,
 							style: 'body',
 							alignment: 'center'
 						}
@@ -386,7 +386,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 				}
 			}
 
-			deflorestationHistoryContext.push(
+			deforestationHistoryContext.push(
 				...deforestationColumns,
 				{
 					text: [
@@ -395,7 +395,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 							bold: true
 						},
 						{
-							text: ` Histórico de desmatamento do PRODES desde ${ deflorestationHistory[0].date }.`,
+							text: ` Histórico de desmatamento do PRODES desde ${ deforestationHistory[0].date }.`,
 							bold: false
 						}
 					],
@@ -405,7 +405,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 				});
 		}
 
-		return deflorestationHistoryContext;
+		return deforestationHistoryContext;
 	}
 
 	async getReportData() {
@@ -442,12 +442,12 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
 		if (this.reportData['type'] === 'prodes') {
 			this.reportData.images['geoserverImage3'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage2), [200, 200], [0, 10], 'center');
-			this.reportData['desflorestationHistoryContext'] = await this.getContextDesflorestationHistory(this.reportData.property['deflorestationHistory'], this.reportData.urlGsDeforestationHistory, this.reportData.urlGsDeforestationHistory1);
+			this.reportData['deforestationHistoryContext'] = await this.getContextDeforestationHistory(this.reportData.property['deforestationHistory'], this.reportData.urlGsDeforestationHistory, this.reportData.urlGsDeforestationHistory1);
 			this.reportData.images['geoserverLegend'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsLegend), [200, 200], [0, 10], 'center');
 		}
 
 		if (this.reportData['type'] === 'deter') {
-			this.reportData['deflorestationAlertsContext'] = await this.getContextDeflorestationAlerts(this.reportData.property.deflorestationAlerts);
+			this.reportData['deforestationAlertsContext'] = await this.getContextDeflorestationAlerts(this.reportData.property.deforestationAlerts);
 		}
 
 		this.reportData['chartImages'] = this.chartImages;
