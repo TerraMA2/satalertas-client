@@ -4,6 +4,8 @@
   dataKey="id"
   scrollHeight="400px"
   [columns]="columns"
+  [responsiveLayout]="'stack'"
+  [autoLayout]="true"
   *ngIf="columns.length > 0"
 >
   <ng-template pTemplate="header" let-columns>

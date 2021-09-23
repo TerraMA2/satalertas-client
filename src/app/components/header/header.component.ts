@@ -23,6 +23,7 @@ import { DropdownElement } from '../../models/dropdown-element.model';
 import { TranslateService } from '@ngx-translate/core';
 
 import { Router } from '@angular/router';
+import { NavigationService } from 'src/app/services/navigation.service';
 
 import { DeviceDetectorService } from 'ngx-device-detector';
 
@@ -52,9 +53,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	languages: DropdownElement[];
 	private userSub: Subscription;
 	private filterConfig;
-	settings = false;
-	showIcon = 'pi pi-cog';
-
+	settings: boolean = false;
 	expanded = false;
 
 	isMobile = false;
@@ -69,6 +68,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		private translateService: TranslateService,
 		private config: PrimeNGConfig,
 		private router: Router,
+		private navigationService: NavigationService,
 		private deviceDetectorService: DeviceDetectorService
 	) {
 	}
@@ -91,6 +91,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				this.loggedUserName = user.username;
 			}
 		});
+		this.navigationService.settingsIn.subscribe((data) => {
+			this.settings = data;
+		})
 	}
 
 	setFilterSettings() {
@@ -231,14 +234,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	}
 
 	settingsInOut() {
-		if (this.settings) {
-			this.router.navigateByUrl('/map')
-			this.settings = false;
-			this.showIcon = 'pi pi-cog'
-		} else {
-			this.router.navigateByUrl('/settings/groups')
-			this.settings = true;
-			this.showIcon = 'fas fa-door-open'
-		}
+		const url = this.settings? '/map' : '/settings/groups';
+			this.router.navigateByUrl(url)
 	}
 }
