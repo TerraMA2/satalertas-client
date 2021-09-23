@@ -2,20 +2,22 @@
           [contentStyle]="{'width': '50vw','max-height':'75vh'}"
           autoZIndex="false"
           baseZIndex="1001"
+          [style]="isMobile ? {bottom: '0'} : ''"
+          [breakpoints]="{'1024px' : '100%'}"
+          [position]="isMobile ? 'bottom' : 'center'"
           header="{{'About' | translate}}"
-          position="center"
           resizable="false">
     <div class="about-padding">
-        <div class="p-col-12">
+        <div class="col-12">
             <h2 class="text-center">{{ title | translate }}</h2>
         </div>
-        <div class="p-col-12 text-right">
+        <div class="col-12 text-right">
             <p>{{ version }}</p>
             <p>{{ date }}
             <p>
             <p>Copyright© 2021</p>
         </div>
-        <div class="p-grid">
+        <div class="grid">
             <div [innerHTML]="description | translate"></div>
         </div>
 
@@ -25,8 +27,8 @@
 
             <h2>{{ offering.title | translate }}</h2>
 
-            <div *ngFor="let company of offering.companies" class="p-grid text-center">
-                <div *ngFor="let c of company" class="p-col">
+            <div *ngFor="let company of offering.companies" class="grid text-center">
+                <div *ngFor="let c of company" class="col">
                     <a href="{{ c.link }}" target="_blank">
                         <img height="{{ c.height }}" src="{{ c.logo }}" title="{{ c.description }}"
                              width="{{ c.width }}">
@@ -38,7 +40,7 @@
 
         <br>
         <br>
-        <div class="p-col-12 text-right">
+        <div class="col-12 text-right">
             <p> {{ 'TerraMA² version' | translate }}: {{ terrama2Version }}</p>
             <p> {{ 'Terralib version' | translate }}: {{ terralibVersion }}</p>
         </div>
@@ -46,7 +48,7 @@
         <p-button (click)="closeAbout()"
                   label="{{ 'Close' | translate}}"
                   pRipple
-                  styleClass="p-button-raised p-button-secondary width-100">
+                  styleClass="p-button-raised p-button-secondary w-full">
         </p-button>
     </div>
 </p-dialog>

@@ -15,7 +15,7 @@
     >
       <div *ngSwitchCase="'string'">
         <ng-container *ngFor="let col of colGroup['columns']">
-          <div class="p-field p-col-12">
+          <div class="field col-12">
             <label [for]="col.nameCamel">{{ col.alias }}: </label>
             <input
               *ngIf="layer[col.nameCamel]"
@@ -30,9 +30,9 @@
         </ng-container>
       </div>
       <div *ngSwitchCase="'boolean'">
-        <div class="p-formgroup-inline">
+        <div class="formgroup-inline">
           <ng-container *ngFor="let col of colGroup['columns']">
-            <div class="p-field-checkbox">
+            <div class="field-checkbox">
               <p-checkbox
                 (onChange)="setBooleanField(col.nameCamel, $event.checked)"
                 [ngModel]="layer[col.nameCamel]"
@@ -90,7 +90,7 @@
                         (input)="
                           dt.filter($event.target.value, field, 'contains')
                         "
-                        class="p-column-filter"
+                        class="column-filter"
                         pInputText
                         placeholder="Filtrar"
                         type="text"

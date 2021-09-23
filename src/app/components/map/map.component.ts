@@ -8,7 +8,7 @@ import 'leaflet.fullscreen';
 
 import 'leaflet-draw';
 
-import * as Search from 'leaflet-search';
+import 'leaflet-control-boxzoom';
 
 import { HTTPService } from '../../services/http.service';
 
@@ -36,6 +36,10 @@ import { PopupService } from '../../services/popup.service';
 
 import { Response } from '../../models/response.model';
 
+import { SearchService } from '../../services/search.service';
+
+import { DeviceDetectorService } from 'ngx-device-detector';
+
 @Component({
 	selector: 'app-map',
 	templateUrl: './map.component.html',
@@ -52,18 +56,18 @@ export class MapComponent implements OnInit, AfterViewInit {
 	tableSelectedLayer: L.TileLayer.WMS;
 	displayTable = false;
 	displayLegend = false;
-	displayInfo = false;
 	displayVisibleLayers = false;
 	displayLayerTools = false;
+	displaySearch = false;
 	selectedBaseLayer: string;
 	isLoading = false;
+	speedDialItems = [];
 	private map: L.Map;
 	private mapConfig;
 	private tableConfig;
 	private zoomIn = false;
 	private layerControl: L.Control.Layers;
-	private searchControl;
-
+	isMobile = false;
 	constructor(
 		private hTTPService: HTTPService,
 		private configService: ConfigService,
@@ -71,15 +75,19 @@ export class MapComponent implements OnInit, AfterViewInit {
 		private tableService: TableService,
 		private mapService: MapService,
 		private filterService: FilterService,
-		private popupService: PopupService
+		private popupService: PopupService,
+		private searchService: SearchService,
+		private deviceDetectorService: DeviceDetectorService
 	) {
 	}
 
 	ngOnInit() {
+		this.isMobile = this.deviceDetectorService.isMobile();
 		this.mapConfig = this.configService.getMapConfig();
 		this.tableConfig = this.configService.getMapConfig('table');
 		this.sidebarService.sidebarLayerShowHide.next(true);
-		this.sidebarService.sidebarReload.next();
+		this.sidebarService.sidebarReload.next('default');
+		this.setSpeedDial();
 	}
 
 	async ngAfterViewInit() {
@@ -90,8 +98,10 @@ export class MapComponent implements OnInit, AfterViewInit {
 	}
 
 	setMap() {
-		this.map = this.mapService.getMap(this.mapConfig.maxZoom)
-		this.mapService.panMap(this.map, this.mapConfig.initialLatLong, this.mapConfig.initialZoom);
+		const state = this.configService.getAppConfig('state');
+		const initialLatLong = this.configService.getCoordsJson(state);
+		this.map = this.mapService.getMap(this.mapConfig.maxZoom);
+		this.mapService.panMap(this.map, initialLatLong, this.mapConfig.initialZoom);
 		L.Marker.prototype.options.icon = L.icon({
 			iconRetinaUrl: 'assets/marker-icon-2x.png',
 			iconUrl: 'assets/marker-icon.png',
@@ -106,16 +116,19 @@ export class MapComponent implements OnInit, AfterViewInit {
 
 	setControls() {
 		this.setLayerControl();
-		this.setSearchControl();
 		this.setFullScreenControl();
 		this.setDrawControl();
-		this.setLegendControl();
+		if (!this.isMobile) {
+			this.setSearchControl();
+			this.setLegendControl();
+			this.setTableControl();
+			this.setVisibleLayersControl();
+		}
 		this.setCoordinatesControl();
 		this.setScaleControl();
-		this.setTableControl();
 		this.setInfoControl();
 		this.setRestoreMapControl();
-		this.setVisibleLayersControl();
+		this.setZoomBoxControl();
 		this.setMarkersGroup();
 	}
 
@@ -145,36 +158,6 @@ export class MapComponent implements OnInit, AfterViewInit {
 		this.map.addLayer(this.markerClusterGroup);
 	}
 
-	private updateMarkers(layer: Layer) {
-		this.markerClusterGroup.clearLayers();
-		this.clearMarkerInfo();
-		this.layerControl.removeLayer(this.markerClusterGroup);
-
-		const url = this.configService.getAppConfig('layerUrls')[layer.type]['markers'];
-
-		const view = JSON.stringify(
-			new View(
-				layer.viewId,
-				layer.code,
-				layer.groupCode,
-				(layer.type === LayerType.ANALYSIS),
-				layer.isPrimary,
-				layer.tableOwner,
-				layer.tableName
-			));
-
-		const params = this.filterService.getParams({ view });
-
-		const columnCarGid = layer.type === LayerType.ANALYSIS ? 'de_car_validado_sema_gid' : 'gid';
-		const carRegisterColumn = {
-			federal: layer.type === LayerType.ANALYSIS ? 'de_car_validado_sema_numero_do2' : 'numero_do2',
-			estadual: layer.type === LayerType.ANALYSIS ? 'de_car_validado_sema_numero_do1' : 'numero_do1'
-		};
-
-		this.hTTPService.get<Response>(environment.serverUrl + url, {params})
-		.subscribe((response: Response) => this.setMarkers(response.data, carRegisterColumn, layer, columnCarGid));
-	}
-
 	async setMarkers(data, carRegister, layer, columnCarGid) {
 		this.layerControl.removeLayer(this.markerClusterGroup);
 
@@ -188,9 +171,6 @@ export class MapComponent implements OnInit, AfterViewInit {
 				this.markerClusterGroup.addLayer(marker);
 			}
 		});
-
-		this.searchControl.setLayer(this.markerClusterGroup);
-		this.searchControl.options.layer = this.markerClusterGroup;
 
 		const bounds = this.markerClusterGroup.getBounds();
 
@@ -228,7 +208,12 @@ export class MapComponent implements OnInit, AfterViewInit {
 
 	setLegendControlEvent() {
 		L.DomEvent.on(L.DomUtil.get('legendBtn'), 'click dblclick', L.DomEvent.stopPropagation);
-		document.querySelector('#legendBtn').addEventListener('click', () => this.displayLegend = !this.displayLegend);
+		document.querySelector('#legendBtn').addEventListener('click', () => {
+			if (this.isMobile) {
+				this.sidebarService.sidebarShowHide.next(false);
+			}
+			this.displayLegend = !this.displayLegend;
+		});
 	}
 
 	setTableControl() {
@@ -239,29 +224,33 @@ export class MapComponent implements OnInit, AfterViewInit {
 
 	setTableControlEvent() {
 		L.DomEvent.on(L.DomUtil.get('tableBtn'), 'click dblclick', L.DomEvent.stopPropagation);
-		document.querySelector('#tableBtn').addEventListener('click', () => this.displayTable = true);
+		document.querySelector('#tableBtn').addEventListener('click', () => {
+			if (this.isMobile) {
+				this.sidebarService.sidebarShowHide.next(false);
+			}
+			this.displayTable = true;
+		});
 	}
 
 	setSearchControl() {
-		const searchOptions = this.mapConfig.controls.search;
-		searchOptions.moveToLocation = latlng => {
-			this.markerClusterGroup.eachLayer((marker: L.Marker) => {
-				if (marker.getLatLng().equals(latlng)) {
-					this.mapService.panMap(this.map, latlng, 18);
-					marker.fire('click');
-				}
-			});
-		};
-		searchOptions.marker = L.circleMarker([0, 0], this.mapConfig.controls.search.marker);
-		this.searchControl = new Search(searchOptions);
-		this.map.addControl(this.searchControl);
+		const Search = this.mapService.getSearchControl();
+		new Search({ position: 'topleft' }).addTo(this.map);
+		this.setSearchControlEvent();
+	}
+
+	setSearchControlEvent() {
+		L.DomEvent.on(L.DomUtil.get('searchBtn'), 'click dblclick', L.DomEvent.stopPropagation);
+		document.querySelector('#searchBtn').addEventListener('click', () => {
+			if (this.isMobile) {
+				this.sidebarService.sidebarShowHide.next(false);
+			}
+			this.displaySearch = true;
+		});
 	}
 
 	setCoordinatesControl() {
 		const Coordinates = this.mapService.getCoordinatesControl();
-		new Coordinates({
-			position: 'bottomright'
-		}).addTo(this.map);
+		new Coordinates({position: 'bottomright'}).addTo(this.map);
 	}
 
 	setDrawControl() {
@@ -282,34 +271,60 @@ export class MapComponent implements OnInit, AfterViewInit {
 		this.map.addLayer(editableLayers);
 	}
 
+	setZoomBoxControl() {
+		const zoomBoxOptions = this.mapConfig.controls.zoomBox;
+		if (!zoomBoxOptions) {
+			return;
+		}
+		L.Control.boxzoom(zoomBoxOptions);
+	}
+
 	setInfoControl() {
-		const Info = this.mapService.getInfoControl();
-
-		new Info({ position: 'topleft' }).addTo(this.map);
-
 		this.setInfoControlEvent();
 	}
 
-	setInfoControlEvent() {
-		L.DomEvent.on(L.DomUtil.get('infoBtn'), 'dblclick click', L.DomEvent.stopPropagation);
-		document.querySelector('#infoBtn').addEventListener('click', () => {
-			if (this.displayInfo === false) {
-				this.displayInfo = true;
-				document.querySelector('#infoBtn').classList.add('leaflet-custom-icon-selected');
-				document.querySelector('#map').classList.remove('cursor-grab');
-				document.querySelector('#map').classList.add('cursor-help');
-				this.map.on('click', (event: L.LeafletMouseEvent) => this.getFeatureInfo(event));
-			} else {
-				if (this.markerInfo) {
-					this.markerInfo.remove();
+	setSpeedDial() {
+		this.speedDialItems = [
+			{
+				icon: 'fas fa-search',
+				command: () => {
+					this.displaySearch = true;
+					this.sidebarService.sidebarShowHide.next(false);
 				}
-				this.displayInfo = false;
-				document.querySelector('#infoBtn').classList.remove('leaflet-custom-icon-selected');
-				document.querySelector('#map').classList.remove('cursor-help');
-				document.querySelector('#map').classList.add('cursor-grab');
-				this.map.off('click');
+			},
+			{
+				icon: 'fas fa-table',
+				command: () => {
+					this.displayTable = true;
+					this.sidebarService.sidebarShowHide.next(false);
+				}
+			},
+			{
+				icon: 'fas fa-th-list',
+				command: () => {
+					this.displayLegend = true;
+					this.sidebarService.sidebarShowHide.next(false);
+				}
+			},
+			{
+				icon: 'fas fa-list',
+				command: () => {
+					this.displayVisibleLayers = true;
+					this.sidebarService.sidebarShowHide.next(false);
+				}
+			},
+			{
+				icon: 'fas fa-filter',
+				command: () => {
+					this.filterService.displayFilter.next();
+					this.sidebarService.sidebarShowHide.next(false);
+				}
 			}
-		});
+		];
+	}
+
+	setInfoControlEvent() {
+		this.map.on('contextmenu', (event: L.LeafletMouseEvent) => this.getFeatureInfo(event))
 	}
 
 	createMarker(title, latLong, layerLabel, gid, groupCode, layer?) {
@@ -330,19 +345,19 @@ export class MapComponent implements OnInit, AfterViewInit {
 		const layerPoint = event.layerPoint;
 		this.clearMarkerInfo();
 		this.markerInfo = L.marker(latLong, {});
+		this.markerInfo.on('popupclose', () => this.clearMarkerInfo());
 		await this.mapService.getFeatureInfo(this.selectedLayers, this.map, latLong, layerPoint, this.markerInfo);
 	}
 
 	setRestoreMapControl() {
 		const RestoreMap = this.mapService.getRestoreMapControl();
-
 		new RestoreMap({ position: 'topleft' }).addTo(this.map);
-
 		this.setRestoreMapControlEvent();
 	}
 
 	setRestoreMapControlEvent() {
-		const initialLatLong = this.mapConfig.initialLatLong;
+		const state = this.configService.getAppConfig('state');
+		const initialLatLong = this.configService.getCoordsJson(state);
 		const initialZoom = this.mapConfig.initialZoom;
 		L.DomEvent.on(L.DomUtil.get('restoreMapBtn'), 'click dblclick', L.DomEvent.stopPropagation);
 		document.querySelector('#restoreMapBtn')
@@ -351,15 +366,16 @@ export class MapComponent implements OnInit, AfterViewInit {
 
 	setVisibleLayersControl() {
 		const VisibleLayers = this.mapService.getVisibleLayersControl();
-
 		new VisibleLayers({ position: 'topleft' }).addTo(this.map);
-
 		this.setVisibleLayersControlEvent();
 	}
 
 	setVisibleLayersControlEvent() {
 		document.querySelector('#visibleLayersBtn')
 		.addEventListener('click', () => {
+			if (this.isMobile) {
+				this.sidebarService.sidebarShowHide.next(false);
+			}
 			this.displayVisibleLayers = !this.displayVisibleLayers;
 			L.DomEvent.on(L.DomUtil.get('visibleLayersBtn'), 'dblclick', L.DomEvent.stopPropagation);
 		});
@@ -429,12 +445,10 @@ export class MapComponent implements OnInit, AfterViewInit {
 		this.selectedLayers.forEach(layer => this.removeLayer(layer, false));
 	}
 
-	// Events
-
 	setEvents() {
-		this.mapService.layerOpactity.subscribe((layerObject) => {
-			this.mapService.setOpacity(layerObject['layer'], layerObject['value'], this.map);
-		});
+		this.mapService.searchClose.subscribe(() => this.displaySearch = false);
+		this.mapService.setMapPosition.subscribe(latLng => this.mapService.panMap(this.map, latLng, 6));
+		this.mapService.layerOpactity.subscribe((layerObject) => this.mapService.setOpacity(layerObject['layer'], layerObject['value'], this.map));
 
 		this.mapService.layerExtent.subscribe(layer => this.mapService.setExtent(layer, this.map));
 
@@ -442,6 +456,9 @@ export class MapComponent implements OnInit, AfterViewInit {
 			this.displayLayerTools = true;
 			this.layerTool = toolClicked['layer'];
 			this.toolSelected = toolClicked['toolName'];
+			if (this.isMobile) {
+				this.sidebarService.sidebarShowHide.next(false);
+			}
 		});
 
 		this.mapService.layerToolClose.subscribe((layer: Layer) => {
@@ -502,7 +519,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 			const layers = itemSelected.children;
 			this.sidebarService.sidebarLayerSwitchSelect.next(layers);
 			layers.filter(layer => !layer.isDisabled && !layer.isHidden)
-						.forEach((layer: Layer) => {
+			.forEach((layer: Layer) => {
 				const layerExists = this.selectedLayers.find(selectedLayer => selectedLayer.viewId === layer.viewId);
 				if (!layerExists) {
 					this.addLayer(layer, true);
@@ -535,6 +552,8 @@ export class MapComponent implements OnInit, AfterViewInit {
 		});
 	}
 
+	// Events
+
 	onShowTable() {
 		this.displayTable = true;
 	}
@@ -543,6 +562,36 @@ export class MapComponent implements OnInit, AfterViewInit {
 		this.displayTable = false;
 		this.tableService.clearTable.next();
 		this.tableSelectedLayer = null;
+	}
+
+	private updateMarkers(layer: Layer) {
+		this.markerClusterGroup.clearLayers();
+		this.clearMarkerInfo();
+		this.layerControl.removeLayer(this.markerClusterGroup);
+
+		const url = this.configService.getAppConfig('layerUrls')[layer.type]['markers'];
+
+		const view = JSON.stringify(
+			new View(
+				layer.viewId,
+				layer.code,
+				layer.groupCode,
+				(layer.type === LayerType.ANALYSIS),
+				layer.isPrimary,
+				layer.tableOwner,
+				layer.tableName
+			));
+
+		const params = this.filterService.getParams({ view });
+
+		const columnCarGid = layer.type === LayerType.ANALYSIS ? 'de_car_validado_sema_gid' : 'gid';
+		const carRegisterColumn = {
+			federal: layer.type === LayerType.ANALYSIS ? 'de_car_validado_sema_numero_do2' : 'numero_do2',
+			estadual: layer.type === LayerType.ANALYSIS ? 'de_car_validado_sema_numero_do1' : 'numero_do1'
+		};
+
+		this.hTTPService.get<Response>(environment.serverUrl + url, { params })
+		.subscribe((response: Response) => this.setMarkers(response.data, carRegisterColumn, layer, columnCarGid));
 	}
 
 	// saveState() {

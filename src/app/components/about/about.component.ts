@@ -6,6 +6,8 @@ import { ConfigService } from '../../services/config.service';
 
 import { AboutOfferings } from '../../models/about-offerings.model';
 
+import { DeviceDetectorService } from 'ngx-device-detector';
+
 @Component({
 	selector: 'app-about',
 	templateUrl: './about.component.html',
@@ -21,14 +23,20 @@ export class AboutComponent implements OnInit {
 	public offerings: AboutOfferings[];
 	public terrama2Version: string;
 	public terralibVersion: string;
+	isMobile = false;
 
 	constructor(
 		private sidebarService: SidebarService,
-		private configService: ConfigService
+		private configService: ConfigService,
+		private deviceDetectorService: DeviceDetectorService
 	) {
 	}
 
 	ngOnInit() {
+		this.isMobile = this.deviceDetectorService.isMobile();
+		if (this.isMobile) {
+			this.sidebarService.sidebarShowHide.next(false);
+		}
 		const aboutConfig = this.configService.getAboutConfig();
 		this.title = aboutConfig.title;
 		this.version = aboutConfig.version;

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HTTPService } from './http.service';
 import { environment } from '../../environments/environment';
-import { Response } from '../models/response.model'
-import { Observable } from 'rxjs';
+import { Response } from '../models/response.model';
+import { lastValueFrom } from 'rxjs';
 
 const URL_REPORT_SERVER = environment.serverUrl;
 
@@ -17,27 +17,23 @@ export class InfoColumnsService {
 	) {
 	}
 
-	getInfoColumns(viewId?): Observable<Response> {
+	getInfoColumns(viewId?) {
 		const parameters = { viewId };
-
-		return this.httpService.get<Response>(this.url + '/', { params: parameters });
+		return lastValueFrom(this.httpService.get<Response>(this.url + '/', { params: parameters }));
 	}
 	async getByTableName(tableName) {
-		return this.httpService.get<Response>(this.url + `/getByTableName?tableName=${tableName}`)
-			.toPromise()
+		return lastValueFrom(this.httpService.get<Response>(this.url + `/getByTableName?tableName=${tableName}`))
 			.then(data => {
 				return data;
 			});
 	}
 	async getTableNames() {
-		return this.httpService.get<Response>(this.url + '/getAllTables')
-			.toPromise()
+		return lastValueFrom(this.httpService.get<Response>(this.url + '/getAllTables'))
 			.then(response => response.data);
 	}
 	async getTableColumns(tableId) {
 		const parameters = { tableId };
-		return this.httpService.get<Response>(this.url + '/tableColumns', { params: parameters })
-			.toPromise()
+		return lastValueFrom(this.httpService.get<Response>(this.url + '/tableColumns', { params: parameters }))
 			// .then(res => res.data)
 			.then(response => {
 				const { data } = response;
@@ -46,20 +42,18 @@ export class InfoColumnsService {
 			});
 	}
 	async getTypesOptions() {
-		return this.httpService.get<Response>(this.url + '/getSecondaryTypes')
-			.toPromise()
+		return lastValueFrom(this.httpService.get<Response>(this.url + '/getSecondaryTypes'))
 			// .then(res => res.data)
 			.then(response => { return response.data; });
 	}
 	async getTableInfoColumns(tableName) {
 		const parameters = { tableName };
-		return this.httpService.get<Response>(this.url + '/getTableInfoColumns', { params: parameters })
-			.toPromise()
+		return lastValueFrom(this.httpService.get<Response>(this.url + '/getTableInfoColumns', { params: parameters }))
 			// .then(res => res.data)
 			.then(response => { return response.data; });
 	}
 	async sendInfocolumnsEditions(editions) {
 		// const parameters = { editions }
-		return this.httpService.put(this.url + '/tableColumns', { editions }).toPromise();
+		return lastValueFrom(this.httpService.put(this.url + '/tableColumns', { editions }));
 	}
 }

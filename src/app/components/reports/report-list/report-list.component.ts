@@ -28,13 +28,13 @@ import { AuthService } from 'src/app/services/auth.service';
 
 import { User } from '../../../models/user.model';
 
-import { environment } from '../../../../environments/environment';
-
 import { TableState } from '../../../models/table-state.model';
 
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { NavigationService } from '../../../services/navigation.service';
+import { SidebarService } from '../../../services/sidebar.service';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
 	selector: 'app-report-list',
@@ -81,6 +81,8 @@ export class ReportListComponent implements OnInit {
 	private columnOrder: [];
 	private excludedColumns: string[];
 
+	isMobile = false;
+
 	constructor(
 		private hTTPService: HTTPService,
 		private configService: ConfigService,
@@ -91,9 +93,11 @@ export class ReportListComponent implements OnInit {
 		private messageService: MessageService,
 		private exportService: ExportService,
 		private authService: AuthService,
+		private sidebarService: SidebarService,
 		private router: Router,
 		private navigationService: NavigationService,
-		private activatedRoute: ActivatedRoute
+		private activatedRoute: ActivatedRoute,
+		private deviceDetectorService: DeviceDetectorService
 	) {
 	}
 
@@ -104,7 +108,7 @@ export class ReportListComponent implements OnInit {
 		this.rowsPerPage = this.tableConfig.rowsPerPage;
 		this.activatedRoute.data.subscribe(data => this.loggedUser = data['user']);
 
-		this.reportLayers = await this.tableService.getReportLayers().toPromise().then((response: Response) => {
+		this.reportLayers = await this.tableService.getReportLayers().then((response: Response) => {
 			const data = response.data;
 			return data.map(reportLayer => new ReportLayer(
 				reportLayer['groupCode'],
@@ -150,6 +154,10 @@ export class ReportListComponent implements OnInit {
 				this.loadTableData(layer, this.selectedRowsPerPage, 0);
 			}
 		});
+		this.isMobile = this.deviceDetectorService.isMobile();
+		if (this.isMobile) {
+			this.sidebarService.sidebarShowHide.next(false);
+		}
 	}
 
 	loadTableData(layer,
@@ -202,8 +210,11 @@ export class ReportListComponent implements OnInit {
 		params['sortField'] = sortField ? sortField : this.selectedLayer && this.selectedLayer.sortField ? this.selectedLayer.sortField : undefined;
 		params['sortOrder'] = sortOrder ? sortOrder : 1;
 
-		this.hTTPService.get<Response>(environment.serverUrl + url, { params: this.filterService.getParams(params) })
-										.toPromise().then(({data}) => this.setData(data)).catch(error => this.isLoading = false);
+		this.reportService.getReportTableData(url, { params: this.filterService.getParams(params) })
+			.then(({data}) => {
+				this.setData(data);
+			})
+			.catch(error => this.isLoading = false);
 	}
 
 	filterColumns(key) {
@@ -267,7 +278,7 @@ export class ReportListComponent implements OnInit {
 	onRowExpand(event) {
 		const gid = event.data.gid;
 		this.expandedRowKey = { [gid]: true };
-		this.reportService.getReportsByCARCod(gid).toPromise().then((response: Response) => this.reports = response.data);
+		this.reportService.getReportsByCARCod(gid).then((response: Response) => this.reports = response.data);
 		this.saveState();
 	}
 
@@ -373,7 +384,7 @@ export class ReportListComponent implements OnInit {
 
 	getReport(report) {
 		this.isLoading = true;
-		this.reportService.getReportById(report.id).toPromise().then((response: Response) => {
+		this.reportService.getReportById(report.id).then((response: Response) => {
 			const reportResp = response.data;
 			window.open(window.URL.createObjectURL(Util.base64toBlob(reportResp.base64, 'application/pdf')));
 			this.isLoading = false;
@@ -412,8 +423,7 @@ export class ReportListComponent implements OnInit {
 			rows: this.selectedRowsPerPage,
 			sortField: this.sortField,
 			sortOrder: this.sortOrder,
-			columnOrder: this.columnOrder,
-			expandedRowKey: this.expandedRowKey
+			columnOrder: this.columnOrder
 		};
 		localStorage.setItem('tableState', JSON.stringify(tableState));
 	}
@@ -424,7 +434,6 @@ export class ReportListComponent implements OnInit {
 		this.sortField = tableState.sortField;
 		this.sortOrder = tableState.sortOrder;
 		this.columnOrder = tableState.columnOrder;
-		this.expandedRowKey = tableState.expandedRowKey;
 		this.selectedLayer = tableState.selectedLayer;
 		this.selectedLayerValue = this.selectedLayer.value;
 		this.first = tableState.first;

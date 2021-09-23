@@ -25,6 +25,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { NavigationService } from 'src/app/services/navigation.service';
 
+import { DeviceDetectorService } from 'ngx-device-detector';
+
 @Component({
 	selector: 'app-header',
 	templateUrl: './header.component.html',
@@ -54,6 +56,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	settings: boolean = false;
 	expanded = false;
 
+	isMobile = false;
+
 	constructor(
 		private configService: ConfigService,
 		private authService: AuthService,
@@ -64,11 +68,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		private translateService: TranslateService,
 		private config: PrimeNGConfig,
 		private router: Router,
-		private navigationService: NavigationService
+		private navigationService: NavigationService,
+		private deviceDetectorService: DeviceDetectorService
 	) {
 	}
 
 	ngOnInit() {
+		this.isMobile = this.deviceDetectorService.isMobile();
 		this.appConfig = this.configService.getAppConfig();
 		const locale = this.appConfig.locale;
 		this.languages = locale.languages;
@@ -144,7 +150,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				detail: 'Logout realizado com successo!'
 			}
 		);
-		this.sidebarService.sidebarReload.next();
+		this.sidebarService.sidebarReload.next('default');
 		this.mapService.clearMap.next();
 		this.router.navigateByUrl('/');
 	}
@@ -209,7 +215,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	onFilterClick() {
 		localStorage.setItem('dateFilter', JSON.stringify(this.dateInput));
 
-		this.filterService.filterMap.next();
+		this.filterService.filterMap.next(false);
 		this.filterService.filterTable.next();
 		this.filterService.filterSynthesis.next();
 		this.filterService.filterDashboard.next();

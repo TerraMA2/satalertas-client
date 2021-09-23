@@ -11,6 +11,7 @@ import { FilterService } from './filter.service';
 import { View } from '../models/view.model';
 
 import { LayerType } from '../enum/layer-type.enum';
+
 import { MapService } from './map.service';
 
 @Injectable({
@@ -32,6 +33,7 @@ export class PopupService {
 	}
 
 	async popup(marker: L.Marker, layerLabel: string, gid, groupCode, layer?) {
+		const latLong = marker.getLatLng();
 		let filter = null;
 		if (layer) {
 			const view = new View(
@@ -54,21 +56,28 @@ export class PopupService {
 		switch (groupCode) {
 			case 'DETER':
 				layerLabel += ' - DETER';
-				linkPRODES = '';
-				linkFireSpot = '';
+				linkPRODES = undefined;
+				linkFireSpot = undefined;
 				break;
 			case 'PRODES':
 				layerLabel += ' - PRODES';
-				linkDETER = '';
-				linkFireSpot = '';
+				linkDETER = undefined;
+				linkFireSpot = undefined;
 				break;
 			case 'BURNED':
 				layerLabel += ' - FOCOS';
-				linkDETER = '';
-				linkPRODES = '';
+				linkDETER = undefined;
+				linkPRODES = undefined;
+				break;
+			default:
+				layerLabel += '';
+				linkDETER = undefined;
+				linkPRODES = undefined;
+				linkFireSpot = undefined;
 				break;
 		}
 
+		const latLongText = `${latLong.lat}, ${latLong.lng}`;
 		const cmpFactory = this.cfr.resolveComponentFactory(PopupComponent);
 		const componentRef = cmpFactory.create(this.injector);
 		componentRef.instance.linkSynthesis = linkSynthesis;
@@ -77,6 +86,7 @@ export class PopupService {
 		componentRef.instance.linkFireSpot = linkFireSpot;
 		componentRef.instance.layerLabel = layerLabel;
 		componentRef.instance.tableData = data;
+		componentRef.instance.latLong = latLongText;
 		this.appRef.attachView(componentRef.hostView);
 
 		const popupContent = componentRef.location.nativeElement;

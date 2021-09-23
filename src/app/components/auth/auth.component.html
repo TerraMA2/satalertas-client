@@ -1,6 +1,6 @@
-<div class="p-grid p-nogutter">
+<div class="grid grid-nogutter">
 
-    <div class="p-col-12 p-col-nogutter">
+    <div class="col-12">
 
         <div *ngIf="isLoading" class="loading-login">
             <p-progressSpinner [style]="{width: '200px', height: '200px'}" animationDuration="1s"></p-progressSpinner>
@@ -28,7 +28,7 @@
                 <br/><br/>
 
                 <p-button label="{{'Login' | translate}}"
-                          styleClass="p-button-raised width-100"
+                          styleClass="p-button-raised w-full"
                           type="submit">
                 </p-button>
 
@@ -37,7 +37,7 @@
                 <p-button (click)="onCloseLoginClick()"
                           pRipple
                           label="{{'Close' | translate}}"
-                          styleClass="p-button-secondary width-100 p-button-raised">
+                          styleClass="p-button-secondary w-full p-button-raised">
                 </p-button>
             </form>
         </div>

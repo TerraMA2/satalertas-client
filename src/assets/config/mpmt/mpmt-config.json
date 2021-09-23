@@ -1,5 +1,6 @@
 {
   "app": {
+    "state": "MT",
     "pageTitle": "TerraMA² | SatAlertas: Integrated Environmental Degradation Monitoring System",
     "headerTitle": "SatAlertas: Integrated Environmental Degradation Monitoring System",
     "hasLogin": true,
@@ -40,8 +41,8 @@
     "version": "2.0.0-dev",
     "date": "13/04/2021",
     "description": "aboutDescription",
-    "TerraMA² version": "4.1.1",
-    "Terralib version": "5.4.5",
+    "terrama2Version": "4.1.1",
+    "terralibVersion": "5.4.5",
     "offerings": [
       {
         "title": "Partnerships",
@@ -257,10 +258,6 @@
     ]
   },
   "map": {
-    "initialLatLong": [
-      -14.5463,
-      -52.7941
-    ],
     "initialZoom": 6,
     "maxZoom": 18,
     "controls": {
@@ -268,23 +265,7 @@
         "position": "topleft",
         "collapsed": false,
         "autoZIndex": false,
-        "hideSingleBase": false
-      },
-      "search": {
-        "propertyName": "title",
-        "position": "topleft",
-        "zoom": 12,
-        "minLength": 1,
-        "hideMarkerOnCollapse": true,
-        "textErr": "Nenhum imóvel foi encontrado",
-        "textCancel": "Cancelar",
-        "textPlaceholder": "Buscar por registro do CAR",
-        "marker": {
-          "radius": 10,
-          "weight": 3,
-          "stroke": true,
-          "fill": true
-        }
+        "hideSingleBase": true
       },
       "fullscreen": {
         "zoomInTitle": "+ zoom",
@@ -309,6 +290,14 @@
             "showLength": true
           }
         }
+      },
+      "zoomBox": {
+        "position": "topleft",
+        "divClasses": "leaflet-control-layers leaflet-custom-icon",
+        "iconClasses": "fas fa-vector-square",
+        "title": "Box zoom",
+        "keepOn": true,
+        "enableShiftDrag": true
       }
     },
     "baselayers": [

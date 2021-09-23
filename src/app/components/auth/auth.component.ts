@@ -10,8 +10,6 @@ import { NgForm } from '@angular/forms';
 
 import { Subscription } from 'rxjs';
 
-import { SidebarService } from 'src/app/services/sidebar.service';
-
 import { Response } from '../../models/response.model';
 
 @Component({
@@ -34,8 +32,7 @@ export class AuthComponent implements OnInit, OnDestroy {
 	constructor(
 		private configService: ConfigService,
 		private authService: AuthService,
-		private messageService: MessageService,
-		private sidebarService: SidebarService
+		private messageService: MessageService
 	) {
 	}
 
@@ -59,16 +56,14 @@ export class AuthComponent implements OnInit, OnDestroy {
 		.subscribe((response: Response) => {
 				const user = response.data;
 				const message = response.message;
-
 				if (user) {
 					this.authService.user.next(user);
 					this.messageService.add({ severity: 'success', summary: '', detail: message });
 					this.closeLoginClicked.emit(false);
-					this.sidebarService.sidebarReload.next();
 				}
 				this.isLoading = false;
 			},
-			error => {
+			() => {
 				this.isLoading = false;
 			});
 	}

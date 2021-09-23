@@ -1,16 +1,16 @@
-<div class="p-grid p-nogutter">
+<div class="grid grid-nogutter">
     <app-sidebar [ngClass]="{'hide-sidebar': displaySidebar === false}"
-                 class="p-col-10 p-md-4 p-lg-3 p-xl-2 no-padding p-justify-between sidebar">
+                 class="col-10 md:col-4 lg:col-3 xl:col-2 no-padding justify-content-between sidebar">
     </app-sidebar>
 
     <div [ngClass]="{
-                    'p-col-2 p-md-8 p-lg-9 p-xl-10 no-padding': displaySidebar === true,
-                    'p-col-12 no-padding': displaySidebar === false
+                    'col-2 md:col-8 lg:col-9 xl:col-10 no-padding': displaySidebar === true,
+                    'col-12 no-padding': displaySidebar === false
                   }">
 
         <app-header (showHideSidebarClicked)="showHideSidebar($event)"></app-header>
 
-        <main class="p-col-12 no-padding">
+        <main class="col-12 no-padding" style="z-index: 1001">
             <router-outlet></router-outlet>
         </main>
 

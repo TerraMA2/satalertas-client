@@ -4,6 +4,8 @@ import { Layer } from 'src/app/models/layer.model';
 
 import { MapService } from 'src/app/services/map.service';
 
+import { DeviceDetectorService } from 'ngx-device-detector';
+
 @Component({
 	selector: 'app-visible-layers',
 	templateUrl: './visible-layers.component.html',
@@ -19,12 +21,16 @@ export class VisibleLayersComponent implements OnInit {
 
 	cols;
 
+	isMobile = false;
+
 	constructor(
-		private mapService: MapService
+		private mapService: MapService,
+		private deviceDetectorService: DeviceDetectorService
 	) {
 	}
 
 	ngOnInit() {
+		this.isMobile = this.deviceDetectorService.isMobile();
 		this.cols = [{
 			field: '',
 			header: ''

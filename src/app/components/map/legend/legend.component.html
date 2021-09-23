@@ -1,11 +1,12 @@
 <p-dialog
         (onHide)="onLegendHide()"
         [(visible)]="displayLegend"
-        [style]="{top: '60px', left: '410px' }"
+        [style]="isMobile ? {bottom: '0' } : {top: '60px', left: '410px' }"
+        [breakpoints]="{'1024px' : '100%'}"
+        [position]="isMobile ? 'bottom' : 'top-left'"
         autoZIndex="false"
         baseZIndex="1001"
-        header="{{'Legends' | translate}}"
-        position="top-left">
+        header="{{'Legends' | translate}}">
 
     <p-accordion [multiple]="true" [style]="{'min-width': '250px'}">
         <p-accordionTab

@@ -69,12 +69,12 @@ export class AuthService {
 			clearTimeout(this.tokenExpirationTimer);
 		}
 		this.tokenExpirationTimer = null;
-		this.sidebarService.sidebarReload.next();
+		this.sidebarService.sidebarReload.next('default');
 	}
 
 	autoLogout(expirationDuration: number) {
 		this.tokenExpirationTimer = setTimeout(() => this.logout(), expirationDuration);
-		this.sidebarService.sidebarReload.next();
+		this.sidebarService.sidebarReload.next('default');
 	}
 
 	private handleAuthentication(loggedUser) {

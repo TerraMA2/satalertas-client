@@ -93,7 +93,7 @@ export class SidebarLayerComponent implements OnInit {
 	}
 
 	selectItem() {
-		this.tableService.unloadTableData.next();
+		this.tableService.unloadTableData.next(undefined);
 		this.sidebarService.sidebarLayerSelect.next(this.layer);
 	}
 

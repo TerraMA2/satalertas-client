@@ -39,6 +39,7 @@ import { MessageModule } from 'primeng/message';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ScrollTopModule } from 'primeng/scrolltop';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { SpeedDialModule } from 'primeng/speeddial';
 
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
@@ -100,14 +101,14 @@ import { InfoColumnsComponent } from './settings/info-columns/info-columns.compo
 import { SubLayerTableComponent } from './settings/layers-advanced/layer-table/sub-layer-table/sub-layer-table.component';
 import { LayerTableComponent } from './settings/layers-advanced/layer-table/layer-table.component';
 import { HttpInterceptorService } from '../services/http-interceptor.service';
-import { SkeletonModule } from 'primeng/skeleton';
+import { SearchComponent } from './map/search/search.component';
 
 registerLocaleData(localePt, 'pt');
 
 const project = environment.project;
 
 export function HttpLoaderFactory(http: HttpClient) {
-	return new TranslateHttpLoader(http, `./assets/config/${project ? project + '/' : ''}i18n/`, '.json');
+	return new TranslateHttpLoader(http, `./assets/config/${ project ? project + '/' : '' }i18n/`, '.json');
 }
 
 @NgModule({
@@ -163,6 +164,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 		InfoColumnsComponent,
 		SubLayerTableComponent,
 		LayerTableComponent,
+		SearchComponent
 	],
 	imports: [
 		BrowserModule,
@@ -212,7 +214,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 			}
 		}),
 		StyleClassModule,
-		SkeletonModule
+		SpeedDialModule
 	],
 	providers: [
 		TreeDragDropService,
@@ -221,7 +223,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 		AuthGuard,
 		{ provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }
 	],
-	bootstrap: [AppComponent],
+	bootstrap: [AppComponent]
 })
 export class AppModule {
 }

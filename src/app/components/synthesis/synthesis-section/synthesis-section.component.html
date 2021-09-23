@@ -5,9 +5,9 @@
         <small *ngIf="subtitle">{{ subtitle }}</small>
     </h2>
     <hr>
-    <div class="p-grid">
+    <div class="grid">
         <div *ngFor="let card of cards; trackBy: trackById"
-             class="p-col-4 p-md-4">
+             class="col-4 md:col-4">
             <app-report-card [card]="card">
             </app-report-card>
         </div>
