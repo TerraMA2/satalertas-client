@@ -171,10 +171,11 @@ export class ReportComponent implements OnInit, AfterViewInit {
 		this.filter = localStorage.getItem('filterState');
 		this.date = JSON.parse(localStorage.getItem('dateFilter'));
 
-		if (this.type === 'prodes') {
-			this.points = await this.reportService.getPointsAlerts(this.carRegister, this.date, this.filter, this.type).then(async (response: Response) => await response.data);
-		}
+		// if (this.type === 'prodes') {
+		// 	this.points = await this.reportService.getPointsAlerts(this.carRegister, this.date, this.filter, this.type).then(async (response: Response) => await response.data);
+		// }
 		await this.setChartNdvi();
+		// await this.getReportData();
 	}
 
 	async setChartNdvi() {
