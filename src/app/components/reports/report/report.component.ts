@@ -170,49 +170,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
 	async ngAfterViewInit() {
 		this.filter = localStorage.getItem('filterState');
 		this.date = JSON.parse(localStorage.getItem('dateFilter'));
-
-		// if (this.type === 'prodes') {
-		// 	this.points = await this.reportService.getPointsAlerts(this.carRegister, this.date, this.filter, this.type).then(async (response: Response) => await response.data);
-		// }
-		await this.setChartNdvi();
-		// await this.getReportData();
-	}
-
-	async setChartNdvi() {
-		if (this.type === 'prodes') {
-			const pointsCount = this.points.length;
-			if (this.points && pointsCount && pointsCount > 0) {
-				let count = 0;
-				for (const point of this.points) {
-					const canvas: any = document.createElement('canvas');
-					canvas.id = `ndviChart${ count }`;
-					canvas.setAttribute('width', 600);
-					canvas.setAttribute('height', 250);
-					canvas.setAttribute('style', 'display: none');
-
-					document.body.appendChild(canvas);
-
-					const ctx: any = canvas.getContext('2d');
-					const options = point.options;
-
-					const ndviChart = new Chart(ctx, options);
-
-					ndviChart.update('resize');
-					ndviChart.render();
-					ndviChart.stop();
-
-					const ndviChartImage = this.getImageObject(ndviChart && ndviChart.toBase64Image() ? [ndviChart.toBase64Image()] : null, [500, 500], [10, 0], 'center');
-					const geoserverImage = this.getImageObject(await this.getBaseImageUrl(point.url), [200, 200], [10, 70], 'center');
-
-					this.chartImages.push({
-						geoserverImage,
-						ndviChartImage
-					});
-					++count;
-				}
-			}
-		}
-
 		await this.getReportData();
 	}
 
