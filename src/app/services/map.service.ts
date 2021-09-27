@@ -396,7 +396,7 @@ export class MapService {
 		return {
 			request: 'GetFeature',
 			service: 'WFS',
-			srs: 'EPSG:4674',
+			srsName: 'EPSG:4674',
 			version: '2.0',
 			outputFormat: 'application/json',
 			typeNames: layerName,

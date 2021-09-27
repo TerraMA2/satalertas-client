@@ -164,7 +164,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
 				this.ngAfterViewInit();
 			});
 		});
-
 	}
 
 	async ngAfterViewInit() {
@@ -226,8 +225,8 @@ export class ReportComponent implements OnInit, AfterViewInit {
 			let startingYear = new Date().getFullYear();
 
 			for (let i = 0; i < deflorestationAlertsCount; ++i) {
-				images.push(this.getImageObject(await this.getBaseImageUrl(deflorestationAlerts[i].urlGsImageBefore), [225, 225], [0, 0, 0, 0], 'left'));
-				images.push(this.getImageObject(await this.getBaseImageUrl(deflorestationAlerts[i].urlGsImageCurrent), [225, 225], [13, 0, 0, 0], 'rigth'));
+				images.push(this.getImageObject(deflorestationAlerts[i].urlGsImageBefore, [225, 225], [0, 0, 0, 0], 'left'));
+				images.push(this.getImageObject(deflorestationAlerts[i].urlGsImageCurrent, [225, 225], [13, 0, 0, 0], 'right'));
 
 				startingYear = (deflorestationAlerts[i].year - 1) < startingYear ? (deflorestationAlerts[i].year - 1) : startingYear;
 
@@ -280,7 +279,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 					},
 					{
 						columns: [
-							this.getImageObject(await this.getBaseImageUrl(deflorestationAlerts[i].urlGsImagePlanetCurrentAndCar), [420, 420], [0, 0], 'center')
+							this.getImageObject(deflorestationAlerts[i].urlGsImagePlanetCurrentAndCar, [420, 420], [0, 0], 'center')
 						],
 						margin: [30, 5, 30, 0]
 					},
@@ -430,20 +429,20 @@ export class ReportComponent implements OnInit, AfterViewInit {
 			this.reportData['images'] = {};
 		}
 
-		this.reportData.images['geoserverImage1'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage), [200, 200], [0, 10], 'center');
-		this.reportData.images['geoserverImage2'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage1), [200, 200], [0, 10], 'center');
+		this.reportData.images['geoserverImage1'] = this.getImageObject(this.reportData.urlGsImage, [200, 200], [0, 10], 'center');
+		this.reportData.images['geoserverImage2'] = this.getImageObject(this.reportData.urlGsImage1, [200, 200], [0, 10], 'center');
 
 		if (this.reportData['type'] !== 'queimada') {
-			this.reportData.images['geoserverImage4'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage3), [200, 200], [0, 10], 'left');
-			this.reportData.images['geoserverImage5'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage4), [200, 200], [0, 10], 'left');
-			this.reportData.images['geoserverImage6'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage5), [200, 200], [0, 10], 'right');
-			this.reportData.images['geoserverImage7'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage6), [200, 200], [0, 10], 'right');
+			this.reportData.images['geoserverImage4'] = this.getImageObject(this.reportData.urlGsImage3, [200, 200], [0, 10], 'left');
+			this.reportData.images['geoserverImage5'] = this.getImageObject(this.reportData.urlGsImage4, [200, 200], [0, 10], 'left');
+			this.reportData.images['geoserverImage6'] = this.getImageObject(this.reportData.urlGsImage5, [200, 200], [0, 10], 'right');
+			this.reportData.images['geoserverImage7'] = this.getImageObject(this.reportData.urlGsImage6, [200, 200], [0, 10], 'right');
 		}
 
 		if (this.reportData['type'] === 'prodes') {
-			this.reportData.images['geoserverImage3'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage2), [200, 200], [0, 10], 'center');
+			this.reportData.images['geoserverImage3'] = this.getImageObject(this.reportData.urlGsImage2, [200, 200], [0, 10], 'center');
 			this.reportData['desflorestationHistoryContext'] = await this.getContextDesflorestationHistory(this.reportData.property['deflorestationHistory'], this.reportData.urlGsDeforestationHistory, this.reportData.urlGsDeforestationHistory1);
-			this.reportData.images['geoserverLegend'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsLegend), [200, 200], [0, 10], 'center');
+			this.reportData.images['geoserverLegend'] = this.getImageObject(this.reportData.urlGsLegend, [200, 200], [0, 10], 'center');
 		}
 
 		if (this.reportData['type'] === 'deter') {
@@ -493,10 +492,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
 	getPdfBase64(docDefinition) {
 		const pdfDocGenerator = pdfMake.createPdf(docDefinition);
-
-		pdfDocGenerator.getBase64((data) => {
-			this.docBase64 = data;
-		});
+		pdfDocGenerator.getBase64((data) => this.docBase64 = data);
 	}
 
 	async getBase64ImageFromUrl(imageUrl) {
