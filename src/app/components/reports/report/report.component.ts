@@ -366,39 +366,17 @@ export class ReportComponent implements OnInit {
 
 		this.reportData = await this.reportService.getReportCarData(this.carRegister, date, filter, this.type).then((response: Response) => response.data);
 		await this.formatValueLocate[this.type](this.reportData);
-		this.reportData['type'] = this.type;
-		this.reportData['date'] = date;
-		this.reportData['carRegister'] = this.carRegister;
 		this.reportData['formattedFilterDate'] = `${ startDate } a ${ endDate }`;
 		this.reportData['currentYear'] = new Date().getFullYear();
 		this.reportData['currentDate'] = `${ this.setFormatDay(today.getDate()) }/${ this.setFormatMonth(today.getMonth()) }/${ today.getFullYear() }`;
 
-		if (!this.reportData['images']) {
-			this.reportData['images'] = {};
-		}
-
-		this.reportData.images['geoserverImage1'] = this.getImageObject(this.reportData.urlGsImage, [200, 200], [0, 10], 'center');
-		this.reportData.images['geoserverImage2'] = this.getImageObject(this.reportData.urlGsImage1, [200, 200], [0, 10], 'center');
-
-		if (this.reportData['type'] !== 'queimada') {
-			this.reportData.images['geoserverImage4'] = this.getImageObject(this.reportData.urlGsImage3, [200, 200], [0, 10], 'left');
-			this.reportData.images['geoserverImage5'] = this.getImageObject(this.reportData.urlGsImage4, [200, 200], [0, 10], 'left');
-			this.reportData.images['geoserverImage6'] = this.getImageObject(this.reportData.urlGsImage5, [200, 200], [0, 10], 'right');
-			this.reportData.images['geoserverImage7'] = this.getImageObject(this.reportData.urlGsImage6, [200, 200], [0, 10], 'right');
-		}
-
 		if (this.reportData['type'] === 'prodes') {
-			this.reportData.images['geoserverImage3'] = this.getImageObject(this.reportData.urlGsImage2, [200, 200], [0, 10], 'center');
 			this.reportData['deforestationHistoryContext'] = await this.getContextDeforestationHistory(this.reportData.property['deforestationHistory'], this.reportData.urlGsDeforestationHistory, this.reportData.urlGsDeforestationHistory1);
-			this.reportData.images['geoserverLegend'] = this.getImageObject(this.reportData.urlGsLegend.url, [200, 200], [0, 10], 'center');
 		}
 
 		if (this.reportData['type'] === 'deter') {
 			this.reportData['deforestationAlertsContext'] = await this.getContextDeflorestationAlerts(this.reportData.property.deforestationAlerts);
 		}
-
-		this.reportData['chartImages'] = [];
-		this.reportData['type'] = this.reportData['type'];
 
 		this.docDefinition = await this.reportService.createPdf(this.reportData).then(async (response: Response) => {
 			const data = response.data;
