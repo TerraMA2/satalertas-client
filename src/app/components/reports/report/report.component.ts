@@ -157,12 +157,10 @@ export class ReportComponent implements OnInit, AfterViewInit {
 			this.type = params.type;
 		});
 
-		this.reportService.changeReportType.subscribe(() => {
-			this.activatedRoute.params.subscribe(params => {
-				this.carRegister = params.carRegister;
-				this.type = params.type;
-				this.ngAfterViewInit();
-			});
+		this.reportService.changeReportType.subscribe((params) => {
+			this.carRegister = params['carRegister'];
+			this.type = params['type'];
+			this.ngAfterViewInit();
 		});
 	}
 
@@ -522,15 +520,18 @@ export class ReportComponent implements OnInit, AfterViewInit {
 	}
 
 	onViewReportClicked(reportType) {
-		const register = this.carRegister;
+		const carRegister = this.carRegister;
 		if (reportType) {
-			this.router.navigateByUrl(`/reports/${ reportType }/${ register }`);
+			// this.router.navigateByUrl(`/reports/${ reportType }/${ carRegister }`);
 			this.docBase64 = null;
 			this.inputSat = '';
 			this.textAreaComments = '';
-			this.reportService.changeReportType.next();
+			this.reportService.changeReportType.next({
+				type: reportType,
+				carRegister
+			});
 		} else {
-			this.router.navigateByUrl(`/synthesis/${ register }`);
+			this.router.navigateByUrl(`/synthesis/${ carRegister }`);
 		}
 	}
 
