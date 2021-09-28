@@ -25,4 +25,8 @@ export class NavigationService {
 			this.router.navigateByUrl('/map');
 		}
 	}
+
+	changeUrl(route) {
+		this.location.replaceState(route)
+	}
 }
