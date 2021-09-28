@@ -14,7 +14,7 @@ import { Response } from '../models/response.model';
 export class ReportService {
 	URL_REPORT_SERVER = environment.serverUrl + '/report';
 
-	changeReportType = new Subject<void>();
+	changeReportType = new Subject<object>();
 
 	constructor(
 		private httpService: HTTPService
