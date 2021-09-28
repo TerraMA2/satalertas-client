@@ -87,37 +87,45 @@ export class SynthesisComponent implements OnInit {
 		const endDate = new Date(date[1]).toLocaleDateString('pt-BR');
 
 		this.formattedFilterDate = `${ startDate } - ${ endDate }`;
-		this.synthesisService.getSynthesis(this.carRegister, date).then((response: Response) => {
-			const propertyData: Property = response.data;
-
-			this.titleDeter = propertyData.titleDeter;
-			this.titleProdes = propertyData.titleProdes;
-			this.titleFireSpot = propertyData.titleFireSpot;
-			this.titleBurnedArea = propertyData.titleBurnedArea;
-			this.titleDetailedVisions = propertyData.titleDetailedVisions;
-			this.titleDeforestation = propertyData.titleDeforestation;
-			this.historyDeterChartOptions = propertyData.historyDeterChartOptions;
-			this.historyProdesChartOptions = propertyData.historyProdesChartOptions;
-			this.historyFireSpotChartOptions = propertyData.historyFireSpotChartOptions;
-			this.historyBurnedChartOptions = propertyData.historyBurnedChartOptions;
-
-			this.property = propertyData;
-			this.visions = propertyData.visions;
-			this.legends = propertyData.legends;
-			this.detailedVisions = propertyData.detailedVisions;
-			this.deforestations = propertyData.deforestations;
-			this.deterHistory = propertyData.deterHistory;
-			this.prodesHistory = propertyData.prodesHistory;
-			this.fireSpotHistory = propertyData.fireSpotHistory;
-			this.burnedAreaHistory = propertyData.burnedAreaHistory;
-
-			this.historyDeterChartData = this.synthesisService.getChart(this.deterHistory, 'DETER');
-			this.historyProdesChartData = this.synthesisService.getChart(this.prodesHistory, 'PRODES');
-			this.burningFireSpotChartData = this.synthesisService.getChart(this.fireSpotHistory, 'Focos');
-			this.burnedAreasChartData = this.synthesisService.getChart(this.burnedAreaHistory, 'Áreas Queimadas');
-			this.burnedAreasPerPropertyChartDatas = this.synthesisService.getPerPropertyChart(this.burnedAreaHistory, propertyData.area, 'Áreas Queimadas');
+		this.synthesisService.getPropertyData(this.carRegister).then((response: Response) => this.property = response.data);
+		this.synthesisService.getVisions(this.carRegister, date).then((response: Response) => this.visions = response.data);
+		this.synthesisService.getLegends(this.carRegister).then((response: Response) => this.legends = response.data);
+		this.synthesisService.getDetailedVisions(this.carRegister, date).then((response: Response) => {
+			this.titleDetailedVisions = response.data.title;
+			this.detailedVisions = response.data.detailedVisions;
 		});
-
+		this.synthesisService.getDeforestation(this.carRegister).then((response: Response) => {
+			this.titleDeforestation = response.data.title;
+			this.deforestations = response.data.deforestation;
+		});
+		this.synthesisService.getCharts(this.carRegister).then((response: Response) => {
+			this.historyDeterChartOptions = response.data.historyDeterChartOptions;
+			this.historyProdesChartOptions = response.data.historyProdesChartOptions;
+			this.historyFireSpotChartOptions = response.data.historyFireSpotChartOptions;
+			this.historyBurnedChartOptions = response.data.historyBurnedChartOptions;
+		});
+		this.synthesisService.getDeterHistory(this.carRegister).then((response: Response) => {
+			this.titleDeter = response.data.title;
+			this.deterHistory = response.data.deterHistory;
+			this.historyDeterChartData = this.synthesisService.getChart(this.deterHistory, 'DETER');
+		});
+		this.synthesisService.getProdesHistory(this.carRegister).then((response: Response) => {
+			this.titleProdes = response.data.title;
+			this.prodesHistory = response.data.prodesHistory;
+			this.historyProdesChartData = this.synthesisService.getChart(this.prodesHistory, 'PRODES');
+		});
+		this.synthesisService.getFireSpotHistory(this.carRegister).then((response: Response) => {
+			this.titleFireSpot = response.data.title;
+			this.fireSpotHistory = response.data.fireSpotHistory;
+			this.burningFireSpotChartData = this.synthesisService.getChart(this.fireSpotHistory, 'Focos');
+		});
+		this.synthesisService.getBurnedAreaHistory(this.carRegister).then((response: Response) => {
+			this.titleBurnedArea = response.data.title;
+			this.burnedAreaHistory = response.data.burnedAreaHistory;
+			const area = response.data.area;
+			this.burnedAreasChartData = this.synthesisService.getChart(this.burnedAreaHistory, 'Áreas Queimadas');
+			this.burnedAreasPerPropertyChartDatas = this.synthesisService.getPerPropertyChart(this.burnedAreaHistory, area, 'Áreas Queimadas');
+		});
 		this.synthesisService.getNDVI(this.carRegister, date).then(data => {
 			this.chartImages = data;
 			this.isLoading = false;

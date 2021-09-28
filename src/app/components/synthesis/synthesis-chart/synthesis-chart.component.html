@@ -10,8 +10,7 @@
 
 <ng-template #charts>
     <div class="grid">
-        <div *ngFor="let chartData of chartDatas; trackBy: trackById"
-             class="col-4 md:col-4">
+        <div *ngFor="let chartData of chartDatas; trackBy: trackById" class="col-4 md:col-4">
             <app-report-chart-card [data]="chartData" [options]="options" [type]="type"></app-report-chart-card>
         </div>
     </div>

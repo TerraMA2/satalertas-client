@@ -27,12 +27,103 @@ export class SynthesisService {
 	) {
 	}
 
-	async getSynthesis(carRegister, date) {
-		const url = `${ this.URL_REPORT_SERVER }`;
+	async getPropertyData(carGId) {
+		const url = `${ this.URL_REPORT_SERVER }/getPropertyData`;
 		const params = {
 			params: {
-				carRegister,
+				carGId
+			}
+		};
+		return lastValueFrom(await this.httpService.get<Response>(url, params));
+	}
+
+	async getVisions(carGId, date) {
+		const url = `${ this.URL_REPORT_SERVER }/getVisions`;
+		const params = {
+			params: {
+				carGId,
 				date
+			}
+		};
+		return lastValueFrom(await this.httpService.get<Response>(url, params));
+	}
+
+	async getLegends(carGId) {
+		const url = `${ this.URL_REPORT_SERVER }/getLegends`;
+		const params = {
+			params: {
+				carGId
+			}
+		};
+		return lastValueFrom(await this.httpService.get<Response>(url, params));
+	}
+
+	async getDetailedVisions(carGId, date) {
+		const url = `${ this.URL_REPORT_SERVER }/getDetailedVisions`;
+		const params = {
+			params: {
+				carGId,
+				date
+			}
+		};
+		return lastValueFrom(await this.httpService.get<Response>(url, params));
+	}
+
+	async getDeforestation(carGId) {
+		const url = `${ this.URL_REPORT_SERVER }/getDeforestation`;
+		const params = {
+			params: {
+				carGId
+			}
+		};
+		return lastValueFrom(await this.httpService.get<Response>(url, params));
+	}
+
+	async getDeterHistory(carGId) {
+		const url = `${ this.URL_REPORT_SERVER }/getDeterHistory`;
+		const params = {
+			params: {
+				carGId
+			}
+		};
+		return lastValueFrom(await this.httpService.get<Response>(url, params));
+	}
+
+	async getProdesHistory(carGId) {
+		const url = `${ this.URL_REPORT_SERVER }/getProdesHistory`;
+		const params = {
+			params: {
+				carGId
+			}
+		};
+		return lastValueFrom(await this.httpService.get<Response>(url, params));
+	}
+
+	async getFireSpotHistory(carGId) {
+		const url = `${ this.URL_REPORT_SERVER }/getFireSpotHistory`;
+		const params = {
+			params: {
+				carGId
+			}
+		};
+		return lastValueFrom(await this.httpService.get<Response>(url, params));
+	}
+
+	async getBurnedAreaHistory(carGId) {
+		const url = `${ this.URL_REPORT_SERVER }/getBurnedAreaHistory`;
+		const params = {
+			params: {
+				carGId
+			}
+		};
+		return lastValueFrom(await this.httpService.get<Response>(url, params));
+	}
+
+	async getCharts(carGId) {
+		const url = `${ this.URL_REPORT_SERVER }/getCharts`;
+		const params = {
+			params: {
+				carGId
 			}
 		};
 		return lastValueFrom(await this.httpService.get<Response>(url, params));
@@ -50,7 +141,7 @@ export class SynthesisService {
 					chartData,
 					chartOptions
 				};
-			})
+			});
 		});
 	}
 
