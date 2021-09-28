@@ -107,29 +107,28 @@ export class SynthesisComponent implements OnInit {
 		this.synthesisService.getDeterHistory(this.carRegister).then((response: Response) => {
 			this.titleDeter = response.data.title;
 			this.deterHistory = response.data.deterHistory;
-			this.historyDeterChartData = this.synthesisService.getChart(this.deterHistory, 'DETER');
+			this.historyDeterChartData = response.data.historyDeterChartData;
 		});
 		this.synthesisService.getProdesHistory(this.carRegister).then((response: Response) => {
 			this.titleProdes = response.data.title;
 			this.prodesHistory = response.data.prodesHistory;
-			this.historyProdesChartData = this.synthesisService.getChart(this.prodesHistory, 'PRODES');
+			this.historyProdesChartData = response.data.historyProdesChartData;
 		});
 		this.synthesisService.getFireSpotHistory(this.carRegister).then((response: Response) => {
 			this.titleFireSpot = response.data.title;
 			this.fireSpotHistory = response.data.fireSpotHistory;
-			this.burningFireSpotChartData = this.synthesisService.getChart(this.fireSpotHistory, 'Focos');
+			this.burningFireSpotChartData = response.data.burningFireSpotChartData;
 		});
 		this.synthesisService.getBurnedAreaHistory(this.carRegister).then((response: Response) => {
 			this.titleBurnedArea = response.data.title;
 			this.burnedAreaHistory = response.data.burnedAreaHistory;
-			const area = response.data.area;
-			this.burnedAreasChartData = this.synthesisService.getChart(this.burnedAreaHistory, 'Áreas Queimadas');
-			this.burnedAreasPerPropertyChartDatas = this.synthesisService.getPerPropertyChart(this.burnedAreaHistory, area, 'Áreas Queimadas');
+			this.burnedAreasChartData = response.data.burnedAreasChartData;
+			this.burnedAreasPerPropertyChartDatas = response.data.burnedAreasPerPropertyChartDatas;
 		});
 		this.synthesisService.getNDVI(this.carRegister, date).then(data => {
 			this.chartImages = data;
 			this.isLoading = false;
-		}).catch(error => this.isLoading = false);
+		}).catch(() => this.isLoading = false);
 	}
 
 	onViewReportClicked(reportType) {
