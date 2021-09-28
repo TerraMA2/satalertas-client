@@ -10,8 +10,6 @@ import { Response } from 'src/app/models/response.model';
 
 import pdfMake from 'pdfmake/build/pdfmake';
 
-import { Chart } from 'chart.js';
-
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 
 import { ExportService } from '../../../services/export.service';
@@ -522,7 +520,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
 	onViewReportClicked(reportType) {
 		const carRegister = this.carRegister;
 		if (reportType) {
-			// this.router.navigateByUrl(`/reports/${ reportType }/${ carRegister }`);
 			this.docBase64 = null;
 			this.inputSat = '';
 			this.textAreaComments = '';
