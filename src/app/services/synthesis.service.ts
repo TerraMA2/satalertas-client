@@ -144,42 +144,4 @@ export class SynthesisService {
 			});
 		});
 	}
-
-	getChart(chartData, legends) {
-		const years = [];
-		const values = [];
-		if (chartData) {
-			chartData.forEach(data => {
-				const value = parseFloat(data.value);
-				const year = data.year;
-				years.push(year);
-				values.push(value);
-			});
-		}
-		return this.getChartJson(legends, years, values);
-	}
-
-	getPerPropertyChart(chartData, propertyArea, label) {
-		if (chartData) {
-			const chartDataPerProperty = chartData.map(data => [propertyArea, parseFloat(data.value)]);
-			return chartDataPerProperty.map(data => this.getChartJson(null, ['Área imóvel', label], data));
-		}
-	}
-
-	private getChartJson(legends: string | string[], labels: string | string[], data) {
-		if (!Array.isArray(labels)) {
-			labels = [labels];
-		}
-		const backgroundColors = labels.map(label => '#' + Math.floor(Math.random() * 16777215).toString(16));
-		return {
-			labels,
-			datasets: [
-				{
-					label: legends,
-					backgroundColor: backgroundColors,
-					data
-				}
-			]
-		};
-	}
 }

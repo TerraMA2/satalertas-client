@@ -400,7 +400,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 		if (this.reportData['type'] === 'prodes') {
 			this.reportData.images['geoserverImage3'] = this.getImageObject(this.reportData.urlGsImage2, [200, 200], [0, 10], 'center');
 			this.reportData['deforestationHistoryContext'] = await this.getContextDeforestationHistory(this.reportData.property['deforestationHistory'], this.reportData.urlGsDeforestationHistory, this.reportData.urlGsDeforestationHistory1);
-			this.reportData.images['geoserverLegend'] = this.getImageObject(this.reportData.urlGsLegend, [200, 200], [0, 10], 'center');
+			this.reportData.images['geoserverLegend'] = this.getImageObject(this.reportData.urlGsLegend.url, [200, 200], [0, 10], 'center');
 		}
 
 		if (this.reportData['type'] === 'deter') {
@@ -526,6 +526,8 @@ export class ReportComponent implements OnInit, AfterViewInit {
 		if (reportType) {
 			this.router.navigateByUrl(`/reports/${ reportType }/${ register }`);
 			this.docBase64 = null;
+			this.inputSat = '';
+			this.textAreaComments = '';
 			this.reportService.changeReportType.next();
 		} else {
 			this.router.navigateByUrl(`/synthesis/${ register }`);
