@@ -113,6 +113,7 @@ export class SynthesisComponent implements OnInit {
 			this.titleProdes = response.data.title;
 			this.prodesHistory = response.data.prodesHistory;
 			this.historyProdesChartData = response.data.historyProdesChartData;
+			this.isLoading = false;
 		});
 		this.synthesisService.getFireSpotHistory(this.carRegister).then((response: Response) => {
 			this.titleFireSpot = response.data.title;
@@ -125,10 +126,7 @@ export class SynthesisComponent implements OnInit {
 			this.burnedAreasChartData = response.data.burnedAreasChartData;
 			this.burnedAreasPerPropertyChartDatas = response.data.burnedAreasPerPropertyChartDatas;
 		});
-		this.synthesisService.getNDVI(this.carRegister, date).then(data => {
-			this.chartImages = data;
-			this.isLoading = false;
-		}).catch(() => this.isLoading = false);
+		this.synthesisService.getNDVI(this.carRegister, date).then(data => this.chartImages = data);
 	}
 
 	onViewReportClicked(reportType) {

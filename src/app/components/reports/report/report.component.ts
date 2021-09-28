@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Inject, LOCALE_ID, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Inject, LOCALE_ID, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -36,17 +36,12 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 	providers: [ConfirmationService]
 })
 
-export class ReportComponent implements OnInit, AfterViewInit {
+export class ReportComponent implements OnInit {
 	reportData;
 	carRegister: string;
-	chartImages = [];
-	dateFilter: string;
 	formattedFilterDate: string;
 	currentYear: number;
 	currentDate: string;
-	filter;
-	date;
-	points: any[] = [];
 	type: string;
 	docDefinition: any;
 	docBase64;
@@ -145,9 +140,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
 	}
 
 	async ngOnInit() {
-		this.inputSat = '';
-		this.textAreaComments = '';
-
 		this.activatedRoute.data.subscribe(data => this.loggedUser = data['user']);
 
 		this.activatedRoute.params.subscribe(params => {
@@ -156,15 +148,13 @@ export class ReportComponent implements OnInit, AfterViewInit {
 		});
 
 		this.reportService.changeReportType.subscribe((params) => {
-			this.carRegister = params['carRegister'];
-			this.type = params['type'];
-			this.ngAfterViewInit();
+			const type = params['type'];
+			const carRegister = params['carRegister'];
+			this.carRegister = carRegister;
+			this.type = type;
+			this.navigationService.changeUrl(`/reports/${type}/${carRegister}`)
+			this.getReportData();
 		});
-	}
-
-	async ngAfterViewInit() {
-		this.filter = localStorage.getItem('filterState');
-		this.date = JSON.parse(localStorage.getItem('dateFilter'));
 		await this.getReportData();
 	}
 
@@ -362,18 +352,22 @@ export class ReportComponent implements OnInit, AfterViewInit {
 	}
 
 	async getReportData() {
-		this.dateFilter = `${ this.date[0] }/${ this.date[1] }`;
-		const startDate = new Date(this.date[0]).toLocaleDateString('pt-BR');
-		const endDate = new Date(this.date[1]).toLocaleDateString('pt-BR');
+		this.inputSat = '';
+		this.textAreaComments = '';
+		this.docBase64 = null;
+		const filter = localStorage.getItem('filterState');
+		const date = JSON.parse(localStorage.getItem('dateFilter'));
+		const startDate = new Date(date[0]).toLocaleDateString('pt-BR');
+		const endDate = new Date(date[1]).toLocaleDateString('pt-BR');
 
 		this.currentYear = new Date().getFullYear();
 
 		const today = new Date();
 
-		this.reportData = await this.reportService.getReportCarData(this.carRegister, this.date, this.filter, this.type).then((response: Response) => response.data);
+		this.reportData = await this.reportService.getReportCarData(this.carRegister, date, filter, this.type).then((response: Response) => response.data);
 		await this.formatValueLocate[this.type](this.reportData);
 		this.reportData['type'] = this.type;
-		this.reportData['date'] = this.date;
+		this.reportData['date'] = date;
 		this.reportData['carRegister'] = this.carRegister;
 		this.reportData['formattedFilterDate'] = `${ startDate } a ${ endDate }`;
 		this.reportData['currentYear'] = new Date().getFullYear();
@@ -403,7 +397,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 			this.reportData['deforestationAlertsContext'] = await this.getContextDeflorestationAlerts(this.reportData.property.deforestationAlerts);
 		}
 
-		this.reportData['chartImages'] = this.chartImages;
+		this.reportData['chartImages'] = [];
 		this.reportData['type'] = this.reportData['type'];
 
 		this.docDefinition = await this.reportService.createPdf(this.reportData).then(async (response: Response) => {
@@ -520,9 +514,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
 	onViewReportClicked(reportType) {
 		const carRegister = this.carRegister;
 		if (reportType) {
-			this.docBase64 = null;
-			this.inputSat = '';
-			this.textAreaComments = '';
 			this.reportService.changeReportType.next({
 				type: reportType,
 				carRegister
