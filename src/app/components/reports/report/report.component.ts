@@ -40,81 +40,6 @@ export class ReportComponent implements OnInit {
 	textAreaComments: string;
 	loggedUser: User = null;
 	downloadVectors = false;
-	formatValueLocate = {
-		async prodes(reportData) {
-			const property = reportData.property;
-			if (!property) {
-				return;
-			}
-			property.area = formatNumber(reportData.property.area, 'pt-BR', '1.0-4');
-			property.area_km = formatNumber(reportData.property.area_km, 'pt-BR', '1.0-4');
-			property.areaPastDeforestation = formatNumber(reportData.property.areaPastDeforestation, 'pt-BR', '1.0-4');
-			property.lat = formatNumber(reportData.property.lat, 'pt-BR', '1.0-4');
-			property.long = formatNumber(reportData.property.long, 'pt-BR', '1.0-4');
-
-			property.prodesTotalArea = formatNumber(reportData.property.prodesTotalArea, 'pt-BR', '1.0-4');
-			property.areaUsoCon = formatNumber(reportData.property.areaUsoCon, 'pt-BR', '1.0-4');
-			property.prodesArea = formatNumber(reportData.property.prodesArea, 'pt-BR', '1.0-4');
-
-			if (!property.tableVegRadam) {
-				return;
-			}
-			if (property.tableVegRadam.pastDeforestation) {
-				const listPastDeforestation = property.tableVegRadam.pastDeforestation.split('\n');
-				let pastDeforestationStr = '';
-				for (const data of listPastDeforestation) {
-					const pastDeforestation = data.substring(0, data.indexOf(':'));
-					const valuePastDeforestation = formatNumber(data.substring(data.indexOf(':') + 1, data.length), 'pt-BR', '1.0-4');
-
-					pastDeforestationStr = pastDeforestationStr ? `${ pastDeforestationStr }\n${ pastDeforestation }: ${ valuePastDeforestation }` : `${ pastDeforestation }: ${ valuePastDeforestation }`;
-				}
-				property.tableVegRadam.pastDeforestation = pastDeforestationStr;
-			} else {
-				property.tableVegRadam.pastDeforestation = '0';
-			}
-
-			for (const data of reportData.prodesTableData) {
-				data.area = formatNumber(data.area, 'pt-BR', '1.0-4');
-			}
-			for (const data of property.vegRadam) {
-				data.area_ha_ = formatNumber(data.area_ha_, 'pt-BR', '1.0-4');
-				data.area_ha_car_vegradam = formatNumber(data.area_ha_car_vegradam, 'pt-BR', '1.0-4');
-			}
-			if (property.prodesRadam) {
-				for (const data of property.prodesRadam) {
-					data.area = formatNumber(data.area, 'pt-BR', '1.0-4');
-				}
-			}
-			for (const data of property.deforestationHistory) {
-				data.area = formatNumber(data.area, 'pt-BR', '1.0-4');
-			}
-			for (const data of property.tableData) {
-				data.pastDeforestation = formatNumber(data.pastDeforestation, 'pt-BR', '1.0-4');
-			}
-			for (const data of property.analyzesYear) {
-				data.area = formatNumber(data.area, 'pt-BR', '1.0-4');
-			}
-		},
-		async deter(reportData) {
-			const property = reportData.property;
-			if (!property) {
-				return;
-			}
-			property.area = formatNumber(property.area, 'pt-BR', '1.0-4');
-			property.area_km = formatNumber(property.area_km, 'pt-BR', '1.0-4');
-			property.areaPastDeforestation = formatNumber(property.areaPastDeforestation ? property.areaPastDeforestation : 0, 'pt-BR', '1.0-4');
-			property.lat = formatNumber(property.lat, 'pt-BR', '1.0-4');
-			property.long = formatNumber(property.long, 'pt-BR', '1.0-4');
-
-			if (property.tableData) {
-				for (const data of property.tableData) {
-					data.pastDeforestation = formatNumber(data.pastDeforestation, 'pt-BR', '1.0-4');
-				}
-			}
-		},
-		async queimada(reportData) {
-		}
-	};
 
 	constructor(
 		private activatedRoute: ActivatedRoute,
@@ -348,7 +273,6 @@ export class ReportComponent implements OnInit {
 		const filter = localStorage.getItem('filterState');
 		const date = JSON.parse(localStorage.getItem('dateFilter'));
 		this.reportData = await this.reportService.getReportCarData(this.carRegister, date, filter, this.type).then((response: Response) => response.data);
-		await this.formatValueLocate[this.type](this.reportData);
 		if (this.reportData['type'] === 'prodes') {
 			this.reportData['deforestationHistoryContext'] = await this.getContextDeforestationHistory(this.reportData.property['deforestationHistory'], this.reportData.urlGsDeforestationHistory, this.reportData.urlGsDeforestationHistory1);
 		}
