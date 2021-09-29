@@ -104,7 +104,7 @@ export class ReportComponent implements OnInit {
 				});
 
 				subTitleArea.push({
-					text: `${ formatNumber(deforestationAlerts[i].area, 'pt-BR', '1.0-4') }`,
+					text: `${ formatNumber(deforestationAlerts[i].area, 'pt-BR', '1.0-4') } ha`,
 					fontSize: 8,
 					style: 'body',
 					alignment: 'center'
@@ -210,7 +210,7 @@ export class ReportComponent implements OnInit {
 						},
 						this.getImageObject(await this.getBaseImageUrl(url), [117, 117], [5, 0], 'center'),
 						{
-							text: `${ deforestationHistory[i].area }`,
+							text: `${ deforestationHistory[i].area } ha`,
 							style: 'body',
 							alignment: 'center'
 						}
