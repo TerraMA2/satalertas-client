@@ -39,9 +39,6 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 export class ReportComponent implements OnInit {
 	reportData;
 	carRegister: string;
-	formattedFilterDate: string;
-	currentYear: number;
-	currentDate: string;
 	type: string;
 	docDefinition: any;
 	docBase64;
@@ -49,6 +46,7 @@ export class ReportComponent implements OnInit {
 	inputSat: string;
 	textAreaComments: string;
 	loggedUser: User = null;
+	downloadVectors = false;
 	formatValueLocate = {
 		async prodes(reportData) {
 			const property = reportData.property;
@@ -124,7 +122,6 @@ export class ReportComponent implements OnInit {
 		async queimada(reportData) {
 		}
 	};
-	downloadVectors = false;
 
 	constructor(
 		private activatedRoute: ActivatedRoute,
@@ -357,19 +354,8 @@ export class ReportComponent implements OnInit {
 		this.docBase64 = null;
 		const filter = localStorage.getItem('filterState');
 		const date = JSON.parse(localStorage.getItem('dateFilter'));
-		const startDate = new Date(date[0]).toLocaleDateString('pt-BR');
-		const endDate = new Date(date[1]).toLocaleDateString('pt-BR');
-
-		this.currentYear = new Date().getFullYear();
-
-		const today = new Date();
-
 		this.reportData = await this.reportService.getReportCarData(this.carRegister, date, filter, this.type).then((response: Response) => response.data);
 		await this.formatValueLocate[this.type](this.reportData);
-		this.reportData['formattedFilterDate'] = `${ startDate } a ${ endDate }`;
-		this.reportData['currentYear'] = new Date().getFullYear();
-		this.reportData['currentDate'] = `${ this.setFormatDay(today.getDate()) }/${ this.setFormatMonth(today.getMonth()) }/${ today.getFullYear() }`;
-
 		if (this.reportData['type'] === 'prodes') {
 			this.reportData['deforestationHistoryContext'] = await this.getContextDeforestationHistory(this.reportData.property['deforestationHistory'], this.reportData.urlGsDeforestationHistory, this.reportData.urlGsDeforestationHistory1);
 		}
@@ -379,9 +365,8 @@ export class ReportComponent implements OnInit {
 		}
 
 		this.docDefinition = await this.reportService.createPdf(this.reportData).then(async (response: Response) => {
-			const data = response.data;
-			const docDefinitions = data.docDefinitions;
-			if (data) {
+			const docDefinitions = response.data;
+			if (docDefinitions) {
 				docDefinitions.footer = (pagenumber, pageCount) => {
 					return {
 						table: {
@@ -396,29 +381,16 @@ export class ReportComponent implements OnInit {
 							]
 						},
 						layout: 'noBorders'
-					};
-				};
-				docDefinitions.header = (currentPage, pageCount, pageSize) => {
-					return {
-						columns: data.headerDocument
-					};
+					}
 				};
 				this.getPdfBase64(docDefinitions);
 			}
 		});
 	}
 
-	setFormatMonth(date) {
-		return ('0' + (date + 1)).slice(-2);
-	}
-
-	setFormatDay(date) {
-		return ('0' + (date)).slice(-2);
-	}
-
 	getPdfBase64(docDefinition) {
 		const pdfDocGenerator = pdfMake.createPdf(docDefinition);
-		pdfDocGenerator.getBase64((data) => this.docBase64 = data);
+		pdfDocGenerator.getBase64(data => this.docBase64 = data);
 	}
 
 	async getBase64ImageFromUrl(imageUrl) {
