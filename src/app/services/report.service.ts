@@ -7,6 +7,8 @@ import { HTTPService } from './http.service';
 import { environment } from '../../environments/environment';
 
 import { Response } from '../models/response.model';
+import { Util } from '../utils/util';
+import { ExportService } from './export.service';
 
 @Injectable({
 	providedIn: 'root'
@@ -17,7 +19,8 @@ export class ReportService {
 	changeReportType = new Subject<object>();
 
 	constructor(
-		private httpService: HTTPService
+		private httpService: HTTPService,
+		private exportService: ExportService
 	) {
 	}
 
@@ -59,6 +62,19 @@ export class ReportService {
 			}
 		};
 		return lastValueFrom(await this.httpService.post<Response>(url, params));
+	}
+
+	downloadPdf(reportData, document, reportName, linkTag, downloadVectors) {
+		const downloadURL = window.URL.createObjectURL(Util.base64toBlob(document, 'application/pdf'));
+
+		linkTag.setAttribute('download', reportName);
+		linkTag.setAttribute('href', downloadURL);
+		linkTag.click();
+		if (downloadVectors) {
+			const { vectorViews } = reportData;
+			const fileName = reportName.split('.')[0];
+			this.exportService.getVectors(vectorViews, fileName);
+		}
 	}
 
 

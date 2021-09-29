@@ -8,10 +8,6 @@ import { ReportService } from '../../../services/report.service';
 
 import { Response } from 'src/app/models/response.model';
 
-import pdfMake from 'pdfmake/build/pdfmake';
-
-import pdfFonts from 'pdfmake/build/vfs_fonts';
-
 import { ExportService } from '../../../services/export.service';
 
 import { AuthService } from 'src/app/services/auth.service';
@@ -26,8 +22,6 @@ import { User } from '../../../models/user.model';
 
 import { NavigationService } from '../../../services/navigation.service';
 
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
-
 @Component({
 	selector: 'app-report',
 	templateUrl: './report.component.html',
@@ -40,7 +34,6 @@ export class ReportComponent implements OnInit {
 	reportData;
 	carRegister: string;
 	type: string;
-	docDefinition: any;
 	docBase64;
 	generatingReport = false;
 	inputSat: string;
@@ -359,38 +352,10 @@ export class ReportComponent implements OnInit {
 		if (this.reportData['type'] === 'prodes') {
 			this.reportData['deforestationHistoryContext'] = await this.getContextDeforestationHistory(this.reportData.property['deforestationHistory'], this.reportData.urlGsDeforestationHistory, this.reportData.urlGsDeforestationHistory1);
 		}
-
 		if (this.reportData['type'] === 'deter') {
 			this.reportData['deforestationAlertsContext'] = await this.getContextDeflorestationAlerts(this.reportData.property.deforestationAlerts);
 		}
-
-		this.docDefinition = await this.reportService.createPdf(this.reportData).then(async (response: Response) => {
-			const docDefinitions = response.data;
-			if (docDefinitions) {
-				docDefinitions.footer = (pagenumber, pageCount) => {
-					return {
-						table: {
-							body: [
-								[
-									{
-										text: 'Página ' + pagenumber + ' de ' + pageCount,
-										fontSize: 8,
-										margin: [483, 0, 30, 0]
-									}
-								],
-							]
-						},
-						layout: 'noBorders'
-					}
-				};
-				this.getPdfBase64(docDefinitions);
-			}
-		});
-	}
-
-	getPdfBase64(docDefinition) {
-		const pdfDocGenerator = pdfMake.createPdf(docDefinition);
-		pdfDocGenerator.getBase64(data => this.docBase64 = data);
+		this.docBase64 = await this.reportService.createPdf(this.reportData).then((response: Response) => response.data);
 	}
 
 	async getBase64ImageFromUrl(imageUrl) {
@@ -409,6 +374,7 @@ export class ReportComponent implements OnInit {
 	}
 
 	async generatePdf(action = 'open') {
+		const linkTag = document.createElement('a');
 		this.confirmationService.confirm({
 			message: 'Deseja gerar o relatório em PDF?',
 			header: 'Confirmação',
@@ -420,39 +386,13 @@ export class ReportComponent implements OnInit {
 				this.reportData.property['sat'] = this.inputSat;
 				this.reportData.property['comments'] = this.textAreaComments;
 				this.reportService.generatePdf(this.reportData).then((response: Response) => {
-						const reportResp = response.data;
-						const document = reportResp.document;
-						const docDefinitions = document.docDefinitions;
-						docDefinitions.footer = (pagenumber, pageCount) => {
-							return {
-								table: {
-									body: [
-										[
-											{
-												text: 'Página ' + pagenumber + ' de ' + pageCount,
-												fontSize: 8,
-												margin: [483, 0, 30, 0]
-											}
-										],
-									]
-								},
-								layout: 'noBorders'
-							};
-						};
-						docDefinitions.header = (currentPage, pageCount, pageSize) => {
-							return {
-								columns: document.headerDocument
-							};
-						};
+					const report = response.data;
+					const document = report.document;
+					const reportName = report.name;
 
-						pdfMake.createPdf(docDefinitions).download(reportResp.name);
-						if (this.downloadVectors) {
-							const { vectorViews } = this.reportData;
-							const fileName = reportResp.name.split('.')[0];
+					this.reportService.downloadPdf(this.reportData, document, reportName, linkTag, this.downloadVectors);
 
-							this.exportService.getVectors(vectorViews, fileName);
-						}
-						this.generatingReport = false;
+					this.generatingReport = false;
 				});
 			},
 			reject: () => {
