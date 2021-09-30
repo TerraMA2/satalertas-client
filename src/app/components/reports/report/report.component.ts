@@ -285,7 +285,7 @@ export class ReportComponent implements OnInit {
 						},
 						this.getImageObject(await this.getBaseImageUrl(url), [117, 117], [5, 0], 'center'),
 						{
-							text: `${ deforestationHistory[i].area } ha`,
+							text: `${ deforestationHistory[i].area }`,
 							style: 'body',
 							alignment: 'center'
 						}
@@ -352,9 +352,9 @@ export class ReportComponent implements OnInit {
 		if (this.reportData['type'] === 'prodes') {
 			this.reportData['deforestationHistoryContext'] = await this.getContextDeforestationHistory(this.reportData.property['deforestationHistory'], this.reportData.urlGsDeforestationHistory, this.reportData.urlGsDeforestationHistory1);
 		}
-		if (this.reportData['type'] === 'deter') {
-			this.reportData['deforestationAlertsContext'] = await this.getContextDeflorestationAlerts(this.reportData.property.deforestationAlerts);
-		}
+		// if (this.reportData['type'] === 'deter') {
+		// 	this.reportData['deforestationAlertsContext'] = await this.getContextDeflorestationAlerts(this.reportData.property.deforestationAlerts);
+		// }
 		this.docBase64 = await this.reportService.createPdf(this.reportData).then((response: Response) => response.data);
 	}
 
