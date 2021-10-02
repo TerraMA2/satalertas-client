@@ -7,7 +7,9 @@ import { HTTPService } from './http.service';
 import { environment } from '../../environments/environment';
 
 import { Response } from '../models/response.model';
+
 import { Util } from '../utils/util';
+
 import { ExportService } from './export.service';
 
 @Injectable({
@@ -24,12 +26,20 @@ export class ReportService {
 	) {
 	}
 
-	async getReportCarData(carRegister, date, filter, type) {
-		const url = `${ this.URL_REPORT_SERVER }/getReportCarData`;
+	get(param) {
+		const url = this.URL_REPORT_SERVER;
+		const params = {
+			params: param
+		};
+		return lastValueFrom(this.httpService.get<Response>(url, params));
+	}
+
+	async getReportData(carGid, date, filter, type) {
+		const url = `${ this.URL_REPORT_SERVER }/getReport`;
 
 		const params = {
 			params: {
-				carRegister,
+				carGid,
 				date,
 				filter,
 				type
@@ -37,31 +47,6 @@ export class ReportService {
 		};
 
 		return lastValueFrom(await this.httpService.get<Response>(url, params));
-	}
-
-	async getPointsAlerts(carRegister, date, filter, type) {
-		const url = `${ this.URL_REPORT_SERVER }/getPointsAlerts`;
-
-		const params = {
-			params: {
-				carRegister,
-				date,
-				filter,
-				type
-			}
-		};
-
-		return lastValueFrom(await this.httpService.get<Response>(url, params));
-	}
-
-	async createPdf(reportData) {
-		const url = this.URL_REPORT_SERVER + '/createPdf';
-		const params = {
-			params: {
-				reportData
-			}
-		};
-		return lastValueFrom(await this.httpService.post<Response>(url, params));
 	}
 
 	downloadPdf(reportData, document, reportName, linkTag, downloadVectors) {
@@ -77,7 +62,6 @@ export class ReportService {
 		}
 	}
 
-
 	async generatePdf(reportData) {
 		const url = this.URL_REPORT_SERVER + '/generatePdf';
 		const params = {
@@ -85,32 +69,37 @@ export class ReportService {
 				reportData
 			}
 		};
-
 		return lastValueFrom(await this.httpService.post<Response>(url, params));
-	}
-
-	getReportsByCARCod(carGid) {
-		const url = this.URL_REPORT_SERVER + '/getReportsByCARCod';
-		const params = {
-			params: {
-				carGid
-			}
-		};
-
-		return lastValueFrom(this.httpService.get<Response>(url, params));
-	}
-
-	getReportById(id) {
-		const url = this.URL_REPORT_SERVER;
-		const params = {
-			params: {
-				id
-			}
-		};
-		return lastValueFrom(this.httpService.get<Response>(url, params));
 	}
 
 	getReportTableData(url, params) {
 		return lastValueFrom(this.httpService.get<Response>(environment.serverUrl + url, params));
+	}
+
+	async getNDVI(carGid, date) {
+		const url = this.URL_REPORT_SERVER + '/getNDVI';
+
+		const params = {
+			params: {
+				carGid,
+				date,
+				filter: null,
+				type: 'prodes'
+			}
+		};
+
+		return lastValueFrom(await this.httpService.get<Response>(url, params)).then((response: Response) => {
+			const alerts = response.data;
+			return alerts.map(alert => {
+				const {geoserverImage, options} = alert;
+				const chartOptions = options['options'];
+				const chartData = options['data'];
+				return {
+					geoserverImage: geoserverImage.image,
+					chartData,
+					chartOptions
+				};
+			});
+		});
 	}
 }
