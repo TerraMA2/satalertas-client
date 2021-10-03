@@ -80,7 +80,7 @@ export class ReportComponent implements OnInit {
 		this.reportData = JSON.parse(reportData);
 	}
 
-	async generatePdf(action = 'open') {
+	async generateReport() {
 		const linkTag = document.createElement('a');
 		this.confirmationService.confirm({
 			message: 'Deseja gerar o relatório em PDF?',
@@ -92,12 +92,11 @@ export class ReportComponent implements OnInit {
 				this.generatingReport = true;
 				this.reportData['sat'] = this.inputSat;
 				this.reportData['comments'] = this.textAreaComments;
-				this.reportService.generatePdf(this.reportData).then((response: Response) => {
+				this.reportService.generateReport(this.reportData).then((response: Response) => {
 					const report = response.data;
-					const document = report.document;
-					const reportName = report.name;
+					const { reportName, reportBase64 } = report;
 
-					this.reportService.downloadPdf(this.reportData, document, reportName, linkTag, this.downloadVectors);
+					this.reportService.downloadPdf(this.reportData, reportBase64, reportName, linkTag, this.downloadVectors);
 
 					this.generatingReport = false;
 				});

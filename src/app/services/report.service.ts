@@ -62,8 +62,8 @@ export class ReportService {
 		}
 	}
 
-	async generatePdf(reportData) {
-		const url = this.URL_REPORT_SERVER + '/generatePdf';
+	async generateReport(reportData) {
+		const url = this.URL_REPORT_SERVER + '/generateReport';
 		const params = {
 			params: {
 				reportData
