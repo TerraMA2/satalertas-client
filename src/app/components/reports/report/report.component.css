@@ -20,6 +20,11 @@
     display: flex;
 }
 
+.disable-button {
+    cursor: default;
+    pointer-events: none;
+}
+
 .vector-button {
     display: flex;
     align-items: center;

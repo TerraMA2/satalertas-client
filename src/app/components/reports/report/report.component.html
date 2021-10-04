@@ -46,6 +46,9 @@
             <p-button (click)="generateReport()"
                       pRipple
                       [disabled]="!docBase64 || generatingReport"
+                      [ngClass]="{
+                        'disable-button': !docBase64 || generatingReport
+                      }"
                       icon="fas fa-download p-button-raised"
                       label="{{'Generate Report' | translate}}">
             </p-button>
