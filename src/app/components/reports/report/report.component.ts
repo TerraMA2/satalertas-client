@@ -14,10 +14,6 @@ import { AuthService } from 'src/app/services/auth.service';
 
 import { ConfirmationService } from 'primeng/api';
 
-import { ReportImage } from '../../../models/report-image.model';
-
-import { formatNumber } from '@angular/common';
-
 import { User } from '../../../models/user.model';
 
 import { NavigationService } from '../../../services/navigation.service';
@@ -32,7 +28,7 @@ import { NavigationService } from '../../../services/navigation.service';
 
 export class ReportComponent implements OnInit {
 	reportData;
-	carRegister: string;
+	carGid: string;
 	type: string;
 	docBase64;
 	generatingReport = false;
@@ -58,16 +54,16 @@ export class ReportComponent implements OnInit {
 		this.activatedRoute.data.subscribe(data => this.loggedUser = data['user']);
 
 		this.activatedRoute.params.subscribe(params => {
-			this.carRegister = params.carRegister;
+			this.carGid = params.carGid;
 			this.type = params.type;
 		});
 
 		this.reportService.changeReportType.subscribe((params) => {
 			const type = params['type'];
-			const carRegister = params['carRegister'];
-			this.carRegister = carRegister;
+			const carGid = params['carGid'];
+			this.carGid = carGid;
 			this.type = type;
-			this.navigationService.changeUrl(`/reports/${type}/${carRegister}`)
+			this.navigationService.changeUrl(`/reports/${type}/${carGid}`)
 			this.getReportData();
 		});
 		await this.getReportData();
@@ -79,27 +75,12 @@ export class ReportComponent implements OnInit {
 		this.docBase64 = null;
 		const filter = localStorage.getItem('filterState');
 		const date = JSON.parse(localStorage.getItem('dateFilter'));
-		this.reportData = await this.reportService.getReportCarData(this.carRegister, date, filter, this.type).then((response: Response) => response.data);
-
-		this.docBase64 = await this.reportService.createPdf(this.reportData).then((response: Response) => response.data);
+		const { reportBase64, reportData } = await this.reportService.getReportData(this.carGid, date, filter, this.type).then((response: Response) => response.data);
+		this.docBase64 = reportBase64;
+		this.reportData = JSON.parse(reportData);
 	}
 
-	async getBase64ImageFromUrl(imageUrl) {
-		const res = await fetch(imageUrl);
-		const blob = await res.blob();
-		return await new Promise((resolve, reject) => {
-			const reader = new FileReader();
-			reader.addEventListener('load', () => resolve(reader.result), false);
-			reader.onerror = () => reject(this);
-			reader.readAsDataURL(blob);
-		});
-	}
-
-	async getBaseImageUrl(url: string) {
-		return await this.getBase64ImageFromUrl(url).then(result => [result]).catch(err => console.error(err));
-	}
-
-	async generatePdf(action = 'open') {
+	async generateReport() {
 		const linkTag = document.createElement('a');
 		this.confirmationService.confirm({
 			message: 'Deseja gerar o relatório em PDF?',
@@ -109,14 +90,13 @@ export class ReportComponent implements OnInit {
 			rejectLabel: 'Não',
 			accept: () => {
 				this.generatingReport = true;
-				this.reportData.property['sat'] = this.inputSat;
-				this.reportData.property['comments'] = this.textAreaComments;
-				this.reportService.generatePdf(this.reportData).then((response: Response) => {
+				this.reportData['sat'] = this.inputSat;
+				this.reportData['comments'] = this.textAreaComments;
+				this.reportService.generateReport(this.reportData).then((response: Response) => {
 					const report = response.data;
-					const document = report.document;
-					const reportName = report.name;
+					const { reportName, reportBase64 } = report;
 
-					this.reportService.downloadPdf(this.reportData, document, reportName, linkTag, this.downloadVectors);
+					this.reportService.downloadPdf(this.reportData, reportBase64, reportName, linkTag, this.downloadVectors);
 
 					this.generatingReport = false;
 				});
@@ -128,34 +108,14 @@ export class ReportComponent implements OnInit {
 	}
 
 	onViewReportClicked(reportType) {
-		const carRegister = this.carRegister;
+		const carGid = this.carGid;
 		if (reportType) {
 			this.reportService.changeReportType.next({
 				type: reportType,
-				carRegister
+				carGid
 			});
 		} else {
-			this.router.navigateByUrl(`/synthesis/${ carRegister }`);
-		}
-	}
-
-	getImageObject(image, fit, margin, alignment) {
-		if (image && image[0] && !image[0].includes('data:application/vnd.ogc.se_xml') && !image[0].includes('data:text/xml;')) {
-			return new ReportImage(
-				image,
-				fit,
-				margin,
-				alignment
-			);
-		} else {
-			return {
-				text: 'Imagem não encontrada.',
-				alignment: 'center',
-				color: '#591111',
-				fontSize: 9,
-				italics: true,
-				margin: [30, 60, 30, 60]
-			};
+			this.router.navigateByUrl(`/synthesis/${ carGid }`);
 		}
 	}
 

@@ -129,19 +129,7 @@ export class SynthesisService {
 		return lastValueFrom(await this.httpService.get<Response>(url, params));
 	}
 
-	getNDVI(carRegister, date) {
-		return this.reportService.getPointsAlerts(carRegister, date, null, 'prodes').then((response: Response) => {
-			const alerts = response.data;
-			return alerts.map(alert => {
-				const chartOptions = alert['options']['options'];
-				const chartData = alert['options']['data'];
-				const url = alert['url'];
-				return {
-					geoserverImageNdvi: url,
-					chartData,
-					chartOptions
-				};
-			});
-		});
+	async getNDVI(carGid, date) {
+		return this.reportService.getNDVI(carGid, date);
 	}
 }

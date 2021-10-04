@@ -211,10 +211,8 @@ export class ReportListComponent implements OnInit {
 		params['sortOrder'] = sortOrder ? sortOrder : 1;
 
 		this.reportService.getReportTableData(url, { params: this.filterService.getParams(params) })
-			.then(({data}) => {
-				this.setData(data);
-			})
-			.catch(error => this.isLoading = false);
+			.then(({data}) => this.setData(data))
+			.catch(() => this.isLoading = false);
 	}
 
 	filterColumns(key) {
@@ -276,10 +274,9 @@ export class ReportListComponent implements OnInit {
 	}
 
 	onRowExpand(event) {
-		const gid = event.data.gid;
-		this.expandedRowKey = { [gid]: true };
-		this.reportService.getReportsByCARCod(gid).then((response: Response) => this.reports = response.data);
-		this.saveState();
+		const carGid = event.data.gid;
+		this.expandedRowKey = { [carGid]: true };
+		this.reportService.get({carGid}).then((response: Response) => this.reports = response.data);
 	}
 
 	onLazyLoad(event: LazyLoadEvent) {
@@ -384,11 +381,11 @@ export class ReportListComponent implements OnInit {
 
 	getReport(report) {
 		this.isLoading = true;
-		this.reportService.getReportById(report.id).then((response: Response) => {
+		this.reportService.get({reportId: report.id}).then((response: Response) => {
 			const reportResp = response.data;
 			window.open(window.URL.createObjectURL(Util.base64toBlob(reportResp.base64, 'application/pdf')));
 			this.isLoading = false;
-		}).catch(error => this.isLoading = false);
+		}).catch(() => this.isLoading = false);
 	}
 
 	onRowSelect() {

@@ -19,12 +19,12 @@ import { InfoColumnsComponent } from './settings/info-columns/info-columns.compo
 const routes: Routes = [
 	{ path: '', component: DashboardComponent },
 	{ path: 'map', component: MapComponent },
-	{ path: 'synthesis/:carRegister', component: SynthesisComponent },
+	{ path: 'synthesis/:carGid', component: SynthesisComponent },
 	{
 		path: 'reports', canActivateChild: [AuthGuard], resolve: {user: AuthGuard}, component: ReportsComponent,
 		children: [
 			{ path: '', component: ReportListComponent },
-			{ path: ':type/:carRegister', resolve: {user: AuthGuard}, component: ReportComponent },
+			{ path: ':type/:carGid', resolve: {user: AuthGuard}, component: ReportComponent },
 		]
 	},
 	{

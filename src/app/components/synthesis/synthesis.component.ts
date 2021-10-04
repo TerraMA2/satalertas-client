@@ -17,6 +17,7 @@ import { Response } from '../../models/response.model';
 import { NavigationService } from '../../services/navigation.service';
 
 import { SynthesisCard } from '../../models/synthesis-card.model';
+import { filter } from 'rxjs';
 
 @Component({
 	selector: 'app-report',
@@ -24,7 +25,7 @@ import { SynthesisCard } from '../../models/synthesis-card.model';
 	styleUrls: ['./synthesis.component.css']
 })
 export class SynthesisComponent implements OnInit {
-	carRegister: string;
+	carGid: string;
 	property: Property;
 
 	formattedFilterDate: string;
@@ -73,7 +74,7 @@ export class SynthesisComponent implements OnInit {
 				this.getPropertyData();
 			}
 		});
-		this.activatedRoute.params.subscribe(params => this.carRegister = params.carRegister);
+		this.activatedRoute.params.subscribe(params => this.carGid = params.carGid);
 		this.sidebarService.sidebarLayerShowHide.next(false);
 		this.sidebarService.sidebarReload.next('default');
 
@@ -87,53 +88,53 @@ export class SynthesisComponent implements OnInit {
 		const endDate = new Date(date[1]).toLocaleDateString('pt-BR');
 
 		this.formattedFilterDate = `${ startDate } - ${ endDate }`;
-		this.synthesisService.getPropertyData(this.carRegister).then((response: Response) => this.property = response.data);
-		this.synthesisService.getVisions(this.carRegister, date).then((response: Response) => this.visions = response.data);
-		this.synthesisService.getLegends(this.carRegister).then((response: Response) => this.legends = response.data);
-		this.synthesisService.getDetailedVisions(this.carRegister, date).then((response: Response) => {
+		this.synthesisService.getPropertyData(this.carGid).then((response: Response) => this.property = response.data);
+		this.synthesisService.getVisions(this.carGid, date).then((response: Response) => this.visions = response.data);
+		this.synthesisService.getLegends(this.carGid).then((response: Response) => this.legends = response.data);
+		this.synthesisService.getDetailedVisions(this.carGid, date).then((response: Response) => {
 			this.titleDetailedVisions = response.data.title;
 			this.detailedVisions = response.data.detailedVisions;
 		});
-		this.synthesisService.getDeforestation(this.carRegister).then((response: Response) => {
+		this.synthesisService.getDeforestation(this.carGid).then((response: Response) => {
 			this.titleDeforestation = response.data.title;
 			this.deforestations = response.data.deforestation;
 		});
-		this.synthesisService.getCharts(this.carRegister).then((response: Response) => {
+		this.synthesisService.getCharts(this.carGid).then((response: Response) => {
 			this.historyDeterChartOptions = response.data.historyDeterChartOptions;
 			this.historyProdesChartOptions = response.data.historyProdesChartOptions;
 			this.historyFireSpotChartOptions = response.data.historyFireSpotChartOptions;
 			this.historyBurnedChartOptions = response.data.historyBurnedChartOptions;
 		});
-		this.synthesisService.getDeterHistory(this.carRegister).then((response: Response) => {
+		this.synthesisService.getDeterHistory(this.carGid).then((response: Response) => {
 			this.titleDeter = response.data.title;
 			this.deterHistory = response.data.deterHistory;
 			this.historyDeterChartData = response.data.historyDeterChartData;
 		});
-		this.synthesisService.getProdesHistory(this.carRegister).then((response: Response) => {
+		this.synthesisService.getProdesHistory(this.carGid).then((response: Response) => {
 			this.titleProdes = response.data.title;
 			this.prodesHistory = response.data.prodesHistory;
 			this.historyProdesChartData = response.data.historyProdesChartData;
 			this.isLoading = false;
 		});
-		this.synthesisService.getFireSpotHistory(this.carRegister).then((response: Response) => {
+		this.synthesisService.getFireSpotHistory(this.carGid).then((response: Response) => {
 			this.titleFireSpot = response.data.title;
 			this.fireSpotHistory = response.data.fireSpotHistory;
 			this.burningFireSpotChartData = response.data.burningFireSpotChartData;
 		});
-		this.synthesisService.getBurnedAreaHistory(this.carRegister).then((response: Response) => {
+		this.synthesisService.getBurnedAreaHistory(this.carGid).then((response: Response) => {
 			this.titleBurnedArea = response.data.title;
 			this.burnedAreaHistory = response.data.burnedAreaHistory;
 			this.burnedAreasChartData = response.data.burnedAreasChartData;
 			this.burnedAreasPerPropertyChartDatas = response.data.burnedAreasPerPropertyChartDatas;
 		});
-		this.synthesisService.getNDVI(this.carRegister, date).then(data => this.chartImages = data);
+		this.synthesisService.getNDVI(this.carGid, date).then(data => this.chartImages = data);
 	}
 
 	onViewReportClicked(reportType) {
 		if (reportType === 'synthesis') {
-			this.router.navigateByUrl(`/synthesis/${ this.carRegister.replace('/', '\\') }`);
+			this.router.navigateByUrl(`/synthesis/${ this.carGid.replace('/', '\\') }`);
 		} else {
-			this.router.navigateByUrl(`/reports/${ reportType }/${ this.carRegister.replace('/', '\\') }`);
+			this.router.navigateByUrl(`/reports/${ reportType }/${ this.carGid.replace('/', '\\') }`);
 		}
 	}
 
