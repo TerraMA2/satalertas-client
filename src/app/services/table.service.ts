@@ -34,7 +34,7 @@ export class TableService {
 	}
 
 	getTableData(url, params) {
-		this.httpService.get<Response>(URL_REPORT_SERVER + url, params)
-		return lastValueFrom(this.httpService.get<Response>(url));
+		url = URL_REPORT_SERVER + url;
+		return lastValueFrom(this.httpService.get<Response>(url, params));
 	}
 }

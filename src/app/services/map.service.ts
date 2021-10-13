@@ -40,8 +40,6 @@ export class MapService {
 
 	clearMap = new Subject<void>();
 
-	reportTable = new Subject();
-
 	layerToolOpen = new Subject<object>();
 
 	layerToolClose = new Subject();

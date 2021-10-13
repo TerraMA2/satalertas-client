@@ -19,7 +19,11 @@ import { FilterSpecificSearch } from '../models/filter-specific-search.model';
 import { FilterClass } from '../models/filter-class.model';
 
 import { Response } from '../models/response.model';
+<<<<<<< HEAD
 import { CountyService } from './county.service';
+=======
+import { FormControl, FormGroup } from '@angular/forms';
+>>>>>>> 9e00a2cd94aec5263f255d6de491d70a923da4a4
 
 @Injectable({
 	providedIn: 'root'
@@ -219,4 +223,42 @@ export class FilterService {
 		return filter
 	}
 
+
+	async getThemeValues(theme) {
+		const url = `${environment.serverUrl}/filter/${theme}`;
+		const response = await lastValueFrom(this.httpService.get<Response>(url));
+		return response.data;
+	}
+
+	getFormGroup(isSearch = false) {
+		return new FormGroup({
+			theme: new FormGroup({
+				description: new FormControl('all'),
+				value: new FormControl('none')
+			}),
+			area: new FormGroup({
+				deter: new FormControl(null),
+				prodes: new FormControl(null),
+				fireSpot: new FormControl(null),
+				burnedArea: new FormControl(null),
+				property: new FormControl(null),
+				deterCustom: new FormControl(null),
+				prodesCustom: new FormControl(null),
+				fireSpotCustom: new FormControl(null),
+				burnedCustom: new FormControl(null),
+				propertyCustom: new FormControl(null)
+			}),
+			class: new FormGroup({
+				deterValue: new FormControl('all'),
+				prodesValue: new FormControl('all'),
+				fireSpotValue: new FormControl('all'),
+				burnedAreaValue: new FormControl('all')
+			}),
+			search: new FormGroup({
+				isSearch: new FormControl(isSearch),
+				description: new FormControl('stateCAR'),
+				value: new FormControl(null)
+			})
+		});
+	}
 }

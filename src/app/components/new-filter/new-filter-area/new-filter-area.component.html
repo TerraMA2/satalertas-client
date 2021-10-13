@@ -1,0 +1,125 @@
+<div [formGroup]="formGroup">
+    <div class="formgrid" formGroupName="area">
+        <h3 class="mx-2">Áreas/Ocorrencias&nbsp;
+            <a [toggleClass]="'hidden'" class="fas fa-expand-alt no-underline" href="#"
+               pStyleClass=".filter-area"></a>
+        </h3>
+        <div class="col-12 filter-area hidden">
+            <div class="grid">
+                <div [ngClass]="{
+                'col-6': formGroup.get('area.deter').value === 6,
+                'col-12': formGroup.get('area.deter').value !== 6
+              }" class="field">
+                    <label>Análise DETER</label>
+                    <p-dropdown [options]="areaDeterOptions" formControlName="deter"
+                                optionLabel="label" optionValue="value"
+                                styleClass="w-full"></p-dropdown>
+                </div>
+                <div *ngIf="formGroup.get('area.deter').value === 6"
+                     [ngClass]="{
+                'col-6': formGroup.get('area.deter').value === 6,
+                'col-12': formGroup.get('area.deter').value !== 6
+              }"
+                     class="field">
+                    <label>Valor:</label>
+                    <p-inputNumber [minFractionDigits]="2" [min]="0" class="w-full"
+                                   formControlName="deterCustom" locale="pt-BR"
+                                   suffix=" ha"></p-inputNumber>
+                </div>
+            </div>
+            <div class="grid">
+                <div [ngClass]="{
+                'col-6': formGroup.get('area.prodes').value === 6,
+                'col-12': formGroup.get('area.prodes').value !== 6
+              }"
+                     class="field">
+                    <label>Análise PRODES</label>
+                    <p-dropdown [options]="areaProdesOptions" formControlName="prodes"
+                                optionLabel="label" optionValue="value"
+                                styleClass="w-full"></p-dropdown>
+                </div>
+                <div *ngIf="formGroup.get('area.prodes').value === 6"
+                     [ngClass]="{
+                'col-6': formGroup.get('area.prodes').value === 6,
+                'col-12': formGroup.get('area.prodes').value !== 6
+              }"
+                     class="field">
+                    <label>Valor</label>
+                    <p-inputNumber [minFractionDigits]="2" [min]="0" class="w-full"
+                                   formControlName="prodesCustom" locale="pt-BR"
+                                   suffix=" ha"></p-inputNumber>
+                </div>
+            </div>
+
+            <div class="grid">
+                <div [ngClass]="{
+                'col-6': formGroup.get('area.fireSpot').value === 6,
+                'col-12': formGroup.get('area.fireSpot').value !== 6
+              }"
+                     class="field">
+                    <label>Análise Focos</label>
+                    <p-dropdown [options]="areaFireSpotOptions" formControlName="fireSpot"
+                                optionLabel="label" optionValue="value"
+                                styleClass="w-full"></p-dropdown>
+                </div>
+                <div *ngIf="formGroup.get('area.fireSpot').value === 6"
+                     [ngClass]="{
+                'col-6': formGroup.get('area.fireSpot').value === 6,
+                'col-12': formGroup.get('area.fireSpot').value !== 6
+              }"
+                     class="field">
+                    <label>Valor</label>
+                    <p-inputNumber [min]="0" class="w-full" formControlName="fireSpotCustom"
+                                   locale="pt-BR"></p-inputNumber>
+                </div>
+            </div>
+            <div class="grid">
+                <div [ngClass]="{
+                'col-6': formGroup.get('area.burnedArea').value === 6,
+                'col-12': formGroup.get('area.burnedArea').value !== 6
+              }"
+                     class="field">
+                    <label>Análise Área queimada</label>
+                    <p-dropdown [options]="areaBurnedAreaOptions"
+                                formControlName="burnedArea" optionLabel="label"
+                                optionValue="value"
+                                styleClass="w-full"></p-dropdown>
+                </div>
+                <div *ngIf="formGroup.get('area.burnedArea').value === 6"
+                     [ngClass]="{
+                'col-6': formGroup.get('area.burnedArea').value === 6,
+                'col-12': formGroup.get('area.burnedArea').value !== 6
+              }"
+                     class="field">
+                    <label>Valor</label>
+                    <p-inputNumber [minFractionDigits]="2" [min]="0" class="w-full"
+                                   formControlName="burnedAreaCustom"
+                                   locale="pt-BR" suffix=" ha"></p-inputNumber>
+                </div>
+            </div>
+            <div class="grid">
+                <div [ngClass]="{
+                'col-6': formGroup.get('area.property').value === 6,
+                'col-12': formGroup.get('area.property').value !== 6
+              }"
+                     class="field">
+                    <label>CAR</label>
+                    <p-dropdown [options]="areaPropertyOptions" formControlName="property"
+                                optionLabel="label" optionValue="value"
+                                styleClass="w-full"></p-dropdown>
+                </div>
+                <div *ngIf="formGroup.get('area.property').value === 6"
+                     [ngClass]="{
+                'col-6': formGroup.get('area.property').value === 6,
+                'col-12': formGroup.get('area.property').value !== 6
+              }"
+                     class="field">
+                    <label>Valor</label>
+                    <p-inputNumber [minFractionDigits]="2" [min]="0" class="w-full"
+                                   formControlName="propertyCustom"
+                                   locale="pt-BR" suffix=" ha"></p-inputNumber>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -234,6 +234,6 @@ export class HeaderComponent implements OnInit {
 
 	settingsInOut() {
 		const url = this.settings? '/map' : '/settings/groups';
-			this.router.navigateByUrl(url)
+		this.router.navigateByUrl(url);
 	}
 }
