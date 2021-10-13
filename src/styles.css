@@ -3572,7 +3572,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
     border-bottom: 0 none;
     background: #ffffff;
     color: var(--text-color);
-    padding: 1rem 1.5rem;
+    padding: .5rem 1.5rem;
     border-top-right-radius: 3px;
     border-top-left-radius: 3px;
 }
@@ -5449,4 +5449,8 @@ body .p-scrollpanel-content {
 
 .container-lg {
     margin: 0 70px;
+}
+
+a:active {
+    color: var(--active-color);
 }

@@ -1,0 +1,34 @@
+<div [formGroup]="formGroup">
+    <div class="formgrid" formGroupName="search">
+        <div class="col-12">
+            <div class="field-checkbox">
+                <p-checkbox inputId="isSearch" (onChange)="onIsSearchClicked($event)" [binary]="true" [value]="true"
+                            formControlName="isSearch"></p-checkbox>
+                <label for="isSearch" class="cursor-pointer">Busca</label>
+            </div>
+            <div *ngIf="formGroup.get('search.isSearch').value === true">
+                <div class="formgroup-inline">
+                    <div class="field-radiobutton">
+                        <p-radioButton inputId="stateCAR" formControlName="description"
+                                       value="stateCAR"></p-radioButton>
+                        <label for="stateCAR" class="cursor-pointer">CAR Estadual</label>
+                    </div>
+                    <div class="field-radiobutton">
+                        <p-radioButton inputId="federalCAR" formControlName="description"
+                                       value="federalCAR"></p-radioButton>
+                        <label for="federalCAR" class="cursor-pointer">CAR Federal</label>
+                    </div>
+                    <div class="field-radiobutton">
+                        <p-radioButton inputId="ownerCPF" formControlName="description"
+                                       value="ownerCPF"></p-radioButton>
+                        <label for="ownerCPF" class="cursor-pointer">CPF Proprietário</label>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <input [mask]="getSearchMask()" [showMaskTyped]="true" class="w-full"
+                           formControlName="value" pInputText/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

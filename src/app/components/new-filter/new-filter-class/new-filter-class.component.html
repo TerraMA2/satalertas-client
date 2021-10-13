@@ -1,0 +1,32 @@
+<div [formGroup]="formGroup">
+    <div class="formgrid" formGroupName="class">
+        <h3 class="mx-2 mt-1">Classe&nbsp;
+            <a [toggleClass]="'hidden'" class="fas fa-expand-alt no-underline" href="#"
+               pStyleClass=".filter-class"></a>
+        </h3>
+        <div class="field col-12 filter-class hidden">
+            <label>DETER</label>
+            <p-dropdown [options]="classDeterOptions" formControlName="deterValue"
+                        optionLabel="label" optionValue="value"
+                        styleClass="w-full"></p-dropdown>
+        </div>
+
+        <!--    <div class="field col-12">-->
+        <!--      <label>PRODES</label>-->
+        <!--      <p-dropdown styleClass="w-full" [options]="classProdesOptions" optionLabel="label" optionValue="value"-->
+        <!--                  formControlName="prodesValue"></p-dropdown>-->
+        <!--    </div>-->
+
+        <!--    <div class="field col-12">-->
+        <!--      <label>FOCOS</label>-->
+        <!--      <p-dropdown styleClass="w-full" [options]="classFireSpotOptions" optionLabel="label" optionValue="value"-->
+        <!--                  formControlName="fireSpotValue"></p-dropdown>-->
+        <!--    </div>-->
+
+        <!--    <div class="field col-12">-->
+        <!--      <label>Área Queimada</label>-->
+        <!--      <p-dropdown styleClass="w-full" [options]="classBurnedAreaOptions" optionLabel="label" optionValue="value"-->
+        <!--                  formControlName="burnedAreaValue"></p-dropdown>-->
+        <!--    </div>-->
+    </div>
+</div>

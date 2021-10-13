@@ -2,7 +2,7 @@ import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { registerLocaleData } from '@angular/common';
 
 import localePt from '@angular/common/locales/pt';
@@ -102,6 +102,18 @@ import { SubLayerTableComponent } from './settings/layers-advanced/layer-table/s
 import { LayerTableComponent } from './settings/layers-advanced/layer-table/layer-table.component';
 import { HttpInterceptorService } from '../services/http-interceptor.service';
 import { SearchComponent } from './map/search/search.component';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { NewFilterComponent } from './new-filter/new-filter.component';
+import { NewFilterThemeComponent } from './new-filter/new-filter-theme/new-filter-theme.component';
+import { NewFilterAreaComponent } from './new-filter/new-filter-area/new-filter-area.component';
+import { NewFilterClassComponent } from './new-filter/new-filter-class/new-filter-class.component';
+import { NewFilterSearchComponent } from './new-filter/new-filter-search/new-filter-search.component';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InplaceModule } from 'primeng/inplace';
+
+const maskConfig: Partial<IConfig> = {
+	validation: false
+};
 
 registerLocaleData(localePt, 'pt');
 
@@ -164,7 +176,12 @@ export function HttpLoaderFactory(http: HttpClient) {
 		InfoColumnsComponent,
 		SubLayerTableComponent,
 		LayerTableComponent,
-		SearchComponent
+		SearchComponent,
+		NewFilterComponent,
+		NewFilterThemeComponent,
+		NewFilterAreaComponent,
+		NewFilterClassComponent,
+		NewFilterSearchComponent
 	],
 	imports: [
 		BrowserModule,
@@ -206,6 +223,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 		MessageModule,
 		ScrollTopModule,
 		OverlayPanelModule,
+		NgxMaskModule.forRoot(maskConfig),
 		TranslateModule.forRoot({
 			loader: {
 				provide: TranslateLoader,
@@ -214,7 +232,10 @@ export function HttpLoaderFactory(http: HttpClient) {
 			}
 		}),
 		StyleClassModule,
-		SpeedDialModule
+		SpeedDialModule,
+		ReactiveFormsModule,
+		InputNumberModule,
+		InplaceModule
 	],
 	providers: [
 		TreeDragDropService,

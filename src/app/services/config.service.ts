@@ -96,18 +96,18 @@ export class ConfigService {
 	}
 
 	getFilterConfig(name = '') {
-		const mapConfig = this.getConfig('filter');
+		const filterConfig = this.getConfig('filter');
 		if (name) {
-			return mapConfig[name];
+			return filterConfig[name];
 		}
-		return mapConfig;
+		return filterConfig;
 	}
 
-	getSynthesisConfig(name = '') {
-		const appConfig = this.getConfig('synthesis');
+	getNewFilterConfig(name = '') {
+		const filterConfig = this.getConfig('newFilter');
 		if (name) {
-			return appConfig[name];
+			return filterConfig[name];
 		}
-		return appConfig;
+		return filterConfig;
 	}
 }

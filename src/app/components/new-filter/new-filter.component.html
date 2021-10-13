@@ -1,0 +1,29 @@
+<p-dialog (onHide)="onDialogHide()"
+          [(visible)]="displayFilter"
+          [breakpoints]="{'1024px' : '100%'}"
+          [header]="'Filter' | translate"
+          [position]="isMobile ? 'bottom' : 'top-left'"
+          [style]="isMobile ? {bottom: '0'} : {top: '60px', left: '410px', 'width': '550px'}"
+          autoZIndex="false"
+          baseZIndex="1001">
+    <form (ngSubmit)="onSubmit()" [formGroup]="formGroup">
+        <div *ngIf="!formGroup.get('search.isSearch') || formGroup.get('search.isSearch').value !== true">
+            <app-filter-theme [formGroup]="formGroup"></app-filter-theme>
+            <app-filter-area [formGroup]="formGroup"></app-filter-area>
+            <app-filter-class [formGroup]="formGroup"></app-filter-class>
+        </div>
+        <app-filter-search [formGroup]="formGroup"></app-filter-search>
+        <div class="grid justify-content-between">
+            <div>
+                <button [type]="'submit'" class="p-button-raised" pButton>Filtrar</button>
+                <button (click)="onRemoveFiltersClicked()"
+                        class="p-button-text p-button-raised p-button-secondary"
+                        label="Remover filtros" pButton
+                        type="button"></button>
+            </div>
+            <button (click)="onCloseClicked()"
+                    class="p-button-text p-button-raised p-button-secondary" label="Fechar" pButton
+                    type="button"></button>
+        </div>
+    </form>
+</p-dialog>
