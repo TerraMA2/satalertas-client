@@ -19,6 +19,7 @@ import { FilterSpecificSearch } from '../models/filter-specific-search.model';
 import { FilterClass } from '../models/filter-class.model';
 
 import { Response } from '../models/response.model';
+import { CountyService } from './county.service';
 
 @Injectable({
 	providedIn: 'root'
@@ -30,6 +31,7 @@ export class FilterService {
 	indigenousLandUrl = environment.serverUrl + '/indigenousLand';
 	projusUrl = environment.serverUrl + '/projus';
 	classUrl = environment.serverUrl + '/class';
+	countyUrl = environment.serverUrl + '/county';
 
 	filterMap = new Subject<boolean>();
 	filterTable = new Subject<void>();
@@ -45,11 +47,12 @@ export class FilterService {
 	filterSynthesis = new Subject<void>();
 
 	constructor(
-		private httpService: HTTPService
+		private httpService: HTTPService,
+		private countyService: CountyService,
 	) {
 	}
 
-	getParams(value= {}) {
+	getParams(value = {}) {
 		const date = JSON.parse(localStorage.getItem('dateFilter'));
 
 		const specificParameters = JSON.stringify(value);
@@ -82,6 +85,10 @@ export class FilterService {
 
 	getRegions() {
 		return lastValueFrom(this.httpService.get<Response>(this.cityUrl + '/getRegions'));
+	}
+
+	getCountyData(params) {
+		return lastValueFrom(this.httpService.get<Response>(this.countyUrl + '/getCountyData', { params }));
 	}
 
 	getMesoregions() {
@@ -117,7 +124,7 @@ export class FilterService {
 	}
 
 	getClasses(type) {
-		const url = `${ this.classUrl }`;
+		const url = `${this.classUrl}`;
 		const params = {
 			params: {
 				type: type ? type : ''
@@ -125,4 +132,91 @@ export class FilterService {
 		};
 		return lastValueFrom(this.httpService.get<Response>(url, params));
 	}
+	public async themeSelected(filter, layer, cqlFilter) {
+		const { themeSelected } = filter;
+
+		if (filter.themeSelected.value.value !== 'ALL') {
+			const value = {
+				name: `'${filter.themeSelected.value.name}'`,
+				gid: filter.themeSelected.value.gid,
+				geocode: `'${filter.themeSelected.value.geocodigo}'`
+			};
+
+			if (layer.filter[filter.themeSelected.type].param) {
+				layer.layerData.viewparams =
+					layer.layerData.viewparams ?
+						`${layer.layerData.viewparams};${layer.filter[filter.themeSelected.type].field}:${value[layer.filter[filter.themeSelected.type].value]}` :
+						`${layer.filter[filter.themeSelected.type].field}:${value[layer.filter[filter.themeSelected.type].value]}`;
+			} else {
+				layer.layerData.cql_filter =
+					await this.setCqlFilter(
+						value[layer.filter[filter.themeSelected.type].value], layer.filter[filter.themeSelected.type].field, cqlFilter);
+			}
+		} else {
+			delete layer.layerData.cql_filter;
+		}
+		if (layer.tableInfocolumns) {
+			let newFilter;
+			switch (themeSelected.type) {
+				case 'city':
+					newFilter = this.filterByCity(layer.tableInfocolumns, themeSelected);
+				case 'region':
+					 newFilter = await this.filterByCounty(layer.tableInfocolumns, themeSelected)
+			}
+			layer.layerData.cql_filter = newFilter
+			return layer
+
+		}
+		layer.layerData.layers = layer.filter[filter.themeSelected.type].view;
+
+		return layer;
+	}
+
+	private setCqlFilter(value, column, cqlFilter) {
+		let cFilter = cqlFilter ? cqlFilter : '';
+
+		cFilter += cFilter ? ';' : '';
+		cFilter += `${column}=${value} `;
+
+		return cFilter;
+	}
+
+	private filterByCity(layerInfoColumns, theme) {
+		const columnGeocod = layerInfoColumns.find(col => col.secondaryType === 'city_geocode')
+		const columnName = layerInfoColumns.find(col => col.secondaryType === 'city_name')
+		let filter;
+		if (columnGeocod && theme.value.hasOwnProperty('geocodigo')) {
+			filter = `${columnGeocod.columnName}=${theme.value.geocodigo}`
+		} else if (columnName && theme.value.hasOwnProperty('name')) {
+			filter = `${columnName.columnName}='${theme.value.name.replace("'", "''")}'`
+		}
+		return filter;
+	}
+
+	private async filterByCounty(layerInfoColumns, theme) {
+		const { value: { name } } = theme;
+		const countyData = await this.countyService.getCountyData({ name })
+		.then((response: Response) => response.data)
+		const columnGeocod = layerInfoColumns.find(col => col.secondaryType === 'county_geocode')
+		const columnName = layerInfoColumns.find(col => col.secondaryType === 'county_name')
+
+		let filter;
+		if (!columnGeocod || !columnName) {
+			filter = this.filterCountyUsingCity(layerInfoColumns, countyData);
+		}
+		return filter;
+	}
+
+	private filterCountyUsingCity(layerInfoColumns, countyData) {
+		const cityGeocod = layerInfoColumns.find(col => col.secondaryType === 'city_geocode')
+		const cityName = layerInfoColumns.find(col => col.secondaryType === 'city_name')
+		let filter;
+		if (cityGeocod) {
+			filter = `${cityGeocod.columnName} IN (${countyData.geocodeList.join(', ')})`
+		} else if (cityName) {
+			filter = `${cityName.columnName} IN (${countyData.nameList.join(', ')})`
+		}
+		return filter
+	}
+
 }

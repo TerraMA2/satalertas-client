@@ -27,6 +27,8 @@ import { LayerInfo } from '../models/layer-info.model';
 
 import { InfoColumnsService } from './info-columns.service';
 
+import { FilterService } from './filter.service';
+
 const URL_REPORT_SERVER = environment.serverUrl;
 
 @Injectable({
@@ -60,7 +62,8 @@ export class MapService {
 
 	constructor(
 		private hTTPService: HTTPService,
-		private infoColumnsService: InfoColumnsService
+		private infoColumnsService: InfoColumnsService,
+		private filterService: FilterService,
 	) {
 	}
 
@@ -441,7 +444,7 @@ export class MapService {
 		return layer;
 	}
 
-	setCqlFilter(layer) {
+	async setCqlFilter(layer) {
 		const filter: FilterParam = JSON.parse(localStorage.getItem('filterState'));
 
 		if (!filter || (filter.alertType.radioValue === 'ALL') && (filter.authorization.value === 'ALL') &&
@@ -456,7 +459,7 @@ export class MapService {
 		}
 
 		if (filter.specificSearch.isChecked) {
-			return this.setSpecificSearch(layer, filter);
+			return await this.setSpecificSearch(layer, filter);
 		}
 
 		layer = this.setThemeSelected(layer, filter, true);
@@ -494,7 +497,10 @@ export class MapService {
 		return layer;
 	}
 
-	setThemeSelected(layer, filter, cleanCqlFilter) {
+	async setThemeSelected(layer, filter, cleanCqlFilter) {
+		// if (layer.tableInfocolumns) {
+		// 	return layer;
+		// }
 		if (filter.specificSearch && filter.specificSearch.isChecked || (!filter.themeSelected.type)) {
 			if (layer.layerData.cql_filter) {
 				delete layer.layerData.cql_filter;
@@ -506,7 +512,7 @@ export class MapService {
 
 		const cqlFilter = cleanCqlFilter || !layer.layer.layerData.cql_filter ? '' : layer.layer.layerData.cql_filter;
 
-		return FilterUtils.themeSelected(filter, layer, cqlFilter);
+		return await this.filterService.themeSelected(filter, layer, cqlFilter);
 	}
 
 	setAlertType(layer, filter, cleanCqlFilter) {
