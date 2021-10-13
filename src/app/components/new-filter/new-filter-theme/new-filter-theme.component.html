@@ -1,0 +1,15 @@
+<div [formGroup]="formGroup">
+    <div class="formgrid" formGroupName="theme">
+        <h3 class="mx-2">Tema</h3>
+        <div class="col-12">
+            <p-dropdown (onChange)="onThemeOptionChange($event)" [options]="themeOptions"
+                        formControlName="description" optionLabel="label" optionValue="value"
+                        styleClass="w-full"></p-dropdown>
+        </div>
+        <div class="col-12">
+            <p-dropdown [options]="themeValues" formControlName="value" optionLabel="name"
+                        optionValue="value"
+                        styleClass="w-full"></p-dropdown>
+        </div>
+    </div>
+</div>

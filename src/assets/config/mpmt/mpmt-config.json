@@ -585,5 +585,126 @@
       "label": "Área",
       "name": "area"
     }
+  },
+  "newFilter": {
+    "filterArea": {
+      "fireSpotOptions": [
+        {
+          "label": "Todos",
+          "value": "all"
+        },
+        {
+          "label": "< 10",
+          "value": 1
+        },
+        {
+          "label": "10 a 20",
+          "value": 2
+        },
+        {
+          "label": "20 a 50",
+          "value": 3
+        },
+        {
+          "label": "50 a 100",
+          "value": 4
+        },
+        {
+          "label": " > 100 ",
+          "value": 5
+        },
+        {
+          "label": "Valor > que ...",
+          "value": 6
+        }
+      ],
+      "options": [
+        {
+          "label": "Todos",
+          "value": "all"
+        },
+        {
+          "label": "< 5",
+          "value": 1
+        },
+        {
+          "label": "5 a 25",
+          "value": 2
+        },
+        {
+          "label": "25 a 50",
+          "value": 3
+        },
+        {
+          "label": "50 a 100",
+          "value": 4
+        },
+        {
+          "label": " > 100",
+          "value": 5
+        },
+        {
+          "label": "Valor > que ...",
+          "value": 6
+        }
+      ]
+    },
+    "filterTheme": {
+      "options": [
+        {
+          "label": "Todos",
+          "value": "all"
+        },
+        {
+          "label": "Comarca",
+          "value": "region"
+        },
+        {
+          "label": "Mesorregiões",
+          "value": "mesoregion"
+        },
+        {
+          "label": "Microrregiões",
+          "value": "microregion"
+        },
+        {
+          "label": "RGI",
+          "value": "immediateregion"
+        },
+        {
+          "label": "RGINT",
+          "value": "intermediateregion"
+        },
+        {
+          "label": "Municípios",
+          "value": "city"
+        },
+        {
+          "label": "PJBH",
+          "value": "pjbh"
+        },
+        {
+          "label": "Biomas",
+          "value": "biome"
+        },
+        {
+          "label": "UCs",
+          "value": "uc"
+        },
+        {
+          "label": "TIs",
+          "value": "ti"
+        }
+      ]
+    },
+    "date": {
+      "label": "Data",
+      "name": "date",
+      "dateFormat": "dd/mm/yy",
+      "selectionMode": "range",
+      "showTime": false,
+      "showButtonBar": true,
+      "numberOfMonths": 2
+    }
   }
 }
