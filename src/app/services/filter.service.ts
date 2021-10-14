@@ -19,11 +19,8 @@ import { FilterSpecificSearch } from '../models/filter-specific-search.model';
 import { FilterClass } from '../models/filter-class.model';
 
 import { Response } from '../models/response.model';
-<<<<<<< HEAD
 import { CountyService } from './county.service';
-=======
 import { FormControl, FormGroup } from '@angular/forms';
->>>>>>> 9e00a2cd94aec5263f255d6de491d70a923da4a4
 
 @Injectable({
 	providedIn: 'root'
