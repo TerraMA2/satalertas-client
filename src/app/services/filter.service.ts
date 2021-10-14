@@ -19,7 +19,8 @@ import { FilterSpecificSearch } from '../models/filter-specific-search.model';
 import { FilterClass } from '../models/filter-class.model';
 
 import { Response } from '../models/response.model';
-import { FormControl, FormGroup } from '@angular/forms';
+
+import { FormBuilder } from '@angular/forms';
 
 @Injectable({
 	providedIn: 'root'
@@ -46,7 +47,8 @@ export class FilterService {
 	filterSynthesis = new Subject<void>();
 
 	constructor(
-		private httpService: HTTPService
+		private httpService: HTTPService,
+		private formBuilder: FormBuilder
 	) {
 	}
 
@@ -134,33 +136,33 @@ export class FilterService {
 	}
 
 	getFormGroup(isSearch = false) {
-		return new FormGroup({
-			theme: new FormGroup({
-				description: new FormControl('all'),
-				value: new FormControl('none')
+		return this.formBuilder.group({
+			theme: this.formBuilder.group({
+				description: ['all'],
+				value: ['none']
 			}),
-			area: new FormGroup({
-				deter: new FormControl(null),
-				prodes: new FormControl(null),
-				fireSpot: new FormControl(null),
-				burnedArea: new FormControl(null),
-				property: new FormControl(null),
-				deterCustom: new FormControl(null),
-				prodesCustom: new FormControl(null),
-				fireSpotCustom: new FormControl(null),
-				burnedCustom: new FormControl(null),
-				propertyCustom: new FormControl(null)
+			area: this.formBuilder.group({
+				deter: [null],
+				prodes: [null],
+				fireSpot: [null],
+				burnedArea: [null],
+				property: [null],
+				deterCustom: [null],
+				prodesCustom: [null],
+				fireSpotCustom: [null],
+				burnedCustom: [null],
+				propertyCustom: [null]
 			}),
-			class: new FormGroup({
-				deterValue: new FormControl('all'),
-				prodesValue: new FormControl('all'),
-				fireSpotValue: new FormControl('all'),
-				burnedAreaValue: new FormControl('all')
+			class: this.formBuilder.group({
+				deterValue: ['all'],
+				prodesValue: ['all'],
+				fireSpotValue: ['all'],
+				burnedAreaValue: ['all']
 			}),
-			search: new FormGroup({
-				isSearch: new FormControl(isSearch),
-				description: new FormControl('stateCAR'),
-				value: new FormControl(null)
+			search: this.formBuilder.group({
+				isSearch: [isSearch],
+				description: ['stateCAR'],
+				value: [null]
 			})
 		});
 	}
