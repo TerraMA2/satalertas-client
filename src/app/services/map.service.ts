@@ -27,6 +27,8 @@ import { LayerInfo } from '../models/layer-info.model';
 
 import { InfoColumnsService } from './info-columns.service';
 
+import { FilterService } from './filter.service';
+
 const URL_REPORT_SERVER = environment.serverUrl;
 
 @Injectable({
@@ -58,7 +60,8 @@ export class MapService {
 
 	constructor(
 		private hTTPService: HTTPService,
-		private infoColumnsService: InfoColumnsService
+		private infoColumnsService: InfoColumnsService,
+		private filterService: FilterService,
 	) {
 	}
 
@@ -493,6 +496,9 @@ export class MapService {
 	}
 
 	setThemeSelected(layer, filter, cleanCqlFilter) {
+		// if (layer.tableInfocolumns) {
+		// 	return layer;
+		// }
 		if (filter.specificSearch && filter.specificSearch.isChecked || (!filter.themeSelected.type)) {
 			if (layer.layerData.cql_filter) {
 				delete layer.layerData.cql_filter;
@@ -504,7 +510,7 @@ export class MapService {
 
 		const cqlFilter = cleanCqlFilter || !layer.layer.layerData.cql_filter ? '' : layer.layer.layerData.cql_filter;
 
-		return FilterUtils.themeSelected(filter, layer, cqlFilter);
+		return this.filterService.themeSelected(filter, layer, cqlFilter);
 	}
 
 	setAlertType(layer, filter, cleanCqlFilter) {

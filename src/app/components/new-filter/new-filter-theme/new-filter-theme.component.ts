@@ -11,7 +11,7 @@ import { ConfigService } from '../../../services/config.service';
 export class NewFilterThemeComponent implements OnInit {
 	@Input() formGroup: FormGroup;
 	label: string;
-	themeValues = [];
+	themeValues = [{name: 'Todos', value: 'all'}];
 	themeOptions;
 
 	constructor(
@@ -33,6 +33,7 @@ export class NewFilterThemeComponent implements OnInit {
 			return false;
 		}
 		this.themeValues = await this.filterService.getThemeValues(value);
+		this.themeValues.unshift({name: 'Todos', value: 'all'})
 	}
 
 	getThemeValues() {
