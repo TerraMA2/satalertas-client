@@ -1,7 +1,7 @@
 <div [formGroup]="formGroup">
     <div class="formgrid" formGroupName="area">
-        <h3 class="mx-2">Áreas/Ocorrencias&nbsp;
-            <a [toggleClass]="'hidden'" class="fas fa-expand-alt no-underline"
+        <h3 class="mx-2">{{ label | translate }}&nbsp;
+            <a [toggleClass]="'hidden'" class="fas fa-expand-alt no-underline cursor-pointer"
                pStyleClass=".filter-area"></a>
         </h3>
         <div class="col-12 filter-area hidden">
@@ -10,7 +10,7 @@
                 'col-6': formGroup.get('area.deter').value === 6,
                 'col-12': formGroup.get('area.deter').value !== 6
               }" class="field">
-                    <label>Análise DETER</label>
+                    <label>{{ DETERLabel | translate }}</label>
                     <p-dropdown [options]="areaDeterOptions" formControlName="deter"
                                 optionLabel="label" optionValue="value"
                                 styleClass="w-full"></p-dropdown>
@@ -33,7 +33,7 @@
                 'col-12': formGroup.get('area.prodes').value !== 6
               }"
                      class="field">
-                    <label>Análise PRODES</label>
+                    <label>{{ PRODESLabel | translate }}</label>
                     <p-dropdown [options]="areaProdesOptions" formControlName="prodes"
                                 optionLabel="label" optionValue="value"
                                 styleClass="w-full"></p-dropdown>
@@ -57,7 +57,7 @@
                 'col-12': formGroup.get('area.fireSpot').value !== 6
               }"
                      class="field">
-                    <label>Análise Focos</label>
+                    <label>{{ fireSpotLabel | translate }}</label>
                     <p-dropdown [options]="areaFireSpotOptions" formControlName="fireSpot"
                                 optionLabel="label" optionValue="value"
                                 styleClass="w-full"></p-dropdown>
@@ -79,7 +79,7 @@
                 'col-12': formGroup.get('area.burnedArea').value !== 6
               }"
                      class="field">
-                    <label>Análise Área queimada</label>
+                    <label>{{ burnedAreaLabel | translate }}</label>
                     <p-dropdown [options]="areaBurnedAreaOptions"
                                 formControlName="burnedArea" optionLabel="label"
                                 optionValue="value"

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { ConfigService } from '../../../services/config.service';
 
 @Component({
 	selector: 'app-filter-search',
@@ -9,11 +10,16 @@ import { FormGroup } from '@angular/forms';
 export class NewFilterSearchComponent implements OnInit {
 
 	@Input() formGroup: FormGroup;
+	label: string;
 
-	constructor() {
+	constructor(
+		private configService: ConfigService
+	) {
 	}
 
 	ngOnInit(): void {
+		const filterSearchConfig = this.configService.getNewFilterConfig('search');
+		this.label = filterSearchConfig.label;
 	}
 
 	onIsSearchClicked(event) {

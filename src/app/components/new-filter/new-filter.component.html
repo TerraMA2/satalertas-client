@@ -15,15 +15,18 @@
         <app-filter-search [formGroup]="formGroup"></app-filter-search>
         <div class="grid justify-content-between">
             <div>
-                <button [type]="'submit'" class="p-button-raised" pButton>Filtrar</button>
-                <button (click)="onRemoveFiltersClicked()"
-                        class="p-button-text p-button-raised p-button-secondary"
-                        label="Remover filtros" pButton
-                        type="button"></button>
+                <p-button [type]="'submit'"
+                          styleClass="p-button-raised">{{ 'primeng.apply' | translate }}</p-button>
+                &nbsp;
+                <p-button (click)="onRemoveFiltersClicked()"
+                          styleClass="p-button-text p-button-raised p-button-secondary"
+                          label="{{ 'Remove Filters' | translate}}"
+                          type="button"></p-button>
             </div>
-            <button (click)="onCloseClicked()"
-                    class="p-button-text p-button-raised p-button-secondary" label="Fechar" pButton
-                    type="button"></button>
+            <p-button (click)="onCloseClicked()"
+                      styleClass="p-button-text p-button-raised p-button-secondary"
+                      label="{{ 'Close' | translate}}"
+                      type="button"></p-button>
         </div>
     </form>
 </p-dialog>
