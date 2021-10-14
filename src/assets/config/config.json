@@ -427,7 +427,7 @@
         },
         {
           "label": "Comarca",
-          "value": "region"
+          "value": "county"
         },
         {
           "label": "Mesorregiões",
@@ -482,7 +482,7 @@
         },
         {
           "name": "Comarca",
-          "value": "region"
+          "value": "county"
         },
         {
           "name": "Mesorregiões",

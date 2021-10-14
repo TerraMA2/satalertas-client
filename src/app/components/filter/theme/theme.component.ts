@@ -59,8 +59,8 @@ export class ThemeComponent implements OnInit {
 				this.optionsFilterLocalizations = [];
 				this.loadComboBiome();
 				break;
-			case 'region':
-				this.optionSelectedByFilter = new FilterTheme(undefined, 'Comarca', 'region');
+			case 'county':
+				this.optionSelectedByFilter = new FilterTheme(undefined, 'Comarca', 'county');
 				this.loadComboRegion();
 				break;
 			case 'mesoregion':

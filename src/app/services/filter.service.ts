@@ -163,9 +163,11 @@ export class FilterService {
 			let newFilter;
 			switch (themeSelected.type) {
 				case 'city':
-					newFilter = this.filterByCity(layer.tableInfocolumns, themeSelected);
-				case 'region':
-					 newFilter = this.filterByCounty(layer.tableInfocolumns, themeSelected.value.value)
+					newFilter = this.filterByCity(layer.tableInfocolumns, themeSelected.value);
+					break;
+				case 'county':
+					newFilter = this.filterByCounty(layer.tableInfocolumns, themeSelected.value.value);
+					break;
 			}
 			layer.layerData.cql_filter = newFilter
 			return layer
@@ -189,7 +191,7 @@ export class FilterService {
 		const columnGeocod = layerInfoColumns.find(col => col.secondaryType === 'city_geocode')
 		const columnName = layerInfoColumns.find(col => col.secondaryType === 'city_name')
 		let filter;
-		if (columnGeocod && theme.value.hasOwnProperty('geocodigo')) {
+		if (columnGeocod && theme.value.hasOwnProperty('value')) {
 			filter = `${columnGeocod.columnName}=${theme.value.geocodigo}`
 		} else if (columnName && theme.value.hasOwnProperty('name')) {
 			filter = `${columnName.columnName}='${theme.value.name.replace("'", "''")}'`
