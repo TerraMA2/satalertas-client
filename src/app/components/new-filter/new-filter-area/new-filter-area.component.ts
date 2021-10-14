@@ -16,6 +16,11 @@ export class NewFilterAreaComponent implements OnInit {
 	areaFireSpotOptions: any[];
 	areaBurnedAreaOptions: any[];
 	areaPropertyOptions: any[];
+	label: string;
+	DETERLabel: string;
+	PRODESLabel: string;
+	fireSpotLabel: string;
+	burnedAreaLabel: string;
 
 	constructor(
 		private configService: ConfigService
@@ -23,11 +28,17 @@ export class NewFilterAreaComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.areaDeterOptions = this.configService.getNewFilterConfig('filterArea').options;
-		this.areaProdesOptions = this.configService.getNewFilterConfig('filterArea').options;
-		this.areaFireSpotOptions = this.configService.getNewFilterConfig('filterArea').fireSpotOptions;
-		this.areaBurnedAreaOptions = this.configService.getNewFilterConfig('filterArea').options;
-		this.areaPropertyOptions = this.configService.getNewFilterConfig('filterArea').options;
+		const filterAreaConfig = this.configService.getNewFilterConfig('area');
+		this.label = filterAreaConfig.label;
+		this.DETERLabel = filterAreaConfig.DETERLabel;
+		this.PRODESLabel = filterAreaConfig.PRODESLabel;
+		this.fireSpotLabel = filterAreaConfig.fireSpotLabel;
+		this.burnedAreaLabel = filterAreaConfig.burnedAreaLabel;
+		this.areaDeterOptions = filterAreaConfig.options;
+		this.areaProdesOptions = filterAreaConfig.options;
+		this.areaFireSpotOptions = filterAreaConfig.fireSpotOptions;
+		this.areaBurnedAreaOptions = filterAreaConfig.options;
+		this.areaPropertyOptions = filterAreaConfig.options;
 	}
 
 }

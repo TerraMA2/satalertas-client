@@ -2,26 +2,27 @@
     <div class="formgrid" formGroupName="search">
         <div class="col-12">
             <div class="field-checkbox">
-                <p-checkbox inputId="isSearch" (onChange)="onIsSearchClicked($event)" [binary]="true" [value]="true"
-                            formControlName="isSearch"></p-checkbox>
-                <label for="isSearch" class="cursor-pointer">Busca</label>
+                <p-checkbox (onChange)="onIsSearchClicked($event)" [binary]="true"
+                            [value]="true" formControlName="isSearch"
+                            inputId="isSearch"></p-checkbox>
+                <label class="cursor-pointer" for="isSearch">{{ label | translate }}</label>
             </div>
             <div *ngIf="formGroup.get('search.isSearch').value === true">
                 <div class="formgroup-inline">
                     <div class="field-radiobutton">
-                        <p-radioButton inputId="stateCAR" formControlName="description"
+                        <p-radioButton formControlName="description" inputId="stateCAR"
                                        value="stateCAR"></p-radioButton>
-                        <label for="stateCAR" class="cursor-pointer">CAR Estadual</label>
+                        <label class="cursor-pointer" for="stateCAR">CAR Estadual</label>
                     </div>
                     <div class="field-radiobutton">
-                        <p-radioButton inputId="federalCAR" formControlName="description"
+                        <p-radioButton formControlName="description" inputId="federalCAR"
                                        value="federalCAR"></p-radioButton>
-                        <label for="federalCAR" class="cursor-pointer">CAR Federal</label>
+                        <label class="cursor-pointer" for="federalCAR">CAR Federal</label>
                     </div>
                     <div class="field-radiobutton">
-                        <p-radioButton inputId="ownerCPF" formControlName="description"
+                        <p-radioButton formControlName="description" inputId="ownerCPF"
                                        value="ownerCPF"></p-radioButton>
-                        <label for="ownerCPF" class="cursor-pointer">CPF Proprietário</label>
+                        <label class="cursor-pointer" for="ownerCPF">{{ 'Owner\'s CPF' | translate }}</label>
                     </div>
                 </div>
                 <div class="col-12">

@@ -1,7 +1,7 @@
 <div [formGroup]="formGroup">
     <div class="formgrid" formGroupName="class">
-        <h3 class="mx-2 mt-1">Classe&nbsp;
-            <a [toggleClass]="'hidden'" class="fas fa-expand-alt no-underline" href="#"
+        <h3 class="mx-2 mt-1">{{ label | translate }}&nbsp;
+            <a [toggleClass]="'hidden'" class="fas fa-expand-alt no-underline cursor-pointer"
                pStyleClass=".filter-class"></a>
         </h3>
         <div class="field col-12 filter-class hidden">

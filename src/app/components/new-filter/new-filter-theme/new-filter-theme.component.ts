@@ -10,7 +10,8 @@ import { ConfigService } from '../../../services/config.service';
 })
 export class NewFilterThemeComponent implements OnInit {
 	@Input() formGroup: FormGroup;
-	themeValues;
+	label: string;
+	themeValues = [];
 	themeOptions;
 
 	constructor(
@@ -20,15 +21,24 @@ export class NewFilterThemeComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.themeOptions = this.configService.getNewFilterConfig('filterTheme').options;
+		const filterThemeConfig = this.configService.getNewFilterConfig('theme');
+		this.label = filterThemeConfig.label;
+		this.themeOptions = filterThemeConfig.options;
 	}
 
 	async onThemeOptionChange(event) {
 		const value = event.value;
 		if (value === 'all') {
+			this.themeValues = [];
 			return false;
 		}
 		this.themeValues = await this.filterService.getThemeValues(value);
 	}
 
+	getThemeValues() {
+		if (this.formGroup.get('theme.description').value === 'all') {
+			return [{name: 'Todos', value: 'all'}];
+		}
+		return this.themeValues;
+	}
 }
