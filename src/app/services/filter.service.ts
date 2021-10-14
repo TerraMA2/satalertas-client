@@ -136,7 +136,7 @@ export class FilterService {
 		};
 		return lastValueFrom(this.httpService.get<Response>(url, params));
 	}
-	public async themeSelected(filter, layer, cqlFilter) {
+	public themeSelected(filter, layer, cqlFilter) {
 		const { themeSelected } = filter;
 
 		if (filter.themeSelected.value.value !== 'ALL') {
@@ -153,7 +153,7 @@ export class FilterService {
 						`${layer.filter[filter.themeSelected.type].field}:${value[layer.filter[filter.themeSelected.type].value]}`;
 			} else {
 				layer.layerData.cql_filter =
-					await this.setCqlFilter(
+					this.setCqlFilter(
 						value[layer.filter[filter.themeSelected.type].value], layer.filter[filter.themeSelected.type].field, cqlFilter);
 			}
 		} else {
@@ -165,7 +165,7 @@ export class FilterService {
 				case 'city':
 					newFilter = this.filterByCity(layer.tableInfocolumns, themeSelected);
 				case 'region':
-					 newFilter = await this.filterByCounty(layer.tableInfocolumns, themeSelected)
+					 newFilter = this.filterByCounty(layer.tableInfocolumns, themeSelected.value.value)
 			}
 			layer.layerData.cql_filter = newFilter
 			return layer
@@ -197,16 +197,13 @@ export class FilterService {
 		return filter;
 	}
 
-	private async filterByCounty(layerInfoColumns, theme) {
-		const { value: { name } } = theme;
-		const countyData = await this.countyService.getCountyData({ name })
-		.then((response: Response) => response.data)
+	private filterByCounty(layerInfoColumns, value) {
 		const columnGeocod = layerInfoColumns.find(col => col.secondaryType === 'county_geocode')
 		const columnName = layerInfoColumns.find(col => col.secondaryType === 'county_name')
 
 		let filter;
 		if (!columnGeocod || !columnName) {
-			filter = this.filterCountyUsingCity(layerInfoColumns, countyData);
+			filter = this.filterCountyUsingCity(layerInfoColumns, value);
 		}
 		return filter;
 	}
@@ -216,9 +213,9 @@ export class FilterService {
 		const cityName = layerInfoColumns.find(col => col.secondaryType === 'city_name')
 		let filter;
 		if (cityGeocod) {
-			filter = `${cityGeocod.columnName} IN (${countyData.geocodeList.join(', ')})`
+			filter = `${cityGeocod.columnName} IN (${countyData.geocodeList.map(item => `'${item}'`).join(',')})`
 		} else if (cityName) {
-			filter = `${cityName.columnName} IN (${countyData.nameList.join(', ')})`
+			filter = `${cityName.columnName} IN (${countyData.nameList.map(item => `'${item}'`).join(',')})`
 		}
 		return filter
 	}

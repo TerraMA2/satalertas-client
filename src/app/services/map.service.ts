@@ -442,7 +442,7 @@ export class MapService {
 		return layer;
 	}
 
-	async setCqlFilter(layer) {
+	setCqlFilter(layer) {
 		const filter: FilterParam = JSON.parse(localStorage.getItem('filterState'));
 
 		if (!filter || (filter.alertType.radioValue === 'ALL') && (filter.authorization.value === 'ALL') &&
@@ -457,7 +457,7 @@ export class MapService {
 		}
 
 		if (filter.specificSearch.isChecked) {
-			return await this.setSpecificSearch(layer, filter);
+			return this.setSpecificSearch(layer, filter);
 		}
 
 		layer = this.setThemeSelected(layer, filter, true);
@@ -495,7 +495,7 @@ export class MapService {
 		return layer;
 	}
 
-	async setThemeSelected(layer, filter, cleanCqlFilter) {
+	setThemeSelected(layer, filter, cleanCqlFilter) {
 		// if (layer.tableInfocolumns) {
 		// 	return layer;
 		// }
@@ -510,7 +510,7 @@ export class MapService {
 
 		const cqlFilter = cleanCqlFilter || !layer.layer.layerData.cql_filter ? '' : layer.layer.layerData.cql_filter;
 
-		return await this.filterService.themeSelected(filter, layer, cqlFilter);
+		return this.filterService.themeSelected(filter, layer, cqlFilter);
 	}
 
 	setAlertType(layer, filter, cleanCqlFilter) {
