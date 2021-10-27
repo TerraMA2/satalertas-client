@@ -1,9 +1,9 @@
 <button pButton
         pRipple
         (click)="areaClick.emit(analysis) "
-        [ngClass]="{'active': analysis.activearea}"
+        [ngClass]="{'active': analysis.activeArea}"
         class="p-button-raised p-button-secondary btn-alert"
-        title="Área total de avisos de {{analysis.label}}">
+        title="Área total de avisos de {{analysis.shortName}}">
 
     <strong class="btn-alert-title">{{labelArea}}</strong>
     <strong class="btn-alert-value">{{valueArea | number:'1.0-4':'pt'}} {{unitOfMeasurement}}</strong>
@@ -12,9 +12,9 @@
 <button pButton
         pRipple
         (click)="alertClick.emit(analysis)"
-        [ngClass]="{'active': analysis.activealert}"
+        [ngClass]="{'active': analysis.activeAlert}"
         class="p-button-raised p-button-secondary btn-alert"
-        title="Total de cars {{analysis.label}}">
+        title="Total de cars {{analysis.shortName}}">
 
     <strong class="btn-alert-title">{{labelNumCars}}</strong>
     <strong class="btn-alert-value">{{valueNumCars | number:'1.0-4':'pt'}}</strong>

@@ -62,29 +62,29 @@ export class DashboardComponent implements OnInit {
 	}
 
 	setActiveArea() {
-		const analysis = this.analysisList.find((a: Analysis) => a.activearea)
+		const analysis = this.analysisList.find((a: Analysis) => a.activeArea)
 		this.areaClick(analysis);
 	}
 
 	areaClick(analysisSelected) {
-		this.activeArea(analysisSelected.analysischarts);
+		this.activeArea(analysisSelected.analysisCharts);
 		this.analysisClick(analysisSelected, false);
 	}
 
 	alertClick(analysisSelected) {
-		this.activeAlert(analysisSelected.analysischarts);
+		this.activeAlert(analysisSelected.analysisCharts);
 		this.analysisClick(analysisSelected, true);
 	}
 
 	analysisClick(analysisSelected, isAlert = false) {
 		this.clearActive();
 
-		this.dashboardService.getAnalysisCharts(analysisSelected.analysischarts)
+		this.dashboardService.getAnalysisCharts(analysisSelected.analysisCharts)
 			.then((response: Response) => {
 				this.analysisCharts = response.data;
 
-				analysisSelected.activealert = isAlert;
-				analysisSelected.activearea = !isAlert;
+				analysisSelected.activeAlert = isAlert;
+				analysisSelected.activeArea = !isAlert;
 
 				if (this.analysisCharts && this.analysisCharts.length > 0) {
 					this.analysisCharts[0].active = true;
@@ -95,8 +95,8 @@ export class DashboardComponent implements OnInit {
 	private clearActive() {
 		if (this.analysisList) {
 			this.analysisList.forEach((analysis: Analysis) => {
-				analysis.activealert = false;
-				analysis.activearea = false;
+				analysis.activeAlert = false;
+				analysis.activeArea = false;
 			});
 		}
 
@@ -105,13 +105,13 @@ export class DashboardComponent implements OnInit {
 
 	private activeArea(analysisCharts) {
 		if (analysisCharts) {
-			analysisCharts.forEach(analysisChart => analysisChart.activearea = true);
+			analysisCharts.forEach(analysisChart => analysisChart.activeArea = true);
 		}
 	}
 
 	private activeAlert(analysisCharts) {
 		if (analysisCharts) {
-			analysisCharts.forEach(analysisChart => analysisChart.activearea = false);
+			analysisCharts.forEach(analysisChart => analysisChart.activeArea = false);
 		}
 	}
 }
