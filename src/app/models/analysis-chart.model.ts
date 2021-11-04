@@ -1,7 +1,7 @@
 import { ChartData } from './chart-data.model';
 
 export interface AnalysisChart {
-		cod: string,
+		code: string,
 		groupCode: string,
 		label: string,
 		active: boolean,

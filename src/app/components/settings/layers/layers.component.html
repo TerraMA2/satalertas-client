@@ -43,18 +43,6 @@
             <div class="field flex container-lg">
                 <ng-template [ngIf]="selectedGroup">
                     <div class="container inline">
-                        <h2 class="container inline">Camada Principal</h2>
-                        <p-dropdown
-                                (onChange)="setGroupOwner($event)"
-                                [(ngModel)]="groupOwner"
-                                [filter]="true"
-                                [options]="selectedLayers"
-                                [showClear]="true"
-                                filterBy="name"
-                                optionLabel="name"
-                                placeholder="Selecione uma camada"
-                        >
-                        </p-dropdown>
                     </div>
                     <div>
                         <p-button class="container inline"

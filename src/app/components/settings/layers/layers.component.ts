@@ -83,9 +83,6 @@ export class LayersComponent implements OnInit {
 			groupId: this.selectedGroup.value,
 			layers
 		};
-		if (this.groupOwner['id']) {
-			params['groupOwner'] = this.groupOwner['id'];
-		}
 		this.groupViewService.update(params)
 			.then(() => {
 				this.messageService.add({
@@ -113,11 +110,11 @@ export class LayersComponent implements OnInit {
 		this.saveEdition = true;
 	}
 
-	setGroupOwner(event) {
-		if (!event.value) {
-			this.groupOwner = {}
-		} else {
-			this.saveEdition = true;
-		}
-	}
+	// setGroupOwner(event) {
+	// 	if (!event.value) {
+	// 		this.groupOwner = {}
+	// 	} else {
+	// 		this.saveEdition = true;
+	// 	}
+	// }
 }
