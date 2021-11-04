@@ -94,7 +94,7 @@ export class LayersAdvancedEditionComponent implements OnInit {
 
 	sendEdition() {
 		this.newData['id'] = this.layer['id'];
-		if(this.edited) {
+		if (this.edited) {
 			this.settingsService.getLayersAdvancedModalEditions.next(this.newData);
 		}
 		this.clearData();
@@ -106,5 +106,9 @@ export class LayersAdvancedEditionComponent implements OnInit {
 		this.layer = {};
 		this.edited = false;
 		this.displayModal = false;
+	}
+	onTextChange(property) {
+		this.newData[property] = this.layer[property];
+		this.edited = true;
 	}
 }
