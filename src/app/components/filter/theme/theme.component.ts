@@ -44,6 +44,7 @@ export class ThemeComponent implements OnInit {
 		this.onChangeSelected({ value: this.selectedOption });
 		this.filterService.changeTheme.subscribe(theme => {
 			this.onChangeOptionField({ value: theme.type });
+			this.selectedOption = theme.type;
 			this.onChangeSelected(theme);
 		});
 	}
