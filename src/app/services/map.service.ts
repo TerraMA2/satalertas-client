@@ -31,7 +31,6 @@ import { FilterService } from './filter.service';
 
 const URL_REPORT_SERVER = environment.serverUrl;
 
-// TODO: Remove all comments
 
 @Injectable({
 	providedIn: 'root'
@@ -451,22 +450,11 @@ export class MapService {
 	async setCqlFilter(layer) {
 		const filter: FilterParam = JSON.parse(localStorage.getItem('filterState'));
 
-		// if (!filter || (filter.alertType.radioValue === 'ALL') && (filter.authorization.value === 'ALL') &&
-		// 	!filter.specificSearch.isChecked && !filter.themeSelected.type) {
-		// 	if (layer.layerData.cql_filter) {
-		// 		delete layer.layerData.cql_filter;
-		// 	}
-
-		// 	// layer.layerData.layers = layer.filter.default.view;
-
-		// 	return layer;
-		// }
-
 		if (filter.specificSearch.isChecked) {
 			return this.setSpecificSearch(layer, filter);
 		}
 
-		await this.setThemeSelected(layer, filter, true);
+		await this.setThemeSelected(layer, filter);
 		layer = this.setAlertType(layer, filter, false);
 		if (!layer.layerData.cql_filter) {
 			delete layer.layerData.cql_filter;
@@ -504,21 +492,8 @@ export class MapService {
 		return layer;
 	}
 
-	async setThemeSelected(layer, filter, cleanCqlFilter) {
-		// if (layer.tableInfocolumns) {
-		// 	return layer;
-		// }
-		// if (filter.specificSearch && filter.specificSearch.isChecked || (!filter.themeSelected.type)) {
-		// 	if (layer.layerData.cql_filter) {
-		// 		delete layer.layerData.cql_filter;
-		// 	}
-		// 	// layer.layerData.layers = layer.filter.default.view;
-
-		// 	return layer;
-		// }
-
-		// const cqlFilter = cleanCqlFilter || !layer.layerData.cql_filter ? '' : layer.layerData.cql_filter;
-		const newCqlFilter = await this.filterService.themeSelected(filter, layer, false);
+	async setThemeSelected(layer, filter) {
+		const newCqlFilter = await this.filterService.themeSelected(filter, layer);
 		layer.layerData.cql_filter = newCqlFilter;
 		return layer
 	}
