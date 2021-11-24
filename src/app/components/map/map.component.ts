@@ -179,13 +179,15 @@ export class MapComponent implements OnInit, AfterViewInit {
 		}
 	}
 
-	updateLayers() {
-		this.selectedLayers.forEach(layer => {
+	async updateLayers() {
+		for (const layer of this.selectedLayers) {
+		// this.selectedLayers.forEach(async layer => {
 			if (this.selectedPrimaryLayer) {
 				this.updateMarkers(layer);
 			}
-			this.addLayer(layer, false);
-		});
+			await this.addLayer(layer, false);
+		};
+		// );
 	}
 
 	setLayerControl() {
@@ -391,14 +393,15 @@ export class MapComponent implements OnInit, AfterViewInit {
 		this.selectedLayers = [];
 	}
 
-	addLayer(layer, addLayer) {
+	async addLayer(layer, addLayer) {
 		let layerToAdd = null;
 		if (layer && layer.layerData) {
 			const hasLayer = this.selectedLayers.some(selectedLayer => selectedLayer.viewId === layer.viewId);
 			if (addLayer && !hasLayer) {
 				this.selectedLayers.push(layer);
 			}
-			layer = this.mapService.setFilter(layer);
+			layer = await this.mapService.setFilter(layer);
+			// this.mapService.setFilter(layer);
 			layerToAdd = this.mapService.getLayer(layer.layerData);
 			layerToAdd.on('loading', () => this.isLoading = true);
 			layerToAdd.on('load', () => this.isLoading = false);

@@ -31,6 +31,7 @@ import { FilterService } from './filter.service';
 
 const URL_REPORT_SERVER = environment.serverUrl;
 
+
 @Injectable({
 	providedIn: 'root'
 })
@@ -195,8 +196,12 @@ export class MapService {
 	}
 
 	getLayer(layerData) {
+		const {url, ...lyrData} = layerData;
+
+		// delete layerData.url;
+
 		layerData.crs = L.CRS.EPSG4326;
-		return L.tileLayer.wms(layerData.url, layerData);
+		return L.tileLayer.wms(url, layerData);
 	}
 
 	getMarkersGroup() {
@@ -420,7 +425,7 @@ export class MapService {
 	}
 
 	// Filter
-	setFilter(layer) {
+	async setFilter(layer) {
 		if (layer.type !== LayerType.ANALYSIS && layer.type !== LayerType.DYNAMIC) {
 			return layer;
 		}
@@ -437,30 +442,23 @@ export class MapService {
 			return layer;
 		}
 
-		layer = this.setCqlFilter(layer);
+		layer = await this.setCqlFilter(layer);
 
 		return layer;
 	}
 
-	setCqlFilter(layer) {
+	async setCqlFilter(layer) {
 		const filter: FilterParam = JSON.parse(localStorage.getItem('filterState'));
-
-		if (!filter || (filter.alertType.radioValue === 'ALL') && (filter.authorization.value === 'ALL') &&
-			!filter.specificSearch.isChecked && !filter.themeSelected.type) {
-			if (layer.layerData.cql_filter) {
-				delete layer.layerData.cql_filter;
-			}
-
-			layer.layerData.layers = layer.filter.default.view;
-
-			return layer;
-		}
 
 		if (filter.specificSearch.isChecked) {
 			return this.setSpecificSearch(layer, filter);
 		}
+		if (filter.themeSelected.value !== "ALL") {
+			await this.setThemeSelected(layer, filter);
+		} else {
+			delete layer.layerData.cql_filter
+		}
 
-		layer = this.setThemeSelected(layer, filter, true);
 		layer = this.setAlertType(layer, filter, false);
 
 		return layer;
@@ -495,22 +493,17 @@ export class MapService {
 		return layer;
 	}
 
-	setThemeSelected(layer, filter, cleanCqlFilter) {
-		// if (layer.tableInfocolumns) {
-		// 	return layer;
-		// }
-		if (filter.specificSearch && filter.specificSearch.isChecked || (!filter.themeSelected.type)) {
-			if (layer.layerData.cql_filter) {
-				delete layer.layerData.cql_filter;
-			}
-			layer.layerData.layers = layer.filter.default.view;
-
-			return layer;
+	async setThemeSelected(layer, filter) {
+		let filteredLayer;
+		if (layer.hasOwnProperty('subLayers')) {
+			const {subLayers, ...properties} = layer;
+			filteredLayer = properties;
+		} else {
+			filteredLayer = layer
 		}
-
-		const cqlFilter = cleanCqlFilter || !layer.layer.layerData.cql_filter ? '' : layer.layer.layerData.cql_filter;
-
-		return this.filterService.themeSelected(filter, layer, cqlFilter);
+		const newCqlFilter = await this.filterService.themeSelected(filter, filteredLayer);
+		layer.layerData.cql_filter = newCqlFilter;
+		return layer
 	}
 
 	setAlertType(layer, filter, cleanCqlFilter) {
