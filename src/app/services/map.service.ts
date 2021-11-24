@@ -453,12 +453,13 @@ export class MapService {
 		if (filter.specificSearch.isChecked) {
 			return this.setSpecificSearch(layer, filter);
 		}
-
-		await this.setThemeSelected(layer, filter);
-		layer = this.setAlertType(layer, filter, false);
-		if (!layer.layerData.cql_filter) {
-			delete layer.layerData.cql_filter;
+		if (filter.themeSelected.value !== "ALL") {
+			await this.setThemeSelected(layer, filter);
+		} else {
+			delete layer.layerData.cql_filter
 		}
+
+		layer = this.setAlertType(layer, filter, false);
 
 		return layer;
 	}
@@ -493,7 +494,14 @@ export class MapService {
 	}
 
 	async setThemeSelected(layer, filter) {
-		const newCqlFilter = await this.filterService.themeSelected(filter, layer);
+		let filteredLayer;
+		if (layer.hasOwnProperty('subLayers')) {
+			const {subLayers, ...properties} = layer;
+			filteredLayer = properties;
+		} else {
+			filteredLayer = layer
+		}
+		const newCqlFilter = await this.filterService.themeSelected(filter, filteredLayer);
 		layer.layerData.cql_filter = newCqlFilter;
 		return layer
 	}
