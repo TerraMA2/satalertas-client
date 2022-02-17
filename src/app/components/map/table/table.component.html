@@ -183,6 +183,14 @@
                         tooltipPosition="top">
                     <img src="assets/img/ico/prodes32x32.png"/>
                 </button>
+                <button *ngIf="tableReportActive && showProdes"
+                        class="btn ui-button-raised view-report-icon icon-margin"
+                        pButton
+                        pTooltip="Visualizar relatório Prodes V2"
+                        routerLink="/finalReport/prodesv2/{{getRegister(rowData)}}"
+                        tooltipPosition="top">
+                    <img src="assets/img/ico/prodesv2_32x32.png"/>
+                </button>
                 <button *ngIf="tableReportActive && showBurn"
                         class="btn ui-button-raised view-report-icon icon-margin"
                         pButton

@@ -129,6 +129,60 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                 data.area = formatNumber(data.area, 'pt-BR', '1.0-4');
             }
         },
+        async prodesv2(reportData) {
+            const property = reportData.property;
+            if (!property) {
+                return;
+            }
+            property.area = formatNumber(reportData.property.area, 'pt-BR', '1.0-4');
+            property.area_km = formatNumber(reportData.property.area_km, 'pt-BR', '1.0-4');
+            property.areaPastDeforestation = formatNumber(reportData.property.areaPastDeforestation, 'pt-BR', '1.0-4');
+            property.lat = formatNumber(reportData.property.lat, 'pt-BR', '1.0-4');
+            property.long = formatNumber(reportData.property.long, 'pt-BR', '1.0-4');
+
+            property.prodesTotalArea = formatNumber(reportData.property.prodesTotalArea, 'pt-BR', '1.0-4');
+            property.areaUsoCon = formatNumber(reportData.property.areaUsoCon, 'pt-BR', '1.0-4');
+            property.prodesArea = formatNumber(reportData.property.prodesArea, 'pt-BR', '1.0-4');
+
+            if (!property.tableVegRadam) {
+                return;
+            }
+            if (property.tableVegRadam.pastDeforestation) {
+                const listPastDeforestation = property.tableVegRadam.pastDeforestation.split('\n');
+                let pastDeforestationStr = '';
+                for (const data of listPastDeforestation) {
+                    const pastDeforestation = data.substring(0, data.indexOf(':'));
+                    const valuePastDeforestation = formatNumber(data.substring(data.indexOf(':') + 1, data.length), 'pt-BR', '1.0-4');
+
+                    pastDeforestationStr = pastDeforestationStr ? `${pastDeforestationStr}\n${pastDeforestation}: ${valuePastDeforestation}` : `${pastDeforestation}: ${valuePastDeforestation}`;
+                }
+                property.tableVegRadam.pastDeforestation = pastDeforestationStr;
+            } else {
+                property.tableVegRadam.pastDeforestation = '0';
+            }
+
+            for (const data of reportData.prodesTableData) {
+                data.area = formatNumber(data.area, 'pt-BR', '1.0-4');
+            }
+            for (const data of property.vegRadam) {
+                data.area_ha_ = formatNumber(data.area_ha_, 'pt-BR', '1.0-4');
+                data.area_ha_car_vegradam = formatNumber(data.area_ha_car_vegradam, 'pt-BR', '1.0-4');
+            }
+            if (property.prodesRadam) {
+                for (const data of property.prodesRadam) {
+                    data.area = formatNumber(data.area, 'pt-BR', '1.0-4');
+                }
+            }
+            for (const data of property.deflorestationHistory) {
+                data.area = formatNumber(data.area, 'pt-BR', '1.0-4');
+            }
+            for (const data of property.tableData) {
+                data.pastDeforestation = formatNumber(data.pastDeforestation, 'pt-BR', '1.0-4');
+            }
+            for (const data of property.analyzesYear) {
+                data.area = formatNumber(data.area, 'pt-BR', '1.0-4');
+            }
+        },
         async deter(reportData) {
             const property = reportData.property;
             if (!property) {
@@ -187,6 +241,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                 this.carRegister = params.carRegister;
                 this.type = params.type;
                 this.ngAfterViewInit();
+                // console.log("no reportServiceChangeReportType: ", params);
             });
         });
 
@@ -198,7 +253,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         this.filter = localStorage.getItem('filterList');
         this.date = JSON.parse(localStorage.getItem('dateFilter'));
 
-        if (this.type === 'prodes') {
+        if (['prodes', 'prodesv2'].includes(this.type)) {
             this.points = await this.reportService.getPointsAlerts(this.carRegister, this.date, this.filter, this.type).then(async (response: Response) => await response.data);
         }
         this.year = new Date().getFullYear().toString();
