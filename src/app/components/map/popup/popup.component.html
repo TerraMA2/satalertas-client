@@ -42,6 +42,15 @@
                 <img src="assets/img/ico/prodes32x32.png"/>
             </a>
         </div>
+        <div *ngIf="linkPRODES">
+            <a routerLink="{{ linkPRODES }}"
+               class="btn btn-icon ui-button-raised view-report-icon icon-margin"
+               pButton
+               pTooltip="Visualizar relatório Prodes"
+               tooltipPosition="top">
+                <img src="assets/img/ico/prodesv2_32x32.png"/>
+            </a>
+        </div>
         <div *ngIf="linkBurnlight">
             <a routerLink="{{ linkBurnlight }}"
                class="btn btn-icon ui-button-raised view-report-icon icon-margin"
