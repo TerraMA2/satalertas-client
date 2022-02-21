@@ -183,7 +183,7 @@
                         tooltipPosition="top">
                     <img src="assets/img/ico/prodes32x32.png"/>
                 </button>
-                <button *ngIf="tableReportActive && showProdes"
+                <button *ngIf="tableReportActive && (showProdes || showBurn)"
                         class="btn ui-button-raised view-report-icon icon-margin"
                         pButton
                         pTooltip="Visualizar relatório Prodes V2"
