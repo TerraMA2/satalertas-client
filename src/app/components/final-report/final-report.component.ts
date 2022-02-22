@@ -119,7 +119,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                     data.area = formatNumber(data.area, 'pt-BR', '1.0-4');
                 }
             }
-            for (const data of property.deflorestationHistory) {
+            for (const data of property.deforestationHistory) {
                 data.area = formatNumber(data.area, 'pt-BR', '1.0-4');
             }
             for (const data of property.tableData) {
@@ -173,7 +173,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                     data.area = formatNumber(data.area, 'pt-BR', '1.0-4');
                 }
             }
-            for (const data of property.deflorestationHistory) {
+            for (const data of property.deforestationHistory) {
                 data.area = formatNumber(data.area, 'pt-BR', '1.0-4');
             }
             for (const data of property.tableData) {
@@ -254,14 +254,16 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         this.date = JSON.parse(localStorage.getItem('dateFilter'));
 
         if (['prodes', 'prodesv2'].includes(this.type)) {
-            this.points = await this.reportService.getPointsAlerts(this.carRegister, this.date, this.filter, this.type).then(async (response: Response) => await response.data);
+            this.points = await this.reportService
+            .getPointsAlerts(this.carRegister, this.date, this.filter, 'prodes')
+            .then(async (response: Response) => await response.data);
         }
         this.year = new Date().getFullYear().toString();
         await this.setChartNdvi();
     }
 
     async setChartNdvi() {
-        if (this.type === 'prodes') {
+        if (['prodes', 'prodesv2'].includes(this.type)) {
             const pointsCount = this.points.length;
             if (this.points && pointsCount && pointsCount > 0) {
                 let count = 0;
@@ -405,11 +407,12 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         return deflorestationAlertsContext;
     }
 
-    async getContextDesflorestationHistory(deflorestationHistory, urlGsDeforestationHistory, urlGsDeforestationHistory1) {
+    async getContextDeforestationHistory(deforestationHistory, urlGsDeforestationHistory, urlGsDeforestationHistory1, reportType = undefined) {
+        // TODO mudar o número da figura aqui
         const deflorestationHistoryContext = [];
-        const deflorestationHistoryCount = deflorestationHistory.length;
+        const deflorestationHistoryCount = deforestationHistory.length;
 
-        if (deflorestationHistory && deflorestationHistoryCount > 0) {
+        if (deforestationHistory && deflorestationHistoryCount > 0) {
             const deforestationData = [];
             const deforestationColumns = [];
 
@@ -419,7 +422,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
             });
             deflorestationHistoryContext.push({
                 columns: [{
-                    text: `O histórico do desmatamento desde ${deflorestationHistory[0].date} pode ser visto na figura 7.`,
+                    text: `O histórico do desmatamento desde ${deforestationHistory[0].date} pode ser visto na figura 7.`,
                     margin: [30, 0, 30, 15],
                     style: 'bodyIndentFirst'
                 }]
@@ -427,23 +430,23 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
             let count = 1;
             for (let i = 0; i < deflorestationHistoryCount; ++i) {
                 count += 1;
-                const view = deflorestationHistory[i].date < 2013 ? 'LANDSAT_5_' :
-                    deflorestationHistory[i].date < 2017 ? 'LANDSAT_8_' :
+                const view = deforestationHistory[i].date < 2013 ? 'LANDSAT_5_' :
+                    deforestationHistory[i].date < 2017 ? 'LANDSAT_8_' :
                         'SENTINEL_2_';
 
-                let url = deflorestationHistory[i].date === 2012 ? urlGsDeforestationHistory1 : urlGsDeforestationHistory.replace(new RegExp('#{image}#', ''), `${view}${deflorestationHistory[i].date}`);
-                url = url.replace(new RegExp('#{year}#', ''), deflorestationHistory[i].date);
+                let url = deforestationHistory[i].date === 2012 ? urlGsDeforestationHistory1 : urlGsDeforestationHistory.replace(new RegExp('#{image}#', ''), `${view}${deforestationHistory[i].date}`);
+                url = url.replace(new RegExp('#{year}#', ''), deforestationHistory[i].date);
 
                 deforestationData.push(
                     [
                         {
-                            text: `${deflorestationHistory[i].date}`,
+                            text: `${deforestationHistory[i].date}`,
                             style: 'body',
                             alignment: 'center'
                         },
                         this.getImageObject(await this.getBaseImageUrl(url), [117, 117], [5, 0], 'center'),
                         {
-                            text: `${deflorestationHistory[i].area} ha`,
+                            text: `${deforestationHistory[i].area} ha`,
                             style: 'body',
                             alignment: 'center'
                         }
@@ -487,7 +490,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                             bold: true
                         },
                         {
-                            text: ` Histórico de desmatamento do PRODES desde ${deflorestationHistory[0].date}.`,
+                            text: ` Histórico de desmatamento do PRODES desde ${deforestationHistory[0].date}.`,
                             bold: false
                         }
                     ],
@@ -525,16 +528,20 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         this.reportData.images['geoserverImage1'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage), [200, 200], [0, 10], 'center');
         this.reportData.images['geoserverImage2'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage1), [200, 200], [0, 10], 'center');
 
-        if (this.reportData['type'] !== 'queimada') {
+        if (['prodesv2', 'queimada'].includes(this.reportData['type'])) {
+            this.reportData.images['geoserverImageWithFocus'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImageWithFocus), [200, 200], [0, 10], 'center');
+        }
+        
+        if (['prodesv2', 'prodes', 'queimada'].includes(this.reportData['type'])) {
             this.reportData.images['geoserverImage4'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage3), [200, 200], [0, 10], 'left');
             this.reportData.images['geoserverImage5'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage4), [200, 200], [0, 10], 'left');
             this.reportData.images['geoserverImage6'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage5), [200, 200], [0, 10], 'right');
             this.reportData.images['geoserverImage7'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage6), [200, 200], [0, 10], 'right');
-        }
 
-        if (this.reportData['type'] === 'prodes') {
+        }
+        if (['prodesv2', 'prodes'].includes(this.reportData['type'])) {
             this.reportData.images['geoserverImage3'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsImage2), [200, 200], [0, 10], 'center');
-            this.reportData['desflorestationHistoryContext'] = await this.getContextDesflorestationHistory(this.reportData.property['deflorestationHistory'], this.reportData.urlGsDeforestationHistory, this.reportData.urlGsDeforestationHistory1);
+            this.reportData['deforestationHistoryContext'] = await this.getContextDeforestationHistory(this.reportData.property['deforestationHistory'], this.reportData.urlGsDeforestationHistory, this.reportData.urlGsDeforestationHistory1, this.reportData['type']);
             this.reportData.images['geoserverLegend'] = this.getImageObject(await this.getBaseImageUrl(this.reportData.urlGsLegend), [200, 200], [0, 10], 'center');
         }
 
