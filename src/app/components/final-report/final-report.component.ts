@@ -407,8 +407,9 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
         return deflorestationAlertsContext;
     }
 
-    async getContextDeforestationHistory(deforestationHistory, urlGsDeforestationHistory, urlGsDeforestationHistory1, reportType = undefined) {
+    async getContextDeforestationHistory(deforestationHistory, urlGsDeforestationHistory, urlGsDeforestationHistory1, reportType = 'prodes') {
         // TODO mudar o número da figura aqui
+        const figNumber = reportType === 'prodes' ? 7 : 9
         const deflorestationHistoryContext = [];
         const deflorestationHistoryCount = deforestationHistory.length;
 
@@ -422,7 +423,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
             });
             deflorestationHistoryContext.push({
                 columns: [{
-                    text: `O histórico do desmatamento desde ${deforestationHistory[0].date} pode ser visto na figura 7.`,
+                    text: `O histórico do desmatamento desde ${deforestationHistory[0].date} pode ser visto na figura ${figNumber}.`,
                     margin: [30, 0, 30, 15],
                     style: 'bodyIndentFirst'
                 }]
@@ -486,7 +487,7 @@ export class FinalReportComponent implements OnInit, AfterViewInit {
                 {
                     text: [
                         {
-                            text: 'Figura 7. ',
+                            text: `Figura ${figNumber}. `,
                             bold: true
                         },
                         {
